@@ -1,0 +1,202 @@
+<script lang="ts">
+	import { Card, CardContent } from '$lib/components/ui/card/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { Badge } from '$lib/components/ui/badge/index.js';
+	import {
+		Mic,
+		Square,
+		Play,
+		Pause,
+		Save,
+		ChevronDown,
+		Trash2,
+		RotateCcw
+	} from 'lucide-svelte';
+	import { listings } from '$lib/data/mock-data';
+
+	let isRecording = $state(false);
+	let hasRecording = $state(false);
+	let isPlaying = $state(false);
+	let recordingTime = $state(0);
+	let selectedListing = $state(listings[0].id);
+	let timer: ReturnType<typeof setInterval> | null = null;
+
+	function startRecording() {
+		isRecording = true;
+		hasRecording = false;
+		recordingTime = 0;
+		timer = setInterval(() => {
+			recordingTime++;
+		}, 1000);
+	}
+
+	function stopRecording() {
+		isRecording = false;
+		hasRecording = true;
+		if (timer) {
+			clearInterval(timer);
+			timer = null;
+		}
+	}
+
+	function formatTime(seconds: number) {
+		const m = Math.floor(seconds / 60);
+		const s = seconds % 60;
+		return `${m}:${s.toString().padStart(2, '0')}`;
+	}
+
+	function discardRecording() {
+		hasRecording = false;
+		recordingTime = 0;
+	}
+
+	// Fake waveform bars
+	const waveformBars = Array.from({ length: 40 }, (_, i) => ({
+		height: 20 + Math.sin(i * 0.5) * 15 + Math.random() * 20
+	}));
+</script>
+
+<div class="mx-auto flex min-h-[calc(100svh-8rem)] max-w-lg flex-col px-4 py-6">
+	<!-- Header -->
+	<div class="mb-6 text-center">
+		<h1 class="font-serif text-xl font-bold">Voice Memo</h1>
+		<p class="text-sm text-muted-foreground">Record notes on the go</p>
+	</div>
+
+	<!-- Listing selector -->
+	<div class="mb-6">
+		<label for="listing-select" class="mb-1.5 block text-sm font-medium">Associate with listing</label>
+		<div class="relative">
+			<select
+				id="listing-select"
+				bind:value={selectedListing}
+				class="h-11 w-full appearance-none rounded-xl border bg-muted/50 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+			>
+				{#each listings as listing}
+					<option value={listing.id}>{listing.address} — {listing.city}</option>
+				{/each}
+			</select>
+			<ChevronDown class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+		</div>
+	</div>
+
+	<!-- Main recording area -->
+	<div class="flex flex-1 flex-col items-center justify-center">
+		{#if !isRecording && !hasRecording}
+			<!-- Idle state -->
+			<div class="text-center">
+				<button
+					class="group relative mb-6 flex size-32 items-center justify-center rounded-full bg-primary shadow-lg transition-all active:scale-95"
+					onclick={startRecording}
+				>
+					<div class="absolute inset-0 rounded-full bg-primary/20 animate-ping opacity-0 group-hover:opacity-100"></div>
+					<Mic class="size-12 text-primary-foreground" />
+				</button>
+				<p class="text-sm text-muted-foreground">Tap to start recording</p>
+			</div>
+		{:else if isRecording}
+			<!-- Recording state -->
+			<div class="w-full text-center">
+				<!-- Animated waveform -->
+				<div class="mb-8 flex h-20 items-center justify-center gap-0.5">
+					{#each waveformBars as bar, i}
+						<div
+							class="w-1 rounded-full bg-primary"
+							style="height: {bar.height}%; animation: pulse 0.8s ease-in-out {i * 0.05}s infinite alternate"
+						></div>
+					{/each}
+				</div>
+
+				<!-- Timer -->
+				<div class="mb-2">
+					<span class="font-mono text-4xl font-bold text-primary">{formatTime(recordingTime)}</span>
+				</div>
+				<div class="mb-8 flex items-center justify-center gap-2">
+					<div class="size-2 animate-pulse rounded-full bg-red-500"></div>
+					<span class="text-sm font-medium text-red-500">Recording</span>
+				</div>
+
+				<!-- Stop button -->
+				<button
+					class="flex size-20 items-center justify-center rounded-full bg-red-500 shadow-lg transition-all active:scale-95"
+					onclick={stopRecording}
+				>
+					<Square class="size-8 text-white" />
+				</button>
+			</div>
+		{:else if hasRecording}
+			<!-- Playback state -->
+			<div class="w-full text-center">
+				<!-- Static waveform -->
+				<div class="mb-6 flex h-16 items-center justify-center gap-0.5 opacity-60">
+					{#each waveformBars as bar}
+						<div
+							class="w-1 rounded-full bg-primary/60"
+							style="height: {bar.height}%"
+						></div>
+					{/each}
+				</div>
+
+				<!-- Duration -->
+				<p class="mb-4 font-mono text-2xl font-bold">{formatTime(recordingTime)}</p>
+
+				<!-- Playback controls -->
+				<div class="mb-6 flex items-center justify-center gap-4">
+					<Button
+						variant="outline"
+						size="icon"
+						class="size-12 rounded-full"
+						onclick={() => { isPlaying = !isPlaying; }}
+					>
+						{#if isPlaying}
+							<Pause class="size-5" />
+						{:else}
+							<Play class="size-5 ml-0.5" />
+						{/if}
+					</Button>
+				</div>
+
+				<!-- Transcription preview -->
+				<Card class="mb-6 text-left">
+					<CardContent class="p-4">
+						<div class="flex items-center gap-2 mb-2">
+							<Badge variant="outline" class="text-xs">Auto-transcription</Badge>
+						</div>
+						<p class="text-sm text-muted-foreground italic leading-relaxed">
+							"Quick note after showing at 123 Main — buyer seemed very interested in the remodeled kitchen. Agent mentioned they have another property to see tomorrow. Follow up with Brian on Friday..."
+						</p>
+					</CardContent>
+				</Card>
+			</div>
+		{/if}
+	</div>
+
+	<!-- Bottom actions -->
+	{#if hasRecording}
+		<div class="flex gap-3 pt-4">
+			<Button variant="outline" class="flex-1 gap-2" onclick={discardRecording}>
+				<Trash2 class="size-4" />
+				Discard
+			</Button>
+			<Button variant="outline" class="gap-2" onclick={() => { discardRecording(); }}>
+				<RotateCcw class="size-4" />
+				Redo
+			</Button>
+			<Button class="flex-1 gap-2">
+				<Save class="size-4" />
+				Save
+			</Button>
+		</div>
+	{/if}
+</div>
+
+<style>
+	@keyframes pulse {
+		from {
+			transform: scaleY(0.4);
+		}
+		to {
+			transform: scaleY(1);
+		}
+	}
+</style>

@@ -42,6 +42,8 @@
 		X,
 		Check,
 		Calendar,
+		CalendarPlus,
+		Bell,
 		Mail,
 		MessageSquare,
 		StickyNote,
@@ -73,19 +75,20 @@
 	];
 
 	// Task filter state
-	let taskFilter = $state<'today' | 'overdue' | 'upcoming'>('today');
+	let taskFilter = $state<'upcoming' | 'overdue'>('upcoming');
 	const todayStr = '2026-04-09';
+
+	// Reminder dropdown state
+	let reminderOpenForTask = $state<string | null>(null);
 
 	let filteredTasks = $derived(
 		(() => {
 			const allOpen = tasks.filter((t) => t.status !== 'done');
 			switch (taskFilter) {
-				case 'today':
-					return allOpen.filter((t) => t.dueDate <= todayStr);
 				case 'overdue':
 					return allOpen.filter((t) => t.isOverdue);
 				case 'upcoming':
-					return allOpen.filter((t) => t.dueDate > todayStr);
+					return allOpen.filter((t) => !t.isOverdue).sort((a, b) => a.dueDate.localeCompare(b.dueDate));
 			}
 		})()
 	);
@@ -311,22 +314,16 @@
 					<CardTitle>My Tasks</CardTitle>
 					<div class="flex gap-1">
 						<button
-							onclick={() => taskFilter = 'today'}
-							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors {taskFilter === 'today' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}"
+							onclick={() => taskFilter = 'upcoming'}
+							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors {taskFilter === 'upcoming' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}"
 						>
-							Today
+							Upcoming
 						</button>
 						<button
 							onclick={() => taskFilter = 'overdue'}
 							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors {taskFilter === 'overdue' ? 'bg-destructive text-destructive-foreground' : 'text-muted-foreground hover:bg-muted'}"
 						>
 							Overdue
-						</button>
-						<button
-							onclick={() => taskFilter = 'upcoming'}
-							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors {taskFilter === 'upcoming' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}"
-						>
-							Upcoming
 						</button>
 					</div>
 				</div>
@@ -349,9 +346,38 @@
 									</div>
 									<p class="text-xs text-muted-foreground mt-0.5">Due {task.dueDate}</p>
 								</div>
-								{#if task.isOverdue}
-									<Badge variant="destructive" class="text-[10px] shrink-0">Overdue</Badge>
-								{/if}
+								<div class="flex items-center gap-1 shrink-0">
+									{#if task.isOverdue}
+										<Badge variant="destructive" class="text-[10px] mr-1">Overdue</Badge>
+									{/if}
+									<button
+										title="Add to calendar"
+										class="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+									>
+										<CalendarPlus class="size-3.5" />
+									</button>
+									<div class="relative">
+										<button
+											title="Set reminder"
+											onclick={() => reminderOpenForTask = reminderOpenForTask === task.id ? null : task.id}
+											class="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+										>
+											<Bell class="size-3.5" />
+										</button>
+										{#if reminderOpenForTask === task.id}
+											<div class="absolute right-0 top-full z-10 mt-1 w-40 rounded-md border bg-popover p-1 shadow-md">
+												{#each ['1 hour before', '1 day before', 'Morning of', 'Custom'] as option}
+													<button
+														onclick={() => reminderOpenForTask = null}
+														class="w-full rounded-sm px-2 py-1.5 text-left text-xs hover:bg-muted transition-colors"
+													>
+														{option}
+													</button>
+												{/each}
+											</div>
+										{/if}
+									</div>
+								</div>
 							</div>
 						{/each}
 					</div>

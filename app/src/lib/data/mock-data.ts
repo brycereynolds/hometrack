@@ -4,15 +4,23 @@
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export type ListingPhase =
+  | 'pre_market'
+  | 'active'
+  | 'closed'
+  | 'canceled';
+
+export type TaskCategory =
   | 'onboarding'
-  | 'improvement'
+  | 'improvements'
+  | 'disclosures'
   | 'staging'
-  | 'content'
+  | 'media'
+  | 'pricing'
   | 'marketing'
   | 'showings'
   | 'offers'
-  | 'contract'
-  | 'closing';
+  | 'escrow'
+  | 'general';
 
 export type TaskStatus = 'todo' | 'in_progress' | 'done' | 'overdue';
 export type TaskPriority = 'low' | 'medium' | 'high' | 'urgent';
@@ -59,10 +67,15 @@ export interface Listing {
   mlsNumber: string;
   phase: ListingPhase;
   phaseLabel: string;
+  underContract: boolean;
   daysInPhase: number;
   daysOnMarket: number;
   listDate: string | null;
   targetListDate: string;
+  listingAgreementDate?: string | null;
+  closeDate?: string | null;
+  canceledAt?: string | null;
+  cancelReason?: string | null;
   agent: TeamMember;
   client: Contact;
   photoUrl: string;
@@ -109,6 +122,7 @@ export interface Task {
   listingId: string;
   listingAddress: string;
   phase: ListingPhase;
+  taskCategory: TaskCategory;
   dueDate: string;
   isOverdue: boolean;
   subtasks?: { title: string; done: boolean }[];
@@ -209,15 +223,24 @@ export interface FinancialSummary {
 // ─── Phase Config ────────────────────────────────────────────────────────────
 
 export const PHASES: Record<ListingPhase, { label: string; color: string; order: number }> = {
+  pre_market: { label: 'Pre-Market', color: '#6B9FC4', order: 0 },
+  active: { label: 'Active', color: '#C4704B', order: 1 },
+  closed: { label: 'Closed', color: '#5E8C61', order: 2 },
+  canceled: { label: 'Canceled', color: '#9C958E', order: 3 },
+};
+
+export const TASK_CATEGORIES: Record<TaskCategory, { label: string; color: string; order: number }> = {
   onboarding: { label: 'Onboarding', color: '#6B9FC4', order: 0 },
-  improvement: { label: 'Improvement Planning', color: '#7B8B6F', order: 1 },
-  staging: { label: 'Staging & Prep', color: '#9B8EB5', order: 2 },
-  content: { label: 'Content Production', color: '#C49A3C', order: 3 },
-  marketing: { label: 'Active Marketing', color: '#C4704B', order: 4 },
-  showings: { label: 'Showings & Open Houses', color: '#D4956B', order: 5 },
-  offers: { label: 'Offers & Negotiation', color: '#5B8BA5', order: 6 },
-  contract: { label: 'Under Contract', color: '#5E8C61', order: 7 },
-  closing: { label: 'Closing', color: '#8B7355', order: 8 },
+  improvements: { label: 'Improvements', color: '#7B8B6F', order: 1 },
+  disclosures: { label: 'Disclosures', color: '#A0845E', order: 2 },
+  staging: { label: 'Staging', color: '#9B8EB5', order: 3 },
+  media: { label: 'Media', color: '#C49A3C', order: 4 },
+  pricing: { label: 'Pricing', color: '#B07D4F', order: 5 },
+  marketing: { label: 'Marketing', color: '#C4704B', order: 6 },
+  showings: { label: 'Showings', color: '#D4956B', order: 7 },
+  offers: { label: 'Offers', color: '#5B8BA5', order: 8 },
+  escrow: { label: 'Escrow', color: '#5E8C61', order: 9 },
+  general: { label: 'General', color: '#8B8B8B', order: 10 },
 };
 
 export const PHASE_LIST = Object.entries(PHASES)
@@ -464,8 +487,9 @@ export const listings: Listing[] = [
     yearBuilt: 1965,
     propertyType: 'Single Family',
     mlsNumber: 'ML81928374',
-    phase: 'marketing',
-    phaseLabel: 'Active Marketing',
+    phase: 'active',
+    phaseLabel: 'Active',
+    underContract: false,
     daysInPhase: 5,
     daysOnMarket: 5,
     listDate: '2026-04-04',
@@ -507,8 +531,9 @@ export const listings: Listing[] = [
     yearBuilt: 1952,
     propertyType: 'Single Family',
     mlsNumber: 'ML81935521',
-    phase: 'showings',
-    phaseLabel: 'Showings & Open Houses',
+    phase: 'active',
+    phaseLabel: 'Active',
+    underContract: false,
     daysInPhase: 12,
     daysOnMarket: 18,
     listDate: '2026-03-22',
@@ -550,8 +575,9 @@ export const listings: Listing[] = [
     yearBuilt: 1978,
     propertyType: 'Single Family',
     mlsNumber: 'ML81940112',
-    phase: 'content',
-    phaseLabel: 'Content Production',
+    phase: 'pre_market',
+    phaseLabel: 'Pre-Market',
+    underContract: false,
     daysInPhase: 4,
     daysOnMarket: 0,
     listDate: null,
@@ -592,8 +618,9 @@ export const listings: Listing[] = [
     yearBuilt: 1940,
     propertyType: 'Single Family',
     mlsNumber: 'ML81942889',
-    phase: 'staging',
-    phaseLabel: 'Staging & Prep',
+    phase: 'pre_market',
+    phaseLabel: 'Pre-Market',
+    underContract: false,
     daysInPhase: 8,
     daysOnMarket: 0,
     listDate: null,
@@ -634,8 +661,9 @@ export const listings: Listing[] = [
     yearBuilt: 1955,
     propertyType: 'Townhouse',
     mlsNumber: 'ML81945003',
-    phase: 'onboarding',
-    phaseLabel: 'Onboarding',
+    phase: 'pre_market',
+    phaseLabel: 'Pre-Market',
+    underContract: false,
     daysInPhase: 2,
     daysOnMarket: 0,
     listDate: null,
@@ -675,8 +703,9 @@ export const listings: Listing[] = [
     yearBuilt: 1988,
     propertyType: 'Single Family',
     mlsNumber: 'ML81930445',
-    phase: 'offers',
-    phaseLabel: 'Offers & Negotiation',
+    phase: 'active',
+    phaseLabel: 'Active',
+    underContract: false,
     daysInPhase: 3,
     daysOnMarket: 28,
     listDate: '2026-03-12',
@@ -718,8 +747,9 @@ export const listings: Listing[] = [
     yearBuilt: 1948,
     propertyType: 'Single Family',
     mlsNumber: 'ML81925100',
-    phase: 'contract',
-    phaseLabel: 'Under Contract',
+    phase: 'active',
+    phaseLabel: 'Active',
+    underContract: true,
     daysInPhase: 10,
     daysOnMarket: 35,
     listDate: '2026-03-05',
@@ -760,8 +790,9 @@ export const listings: Listing[] = [
     yearBuilt: 1960,
     propertyType: 'Condo',
     mlsNumber: 'ML81946220',
-    phase: 'improvement',
-    phaseLabel: 'Improvement Planning',
+    phase: 'pre_market',
+    phaseLabel: 'Pre-Market',
+    underContract: false,
     daysInPhase: 6,
     daysOnMarket: 0,
     listDate: null,
@@ -798,7 +829,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[0],
     listingId: 'l-1',
     listingAddress: '123 Main Street',
-    phase: 'marketing',
+    phase: 'active',
+    taskCategory: 'marketing',
     dueDate: '2026-04-10',
     isOverdue: false,
   },
@@ -810,7 +842,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[2],
     listingId: 'l-2',
     listingAddress: '456 Oak Avenue',
-    phase: 'showings',
+    phase: 'active',
+    taskCategory: 'showings',
     dueDate: '2026-04-05',
     isOverdue: true,
   },
@@ -822,7 +855,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[3],
     listingId: 'l-3',
     listingAddress: '789 Elm Street',
-    phase: 'content',
+    phase: 'pre_market',
+    taskCategory: 'media',
     dueDate: '2026-04-12',
     isOverdue: false,
   },
@@ -834,7 +868,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[4],
     listingId: 'l-4',
     listingAddress: '2200 Willow Glen Way',
-    phase: 'staging',
+    phase: 'pre_market',
+    taskCategory: 'staging',
     dueDate: '2026-04-15',
     isOverdue: false,
     subtasks: [
@@ -851,7 +886,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[3],
     listingId: 'l-3',
     listingAddress: '789 Elm Street',
-    phase: 'content',
+    phase: 'pre_market',
+    taskCategory: 'media',
     dueDate: '2026-04-14',
     isOverdue: false,
   },
@@ -863,7 +899,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[4],
     listingId: 'l-8',
     listingAddress: '88 Sunnyvale Avenue',
-    phase: 'improvement',
+    phase: 'pre_market',
+    taskCategory: 'improvements',
     dueDate: '2026-04-11',
     isOverdue: false,
   },
@@ -875,7 +912,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[0],
     listingId: 'l-6',
     listingAddress: '945 Cherry Blossom Lane',
-    phase: 'offers',
+    phase: 'active',
+    taskCategory: 'offers',
     dueDate: '2026-04-10',
     isOverdue: false,
   },
@@ -887,7 +925,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[2],
     listingId: 'l-5',
     listingAddress: '1580 University Avenue',
-    phase: 'onboarding',
+    phase: 'pre_market',
+    taskCategory: 'onboarding',
     dueDate: '2026-04-08',
     isOverdue: false,
   },
@@ -899,7 +938,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[0],
     listingId: 'l-2',
     listingAddress: '456 Oak Avenue',
-    phase: 'showings',
+    phase: 'active',
+    taskCategory: 'showings',
     dueDate: '2026-04-10',
     isOverdue: false,
   },
@@ -911,7 +951,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[2],
     listingId: 'l-7',
     listingAddress: '310 Waverly Street',
-    phase: 'contract',
+    phase: 'active',
+    taskCategory: 'escrow',
     dueDate: '2026-04-12',
     isOverdue: false,
   },
@@ -923,7 +964,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[0],
     listingId: 'l-5',
     listingAddress: '1580 University Avenue',
-    phase: 'onboarding',
+    phase: 'pre_market',
+    taskCategory: 'onboarding',
     dueDate: '2026-04-14',
     isOverdue: false,
   },
@@ -935,7 +977,8 @@ export const tasks: Task[] = [
     assignee: teamMembers[3],
     listingId: 'l-1',
     listingAddress: '123 Main Street',
-    phase: 'marketing',
+    phase: 'active',
+    taskCategory: 'marketing',
     dueDate: '2026-04-08',
     isOverdue: false,
   },
@@ -1019,7 +1062,7 @@ export const activityItems: ActivityItem[] = [
     authorInitials: 'HT',
     timestamp: '2026-04-08T10:00:00',
     timeAgo: 'Yesterday',
-    content: 'Listing moved from Active Marketing to Showings & Open Houses.',
+    content: 'Listing moved from Pre-Market to Active.',
     listingId: 'l-2',
     listingAddress: '456 Oak Avenue',
   },
@@ -1049,8 +1092,8 @@ export const activityItems: ActivityItem[] = [
   {
     id: 'a-10',
     type: 'ai_insight',
-    author: 'HomeTrack AI',
-    authorInitials: 'AI',
+    author: 'HomeTrack',
+    authorInitials: 'HT',
     timestamp: '2026-04-09T06:00:00',
     timeAgo: '5h ago',
     content: 'Showing volume for 456 Oak Ave has dropped 30% this week compared to last. Consider a price adjustment or refreshed marketing to reignite interest.',
@@ -1617,22 +1660,23 @@ export interface WorkflowTemplate {
   id: string;
   name: string;
   phase: ListingPhase;
+  taskCategory: TaskCategory;
   taskCount: number;
   description: string;
   isDefault: boolean;
 }
 
 export const workflowTemplates: WorkflowTemplate[] = [
-  { id: 'wf-1', name: 'Standard Onboarding', phase: 'onboarding', taskCount: 8, description: 'Client intake, listing agreement, initial docs', isDefault: true },
-  { id: 'wf-2', name: 'Pre-Market Improvements', phase: 'improvement', taskCount: 6, description: 'Vendor quotes, improvement planning, permits', isDefault: true },
-  { id: 'wf-3', name: 'Staging & Preparation', phase: 'staging', taskCount: 5, description: 'Staging coordination, vendor scheduling', isDefault: true },
-  { id: 'wf-4', name: 'Content Production', phase: 'content', taskCount: 7, description: 'Photography, video, copy, materials', isDefault: true },
-  { id: 'wf-5', name: 'Active Marketing Launch', phase: 'marketing', taskCount: 8, description: 'MLS, social, open houses, advertising', isDefault: true },
-  { id: 'wf-6', name: 'Showings Management', phase: 'showings', taskCount: 4, description: 'Showing coordination, feedback, follow-up', isDefault: true },
-  { id: 'wf-7', name: 'Offer Review', phase: 'offers', taskCount: 5, description: 'Offer intake, comparison, negotiation', isDefault: true },
-  { id: 'wf-8', name: 'Under Contract', phase: 'contract', taskCount: 10, description: 'Inspections, appraisal, contingencies, closing prep', isDefault: true },
-  { id: 'wf-9', name: 'Closing Process', phase: 'closing', taskCount: 6, description: 'Final walkthrough, signing, key handoff', isDefault: true },
-  { id: 'wf-10', name: 'Luxury Marketing', phase: 'marketing', taskCount: 12, description: 'Extended marketing for $2M+ properties', isDefault: false },
+  { id: 'wf-1', name: 'Standard Onboarding', phase: 'pre_market', taskCategory: 'onboarding', taskCount: 8, description: 'Client intake, listing agreement, initial docs', isDefault: true },
+  { id: 'wf-2', name: 'Pre-Market Improvements', phase: 'pre_market', taskCategory: 'improvements', taskCount: 6, description: 'Vendor quotes, improvement planning, permits', isDefault: true },
+  { id: 'wf-3', name: 'Staging & Preparation', phase: 'pre_market', taskCategory: 'staging', taskCount: 5, description: 'Staging coordination, vendor scheduling', isDefault: true },
+  { id: 'wf-4', name: 'Media Production', phase: 'pre_market', taskCategory: 'media', taskCount: 7, description: 'Photography, video, copy, materials', isDefault: true },
+  { id: 'wf-5', name: 'Marketing Launch', phase: 'active', taskCategory: 'marketing', taskCount: 8, description: 'MLS, social, open houses, advertising', isDefault: true },
+  { id: 'wf-6', name: 'Showings Management', phase: 'active', taskCategory: 'showings', taskCount: 4, description: 'Showing coordination, feedback, follow-up', isDefault: true },
+  { id: 'wf-7', name: 'Offer Review', phase: 'active', taskCategory: 'offers', taskCount: 5, description: 'Offer intake, comparison, negotiation', isDefault: true },
+  { id: 'wf-8', name: 'Escrow Management', phase: 'active', taskCategory: 'escrow', taskCount: 10, description: 'Inspections, appraisal, contingencies, closing prep', isDefault: true },
+  { id: 'wf-9', name: 'Closing Process', phase: 'closed', taskCategory: 'escrow', taskCount: 6, description: 'Final walkthrough, signing, key handoff', isDefault: true },
+  { id: 'wf-10', name: 'Luxury Marketing', phase: 'active', taskCategory: 'marketing', taskCount: 12, description: 'Extended marketing for $2M+ properties', isDefault: false },
 ];
 
 // ─── Dashboard Summary Helpers ───────────────────────────────────────────────

@@ -5,6 +5,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import {
 		listings,
 		tasks,
@@ -23,7 +24,8 @@
 		ChevronRight,
 		Filter,
 		Calendar,
-		User
+		User,
+		Pencil
 	} from 'lucide-svelte';
 
 	const listing = $derived(listings.find((l) => l.id === $page.params.id));
@@ -33,6 +35,14 @@
 	let filterStatus = $state('all');
 	let filterPriority = $state('all');
 	let collapsedPhases = $state<Set<string>>(new Set());
+
+	// Task edit modal state
+	let showTaskModal = $state(false);
+	let editingTask = $state<Task | null>(null);
+	let editTitle = $state('');
+	let editStatus = $state('todo');
+	let editPriority = $state('medium');
+	let editDueDate = $state('');
 
 	const filteredTasks = $derived(
 		listingTasks.filter((t) => {
@@ -65,6 +75,30 @@
 			next.add(phase);
 		}
 		collapsedPhases = next;
+	}
+
+	function openTaskEdit(task: Task) {
+		editingTask = task;
+		editTitle = task.title;
+		editStatus = task.status;
+		editPriority = task.priority;
+		editDueDate = task.dueDate;
+		showTaskModal = true;
+	}
+
+	function toggleTaskStatus(task: Task) {
+		// Cycle: todo -> in_progress -> done -> todo
+		const statusCycle: Record<string, string> = {
+			todo: 'in_progress',
+			in_progress: 'done',
+			done: 'todo',
+			overdue: 'in_progress',
+		};
+		task.status = (statusCycle[task.status] || 'todo') as Task['status'];
+	}
+
+	function toggleSubtask(subtask: { title: string; done: boolean }) {
+		subtask.done = !subtask.done;
 	}
 
 	function getPriorityColor(priority: string) {
@@ -193,20 +227,30 @@
 							<div class="divide-y">
 								{#each phaseTasks as task}
 									{@const StatusIcon = getStatusIcon(task.status)}
-									<div class="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
-										<div class="mt-0.5">
-											<StatusIcon class="size-5 {getStatusColor(task.status)}" />
-										</div>
+									<div class="group flex items-start gap-3 py-3 first:pt-0 last:pb-0 rounded-md hover:bg-muted/30 -mx-2 px-2 transition-colors">
+										<button
+											class="mt-0.5 cursor-pointer"
+											onclick={() => toggleTaskStatus(task)}
+											title="Click to change status"
+										>
+											<StatusIcon class="size-5 {getStatusColor(task.status)} transition-colors hover:opacity-70" />
+										</button>
 										<div class="min-w-0 flex-1">
 											<div class="flex items-center gap-2">
-												<span class="text-sm {task.status === 'done' ? 'line-through text-muted-foreground' : 'font-medium'}">
+												<button
+													class="text-left text-sm {task.status === 'done' ? 'line-through text-muted-foreground' : 'font-medium'} hover:text-primary transition-colors"
+													onclick={() => openTaskEdit(task)}
+												>
 													{task.title}
-												</span>
+												</button>
 											</div>
 											{#if task.subtasks && task.subtasks.length > 0}
 												<div class="mt-2 ml-1 space-y-1.5">
 													{#each task.subtasks as subtask}
-														<div class="flex items-center gap-2 text-xs">
+														<button
+															class="flex items-center gap-2 text-xs hover:text-primary transition-colors"
+															onclick={() => toggleSubtask(subtask)}
+														>
 															{#if subtask.done}
 																<CheckCircle2 class="size-3.5 text-green-500" />
 																<span class="text-muted-foreground line-through">{subtask.title}</span>
@@ -214,7 +258,7 @@
 																<Circle class="size-3.5 text-muted-foreground" />
 																<span>{subtask.title}</span>
 															{/if}
-														</div>
+														</button>
 													{/each}
 												</div>
 											{/if}
@@ -230,6 +274,13 @@
 											<Avatar class="size-6">
 												<AvatarFallback class="text-[9px] bg-muted">{task.assignee.initials}</AvatarFallback>
 											</Avatar>
+											<button
+												class="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-muted"
+												onclick={() => openTaskEdit(task)}
+												title="Edit task"
+											>
+												<Pencil class="size-3.5 text-muted-foreground" />
+											</button>
 										</div>
 									</div>
 								{/each}
@@ -248,3 +299,73 @@
 		{/if}
 	</div>
 {/if}
+
+<!-- Task Edit Modal -->
+<Dialog.Root bind:open={showTaskModal}>
+	<Dialog.Content class="sm:max-w-lg">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Task</Dialog.Title>
+			<Dialog.Description>Update the details for this task.</Dialog.Description>
+		</Dialog.Header>
+		<div class="space-y-4 py-4">
+			<div>
+				<label for="task-title" class="text-sm font-medium">Title</label>
+				<input
+					id="task-title"
+					type="text"
+					bind:value={editTitle}
+					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+				/>
+			</div>
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="task-status" class="text-sm font-medium">Status</label>
+					<select
+						id="task-status"
+						bind:value={editStatus}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						<option value="todo">To Do</option>
+						<option value="in_progress">In Progress</option>
+						<option value="done">Done</option>
+					</select>
+				</div>
+				<div>
+					<label for="task-priority" class="text-sm font-medium">Priority</label>
+					<select
+						id="task-priority"
+						bind:value={editPriority}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						<option value="low">Low</option>
+						<option value="medium">Medium</option>
+						<option value="high">High</option>
+						<option value="urgent">Urgent</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<label for="task-due" class="text-sm font-medium">Due Date</label>
+				<input
+					id="task-due"
+					type="text"
+					bind:value={editDueDate}
+					placeholder="e.g. Apr 15"
+					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+				/>
+			</div>
+		</div>
+		<Dialog.Footer>
+			<Button variant="outline" onclick={() => showTaskModal = false}>Cancel</Button>
+			<Button onclick={() => {
+				if (editingTask) {
+					editingTask.title = editTitle;
+					editingTask.status = editStatus as Task['status'];
+					editingTask.priority = editPriority as Task['priority'];
+					editingTask.dueDate = editDueDate;
+				}
+				showTaskModal = false;
+			}}>Save Changes</Button>
+		</Dialog.Footer>
+	</Dialog.Content>
+</Dialog.Root>

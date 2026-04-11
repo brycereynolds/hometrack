@@ -32,7 +32,7 @@
 		{ id: 'note', label: 'Notes' },
 		{ id: 'voice_memo', label: 'Voice Memos' },
 		{ id: 'system', label: 'System' },
-		{ id: 'ai_insight', label: 'AI' }
+		{ id: 'ai_insight', label: 'Insights' }
 	];
 
 	const filteredActivity = $derived(
@@ -169,7 +169,7 @@
 								<span class="text-sm font-medium">{activity.author}</span>
 								<Badge variant="outline" class="text-[10px] font-normal px-1.5 py-0 h-4">
 									{activity.type === 'voice_memo' ? 'Voice Memo' :
-									 activity.type === 'ai_insight' ? 'AI' :
+									 activity.type === 'ai_insight' ? 'Insight' :
 									 activity.type === 'task_complete' ? 'Task' :
 									 activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
 								</Badge>

@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, integer, real, jsonb, index } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, integer, real, jsonb, boolean, index } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { listingPhaseEnum } from './enums.js';
 import { teams, teamMembers } from './team.js';
@@ -29,11 +29,16 @@ export const listings = pgTable(
     photos: jsonb('photos'),
     lat: real('lat'),
     lng: real('lng'),
-    phase: listingPhaseEnum('phase').default('onboarding').notNull(),
+    phase: listingPhaseEnum('phase').default('pre_market').notNull(),
+    underContract: boolean('under_contract').default(false).notNull(),
     daysInPhase: integer('days_in_phase').default(0),
     daysOnMarket: integer('days_on_market').default(0),
     listDate: timestamp('list_date'),
     targetListDate: timestamp('target_list_date'),
+    listingAgreementDate: timestamp('listing_agreement_date'),
+    closeDate: timestamp('close_date'),
+    canceledAt: timestamp('canceled_at'),
+    cancelReason: text('cancel_reason'),
     agentId: text('agent_id').references(() => teamMembers.id, { onDelete: 'set null' }),
     clientId: text('client_id').references(() => contacts.id, { onDelete: 'set null' }),
     tasksDone: integer('tasks_done').default(0),

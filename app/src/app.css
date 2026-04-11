@@ -112,15 +112,10 @@
 	--color-accent-subtle: oklch(0.96 0.02 55);          /* #F8EDE3 */
 
 	/* Pipeline phase colors */
-	--color-phase-onboarding: oklch(0.62 0.08 230);      /* #6B9FC4 */
-	--color-phase-improvement: oklch(0.58 0.06 145);     /* #7B8B6F */
-	--color-phase-staging: oklch(0.62 0.08 300);         /* #9B8EB5 */
-	--color-phase-content: oklch(0.66 0.12 80);          /* #C49A3C */
-	--color-phase-marketing: oklch(0.58 0.12 45);        /* #C4704B */
-	--color-phase-showings: oklch(0.70 0.10 55);         /* #D4956B */
-	--color-phase-offers: oklch(0.56 0.08 230);          /* #5B8BA5 */
-	--color-phase-contract: oklch(0.55 0.10 145);        /* #5E8C61 */
-	--color-phase-closing: oklch(0.52 0.06 65);          /* #8B7355 */
+	--color-phase-pre-market: oklch(0.62 0.08 230);       /* #6B9FC4 */
+	--color-phase-active: oklch(0.58 0.12 45);           /* #C4704B */
+	--color-phase-closed: oklch(0.55 0.10 145);          /* #5E8C61 */
+	--color-phase-canceled: oklch(0.62 0.02 65);         /* #9C958E */
 }
 
 /* ── Dark Mode ──────────────────────────────────────────────────────── */

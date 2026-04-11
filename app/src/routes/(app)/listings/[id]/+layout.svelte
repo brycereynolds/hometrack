@@ -63,7 +63,7 @@
 
 				<!-- Back button -->
 				<div class="absolute left-4 top-4">
-					<Button variant="secondary" size="sm" href="/listings" class="bg-white/90 backdrop-blur-sm hover:bg-white">
+					<Button variant="secondary" size="sm" href="/listings" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
 						<ArrowLeft class="mr-1.5 size-4" />
 						Listings
 					</Button>
@@ -71,15 +71,15 @@
 
 				<!-- Action buttons -->
 				<div class="absolute right-4 top-4 flex gap-2">
-					<Button variant="secondary" size="sm" class="bg-white/90 backdrop-blur-sm hover:bg-white">
+					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
 						<Edit class="mr-1.5 size-4" />
 						Edit
 					</Button>
-					<Button variant="secondary" size="sm" class="bg-white/90 backdrop-blur-sm hover:bg-white">
+					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
 						<RefreshCw class="mr-1.5 size-4" />
 						Change Phase
 					</Button>
-					<Button variant="secondary" size="sm" class="bg-white/90 backdrop-blur-sm hover:bg-white">
+					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
 						<Share2 class="mr-1.5 size-4" />
 						Share
 					</Button>
@@ -131,7 +131,7 @@
 							<div
 								class="size-2.5 rounded-full transition-all {isCurrent ? 'ring-2 ring-offset-1 scale-125' : ''}"
 								style="background-color: {isComplete || isCurrent ? phase.color : '#d1d5db'};
-									   {isCurrent ? `ring-color: ${phase.color}40` : ''}"
+									   {isCurrent ? `--tw-ring-color: ${phase.color}40` : ''}"
 							></div>
 							<span
 								class="text-[10px] sm:text-xs whitespace-nowrap {isCurrent ? 'font-semibold' : isComplete ? 'text-muted-foreground' : 'text-muted-foreground/50'}"

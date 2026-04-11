@@ -352,13 +352,13 @@
 					</CardContent>
 				</Card>
 
-				<!-- AI Insights -->
+				<!-- Insights -->
 				{#if listingInsights.length > 0}
 					<Card class="border-amber-200 bg-amber-50/30">
 						<CardHeader>
 							<CardTitle class="flex items-center gap-2 font-serif text-base">
 								<Sparkles class="size-4 text-amber-500" />
-								AI Insights
+								Insights
 							</CardTitle>
 						</CardHeader>
 						<CardContent>

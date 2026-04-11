@@ -22,7 +22,7 @@
 	const automationRules = [
 		{
 			id: 'ar-1',
-			trigger: 'Listing enters "Showings" phase',
+			trigger: 'Listing enters "Active" phase',
 			condition: 'Has scheduled open house',
 			action: 'Send showing prep checklist to staging lead',
 			enabled: true
@@ -45,7 +45,7 @@
 			id: 'ar-4',
 			trigger: 'Client message received',
 			condition: 'No response within 2 hours',
-			action: 'Send AI-generated alert to assigned agent',
+			action: 'Send alert to assigned agent',
 			enabled: false
 		}
 	];

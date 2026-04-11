@@ -172,7 +172,7 @@
 									<p class="text-xs font-medium">123 Main Street</p>
 									<p class="text-[10px] text-muted-foreground">Los Gatos, CA 95030</p>
 									<div class="mt-1 flex gap-1">
-										<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Active Marketing</div>
+										<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Active</div>
 									</div>
 								</div>
 							</div>
@@ -185,7 +185,7 @@
 									<p class="text-xs font-medium">456 Oak Avenue</p>
 									<p class="text-[10px] text-muted-foreground">Palo Alto, CA 94301</p>
 									<div class="mt-1 flex gap-1">
-										<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Showings</div>
+										<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Pre-Market</div>
 									</div>
 								</div>
 							</div>

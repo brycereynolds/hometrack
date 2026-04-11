@@ -99,6 +99,18 @@
 	}
 
 	const portalUrl = $derived(listing ? `https://portal.hometrack.co/${listing.id}` : '');
+	let copyButtonText = $state('Copy Link');
+
+	async function copyPortalUrl() {
+		try {
+			await navigator.clipboard.writeText(portalUrl);
+			copyButtonText = 'Copied!';
+			setTimeout(() => { copyButtonText = 'Copy Link'; }, 2000);
+		} catch {
+			copyButtonText = 'Failed';
+			setTimeout(() => { copyButtonText = 'Copy Link'; }, 2000);
+		}
+	}
 </script>
 
 {#if listing}
@@ -108,9 +120,9 @@
 				<h2 class="font-serif text-lg font-semibold">Client Portal Settings</h2>
 				<p class="text-sm text-muted-foreground">Control what your client sees in their portal</p>
 			</div>
-			<Button size="sm" variant="outline">
+			<Button size="sm" variant="outline" href={portalUrl} target="_blank">
 				<ExternalLink class="mr-1.5 size-4" />
-				Preview Portal
+				Go to Client Portal
 			</Button>
 		</div>
 
@@ -125,9 +137,9 @@
 						<p class="text-sm font-medium">Portal Link</p>
 						<p class="text-xs text-muted-foreground truncate">{portalUrl}</p>
 					</div>
-					<Button variant="outline" size="sm">
+					<Button variant="outline" size="sm" onclick={copyPortalUrl}>
 						<Copy class="mr-1.5 size-3.5" />
-						Copy Link
+						{copyButtonText}
 					</Button>
 					<Button size="sm">
 						<Send class="mr-1.5 size-3.5" />

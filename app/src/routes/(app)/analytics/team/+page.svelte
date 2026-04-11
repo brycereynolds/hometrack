@@ -19,7 +19,7 @@
 		{ href: '/analytics', label: 'Overview', active: false },
 		{ href: '/analytics/listings', label: 'Listing Performance', active: false },
 		{ href: '/analytics/team', label: 'Team Performance', active: true },
-		{ href: '/analytics/insights', label: 'AI Insights', active: false }
+		{ href: '/analytics/insights', label: 'Insights', active: false }
 	];
 
 	// Per-member task counts

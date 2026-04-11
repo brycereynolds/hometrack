@@ -19,7 +19,7 @@
     note: { label: 'Note', color: 'text-secondary', bgColor: 'bg-secondary-subtle' },
     voice_memo: { label: 'Voice Memo', color: 'text-accent', bgColor: 'bg-accent-subtle' },
     system: { label: 'System', color: 'text-foreground-muted', bgColor: 'bg-background-tertiary' },
-    ai_insight: { label: 'AI Insight', color: 'text-accent', bgColor: 'bg-accent-subtle' },
+    ai_insight: { label: 'Insight', color: 'text-accent', bgColor: 'bg-accent-subtle' },
     phase_change: { label: 'Phase Change', color: 'text-info', bgColor: 'bg-info-subtle' },
     task_complete: { label: 'Task Complete', color: 'text-success', bgColor: 'bg-success-subtle' },
   };

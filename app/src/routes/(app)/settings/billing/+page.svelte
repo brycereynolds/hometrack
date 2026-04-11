@@ -36,7 +36,7 @@
 			name: 'Pro',
 			price: 49,
 			interval: 'user/mo',
-			features: ['Unlimited active listings', '10 team members', 'Advanced analytics + AI Insights', 'All integrations', '50 GB storage', 'Client portal', 'Custom workflows'],
+			features: ['Unlimited active listings', '10 team members', 'Advanced analytics + Insights', 'All integrations', '50 GB storage', 'Client portal', 'Custom workflows'],
 			current: true,
 			recommended: true
 		},

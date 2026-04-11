@@ -25,14 +25,30 @@
     <div class="p-3">
       <!-- Photo placeholder + phase badge -->
       <div class="relative mb-3 aspect-[16/10] overflow-hidden rounded-md bg-background-tertiary">
-        <div class="absolute inset-0 flex items-center justify-center text-foreground-muted">
-          <svg class="size-8 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9,22 9,12 15,12 15,22" />
-          </svg>
-        </div>
+        {#if listing.photoUrl}
+          <img
+            src={listing.photoUrl}
+            alt={listing.address}
+            class="object-cover w-full h-full transition-transform group-hover:scale-105"
+            loading="lazy"
+          />
+        {:else}
+          <div class="absolute inset-0 flex items-center justify-center text-foreground-muted">
+            <svg class="size-8 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9,22 9,12 15,12 15,22" />
+            </svg>
+          </div>
+        {/if}
         <div class="absolute right-2 top-2">
           <PhaseBadge phase={listing.phase} size="sm" />
         </div>
+        {#if listing.phase === 'active' && listing.underContract}
+          <div class="absolute left-2 bottom-2">
+            <span class="inline-flex items-center rounded-sm bg-amber-500/90 px-1.5 py-0.5 text-[10px] font-bold text-white shadow-sm backdrop-blur-sm">
+              UNDER CONTRACT
+            </span>
+          </div>
+        {/if}
       </div>
 
       <!-- Address & price -->
@@ -57,8 +73,23 @@
           </div>
           <span class="text-xs text-foreground-secondary">{listing.agent.name.split(' ')[0]}</span>
         </div>
-        <span class="text-xs text-foreground-muted">{listing.daysInPhase}d in phase</span>
+        <span class="text-xs text-foreground-muted">{listing.daysInPhase}d in stage</span>
       </div>
+
+      <!-- Task progress -->
+      {#if listing.tasksTotal > 0}
+        <div class="mt-2.5">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs text-foreground-muted">{listing.tasksDone}/{listing.tasksTotal} tasks</span>
+          </div>
+          <div class="h-1.5 w-full rounded-full bg-background-tertiary overflow-hidden">
+            <div
+              class="h-full rounded-full bg-primary transition-all"
+              style="width: {(listing.tasksDone / listing.tasksTotal) * 100}%"
+            ></div>
+          </div>
+        </div>
+      {/if}
 
       <!-- Overdue task badge -->
       {#if listing.tasksTotal - listing.tasksDone > 3}
@@ -74,13 +105,22 @@
   {:else}
     <!-- List card: horizontal layout -->
     <div class="flex items-center gap-4 p-4">
-      <!-- Photo placeholder -->
+      <!-- Photo -->
       <div class="relative size-16 shrink-0 overflow-hidden rounded-md bg-background-tertiary">
-        <div class="flex size-full items-center justify-center text-foreground-muted">
-          <svg class="size-6 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9,22 9,12 15,12 15,22" />
-          </svg>
-        </div>
+        {#if listing.photoUrl}
+          <img
+            src={listing.photoUrl}
+            alt={listing.address}
+            class="object-cover w-full h-full"
+            loading="lazy"
+          />
+        {:else}
+          <div class="flex size-full items-center justify-center text-foreground-muted">
+            <svg class="size-6 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+              <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9,22 9,12 15,12 15,22" />
+            </svg>
+          </div>
+        {/if}
       </div>
 
       <!-- Info -->
@@ -90,6 +130,11 @@
             {listing.address}, {listing.city}
           </p>
           <PhaseBadge phase={listing.phase} size="sm" />
+          {#if listing.phase === 'active' && listing.underContract}
+            <span class="inline-flex items-center rounded-sm bg-amber-500/90 px-1.5 py-0.5 text-[10px] font-bold text-white">
+              UNDER CONTRACT
+            </span>
+          {/if}
         </div>
         <p class="mt-0.5 font-serif text-lg font-bold text-foreground">{listing.priceFormatted}</p>
         <div class="mt-1 flex items-center gap-3 text-xs text-foreground-muted">

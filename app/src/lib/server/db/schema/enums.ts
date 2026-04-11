@@ -1,15 +1,24 @@
 import { pgEnum } from 'drizzle-orm/pg-core';
 
 export const listingPhaseEnum = pgEnum('listing_phase', [
+  'pre_market',
+  'active',
+  'closed',
+  'canceled',
+]);
+
+export const taskCategoryEnum = pgEnum('task_category', [
   'onboarding',
-  'improvement',
+  'improvements',
+  'disclosures',
   'staging',
-  'content',
+  'media',
+  'pricing',
   'marketing',
   'showings',
   'offers',
-  'contract',
-  'closing',
+  'escrow',
+  'general',
 ]);
 
 export const taskStatusEnum = pgEnum('task_status', [

@@ -18,7 +18,7 @@
 		{ href: '/analytics', label: 'Overview', active: false },
 		{ href: '/analytics/listings', label: 'Listing Performance', active: true },
 		{ href: '/analytics/team', label: 'Team Performance', active: false },
-		{ href: '/analytics/insights', label: 'AI Insights', active: false }
+		{ href: '/analytics/insights', label: 'Insights', active: false }
 	];
 
 	const activeListings = listings.filter((l) => l.zillowViews > 0);

@@ -42,12 +42,13 @@ from typing import Optional
 # ---------------------------------------------------------------------------
 
 DEFAULT_TLDS = [
-    # Premium / startup
-    ".io", ".ai", ".co", ".app", ".so", ".dev",
-    # Industry
-    ".realty", ".services", ".estate", ".properties", ".house",
-    # Classic
-    ".com", ".net", ".org",
+    # Classic / premium (all Cloudflare-supported)
+    ".com", ".co", ".io", ".ai", ".app", ".dev", ".net", ".org",
+    # Real estate / property industry
+    ".house", ".estate", ".realty", ".properties", ".land", ".place",
+    ".build", ".space", ".rent", ".capital",
+    # Creative / startup-friendly
+    ".sh", ".me", ".live", ".site", ".run", ".work", ".world",
 ]
 
 PREFIX_PATTERNS = ["get{name}", "use{name}", "try{name}", "{name}hq", "{name}app"]

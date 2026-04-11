@@ -107,10 +107,10 @@
 		{/if}
 
 		<div class="grid gap-6 lg:grid-cols-2">
-			<!-- Content Production Checklist -->
+			<!-- Media Production Checklist -->
 			<Card>
 				<CardHeader>
-					<CardTitle class="font-serif text-base">Content Production</CardTitle>
+					<CardTitle class="font-serif text-base">Media Production</CardTitle>
 					<p class="text-sm text-muted-foreground">{completedCount}/{contentChecklist.length} items complete</p>
 				</CardHeader>
 				<CardContent>

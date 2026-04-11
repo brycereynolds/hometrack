@@ -165,7 +165,7 @@
 								</div>
 								<div class="mt-0.5 flex items-center gap-2 text-sm text-muted-foreground">
 									<Home class="size-3" />
-									<span>{quote.listingAddress}</span>
+									<a href="/listings/{quote.listingId}" class="hover:text-primary hover:underline">{quote.listingAddress}</a>
 									<span class="text-border">|</span>
 									<span>{quote.scope}</span>
 								</div>
@@ -279,7 +279,7 @@
 						</CardTitle>
 						<CardDescription class="flex items-center gap-1.5">
 							<Home class="size-3.5" />
-							{groupQuotes[0].listingAddress} -- {groupQuotes.length} quotes
+							<a href="/listings/{listingId}" class="hover:text-primary hover:underline">{groupQuotes[0].listingAddress}</a> -- {groupQuotes.length} quotes
 						</CardDescription>
 					</CardHeader>
 					<CardContent>

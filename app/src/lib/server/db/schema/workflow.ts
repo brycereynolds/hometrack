@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, integer, boolean, index } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
-import { listingPhaseEnum } from './enums.js';
+import { listingPhaseEnum, taskCategoryEnum } from './enums.js';
 import { teams } from './team.js';
 
 export const workflowTemplates = pgTable(
@@ -12,6 +12,7 @@ export const workflowTemplates = pgTable(
       .references(() => teams.id, { onDelete: 'cascade' }),
     name: text('name').notNull(),
     phase: listingPhaseEnum('phase').notNull(),
+    taskCategory: taskCategoryEnum('task_category'),
     taskCount: integer('task_count').default(0),
     description: text('description'),
     isDefault: boolean('is_default').default(false),

@@ -101,12 +101,12 @@
 				</Sidebar.SidebarGroupContent>
 			</Sidebar.SidebarGroup>
 
-			<!-- AI Alerts — hidden when sidebar is collapsed to icon mode -->
+			<!-- Alerts — hidden when sidebar is collapsed to icon mode -->
 			{#if activeAlerts.length > 0}
 				<Sidebar.SidebarGroup class="group-data-[collapsible=icon]:hidden">
 					<Sidebar.SidebarGroupLabel>
 						<Sparkles class="mr-1 size-3" />
-						AI Alerts
+						Alerts
 					</Sidebar.SidebarGroupLabel>
 					<Sidebar.SidebarGroupContent>
 						<div class="space-y-2 px-2">

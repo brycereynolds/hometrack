@@ -244,7 +244,7 @@
 					<h1 class="font-serif text-3xl font-bold">Network Intelligence</h1>
 					<span class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
 						<Sparkles class="size-3" />
-						AI Powered
+						Smart Match
 					</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
@@ -264,7 +264,7 @@
 		<div class="rounded-lg border border-border bg-card p-4">
 			<p class="text-sm text-muted-foreground">Active Matches</p>
 			<p class="mt-1 font-serif text-3xl font-bold text-primary">{activeMatchCount}</p>
-			<p class="mt-1 text-xs text-muted-foreground">AI-generated connections</p>
+			<p class="mt-1 text-xs text-muted-foreground">Auto-generated connections</p>
 		</div>
 		<div class="rounded-lg border border-border bg-card p-4">
 			<p class="text-sm text-muted-foreground">High Priority</p>
@@ -290,7 +290,7 @@
 					: 'text-muted-foreground hover:text-foreground'}"
 			>
 				<Sparkles class="mr-1.5 inline size-3.5" />
-				AI Matches
+				Matches
 			</button>
 			<button
 				onclick={() => (activeView = 'needs')}
@@ -345,7 +345,7 @@
 							<div class="flex items-center gap-3">
 								<div class="flex items-center gap-1.5">
 									<Brain class="size-4 text-primary" />
-									<span class="text-sm font-semibold">AI Connection Suggestion</span>
+									<span class="text-sm font-semibold">Connection Suggestion</span>
 								</div>
 								<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {priorityBadge(match.priority)}">
 									{match.priority} priority
@@ -491,7 +491,7 @@
 							<div class="mt-4 flex items-start gap-2 rounded-md bg-primary/5 px-3 py-2.5">
 								<Sparkles class="mt-0.5 size-4 shrink-0 text-primary" />
 								<div>
-									<p class="text-xs font-medium text-primary">AI Recommendation</p>
+									<p class="text-xs font-medium text-primary">Recommendation</p>
 									<p class="mt-0.5 text-sm text-foreground/80">{match.suggestion}</p>
 								</div>
 							</div>
@@ -612,7 +612,7 @@
 					Listing-Buyer Match Matrix
 				</CardTitle>
 				<CardDescription>
-					See which listings match which buyer needs at a glance. Scores represent AI-calculated compatibility.
+					See which listings match which buyer needs at a glance. Scores represent calculated compatibility.
 				</CardDescription>
 			</CardHeader>
 			<CardContent>

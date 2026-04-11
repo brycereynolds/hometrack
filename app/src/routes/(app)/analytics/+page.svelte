@@ -29,7 +29,7 @@
 		{ href: '/analytics', label: 'Overview', active: true },
 		{ href: '/analytics/listings', label: 'Listing Performance', active: false },
 		{ href: '/analytics/team', label: 'Team Performance', active: false },
-		{ href: '/analytics/insights', label: 'AI Insights', active: false }
+		{ href: '/analytics/insights', label: 'Insights', active: false }
 	];
 
 	const activeListings = listings.filter((l) => l.daysOnMarket > 0);

@@ -249,7 +249,7 @@
 				<div class="flex items-center justify-between">
 					<div>
 						<CardTitle>Pipeline Summary</CardTitle>
-						<CardDescription>{listings.length} listings across {PHASE_LIST.filter((p) => listingsByPhase[p.key]?.length > 0).length} phases</CardDescription>
+						<CardDescription>{listings.length} listings across 4 stages</CardDescription>
 					</div>
 					<a href="/listings" class="inline-flex items-center gap-1 text-sm text-primary hover:underline">
 						View board <ArrowRight class="size-3.5" />
@@ -302,7 +302,7 @@
 		</Card>
 	</div>
 
-	<!-- Bottom Row: Tasks, Activity, AI Alerts -->
+	<!-- Bottom Row: Tasks, Activity, Alerts -->
 	<div class="grid gap-6 lg:grid-cols-3">
 		<!-- My Tasks -->
 		<Card>
@@ -399,12 +399,12 @@
 			</CardContent>
 		</Card>
 
-		<!-- AI Alerts -->
+		<!-- Alerts -->
 		<Card>
 			<CardHeader class="pb-3">
 				<div class="flex items-center gap-2">
 					<Sparkles class="size-4 text-amber-500" />
-					<CardTitle>AI Alerts</CardTitle>
+					<CardTitle>Alerts</CardTitle>
 				</div>
 				<CardDescription>{visibleInsights.length} insights need your attention</CardDescription>
 			</CardHeader>

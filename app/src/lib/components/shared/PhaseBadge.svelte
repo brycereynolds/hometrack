@@ -1,5 +1,5 @@
 <!--
-  PhaseBadge.svelte — Listing phase badge with phase-specific color
+  PhaseBadge.svelte — Listing phase badge with colored dot + label
 -->
 <script lang="ts">
   import { PHASES, type ListingPhase } from '$lib/data/mock-data';
@@ -15,14 +15,14 @@
 </script>
 
 <span
-  class="inline-flex items-center rounded-sm font-medium text-white"
-  class:px-1.5={size === 'sm'}
+  class="inline-flex items-center gap-1.5 rounded-full font-medium bg-muted/60 text-foreground"
+  class:px-2={size === 'sm'}
   class:py-0.5={size === 'sm'}
   class:text-[10px]={size === 'sm'}
-  class:px-2={size === 'md'}
+  class:px-2.5={size === 'md'}
   class:py-1={size === 'md'}
   class:text-xs={size === 'md'}
-  style="background-color: {phaseConfig.color}"
 >
+  <span class="size-2 rounded-full shrink-0" style="background-color: {phaseConfig.color}"></span>
   {phaseConfig.label}
 </span>

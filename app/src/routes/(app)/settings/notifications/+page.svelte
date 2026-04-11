@@ -59,7 +59,7 @@
 			]
 		},
 		{
-			label: 'AI Alerts',
+			label: 'Alerts',
 			icon: Sparkles,
 			prefs: [
 				{ id: 'ai-connection', label: 'Connections found', description: 'Buyer-listing matches and agent connections', channels: { inApp: true, email: false, push: false } },

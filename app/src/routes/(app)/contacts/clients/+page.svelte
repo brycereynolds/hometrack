@@ -3,7 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { contacts, listings } from '$lib/data/mock-data.js';
+	import { contacts, listings, PHASES } from '$lib/data/mock-data.js';
 	import {
 		ArrowLeft,
 		Search,
@@ -101,23 +101,7 @@
 											<span class="flex-1 truncate">{listing.address}</span>
 											<span
 												class="rounded-full px-2 py-0.5 text-[10px] font-medium"
-												style="background-color: {listing.phase === 'marketing'
-													? '#C4704B20'
-													: listing.phase === 'showings'
-														? '#D4956B20'
-														: listing.phase === 'offers'
-															? '#5B8BA520'
-															: listing.phase === 'contract'
-																? '#5E8C6120'
-																: '#7B8B6F20'}; color: {listing.phase === 'marketing'
-													? '#C4704B'
-													: listing.phase === 'showings'
-														? '#D4956B'
-														: listing.phase === 'offers'
-															? '#5B8BA5'
-															: listing.phase === 'contract'
-																? '#5E8C61'
-																: '#7B8B6F'}"
+												style="background-color: {PHASES[listing.phase].color}20; color: {PHASES[listing.phase].color}"
 											>
 												{listing.phaseLabel}
 											</span>

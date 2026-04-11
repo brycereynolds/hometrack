@@ -52,7 +52,7 @@
 	let selectedClientId = $state('');
 	let selectedAgentId = $state('tm-1');
 	let selectedTcId = $state('tm-3');
-	let selectedPhase = $state('onboarding');
+	let selectedPhase = $state('pre_market');
 
 	const clientContacts = contacts.filter((c) => c.type === 'client');
 
@@ -308,7 +308,7 @@
 					<Separator />
 
 					<div class="rounded-lg bg-muted/50 p-4">
-						<h3 class="text-sm font-medium mb-2">AI Pricing Insight</h3>
+						<h3 class="text-sm font-medium mb-2">Pricing Insight</h3>
 						<p class="text-sm text-muted-foreground">
 							Based on 6 comparable sales within 0.5 miles in the last 90 days, the suggested list price range is <strong class="text-foreground">$2,050,000 - $2,200,000</strong>. Average price per sqft in this area is <strong class="text-foreground">$886/sqft</strong>.
 						</p>
@@ -428,7 +428,7 @@
 
 					<div class="rounded-lg bg-muted/50 p-4">
 						<p class="text-sm text-muted-foreground">
-							Most new listings start in <strong class="text-foreground">Onboarding</strong>. The workflow templates for your selected phase will be automatically applied, creating tasks for your team.
+							Most new listings start in <strong class="text-foreground">Pre-Market</strong>. The workflow templates for your selected phase will be automatically applied, creating tasks for your team.
 						</p>
 					</div>
 				</div>

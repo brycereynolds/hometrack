@@ -445,7 +445,7 @@
 				<CardHeader>
 					<div class="flex items-center gap-2">
 						<Sparkles class="size-4 text-amber-500" />
-						<CardTitle class="font-serif text-base">AI Market Insights</CardTitle>
+						<CardTitle class="font-serif text-base">Market Insights</CardTitle>
 					</div>
 				</CardHeader>
 				<CardContent>

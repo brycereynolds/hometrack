@@ -6,12 +6,22 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { contacts, type ContactType } from '$lib/data/mock-data.js';
 	import { Plus, Search, Mail, Phone, Users, Star, ArrowUpDown } from 'lucide-svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { Button as Btn } from '$lib/components/ui/button/index.js';
 
 	type FilterType = 'all' | ContactType;
 
 	let search = $state('');
 	let activeFilter = $state<FilterType>('all');
 	let sortBy = $state<'name' | 'lastInteraction' | 'type'>('name');
+
+	// Add Contact modal state
+	let showAddContact = $state(false);
+	let newContactName = $state('');
+	let newContactEmail = $state('');
+	let newContactPhone = $state('');
+	let newContactType = $state<ContactType>('client');
+	let newContactCompany = $state('');
 
 	const filters: { label: string; value: FilterType }[] = [
 		{ label: 'All', value: 'all' },
@@ -61,7 +71,14 @@
 			<h1 class="font-serif text-3xl font-bold">Contacts</h1>
 			<p class="mt-1 text-sm text-muted-foreground">{contacts.length} contacts in your network</p>
 		</div>
-		<Button>
+		<Button onclick={() => {
+			newContactName = '';
+			newContactEmail = '';
+			newContactPhone = '';
+			newContactType = 'client';
+			newContactCompany = '';
+			showAddContact = true;
+		}}>
 			<Plus class="mr-1.5 size-4" />
 			Add Contact
 		</Button>
@@ -185,3 +202,75 @@
 		{/each}
 	</div>
 </div>
+
+<!-- Add Contact Modal -->
+<Dialog.Root bind:open={showAddContact}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Add Contact</Dialog.Title>
+			<Dialog.Description>Add a new contact to your network.</Dialog.Description>
+		</Dialog.Header>
+		<div class="space-y-4 py-4">
+			<div>
+				<label for="contact-name" class="text-sm font-medium">Full Name</label>
+				<input
+					id="contact-name"
+					type="text"
+					bind:value={newContactName}
+					placeholder="e.g. Jane Smith"
+					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+				/>
+			</div>
+			<div>
+				<label for="contact-email" class="text-sm font-medium">Email</label>
+				<input
+					id="contact-email"
+					type="email"
+					bind:value={newContactEmail}
+					placeholder="jane@example.com"
+					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+				/>
+			</div>
+			<div>
+				<label for="contact-phone" class="text-sm font-medium">Phone</label>
+				<input
+					id="contact-phone"
+					type="tel"
+					bind:value={newContactPhone}
+					placeholder="(555) 123-4567"
+					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+				/>
+			</div>
+			<div class="grid grid-cols-2 gap-4">
+				<div>
+					<label for="contact-type" class="text-sm font-medium">Type</label>
+					<select
+						id="contact-type"
+						bind:value={newContactType}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						<option value="client">Client</option>
+						<option value="agent">Agent</option>
+						<option value="vendor">Vendor</option>
+						<option value="lender">Lender</option>
+						<option value="inspector">Inspector</option>
+					</select>
+				</div>
+				<div>
+					<label for="contact-company" class="text-sm font-medium">Company</label>
+					<input
+						id="contact-company"
+						type="text"
+						bind:value={newContactCompany}
+						placeholder="Optional"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+			</div>
+		</div>
+		<Dialog.Footer>
+			<Btn variant="outline" onclick={() => showAddContact = false}>Cancel</Btn>
+			<Btn onclick={() => showAddContact = false}>Add Contact</Btn>
+		</Dialog.Footer>
+	</Dialog.Content>
+</Dialog.Root>

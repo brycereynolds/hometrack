@@ -1,13 +1,12 @@
-# Dependencies
 node_modules
 
-# Build output
+# Output
 .output
 .vercel
 .netlify
 .wrangler
-.svelte-kit
-/app/build
+/.svelte-kit
+/build
 
 # OS
 .DS_Store
@@ -22,14 +21,3 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-
-# Python
-__pycache__
-.venv
-*.pyc
-
-# Claude
-.claude
-
-# IDE
-.vscode

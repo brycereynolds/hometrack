@@ -1,0 +1,5661 @@
+{
+  "metadata": {
+    "created": "2026-04-09",
+    "last_updated": "2026-04-09T22:01:28Z",
+    "total_checks": 1307,
+    "sources": [
+      "Initial sweep: 6 names x 14 TLDs + prefix variants",
+      "Brainstorm batch: 20 names x 10 variants",
+      "Riff on cornice: 15 names x 10 variants",
+      "Riff on bower: 15 names x 10 variants",
+      "Riff on grove: 15 names x 10 variants",
+      "Riff on newel: 15 names x 10 variants",
+      "Verification spot-check: 15 domains"
+    ]
+  },
+  "checks": {
+    "alcove.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "alcove.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "alcove.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "alcove.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "alcove.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "alcoveapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "alcovehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.ai": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.co": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "GoDaddy",
+      "org": "Domains By Proxy"
+    },
+    "arbor.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.dev": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.estate": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.house": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "NAMECHEAP"
+    },
+    "arbor.net": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.org": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.properties": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "arbor.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arbor.services": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "arbor.so": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "Dynadot"
+    },
+    "arborapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "arborhq.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "atrium.ai": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "101domain",
+      "org": "Digital Privacy"
+    },
+    "atrium.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "GrepApps"
+    },
+    "atrium.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "Network Solutions"
+    },
+    "atrium.dev": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.estate": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.house": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "NameSilo",
+      "org": "PrivacyGuardian"
+    },
+    "atrium.net": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.org": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.properties": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.services": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "atrium.so": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "atriumapp.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "TurnCommerce",
+      "org": "HugeDomains"
+    },
+    "atriumhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axel.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axel.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axel.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axel.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axelapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axelhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axis.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axis.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axis.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axis.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axis.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axisapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "axishq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "berso.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "berso.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "berso.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "berso.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "berso.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bersoapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bersohq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosk.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosk.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "bosk.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosk.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosk.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "boskapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "boskhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosque.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosque.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosque.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosque.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosque.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosqueapp.com": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bosquehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bough.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bough.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bough.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bough.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bough.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "boughapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "boughhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowe.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowe.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowe.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowe.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowe.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "boweapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bower.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bower.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bower.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bower.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowerapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowerhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowyr.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowyr.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowyr.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowyr.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowyr.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowyrapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "bowyrhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.ai": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.dev": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "canopy.estate": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.house": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.net": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "canopy.org": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.properties": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "canopy.services": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopy.so": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopyapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "canopyhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "colm.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "colm.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "colm.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "colm.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "colm.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "colmapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "colmhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "copse.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "copse.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "copse.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "copse.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "copse.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "copseapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "copsehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornic.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornic.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornic.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornic.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornic.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornicapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornice.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornice.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornice.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornice.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornice.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "corniceapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornicehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornichq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornis.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornis.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornis.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornis.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornis.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornisapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornishq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "corno.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "corno.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "corno.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "corno.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "corno.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornoapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cornohq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cresta.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cresta.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cresta.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cresta.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "cresta.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crestaapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crestahq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crown.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crown.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crown.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crown.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crown.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crownapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "crownhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dado.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dado.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dado.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dado.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dado.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dadoapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dadohq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dormer.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dormer.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dormer.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dormer.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dormer.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dormerapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "dormerhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "eaves.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "eaves.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "eaves.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "eaves.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "eaves.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "eavesapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "eaveshq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "fasca.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "fasca.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "fasca.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "fasca.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "fasca.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "fascaapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "fascahq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.ai": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.co": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "GoDaddy"
+    },
+    "foyer.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.dev": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.estate": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.house": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "foyer.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.net": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.org": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.properties": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "foyer.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.services": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyer.so": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyerapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "foyerhq.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "Squarespace",
+      "org": "Foyer"
+    },
+    "frieze.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frieze.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frieze.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frieze.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frieze.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "friezeapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "friezehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frise.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frise.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frise.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frise.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frise.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "friseapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "frisehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gable.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gable.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gable.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gable.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gable.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gableapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gablehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getalcove.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getarbor.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getatrium.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getaxel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getaxis.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getberso.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getbosk.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getbosque.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getbough.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getbowe.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getbower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getbowyr.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcanopy.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcolm.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcopse.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcornic.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcornice.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcornis.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcorno.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcresta.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getcrown.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getdado.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getdormer.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "geteaves.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getfasca.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getfoyer.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getfrieze.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getfrise.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getgable.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getglade.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getglen.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getgroov.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getgrove.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getgrv.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gethearth.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gethelix.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getholt.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getkappa.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getkornix.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getkrona.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getleafy.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getledge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getlintel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getloggia.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getmolde.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnemoral.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnest.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getneuel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnevil.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnewel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnewl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnewyl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnook.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnouel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnouvl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnoval.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnuel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getnuvl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getparcl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getpilar.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getpivot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getplinth.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getportico.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "GoDaddy"
+    },
+    "getposte.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getrimar.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getshade.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getshaw.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getsilva.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getsimsa.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getsoffit.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getspan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getspinney.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getstrand.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getsylvan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getthicket.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gettonnelle.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gettwig.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getvale.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "getverge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glade.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glade.co": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glade.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glade.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glade.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gladeapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "gladehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glen.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glen.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glen.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glen.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glen.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glenapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "glenhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "groov.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "groov.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "groov.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "groov.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "groov.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "groovapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "groovhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grove.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grove.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grove.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grove.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grove.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "groveapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grovehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grv.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grv.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grv.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grv.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grv.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grvapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "grvhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "hearth.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "hearth.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "hearth.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "hearth.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "hearth.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "hearthapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "hearthhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "helix.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "helix.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "helix.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "helix.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "helix.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "helixapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "helixhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "holt.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "holt.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "holt.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "holt.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "holt.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "holtapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "holthq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kappa.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kappa.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kappa.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kappa.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kappa.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kappaapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kappahq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kornix.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kornix.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kornix.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kornix.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kornix.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kornixapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kornixhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "krona.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "krona.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "krona.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "krona.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "krona.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kronaapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "kronahq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "leafy.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "leafy.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "leafy.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "leafy.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "leafy.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "leafyapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "leafyhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "ledge.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "ledge.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "ledge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "ledge.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "ledge.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "ledgeapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "ledgehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "lintel.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "lintel.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "lintel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "lintel.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "lintel.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "lintelapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "lintelhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "loggia.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "loggia.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "loggia.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "loggia.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "loggia.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "loggiaapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "loggiahq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "molde.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "molde.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "molde.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "molde.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "molde.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "moldeapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "moldehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nemoral.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nemoral.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nemoral.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nemoral.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nemoral.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nemoralapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nemoralhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nest.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nest.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nest.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nest.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nest.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nestapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nesthq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "neuel.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "neuel.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "neuel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "neuel.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "neuel.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "neuelapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "neuelhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nevil.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nevil.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nevil.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nevil.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nevil.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nevilapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nevilhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newel.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newel.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newel.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newel.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newelapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newelhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newl.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newl.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newl.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newl.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newlapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newlhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newyl.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newyl.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newyl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newyl.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newyl.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newylapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "newylhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nook.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nook.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "nook.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nook.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nook.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nookapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nookhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouel.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouel.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouel.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouel.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouelapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouelhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouvl.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouvl.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouvl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouvl.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouvl.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouvlapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nouvlhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "noval.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "noval.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "noval.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "noval.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "noval.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "novalapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "novalhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuel.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuel.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuel.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuel.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuelapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuelhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuvl.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuvl.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuvl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuvl.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuvl.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuvlapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "nuvlhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.ai": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.app": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "parcl.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "Name.com"
+    },
+    "parcl.dev": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.estate": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.house": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "GoDaddy"
+    },
+    "parcl.net": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "Unstoppable Domains"
+    },
+    "parcl.org": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.properties": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "parcl.services": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parcl.so": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "parclapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "parclhq.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "pilar.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pilar.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pilar.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pilar.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pilar.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pilarapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pilarhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pivot.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pivot.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pivot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pivot.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pivot.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pivotapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "pivothq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "plinth.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "plinth.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "plinth.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "plinth.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "plinth.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "plinthapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "plinthhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.ai": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.dev": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.estate": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "portico.house": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.net": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "GoDaddy"
+    },
+    "portico.org": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "Network Solutions"
+    },
+    "portico.properties": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "portico.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "portico.services": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "portico.so": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "porticoapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "porticohq.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "poste.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "poste.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "poste.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "poste.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "poste.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "posteapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "postehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "rimar.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "rimar.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "rimar.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "rimar.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "rimar.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "rimarapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "rimarhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shade.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shade.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shade.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shade.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shade.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shadeapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shadehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shaw.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shaw.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shaw.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shaw.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shaw.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shawapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "shawhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "silva.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "silva.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "silva.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "silva.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "silva.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "silvaapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "silvahq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "simsa.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "simsa.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "simsa.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "simsa.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "simsa.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "simsaapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "simsahq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "soffit.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "soffit.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "soffit.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "soffit.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "soffit.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "soffitapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "soffithq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "span.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "span.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "span.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "span.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "span.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spanapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spanhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spinney.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spinney.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spinney.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spinney.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spinney.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spinneyapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "spinneyhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "strand.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "strand.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "strand.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "strand.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "strand.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "strandapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "strandhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "sylvan.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "sylvan.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "sylvan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "sylvan.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "sylvan.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "sylvanapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "sylvanhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "thicket.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "thicket.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "thicket.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "thicket.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "thicket.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "thicketapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "thickethq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tonnelle.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tonnelle.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tonnelle.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tonnelle.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tonnelle.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tonnelleapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tonnellehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryalcove.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryarbor.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryatrium.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "note": "whois failed"
+    },
+    "tryaxel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryaxis.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryberso.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trybosk.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trybosque.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trybough.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trybowe.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trybower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trybowyr.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycanopy.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycolm.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycopse.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycornic.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycornice.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycornis.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycorno.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycresta.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trycrown.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trydado.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trydormer.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryeaves.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryfasca.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryfoyer.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "GoDaddy"
+    },
+    "tryfrieze.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryfrise.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trygable.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryglade.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryglen.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trygroov.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trygrove.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trygrv.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryhearth.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryhelix.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryholt.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trykappa.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trykornix.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trykrona.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryleafy.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryledge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trylintel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryloggia.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trymolde.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynemoral.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynest.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryneuel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynevil.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynewel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynewl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynewyl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynook.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynouel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynouvl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynoval.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynuel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trynuvl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryparcl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trypilar.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trypivot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryplinth.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryportico.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "NAMECHEAP"
+    },
+    "tryposte.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryrimar.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryshade.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryshaw.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trysilva.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trysimsa.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trysoffit.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryspan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryspinney.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trystrand.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trysylvan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trythicket.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trytonnelle.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "trytwig.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryvale.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "tryverge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "twig.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "twig.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "twig.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "twig.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "twig.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "twigapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "twighq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usealcove.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usearbor.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useatrium.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useaxel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useaxis.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useberso.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usebosk.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usebosque.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usebough.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usebowe.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usebower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usebowyr.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecanopy.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecolm.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecopse.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecornic.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecornice.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecornis.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecorno.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecresta.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usecrown.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usedado.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usedormer.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useeaves.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usefasca.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usefoyer.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "Squarespace",
+      "org": "Foyer"
+    },
+    "usefrieze.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usefrise.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usegable.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useglade.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useglen.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usegroov.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usegrove.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usegrv.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usehearth.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usehelix.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useholt.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usekappa.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usekornix.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usekrona.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useleafy.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useledge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "uselintel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useloggia.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usemolde.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenemoral.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenest.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useneuel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenevil.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenewel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenewl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenewyl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenook.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenouel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenouvl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenoval.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenuel.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usenuvl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useparcl.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usepilar.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usepivot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useplinth.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useportico.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z",
+      "registrar": "ENOM"
+    },
+    "useposte.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "userimar.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useshade.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useshaw.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usesilva.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usesimsa.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usesoffit.com": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usespan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usespinney.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usestrand.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usesylvan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usethicket.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usetonnelle.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usetwig.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "usevale.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "useverge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "vale.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "vale.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "vale.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "vale.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "vale.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "valeapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "valehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "verge.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "verge.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "verge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "verge.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "verge.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "vergeapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "vergehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T12:00:00Z"
+    },
+    "onsite.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "onprem.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "onsite.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "onplan.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "Porkbun",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onprem.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "onprem.co": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "onbase.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z"
+    },
+    "onlot.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:26Z"
+    },
+    "onbase.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onplan.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "onlot.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onlot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "Mesh Digital Limited",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onsite.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "Key-Systems GmbH",
+      "org": "c/o whoisproxy.com",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "onbase.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "MarkMonitor, Inc.",
+      "org": "Hyland Software",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "onplan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:26Z",
+      "registrar": "Register.com - Network Solutions, LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "hometrack.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "homebase.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "hometrack.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "hometrack.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "homebase.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "homelot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "homelot.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "homelot.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:58:31Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "homeplan.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "homeplan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "homeledger.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "homeslate.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:58:31Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "homeplan.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z"
+    },
+    "homebase.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:31Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "homeslate.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:32Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "homeledger.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:32Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "planbase.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:36Z"
+    },
+    "siteplan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:36Z"
+    },
+    "lotplan.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:36Z"
+    },
+    "lotplan.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:36Z"
+    },
+    "trackline.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:36Z"
+    },
+    "lotplan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:36Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "siteplan.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:36Z",
+      "registrar": "DYNADOT LLC",
+      "org": "Super Privacy Service LTD c/o Dynadot"
+    },
+    "planbase.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:36Z",
+      "registrar": "Porkbun",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "trackline.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:36Z"
+    },
+    "siteplan.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:46Z"
+    },
+    "helm.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z"
+    },
+    "helm.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z"
+    },
+    "withhelm.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z",
+      "registrar": "Cloudflare, Inc.",
+      "org": "DATA REDACTED"
+    },
+    "track.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:58:51Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "helm.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onhelm.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:51Z"
+    },
+    "withtrack.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:58:51Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "helm.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "ontrack.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z"
+    },
+    "withhelm.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "track.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "track.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z"
+    },
+    "withtrack.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z"
+    },
+    "ontrack.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:51Z"
+    },
+    "plat.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "ledger.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z"
+    },
+    "ledger.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z"
+    },
+    "withplat.com": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:55Z"
+    },
+    "plat.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "ledger.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z"
+    },
+    "tract.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z"
+    },
+    "tract.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z"
+    },
+    "tract.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z"
+    },
+    "withtract.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:58:55Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "tract.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z"
+    },
+    "withtract.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:58:55Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "plat.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:58:55Z",
+      "registrar": "GANDI SAS",
+      "org": "Asteria Corporation"
+    },
+    "withplat.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:58:56Z"
+    },
+    "plat.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:58:56Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "post.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:00Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "keep.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:00Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "withkeep.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:00Z"
+    },
+    "keep.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:00Z",
+      "registrar": "Spaceship, Inc.",
+      "org": "Privacy service provided by Withheld for Privacy ehf"
+    },
+    "withkeep.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:00Z"
+    },
+    "withpost.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:00Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "post.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:01Z",
+      "registrar": "Safenames Ltd",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "post.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:01Z",
+      "registrar": "Porkbun LLC",
+      "org": "Private by Design, LLC"
+    },
+    "onpost.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:01Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "withpost.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:01Z",
+      "registrar": "TurnCommerce, Inc. DBA NameBright.com",
+      "org": "HugeDomains.com"
+    },
+    "onpost.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:01Z",
+      "registrar": "GoDaddy Online Services Cayman Islands Ltd.",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "keep.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:12Z"
+    },
+    "desk.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "bench.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "desk.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "bench.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Bench Computing, Inc."
+    },
+    "desk.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "bench.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "stake.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z"
+    },
+    "stake.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z"
+    },
+    "withbench.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z"
+    },
+    "withbench.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z"
+    },
+    "withstake.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:17Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "stake.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z"
+    },
+    "withstake.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:17Z"
+    },
+    "withdesk.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:18Z",
+      "registrar": "Amazon Registrar, Inc.",
+      "org": "Identity Protection Service"
+    },
+    "withdesk.co": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:18Z",
+      "registrar": "GANDI SAS",
+      "org": "Withdesk, Inc."
+    },
+    "atlas.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "atlas.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z"
+    },
+    "tryatlas.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z"
+    },
+    "getatlas.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "useatlas.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "atlas.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "atlas.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z",
+      "registrar": "Sea Wasp, LLC",
+      "org": "Jewella Privacy LLC Privacy ID# 753628"
+    },
+    "atlas.co": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "base.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:42Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "atlasapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:43Z",
+      "registrar": "GoDaddy Corporate Domains, LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "atlashq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:43Z",
+      "registrar": "Register.com - Network Solutions, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "base.io": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:43Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "base.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:43Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "base.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:43Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "harbor.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:43Z"
+    },
+    "usebase.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:43Z"
+    },
+    "base.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:43Z",
+      "registrar": "Porkbun LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "getbase.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:44Z",
+      "registrar": "MarkMonitor, Inc.",
+      "org": "Zendesk, Inc."
+    },
+    "basehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:44Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "baseapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:44Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "harbor.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:44Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "harbor.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:44Z",
+      "note": "WHOIS says unregistered but DNS resolves \u2014 verify manually"
+    },
+    "getharbor.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "Cloudflare, Inc.",
+      "org": "DATA REDACTED",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "useharbor.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "Amazon Registrar, Inc.",
+      "org": "Identity Protection Service"
+    },
+    "tryharbor.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "harbor.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "Amazon Registrar, Inc.",
+      "org": "Identity Protection Service"
+    },
+    "harbor.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "Porkbun LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "harborapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "plot.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "Cloudflare, Inc",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "harborhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "Squarespace Domains II LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "trybase.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "ENOM, INC.",
+      "org": "REDACTED FOR PRIVACY"
+    },
+    "plot.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "tryplot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "useplot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "plothq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "plot.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "plot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "registrar": "GoDaddy Online Services Cayman Islands Ltd.",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "beam.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "plotapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "beam.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "beam.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "getbeam.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "usebeam.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "trybeam.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "beam.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "ridge.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "ridge.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:45Z"
+    },
+    "beamhq.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:45Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "beamapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z"
+    },
+    "ridge.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "ridge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "ridgehq.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "plot.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "tryridge.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "registrar": "NAMECHEAP INC",
+      "org": "Privacy service provided by Withheld for Privacy ehf"
+    },
+    "beam.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "chord.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z"
+    },
+    "getridge.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "registrar": "TurnCommerce, Inc. DBA NameBright.com",
+      "org": "HugeDomains.com"
+    },
+    "ridgeapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z"
+    },
+    "chord.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z"
+    },
+    "chord.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z"
+    },
+    "getchord.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z"
+    },
+    "usechord.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "ridge.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "trychord.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:46Z"
+    },
+    "chordhq.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:46Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "chord.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "weave.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "chordapp.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z",
+      "registrar": "DYNADOT LLC",
+      "org": "Super Privacy Service LTD c/o Dynadot"
+    },
+    "weave.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "weave.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "getweave.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "weave.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:47Z",
+      "note": "WHOIS says unregistered but DNS resolves \u2014 verify manually"
+    },
+    "useweave.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "chord.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "weave.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "tryweave.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "weavehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "perch.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "perch.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "weaveapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "getperch.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "getplot.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z",
+      "registrar": "Amazon Registrar, Inc.",
+      "org": "Identity Protection Service"
+    },
+    "perch.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "useperch.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "perch.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:47Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "perch.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "vault.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "vault.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "tryperch.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "perchapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "perchhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "vault.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "getvault.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "vault.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:47Z"
+    },
+    "vault.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:47Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "tryvault.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "usebench.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "registrar": "DYNADOT LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "vaultapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "registrar": "GANDI SAS",
+      "org": "EIN Plus LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "vaulthq.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "registrar": "TurnCommerce, Inc. DBA NameBright.com",
+      "org": "HugeDomains.com"
+    },
+    "usevault.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "registrar": "TurnCommerce, Inc. DBA NameBright.com",
+      "org": "HugeDomains.com"
+    },
+    "arc.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "benchapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "bench.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "trybench.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "benchhq.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "arc.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "getarc.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "arc.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "bench.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "usearc.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "tryarc.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "arcapp.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "grid.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z"
+    },
+    "useridge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:48Z",
+      "registrar": "NAMECHEAP INC",
+      "org": "Privacy service provided by Withheld for Privacy ehf",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "grid.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "getbench.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z",
+      "registrar": "NAMECHEAP INC",
+      "org": "Privacy service provided by Withheld for Privacy ehf",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "archq.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z",
+      "registrar": "Alpine Domains Inc.",
+      "org": "REDACTED FOR PRIVACY"
+    },
+    "arc.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "getgrid.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "grid.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z",
+      "registrar": "MarkMonitor, Inc.",
+      "org": "DNStination Inc."
+    },
+    "usegrid.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z",
+      "registrar": "NameSilo, LLC",
+      "org": "See PrivacyGuardian.org"
+    },
+    "trygrid.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "gridhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "gridapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "fold.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "grid.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "fold.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "fold.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "usefold.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "tryfold.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "getfold.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "foldhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "fold.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "tier.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "foldapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "tier.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:49Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "grid.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "tier.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:49Z"
+    },
+    "fold.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "trytier.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z",
+      "registrar": "DYNADOT LLC",
+      "org": "Domain Modern Inc"
+    },
+    "usetier.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "gettier.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z",
+      "registrar": "NAMECHEAP INC",
+      "org": "Privacy service provided by Withheld for Privacy ehf",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "frame.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "frame.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "tierapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "tier.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "frame.app": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:50Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "frame.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "getframe.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "useframe.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:50Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "tryframe.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "loom.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "framehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "arc.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "loom.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:50Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "loom.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "frameapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "loom.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "tier.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:50Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "loom.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "getloom.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "loomhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "useloom.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "loomapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:50Z"
+    },
+    "core.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "core.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "tryloom.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z",
+      "registrar": "TurnCommerce, Inc. DBA NameBright.com",
+      "org": "HugeDomains.com"
+    },
+    "frame.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "core.realty": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z",
+      "registrar": "Porkbun LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "usecore.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "getcore.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z",
+      "registrar": "NAMECHEAP INC",
+      "org": "Privacy service provided by Withheld for Privacy ehf"
+    },
+    "corehq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "drift.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "drift.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "trycore.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "core.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:51Z",
+      "note": "WHOIS says unregistered but DNS resolves \u2014 verify manually"
+    },
+    "drift.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "core.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "tierhq.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z",
+      "registrar": "Unstoppable Domains Inc.",
+      "org": "Unstoppable Privacy Service LLC"
+    },
+    "getdrift.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "usedrift.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "drifthq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "coreapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:51Z"
+    },
+    "drift.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "tower.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "trydrift.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "tower.realty": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "tower.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "drift.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "gettower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "tower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "tower.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "usetower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "sill.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "driftapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "registrar": "https://www.101domain.com/",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "trytower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "sill.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "towerhq.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "sill.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "usesill.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "trysill.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "towerapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "getsill.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "sill.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "sillapp.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:52Z"
+    },
+    "sillhq.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "sill.realty": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:52Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withhometrack.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onhometrack.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "hometrack.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "withlotplan.com": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z"
+    },
+    "onlotplan.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z"
+    },
+    "onhometrack.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z"
+    },
+    "withhometrack.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z"
+    },
+    "withlotplan.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z"
+    },
+    "withhomelot.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "lotplan.app": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onlotplan.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withhomelot.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onhomelot.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onhomelot.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T21:59:59Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "homelot.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:00Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withplat.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:04Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withtract.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:04Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "onplat.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:04Z"
+    },
+    "withplat.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:04Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withkeep.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:04Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onplat.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:04Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onplat.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:05Z"
+    },
+    "ontract.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:05Z"
+    },
+    "ontract.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:05Z"
+    },
+    "withkeep.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:05Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withtract.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:05Z"
+    },
+    "onperch.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:05Z"
+    },
+    "withperch.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:05Z"
+    },
+    "onkeep.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:05Z"
+    },
+    "onperch.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:05Z"
+    },
+    "withperch.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:05Z",
+      "registrar": "Name.com, Inc.",
+      "org": "Domain Protection Services, Inc."
+    },
+    "onkeep.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:14Z"
+    },
+    "onbeam.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:19Z"
+    },
+    "withbeam.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:19Z",
+      "registrar": "NAMECHEAP INC",
+      "org": "Privacy service provided by Withheld for Privacy ehf"
+    },
+    "onplot.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:19Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "withplot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:19Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onplot.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:19Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "withplot.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:19Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onbeam.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:19Z",
+      "registrar": "NAMECHEAP INC",
+      "org": "Privacy service provided by Withheld for Privacy ehf"
+    },
+    "withfold.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:19Z"
+    },
+    "onfold.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:19Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withfold.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:19Z"
+    },
+    "onfold.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:19Z"
+    },
+    "withbeam.co": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:19Z",
+      "registrar": "Key-Systems GmbH",
+      "org": "c/o whoisproxy.com"
+    },
+    "withgrid.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z"
+    },
+    "onarc.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z",
+      "registrar": "123-Reg Limited",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "withridge.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:24Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "ongrid.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z",
+      "registrar": "Spaceship, Inc.",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "witharc.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z",
+      "registrar": "Squarespace Domains LLC",
+      "org": "Buba SK s. r. o."
+    },
+    "withgrid.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z",
+      "registrar": "Porkbun",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onridge.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:24Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withridge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z"
+    },
+    "witharc.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onarc.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z",
+      "registrar": "GoDaddy.com, LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onridge.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:24Z"
+    },
+    "ongrid.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:26Z",
+      "registrar": "Network Solutions, LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withsill.com": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "withdrift.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "onloom.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "onloom.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "withdrift.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "withloom.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:32Z",
+      "registrar": "TUCOWS.COM, CO.",
+      "org": "Contact Privacy Inc. Customer 0164473880"
+    },
+    "ondrift.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:32Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "ondrift.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "withloom.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "withsill.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "onsill.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:32Z"
+    },
+    "onsill.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:33Z",
+      "registrar": "Dominet (HK) Limited",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onharbor.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:38Z",
+      "registrar": "DYNADOT LLC",
+      "org": "Super Privacy Service LTD c/o Dynadot"
+    },
+    "withharbor.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "withnook.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "withharbor.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "onharbor.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "onnook.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "withnook.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:38Z",
+      "registrar": "Squarespace Domains II LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withtower.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "ontower.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:38Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withchord.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:38Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onchord.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:38Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onnook.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "withchord.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:38Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withtower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "onchord.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:38Z"
+    },
+    "ontower.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:40Z",
+      "registrar": "Ascio Technologies, Inc",
+      "org": "Not Disclosed",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withvault.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:45Z"
+    },
+    "withcore.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:45Z"
+    },
+    "onvault.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:45Z"
+    },
+    "withtier.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:45Z"
+    },
+    "withvault.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:45Z",
+      "registrar": "Porkbun",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onvault.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:45Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "oncore.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:46Z"
+    },
+    "withcore.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:46Z",
+      "registrar": "Porkbun LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "ontier.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:46Z",
+      "registrar": "Megazone Corp., dba HOSTING.KR",
+      "org": "Boosting Inc"
+    },
+    "withframe.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:46Z",
+      "registrar": "Porkbun",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onframe.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:46Z",
+      "registrar": "Spaceship, Inc.",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "withtier.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:46Z",
+      "registrar": "DIAMATRIX C.C.",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "ontier.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:46Z",
+      "note": "WHOIS says unregistered but DNS resolves \u2014 verify manually"
+    },
+    "withframe.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:00:46Z",
+      "registrar": "NAMECHEAP INC",
+      "org": "Privacy service provided by Withheld for Privacy ehf"
+    },
+    "onframe.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:46Z",
+      "registrar": "TurnCommerce, Inc. DBA NameBright.com",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "oncore.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:48Z",
+      "registrar": "Epik LLC",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onlot.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:54Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withweave.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withlot.com": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "lotbase.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "gridplan.co": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "withweave.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "withlot.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "onweave.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "lotbase.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "homehelm.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "lothelm.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "lothelm.com": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:00:54Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "gridplan.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "onweave.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:54Z"
+    },
+    "homehelm.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:00:59Z",
+      "registrar": "Network Solutions, LLC",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withsill.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:05Z",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withperch.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z"
+    },
+    "withloom.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z"
+    },
+    "withnook.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z"
+    },
+    "onnook.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z"
+    },
+    "onharbor.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withtier.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onsill.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z"
+    },
+    "withfold.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onperch.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z"
+    },
+    "onfold.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withharbor.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:05Z",
+      "registrar": "IONOS SE",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "onvault.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:05Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "homeweave.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:11Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "homeloom.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:11Z"
+    },
+    "homefold.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:11Z"
+    },
+    "homeloom.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:11Z"
+    },
+    "homenook.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:11Z"
+    },
+    "lotnook.co": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:11Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "homeweave.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:11Z"
+    },
+    "lotnook.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:11Z"
+    },
+    "homefold.co": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:01:12Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "homefold.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:01:12Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "homenook.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:01:12Z",
+      "registrar": "GoDaddy.com, LLC",
+      "org": "Domains By Proxy, LLC"
+    },
+    "lotfold.com": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:12Z"
+    },
+    "lotfold.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:12Z"
+    },
+    "platline.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:12Z"
+    },
+    "tractline.co": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:12Z"
+    },
+    "tractline.com": {
+      "status": "TAKEN",
+      "checked_at": "2026-04-09T22:01:12Z",
+      "registrar": "DYNADOT LLC",
+      "org": "Super Privacy Service LTD c/o Dynadot"
+    },
+    "platline.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:13Z",
+      "registrar": "Alibaba Cloud Computing (Beijing) Co., Ltd.",
+      "note": "registered, resolves, but no org \u2014 could be parked"
+    },
+    "lotbase.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:18Z",
+      "registrar": "Cloudflare, Inc",
+      "org": "MST Australia Holdings Pty Ltd",
+      "note": "registered but not resolving \u2014 could be parked/expired"
+    },
+    "withlot.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:18Z"
+    },
+    "lotfold.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:18Z"
+    },
+    "homeloom.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:18Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "withweave.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:18Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "platline.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:18Z"
+    },
+    "tractline.io": {
+      "status": "AVAILABLE",
+      "checked_at": "2026-04-09T22:01:18Z"
+    },
+    "onbeam.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:18Z"
+    },
+    "withtier.app": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:18Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onweave.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:18Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    },
+    "onhelm.io": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:18Z"
+    },
+    "onvault.app": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:18Z"
+    },
+    "onhelm.com": {
+      "status": "LIKELY_TAKEN",
+      "checked_at": "2026-04-09T22:01:18Z"
+    },
+    "homenook.io": {
+      "status": "POSSIBLY_AVAILABLE",
+      "checked_at": "2026-04-09T22:01:28Z",
+      "note": "WHOIS lookup failed \u2014 verify manually"
+    }
+  }
+}

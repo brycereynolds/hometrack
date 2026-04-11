@@ -68,22 +68,18 @@ Added Drizzle ORM with full PostgreSQL schema matching the frontend data model.
 
 ---
 
-## In Progress
+### Data Access Layer (Complete)
 
-### Data Access Layer (In Progress)
-
-An agent is currently building:
-- **Seed script** (`src/lib/server/db/seed.ts`) — Maps all mock data into database inserts
-- **Query layer** (`src/lib/server/db/queries/`) — Typed query functions for listings, contacts, tasks, dashboard, team
-- **Server load functions** — `+page.server.ts` and `+layout.server.ts` files for key routes (dashboard, listings, contacts)
+- **Seed script** (`src/lib/server/db/seed.ts`) — Maps all mock data into database inserts with proper FK references and ID mapping. Run with `npm run db:seed`.
+- **Query layer** (`src/lib/server/db/queries/`) — Typed query functions: team, listings (with agent/client relations), contacts (with type filtering), tasks (with overdue detection), dashboard (aggregated pipeline value, activity, insights)
+- **Server load functions** — `+layout.server.ts` for team context, `+page.server.ts` for dashboard, listings, contacts, listing detail. All gracefully fall back to null/empty when no DB connected.
 
 ---
 
 ## What's Left
 
 ### Immediate Next Steps
-1. **Finish data access layer** — Seed script, queries, server load functions (in progress)
-2. **Connect to Railway PostgreSQL** — User will provide DATABASE_URL credentials
+1. **Connect to Railway PostgreSQL** — User will provide DATABASE_URL credentials
 3. **Run migrations** — `npm run db:push` or `npm run db:migrate` against Railway
 4. **Seed the database** — `npm run db:seed` to populate with mock data
 5. **Wire up frontend** — Update components to use `data` from server load functions instead of direct mock imports

@@ -24,6 +24,11 @@ const {
   marketingAssets,
   integrations,
   workflowTemplates,
+  analyticsEvents,
+  analyticsShowings,
+  pipelineMetrics,
+  teamPerformance,
+  files,
 } = schema;
 
 async function main() {
@@ -46,6 +51,7 @@ async function main() {
   // Truncate all tables for a clean re-seed (cascade handles FK dependencies)
   console.log('  Clearing existing data...');
   await db.execute(sql`TRUNCATE TABLE
+    files, team_performance, pipeline_metrics, analytics_showings, analytics_events,
     quote_line_items, quotes, financial_categories, financial_budgets,
     marketing_assets, documents, comp_sales, offers, showings,
     ai_insights, activity_items, tasks, listings, contacts,
@@ -478,6 +484,40 @@ async function main() {
     });
   }
 
+  // ─── 12b. Files (S3-backed) ─────────────────────────────────────────
+  console.log('  Inserting files...');
+  const fileData = [
+    { filename: 'tds-signed.pdf', originalFilename: 'Transfer Disclosure Statement (TDS).pdf', mimeType: 'application/pdf', sizeBytes: 250880, category: 'disclosure', listingMock: 'l-1', uploadedByMock: 'tm-3', accessLevel: 'team' },
+    { filename: 'spq-signed.pdf', originalFilename: 'Seller Property Questionnaire (SPQ).pdf', mimeType: 'application/pdf', sizeBytes: 184320, category: 'disclosure', listingMock: 'l-1', uploadedByMock: 'tm-3', accessLevel: 'team' },
+    { filename: 'nhd-report.pdf', originalFilename: 'Natural Hazard Disclosure (NHD).pdf', mimeType: 'application/pdf', sizeBytes: 1258291, category: 'disclosure', listingMock: 'l-1', uploadedByMock: 'tm-3', accessLevel: 'team' },
+    { filename: 'home-inspection.pdf', originalFilename: 'Home Inspection Report.pdf', mimeType: 'application/pdf', sizeBytes: 3984588, category: 'inspection', listingMock: 'l-1', uploadedByMock: 'tm-3', accessLevel: 'team' },
+    { filename: 'listing-agreement-v2.pdf', originalFilename: 'Listing Agreement.pdf', mimeType: 'application/pdf', sizeBytes: 327680, category: 'contract', listingMock: 'l-1', uploadedByMock: 'tm-1', accessLevel: 'listing_members' },
+    { filename: 'mls-photos.zip', originalFilename: 'MLS Photo Package.zip', mimeType: 'application/zip', sizeBytes: 50331648, category: 'photo', listingMock: 'l-1', uploadedByMock: 'tm-4', accessLevel: 'team' },
+    { filename: 'property-brochure-v3.pdf', originalFilename: 'Property Brochure.pdf', mimeType: 'application/pdf', sizeBytes: 5452595, category: 'marketing', listingMock: 'l-1', uploadedByMock: 'tm-4', accessLevel: 'public' },
+    { filename: 'purchase-agreement-chen-williams.pdf', originalFilename: 'Purchase Agreement - Chen-Williams.pdf', mimeType: 'application/pdf', sizeBytes: 430080, category: 'contract', listingMock: 'l-1', uploadedByMock: 'tm-3', accessLevel: 'listing_members' },
+    { filename: 'prelim-title-report.pdf', originalFilename: 'Preliminary Title Report.pdf', mimeType: 'application/pdf', sizeBytes: 2202009, category: 'disclosure', listingMock: 'l-2', uploadedByMock: 'tm-3', accessLevel: 'team' },
+    { filename: 'hoa-docs.pdf', originalFilename: 'HOA Documents Package.pdf', mimeType: 'application/pdf', sizeBytes: 8912896, category: 'disclosure', listingMock: 'l-8', uploadedByMock: 'tm-2', accessLevel: 'team' },
+    { filename: 'renovation-scope-v2.pdf', originalFilename: 'Renovation Scope of Work.pdf', mimeType: 'application/pdf', sizeBytes: 1468006, category: 'general', listingMock: 'l-8', uploadedByMock: 'tm-5', accessLevel: 'team' },
+  ];
+
+  for (const f of fileData) {
+    const lid = listingMap[f.listingMock];
+    const s3Key = `${teamId}/${lid}/${f.filename}`;
+    await db.insert(files).values({
+      id: randomUUID(),
+      teamId,
+      listingId: lid,
+      uploadedById: tmMap[f.uploadedByMock],
+      filename: f.filename,
+      originalFilename: f.originalFilename,
+      mimeType: f.mimeType,
+      sizeBytes: f.sizeBytes,
+      s3Key,
+      category: f.category,
+      accessLevel: f.accessLevel,
+    });
+  }
+
   // ─── 13. Comp Sales ───────────────────────────────────────────────────
   console.log('  Inserting comp sales...');
   const compData = [
@@ -606,16 +646,23 @@ async function main() {
   // ─── 17. Workflow Templates ───────────────────────────────────────────
   console.log('  Inserting workflow templates...');
   const workflowData = [
-    { name: 'Standard Onboarding', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, taskCount: 8, description: 'Client intake, listing agreement, initial docs', isDefault: true },
-    { name: 'Pre-Market Improvements', phase: 'pre_market' as const, taskCategory: 'improvements' as const, taskCount: 6, description: 'Vendor quotes, improvement planning, permits', isDefault: true },
-    { name: 'Staging & Preparation', phase: 'pre_market' as const, taskCategory: 'staging' as const, taskCount: 5, description: 'Staging coordination, vendor scheduling', isDefault: true },
-    { name: 'Media Production', phase: 'pre_market' as const, taskCategory: 'media' as const, taskCount: 7, description: 'Photography, video, copy, materials', isDefault: true },
-    { name: 'Marketing Launch', phase: 'active' as const, taskCategory: 'marketing' as const, taskCount: 8, description: 'MLS, social, open houses, advertising', isDefault: true },
-    { name: 'Showings Management', phase: 'active' as const, taskCategory: 'showings' as const, taskCount: 4, description: 'Showing coordination, feedback, follow-up', isDefault: true },
-    { name: 'Offer Review', phase: 'active' as const, taskCategory: 'offers' as const, taskCount: 5, description: 'Offer intake, comparison, negotiation', isDefault: true },
-    { name: 'Escrow Management', phase: 'active' as const, taskCategory: 'escrow' as const, taskCount: 10, description: 'Inspections, appraisal, contingencies, closing prep', isDefault: true },
-    { name: 'Closing Process', phase: 'closed' as const, taskCategory: 'escrow' as const, taskCount: 6, description: 'Final walkthrough, signing, key handoff', isDefault: true },
-    { name: 'Luxury Marketing', phase: 'active' as const, taskCategory: 'marketing' as const, taskCount: 12, description: 'Extended marketing for $2M+ properties', isDefault: false },
+    // STAGE 1: PRE_MARKET
+    { name: 'Client Onboarding', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, taskCount: 5, description: 'Client intake, listing agreement, communication setup, onboarding packet', isDefault: true },
+    { name: 'Pre-Listing Logistics', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, taskCount: 4, description: 'Seller inspection, title/escrow selection, disclosure package', isDefault: true },
+    { name: 'Improvements & Repairs', phase: 'pre_market' as const, taskCategory: 'improvements' as const, taskCount: 7, description: 'Inspection analysis, contractor quotes, repairs, before/after documentation', isDefault: true },
+    { name: 'Staging & Preparation', phase: 'pre_market' as const, taskCategory: 'staging' as const, taskCount: 6, description: 'Staging consultation, furniture rental, installation, deep cleaning', isDefault: true },
+    { name: 'Media Production', phase: 'pre_market' as const, taskCategory: 'media' as const, taskCount: 8, description: 'Photography, drone, twilight, Matterport, brochure, video tour', isDefault: true },
+    { name: 'Pricing & Market Strategy', phase: 'pre_market' as const, taskCategory: 'pricing' as const, taskCount: 5, description: 'Comps analysis, market positioning, pricing recommendation, client sign-off', isDefault: true },
+    // STAGE 2: ACTIVE
+    { name: 'Launch & Marketing', phase: 'active' as const, taskCategory: 'marketing' as const, taskCount: 9, description: 'MLS syndication, social media, paid ads, open houses, weekly reports', isDefault: true },
+    { name: 'Showings & Feedback', phase: 'active' as const, taskCategory: 'showings' as const, taskCount: 6, description: 'Showing coordination, open houses, feedback collection, trend analysis', isDefault: true },
+    { name: 'Offer Review & Negotiation', phase: 'active' as const, taskCategory: 'offers' as const, taskCount: 8, description: 'Offer intake, comparison, counter-offer strategy, acceptance', isDefault: true },
+    { name: 'Contingency Management', phase: 'active' as const, taskCategory: 'escrow' as const, taskCount: 7, description: 'Inspection, appraisal, loan, title contingencies, repair credits', isDefault: true },
+    // STAGE 3: CLOSED
+    { name: 'Closing Process', phase: 'closed' as const, taskCategory: 'escrow' as const, taskCount: 8, description: 'Purchase agreement review, final walkthrough, signing, key handoff', isDefault: true },
+    { name: 'Post-Close Coordination', phase: 'closed' as const, taskCategory: 'general' as const, taskCount: 4, description: 'Commission processing, client debrief, review requests, referrals', isDefault: true },
+    // STAGE 4: CANCELED
+    { name: 'Listing Cancellation', phase: 'canceled' as const, taskCategory: 'general' as const, taskCount: 3, description: 'Document cancellation, MLS removal, client relationship retention', isDefault: true },
   ];
 
   for (const w of workflowData) {
@@ -628,6 +675,120 @@ async function main() {
       taskCount: w.taskCount,
       description: w.description,
       isDefault: w.isDefault,
+    });
+  }
+
+  // ─── Analytics Events (views by platform over last 30 days) ──────────
+  console.log('  Inserting analytics events...');
+  const activeListingMocks = ['l-1', 'l-2', 'l-6', 'l-7'];
+  const platforms = ['zillow', 'redfin', 'realtor', 'website', 'social'] as const;
+  const platformWeights = { zillow: 1.0, redfin: 0.65, realtor: 0.45, website: 0.2, social: 0.15 };
+
+  for (const mockId of activeListingMocks) {
+    const lid = listingMap[mockId];
+    if (!lid) continue;
+    // Generate 30 days of view data with a realistic bell-curve pattern
+    for (let dayOffset = 29; dayOffset >= 0; dayOffset--) {
+      const d = new Date();
+      d.setDate(d.getDate() - dayOffset);
+      const dateStr = d.toISOString().slice(0, 10);
+      // Peak around day 7-14, taper off
+      const daysLive = 30 - dayOffset;
+      const baseViews = Math.round(25 + 80 * Math.exp(-0.5 * Math.pow((daysLive - 10) / 5, 2)));
+
+      for (const platform of platforms) {
+        const weight = platformWeights[platform];
+        const count = Math.max(1, Math.round(baseViews * weight * (0.8 + Math.random() * 0.4)));
+        await db.insert(analyticsEvents).values({
+          listingId: lid,
+          platform,
+          eventType: 'view',
+          count,
+          date: dateStr,
+        });
+      }
+      // Also add save events (much lower counts)
+      const saveCount = Math.max(0, Math.round(baseViews * 0.04 * (0.5 + Math.random())));
+      if (saveCount > 0) {
+        await db.insert(analyticsEvents).values({
+          listingId: lid,
+          platform: 'zillow',
+          eventType: 'save',
+          count: saveCount,
+          date: dateStr,
+        });
+      }
+    }
+  }
+
+  // ─── Analytics Showings (weekly showing volume) ──────────────────────
+  console.log('  Inserting analytics showings...');
+  for (const mockId of activeListingMocks) {
+    const lid = listingMap[mockId];
+    if (!lid) continue;
+    // Generate 8 weeks of showing data
+    for (let weekOffset = 7; weekOffset >= 0; weekOffset--) {
+      const d = new Date();
+      d.setDate(d.getDate() - weekOffset * 7);
+      const dateStr = d.toISOString().slice(0, 10);
+      // Showings ramp up then settle
+      const peak = weekOffset <= 4 ? 4 - Math.abs(weekOffset - 2) : 1;
+      const showingCount = Math.max(0, peak + Math.round(Math.random() * 3));
+      const openHouse = weekOffset % 2 === 0 ? Math.round(8 + Math.random() * 12) : 0;
+
+      await db.insert(analyticsShowings).values({
+        listingId: lid,
+        date: dateStr,
+        showingCount,
+        openHouseAttendees: openHouse,
+        feedbackScore: parseFloat((3.5 + Math.random() * 1.5).toFixed(1)),
+      });
+    }
+  }
+
+  // ─── Pipeline Metrics (monthly snapshots) ───────────────────────────
+  console.log('  Inserting pipeline metrics...');
+  const pipelineData = [
+    { month: '2026-01-01', totalValue: 8500000, active: 3, preMarket: 2, closedValue: 2100000, closedDeals: 2 },
+    { month: '2026-02-01', totalValue: 12200000, active: 4, preMarket: 3, closedValue: 3400000, closedDeals: 1 },
+    { month: '2026-03-01', totalValue: 16800000, active: 5, preMarket: 4, closedValue: 8975000, closedDeals: 3 },
+    { month: '2026-04-01', totalValue: 18405000, active: 4, preMarket: 4, closedValue: 0, closedDeals: 0 },
+  ];
+  for (const p of pipelineData) {
+    await db.insert(pipelineMetrics).values({
+      teamId,
+      date: p.month,
+      totalValue: p.totalValue,
+      activeListings: p.active,
+      preMarketListings: p.preMarket,
+      closedValue: p.closedValue,
+      closedDeals: p.closedDeals,
+    });
+  }
+
+  // ─── Team Performance (monthly metrics per member) ──────────────────
+  console.log('  Inserting team performance...');
+  const perfData = [
+    { mockId: 'tm-1', activeTasks: 4, completedThisMonth: 12, avgDays: 2.1, activeListings: 3, closedDeals: 2, totalVolume: 6370000 },
+    { mockId: 'tm-2', activeTasks: 3, completedThisMonth: 8, avgDays: 1.8, activeListings: 2, closedDeals: 1, totalVolume: 2875000 },
+    { mockId: 'tm-3', activeTasks: 2, completedThisMonth: 15, avgDays: 1.5, activeListings: 0, closedDeals: 0, totalVolume: 0 },
+    { mockId: 'tm-4', activeTasks: 3, completedThisMonth: 10, avgDays: 2.4, activeListings: 0, closedDeals: 0, totalVolume: 0 },
+    { mockId: 'tm-5', activeTasks: 2, completedThisMonth: 7, avgDays: 3.2, activeListings: 0, closedDeals: 0, totalVolume: 0 },
+  ];
+  for (const p of perfData) {
+    const memberId = tmMap[p.mockId];
+    if (!memberId) continue;
+    await db.insert(teamPerformance).values({
+      teamMemberId: memberId,
+      period: 'monthly',
+      periodStart: '2026-04-01',
+      activeListings: p.activeListings,
+      closedDeals: p.closedDeals,
+      totalVolume: p.totalVolume,
+      avgDaysOnMarket: p.closedDeals > 0 ? Math.round(14 + Math.random() * 10) : null,
+      clientSatisfaction: parseFloat((4.2 + Math.random() * 0.8).toFixed(1)),
+      tasksCompleted: p.completedThisMonth,
+      avgCompletionDays: p.avgDays,
     });
   }
 

@@ -14,3 +14,5 @@ export * from './comp-sale.js';
 export * from './marketing.js';
 export * from './integration.js';
 export * from './workflow.js';
+export * from './analytics.js';
+export * from './file.js';

@@ -204,18 +204,168 @@ async function main() {
   // ─── 5. Tasks ─────────────────────────────────────────────────────────
   console.log('  Inserting tasks...');
   const taskData = [
-    { mockId: 't-1', title: 'Review and approve listing photography', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-10', isOverdue: false },
-    { mockId: 't-2', title: 'Submit TDS to title company', status: 'overdue' as const, priority: 'urgent' as const, assigneeMock: 'tm-3', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-05', isOverdue: true },
-    { mockId: 't-3', title: 'Schedule professional photography', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-04-12', isOverdue: false },
-    { mockId: 't-4', title: 'Coordinate staging furniture delivery', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-5', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'staging' as const, dueDate: '2026-04-15', isOverdue: false, subtasks: [{ title: 'Confirm delivery window with Meridian', done: true }, { title: 'Arrange parking for delivery truck', done: false }, { title: 'Client walkthrough post-staging', done: false }] },
-    { mockId: 't-5', title: 'Draft MLS listing copy', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-04-14', isOverdue: false },
-    { mockId: 't-6', title: 'Collect contractor quotes for bathroom update', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-5', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-11', isOverdue: false },
-    { mockId: 't-7', title: 'Review and counter offer from Westfield Group', status: 'todo' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-10', isOverdue: false },
-    { mockId: 't-8', title: 'Order NHD report', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-3', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-08', isOverdue: false },
-    { mockId: 't-9', title: 'Send weekly showing feedback summary to client', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-10', isOverdue: false },
-    { mockId: 't-10', title: 'Schedule home inspection', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'escrow' as const, dueDate: '2026-04-12', isOverdue: false },
-    { mockId: 't-11', title: 'Prepare client onboarding packet', status: 'todo' as const, priority: 'low' as const, assigneeMock: 'tm-1', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-14', isOverdue: false },
-    { mockId: 't-12', title: 'Update social media ads for Open House', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-08', isOverdue: false },
+    // ── l-1: 123 Main Street (ACTIVE — pre-market done, active in progress) ──
+    // Client Onboarding (all done)
+    { mockId: 't-1', title: 'Complete client intake form', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-10', isOverdue: false },
+    { mockId: 't-2', title: 'Review & sign listing agreement', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-12', isOverdue: false },
+    { mockId: 't-3', title: 'Conduct expectations & timeline meeting', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-13', isOverdue: false },
+    { mockId: 't-4', title: 'Set up communication plan', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-14', isOverdue: false },
+    { mockId: 't-5', title: 'Prepare & deliver onboarding packet', status: 'done' as const, priority: 'low' as const, assigneeMock: 'tm-3', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-15', isOverdue: false },
+    // Pre-Listing Logistics (all done)
+    { mockId: 't-6', title: 'Order seller inspection (pre-listing)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-03-14', isOverdue: false },
+    { mockId: 't-7', title: 'Select title/escrow company', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-3', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-03-16', isOverdue: false },
+    { mockId: 't-8', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-03-18', isOverdue: false },
+    { mockId: 't-9', title: 'Set up escrow communication channel', status: 'done' as const, priority: 'low' as const, assigneeMock: 'tm-3', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-03-19', isOverdue: false },
+    // Media Production (all done)
+    { mockId: 't-10', title: 'Schedule professional photography shoot', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-03-28', isOverdue: false },
+    { mockId: 't-11', title: 'Coordinate aerial drone photography', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-03-29', isOverdue: false },
+    { mockId: 't-12', title: 'Book 3D Matterport virtual tour', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-03-30', isOverdue: false },
+    { mockId: 't-13', title: 'Select & order MLS photos', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-04-01', isOverdue: false },
+    { mockId: 't-14', title: 'Design property brochure & print materials', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-04-02', isOverdue: false },
+    // Launch & Marketing (in progress)
+    { mockId: 't-15', title: 'Create & syndicate MLS listing', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-04', isOverdue: false },
+    { mockId: 't-16', title: 'Publish website listing page', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-04', isOverdue: false },
+    { mockId: 't-17', title: 'Launch social media marketing campaign', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-05', isOverdue: false },
+    { mockId: 't-18', title: 'Optimize Zillow/Redfin/Realtor.com listings', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-10', isOverdue: false },
+    { mockId: 't-19', title: 'Send email announcement to agent network', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-05', isOverdue: false },
+    { mockId: 't-20', title: 'Schedule first open house', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-06', isOverdue: false },
+    { mockId: 't-21', title: 'Establish weekly market report cadence to client', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-12', isOverdue: false },
+    // Showings & Feedback (in progress)
+    { mockId: 't-22', title: 'Prepare showing instructions & lockbox setup', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-04', isOverdue: false },
+    { mockId: 't-23', title: 'Coordinate agent showing requests', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-15', isOverdue: false },
+    { mockId: 't-24', title: 'Send weekly showing report to client', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-11', isOverdue: false },
+    // Offer Review (starting)
+    { mockId: 't-25', title: 'Receive & document incoming offer', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-3', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-09', isOverdue: false },
+    { mockId: 't-26', title: 'Prepare offer comparison analysis', status: 'in_progress' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-1', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-10', isOverdue: false },
+
+    // ── l-2: 456 Oak Avenue (ACTIVE — longer on market, showings + marketing) ──
+    // Pre-market tasks (all done)
+    { mockId: 't-27', title: 'Complete client intake form', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-01', isOverdue: false },
+    { mockId: 't-28', title: 'Review & sign listing agreement', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-2', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-03', isOverdue: false },
+    { mockId: 't-29', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-2', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-03-06', isOverdue: false },
+    { mockId: 't-30', title: 'Schedule professional photography shoot', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-2', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-03-14', isOverdue: false },
+    { mockId: 't-31', title: 'Pull comparable sales & market data', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-03-10', isOverdue: false },
+    { mockId: 't-32', title: 'Obtain listing price approval & sign-off', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-03-18', isOverdue: false },
+    // Launch & Marketing (mostly done)
+    { mockId: 't-33', title: 'Create & syndicate MLS listing', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-03-22', isOverdue: false },
+    { mockId: 't-34', title: 'Launch social media marketing campaign', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-03-23', isOverdue: false },
+    { mockId: 't-35', title: 'Set up paid advertising (Google, Facebook/Meta)', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-03-25', isOverdue: false },
+    { mockId: 't-36', title: 'Distribute print marketing collateral', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-04-12', isOverdue: false },
+    // Showings & Feedback (active)
+    { mockId: 't-37', title: 'Prepare showing instructions & lockbox setup', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-03-22', isOverdue: false },
+    { mockId: 't-38', title: 'Host/staff open houses', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-13', isOverdue: false },
+    { mockId: 't-39', title: 'Collect showing feedback from agents', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-11', isOverdue: false },
+    { mockId: 't-40', title: 'Send weekly showing report to client', status: 'overdue' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-05', isOverdue: true },
+    { mockId: 't-41', title: 'Analyze showing trends & recommend adjustments', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-2', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-04-14', isOverdue: false },
+
+    // ── l-3: 789 Elm Street (PRE_MARKET — mid-way through prep) ──
+    // Client Onboarding (done)
+    { mockId: 't-42', title: 'Complete client intake form', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-02', isOverdue: false },
+    { mockId: 't-43', title: 'Review & sign listing agreement', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-03', isOverdue: false },
+    { mockId: 't-44', title: 'Conduct expectations & timeline meeting', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-2', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-04', isOverdue: false },
+    { mockId: 't-45', title: 'Set up communication plan', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-2', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-05', isOverdue: false },
+    { mockId: 't-46', title: 'Prepare & deliver onboarding packet', status: 'done' as const, priority: 'low' as const, assigneeMock: 'tm-3', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-06', isOverdue: false },
+    // Pre-Listing Logistics (in progress)
+    { mockId: 't-47', title: 'Order seller inspection (pre-listing)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-06', isOverdue: false },
+    { mockId: 't-48', title: 'Select title/escrow company', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-3', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-07', isOverdue: false },
+    { mockId: 't-49', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-11', isOverdue: false },
+    { mockId: 't-50', title: 'Set up escrow communication channel', status: 'todo' as const, priority: 'low' as const, assigneeMock: 'tm-3', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-13', isOverdue: false },
+    // Improvements & Repairs (in progress)
+    { mockId: 't-51', title: 'Analyze home inspection findings', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-08', isOverdue: false },
+    { mockId: 't-52', title: 'Identify recommended cosmetic improvements', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-5', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-09', isOverdue: false },
+    { mockId: 't-53', title: 'Collect contractor quotes (minimum 2 per trade)', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-5', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-12', isOverdue: false },
+    { mockId: 't-54', title: 'Review improvement costs vs. market impact with client', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-2', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-14', isOverdue: false },
+    // Media Production (upcoming)
+    { mockId: 't-55', title: 'Schedule professional photography shoot', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-04-14', isOverdue: false },
+    { mockId: 't-56', title: 'Coordinate aerial drone photography', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-04-15', isOverdue: false },
+    { mockId: 't-57', title: 'Design property brochure & print materials', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-4', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-04-16', isOverdue: false },
+    // Pricing & Market Strategy (starting)
+    { mockId: 't-58', title: 'Pull comparable sales & market data', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-04-12', isOverdue: false },
+    { mockId: 't-59', title: 'Develop pricing recommendation', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-3', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-04-15', isOverdue: false },
+
+    // ── l-4: 2200 Willow Glen Way (PRE_MARKET — staging phase) ──
+    // Client Onboarding (done)
+    { mockId: 't-60', title: 'Complete client intake form', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-28', isOverdue: false },
+    { mockId: 't-61', title: 'Review & sign listing agreement', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-03-30', isOverdue: false },
+    { mockId: 't-62', title: 'Prepare & deliver onboarding packet', status: 'done' as const, priority: 'low' as const, assigneeMock: 'tm-3', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-01', isOverdue: false },
+    // Pre-Listing Logistics (done)
+    { mockId: 't-63', title: 'Order seller inspection (pre-listing)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-01', isOverdue: false },
+    { mockId: 't-64', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-04', isOverdue: false },
+    // Staging & Preparation (in progress)
+    { mockId: 't-65', title: 'Schedule staging consultation', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-5', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'staging' as const, dueDate: '2026-04-03', isOverdue: false },
+    { mockId: 't-66', title: 'Coordinate furniture rental & delivery', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-5', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'staging' as const, dueDate: '2026-04-15', isOverdue: false, subtasks: [{ title: 'Confirm delivery window with Meridian', done: true }, { title: 'Arrange parking for delivery truck', done: false }, { title: 'Client walkthrough post-staging', done: false }] },
+    { mockId: 't-67', title: 'Oversee staging installation', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-5', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'staging' as const, dueDate: '2026-04-16', isOverdue: false },
+    { mockId: 't-68', title: 'Styling, decluttering & deep cleaning', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-5', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'staging' as const, dueDate: '2026-04-17', isOverdue: false },
+    { mockId: 't-69', title: 'Client walkthrough of staged home', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-2', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'staging' as const, dueDate: '2026-04-18', isOverdue: false },
+    // Pricing & Market Strategy (in progress)
+    { mockId: 't-70', title: 'Pull comparable sales & market data', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-04-05', isOverdue: false },
+    { mockId: 't-71', title: 'Prepare market positioning analysis', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-2', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-04-12', isOverdue: false },
+    { mockId: 't-72', title: 'Conduct price strategy discussion with client', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-4', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-04-18', isOverdue: false },
+
+    // ── l-5: 1580 University Avenue (PRE_MARKET — early onboarding) ──
+    { mockId: 't-73', title: 'Complete client intake form', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-08', isOverdue: false },
+    { mockId: 't-74', title: 'Review & sign listing agreement', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-09', isOverdue: false },
+    { mockId: 't-75', title: 'Conduct expectations & timeline meeting', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-12', isOverdue: false },
+    { mockId: 't-76', title: 'Set up communication plan', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-13', isOverdue: false },
+    { mockId: 't-77', title: 'Prepare & deliver onboarding packet', status: 'todo' as const, priority: 'low' as const, assigneeMock: 'tm-3', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-14', isOverdue: false },
+    { mockId: 't-78', title: 'Order seller inspection (pre-listing)', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-15', isOverdue: false },
+    { mockId: 't-79', title: 'Select title/escrow company', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-3', listingMock: 'l-5', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-17', isOverdue: false },
+
+    // ── l-6: 945 Cherry Blossom Lane (ACTIVE — under offer negotiation) ──
+    // Pre-market (all done)
+    { mockId: 't-80', title: 'Complete client intake form', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-02-20', isOverdue: false },
+    { mockId: 't-81', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-6', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-02-25', isOverdue: false },
+    { mockId: 't-82', title: 'Schedule professional photography shoot', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-6', phase: 'pre_market' as const, taskCategory: 'media' as const, dueDate: '2026-03-02', isOverdue: false },
+    { mockId: 't-83', title: 'Obtain listing price approval & sign-off', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-03-08', isOverdue: false },
+    // Launch & Marketing (done)
+    { mockId: 't-84', title: 'Create & syndicate MLS listing', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-03-12', isOverdue: false },
+    { mockId: 't-85', title: 'Launch social media marketing campaign', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-4', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-03-13', isOverdue: false },
+    // Showings (done)
+    { mockId: 't-86', title: 'Host/staff open houses', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-03-20', isOverdue: false },
+    { mockId: 't-87', title: 'Collect showing feedback from agents', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-03-25', isOverdue: false },
+    // Offer Review & Negotiation (active)
+    { mockId: 't-88', title: 'Receive & document incoming offer', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-3', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-07', isOverdue: false },
+    { mockId: 't-89', title: 'Prepare offer comparison analysis', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-08', isOverdue: false },
+    { mockId: 't-90', title: 'Schedule client offer review meeting', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-09', isOverdue: false },
+    { mockId: 't-91', title: 'Develop counter-offer strategy', status: 'in_progress' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-10', isOverdue: false },
+    { mockId: 't-92', title: 'Submit counter-offer', status: 'todo' as const, priority: 'urgent' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-11', isOverdue: false },
+    { mockId: 't-93', title: 'Follow up on negotiation responses', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-1', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-12', isOverdue: false },
+    { mockId: 't-94', title: 'Review buyer contingencies & terms', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-6', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-04-13', isOverdue: false },
+
+    // ── l-7: 310 Waverly Street (ACTIVE — under contract, in contingencies) ──
+    // Pre-market (all done)
+    { mockId: 't-95', title: 'Complete client intake form', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-7', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-02-10', isOverdue: false },
+    { mockId: 't-96', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-7', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-02-15', isOverdue: false },
+    { mockId: 't-97', title: 'Obtain listing price approval & sign-off', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-7', phase: 'pre_market' as const, taskCategory: 'pricing' as const, dueDate: '2026-02-28', isOverdue: false },
+    // Active — marketing + showings (done)
+    { mockId: 't-98', title: 'Create & syndicate MLS listing', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-2', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'marketing' as const, dueDate: '2026-03-05', isOverdue: false },
+    { mockId: 't-99', title: 'Host/staff open houses', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'showings' as const, dueDate: '2026-03-10', isOverdue: false },
+    // Offer accepted
+    { mockId: 't-100', title: 'Execute offer acceptance & purchase agreement', status: 'done' as const, priority: 'urgent' as const, assigneeMock: 'tm-2', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'offers' as const, dueDate: '2026-03-30', isOverdue: false },
+    // Contingency Management (in progress)
+    { mockId: 't-101', title: 'Coordinate buyer inspection contingency', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'escrow' as const, dueDate: '2026-04-12', isOverdue: false },
+    { mockId: 't-102', title: 'Monitor appraisal contingency timeline', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'escrow' as const, dueDate: '2026-04-15', isOverdue: false },
+    { mockId: 't-103', title: 'Track loan contingency & pre-approval status', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'escrow' as const, dueDate: '2026-04-18', isOverdue: false },
+    { mockId: 't-104', title: 'Review title report contingency', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-3', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'escrow' as const, dueDate: '2026-04-16', isOverdue: false },
+    { mockId: 't-105', title: 'Negotiate repair credits or remediation', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-2', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'escrow' as const, dueDate: '2026-04-18', isOverdue: false },
+    { mockId: 't-106', title: 'Confirm all contingency removals in writing', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-7', phase: 'active' as const, taskCategory: 'escrow' as const, dueDate: '2026-04-22', isOverdue: false },
+
+    // ── l-8: 88 Sunnyvale Avenue (PRE_MARKET — early improvements phase) ──
+    // Client Onboarding (done)
+    { mockId: 't-107', title: 'Complete client intake form', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-01', isOverdue: false },
+    { mockId: 't-108', title: 'Review & sign listing agreement', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-02', isOverdue: false },
+    { mockId: 't-109', title: 'Conduct expectations & timeline meeting', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-2', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-03', isOverdue: false },
+    { mockId: 't-110', title: 'Prepare & deliver onboarding packet', status: 'done' as const, priority: 'low' as const, assigneeMock: 'tm-3', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'onboarding' as const, dueDate: '2026-04-04', isOverdue: false },
+    // Pre-Listing Logistics (in progress)
+    { mockId: 't-111', title: 'Order seller inspection (pre-listing)', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-04', isOverdue: false },
+    { mockId: 't-112', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'in_progress' as const, priority: 'high' as const, assigneeMock: 'tm-3', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'disclosures' as const, dueDate: '2026-04-12', isOverdue: false },
+    // Improvements & Repairs (in progress)
+    { mockId: 't-113', title: 'Analyze home inspection findings', status: 'done' as const, priority: 'high' as const, assigneeMock: 'tm-2', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-06', isOverdue: false },
+    { mockId: 't-114', title: 'Identify recommended cosmetic improvements', status: 'done' as const, priority: 'medium' as const, assigneeMock: 'tm-5', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-07', isOverdue: false },
+    { mockId: 't-115', title: 'Collect contractor quotes (minimum 2 per trade)', status: 'in_progress' as const, priority: 'medium' as const, assigneeMock: 'tm-5', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-11', isOverdue: false },
+    { mockId: 't-116', title: 'Review improvement costs vs. market impact with client', status: 'todo' as const, priority: 'medium' as const, assigneeMock: 'tm-2', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-15', isOverdue: false },
+    { mockId: 't-117', title: 'Schedule & oversee repairs/improvements', status: 'todo' as const, priority: 'high' as const, assigneeMock: 'tm-5', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-22', isOverdue: false },
+    { mockId: 't-118', title: 'Document before/after photos', status: 'todo' as const, priority: 'low' as const, assigneeMock: 'tm-4', listingMock: 'l-8', phase: 'pre_market' as const, taskCategory: 'improvements' as const, dueDate: '2026-04-25', isOverdue: false },
   ];
 
   for (const t of taskData) {
@@ -502,7 +652,7 @@ async function main() {
 
   for (const f of fileData) {
     const lid = listingMap[f.listingMock];
-    const s3Key = `${teamId}/${lid}/${f.filename}`;
+    const storagePath = `${teamId}/${lid}/${f.filename}`;
     await db.insert(files).values({
       id: randomUUID(),
       teamId,
@@ -512,7 +662,7 @@ async function main() {
       originalFilename: f.originalFilename,
       mimeType: f.mimeType,
       sizeBytes: f.sizeBytes,
-      s3Key,
+      storagePath,
       category: f.category,
       accessLevel: f.accessLevel,
     });

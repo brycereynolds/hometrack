@@ -1,5 +1,5 @@
 {
-  "id": "dd1bee90-c171-4f68-a507-55fe710d948f",
+  "id": "c31ce01c-7714-4ecd-a7c3-63680fd068f3",
   "prevId": "9523f25a-50ec-4574-a141-9cd5812cca64",
   "version": "7",
   "dialect": "postgresql",
@@ -3777,8 +3777,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "s3_key": {
-          "name": "s3_key",
+        "storage_path": {
+          "name": "storage_path",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -3956,11 +3956,11 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "files_s3_key_unique": {
-          "name": "files_s3_key_unique",
+        "files_storage_path_unique": {
+          "name": "files_storage_path_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "s3_key"
+            "storage_path"
           ]
         }
       },

@@ -1,74 +1,67 @@
-import {
-	S3Client,
-	PutObjectCommand,
-	DeleteObjectCommand,
-	ListObjectsV2Command,
-	GetObjectCommand,
-} from '@aws-sdk/client-s3';
-import { getSignedUrl as awsGetSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { supabaseAdmin } from './supabase.js';
 
-const endpoint = process.env.S3_ENDPOINT!;
-const bucket = process.env.S3_BUCKET!;
-const region = process.env.S3_REGION ?? 'auto';
-
-const s3 = new S3Client({
-	endpoint,
-	region,
-	credentials: {
-		accessKeyId: process.env.S3_ACCESS_KEY_ID!,
-		secretAccessKey: process.env.S3_SECRET_ACCESS_KEY!,
-	},
-	forcePathStyle: false, // virtual-hosted-style
-});
+const BUCKET = 'documents';
 
 /**
- * Build an S3 key following the multi-tenant convention:
+ * Build a storage path following the multi-tenant convention:
  *   {teamId}/{listingId}/{filename}
  * or {teamId}/general/{filename} when no listing is associated.
  */
-export function buildKey(teamId: string, filename: string, listingId?: string): string {
+export function buildStoragePath(teamId: string, filename: string, listingId?: string): string {
 	const segment = listingId ?? 'general';
 	return `${teamId}/${segment}/${filename}`;
 }
 
-/** Upload a file buffer to S3. */
+/** Upload a file buffer to Supabase Storage. */
 export async function uploadFile(
-	key: string,
+	path: string,
 	buffer: Buffer | Uint8Array,
 	contentType: string,
-): Promise<void> {
-	await s3.send(
-		new PutObjectCommand({
-			Bucket: bucket,
-			Key: key,
-			Body: buffer,
-			ContentType: contentType,
-		}),
-	);
+): Promise<{ path: string }> {
+	const { data, error } = await supabaseAdmin.storage
+		.from(BUCKET)
+		.upload(path, buffer, {
+			contentType,
+			upsert: false,
+		});
+
+	if (error) throw new Error(`Storage upload failed: ${error.message}`);
+	return { path: data.path };
 }
 
-/** Generate a presigned download URL. */
-export async function getSignedUrl(key: string, expiresIn = 3600): Promise<string> {
-	return awsGetSignedUrl(
-		s3,
-		new GetObjectCommand({ Bucket: bucket, Key: key }),
-		{ expiresIn },
-	);
+/** Generate a signed download URL (default 1 hour). */
+export async function getSignedUrl(path: string, expiresIn = 3600): Promise<string> {
+	const { data, error } = await supabaseAdmin.storage
+		.from(BUCKET)
+		.createSignedUrl(path, expiresIn);
+
+	if (error) throw new Error(`Signed URL failed: ${error.message}`);
+	return data.signedUrl;
 }
 
-/** Delete a single object from S3. */
-export async function deleteFile(key: string): Promise<void> {
-	await s3.send(new DeleteObjectCommand({ Bucket: bucket, Key: key }));
+/** Delete a single file from Supabase Storage. */
+export async function deleteFile(path: string): Promise<void> {
+	const { error } = await supabaseAdmin.storage
+		.from(BUCKET)
+		.remove([path]);
+
+	if (error) throw new Error(`Storage delete failed: ${error.message}`);
 }
 
-/** List objects under a prefix (e.g. a team or listing folder). */
-export async function listFiles(prefix: string): Promise<{ key: string; size: number; lastModified: Date | undefined }[]> {
-	const result = await s3.send(
-		new ListObjectsV2Command({ Bucket: bucket, Prefix: prefix }),
-	);
-	return (result.Contents ?? []).map((obj) => ({
-		key: obj.Key!,
-		size: obj.Size ?? 0,
-		lastModified: obj.LastModified,
+/** List files under a path prefix (e.g. a team or listing folder). */
+export async function listFiles(prefix: string): Promise<{ name: string; size: number; createdAt: string }[]> {
+	// Supabase Storage list requires the folder path and optional search
+	const parts = prefix.split('/');
+	const folder = parts.join('/');
+
+	const { data, error } = await supabaseAdmin.storage
+		.from(BUCKET)
+		.list(folder);
+
+	if (error) throw new Error(`Storage list failed: ${error.message}`);
+	return (data ?? []).map((file) => ({
+		name: `${folder}/${file.name}`,
+		size: file.metadata?.size ?? 0,
+		createdAt: file.created_at,
 	}));
 }

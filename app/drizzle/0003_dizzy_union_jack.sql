@@ -8,13 +8,13 @@ CREATE TABLE "files" (
 	"original_filename" text NOT NULL,
 	"mime_type" text NOT NULL,
 	"size_bytes" integer NOT NULL,
-	"s3_key" text NOT NULL,
+	"storage_path" text NOT NULL,
 	"category" text,
 	"description" text,
 	"access_level" text DEFAULT 'team' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
-	CONSTRAINT "files_s3_key_unique" UNIQUE("s3_key")
+	CONSTRAINT "files_storage_path_unique" UNIQUE("storage_path")
 );
 --> statement-breakpoint
 ALTER TABLE "files" ADD CONSTRAINT "files_team_id_teams_id_fk" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint

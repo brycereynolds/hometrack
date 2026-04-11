@@ -21,7 +21,7 @@ export const files = pgTable(
 		originalFilename: text('original_filename').notNull(),
 		mimeType: text('mime_type').notNull(),
 		sizeBytes: integer('size_bytes').notNull(),
-		s3Key: text('s3_key').notNull().unique(),
+		storagePath: text('storage_path').notNull().unique(),
 
 		category: text('category'), // 'disclosure', 'contract', 'photo', 'inspection', 'marketing', 'general'
 		description: text('description'),

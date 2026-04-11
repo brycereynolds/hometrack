@@ -10,7 +10,9 @@
 		PHASE_LIST,
 		getListingsByPhase,
 		type ListingPhase,
+		type Listing,
 	} from '$lib/data/mock-data.js';
+	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME } from 'svelte-dnd-action';
 	import {
 		Plus,
 		LayoutGrid,
@@ -22,7 +24,14 @@
 		AlertCircle,
 	} from 'lucide-svelte';
 
-	const listingsByPhase = getListingsByPhase();
+	const initialByPhase = getListingsByPhase();
+
+	// Mutable column data for drag-and-drop reordering
+	let columns = $state<Record<ListingPhase, Listing[]>>(
+		Object.fromEntries(
+			PHASE_LIST.map((p) => [p.key, [...(initialByPhase[p.key] || [])]])
+		) as Record<ListingPhase, Listing[]>
+	);
 
 	// Filter state
 	let searchQuery = $state('');
@@ -32,13 +41,21 @@
 	// Mobile tab state
 	let activeTab = $state<ListingPhase>('pre_market');
 
+	// Track which column is being dragged over
+	let dragOverPhase = $state<ListingPhase | null>(null);
+
 	const agents = [...new Set(listings.map((l) => l.agent.name))];
+
+	// Filtering: when filters are active, show filtered view (non-draggable).
+	// When no filters, show the draggable columns directly.
+	let hasFilters = $derived(searchQuery !== '' || selectedAgent !== 'all');
 
 	let filteredListingsByPhase = $derived(
 		(() => {
-			const result = {} as Record<ListingPhase, typeof listings>;
+			if (!hasFilters) return columns;
+			const result = {} as Record<ListingPhase, Listing[]>;
 			for (const phase of PHASE_LIST) {
-				let phaseListings = listingsByPhase[phase.key] || [];
+				let phaseListings = columns[phase.key] || [];
 				if (searchQuery) {
 					const q = searchQuery.toLowerCase();
 					phaseListings = phaseListings.filter(
@@ -65,6 +82,29 @@
 		const listingTasks = tasks.filter((t) => t.listingId === listingId);
 		const overdue = listingTasks.filter((t) => t.isOverdue).length;
 		return { overdue };
+	}
+
+	const flipDurationMs = 200;
+
+	function handleConsider(phase: ListingPhase, e: CustomEvent<{ items: Listing[] }>) {
+		columns[phase] = e.detail.items;
+		dragOverPhase = phase;
+	}
+
+	function handleFinalize(phase: ListingPhase, e: CustomEvent<{ items: Listing[] }>) {
+		// Update the phase property on any listing that moved into this column
+		columns[phase] = e.detail.items.map((item) => {
+			if (item.phase !== phase) {
+				return {
+					...item,
+					phase,
+					phaseLabel: PHASES[phase].label,
+					daysInPhase: 0,
+				};
+			}
+			return item;
+		});
+		dragOverPhase = null;
 	}
 </script>
 
@@ -223,10 +263,9 @@
 		{/if}
 	</div>
 
-	<!-- Desktop/Tablet: Grid layout (hidden < 640px) -->
+	<!-- Desktop/Tablet: Grid layout with drag-and-drop (hidden < 640px) -->
 	<div class="hidden sm:grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
 		{#each PHASE_LIST as phase}
-			{@const phaseListings = filteredListingsByPhase[phase.key] || []}
 			<div class="min-w-0">
 				<!-- Column Header -->
 				<div class="mb-3 flex items-center justify-between rounded-lg px-3 py-2" style="background-color: {phase.color}12">
@@ -234,86 +273,153 @@
 						<span class="size-2.5 rounded-full" style="background-color: {phase.color}"></span>
 						<span class="text-sm font-semibold">{phase.label}</span>
 					</div>
-					<Badge variant="secondary" class="text-xs tabular-nums">{phaseListings.length}</Badge>
+					<Badge variant="secondary" class="text-xs tabular-nums">{(filteredListingsByPhase[phase.key] || []).length}</Badge>
 				</div>
 
-				<!-- Cards -->
-				<div class="space-y-3">
-					{#each phaseListings as listing}
-						{@const taskInfo = getTaskProgressForListing(listing.id)}
-						<a href="/listings/{listing.id}" class="group block">
-							<Card class="overflow-hidden transition-all hover:shadow-md hover:border-border/80">
-								<!-- Photo -->
-								<div class="aspect-[16/10] relative overflow-hidden bg-muted">
-									<img
-										src={listing.photoUrl}
-										alt={listing.address}
-										class="object-cover w-full h-full transition-transform group-hover:scale-105"
-										loading="lazy"
-									/>
-									<div class="absolute top-2 left-2 flex items-center gap-1.5">
-										<Badge class="text-xs font-semibold shadow-sm bg-background/90 text-foreground backdrop-blur-sm">
-											{listing.priceFormatted}
-										</Badge>
-									</div>
-									<div class="absolute top-2 right-2">
-										<span class="inline-flex items-center gap-1 text-xs text-white bg-black/50 backdrop-blur-sm rounded-full px-2 py-0.5">
-											<Clock class="size-3" />
-											{listing.daysInPhase}d
-										</span>
-									</div>
-									{#if listing.phase === 'active' && listing.underContract}
-										<div class="absolute bottom-2 left-2">
-											<Badge class="text-xs font-bold shadow-sm bg-amber-500/90 text-white backdrop-blur-sm">
-												UNDER CONTRACT
-											</Badge>
-										</div>
-									{/if}
-								</div>
-								<CardContent class="p-3">
-									<!-- Address -->
-									<h3 class="text-sm font-medium truncate group-hover:text-primary transition-colors">{listing.address}</h3>
-									<p class="text-xs text-muted-foreground">{listing.city}, {listing.state}</p>
-
-									<!-- Agent + Days in Phase -->
-									<div class="mt-2.5 flex items-center justify-between">
-										<div class="flex items-center gap-1.5">
-											<Avatar class="size-5">
-												<AvatarFallback class="bg-primary/10 text-primary text-[10px] font-medium">{listing.agent.initials}</AvatarFallback>
-											</Avatar>
-											<span class="text-xs text-muted-foreground">{listing.agent.name.split(' ')[0]}</span>
-										</div>
-									</div>
-
-									<!-- Task Progress -->
-									<div class="mt-2.5">
-										<div class="flex items-center justify-between mb-1">
-											<span class="text-xs text-muted-foreground">{listing.tasksDone}/{listing.tasksTotal} tasks</span>
-											{#if taskInfo.overdue > 0}
-												<div class="flex items-center gap-1 text-xs text-destructive">
-													<AlertCircle class="size-3" />
-													{taskInfo.overdue} overdue
-												</div>
-											{/if}
-										</div>
-										<div class="h-1.5 w-full rounded-full bg-muted overflow-hidden">
-											<div
-												class="h-full rounded-full transition-all"
-												style="width: {(listing.tasksDone / listing.tasksTotal) * 100}%; background-color: {phase.color}"
-											></div>
-										</div>
-									</div>
-								</CardContent>
-							</Card>
-						</a>
-					{:else}
-						<!-- Empty state -->
-						<div class="rounded-lg border-2 border-dashed border-muted-foreground/20 p-6 text-center">
-							<p class="text-xs text-muted-foreground">No listings in this stage</p>
-						</div>
-					{/each}
-				</div>
+				{#if hasFilters}
+					<!-- Filtered view (no drag-and-drop) -->
+					<div class="space-y-3">
+						{#each filteredListingsByPhase[phase.key] || [] as listing}
+							{@const taskInfo = getTaskProgressForListing(listing.id)}
+							<a href="/listings/{listing.id}" class="group block">
+								{@render listingCard(listing, taskInfo, phase)}
+							</a>
+						{:else}
+							<div class="rounded-lg border-2 border-dashed border-muted-foreground/20 p-6 text-center">
+								<p class="text-xs text-muted-foreground">No listings in this stage</p>
+							</div>
+						{/each}
+					</div>
+				{:else}
+					<!-- DnD drop zone -->
+					<div
+						class="dnd-column space-y-3 min-h-[80px] rounded-lg p-1 transition-colors {dragOverPhase === phase.key ? 'dnd-column-active' : ''}"
+						use:dndzone={{
+							items: columns[phase.key],
+							flipDurationMs,
+							type: 'listing-card',
+							dropTargetStyle: {},
+							dropTargetClasses: [],
+						}}
+						onfinalize={(e) => handleFinalize(phase.key, e)}
+						onconsider={(e) => handleConsider(phase.key, e)}
+					>
+						{#each columns[phase.key] as listing (listing.id)}
+							{@const taskInfo = getTaskProgressForListing(listing.id)}
+							<a
+								href="/listings/{listing.id}"
+								class="group block dnd-card"
+								class:dnd-shadow={(listing as any)[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
+							>
+								{@render listingCard(listing, taskInfo, phase)}
+							</a>
+						{/each}
+						{#if columns[phase.key].length === 0}
+							<div class="rounded-lg border-2 border-dashed border-muted-foreground/20 p-6 text-center">
+								<p class="text-xs text-muted-foreground">Drop listings here</p>
+							</div>
+						{/if}
+					</div>
+				{/if}
 			</div>
 		{/each}
 	</div>
 </div>
+
+{#snippet listingCard(listing: Listing, taskInfo: { overdue: number }, phase: { key: ListingPhase; label: string; color: string })}
+	<Card class="overflow-hidden transition-all hover:shadow-md hover:border-border/80">
+		<!-- Photo -->
+		<div class="aspect-[16/10] relative overflow-hidden bg-muted">
+			<img
+				src={listing.photoUrl}
+				alt={listing.address}
+				class="object-cover w-full h-full transition-transform group-hover:scale-105"
+				loading="lazy"
+			/>
+			<div class="absolute top-2 left-2 flex items-center gap-1.5">
+				<Badge class="text-xs font-semibold shadow-sm bg-background/90 text-foreground backdrop-blur-sm">
+					{listing.priceFormatted}
+				</Badge>
+			</div>
+			<div class="absolute top-2 right-2">
+				<span class="inline-flex items-center gap-1 text-xs text-white bg-black/50 backdrop-blur-sm rounded-full px-2 py-0.5">
+					<Clock class="size-3" />
+					{listing.daysInPhase}d
+				</span>
+			</div>
+			{#if listing.phase === 'active' && listing.underContract}
+				<div class="absolute bottom-2 left-2">
+					<Badge class="text-xs font-bold shadow-sm bg-amber-500/90 text-white backdrop-blur-sm">
+						UNDER CONTRACT
+					</Badge>
+				</div>
+			{/if}
+		</div>
+		<CardContent class="p-3">
+			<!-- Address -->
+			<h3 class="text-sm font-medium truncate group-hover:text-primary transition-colors">{listing.address}</h3>
+			<p class="text-xs text-muted-foreground">{listing.city}, {listing.state}</p>
+
+			<!-- Agent + Days in Phase -->
+			<div class="mt-2.5 flex items-center justify-between">
+				<div class="flex items-center gap-1.5">
+					<Avatar class="size-5">
+						<AvatarFallback class="bg-primary/10 text-primary text-[10px] font-medium">{listing.agent.initials}</AvatarFallback>
+					</Avatar>
+					<span class="text-xs text-muted-foreground">{listing.agent.name.split(' ')[0]}</span>
+				</div>
+			</div>
+
+			<!-- Task Progress -->
+			<div class="mt-2.5">
+				<div class="flex items-center justify-between mb-1">
+					<span class="text-xs text-muted-foreground">{listing.tasksDone}/{listing.tasksTotal} tasks</span>
+					{#if taskInfo.overdue > 0}
+						<div class="flex items-center gap-1 text-xs text-destructive">
+							<AlertCircle class="size-3" />
+							{taskInfo.overdue} overdue
+						</div>
+					{/if}
+				</div>
+				<div class="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+					<div
+						class="h-full rounded-full transition-all"
+						style="width: {(listing.tasksDone / listing.tasksTotal) * 100}%; background-color: {phase.color}"
+					></div>
+				</div>
+			</div>
+		</CardContent>
+	</Card>
+{/snippet}
+
+<style>
+	/* Drop zone highlight when dragging over */
+	.dnd-column-active {
+		background-color: hsl(var(--muted) / 0.5);
+		outline: 2px dashed hsl(var(--border));
+		outline-offset: -2px;
+	}
+
+	/* Shadow placeholder left behind in the source column */
+	.dnd-shadow {
+		opacity: 0.4;
+		pointer-events: none;
+	}
+
+	/* The item being dragged gets this from the library */
+	:global([aria-grabbed="true"]) {
+		opacity: 0.9;
+		box-shadow: 0 10px 25px -3px rgb(0 0 0 / 0.15), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+		transform: rotate(1.5deg);
+		cursor: grabbing;
+	}
+
+	/* Cards in the drop zone are grabbable */
+	.dnd-column > .dnd-card {
+		cursor: grab;
+	}
+
+	.dnd-column > .dnd-card:active {
+		cursor: grabbing;
+	}
+</style>

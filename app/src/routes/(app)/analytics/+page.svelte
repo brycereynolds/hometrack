@@ -5,13 +5,15 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import {
 		listings,
-		pipelineValueTimeSeries,
 		getActiveListingsCount,
 		getTotalPipelineValue,
 		formatCurrency,
 		formatNumber,
 		PHASES
 	} from '$lib/data/mock-data.js';
+
+	let { data } = $props();
+	const pipelineValueTimeSeries = $derived(data.pipelineValueTimeSeries ?? { labels: [] as string[], values: [] as number[], closedDeals: [] as number[] });
 	import {
 		BarChart3,
 		TrendingUp,

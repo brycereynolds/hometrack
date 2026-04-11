@@ -5,11 +5,13 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import {
 		listings,
-		viewsTimeSeries,
-		showingsTimeSeries,
 		formatNumber,
 		PHASES
 	} from '$lib/data/mock-data.js';
+
+	let { data } = $props();
+	const viewsTimeSeries = $derived(data.viewsTimeSeries ?? { labels: [] as string[], zillow: [] as number[], redfin: [] as number[], realtor: [] as number[], website: [] as number[], social: [] as number[] });
+	const showingsTimeSeries = $derived(data.showingsTimeSeries ?? { labels: [] as string[], showings: [] as number[], openHouseAttendees: [] as number[] });
 	import { Eye, Heart, Users, TrendingUp, ArrowRight } from 'lucide-svelte';
 
 	Chart.register(...registerables);

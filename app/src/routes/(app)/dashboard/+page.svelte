@@ -20,10 +20,12 @@
 		getListingsByPhase,
 		PHASES,
 		PHASE_LIST,
-		teamPerformanceData,
 		formatCurrency,
 		type ListingPhase,
 	} from '$lib/data/mock-data.js';
+
+	let { data } = $props();
+	const teamPerformanceData = $derived(data.teamPerformanceData ?? { members: [] as string[], activeTasks: [] as number[], completedThisMonth: [] as number[], avgCompletionDays: [] as number[] });
 	import {
 		TrendingUp,
 		TrendingDown,

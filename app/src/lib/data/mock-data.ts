@@ -506,7 +506,7 @@ export const listings: Listing[] = [
     lat: 37.2358,
     lng: -121.9624,
     tasksDone: 18,
-    tasksTotal: 24,
+    tasksTotal: 26,
     documentsCount: 14,
     showingsCount: 8,
     offersCount: 2,
@@ -549,8 +549,8 @@ export const listings: Listing[] = [
     ],
     lat: 37.4419,
     lng: -122.1430,
-    tasksDone: 22,
-    tasksTotal: 28,
+    tasksDone: 10,
+    tasksTotal: 15,
     documentsCount: 18,
     showingsCount: 15,
     offersCount: 0,
@@ -592,8 +592,8 @@ export const listings: Listing[] = [
     ],
     lat: 37.3230,
     lng: -122.0322,
-    tasksDone: 12,
-    tasksTotal: 20,
+    tasksDone: 10,
+    tasksTotal: 18,
     documentsCount: 8,
     showingsCount: 0,
     offersCount: 0,
@@ -636,7 +636,7 @@ export const listings: Listing[] = [
     lat: 37.2969,
     lng: -121.9008,
     tasksDone: 8,
-    tasksTotal: 16,
+    tasksTotal: 13,
     documentsCount: 5,
     showingsCount: 0,
     offersCount: 0,
@@ -678,7 +678,7 @@ export const listings: Listing[] = [
     lat: 37.3861,
     lng: -122.0839,
     tasksDone: 2,
-    tasksTotal: 12,
+    tasksTotal: 7,
     documentsCount: 1,
     showingsCount: 0,
     offersCount: 0,
@@ -721,8 +721,8 @@ export const listings: Listing[] = [
     ],
     lat: 37.2638,
     lng: -122.0230,
-    tasksDone: 25,
-    tasksTotal: 30,
+    tasksDone: 11,
+    tasksTotal: 15,
     documentsCount: 22,
     showingsCount: 21,
     offersCount: 3,
@@ -764,8 +764,8 @@ export const listings: Listing[] = [
     ],
     lat: 37.4530,
     lng: -122.1817,
-    tasksDone: 28,
-    tasksTotal: 32,
+    tasksDone: 6,
+    tasksTotal: 12,
     documentsCount: 26,
     showingsCount: 18,
     offersCount: 4,
@@ -806,8 +806,8 @@ export const listings: Listing[] = [
     ],
     lat: 37.3688,
     lng: -122.0363,
-    tasksDone: 4,
-    tasksTotal: 14,
+    tasksDone: 6,
+    tasksTotal: 12,
     documentsCount: 3,
     showingsCount: 0,
     offersCount: 0,
@@ -821,167 +821,201 @@ export const listings: Listing[] = [
 // ─── Tasks ───────────────────────────────────────────────────────────────────
 
 export const tasks: Task[] = [
-  {
-    id: 't-1',
-    title: 'Review and approve listing photography',
-    status: 'in_progress',
-    priority: 'high',
-    assignee: teamMembers[0],
-    listingId: 'l-1',
-    listingAddress: '123 Main Street',
-    phase: 'active',
-    taskCategory: 'marketing',
-    dueDate: '2026-04-10',
-    isOverdue: false,
-  },
-  {
-    id: 't-2',
-    title: 'Submit TDS to title company',
-    status: 'overdue',
-    priority: 'urgent',
-    assignee: teamMembers[2],
-    listingId: 'l-2',
-    listingAddress: '456 Oak Avenue',
-    phase: 'active',
-    taskCategory: 'showings',
-    dueDate: '2026-04-05',
-    isOverdue: true,
-  },
-  {
-    id: 't-3',
-    title: 'Schedule professional photography',
-    status: 'todo',
-    priority: 'high',
-    assignee: teamMembers[3],
-    listingId: 'l-3',
-    listingAddress: '789 Elm Street',
-    phase: 'pre_market',
-    taskCategory: 'media',
-    dueDate: '2026-04-12',
-    isOverdue: false,
-  },
-  {
-    id: 't-4',
-    title: 'Coordinate staging furniture delivery',
-    status: 'in_progress',
-    priority: 'medium',
-    assignee: teamMembers[4],
-    listingId: 'l-4',
-    listingAddress: '2200 Willow Glen Way',
-    phase: 'pre_market',
-    taskCategory: 'staging',
-    dueDate: '2026-04-15',
-    isOverdue: false,
-    subtasks: [
-      { title: 'Confirm delivery window with Meridian', done: true },
-      { title: 'Arrange parking for delivery truck', done: false },
-      { title: 'Client walkthrough post-staging', done: false },
-    ],
-  },
-  {
-    id: 't-5',
-    title: 'Draft MLS listing copy',
-    status: 'todo',
-    priority: 'medium',
-    assignee: teamMembers[3],
-    listingId: 'l-3',
-    listingAddress: '789 Elm Street',
-    phase: 'pre_market',
-    taskCategory: 'media',
-    dueDate: '2026-04-14',
-    isOverdue: false,
-  },
-  {
-    id: 't-6',
-    title: 'Collect contractor quotes for bathroom update',
-    status: 'in_progress',
-    priority: 'medium',
-    assignee: teamMembers[4],
-    listingId: 'l-8',
-    listingAddress: '88 Sunnyvale Avenue',
-    phase: 'pre_market',
-    taskCategory: 'improvements',
-    dueDate: '2026-04-11',
-    isOverdue: false,
-  },
-  {
-    id: 't-7',
-    title: 'Review and counter offer from Westfield Group',
-    status: 'todo',
-    priority: 'urgent',
-    assignee: teamMembers[0],
-    listingId: 'l-6',
-    listingAddress: '945 Cherry Blossom Lane',
-    phase: 'active',
-    taskCategory: 'offers',
-    dueDate: '2026-04-10',
-    isOverdue: false,
-  },
-  {
-    id: 't-8',
-    title: 'Order NHD report',
-    status: 'done',
-    priority: 'medium',
-    assignee: teamMembers[2],
-    listingId: 'l-5',
-    listingAddress: '1580 University Avenue',
-    phase: 'pre_market',
-    taskCategory: 'onboarding',
-    dueDate: '2026-04-08',
-    isOverdue: false,
-  },
-  {
-    id: 't-9',
-    title: 'Send weekly showing feedback summary to client',
-    status: 'todo',
-    priority: 'medium',
-    assignee: teamMembers[0],
-    listingId: 'l-2',
-    listingAddress: '456 Oak Avenue',
-    phase: 'active',
-    taskCategory: 'showings',
-    dueDate: '2026-04-10',
-    isOverdue: false,
-  },
-  {
-    id: 't-10',
-    title: 'Schedule home inspection',
-    status: 'in_progress',
-    priority: 'high',
-    assignee: teamMembers[2],
-    listingId: 'l-7',
-    listingAddress: '310 Waverly Street',
-    phase: 'active',
-    taskCategory: 'escrow',
-    dueDate: '2026-04-12',
-    isOverdue: false,
-  },
-  {
-    id: 't-11',
-    title: 'Prepare client onboarding packet',
-    status: 'todo',
-    priority: 'low',
-    assignee: teamMembers[0],
-    listingId: 'l-5',
-    listingAddress: '1580 University Avenue',
-    phase: 'pre_market',
-    taskCategory: 'onboarding',
-    dueDate: '2026-04-14',
-    isOverdue: false,
-  },
-  {
-    id: 't-12',
-    title: 'Update social media ads for Open House',
-    status: 'done',
-    priority: 'high',
-    assignee: teamMembers[3],
-    listingId: 'l-1',
-    listingAddress: '123 Main Street',
-    phase: 'active',
-    taskCategory: 'marketing',
-    dueDate: '2026-04-08',
-    isOverdue: false,
-  },
+  // ── l-1: 123 Main Street (ACTIVE — pre-market done, active in progress) ──
+
+  // Client Onboarding (all done)
+  { id: 't-1', title: 'Complete client intake form', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-10', isOverdue: false },
+  { id: 't-2', title: 'Review & sign listing agreement', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-12', isOverdue: false },
+  { id: 't-3', title: 'Conduct expectations & timeline meeting', status: 'done', priority: 'medium', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-13', isOverdue: false },
+  { id: 't-4', title: 'Set up communication plan', status: 'done', priority: 'medium', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-14', isOverdue: false },
+  { id: 't-5', title: 'Prepare & deliver onboarding packet', status: 'done', priority: 'low', assignee: teamMembers[2], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-15', isOverdue: false },
+
+  // Pre-Listing Logistics (all done)
+  { id: 't-6', title: 'Order seller inspection (pre-listing)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-03-14', isOverdue: false },
+  { id: 't-7', title: 'Select title/escrow company', status: 'done', priority: 'medium', assignee: teamMembers[2], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-03-16', isOverdue: false },
+  { id: 't-8', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-03-18', isOverdue: false },
+  { id: 't-9', title: 'Set up escrow communication channel', status: 'done', priority: 'low', assignee: teamMembers[2], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-03-19', isOverdue: false },
+
+  // Media Production (all done)
+  { id: 't-10', title: 'Schedule professional photography shoot', status: 'done', priority: 'high', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-03-28', isOverdue: false },
+  { id: 't-11', title: 'Coordinate aerial drone photography', status: 'done', priority: 'medium', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-03-29', isOverdue: false },
+  { id: 't-12', title: 'Book 3D Matterport virtual tour', status: 'done', priority: 'medium', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-03-30', isOverdue: false },
+  { id: 't-13', title: 'Select & order MLS photos', status: 'done', priority: 'high', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-04-01', isOverdue: false },
+  { id: 't-14', title: 'Design property brochure & print materials', status: 'done', priority: 'medium', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-04-02', isOverdue: false },
+
+  // Launch & Marketing (in progress)
+  { id: 't-15', title: 'Create & syndicate MLS listing', status: 'done', priority: 'urgent', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'marketing', dueDate: '2026-04-04', isOverdue: false },
+  { id: 't-16', title: 'Publish website listing page', status: 'done', priority: 'high', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'marketing', dueDate: '2026-04-04', isOverdue: false },
+  { id: 't-17', title: 'Launch social media marketing campaign', status: 'done', priority: 'high', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'marketing', dueDate: '2026-04-05', isOverdue: false },
+  { id: 't-18', title: 'Optimize Zillow/Redfin/Realtor.com listings', status: 'in_progress', priority: 'medium', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'marketing', dueDate: '2026-04-10', isOverdue: false },
+  { id: 't-19', title: 'Send email announcement to agent network', status: 'done', priority: 'medium', assignee: teamMembers[3], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'marketing', dueDate: '2026-04-05', isOverdue: false },
+  { id: 't-20', title: 'Schedule first open house', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'marketing', dueDate: '2026-04-06', isOverdue: false },
+  { id: 't-21', title: 'Establish weekly market report cadence to client', status: 'todo', priority: 'medium', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'marketing', dueDate: '2026-04-12', isOverdue: false },
+
+  // Showings & Feedback (in progress)
+  { id: 't-22', title: 'Prepare showing instructions & lockbox setup', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'showings', dueDate: '2026-04-04', isOverdue: false },
+  { id: 't-23', title: 'Coordinate agent showing requests', status: 'in_progress', priority: 'medium', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'showings', dueDate: '2026-04-15', isOverdue: false },
+  { id: 't-24', title: 'Send weekly showing report to client', status: 'todo', priority: 'medium', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'showings', dueDate: '2026-04-11', isOverdue: false },
+
+  // Offer Review (starting)
+  { id: 't-25', title: 'Receive & document incoming offer', status: 'done', priority: 'urgent', assignee: teamMembers[2], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-09', isOverdue: false },
+  { id: 't-26', title: 'Prepare offer comparison analysis', status: 'in_progress', priority: 'urgent', assignee: teamMembers[0], listingId: 'l-1', listingAddress: '123 Main Street', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-10', isOverdue: false },
+
+  // ── l-2: 456 Oak Avenue (ACTIVE — longer on market, showings + marketing) ──
+
+  // Pre-market tasks (all done)
+  { id: 't-27', title: 'Complete client intake form', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-01', isOverdue: false },
+  { id: 't-28', title: 'Review & sign listing agreement', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-03', isOverdue: false },
+  { id: 't-29', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-03-06', isOverdue: false },
+  { id: 't-30', title: 'Schedule professional photography shoot', status: 'done', priority: 'high', assignee: teamMembers[3], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-03-14', isOverdue: false },
+  { id: 't-31', title: 'Pull comparable sales & market data', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-03-10', isOverdue: false },
+  { id: 't-32', title: 'Obtain listing price approval & sign-off', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-03-18', isOverdue: false },
+
+  // Launch & Marketing (mostly done)
+  { id: 't-33', title: 'Create & syndicate MLS listing', status: 'done', priority: 'urgent', assignee: teamMembers[0], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'marketing', dueDate: '2026-03-22', isOverdue: false },
+  { id: 't-34', title: 'Launch social media marketing campaign', status: 'done', priority: 'high', assignee: teamMembers[3], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'marketing', dueDate: '2026-03-23', isOverdue: false },
+  { id: 't-35', title: 'Set up paid advertising (Google, Facebook/Meta)', status: 'done', priority: 'medium', assignee: teamMembers[3], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'marketing', dueDate: '2026-03-25', isOverdue: false },
+  { id: 't-36', title: 'Distribute print marketing collateral', status: 'in_progress', priority: 'medium', assignee: teamMembers[3], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'marketing', dueDate: '2026-04-12', isOverdue: false },
+
+  // Showings & Feedback (active)
+  { id: 't-37', title: 'Prepare showing instructions & lockbox setup', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'showings', dueDate: '2026-03-22', isOverdue: false },
+  { id: 't-38', title: 'Host/staff open houses', status: 'in_progress', priority: 'high', assignee: teamMembers[0], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'showings', dueDate: '2026-04-13', isOverdue: false },
+  { id: 't-39', title: 'Collect showing feedback from agents', status: 'in_progress', priority: 'medium', assignee: teamMembers[0], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'showings', dueDate: '2026-04-11', isOverdue: false },
+  { id: 't-40', title: 'Send weekly showing report to client', status: 'overdue', priority: 'medium', assignee: teamMembers[0], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'showings', dueDate: '2026-04-05', isOverdue: true },
+  { id: 't-41', title: 'Analyze showing trends & recommend adjustments', status: 'todo', priority: 'high', assignee: teamMembers[0], listingId: 'l-2', listingAddress: '456 Oak Avenue', phase: 'active', taskCategory: 'showings', dueDate: '2026-04-14', isOverdue: false },
+
+  // ── l-3: 789 Elm Street (PRE_MARKET — mid-way through prep) ──
+
+  // Client Onboarding (done)
+  { id: 't-42', title: 'Complete client intake form', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-02', isOverdue: false },
+  { id: 't-43', title: 'Review & sign listing agreement', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-03', isOverdue: false },
+  { id: 't-44', title: 'Conduct expectations & timeline meeting', status: 'done', priority: 'medium', assignee: teamMembers[1], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-04', isOverdue: false },
+  { id: 't-45', title: 'Set up communication plan', status: 'done', priority: 'medium', assignee: teamMembers[1], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-05', isOverdue: false },
+  { id: 't-46', title: 'Prepare & deliver onboarding packet', status: 'done', priority: 'low', assignee: teamMembers[2], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-06', isOverdue: false },
+
+  // Pre-Listing Logistics (in progress)
+  { id: 't-47', title: 'Order seller inspection (pre-listing)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-06', isOverdue: false },
+  { id: 't-48', title: 'Select title/escrow company', status: 'done', priority: 'medium', assignee: teamMembers[2], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-07', isOverdue: false },
+  { id: 't-49', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'in_progress', priority: 'high', assignee: teamMembers[2], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-11', isOverdue: false },
+  { id: 't-50', title: 'Set up escrow communication channel', status: 'todo', priority: 'low', assignee: teamMembers[2], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-13', isOverdue: false },
+
+  // Improvements & Repairs (in progress)
+  { id: 't-51', title: 'Analyze home inspection findings', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-08', isOverdue: false },
+  { id: 't-52', title: 'Identify recommended cosmetic improvements', status: 'done', priority: 'medium', assignee: teamMembers[4], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-09', isOverdue: false },
+  { id: 't-53', title: 'Collect contractor quotes (minimum 2 per trade)', status: 'in_progress', priority: 'medium', assignee: teamMembers[4], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-12', isOverdue: false },
+  { id: 't-54', title: 'Review improvement costs vs. market impact with client', status: 'todo', priority: 'medium', assignee: teamMembers[1], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-14', isOverdue: false },
+
+  // Media Production (upcoming)
+  { id: 't-55', title: 'Schedule professional photography shoot', status: 'todo', priority: 'high', assignee: teamMembers[3], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-04-14', isOverdue: false },
+  { id: 't-56', title: 'Coordinate aerial drone photography', status: 'todo', priority: 'medium', assignee: teamMembers[3], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-04-15', isOverdue: false },
+  { id: 't-57', title: 'Design property brochure & print materials', status: 'todo', priority: 'medium', assignee: teamMembers[3], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-04-16', isOverdue: false },
+
+  // Pricing & Market Strategy (starting)
+  { id: 't-58', title: 'Pull comparable sales & market data', status: 'in_progress', priority: 'high', assignee: teamMembers[1], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-04-12', isOverdue: false },
+  { id: 't-59', title: 'Develop pricing recommendation', status: 'todo', priority: 'high', assignee: teamMembers[1], listingId: 'l-3', listingAddress: '789 Elm Street', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-04-15', isOverdue: false },
+
+  // ── l-4: 2200 Willow Glen Way (PRE_MARKET — staging phase) ──
+
+  // Client Onboarding (done)
+  { id: 't-60', title: 'Complete client intake form', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-28', isOverdue: false },
+  { id: 't-61', title: 'Review & sign listing agreement', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-03-30', isOverdue: false },
+  { id: 't-62', title: 'Prepare & deliver onboarding packet', status: 'done', priority: 'low', assignee: teamMembers[2], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-01', isOverdue: false },
+
+  // Pre-Listing Logistics (done)
+  { id: 't-63', title: 'Order seller inspection (pre-listing)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-01', isOverdue: false },
+  { id: 't-64', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-04', isOverdue: false },
+
+  // Staging & Preparation (in progress)
+  { id: 't-65', title: 'Schedule staging consultation', status: 'done', priority: 'high', assignee: teamMembers[4], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'staging', dueDate: '2026-04-03', isOverdue: false },
+  { id: 't-66', title: 'Coordinate furniture rental & delivery', status: 'in_progress', priority: 'high', assignee: teamMembers[4], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'staging', dueDate: '2026-04-15', isOverdue: false, subtasks: [{ title: 'Confirm delivery window with Meridian', done: true }, { title: 'Arrange parking for delivery truck', done: false }, { title: 'Client walkthrough post-staging', done: false }] },
+  { id: 't-67', title: 'Oversee staging installation', status: 'todo', priority: 'high', assignee: teamMembers[4], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'staging', dueDate: '2026-04-16', isOverdue: false },
+  { id: 't-68', title: 'Styling, decluttering & deep cleaning', status: 'todo', priority: 'medium', assignee: teamMembers[4], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'staging', dueDate: '2026-04-17', isOverdue: false },
+  { id: 't-69', title: 'Client walkthrough of staged home', status: 'todo', priority: 'medium', assignee: teamMembers[1], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'staging', dueDate: '2026-04-18', isOverdue: false },
+
+  // Pricing & Market Strategy (in progress)
+  { id: 't-70', title: 'Pull comparable sales & market data', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-04-05', isOverdue: false },
+  { id: 't-71', title: 'Prepare market positioning analysis', status: 'in_progress', priority: 'medium', assignee: teamMembers[1], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-04-12', isOverdue: false },
+  { id: 't-72', title: 'Conduct price strategy discussion with client', status: 'todo', priority: 'high', assignee: teamMembers[1], listingId: 'l-4', listingAddress: '2200 Willow Glen Way', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-04-18', isOverdue: false },
+
+  // ── l-5: 1580 University Avenue (PRE_MARKET — early onboarding) ──
+
+  // Client Onboarding (in progress)
+  { id: 't-73', title: 'Complete client intake form', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-5', listingAddress: '1580 University Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-08', isOverdue: false },
+  { id: 't-74', title: 'Review & sign listing agreement', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-5', listingAddress: '1580 University Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-09', isOverdue: false },
+  { id: 't-75', title: 'Conduct expectations & timeline meeting', status: 'todo', priority: 'medium', assignee: teamMembers[0], listingId: 'l-5', listingAddress: '1580 University Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-12', isOverdue: false },
+  { id: 't-76', title: 'Set up communication plan', status: 'todo', priority: 'medium', assignee: teamMembers[0], listingId: 'l-5', listingAddress: '1580 University Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-13', isOverdue: false },
+  { id: 't-77', title: 'Prepare & deliver onboarding packet', status: 'todo', priority: 'low', assignee: teamMembers[2], listingId: 'l-5', listingAddress: '1580 University Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-14', isOverdue: false },
+
+  // Pre-Listing Logistics (just starting)
+  { id: 't-78', title: 'Order seller inspection (pre-listing)', status: 'todo', priority: 'high', assignee: teamMembers[2], listingId: 'l-5', listingAddress: '1580 University Avenue', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-15', isOverdue: false },
+  { id: 't-79', title: 'Select title/escrow company', status: 'todo', priority: 'medium', assignee: teamMembers[2], listingId: 'l-5', listingAddress: '1580 University Avenue', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-17', isOverdue: false },
+
+  // ── l-6: 945 Cherry Blossom Lane (ACTIVE — under offer negotiation) ──
+
+  // Pre-market (all done)
+  { id: 't-80', title: 'Complete client intake form', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-02-20', isOverdue: false },
+  { id: 't-81', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-02-25', isOverdue: false },
+  { id: 't-82', title: 'Schedule professional photography shoot', status: 'done', priority: 'high', assignee: teamMembers[3], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'pre_market', taskCategory: 'media', dueDate: '2026-03-02', isOverdue: false },
+  { id: 't-83', title: 'Obtain listing price approval & sign-off', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-03-08', isOverdue: false },
+
+  // Launch & Marketing (done)
+  { id: 't-84', title: 'Create & syndicate MLS listing', status: 'done', priority: 'urgent', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'marketing', dueDate: '2026-03-12', isOverdue: false },
+  { id: 't-85', title: 'Launch social media marketing campaign', status: 'done', priority: 'high', assignee: teamMembers[3], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'marketing', dueDate: '2026-03-13', isOverdue: false },
+
+  // Showings (done)
+  { id: 't-86', title: 'Host/staff open houses', status: 'done', priority: 'high', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'showings', dueDate: '2026-03-20', isOverdue: false },
+  { id: 't-87', title: 'Collect showing feedback from agents', status: 'done', priority: 'medium', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'showings', dueDate: '2026-03-25', isOverdue: false },
+
+  // Offer Review & Negotiation (active)
+  { id: 't-88', title: 'Receive & document incoming offer', status: 'done', priority: 'urgent', assignee: teamMembers[2], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-07', isOverdue: false },
+  { id: 't-89', title: 'Prepare offer comparison analysis', status: 'done', priority: 'urgent', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-08', isOverdue: false },
+  { id: 't-90', title: 'Schedule client offer review meeting', status: 'done', priority: 'urgent', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-09', isOverdue: false },
+  { id: 't-91', title: 'Develop counter-offer strategy', status: 'in_progress', priority: 'urgent', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-10', isOverdue: false },
+  { id: 't-92', title: 'Submit counter-offer', status: 'todo', priority: 'urgent', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-11', isOverdue: false },
+  { id: 't-93', title: 'Follow up on negotiation responses', status: 'todo', priority: 'high', assignee: teamMembers[0], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-12', isOverdue: false },
+  { id: 't-94', title: 'Review buyer contingencies & terms', status: 'todo', priority: 'high', assignee: teamMembers[2], listingId: 'l-6', listingAddress: '945 Cherry Blossom Lane', phase: 'active', taskCategory: 'offers', dueDate: '2026-04-13', isOverdue: false },
+
+  // ── l-7: 310 Waverly Street (ACTIVE — under contract, in contingencies) ──
+
+  // Pre-market (all done)
+  { id: 't-95', title: 'Complete client intake form', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-02-10', isOverdue: false },
+  { id: 't-96', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-02-15', isOverdue: false },
+  { id: 't-97', title: 'Obtain listing price approval & sign-off', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'pre_market', taskCategory: 'pricing', dueDate: '2026-02-28', isOverdue: false },
+
+  // Active — marketing + showings (done)
+  { id: 't-98', title: 'Create & syndicate MLS listing', status: 'done', priority: 'urgent', assignee: teamMembers[1], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'marketing', dueDate: '2026-03-05', isOverdue: false },
+  { id: 't-99', title: 'Host/staff open houses', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'showings', dueDate: '2026-03-10', isOverdue: false },
+
+  // Offer accepted
+  { id: 't-100', title: 'Execute offer acceptance & purchase agreement', status: 'done', priority: 'urgent', assignee: teamMembers[1], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'offers', dueDate: '2026-03-30', isOverdue: false },
+
+  // Contingency Management (in progress)
+  { id: 't-101', title: 'Coordinate buyer inspection contingency', status: 'in_progress', priority: 'high', assignee: teamMembers[2], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'escrow', dueDate: '2026-04-12', isOverdue: false },
+  { id: 't-102', title: 'Monitor appraisal contingency timeline', status: 'in_progress', priority: 'high', assignee: teamMembers[2], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'escrow', dueDate: '2026-04-15', isOverdue: false },
+  { id: 't-103', title: 'Track loan contingency & pre-approval status', status: 'todo', priority: 'high', assignee: teamMembers[2], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'escrow', dueDate: '2026-04-18', isOverdue: false },
+  { id: 't-104', title: 'Review title report contingency', status: 'todo', priority: 'medium', assignee: teamMembers[2], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'escrow', dueDate: '2026-04-16', isOverdue: false },
+  { id: 't-105', title: 'Negotiate repair credits or remediation', status: 'todo', priority: 'medium', assignee: teamMembers[1], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'escrow', dueDate: '2026-04-18', isOverdue: false },
+  { id: 't-106', title: 'Confirm all contingency removals in writing', status: 'todo', priority: 'high', assignee: teamMembers[2], listingId: 'l-7', listingAddress: '310 Waverly Street', phase: 'active', taskCategory: 'escrow', dueDate: '2026-04-22', isOverdue: false },
+
+  // ── l-8: 88 Sunnyvale Avenue (PRE_MARKET — early improvements phase) ──
+
+  // Client Onboarding (done)
+  { id: 't-107', title: 'Complete client intake form', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-01', isOverdue: false },
+  { id: 't-108', title: 'Review & sign listing agreement', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-02', isOverdue: false },
+  { id: 't-109', title: 'Conduct expectations & timeline meeting', status: 'done', priority: 'medium', assignee: teamMembers[1], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-03', isOverdue: false },
+  { id: 't-110', title: 'Prepare & deliver onboarding packet', status: 'done', priority: 'low', assignee: teamMembers[2], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'onboarding', dueDate: '2026-04-04', isOverdue: false },
+
+  // Pre-Listing Logistics (in progress)
+  { id: 't-111', title: 'Order seller inspection (pre-listing)', status: 'done', priority: 'high', assignee: teamMembers[2], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-04', isOverdue: false },
+  { id: 't-112', title: 'Order disclosure package (TDS, SPQ, NHD)', status: 'in_progress', priority: 'high', assignee: teamMembers[2], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'disclosures', dueDate: '2026-04-12', isOverdue: false },
+
+  // Improvements & Repairs (in progress)
+  { id: 't-113', title: 'Analyze home inspection findings', status: 'done', priority: 'high', assignee: teamMembers[1], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-06', isOverdue: false },
+  { id: 't-114', title: 'Identify recommended cosmetic improvements', status: 'done', priority: 'medium', assignee: teamMembers[4], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-07', isOverdue: false },
+  { id: 't-115', title: 'Collect contractor quotes (minimum 2 per trade)', status: 'in_progress', priority: 'medium', assignee: teamMembers[4], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-11', isOverdue: false },
+  { id: 't-116', title: 'Review improvement costs vs. market impact with client', status: 'todo', priority: 'medium', assignee: teamMembers[1], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-15', isOverdue: false },
+  { id: 't-117', title: 'Schedule & oversee repairs/improvements', status: 'todo', priority: 'high', assignee: teamMembers[4], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-22', isOverdue: false },
+  { id: 't-118', title: 'Document before/after photos', status: 'todo', priority: 'low', assignee: teamMembers[3], listingId: 'l-8', listingAddress: '88 Sunnyvale Avenue', phase: 'pre_market', taskCategory: 'improvements', dueDate: '2026-04-25', isOverdue: false },
 ];
 
 // ─── Activity Feed ───────────────────────────────────────────────────────────
@@ -1546,33 +1580,11 @@ export const compSales: CompSale[] = [
   { id: 'comp-5', address: '1120 Arroyo Seco', city: 'Los Gatos', price: 2425000, priceFormatted: '$2,425,000', sqft: 2750, pricePerSqft: 882, beds: 4, baths: 2.5, saleDate: '2026-03-10', daysOnMarket: 10, distance: '0.6 mi', adjustedValue: 2490000, adjustedValueFormatted: '$2,490,000', adjustments: [{ label: 'Half bath less', amount: 15000 }, { label: 'Newer build', amount: 50000 }], photoUrl: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=400&h=300&fit=crop', lat: 37.2320, lng: -121.9590 },
 ];
 
-// ─── Time-Series Chart Data ─────────────────────────────────────────────────
-
-export const viewsTimeSeries = {
-  labels: ['Mar 22', 'Mar 24', 'Mar 26', 'Mar 28', 'Mar 30', 'Apr 1', 'Apr 3', 'Apr 5', 'Apr 7', 'Apr 9'],
-  zillow: [45, 62, 85, 120, 98, 110, 95, 78, 65, 52],
-  redfin: [32, 48, 55, 72, 68, 75, 62, 55, 48, 38],
-  realtor: [20, 28, 35, 45, 40, 42, 38, 32, 28, 22],
-};
-
-export const showingsTimeSeries = {
-  labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-  showings: [3, 6, 8, 4],
-  openHouseAttendees: [12, 18, 15, 0],
-};
-
-export const pipelineValueTimeSeries = {
-  labels: ['Jan', 'Feb', 'Mar', 'Apr'],
-  values: [8500000, 12200000, 16800000, 18405000],
-  closedDeals: [2, 1, 3, 0],
-};
-
-export const teamPerformanceData = {
-  members: ['Lauren C.', 'Marcus R.', 'Priya P.', 'Jordan N.', 'Sofia A.'],
-  activeTasks: [4, 3, 2, 3, 2],
-  completedThisMonth: [12, 8, 15, 10, 7],
-  avgCompletionDays: [2.1, 1.8, 1.5, 2.4, 3.2],
-};
+// Time-series chart data (viewsTimeSeries, showingsTimeSeries, pipelineValueTimeSeries,
+// teamPerformanceData) has been moved to the database. See:
+//   schema:  src/lib/server/db/schema/analytics.ts
+//   queries: src/lib/server/db/queries/analytics.ts
+//   seed:    src/lib/server/db/seed.ts
 
 // ─── Quotes ─────────────────────────────────────────────────────────────────
 
@@ -1667,16 +1679,23 @@ export interface WorkflowTemplate {
 }
 
 export const workflowTemplates: WorkflowTemplate[] = [
-  { id: 'wf-1', name: 'Standard Onboarding', phase: 'pre_market', taskCategory: 'onboarding', taskCount: 8, description: 'Client intake, listing agreement, initial docs', isDefault: true },
-  { id: 'wf-2', name: 'Pre-Market Improvements', phase: 'pre_market', taskCategory: 'improvements', taskCount: 6, description: 'Vendor quotes, improvement planning, permits', isDefault: true },
-  { id: 'wf-3', name: 'Staging & Preparation', phase: 'pre_market', taskCategory: 'staging', taskCount: 5, description: 'Staging coordination, vendor scheduling', isDefault: true },
-  { id: 'wf-4', name: 'Media Production', phase: 'pre_market', taskCategory: 'media', taskCount: 7, description: 'Photography, video, copy, materials', isDefault: true },
-  { id: 'wf-5', name: 'Marketing Launch', phase: 'active', taskCategory: 'marketing', taskCount: 8, description: 'MLS, social, open houses, advertising', isDefault: true },
-  { id: 'wf-6', name: 'Showings Management', phase: 'active', taskCategory: 'showings', taskCount: 4, description: 'Showing coordination, feedback, follow-up', isDefault: true },
-  { id: 'wf-7', name: 'Offer Review', phase: 'active', taskCategory: 'offers', taskCount: 5, description: 'Offer intake, comparison, negotiation', isDefault: true },
-  { id: 'wf-8', name: 'Escrow Management', phase: 'active', taskCategory: 'escrow', taskCount: 10, description: 'Inspections, appraisal, contingencies, closing prep', isDefault: true },
-  { id: 'wf-9', name: 'Closing Process', phase: 'closed', taskCategory: 'escrow', taskCount: 6, description: 'Final walkthrough, signing, key handoff', isDefault: true },
-  { id: 'wf-10', name: 'Luxury Marketing', phase: 'active', taskCategory: 'marketing', taskCount: 12, description: 'Extended marketing for $2M+ properties', isDefault: false },
+  // STAGE 1: PRE_MARKET
+  { id: 'wf-1', name: 'Client Onboarding', phase: 'pre_market', taskCategory: 'onboarding', taskCount: 5, description: 'Client intake, listing agreement, communication setup, onboarding packet', isDefault: true },
+  { id: 'wf-2', name: 'Pre-Listing Logistics', phase: 'pre_market', taskCategory: 'disclosures', taskCount: 4, description: 'Seller inspection, title/escrow selection, disclosure package', isDefault: true },
+  { id: 'wf-3', name: 'Improvements & Repairs', phase: 'pre_market', taskCategory: 'improvements', taskCount: 7, description: 'Inspection analysis, contractor quotes, repairs, before/after documentation', isDefault: true },
+  { id: 'wf-4', name: 'Staging & Preparation', phase: 'pre_market', taskCategory: 'staging', taskCount: 6, description: 'Staging consultation, furniture rental, installation, deep cleaning', isDefault: true },
+  { id: 'wf-5', name: 'Media Production', phase: 'pre_market', taskCategory: 'media', taskCount: 8, description: 'Photography, drone, twilight, Matterport, brochure, video tour', isDefault: true },
+  { id: 'wf-6', name: 'Pricing & Market Strategy', phase: 'pre_market', taskCategory: 'pricing', taskCount: 5, description: 'Comps analysis, market positioning, pricing recommendation, client sign-off', isDefault: true },
+  // STAGE 2: ACTIVE
+  { id: 'wf-7', name: 'Launch & Marketing', phase: 'active', taskCategory: 'marketing', taskCount: 9, description: 'MLS syndication, social media, paid ads, open houses, weekly reports', isDefault: true },
+  { id: 'wf-8', name: 'Showings & Feedback', phase: 'active', taskCategory: 'showings', taskCount: 6, description: 'Showing coordination, open houses, feedback collection, trend analysis', isDefault: true },
+  { id: 'wf-9', name: 'Offer Review & Negotiation', phase: 'active', taskCategory: 'offers', taskCount: 8, description: 'Offer intake, comparison, counter-offer strategy, acceptance', isDefault: true },
+  { id: 'wf-10', name: 'Contingency Management', phase: 'active', taskCategory: 'escrow', taskCount: 7, description: 'Inspection, appraisal, loan, title contingencies, repair credits', isDefault: true },
+  // STAGE 3: CLOSED
+  { id: 'wf-11', name: 'Closing Process', phase: 'closed', taskCategory: 'escrow', taskCount: 8, description: 'Purchase agreement review, final walkthrough, signing, key handoff', isDefault: true },
+  { id: 'wf-12', name: 'Post-Close Coordination', phase: 'closed', taskCategory: 'general', taskCount: 4, description: 'Commission processing, client debrief, review requests, referrals', isDefault: true },
+  // STAGE 4: CANCELED
+  { id: 'wf-13', name: 'Listing Cancellation', phase: 'canceled', taskCategory: 'general', taskCount: 3, description: 'Document cancellation, MLS removal, client relationship retention', isDefault: true },
 ];
 
 // ─── Dashboard Summary Helpers ───────────────────────────────────────────────

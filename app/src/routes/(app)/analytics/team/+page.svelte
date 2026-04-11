@@ -6,11 +6,13 @@
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import {
 		teamMembers,
-		teamPerformanceData,
 		tasks,
 		listings,
 		formatCurrency
 	} from '$lib/data/mock-data.js';
+
+	let { data } = $props();
+	const teamPerformanceData = $derived(data.teamPerformanceData ?? { members: [] as string[], activeTasks: [] as number[], completedThisMonth: [] as number[], avgCompletionDays: [] as number[] });
 	import { Users, CheckCircle, Clock, DollarSign, BarChart3, PieChart } from 'lucide-svelte';
 
 	Chart.register(...registerables);

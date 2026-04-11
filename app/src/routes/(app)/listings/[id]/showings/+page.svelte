@@ -7,7 +7,10 @@
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Chart, registerables } from 'chart.js';
-	import { listings, showings, showingsTimeSeries } from '$lib/data/mock-data.js';
+	import { listings, showings } from '$lib/data/mock-data.js';
+
+	let { data } = $props();
+	const showingsTimeSeries = $derived(data.showingsTimeSeries ?? { labels: [] as string[], showings: [] as number[], openHouseAttendees: [] as number[] });
 	import {
 		Calendar,
 		Clock,

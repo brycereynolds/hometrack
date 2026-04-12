@@ -76,18 +76,60 @@ Added Drizzle ORM with full PostgreSQL schema matching the frontend data model.
 
 ---
 
+## 2026-04-11 — Pipeline Redesign, Supabase Integration, UI Overhaul
+
+### Pipeline Redesign
+
+- Replaced 9-stage pipeline with 4 stages: Pre-Market, Active, Closed, Canceled
+- Tasks within stages are parallel attributes, not sequential gates
+- "Under Contract" is a boolean badge on Active listings, not a column
+- Database schema migration (`0001_pipeline_redesign.sql`)
+- Responsive Kanban board: 4 columns desktop, 2x2 tablet, tabbed mobile
+- Drag-and-drop for phase changes and reordering via svelte-dnd-action
+
+### UI Improvements
+
+- Removed all "AI" labels from UI (30 edits, 16 files)
+- Fixed 16 UI bugs (white-on-white buttons, missing modals, calendar styling, nav issues)
+- Added Cmd+K command palette using shadcn-svelte Command component
+- My Tasks widget: merged Today/Upcoming, added calendar and reminder actions
+- Added voice memo, quick note, add contact, add vendor modals
+
+### Data Layer
+
+- Expanded workflow templates: 10 → 13 templates, 118 realistic tasks
+- Added 4 analytics tables (events, showings, pipeline metrics, team performance)
+- Removed all hardcoded time-series data from mock-data.ts
+- Added files table with storage path and access levels
+- Comprehensive seed script with production guard and truncate-before-insert
+
+### Infrastructure
+
+- Created dev branch with GitHub Flow branching model
+- Added `db:reset` script (push schema + seed)
+- Supabase integration: client utilities, storage layer (`@supabase/supabase-js`)
+- Self-hosted Supabase deployed on Railway (Postgres, Auth, Storage, Realtime, Studio, Kong)
+- Google OAuth configured on GoTrue
+- Postmark SMTP configured for magic links
+- Kong API gateway with basic auth for Studio access
+
+### Domain Search
+
+- Domain scout tool updated with Cloudflare-supported TLDs
+- 200+ domain combinations checked across multiple strategies
+- Top candidates identified: Norlo, Sulva, Kova, Nolva, Fova (warm/premium vibe)
+
+---
+
 ## What's Left
 
 ### Immediate Next Steps
-1. **Connect to Railway PostgreSQL** — User will provide DATABASE_URL credentials
-3. **Run migrations** — `npm run db:push` or `npm run db:migrate` against Railway
-4. **Seed the database** — `npm run db:seed` to populate with mock data
-5. **Wire up frontend** — Update components to use `data` from server load functions instead of direct mock imports
+1. **Register domain** — Choose from top candidates and register via Cloudflare
+2. **Wire up frontend** — Update components to use `data` from server load functions instead of direct mock imports
+3. **Deploy to Railway** — Connect SvelteKit app to self-hosted Supabase
 
 ### Future Work
-- Authentication (Auth0/Clerk with magic links for clients)
-- Real-time updates (WebSockets)
-- File storage (S3 for document uploads)
+- Real-time updates (Supabase Realtime)
 - MLS/IDX integration for comp data
 - Email/calendar sync (Google Workspace, Outlook)
 - DocuSign integration for e-signatures

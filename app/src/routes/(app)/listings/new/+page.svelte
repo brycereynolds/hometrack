@@ -3,12 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import {
-		teamMembers,
-		contacts,
-		PHASE_LIST,
-		PHASES,
-	} from '$lib/data/mock-data.js';
+	import { PHASE_LIST, PHASES, type ListingPhase } from '$lib/config.js';
 	import {
 		Home,
 		DollarSign,
@@ -21,6 +16,10 @@
 		Check,
 		MapPin,
 	} from 'lucide-svelte';
+
+	let { data } = $props();
+	const teamMembers = $derived(data.teamMembers);
+	const clientContacts = $derived(data.clientContacts);
 
 	const STEPS = [
 		{ label: 'Property Details', icon: Home, description: 'Address, type, and features' },
@@ -50,11 +49,9 @@
 	let pricingStrategy = $state('market');
 
 	let selectedClientId = $state('');
-	let selectedAgentId = $state('tm-1');
-	let selectedTcId = $state('tm-3');
-	let selectedPhase = $state('pre_market');
-
-	const clientContacts = contacts.filter((c) => c.type === 'client');
+	let selectedAgentId = $state(teamMembers[0]?.id ?? '');
+	let selectedTcId = $state(teamMembers[2]?.id ?? '');
+	let selectedPhase = $state<string>('pre_market');
 
 	let isComplete = $derived(currentStep === STEPS.length - 1);
 
@@ -198,60 +195,26 @@
 					<div class="grid grid-cols-3 gap-4">
 						<div>
 							<label for="beds" class="text-sm font-medium mb-1.5 block">Bedrooms</label>
-							<input
-								id="beds"
-								type="number"
-								bind:value={beds}
-								min="0"
-								max="20"
-								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-							/>
+							<input id="beds" type="number" bind:value={beds} min="0" max="20" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
 						</div>
 						<div>
 							<label for="baths" class="text-sm font-medium mb-1.5 block">Bathrooms</label>
-							<input
-								id="baths"
-								type="number"
-								bind:value={baths}
-								min="0"
-								max="20"
-								step="0.5"
-								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-							/>
+							<input id="baths" type="number" bind:value={baths} min="0" max="20" step="0.5" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
 						</div>
 						<div>
 							<label for="sqft" class="text-sm font-medium mb-1.5 block">Square Feet</label>
-							<input
-								id="sqft"
-								type="number"
-								bind:value={sqft}
-								min="0"
-								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-							/>
+							<input id="sqft" type="number" bind:value={sqft} min="0" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
 						</div>
 					</div>
 
 					<div class="grid grid-cols-2 gap-4">
 						<div>
 							<label for="lotSqft" class="text-sm font-medium mb-1.5 block">Lot Size (sqft)</label>
-							<input
-								id="lotSqft"
-								type="number"
-								bind:value={lotSqft}
-								min="0"
-								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-							/>
+							<input id="lotSqft" type="number" bind:value={lotSqft} min="0" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
 						</div>
 						<div>
 							<label for="yearBuilt" class="text-sm font-medium mb-1.5 block">Year Built</label>
-							<input
-								id="yearBuilt"
-								type="number"
-								bind:value={yearBuilt}
-								min="1800"
-								max="2026"
-								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-							/>
+							<input id="yearBuilt" type="number" bind:value={yearBuilt} min="1800" max="2026" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
 						</div>
 					</div>
 
@@ -329,7 +292,7 @@
 									"
 								>
 									<div class="flex size-10 items-center justify-center rounded-full bg-muted text-sm font-medium">
-										{client.initials}
+										{client.initials ?? '?'}
 									</div>
 									<div class="min-w-0 flex-1">
 										<p class="text-sm font-medium">{client.name}</p>
@@ -362,7 +325,7 @@
 							class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
 						>
 							{#each teamMembers.filter((m) => m.role === 'admin' || m.role === 'listing_agent') as member}
-								<option value={member.id}>{member.name} - {member.roleLabel}</option>
+								<option value={member.id}>{member.name} - {member.roleLabel ?? member.role}</option>
 							{/each}
 						</select>
 					</div>
@@ -375,7 +338,7 @@
 							class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
 						>
 							{#each teamMembers as member}
-								<option value={member.id}>{member.name} - {member.roleLabel}</option>
+								<option value={member.id}>{member.name} - {member.roleLabel ?? member.role}</option>
 							{/each}
 						</select>
 					</div>
@@ -388,11 +351,11 @@
 							{#each teamMembers as member}
 								<div class="flex items-center gap-3 rounded-lg border p-3">
 									<div class="flex size-9 items-center justify-center rounded-full bg-primary/10 text-sm font-medium text-primary">
-										{member.initials}
+										{member.initials ?? '?'}
 									</div>
 									<div class="min-w-0 flex-1">
 										<p class="text-sm font-medium">{member.name}</p>
-										<p class="text-xs text-muted-foreground">{member.roleLabel}</p>
+										<p class="text-xs text-muted-foreground">{member.roleLabel ?? member.role}</p>
 									</div>
 									<Badge variant="secondary" class="text-xs">{member.role}</Badge>
 								</div>
@@ -500,9 +463,9 @@
 								<Badge
 									variant="outline"
 									class="text-xs ml-1"
-									style="border-color: {PHASES[selectedPhase].color}; color: {PHASES[selectedPhase].color}"
+									style="border-color: {PHASES[selectedPhase as ListingPhase].color}; color: {PHASES[selectedPhase as ListingPhase].color}"
 								>
-									{PHASES[selectedPhase].label}
+									{PHASES[selectedPhase as ListingPhase].label}
 								</Badge>
 							</div>
 						</div>
@@ -512,7 +475,7 @@
 
 					<div class="rounded-lg border border-primary/20 bg-primary/5 p-4">
 						<p class="text-sm">
-							Creating this listing will set up the <strong>{PHASES[selectedPhase].label}</strong> workflow with pre-configured tasks for your team. You can customize tasks after creation.
+							Creating this listing will set up the <strong>{PHASES[selectedPhase as ListingPhase].label}</strong> workflow with pre-configured tasks for your team. You can customize tasks after creation.
 						</p>
 					</div>
 				</div>

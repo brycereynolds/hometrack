@@ -3,7 +3,8 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { listings, PHASES, PHASE_LIST } from '$lib/data/mock-data.js';
+	import { PHASES, PHASE_LIST } from '$lib/config.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Edit,
@@ -13,9 +14,9 @@
 		ChevronRight
 	} from 'lucide-svelte';
 
-	let { children } = $props();
+	let { children, data } = $props();
 
-	const listing = $derived(listings.find((l) => l.id === $page.params.id));
+	const listing = $derived(data.listing);
 	const currentPhaseOrder = $derived(listing ? PHASES[listing.phase].order : 0);
 
 	const tabs = [
@@ -102,15 +103,15 @@
 								class="border-white/40 bg-white/10 text-white backdrop-blur-sm text-xs sm:text-sm"
 								style="border-color: {PHASES[listing.phase].color}; background-color: {PHASES[listing.phase].color}20"
 							>
-								{listing.phaseLabel}
+								{PHASES[listing.phase].label}
 							</Badge>
-							<span class="font-serif text-2xl font-bold sm:text-3xl">{listing.priceFormatted}</span>
+							<span class="font-serif text-2xl font-bold sm:text-3xl">{formatCurrency(listing.price ?? 0)}</span>
 						</div>
 					</div>
 					<div class="mt-2 flex items-center gap-4 text-xs text-white/70 sm:text-sm">
-						<span>MLS {listing.mlsNumber}</span>
+						<span>MLS {listing.mlsNumber ?? 'N/A'}</span>
 						<span>|</span>
-						{#if listing.daysOnMarket > 0}
+						{#if (listing.daysOnMarket ?? 0) > 0}
 							<span>{listing.daysOnMarket} DOM</span>
 						{:else}
 							<span>Pre-market</span>

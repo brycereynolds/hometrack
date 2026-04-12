@@ -4,7 +4,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { contacts, listings, aiInsights, type Contact, type Listing } from '$lib/data/mock-data.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Search,
@@ -27,7 +27,9 @@
 		Brain,
 	} from 'lucide-svelte';
 
-	const agents = contacts.filter((c) => c.type === 'agent');
+	let { data } = $props();
+	const agents = $derived(data.agents);
+	const listings = $derived(data.listings);
 
 	// Parse buyer needs into structured data for matching
 	interface BuyerNeed {
@@ -90,7 +92,7 @@
 	interface AIMatch {
 		id: string;
 		buyerNeed: BuyerNeed;
-		listing: Listing;
+		listingIndex: number;
 		matchScore: number;
 		matchReasons: string[];
 		mismatchReasons: string[];
@@ -98,11 +100,21 @@
 		priority: 'high' | 'medium' | 'low';
 	}
 
-	const aiMatches: AIMatch[] = [
+	function getPhaseLabel(phase: string): string {
+		const labels: Record<string, string> = {
+			pre_market: 'Pre-Market',
+			active: 'Active',
+			closed: 'Closed',
+			canceled: 'Canceled',
+		};
+		return labels[phase] ?? phase;
+	}
+
+	const aiMatchDefs: AIMatch[] = [
 		{
 			id: 'match-1',
 			buyerNeed: buyerNeeds[0],
-			listing: listings[0],
+			listingIndex: 0,
 			matchScore: 92,
 			matchReasons: [
 				'4BR matches buyer requirement',
@@ -117,7 +129,7 @@
 		{
 			id: 'match-2',
 			buyerNeed: buyerNeeds[1],
-			listing: listings[4],
+			listingIndex: 4,
 			matchScore: 78,
 			matchReasons: [
 				'2BR matches downsizer needs',
@@ -132,7 +144,7 @@
 		{
 			id: 'match-3',
 			buyerNeed: buyerNeeds[2],
-			listing: listings[2],
+			listingIndex: 2,
 			matchScore: 68,
 			matchReasons: [
 				'Cupertino location with top schools',
@@ -149,7 +161,7 @@
 		{
 			id: 'match-4',
 			buyerNeed: buyerNeeds[2],
-			listing: listings[5],
+			listingIndex: 5,
 			matchScore: 74,
 			matchReasons: [
 				'5BR exceeds 4BR+ requirement',
@@ -168,7 +180,7 @@
 		{
 			id: 'match-5',
 			buyerNeed: buyerNeeds[0],
-			listing: listings[5],
+			listingIndex: 5,
 			matchScore: 70,
 			matchReasons: [
 				'5BR exceeds 4BR requirement',
@@ -183,6 +195,19 @@
 			priority: 'low',
 		},
 	];
+
+	interface ResolvedMatch extends Omit<AIMatch, 'listingIndex'> {
+		listing: (typeof listings)[number];
+	}
+
+	const aiMatches = $derived(
+		aiMatchDefs
+			.filter((m) => m.listingIndex < listings.length)
+			.map((m) => ({
+				...m,
+				listing: listings[m.listingIndex],
+			})) as ResolvedMatch[]
+	);
 
 	let filterLocation = $state('all');
 	let filterBeds = $state('all');
@@ -202,15 +227,15 @@
 		}
 		if (filterBeds !== 'all') {
 			results = results.filter((m) => {
-				if (filterBeds === '4+') return m.listing.beds >= 4;
-				return m.listing.beds === parseInt(filterBeds);
+				if (filterBeds === '4+') return (m.listing.beds ?? 0) >= 4;
+				return (m.listing.beds ?? 0) === parseInt(filterBeds);
 			});
 		}
 		return results.sort((a, b) => b.matchScore - a.matchScore);
 	});
 
-	const highPriorityCount = aiMatches.filter((m) => m.priority === 'high').length;
-	const activeMatchCount = aiMatches.length;
+	const highPriorityCount = $derived(aiMatches.filter((m) => m.priority === 'high').length);
+	const activeMatchCount = $derived(aiMatches.length);
 	const totalBuyerNeeds = buyerNeeds.length;
 
 	function scoreColor(score: number): string {
@@ -274,7 +299,7 @@
 		<div class="rounded-lg border border-border bg-card p-4">
 			<p class="text-sm text-muted-foreground">Avg Match Score</p>
 			<p class="mt-1 font-serif text-3xl font-bold">
-				{Math.round(aiMatches.reduce((s, m) => s + m.matchScore, 0) / aiMatches.length)}%
+				{aiMatches.length > 0 ? Math.round(aiMatches.reduce((s, m) => s + m.matchScore, 0) / aiMatches.length) : 0}%
 			</p>
 			<p class="mt-1 text-xs text-muted-foreground">across all connections</p>
 		</div>
@@ -427,14 +452,14 @@
 											{match.listing.address}
 										</a>
 										<p class="text-xs text-muted-foreground">{match.listing.city}, {match.listing.state}</p>
-										<p class="mt-0.5 text-sm font-semibold text-primary">{match.listing.priceFormatted}</p>
+										<p class="mt-0.5 text-sm font-semibold text-primary">{formatCurrency(match.listing.price ?? 0)}</p>
 									</div>
 								</div>
 								<div class="mt-4 space-y-2 text-sm">
 									<div class="flex items-center gap-2">
 										<BedDouble class="size-3.5 text-muted-foreground" />
 										<span class="text-muted-foreground">Beds:</span>
-										<span class="font-medium">{match.listing.beds}</span>
+										<span class="font-medium">{match.listing.beds ?? 0}</span>
 									</div>
 									<div class="flex items-center gap-2">
 										<MapPin class="size-3.5 text-muted-foreground" />
@@ -444,14 +469,14 @@
 									<div class="flex items-center gap-2">
 										<DollarSign class="size-3.5 text-muted-foreground" />
 										<span class="text-muted-foreground">Price:</span>
-										<span class="font-medium">{match.listing.priceFormatted}</span>
+										<span class="font-medium">{formatCurrency(match.listing.price ?? 0)}</span>
 									</div>
 									<div class="mt-2">
 										<span
 											class="rounded-full px-2 py-0.5 text-[10px] font-medium"
 											style="background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); color: var(--color-primary);"
 										>
-											{match.listing.phaseLabel}
+											{getPhaseLabel(match.listing.phase)}
 										</span>
 									</div>
 								</div>
@@ -650,7 +675,7 @@
 												<a href="/listings/{listing.id}" class="text-sm font-medium hover:text-primary">
 													{listing.address}
 												</a>
-												<p class="text-[11px] text-muted-foreground">{listing.city} | {listing.beds}BR | {listing.priceFormatted}</p>
+												<p class="text-[11px] text-muted-foreground">{listing.city} | {listing.beds ?? 0}BR | {formatCurrency(listing.price ?? 0)}</p>
 											</div>
 										</div>
 									</td>

@@ -1,22 +1,29 @@
 import type { PageServerLoad } from './$types';
 import { getTeamPerformanceData } from '$lib/server/db/queries/analytics.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { teamMembers } from '$lib/server/db/schema/index.js';
+import { teamMembers, tasks, listings } from '$lib/server/db/schema/index.js';
 import { eq } from 'drizzle-orm';
 
 export const load: PageServerLoad = async ({ locals, parent }) => {
   const { team } = await parent();
 
   if (!team || !locals.user) {
-    return { teamPerformanceData: null };
+    return { teamPerformanceData: null, memberTaskCounts: [], projectedCommission: 0, ytdClosed: 0 };
   }
 
   try {
     return await withRLS(locals.user.id, 'authenticated', async (db) => {
-      const members = await db
-        .select({ id: teamMembers.id, name: teamMembers.name })
-        .from(teamMembers)
-        .where(eq(teamMembers.teamId, team.id));
+      const [members, allTasks, allListings] = await Promise.all([
+        db.query.teamMembers.findMany({
+          where: eq(teamMembers.teamId, team.id),
+        }),
+        db.query.tasks.findMany({
+          where: eq(tasks.teamId, team.id),
+        }),
+        db.query.listings.findMany({
+          where: eq(listings.teamId, team.id),
+        }),
+      ]);
 
       const perfRows = await getTeamPerformanceData(members.map((m) => m.id), db);
 
@@ -28,7 +35,6 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
 
       for (const member of members) {
         const perf = perfRows.find((r) => r.teamMemberId === member.id);
-        // Abbreviate name: "Lauren Chen" -> "Lauren C."
         const parts = member.name.split(' ');
         const short = parts.length > 1 ? `${parts[0]} ${parts[1][0]}.` : parts[0];
         memberNames.push(short);
@@ -37,6 +43,17 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
         avgCompletionDays.push(perf?.avgCompletionDays ?? 0);
       }
 
+      // Per-member task counts for the member cards
+      const memberTaskCounts = members.map((m) => ({
+        ...m,
+        activeTasks: allTasks.filter((t) => t.assigneeId === m.id && t.status !== 'done').length,
+        completedTasks: allTasks.filter((t) => t.assigneeId === m.id && t.status === 'done').length,
+        overdueTasks: allTasks.filter((t) => t.assigneeId === m.id && t.isOverdue).length,
+      }));
+
+      const projectedCommission = allListings.reduce((s, l) => s + (l.price ?? 0) * 0.025, 0);
+      const ytdClosed = 14475000 * 0.025;
+
       return {
         teamPerformanceData: {
           members: memberNames,
@@ -44,9 +61,12 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
           completedThisMonth,
           avgCompletionDays,
         },
+        memberTaskCounts,
+        projectedCommission,
+        ytdClosed,
       };
     });
   } catch {
-    return { teamPerformanceData: null };
+    return { teamPerformanceData: null, memberTaskCounts: [], projectedCommission: 0, ytdClosed: 0 };
   }
 };

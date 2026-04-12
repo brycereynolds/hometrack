@@ -3,7 +3,6 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { vendors } from '$lib/data/mock-data.js';
 	import {
 		Plus,
 		Star,
@@ -15,6 +14,8 @@
 		Users,
 	} from 'lucide-svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
+
+	let { data } = $props();
 
 	type CategoryFilter = 'all' | string;
 
@@ -30,6 +31,13 @@
 	let newVendorPhone = $state('');
 	let newVendorCategory = $state('contractor');
 	let newVendorSpecialties = $state('');
+
+	const vendors = $derived(data.vendors);
+
+	function categoryLabel(cat: string | null) {
+		if (!cat) return '';
+		return cat.charAt(0).toUpperCase() + cat.slice(1);
+	}
 
 	const categories: { label: string; value: CategoryFilter }[] = [
 		{ label: 'All', value: 'all' },
@@ -60,23 +68,23 @@
 			result = result.filter(
 				(v) =>
 					v.name.toLowerCase().includes(q) ||
-					v.company.toLowerCase().includes(q) ||
-					v.specialties.some((s) => s.toLowerCase().includes(q))
+					(v.company ?? '').toLowerCase().includes(q) ||
+					(Array.isArray(v.specialties) && (v.specialties as string[]).some((s: string) => s.toLowerCase().includes(q)))
 			);
 		}
 		result = [...result].sort((a, b) => {
-			if (sortBy === 'rating') return b.rating - a.rating;
-			if (sortBy === 'reliability') return b.reliabilityScore - a.reliabilityScore;
-			if (sortBy === 'projects') return b.projectsCompleted - a.projectsCompleted;
-			const costA = parseInt(a.avgCost.replace(/[$,]/g, ''));
-			const costB = parseInt(b.avgCost.replace(/[$,]/g, ''));
+			if (sortBy === 'rating') return (b.rating ?? 0) - (a.rating ?? 0);
+			if (sortBy === 'reliability') return (b.reliabilityScore ?? 0) - (a.reliabilityScore ?? 0);
+			if (sortBy === 'projects') return (b.projectsCompleted ?? 0) - (a.projectsCompleted ?? 0);
+			const costA = parseInt((a.avgCost ?? '0').replace(/[$,]/g, ''));
+			const costB = parseInt((b.avgCost ?? '0').replace(/[$,]/g, ''));
 			return costA - costB;
 		});
 		return result;
 	});
 
-	function isPreferred(vendor: typeof vendors[0]): boolean {
-		return vendor.rating >= 4.8 && vendor.reliabilityScore >= 95;
+	function isPreferred(vendor: typeof vendors[number]): boolean {
+		return (vendor.rating ?? 0) >= 4.8 && (vendor.reliabilityScore ?? 0) >= 95;
 	}
 </script>
 
@@ -175,8 +183,8 @@
 
 						<!-- Category & Rating -->
 						<div class="mt-3 flex items-center justify-between">
-							<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {categoryColors[vendor.category] ?? 'bg-muted text-muted-foreground'}">
-								{vendor.categoryLabel}
+							<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {categoryColors[vendor.category ?? ''] ?? 'bg-muted text-muted-foreground'}">
+								{categoryLabel(vendor.category)}
 							</span>
 							<div class="flex items-center gap-1">
 								<Star class="size-4 fill-amber-400 text-amber-400" />
@@ -188,16 +196,16 @@
 						<div class="mt-3">
 							<div class="flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Reliability</span>
-								<span class="font-medium">{vendor.reliabilityScore}%</span>
+								<span class="font-medium">{vendor.reliabilityScore ?? 0}%</span>
 							</div>
 							<div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-muted">
 								<div
-									class="h-full rounded-full transition-all {vendor.reliabilityScore >= 95
+									class="h-full rounded-full transition-all {(vendor.reliabilityScore ?? 0) >= 95
 										? 'bg-emerald-500'
-										: vendor.reliabilityScore >= 85
+										: (vendor.reliabilityScore ?? 0) >= 85
 											? 'bg-amber-500'
 											: 'bg-red-400'}"
-									style="width: {vendor.reliabilityScore}%"
+									style="width: {vendor.reliabilityScore ?? 0}%"
 								></div>
 							</div>
 						</div>

@@ -460,6 +460,19 @@ async function main() {
     { listingMock: 'l-2', date: '2026-04-08', time: '4:00 PM', agentName: 'Sarah Kim', agentCompany: 'Compass', buyerType: 'Move-up buyer', feedback: 'Beautiful property. Buyers love the lot size. Concern about dated bathrooms.', rating: 4, interestedLevel: 'very' as const },
     { listingMock: 'l-2', date: '2026-04-06', time: '1:00 PM', agentName: 'Unknown Agent', agentCompany: 'Open House Walk-in', buyerType: 'First-time buyer', feedback: 'Just browsing the neighborhood. Price is out of their range.', rating: 2, interestedLevel: 'not' as const },
     { listingMock: 'l-6', date: '2026-04-05', time: '11:00 AM', agentName: 'Brian Foster', agentCompany: 'Sereno Group', buyerType: 'Luxury upgrade', feedback: 'Strong interest. Love the lot and the Saratoga schools.', rating: 5, interestedLevel: 'very' as const },
+    { listingMock: 'l-8', date: '2026-04-10', time: '10:00 AM', agentName: 'Sarah Kim', agentCompany: 'Compass', buyerType: 'Investor', feedback: 'Good bones. Needs cosmetic work but priced well for the area.', rating: 3, interestedLevel: 'somewhat' as const },
+    { listingMock: 'l-8', date: '2026-04-09', time: '3:00 PM', agentName: 'Brian Foster', agentCompany: 'Sereno Group', buyerType: 'First-time buyer', feedback: 'Love the location near Murphy Ave. Concerned about lack of updates.', rating: 3, interestedLevel: 'somewhat' as const },
+    // Showings for l-3 (pre-market broker preview)
+    { listingMock: 'l-3', date: '2026-04-11', time: '11:00 AM', agentName: 'Diana Reyes', agentCompany: 'Keller Williams', buyerType: 'Tech relocatee family', feedback: 'Great school district. Home needs some updating but the layout is ideal.', rating: 4, interestedLevel: 'very' as const },
+    { listingMock: 'l-3', date: '2026-04-10', time: '2:00 PM', agentName: 'Sarah Kim', agentCompany: 'Compass', buyerType: 'Move-up buyer', feedback: 'Broker preview — nice bones, needs staging to show its potential.', rating: 3, interestedLevel: 'somewhat' as const },
+    // Showings for l-4 (pre-market broker preview)
+    { listingMock: 'l-4', date: '2026-04-09', time: '10:00 AM', agentName: 'Brian Foster', agentCompany: 'Sereno Group', buyerType: 'Downsizer couple', feedback: 'Charming period details. Walkability is a huge plus. Will bring buyers once listed.', rating: 4, interestedLevel: 'very' as const },
+    // Showings for l-5 (pre-market early preview)
+    { listingMock: 'l-5', date: '2026-04-11', time: '4:00 PM', agentName: 'Diana Reyes', agentCompany: 'Keller Williams', buyerType: 'Young professional', feedback: 'Great starter home. Near Caltrain is a big draw. EV charging is a nice touch.', rating: 4, interestedLevel: 'very' as const },
+    // Showings for l-7 (active, under contract — historical showings)
+    { listingMock: 'l-7', date: '2026-03-12', time: '11:00 AM', agentName: 'Sarah Kim', agentCompany: 'Compass', buyerType: 'Stanford professor', feedback: 'Perfect location. Loved the mid-century character. Made an offer.', rating: 5, interestedLevel: 'very' as const },
+    { listingMock: 'l-7', date: '2026-03-10', time: '2:00 PM', agentName: 'Brian Foster', agentCompany: 'Sereno Group', buyerType: 'Downsizer couple', feedback: 'Beautiful home but they need single-story. ADU potential is interesting.', rating: 3, interestedLevel: 'somewhat' as const },
+    { listingMock: 'l-7', date: '2026-03-14', time: '10:00 AM', agentName: 'Diana Reyes', agentCompany: 'Keller Williams', buyerType: 'Tech family', feedback: 'Liked the updates and Stanford proximity. Concerned about lot size.', rating: 4, interestedLevel: 'somewhat' as const },
   ];
 
   for (const s of showingData) {
@@ -486,6 +499,11 @@ async function main() {
     { listingMock: 'l-6', buyerName: 'Pham Family', buyerAgent: 'Diana Reyes', price: 3100000, earnestDeposit: 80000, contingencies: ['Inspection (14 days)', 'Appraisal', 'Loan (21 days)'], closeDate: '2026-05-30', financingType: 'Conventional 15% down', status: 'received' as const, submittedDate: '2026-04-09', expirationDate: '2026-04-13', notes: 'First-time move-up buyers. Extended contingency timelines.' },
     { listingMock: 'l-1', buyerName: 'Chen-Williams', buyerAgent: 'Brian Foster', price: 2450000, earnestDeposit: 75000, contingencies: ['Inspection (10 days)', 'Appraisal'], closeDate: '2026-05-20', financingType: 'Conventional 25% down', status: 'received' as const, submittedDate: '2026-04-09', expirationDate: '2026-04-13', notes: 'Downsizer couple. Very motivated. Flexible on timeline.' },
     { listingMock: 'l-1', buyerName: 'Johnson Trust', buyerAgent: 'Unknown', price: 2400000, earnestDeposit: 50000, contingencies: ['Inspection (14 days)', 'Appraisal', 'Loan (17 days)'], closeDate: '2026-06-01', financingType: 'Jumbo loan 10% down', status: 'received' as const, submittedDate: '2026-04-08', expirationDate: '2026-04-12', notes: 'First offer received. Some contingency concerns.' },
+    // Offers for l-2 (active, 18 days on market)
+    { listingMock: 'l-2', buyerName: 'Hartley Family Trust', buyerAgent: 'Sarah Kim', price: 3750000, earnestDeposit: 120000, contingencies: ['Inspection (10 days)', 'Appraisal'], closeDate: '2026-05-20', financingType: 'Conventional 30% down', status: 'received' as const, submittedDate: '2026-04-10', expirationDate: '2026-04-14', notes: 'Strong pre-approval. Buyers love the neighborhood and pool.' },
+    { listingMock: 'l-2', buyerName: 'Mehta & Associates LLC', buyerAgent: 'Diana Reyes', price: 3680000, earnestDeposit: 100000, contingencies: ['Inspection (7 days)', 'Appraisal', 'Loan (21 days)'], closeDate: '2026-05-30', financingType: 'Jumbo loan 20% down', status: 'received' as const, submittedDate: '2026-04-11', expirationDate: '2026-04-15', notes: 'Relocating tech executive. Flexible on close date but wants inspection credits.' },
+    // Offers for l-3 (approaching list date, received early interest)
+    { listingMock: 'l-3', buyerName: 'Tanaka Family', buyerAgent: 'Diana Reyes', price: 2100000, earnestDeposit: 60000, contingencies: ['Inspection (10 days)', 'Appraisal'], closeDate: '2026-05-25', financingType: 'Conventional 25% down', status: 'received' as const, submittedDate: '2026-04-12', expirationDate: '2026-04-16', notes: 'Pre-emptive offer before listing goes live. Strong Cupertino school interest.' },
   ];
 
   for (const o of offerData) {
@@ -563,6 +581,64 @@ async function main() {
         { name: 'Landscaping', budgeted: 2500, actual: 0, variance: 2500 },
       ],
     },
+    {
+      listingMock: 'l-3', totalBudget: 18000, spent: 8200, remaining: 9800, pendingQuotes: 2,
+      categories: [
+        { name: 'Repairs', budgeted: 5000, actual: 3200, variance: 1800 },
+        { name: 'Staging', budgeted: 5500, actual: 0, variance: 5500 },
+        { name: 'Photography & Video', budgeted: 2200, actual: 2200, variance: 0 },
+        { name: 'Marketing & Ads', budgeted: 3000, actual: 1500, variance: 1500 },
+        { name: 'Closing Costs', budgeted: 2300, actual: 1300, variance: 1000 },
+      ],
+    },
+    {
+      listingMock: 'l-4', totalBudget: 15000, spent: 7800, remaining: 7200, pendingQuotes: 1,
+      categories: [
+        { name: 'Staging', budgeted: 5800, actual: 5800, variance: 0 },
+        { name: 'Repairs', budgeted: 3500, actual: 2000, variance: 1500 },
+        { name: 'Photography', budgeted: 1800, actual: 0, variance: 1800 },
+        { name: 'Closing Costs', budgeted: 3900, actual: 0, variance: 3900 },
+      ],
+    },
+    {
+      listingMock: 'l-5', totalBudget: 8500, spent: 1200, remaining: 7300, pendingQuotes: 0,
+      categories: [
+        { name: 'Repairs', budgeted: 2500, actual: 1200, variance: 1300 },
+        { name: 'Staging', budgeted: 2500, actual: 0, variance: 2500 },
+        { name: 'Photography', budgeted: 1500, actual: 0, variance: 1500 },
+        { name: 'Closing Costs', budgeted: 2000, actual: 0, variance: 2000 },
+      ],
+    },
+    {
+      listingMock: 'l-6', totalBudget: 42000, spent: 39500, remaining: 2500, pendingQuotes: 0,
+      categories: [
+        { name: 'Staging (Luxury)', budgeted: 9500, actual: 9200, variance: 300 },
+        { name: 'Repairs & Updates', budgeted: 15000, actual: 16200, variance: -1200 },
+        { name: 'Photography & Drone', budgeted: 3500, actual: 3500, variance: 0 },
+        { name: 'Marketing & Ads', budgeted: 8000, actual: 7600, variance: 400 },
+        { name: 'Closing Costs', budgeted: 6000, actual: 3000, variance: 3000 },
+      ],
+    },
+    {
+      listingMock: 'l-7', totalBudget: 32000, spent: 30200, remaining: 1800, pendingQuotes: 0,
+      categories: [
+        { name: 'Staging', budgeted: 7000, actual: 6800, variance: 200 },
+        { name: 'Repairs', budgeted: 8000, actual: 9500, variance: -1500 },
+        { name: 'Photography & Video', budgeted: 2800, actual: 2800, variance: 0 },
+        { name: 'Marketing & Ads', budgeted: 6000, actual: 5200, variance: 800 },
+        { name: 'Closing Costs', budgeted: 8200, actual: 5900, variance: 2300 },
+      ],
+    },
+    {
+      listingMock: 'l-8', totalBudget: 22000, spent: 0, remaining: 22000, pendingQuotes: 2,
+      categories: [
+        { name: 'Bathroom Renovation', budgeted: 12400, actual: 0, variance: 12400 },
+        { name: 'Interior Repaint', budgeted: 4200, actual: 0, variance: 4200 },
+        { name: 'Staging', budgeted: 3000, actual: 0, variance: 3000 },
+        { name: 'Photography', budgeted: 1200, actual: 0, variance: 1200 },
+        { name: 'Closing Costs', budgeted: 1200, actual: 0, variance: 1200 },
+      ],
+    },
   ];
 
   for (const f of financialData) {
@@ -614,6 +690,28 @@ async function main() {
     { name: 'Property Brochure', category: 'marketing' as const, listingMock: 'l-1', uploadedBy: 'Jordan Nakamura', uploadedDate: '2026-04-03', fileSize: '5.2 MB', fileType: 'PDF', status: 'complete' as const, version: 3 },
     { name: 'Purchase Agreement - Chen-Williams', category: 'contracts' as const, listingMock: 'l-1', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-09', fileSize: '420 KB', fileType: 'PDF', status: 'pending_signature' as const, version: 1 },
     { name: 'Preliminary Title Report', category: 'title' as const, listingMock: 'l-2', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-18', fileSize: '2.1 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    // Documents for l-3
+    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-3', uploadedBy: 'Marcus Rivera', uploadedDate: '2026-04-03', fileSize: '310 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Home Inspection Report', category: 'inspection' as const, listingMock: 'l-3', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-08', fileSize: '4.1 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    { name: 'Transfer Disclosure Statement (TDS)', category: 'disclosures' as const, listingMock: 'l-3', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-11', fileSize: '220 KB', fileType: 'PDF', status: 'draft' as const, version: 1 },
+    // Documents for l-4
+    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-4', uploadedBy: 'Marcus Rivera', uploadedDate: '2026-03-30', fileSize: '295 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Home Inspection Report', category: 'inspection' as const, listingMock: 'l-4', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-02', fileSize: '3.6 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    { name: 'Seller Property Questionnaire (SPQ)', category: 'disclosures' as const, listingMock: 'l-4', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-04', fileSize: '175 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Staging Proposal', category: 'marketing' as const, listingMock: 'l-4', uploadedBy: 'Sofia Andrade', uploadedDate: '2026-04-05', fileSize: '2.8 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    // Documents for l-5
+    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-5', uploadedBy: 'Lauren Chen', uploadedDate: '2026-04-09', fileSize: '280 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Client Intake Form', category: 'contracts' as const, listingMock: 'l-5', uploadedBy: 'Lauren Chen', uploadedDate: '2026-04-08', fileSize: '145 KB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    // Documents for l-6
+    { name: 'Transfer Disclosure Statement (TDS)', category: 'disclosures' as const, listingMock: 'l-6', uploadedBy: 'Priya Patel', uploadedDate: '2026-02-28', fileSize: '260 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Natural Hazard Disclosure (NHD)', category: 'disclosures' as const, listingMock: 'l-6', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-01', fileSize: '1.4 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-6', uploadedBy: 'Lauren Chen', uploadedDate: '2026-02-22', fileSize: '340 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Property Brochure', category: 'marketing' as const, listingMock: 'l-6', uploadedBy: 'Jordan Nakamura', uploadedDate: '2026-03-11', fileSize: '6.1 MB', fileType: 'PDF', status: 'complete' as const, version: 2 },
+    // Documents for l-7
+    { name: 'Transfer Disclosure Statement (TDS)', category: 'disclosures' as const, listingMock: 'l-7', uploadedBy: 'Priya Patel', uploadedDate: '2026-02-18', fileSize: '235 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Purchase Agreement - Accepted', category: 'contracts' as const, listingMock: 'l-7', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-30', fileSize: '450 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Home Inspection Report', category: 'inspection' as const, listingMock: 'l-7', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-05', fileSize: '3.9 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    { name: 'Appraisal Report', category: 'inspection' as const, listingMock: 'l-7', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-10', fileSize: '2.5 MB', fileType: 'PDF', status: 'pending_signature' as const, version: 1 },
     { name: 'HOA Documents Package', category: 'disclosures' as const, listingMock: 'l-8', uploadedBy: 'Marcus Rivera', uploadedDate: '2026-04-05', fileSize: '8.5 MB', fileType: 'PDF', status: 'draft' as const, version: 1 },
     { name: 'Renovation Scope of Work', category: 'other' as const, listingMock: 'l-8', uploadedBy: 'Sofia Andrade', uploadedDate: '2026-04-06', fileSize: '1.4 MB', fileType: 'PDF', status: 'draft' as const, version: 2 },
   ];
@@ -751,6 +849,28 @@ async function main() {
     { listingMock: 'l-1', type: 'virtual_tour' as const, name: '3D Matterport walkthrough', status: 'complete' as const, date: '2026-04-02' },
     { listingMock: 'l-3', type: 'photo' as const, name: 'Professional photos (scheduled)', status: 'scheduled' as const, date: '2026-04-14' },
     { listingMock: 'l-3', type: 'video' as const, name: 'Video walkthrough', status: 'scheduled' as const, date: '2026-04-15' },
+    // Marketing assets for l-2
+    { listingMock: 'l-2', type: 'photo' as const, name: 'Professional photo package (48 photos)', status: 'complete' as const, date: '2026-03-16' },
+    { listingMock: 'l-2', type: 'virtual_tour' as const, name: '3D Matterport walkthrough', status: 'complete' as const, date: '2026-03-17' },
+    { listingMock: 'l-2', type: 'social_post' as const, name: 'Instagram carousel — Just Listed', status: 'published' as const, date: '2026-03-22', platform: 'Instagram', metrics: { impressions: 4200, clicks: 210, saves: 58 } },
+    { listingMock: 'l-2', type: 'brochure' as const, name: 'Luxury property brochure (digital + print)', status: 'complete' as const, date: '2026-03-20' },
+    // Marketing assets for l-4
+    { listingMock: 'l-4', type: 'photo' as const, name: 'Professional photos (scheduled post-staging)', status: 'scheduled' as const, date: '2026-04-18' },
+    { listingMock: 'l-4', type: 'brochure' as const, name: 'Property brochure draft', status: 'in_production' as const, date: '2026-04-12' },
+    // Marketing assets for l-5
+    { listingMock: 'l-5', type: 'photo' as const, name: 'Professional photos (pending scheduling)', status: 'scheduled' as const, date: '2026-04-28' },
+    { listingMock: 'l-5', type: 'virtual_tour' as const, name: '3D Matterport walkthrough', status: 'scheduled' as const, date: '2026-04-29' },
+    // Marketing assets for l-6
+    { listingMock: 'l-6', type: 'photo' as const, name: 'Professional photo package (52 photos)', status: 'complete' as const, date: '2026-03-05' },
+    { listingMock: 'l-6', type: 'video' as const, name: 'Cinematic drone video with pool feature', status: 'complete' as const, date: '2026-03-06' },
+    { listingMock: 'l-6', type: 'social_post' as const, name: 'Instagram Reels — Pool & Garden Tour', status: 'published' as const, date: '2026-03-14', platform: 'Instagram', metrics: { impressions: 5800, clicks: 320, saves: 92 } },
+    // Marketing assets for l-7
+    { listingMock: 'l-7', type: 'photo' as const, name: 'Professional photo package (38 photos)', status: 'complete' as const, date: '2026-02-28' },
+    { listingMock: 'l-7', type: 'brochure' as const, name: 'Property brochure (digital)', status: 'complete' as const, date: '2026-03-03' },
+    { listingMock: 'l-7', type: 'social_post' as const, name: 'Facebook — Under Contract announcement', status: 'published' as const, date: '2026-04-02', platform: 'Facebook', metrics: { impressions: 2100, clicks: 98, saves: 12 } },
+    // Marketing assets for l-8
+    { listingMock: 'l-8', type: 'photo' as const, name: 'Before photos (pre-renovation)', status: 'complete' as const, date: '2026-04-06' },
+    { listingMock: 'l-8', type: 'brochure' as const, name: 'Investment opportunity flyer', status: 'in_production' as const, date: '2026-04-10' },
   ];
 
   for (const m of marketingData) {

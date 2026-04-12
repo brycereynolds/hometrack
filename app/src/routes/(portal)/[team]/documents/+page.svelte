@@ -13,10 +13,9 @@
 		Search as SearchIcon,
 		FileCheck
 	} from 'lucide-svelte';
-	import { documents } from '$lib/data/mock-data';
+	let { data } = $props();
 
-	// Filter documents for listing l-1 (client's property)
-	const clientDocs = documents.filter((d) => d.listingId === 'l-1');
+	const clientDocs = $derived(data.documents ?? []);
 
 	// Group by category
 	const categories = [
@@ -46,9 +45,9 @@
 	let filteredDocs = $derived(
 		searchQuery
 			? clientDocs.filter(
-					(d) =>
+					(d: any) =>
 						d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-						d.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase())
+						(d.category ?? '').toLowerCase().includes(searchQuery.toLowerCase())
 				)
 			: clientDocs
 	);

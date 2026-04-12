@@ -2,9 +2,12 @@
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { workflowTemplates, PHASES } from '$lib/data/mock-data.js';
-	import type { ListingPhase } from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config.js';
 	import { Plus, Pencil, Zap, ArrowRight, CheckSquare, Settings } from 'lucide-svelte';
+
+	let { data } = $props();
+
+	const workflowTemplates = $derived(data.workflowTemplates);
 
 	// Group by phase
 	const byPhase = $derived(() => {

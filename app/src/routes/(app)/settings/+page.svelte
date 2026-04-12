@@ -3,8 +3,12 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { teamMembers } from '$lib/data/mock-data.js';
 	import { UserPlus, Shield, Crown, Briefcase, ClipboardList, Megaphone, PaintBucket } from 'lucide-svelte';
+
+	let { data } = $props();
+
+	const teamMembers = $derived(data.teamMembers ?? []);
+	const team = $derived(data.team);
 
 	const roleIcons: Record<string, typeof Shield> = {
 		admin: Crown,
@@ -22,7 +26,7 @@
 		staging_lead: 'Coordinate staging vendors, design consultations, and improvement planning.'
 	};
 
-	const allMembers = [
+	const allMembers = $derived([
 		...teamMembers.map((m) => ({ ...m, status: 'active' as const })),
 		{
 			id: 'tm-inv-1',
@@ -34,7 +38,7 @@
 			initials: 'AT',
 			status: 'invited' as const
 		}
-	];
+	]);
 </script>
 
 <div class="space-y-6">
@@ -54,8 +58,8 @@
 		<CardContent class="p-4">
 			<div class="flex items-center justify-between">
 				<div>
-					<p class="text-sm font-medium">Chen Realty Group</p>
-					<p class="text-xs text-muted-foreground">hometrack.co/chen-realty</p>
+					<p class="text-sm font-medium">{team?.name ?? 'Your Team'}</p>
+					<p class="text-xs text-muted-foreground">{team?.slug ? `hometrack.co/${team.slug}` : ''}</p>
 				</div>
 				<Badge variant="outline">{allMembers.length} members</Badge>
 			</div>

@@ -3,15 +3,9 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import {
-		listings,
-		tasks,
-		PHASES,
-		PHASE_LIST,
-		getListingsByPhase,
-		type ListingPhase,
-		type Listing,
-	} from '$lib/data/mock-data.js';
+	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config.js';
+	import { formatCurrency } from '$lib/utils.js';
+	import type { ListingWithRelations } from '$lib/types.js';
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME } from 'svelte-dnd-action';
 	import {
 		Plus,
@@ -24,13 +18,23 @@
 		AlertCircle,
 	} from 'lucide-svelte';
 
-	const initialByPhase = getListingsByPhase();
+	let { data } = $props();
+
+	const initialByPhase = (() => {
+		const grouped: Record<string, ListingWithRelations[]> = {};
+		for (const listing of data.listings) {
+			const phase = listing.phase;
+			if (!grouped[phase]) grouped[phase] = [];
+			grouped[phase].push(listing);
+		}
+		return grouped;
+	})();
 
 	// Mutable column data for drag-and-drop reordering
-	let columns = $state<Record<ListingPhase, Listing[]>>(
+	let columns = $state<Record<ListingPhase, ListingWithRelations[]>>(
 		Object.fromEntries(
 			PHASE_LIST.map((p) => [p.key, [...(initialByPhase[p.key] || [])]])
-		) as Record<ListingPhase, Listing[]>
+		) as Record<ListingPhase, ListingWithRelations[]>
 	);
 
 	// Filter state
@@ -44,7 +48,7 @@
 	// Track which column is being dragged over
 	let dragOverPhase = $state<ListingPhase | null>(null);
 
-	const agents = [...new Set(listings.map((l) => l.agent.name))];
+	const agents = [...new Set(data.listings.map((l) => l.agent?.name).filter(Boolean))];
 
 	// Filtering: when filters are active, show filtered view (non-draggable).
 	// When no filters, show the draggable columns directly.
@@ -53,7 +57,7 @@
 	let filteredListingsByPhase = $derived(
 		(() => {
 			if (!hasFilters) return columns;
-			const result = {} as Record<ListingPhase, Listing[]>;
+			const result = {} as Record<ListingPhase, ListingWithRelations[]>;
 			for (const phase of PHASE_LIST) {
 				let phaseListings = columns[phase.key] || [];
 				if (searchQuery) {
@@ -62,11 +66,11 @@
 						(l) =>
 							l.address.toLowerCase().includes(q) ||
 							l.city.toLowerCase().includes(q) ||
-							l.client.name.toLowerCase().includes(q)
+							l.client?.name?.toLowerCase().includes(q)
 					);
 				}
 				if (selectedAgent !== 'all') {
-					phaseListings = phaseListings.filter((l) => l.agent.name === selectedAgent);
+					phaseListings = phaseListings.filter((l) => l.agent?.name === selectedAgent);
 				}
 				result[phase.key] = phaseListings;
 			}
@@ -78,27 +82,20 @@
 		PHASE_LIST.reduce((sum, phase) => sum + (filteredListingsByPhase[phase.key]?.length || 0), 0)
 	);
 
-	function getTaskProgressForListing(listingId: string) {
-		const listingTasks = tasks.filter((t) => t.listingId === listingId);
-		const overdue = listingTasks.filter((t) => t.isOverdue).length;
-		return { overdue };
-	}
-
 	const flipDurationMs = 200;
 
-	function handleConsider(phase: ListingPhase, e: CustomEvent<{ items: Listing[] }>) {
+	function handleConsider(phase: ListingPhase, e: CustomEvent<{ items: ListingWithRelations[] }>) {
 		columns[phase] = e.detail.items;
 		dragOverPhase = phase;
 	}
 
-	function handleFinalize(phase: ListingPhase, e: CustomEvent<{ items: Listing[] }>) {
+	function handleFinalize(phase: ListingPhase, e: CustomEvent<{ items: ListingWithRelations[] }>) {
 		// Update the phase property on any listing that moved into this column
 		columns[phase] = e.detail.items.map((item) => {
 			if (item.phase !== phase) {
 				return {
 					...item,
 					phase,
-					phaseLabel: PHASES[phase].label,
 					daysInPhase: 0,
 				};
 			}
@@ -190,7 +187,6 @@
 		{@const phaseListings = filteredListingsByPhase[phase.key] || []}
 		<div class="space-y-3">
 			{#each phaseListings as listing}
-				{@const taskInfo = getTaskProgressForListing(listing.id)}
 				<a href="/listings/{listing.id}" class="group block">
 					<Card class="overflow-hidden transition-all hover:shadow-md hover:border-border/80">
 						<!-- Photo -->
@@ -203,7 +199,7 @@
 							/>
 							<div class="absolute top-2 left-2 flex items-center gap-1.5">
 								<Badge class="text-xs font-semibold shadow-sm bg-background/90 text-foreground backdrop-blur-sm">
-									{listing.priceFormatted}
+									{formatCurrency(listing.price ?? 0)}
 								</Badge>
 								{#if listing.phase === 'active' && listing.underContract}
 									<Badge class="text-xs font-semibold shadow-sm bg-amber-500/90 text-white backdrop-blur-sm">
@@ -214,7 +210,7 @@
 							<div class="absolute top-2 right-2">
 								<span class="inline-flex items-center gap-1 text-xs text-white bg-black/50 backdrop-blur-sm rounded-full px-2 py-0.5">
 									<Clock class="size-3" />
-									{listing.daysInPhase}d
+									{listing.daysInPhase ?? 0}d
 								</span>
 							</div>
 						</div>
@@ -227,27 +223,21 @@
 							<div class="mt-2.5 flex items-center justify-between">
 								<div class="flex items-center gap-1.5">
 									<Avatar class="size-5">
-										<AvatarFallback class="bg-primary/10 text-primary text-[10px] font-medium">{listing.agent.initials}</AvatarFallback>
+										<AvatarFallback class="bg-primary/10 text-primary text-[10px] font-medium">{listing.agent?.initials ?? '?'}</AvatarFallback>
 									</Avatar>
-									<span class="text-xs text-muted-foreground">{listing.agent.name}</span>
+									<span class="text-xs text-muted-foreground">{listing.agent?.name ?? 'Unassigned'}</span>
 								</div>
 							</div>
 
 							<!-- Task Progress -->
 							<div class="mt-2.5">
 								<div class="flex items-center justify-between mb-1">
-									<span class="text-xs text-muted-foreground">{listing.tasksDone}/{listing.tasksTotal} tasks</span>
-									{#if taskInfo.overdue > 0}
-										<div class="flex items-center gap-1 text-xs text-destructive">
-											<AlertCircle class="size-3" />
-											{taskInfo.overdue} overdue
-										</div>
-									{/if}
+									<span class="text-xs text-muted-foreground">{listing.tasksDone ?? 0}/{listing.tasksTotal ?? 0} tasks</span>
 								</div>
 								<div class="h-1.5 w-full rounded-full bg-muted overflow-hidden">
 									<div
 										class="h-full rounded-full transition-all"
-										style="width: {(listing.tasksDone / listing.tasksTotal) * 100}%; background-color: {phase.color}"
+										style="width: {(listing.tasksTotal ?? 0) > 0 ? ((listing.tasksDone ?? 0) / (listing.tasksTotal ?? 1)) * 100 : 0}%; background-color: {phase.color}"
 									></div>
 								</div>
 							</div>
@@ -280,9 +270,8 @@
 					<!-- Filtered view (no drag-and-drop) -->
 					<div class="space-y-3">
 						{#each filteredListingsByPhase[phase.key] || [] as listing}
-							{@const taskInfo = getTaskProgressForListing(listing.id)}
 							<a href="/listings/{listing.id}" class="group block">
-								{@render listingCard(listing, taskInfo, phase)}
+								{@render listingCard(listing, phase)}
 							</a>
 						{:else}
 							<div class="rounded-lg border-2 border-dashed border-muted-foreground/20 p-6 text-center">
@@ -305,13 +294,12 @@
 						onconsider={(e) => handleConsider(phase.key, e)}
 					>
 						{#each columns[phase.key] as listing (listing.id)}
-							{@const taskInfo = getTaskProgressForListing(listing.id)}
 							<a
 								href="/listings/{listing.id}"
 								class="group block dnd-card"
 								class:dnd-shadow={(listing as any)[SHADOW_ITEM_MARKER_PROPERTY_NAME]}
 							>
-								{@render listingCard(listing, taskInfo, phase)}
+								{@render listingCard(listing, phase)}
 							</a>
 						{/each}
 						{#if columns[phase.key].length === 0}
@@ -326,7 +314,7 @@
 	</div>
 </div>
 
-{#snippet listingCard(listing: Listing, taskInfo: { overdue: number }, phase: { key: ListingPhase; label: string; color: string })}
+{#snippet listingCard(listing: ListingWithRelations, phase: { key: ListingPhase; label: string; color: string })}
 	<Card class="overflow-hidden transition-all hover:shadow-md hover:border-border/80">
 		<!-- Photo -->
 		<div class="aspect-[16/10] relative overflow-hidden bg-muted">
@@ -338,13 +326,13 @@
 			/>
 			<div class="absolute top-2 left-2 flex items-center gap-1.5">
 				<Badge class="text-xs font-semibold shadow-sm bg-background/90 text-foreground backdrop-blur-sm">
-					{listing.priceFormatted}
+					{formatCurrency(listing.price ?? 0)}
 				</Badge>
 			</div>
 			<div class="absolute top-2 right-2">
 				<span class="inline-flex items-center gap-1 text-xs text-white bg-black/50 backdrop-blur-sm rounded-full px-2 py-0.5">
 					<Clock class="size-3" />
-					{listing.daysInPhase}d
+					{listing.daysInPhase ?? 0}d
 				</span>
 			</div>
 			{#if listing.phase === 'active' && listing.underContract}
@@ -364,27 +352,21 @@
 			<div class="mt-2.5 flex items-center justify-between">
 				<div class="flex items-center gap-1.5">
 					<Avatar class="size-5">
-						<AvatarFallback class="bg-primary/10 text-primary text-[10px] font-medium">{listing.agent.initials}</AvatarFallback>
+						<AvatarFallback class="bg-primary/10 text-primary text-[10px] font-medium">{listing.agent?.initials ?? '?'}</AvatarFallback>
 					</Avatar>
-					<span class="text-xs text-muted-foreground">{listing.agent.name.split(' ')[0]}</span>
+					<span class="text-xs text-muted-foreground">{listing.agent?.name?.split(' ')[0] ?? 'Unassigned'}</span>
 				</div>
 			</div>
 
 			<!-- Task Progress -->
 			<div class="mt-2.5">
 				<div class="flex items-center justify-between mb-1">
-					<span class="text-xs text-muted-foreground">{listing.tasksDone}/{listing.tasksTotal} tasks</span>
-					{#if taskInfo.overdue > 0}
-						<div class="flex items-center gap-1 text-xs text-destructive">
-							<AlertCircle class="size-3" />
-							{taskInfo.overdue} overdue
-						</div>
-					{/if}
+					<span class="text-xs text-muted-foreground">{listing.tasksDone ?? 0}/{listing.tasksTotal ?? 0} tasks</span>
 				</div>
 				<div class="h-1.5 w-full rounded-full bg-muted overflow-hidden">
 					<div
 						class="h-full rounded-full transition-all"
-						style="width: {(listing.tasksDone / listing.tasksTotal) * 100}%; background-color: {phase.color}"
+						style="width: {(listing.tasksTotal ?? 0) > 0 ? ((listing.tasksDone ?? 0) / (listing.tasksTotal ?? 1)) * 100 : 0}%; background-color: {phase.color}"
 					></div>
 				</div>
 			</div>

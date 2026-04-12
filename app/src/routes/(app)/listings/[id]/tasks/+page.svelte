@@ -1,19 +1,11 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import {
-		listings,
-		tasks,
-		PHASES,
-		PHASE_LIST,
-		type ListingPhase,
-		type Task
-	} from '$lib/data/mock-data.js';
+	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config.js';
 	import {
 		CheckCircle2,
 		Circle,
@@ -28,8 +20,9 @@
 		Pencil
 	} from 'lucide-svelte';
 
-	const listing = $derived(listings.find((l) => l.id === $page.params.id));
-	const listingTasks = $derived(tasks.filter((t) => t.listingId === listing?.id));
+	let { data } = $props();
+	const listing = $derived(data.listing);
+	const listingTasks = $derived(data.tasks ?? []);
 
 	let filterAssignee = $state('all');
 	let filterStatus = $state('all');
@@ -38,15 +31,21 @@
 
 	// Task edit modal state
 	let showTaskModal = $state(false);
-	let editingTask = $state<Task | null>(null);
+	let editingTask = $state<any | null>(null);
 	let editTitle = $state('');
 	let editStatus = $state('todo');
 	let editPriority = $state('medium');
 	let editDueDate = $state('');
 
+	function formatDate(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+	}
+
 	const filteredTasks = $derived(
-		listingTasks.filter((t) => {
-			if (filterAssignee !== 'all' && t.assignee.id !== filterAssignee) return false;
+		listingTasks.filter((t: any) => {
+			if (filterAssignee !== 'all' && t.assignee?.id !== filterAssignee) return false;
 			if (filterStatus !== 'all' && t.status !== filterStatus) return false;
 			if (filterPriority !== 'all' && t.priority !== filterPriority) return false;
 			return true;
@@ -54,17 +53,21 @@
 	);
 
 	const tasksByPhase = $derived(() => {
-		const grouped: Record<string, Task[]> = {};
+		const grouped: Record<string, any[]> = {};
 		for (const task of filteredTasks) {
-			if (!grouped[task.phase]) grouped[task.phase] = [];
-			grouped[task.phase].push(task);
+			const phase = task.phase ?? 'general';
+			if (!grouped[phase]) grouped[phase] = [];
+			grouped[phase].push(task);
 		}
 		return grouped;
 	});
 
 	const uniqueAssignees = $derived(
-		Array.from(new Set(listingTasks.map((t) => JSON.stringify({ id: t.assignee.id, name: t.assignee.name }))))
-			.map((s) => JSON.parse(s))
+		Array.from(new Set(listingTasks.map((t: any) => JSON.stringify({ id: t.assignee?.id, name: t.assignee?.name })).filter((s: string) => {
+			const parsed = JSON.parse(s);
+			return parsed.id && parsed.name;
+		})))
+			.map((s: string) => JSON.parse(s))
 	);
 
 	function togglePhase(phase: string) {
@@ -77,24 +80,23 @@
 		collapsedPhases = next;
 	}
 
-	function openTaskEdit(task: Task) {
+	function openTaskEdit(task: any) {
 		editingTask = task;
 		editTitle = task.title;
 		editStatus = task.status;
 		editPriority = task.priority;
-		editDueDate = task.dueDate;
+		editDueDate = formatDate(task.dueDate);
 		showTaskModal = true;
 	}
 
-	function toggleTaskStatus(task: Task) {
-		// Cycle: todo -> in_progress -> done -> todo
+	function toggleTaskStatus(task: any) {
 		const statusCycle: Record<string, string> = {
 			todo: 'in_progress',
 			in_progress: 'done',
 			done: 'todo',
 			overdue: 'in_progress',
 		};
-		task.status = (statusCycle[task.status] || 'todo') as Task['status'];
+		task.status = statusCycle[task.status] || 'todo';
 	}
 
 	function toggleSubtask(subtask: { title: string; done: boolean }) {
@@ -137,7 +139,7 @@
 			<div>
 				<h2 class="font-serif text-lg font-semibold">Tasks</h2>
 				<p class="text-sm text-muted-foreground">
-					{listingTasks.filter((t) => t.status === 'done').length} of {listingTasks.length} completed
+					{listingTasks.filter((t: any) => t.status === 'done').length} of {listingTasks.length} completed
 				</p>
 			</div>
 			<Button size="sm">
@@ -196,7 +198,7 @@
 		{#each PHASE_LIST as phase}
 			{@const phaseTasks = tasksByPhase()[phase.key] || []}
 			{#if phaseTasks.length > 0}
-				{@const doneCount = phaseTasks.filter((t) => t.status === 'done').length}
+				{@const doneCount = phaseTasks.filter((t: any) => t.status === 'done').length}
 				{@const isCollapsed = collapsedPhases.has(phase.key)}
 				<Card>
 					<button
@@ -244,7 +246,7 @@
 													{task.title}
 												</button>
 											</div>
-											{#if task.subtasks && task.subtasks.length > 0}
+											{#if task.subtasks && (task.subtasks as any[]).length > 0}
 												<div class="mt-2 ml-1 space-y-1.5">
 													{#each task.subtasks as subtask}
 														<button
@@ -269,10 +271,10 @@
 											</Badge>
 											<div class="flex items-center gap-1 text-xs {task.isOverdue ? 'text-red-600 font-medium' : 'text-muted-foreground'}">
 												<Calendar class="size-3" />
-												{task.dueDate}
+												{formatDate(task.dueDate)}
 											</div>
 											<Avatar class="size-6">
-												<AvatarFallback class="text-[9px] bg-muted">{task.assignee.initials}</AvatarFallback>
+												<AvatarFallback class="text-[9px] bg-muted">{task.assignee?.initials ?? '?'}</AvatarFallback>
 											</Avatar>
 											<button
 												class="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-muted"
@@ -360,9 +362,8 @@
 			<Button onclick={() => {
 				if (editingTask) {
 					editingTask.title = editTitle;
-					editingTask.status = editStatus as Task['status'];
-					editingTask.priority = editPriority as Task['priority'];
-					editingTask.dueDate = editDueDate;
+					editingTask.status = editStatus;
+					editingTask.priority = editPriority;
 				}
 				showTaskModal = false;
 			}}>Save Changes</Button>

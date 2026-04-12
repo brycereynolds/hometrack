@@ -12,13 +12,15 @@
 		Trash2,
 		RotateCcw
 	} from 'lucide-svelte';
-	import { listings } from '$lib/data/mock-data';
+	let { data } = $props();
+
+	const listings = $derived(data.listings);
 
 	let isRecording = $state(false);
 	let hasRecording = $state(false);
 	let isPlaying = $state(false);
 	let recordingTime = $state(0);
-	let selectedListing = $state(listings[0].id);
+	let selectedListing = $state(listings[0]?.id ?? '');
 	let timer: ReturnType<typeof setInterval> | null = null;
 
 	function startRecording() {

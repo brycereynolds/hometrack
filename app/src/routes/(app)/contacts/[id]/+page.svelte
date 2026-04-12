@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { contacts, listings, activityItems, PHASES } from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Mail,
@@ -26,24 +26,55 @@
 		Users,
 	} from 'lucide-svelte';
 
-	const contact = $derived(contacts.find((c) => c.id === $page.params.id));
+	let { data } = $props();
+	const contact = $derived(data.contact);
 
 	const associatedListings = $derived(() => {
-		if (!contact) return [];
-		return listings.filter(
-			(l) => l.client.id === contact.id || l.agent.id === contact.id
-		);
+		return data.listings ?? [];
 	});
 
 	const contactActivity = $derived(() => {
 		if (!contact) return [];
 		const name = contact.name.split(' ')[0];
-		return activityItems.filter(
-			(a) =>
-				a.author.includes(name) ||
-				a.content.toLowerCase().includes(contact.name.toLowerCase().split(' ')[0])
+		return (data.activity ?? []).filter(
+			(a: { authorName: string | null; content: string | null }) =>
+				(a.authorName && a.authorName.includes(name)) ||
+				(a.content && a.content.toLowerCase().includes(contact.name.toLowerCase().split(' ')[0]))
 		);
 	});
+
+	const typeLabels: Record<string, string> = {
+		client: 'Client',
+		agent: 'Agent',
+		vendor: 'Vendor',
+		lender: 'Lender',
+		inspector: 'Inspector',
+		title: 'Title',
+	};
+
+	function getInitials(name: string, initials?: string | null): string {
+		if (initials) return initials;
+		return name.split(' ').map((n) => n[0]).join('').slice(0, 2);
+	}
+
+	function formatDate(d: string | Date | null): string {
+		if (!d) return '';
+		const date = typeof d === 'string' ? new Date(d) : d;
+		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+	}
+
+	function timeAgo(d: string | Date | null): string {
+		if (!d) return '';
+		const date = typeof d === 'string' ? new Date(d) : d;
+		const now = new Date();
+		const diff = now.getTime() - date.getTime();
+		const mins = Math.floor(diff / 60000);
+		if (mins < 60) return `${mins}m ago`;
+		const hours = Math.floor(mins / 60);
+		if (hours < 24) return `${hours}h ago`;
+		const days = Math.floor(hours / 24);
+		return `${days}d ago`;
+	}
 
 	const typeColors: Record<string, string> = {
 		client: 'bg-primary/10 text-primary',
@@ -79,14 +110,14 @@
 				<div class="flex items-center gap-4">
 					<Avatar class="size-16">
 						<AvatarFallback class="text-lg font-bold {typeColors[contact.type]?.split(' ')[0] ?? 'bg-primary/10'} {typeColors[contact.type]?.split(' ')[1] ?? 'text-primary'}">
-							{contact.initials}
+							{getInitials(contact.name, contact.initials)}
 						</AvatarFallback>
 					</Avatar>
 					<div>
 						<div class="flex items-center gap-2">
 							<h1 class="font-serif text-2xl font-bold">{contact.name}</h1>
 							<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold {typeColors[contact.type]}">
-								{contact.typeLabel}
+								{typeLabels[contact.type] ?? contact.type}
 							</span>
 						</div>
 						{#if contact.company}
@@ -96,7 +127,7 @@
 							</p>
 						{/if}
 						<p class="mt-1 text-xs text-muted-foreground">
-							Last interaction: {contact.lastInteractionDate}
+							Last interaction: {formatDate(contact.lastInteractionDate)}
 						</p>
 					</div>
 				</div>
@@ -128,11 +159,11 @@
 					<CardContent class="space-y-3 text-sm">
 						<div class="flex items-center gap-3">
 							<Mail class="size-4 shrink-0 text-muted-foreground" />
-							<a href="mailto:{contact.email}" class="text-primary hover:underline">{contact.email}</a>
+							<a href="mailto:{contact.email ?? ''}" class="text-primary hover:underline">{contact.email ?? ''}</a>
 						</div>
 						<div class="flex items-center gap-3">
 							<Phone class="size-4 shrink-0 text-muted-foreground" />
-							<span>{contact.phone}</span>
+							<span>{contact.phone ?? ''}</span>
 						</div>
 						{#if contact.company}
 							<div class="flex items-center gap-3">
@@ -207,7 +238,7 @@
 							</div>
 							<div class="flex items-center justify-between">
 								<span class="text-sm text-muted-foreground">Active Listings</span>
-								<span class="text-sm font-medium">{contact.listingsCount}</span>
+								<span class="text-sm font-medium">{associatedListings().length}</span>
 							</div>
 							<div class="flex items-center justify-between">
 								<span class="text-sm text-muted-foreground">Approvals Pending</span>
@@ -235,13 +266,13 @@
 										</div>
 										<div class="min-w-0 flex-1">
 											<p class="truncate text-sm font-medium">{listing.address}</p>
-											<p class="text-xs text-muted-foreground">{listing.city} | {listing.priceFormatted}</p>
+											<p class="text-xs text-muted-foreground">{listing.city} | {formatCurrency(listing.price ?? 0)}</p>
 										</div>
 										<span
 											class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium"
 											style="background-color: {PHASES[listing.phase].color}15; color: {PHASES[listing.phase].color}"
 										>
-											{listing.phaseLabel}
+											{PHASES[listing.phase].label}
 										</span>
 									</a>
 								{/each}
@@ -280,21 +311,21 @@
 										<div class="rounded-lg border border-border bg-card p-3">
 											<div class="flex items-center justify-between">
 												<div class="flex items-center gap-2">
-													<span class="text-sm font-medium">{activity.author}</span>
+													<span class="text-sm font-medium">{activity.authorName ?? 'System'}</span>
 													<span class="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
 														{activity.type.replace('_', ' ')}
 													</span>
 												</div>
-												<span class="text-xs text-muted-foreground">{activity.timeAgo}</span>
+												<span class="text-xs text-muted-foreground">{timeAgo(activity.timestamp)}</span>
 											</div>
-											<p class="mt-1.5 text-sm text-muted-foreground">{activity.content}</p>
-											{#if activity.listingAddress}
+											<p class="mt-1.5 text-sm text-muted-foreground">{activity.content ?? ''}</p>
+											{#if activity.listingId}
 												<a
 													href="/listings/{activity.listingId}"
 													class="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline"
 												>
 													<Home class="size-3" />
-													{activity.listingAddress}
+													View Listing
 												</a>
 											{/if}
 										</div>
@@ -347,9 +378,9 @@
 						<div class="rounded-md bg-muted/50 p-3">
 							<div class="flex items-center justify-between">
 								<span class="text-xs font-medium text-muted-foreground">Lauren Chen</span>
-								<span class="text-xs text-muted-foreground">{contact.lastInteractionDate}</span>
+								<span class="text-xs text-muted-foreground">{formatDate(contact.lastInteractionDate)}</span>
 							</div>
-							<p class="mt-1 text-sm">{contact.lastInteraction}</p>
+							<p class="mt-1 text-sm">{contact.lastInteraction ?? ''}</p>
 						</div>
 					</CardContent>
 				</Card>

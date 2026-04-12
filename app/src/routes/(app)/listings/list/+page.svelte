@@ -3,12 +3,8 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import {
-		listings,
-		tasks,
-		PHASES,
-		type ListingPhase,
-	} from '$lib/data/mock-data.js';
+	import { PHASES, type ListingPhase } from '$lib/config.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		Plus,
 		LayoutGrid,
@@ -21,6 +17,9 @@
 		ChevronDown,
 	} from 'lucide-svelte';
 
+	let { data } = $props();
+	const listings = $derived(data.listings);
+
 	// Filter state
 	let searchQuery = $state('');
 	let selectedPhase = $state<string>('all');
@@ -31,7 +30,7 @@
 	let sortKey = $state<SortKey>('address');
 	let sortDir = $state<'asc' | 'desc'>('asc');
 
-	const agents = [...new Set(listings.map((l) => l.agent.name))];
+	const agents = $derived([...new Set(listings.map((l) => l.agent?.name).filter(Boolean))]);
 	const phases = Object.entries(PHASES).map(([key, val]) => ({ key, label: val.label }));
 
 	function toggleSort(key: SortKey) {
@@ -52,39 +51,32 @@
 					(l) =>
 						l.address.toLowerCase().includes(q) ||
 						l.city.toLowerCase().includes(q) ||
-						l.client.name.toLowerCase().includes(q) ||
-						l.mlsNumber.toLowerCase().includes(q)
+						l.client?.name?.toLowerCase().includes(q) ||
+						l.mlsNumber?.toLowerCase().includes(q)
 				);
 			}
 			if (selectedPhase !== 'all') {
 				result = result.filter((l) => l.phase === selectedPhase);
 			}
 			if (selectedAgent !== 'all') {
-				result = result.filter((l) => l.agent.name === selectedAgent);
+				result = result.filter((l) => l.agent?.name === selectedAgent);
 			}
 			// Sort
 			result.sort((a, b) => {
 				let cmp = 0;
 				switch (sortKey) {
 					case 'address': cmp = a.address.localeCompare(b.address); break;
-					case 'price': cmp = a.price - b.price; break;
+					case 'price': cmp = (a.price ?? 0) - (b.price ?? 0); break;
 					case 'phase': cmp = PHASES[a.phase].order - PHASES[b.phase].order; break;
-					case 'agent': cmp = a.agent.name.localeCompare(b.agent.name); break;
-					case 'dom': cmp = a.daysOnMarket - b.daysOnMarket; break;
-					case 'tasks': cmp = (a.tasksDone / a.tasksTotal) - (b.tasksDone / b.tasksTotal); break;
+					case 'agent': cmp = (a.agent?.name ?? '').localeCompare(b.agent?.name ?? ''); break;
+					case 'dom': cmp = (a.daysOnMarket ?? 0) - (b.daysOnMarket ?? 0); break;
+					case 'tasks': cmp = ((a.tasksDone ?? 0) / (a.tasksTotal ?? 1)) - ((b.tasksDone ?? 0) / (b.tasksTotal ?? 1)); break;
 				}
 				return sortDir === 'desc' ? -cmp : cmp;
 			});
 			return result;
 		})()
 	);
-
-	function getNextTask(listingId: string): string {
-		const listingTasks = tasks.filter((t) => t.listingId === listingId && t.status !== 'done');
-		if (listingTasks.length === 0) return 'None';
-		const sorted = listingTasks.sort((a, b) => a.dueDate.localeCompare(b.dueDate));
-		return sorted[0].title;
-	}
 </script>
 
 <div class="space-y-4">
@@ -183,7 +175,6 @@
 									</button>
 								</th>
 							{/each}
-							<th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground">Next Task</th>
 							<th class="px-4 py-3 text-left text-xs font-medium text-muted-foreground">Progress</th>
 						</tr>
 					</thead>
@@ -211,7 +202,7 @@
 								</td>
 								<!-- Price -->
 								<td class="px-4 py-3">
-									<span class="text-sm font-semibold tabular-nums">{listing.priceFormatted}</span>
+									<span class="text-sm font-semibold tabular-nums">{formatCurrency(listing.price ?? 0)}</span>
 								</td>
 								<!-- Phase -->
 								<td class="px-4 py-3">
@@ -220,27 +211,23 @@
 										class="text-xs whitespace-nowrap"
 										style="border-color: {phaseConfig.color}; color: {phaseConfig.color}"
 									>
-										{listing.phaseLabel}
+										{phaseConfig.label}
 									</Badge>
 								</td>
 								<!-- Agent -->
 								<td class="px-4 py-3">
 									<div class="flex items-center gap-2">
 										<Avatar class="size-6">
-											<AvatarFallback class="bg-primary/10 text-primary text-[10px] font-medium">{listing.agent.initials}</AvatarFallback>
+											<AvatarFallback class="bg-primary/10 text-primary text-[10px] font-medium">{listing.agent?.initials ?? '?'}</AvatarFallback>
 										</Avatar>
-										<span class="text-sm">{listing.agent.name}</span>
+										<span class="text-sm">{listing.agent?.name ?? 'Unassigned'}</span>
 									</div>
 								</td>
 								<!-- DOM -->
 								<td class="px-4 py-3">
 									<span class="text-sm tabular-nums">
-										{listing.daysOnMarket > 0 ? `${listing.daysOnMarket}d` : '--'}
+										{(listing.daysOnMarket ?? 0) > 0 ? `${listing.daysOnMarket}d` : '--'}
 									</span>
-								</td>
-								<!-- Next Task -->
-								<td class="px-4 py-3 max-w-[200px]">
-									<p class="text-sm text-muted-foreground truncate">{getNextTask(listing.id)}</p>
 								</td>
 								<!-- Progress -->
 								<td class="px-4 py-3">
@@ -248,10 +235,10 @@
 										<div class="h-1.5 w-16 rounded-full bg-muted overflow-hidden">
 											<div
 												class="h-full rounded-full bg-primary"
-												style="width: {(listing.tasksDone / listing.tasksTotal) * 100}%"
+												style="width: {(listing.tasksTotal ?? 0) > 0 ? ((listing.tasksDone ?? 0) / (listing.tasksTotal ?? 1)) * 100 : 0}%"
 											></div>
 										</div>
-										<span class="text-xs text-muted-foreground tabular-nums">{listing.tasksDone}/{listing.tasksTotal}</span>
+										<span class="text-xs text-muted-foreground tabular-nums">{listing.tasksDone ?? 0}/{listing.tasksTotal ?? 0}</span>
 									</div>
 								</td>
 							</tr>

@@ -1,10 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { listings, documents } from '$lib/data/mock-data.js';
 	import {
 		FileText,
 		Upload,
@@ -26,10 +24,17 @@
 		Clock
 	} from 'lucide-svelte';
 
-	const listing = $derived(listings.find((l) => l.id === $page.params.id));
-	const listingDocs = $derived(documents.filter((d) => d.listingId === listing?.id));
+	let { data } = $props();
+	const listing = $derived(data.listing);
+	const listingDocs = $derived(data.documents ?? []);
 
 	let activeCategory = $state('all');
+
+	function formatDate(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+	}
 
 	const categories = [
 		{ id: 'all', label: 'All Documents', icon: FolderOpen },
@@ -44,7 +49,7 @@
 	const filteredDocs = $derived(
 		activeCategory === 'all'
 			? listingDocs
-			: listingDocs.filter((d) => d.category === activeCategory)
+			: listingDocs.filter((d: any) => d.category === activeCategory)
 	);
 
 	function getStatusBadge(status: string) {
@@ -67,14 +72,14 @@
 	}
 
 	// Disclosure checklist for the listing
-	const disclosureChecklist = [
-		{ name: 'Transfer Disclosure Statement (TDS)', required: true, done: listingDocs.some((d) => d.name.includes('TDS') && (d.status === 'signed' || d.status === 'complete')) },
-		{ name: 'Seller Property Questionnaire (SPQ)', required: true, done: listingDocs.some((d) => d.name.includes('SPQ') && (d.status === 'signed' || d.status === 'complete')) },
-		{ name: 'Natural Hazard Disclosure (NHD)', required: true, done: listingDocs.some((d) => d.name.includes('NHD') && (d.status === 'signed' || d.status === 'complete')) },
+	const disclosureChecklist = $derived([
+		{ name: 'Transfer Disclosure Statement (TDS)', required: true, done: listingDocs.some((d: any) => d.name.includes('TDS') && (d.status === 'signed' || d.status === 'complete')) },
+		{ name: 'Seller Property Questionnaire (SPQ)', required: true, done: listingDocs.some((d: any) => d.name.includes('SPQ') && (d.status === 'signed' || d.status === 'complete')) },
+		{ name: 'Natural Hazard Disclosure (NHD)', required: true, done: listingDocs.some((d: any) => d.name.includes('NHD') && (d.status === 'signed' || d.status === 'complete')) },
 		{ name: 'Lead-Based Paint Disclosure', required: true, done: false },
 		{ name: 'Homeowners Association (HOA) Docs', required: false, done: false },
-		{ name: 'Preliminary Title Report', required: true, done: listingDocs.some((d) => d.name.includes('Preliminary Title') && (d.status === 'signed' || d.status === 'complete')) },
-	];
+		{ name: 'Preliminary Title Report', required: true, done: listingDocs.some((d: any) => d.name.includes('Preliminary Title') && (d.status === 'signed' || d.status === 'complete')) },
+	]);
 
 	const disclosuresDone = $derived(disclosureChecklist.filter((d) => d.done).length);
 </script>
@@ -100,7 +105,7 @@
 						<nav class="space-y-0.5">
 							{#each categories as cat}
 								{@const Icon = cat.icon}
-								{@const count = cat.id === 'all' ? listingDocs.length : listingDocs.filter((d) => d.category === cat.id).length}
+								{@const count = cat.id === 'all' ? listingDocs.length : listingDocs.filter((d: any) => d.category === cat.id).length}
 								<button
 									onclick={() => (activeCategory = cat.id)}
 									class="flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors {activeCategory === cat.id
@@ -166,7 +171,7 @@
 				{#if filteredDocs.length > 0}
 					<div class="grid gap-3 sm:grid-cols-2">
 						{#each filteredDocs as doc}
-							{@const FileIcon = getFileIcon(doc.fileType)}
+							{@const FileIcon = getFileIcon(doc.fileType ?? '')}
 							{@const status = getStatusBadge(doc.status)}
 							<Card class="transition-shadow hover:shadow-md cursor-pointer">
 								<CardContent class="p-4">
@@ -177,14 +182,14 @@
 										<div class="min-w-0 flex-1">
 											<p class="text-sm font-medium truncate">{doc.name}</p>
 											<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-												<span>{doc.fileType}</span>
+												<span>{doc.fileType ?? 'File'}</span>
 												<span>--</span>
-												<span>{doc.fileSize}</span>
+												<span>{doc.fileSize ?? 'Unknown'}</span>
 											</div>
 											<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
-												<span>{doc.uploadedBy}</span>
+												<span>{doc.uploadedBy?.name ?? 'Unknown'}</span>
 												<span>--</span>
-												<span>{doc.uploadedDate}</span>
+												<span>{formatDate(doc.uploadedDate)}</span>
 											</div>
 										</div>
 									</div>
@@ -192,7 +197,7 @@
 										<Badge variant="outline" class="text-[10px] {status.color}">
 											{status.label}
 										</Badge>
-										{#if doc.version > 1}
+										{#if (doc.version ?? 1) > 1}
 											<span class="text-[10px] text-muted-foreground">v{doc.version}</span>
 										{/if}
 									</div>

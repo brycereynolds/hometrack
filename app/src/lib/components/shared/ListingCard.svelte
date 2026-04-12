@@ -4,16 +4,21 @@
 -->
 <script lang="ts">
   import PhaseBadge from './PhaseBadge.svelte';
-  import type { Listing } from '$lib/data/mock-data';
+  import type { Listing } from '$lib/types';
+  import { formatCurrency } from '$lib/utils';
 
   interface Props {
-    listing: Listing;
+    listing: Listing & { agent?: { name: string; initials: string } | null; priceFormatted?: string };
     variant?: 'pipeline' | 'list';
     /** Show a warning border for stale listings */
     stale?: boolean;
   }
 
   let { listing, variant = 'pipeline', stale = false }: Props = $props();
+
+  const priceFormatted = $derived(listing.priceFormatted ?? formatCurrency(listing.price ?? 0));
+  const agentInitials = $derived(listing.agent?.initials ?? '??');
+  const agentName = $derived(listing.agent?.name ?? 'Unassigned');
 </script>
 
 <a
@@ -56,48 +61,48 @@
         {listing.address}
       </p>
       <p class="text-xs text-foreground-secondary">{listing.city}, {listing.state}</p>
-      <p class="mt-1 font-serif text-lg font-bold text-foreground">{listing.priceFormatted}</p>
+      <p class="mt-1 font-serif text-lg font-bold text-foreground">{priceFormatted}</p>
 
       <!-- Stats row -->
       <div class="mt-2 flex items-center gap-3 text-xs text-foreground-muted">
         <span>{listing.beds}bd / {listing.baths}ba</span>
         <span class="text-border-strong">&middot;</span>
-        <span>{listing.sqft.toLocaleString()} sqft</span>
+        <span>{(listing.sqft ?? 0).toLocaleString()} sqft</span>
       </div>
 
       <!-- Bottom row: agent + days -->
       <div class="mt-3 flex items-center justify-between">
         <div class="flex items-center gap-1.5">
           <div class="flex size-5 items-center justify-center rounded-full bg-primary/10 text-[10px] font-medium text-primary">
-            {listing.agent.initials}
+            {agentInitials}
           </div>
-          <span class="text-xs text-foreground-secondary">{listing.agent.name.split(' ')[0]}</span>
+          <span class="text-xs text-foreground-secondary">{agentName.split(' ')[0]}</span>
         </div>
         <span class="text-xs text-foreground-muted">{listing.daysInPhase}d in stage</span>
       </div>
 
       <!-- Task progress -->
-      {#if listing.tasksTotal > 0}
+      {#if (listing.tasksTotal ?? 0) > 0}
         <div class="mt-2.5">
           <div class="flex items-center justify-between mb-1">
-            <span class="text-xs text-foreground-muted">{listing.tasksDone}/{listing.tasksTotal} tasks</span>
+            <span class="text-xs text-foreground-muted">{(listing.tasksDone ?? 0)}/{(listing.tasksTotal ?? 0)} tasks</span>
           </div>
           <div class="h-1.5 w-full rounded-full bg-background-tertiary overflow-hidden">
             <div
               class="h-full rounded-full bg-primary transition-all"
-              style="width: {(listing.tasksDone / listing.tasksTotal) * 100}%"
+              style="width: {((listing.tasksDone ?? 0) / (listing.tasksTotal ?? 1)) * 100}%"
             ></div>
           </div>
         </div>
       {/if}
 
       <!-- Overdue task badge -->
-      {#if listing.tasksTotal - listing.tasksDone > 3}
+      {#if ((listing.tasksTotal ?? 0) - (listing.tasksDone ?? 0)) > 3}
         <div class="mt-2 flex items-center gap-1 text-xs text-warning">
           <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
             <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /><line x1="12" y1="9" x2="12" y2="13" /><line x1="12" y1="17" x2="12.01" y2="17" />
           </svg>
-          {listing.tasksTotal - listing.tasksDone} tasks remaining
+          {((listing.tasksTotal ?? 0) - (listing.tasksDone ?? 0))} tasks remaining
         </div>
       {/if}
     </div>
@@ -136,12 +141,12 @@
             </span>
           {/if}
         </div>
-        <p class="mt-0.5 font-serif text-lg font-bold text-foreground">{listing.priceFormatted}</p>
+        <p class="mt-0.5 font-serif text-lg font-bold text-foreground">{priceFormatted}</p>
         <div class="mt-1 flex items-center gap-3 text-xs text-foreground-muted">
-          <span>{listing.beds}bd / {listing.baths}ba / {listing.sqft.toLocaleString()} sqft</span>
+          <span>{listing.beds}bd / {listing.baths}ba / {(listing.sqft ?? 0).toLocaleString()} sqft</span>
           <span class="text-border-strong">&middot;</span>
-          <span>{listing.agent.name}</span>
-          {#if listing.daysOnMarket > 0}
+          <span>{agentName}</span>
+          {#if (listing.daysOnMarket ?? 0) > 0}
             <span class="text-border-strong">&middot;</span>
             <span>{listing.daysOnMarket} DOM</span>
           {/if}
@@ -151,14 +156,14 @@
       <!-- Stats -->
       <div class="hidden shrink-0 items-center gap-6 text-xs text-foreground-secondary sm:flex">
         <div class="text-center">
-          <p class="font-semibold text-foreground">{listing.tasksDone}/{listing.tasksTotal}</p>
+          <p class="font-semibold text-foreground">{(listing.tasksDone ?? 0)}/{(listing.tasksTotal ?? 0)}</p>
           <p class="text-foreground-muted">Tasks</p>
         </div>
         <div class="text-center">
           <p class="font-semibold text-foreground">{listing.showingsCount}</p>
           <p class="text-foreground-muted">Showings</p>
         </div>
-        {#if listing.offersCount > 0}
+        {#if (listing.offersCount ?? 0) > 0}
           <div class="text-center">
             <p class="font-semibold text-primary">{listing.offersCount}</p>
             <p class="text-foreground-muted">Offers</p>

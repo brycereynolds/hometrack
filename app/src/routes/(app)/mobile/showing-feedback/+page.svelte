@@ -3,10 +3,13 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { ChevronDown, Star, Send, ThumbsUp, ThumbsDown, Minus } from 'lucide-svelte';
-	import { listings, showings } from '$lib/data/mock-data';
+	let { data } = $props();
 
-	let selectedListing = $state('l-1');
-	let selectedShowing = $state('s-1');
+	const listings = $derived(data.listings);
+	const showings = $derived(data.showings);
+
+	let selectedListing = $state(listings[0]?.id ?? '');
+	let selectedShowing = $state(showings[0]?.id ?? '');
 	let interestLevel = $state<string>('');
 	let rating = $state(0);
 	let hoverRating = $state(0);
@@ -47,7 +50,7 @@
 				bind:value={selectedListing}
 				class="h-11 w-full appearance-none rounded-xl border bg-muted/50 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
 			>
-				{#each listings.filter((l) => l.showingsCount > 0) as listing}
+				{#each listings.filter((l) => (l.showingsCount ?? 0) > 0) as listing}
 					<option value={listing.id}>{listing.address} — {listing.city}</option>
 				{/each}
 			</select>
@@ -61,7 +64,7 @@
 					class="h-11 w-full appearance-none rounded-xl border bg-muted/50 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
 				>
 					{#each listingShowings as showing}
-						<option value={showing.id}>{showing.date} {showing.time} — {showing.agentName} ({showing.agentCompany})</option>
+						<option value={showing.id}>{showing.date.toLocaleDateString()} {showing.time ?? ''} — {showing.agentName} ({showing.agentCompany})</option>
 					{/each}
 				</select>
 				<ChevronDown class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />

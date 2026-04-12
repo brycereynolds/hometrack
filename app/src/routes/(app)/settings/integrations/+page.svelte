@@ -2,7 +2,6 @@
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { integrations } from '$lib/data/mock-data.js';
 	import {
 		Mail,
 		Calendar,
@@ -17,6 +16,10 @@
 		AlertCircle,
 		RefreshCw
 	} from 'lucide-svelte';
+
+	let { data } = $props();
+
+	const integrations = $derived(data.integrations);
 
 	const iconMap: Record<string, typeof Mail> = {
 		Mail,
@@ -47,7 +50,7 @@
 		for (const int of integrations) {
 			const label = categoryLabels[int.category] || int.category;
 			if (!groups[label]) groups[label] = [];
-			groups[label].push(int);
+			groups[label]!.push(int);
 		}
 		return Object.entries(groups);
 	});
@@ -82,7 +85,7 @@
 			<h3 class="text-sm font-medium text-muted-foreground uppercase tracking-wider">{category}</h3>
 			<div class="grid gap-3 sm:grid-cols-2">
 				{#each items as integration}
-					{@const Icon = iconMap[integration.icon] || Database}
+					{@const Icon = iconMap[integration.icon ?? ''] || Database}
 					{@const status = statusConfig[integration.status]}
 					{@const StatusIcon = status.icon}
 					<Card class="transition-all hover:shadow-sm">
@@ -107,9 +110,11 @@
 									{#if integration.status === 'connected'}
 										<div class="mt-2 flex items-center justify-between">
 											<div class="text-xs text-muted-foreground">
-												<span>Last sync: {integration.lastSync}</span>
+												{#if integration.lastSync}
+													<span>Last sync: {integration.lastSync.toLocaleString()}</span>
+												{/if}
 												{#if integration.connectedBy}
-													<span> &middot; by {integration.connectedBy}</span>
+													<span> &middot; by {integration.connectedBy.name}</span>
 												{/if}
 											</div>
 											<Button variant="ghost" size="sm" class="h-6 text-xs gap-1">

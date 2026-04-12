@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { vendors, quotes, PHASES } from '$lib/data/mock-data.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Mail,
@@ -25,12 +24,15 @@
 		Users,
 	} from 'lucide-svelte';
 
-	const vendor = $derived(vendors.find((v) => v.id === $page.params.id));
+	let { data } = $props();
 
-	const vendorQuotes = $derived(() => {
-		if (!vendor) return [];
-		return quotes.filter((q) => q.vendorId === vendor.id);
-	});
+	const vendor = $derived(data.vendor);
+	const vendorQuotes = $derived(data.quotes);
+
+	function categoryLabel(cat: string | null) {
+		if (!cat) return '';
+		return cat.charAt(0).toUpperCase() + cat.slice(1);
+	}
 
 	const categoryColors: Record<string, string> = {
 		contractor: 'bg-orange-100 text-orange-700',
@@ -48,8 +50,8 @@
 		declined: 'bg-red-100 text-red-700',
 	};
 
-	function isPreferred(v: typeof vendors[0]): boolean {
-		return v.rating >= 4.8 && v.reliabilityScore >= 95;
+	function isPreferred(v: NonNullable<typeof vendor>): boolean {
+		return (v.rating ?? 0) >= 4.8 && (v.reliabilityScore ?? 0) >= 95;
 	}
 
 	// Mock project history for active/past projects
@@ -105,7 +107,7 @@
 						},
 						tooltip: {
 							callbacks: {
-								label: (ctx) => `${ctx.dataset.label}: $${ctx.parsed.y.toLocaleString()}`,
+								label: (ctx) => `${ctx.dataset.label}: $${(ctx.parsed.y ?? 0).toLocaleString()}`,
 							},
 						},
 					},
@@ -154,13 +156,13 @@
 					</div>
 					<p class="text-sm text-muted-foreground">{vendor.company}</p>
 					<div class="mt-1 flex items-center gap-3">
-						<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {categoryColors[vendor.category] ?? 'bg-muted text-muted-foreground'}">
-							{vendor.categoryLabel}
+						<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {categoryColors[vendor.category ?? ''] ?? 'bg-muted text-muted-foreground'}">
+							{categoryLabel(vendor.category)}
 						</span>
 						<div class="flex items-center gap-1">
 							{#each Array(5) as _, i}
 								<Star
-									class="size-3.5 {i < Math.floor(vendor.rating)
+									class="size-3.5 {i < Math.floor(vendor.rating ?? 0)
 										? 'fill-amber-400 text-amber-400'
 										: 'text-muted-foreground/25'}"
 								/>
@@ -220,16 +222,16 @@
 						<div>
 							<div class="flex items-center justify-between text-sm">
 								<span class="text-muted-foreground">Reliability</span>
-								<span class="font-semibold">{vendor.reliabilityScore}%</span>
+								<span class="font-semibold">{vendor.reliabilityScore ?? 0}%</span>
 							</div>
 							<div class="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-muted">
 								<div
-									class="h-full rounded-full {vendor.reliabilityScore >= 95
+									class="h-full rounded-full {(vendor.reliabilityScore ?? 0) >= 95
 										? 'bg-emerald-500'
-										: vendor.reliabilityScore >= 85
+										: (vendor.reliabilityScore ?? 0) >= 85
 											? 'bg-amber-500'
 											: 'bg-red-400'}"
-									style="width: {vendor.reliabilityScore}%"
+									style="width: {vendor.reliabilityScore ?? 0}%"
 								></div>
 							</div>
 						</div>
@@ -262,7 +264,7 @@
 					</CardHeader>
 					<CardContent>
 						<div class="flex flex-wrap gap-1.5">
-							{#each vendor.specialties as specialty}
+							{#each (Array.isArray(vendor.specialties) ? vendor.specialties : []) as specialty}
 								<span class="inline-flex items-center rounded-full bg-muted px-2.5 py-1 text-xs font-medium">
 									{specialty}
 								</span>
@@ -294,25 +296,25 @@
 				<Card>
 					<CardHeader>
 						<CardTitle class="text-sm">Quote History</CardTitle>
-						<CardDescription>{vendorQuotes().length} quotes on record</CardDescription>
+						<CardDescription>{vendorQuotes.length} quotes on record</CardDescription>
 					</CardHeader>
 					<CardContent>
-						{#if vendorQuotes().length > 0}
+						{#if vendorQuotes.length > 0}
 							<div class="divide-y divide-border">
-								{#each vendorQuotes() as quote}
+								{#each vendorQuotes as quote}
 									<div class="py-3 first:pt-0 last:pb-0">
 										<div class="flex items-center justify-between">
 											<div class="flex items-center gap-3">
 												<Home class="size-4 text-muted-foreground" />
 												<div>
 													<a href="/listings/{quote.listingId}" class="text-sm font-medium hover:text-primary">
-														{quote.listingAddress}
+														{quote.listing?.address ?? 'Unknown listing'}
 													</a>
 													<p class="text-xs text-muted-foreground">{quote.scope}</p>
 												</div>
 											</div>
 											<div class="flex items-center gap-3">
-												<span class="text-sm font-semibold">{quote.amountFormatted}</span>
+												<span class="text-sm font-semibold">{formatCurrency(quote.amount ?? 0)}</span>
 												<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {quoteStatusColors[quote.status]}">
 													{quote.status}
 												</span>
@@ -323,18 +325,18 @@
 												{#each quote.lineItems as item}
 													<div class="flex items-center justify-between text-xs text-muted-foreground">
 														<span>{item.description}</span>
-														<span>${item.amount.toLocaleString()}</span>
+														<span>${(item.amount ?? 0).toLocaleString()}</span>
 													</div>
 												{/each}
 											</div>
 										{/if}
 										<div class="ml-7 mt-1.5 text-xs text-muted-foreground">
-											Requested: {quote.requestedDate}
+											Requested: {quote.requestedDate?.toLocaleDateString() ?? ''}
 											{#if quote.receivedDate}
-												 | Received: {quote.receivedDate}
+												 | Received: {quote.receivedDate.toLocaleDateString()}
 											{/if}
 											{#if quote.validUntil}
-												 | Valid until: {quote.validUntil}
+												 | Valid until: {quote.validUntil.toLocaleDateString()}
 											{/if}
 										</div>
 									</div>

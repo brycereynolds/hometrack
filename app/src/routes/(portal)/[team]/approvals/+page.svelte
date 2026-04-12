@@ -15,10 +15,7 @@
 		Handshake,
 		Info
 	} from 'lucide-svelte';
-	import { offers, quotes, formatCurrency } from '$lib/data/mock-data';
-
-	const clientOffer = offers.find((o) => o.id === 'o-4')!;
-	const landscapingQuote = quotes.find((q) => q.id === 'q-4')!;
+	import { formatCurrency } from '$lib/utils';
 
 	let expandedItem = $state<string | null>(null);
 
@@ -26,28 +23,29 @@
 		expandedItem = expandedItem === id ? null : id;
 	}
 
+	// Hardcoded approval items — these will be replaced by DB queries when the approvals system is built
 	const pendingItems = [
 		{
 			id: 'approval-1',
 			type: 'quote',
 			title: 'Landscaping quote from Green Thumb',
 			subtitle: 'Curb appeal package for 123 Main Street',
-			amount: landscapingQuote.amountFormatted,
+			amount: formatCurrency(2800),
 			status: 'pending' as const,
 			date: 'Received Apr 8',
 			details:
-				'Scope includes front yard refresh, drought-tolerant plantings, new mulch, edging, and seasonal color. Estimated 3-day project. Maria Santos has completed 6 projects with our team.',
+				'Scope includes front yard refresh, drought-tolerant plantings, new mulch, edging, and seasonal color. Estimated 3-day project.',
 			icon: Leaf
 		},
 		{
 			id: 'approval-2',
 			type: 'offer',
-			title: 'New offer received — Chen-Williams',
-			subtitle: `${clientOffer.priceFormatted} · ${clientOffer.financingType}`,
-			amount: clientOffer.priceFormatted,
+			title: 'New offer received',
+			subtitle: 'Pending review',
+			amount: '',
 			status: 'pending' as const,
 			date: 'Submitted Apr 9',
-			details: `Buyers: ${clientOffer.buyerName} (represented by ${clientOffer.buyerAgent}). Earnest deposit: ${formatCurrency(clientOffer.earnestDeposit)}. Contingencies: ${clientOffer.contingencies.join(', ')}. Proposed close: ${clientOffer.closeDate}. ${clientOffer.notes}`,
+			details: 'A new offer has been received. Please review the details.',
 			icon: Handshake
 		},
 		{
@@ -58,7 +56,7 @@
 			status: 'pending' as const,
 			date: 'Created Apr 9',
 			details:
-				'Instagram carousel featuring the kitchen remodel, backyard oasis, and primary suite. Copy highlights the upcoming Open House on Apr 12, 1-4 PM. Includes neighborhood lifestyle shots.',
+				'Instagram carousel featuring the kitchen remodel, backyard oasis, and primary suite. Copy highlights the upcoming Open House.',
 			icon: Image
 		}
 	];
@@ -75,14 +73,14 @@
 		{
 			id: 'history-2',
 			title: 'Photography & video package',
-			subtitle: 'Tran Group Photography — $1,800',
+			subtitle: 'Photography package — $1,800',
 			status: 'approved' as const,
 			date: 'Approved Mar 30',
 			icon: DollarSign
 		},
 		{
 			id: 'history-3',
-			title: 'Kitchen update — Bradley Renovations',
+			title: 'Kitchen update — Renovations',
 			subtitle: 'Minor refresh — $11,200',
 			status: 'approved' as const,
 			date: 'Approved Mar 10',
@@ -90,8 +88,8 @@
 		},
 		{
 			id: 'history-4',
-			title: 'Johnson Trust offer',
-			subtitle: '$2,400,000 — Jumbo loan',
+			title: 'Previous offer',
+			subtitle: 'Declined',
 			status: 'declined' as const,
 			date: 'Declined Apr 9',
 			icon: Handshake

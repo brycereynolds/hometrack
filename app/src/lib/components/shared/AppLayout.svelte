@@ -8,7 +8,7 @@
   import Breadcrumbs from './Breadcrumbs.svelte';
   import { type Snippet } from 'svelte';
   import { goto } from '$app/navigation';
-  import { listings, contacts, vendors, tasks } from '$lib/data/mock-data';
+  import type { Listing, Contact, AIInsight } from '$lib/types';
   import {
     CommandDialog,
     CommandEmpty,
@@ -24,9 +24,12 @@
     breadcrumbs?: { label: string; href?: string }[];
     title?: string;
     children: Snippet;
+    listings?: Listing[];
+    contacts?: Contact[];
+    aiInsights?: AIInsight[];
   }
 
-  let { breadcrumbs = [], title = '', children }: Props = $props();
+  let { breadcrumbs = [], title = '', children, listings = [], contacts = [], aiInsights = [] }: Props = $props();
 
   let sidebarCollapsed = $state(false);
   let mobileMenuOpen = $state(false);
@@ -46,7 +49,7 @@
 <div class="flex h-screen overflow-hidden bg-background">
   <!-- Desktop Sidebar -->
   <div class="hidden lg:flex">
-    <Sidebar collapsed={sidebarCollapsed} onToggle={() => (sidebarCollapsed = !sidebarCollapsed)} />
+    <Sidebar collapsed={sidebarCollapsed} onToggle={() => (sidebarCollapsed = !sidebarCollapsed)} {listings} {aiInsights} />
   </div>
 
   <!-- Mobile Sidebar Overlay -->
@@ -148,7 +151,7 @@
             <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" /><polyline points="9,22 9,12 15,12 15,22" />
           </svg>
           <span>{listing.address}</span>
-          <span class="ml-auto text-xs text-muted-foreground">{listing.phaseLabel}</span>
+          <span class="ml-auto text-xs text-muted-foreground">{listing.phase}</span>
         </CommandLinkItem>
       {/each}
     </CommandGroup>
@@ -165,7 +168,7 @@
             <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" /><circle cx="9" cy="7" r="4" />
           </svg>
           <span>{contact.name}</span>
-          <span class="ml-auto text-xs text-muted-foreground">{contact.typeLabel}</span>
+          <span class="ml-auto text-xs text-muted-foreground">{contact.type}</span>
         </CommandLinkItem>
       {/each}
     </CommandGroup>

@@ -14,14 +14,40 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Plus } from 'lucide-svelte';
-	import {
-		listings,
-		contacts,
-		activityItems,
-		aiInsights,
-		PHASE_LIST,
-		type ListingPhase
-	} from '$lib/data/mock-data';
+	import { PHASE_LIST, type ListingPhase } from '$lib/config';
+
+	// Inline example data for the design system preview
+	const exampleAgent = { id: 'tm-1', teamId: 't-1', userId: null, name: 'Lauren Chen', email: 'lauren@example.com', role: 'admin' as const, roleLabel: 'Team Lead', avatar: '', initials: 'LC', phone: null, createdAt: new Date(), updatedAt: new Date() };
+
+	const listings: any[] = [
+		{ id: 'l-1', teamId: 't-1', address: '123 Main St', city: 'Palo Alto', state: 'CA', zip: '94301', price: 2495000, beds: 4, baths: 3, sqft: 2850, lotSqft: 6000, yearBuilt: 1952, propertyType: 'Single Family', mlsNumber: 'ML81234567', description: 'Stunning mid-century modern.', features: null, photoUrl: null, photos: null, lat: null, lng: null, phase: 'active' as ListingPhase, underContract: false, daysInPhase: 8, daysOnMarket: 8, listDate: null, targetListDate: null, listingAgreementDate: null, closeDate: null, canceledAt: null, cancelReason: null, agentId: 'tm-1', clientId: null, tasksDone: 12, tasksTotal: 18, documentsCount: 5, showingsCount: 6, offersCount: 2, zillowViews: 1245, zillowSaves: 198, createdAt: new Date(), updatedAt: new Date(), agent: exampleAgent, client: null },
+		{ id: 'l-2', teamId: 't-1', address: '456 Oak Ave', city: 'Menlo Park', state: 'CA', zip: '94025', price: 1895000, beds: 3, baths: 2, sqft: 1950, lotSqft: 5000, yearBuilt: 1968, propertyType: 'Single Family', mlsNumber: 'ML81234568', description: 'Charming ranch style.', features: null, photoUrl: null, photos: null, lat: null, lng: null, phase: 'pre_market' as ListingPhase, underContract: false, daysInPhase: 14, daysOnMarket: 0, listDate: null, targetListDate: null, listingAgreementDate: null, closeDate: null, canceledAt: null, cancelReason: null, agentId: 'tm-1', clientId: null, tasksDone: 5, tasksTotal: 12, documentsCount: 3, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, createdAt: new Date(), updatedAt: new Date(), agent: exampleAgent, client: null },
+		{ id: 'l-3', teamId: 't-1', address: '789 Elm Blvd', city: 'Los Altos', state: 'CA', zip: '94022', price: 3200000, beds: 5, baths: 4, sqft: 3400, lotSqft: 8000, yearBuilt: 2005, propertyType: 'Single Family', mlsNumber: 'ML81234569', description: 'Spacious modern home.', features: null, photoUrl: null, photos: null, lat: null, lng: null, phase: 'closed' as ListingPhase, underContract: false, daysInPhase: 3, daysOnMarket: 21, listDate: null, targetListDate: null, listingAgreementDate: null, closeDate: null, canceledAt: null, cancelReason: null, agentId: 'tm-1', clientId: null, tasksDone: 18, tasksTotal: 18, documentsCount: 8, showingsCount: 12, offersCount: 4, zillowViews: 2400, zillowSaves: 340, createdAt: new Date(), updatedAt: new Date(), agent: exampleAgent, client: null },
+		{ id: 'l-4', teamId: 't-1', address: '321 Pine Ct', city: 'Mountain View', state: 'CA', zip: '94040', price: 1650000, beds: 3, baths: 2.5, sqft: 1800, lotSqft: 4500, yearBuilt: 1975, propertyType: 'Townhouse', mlsNumber: 'ML81234570', description: 'Updated townhouse.', features: null, photoUrl: null, photos: null, lat: null, lng: null, phase: 'active' as ListingPhase, underContract: true, daysInPhase: 5, daysOnMarket: 12, listDate: null, targetListDate: null, listingAgreementDate: null, closeDate: null, canceledAt: null, cancelReason: null, agentId: 'tm-1', clientId: null, tasksDone: 8, tasksTotal: 15, documentsCount: 4, showingsCount: 8, offersCount: 1, zillowViews: 890, zillowSaves: 142, createdAt: new Date(), updatedAt: new Date(), agent: exampleAgent, client: null },
+	];
+
+	const contacts: any[] = [
+		{ id: 'c-1', teamId: 't-1', name: 'David Nguyen', email: 'david@example.com', phone: '(650) 555-0101', type: 'client', typeLabel: 'Client', company: null, initials: 'DN', lastInteraction: '2 days ago', buyerNeeds: null, relationshipStrength: null, listingId: null, createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'c-2', teamId: 't-1', name: 'Sarah Kim', email: 'sarah@compass.com', phone: '(650) 555-0102', type: 'agent', typeLabel: 'Agent', company: 'Compass', initials: 'SK', lastInteraction: '1 day ago', buyerNeeds: 'Looking for 3+ bed in Palo Alto, $2M budget', relationshipStrength: 4, listingId: null, createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'c-3', teamId: 't-1', name: 'Mike Torres', email: 'mike@example.com', phone: '(408) 555-0103', type: 'vendor', typeLabel: 'Vendor', company: 'Torres Staging', initials: 'MT', lastInteraction: '5 days ago', buyerNeeds: null, relationshipStrength: null, listingId: null, createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'c-4', teamId: 't-1', name: 'Jennifer Park', email: 'jpark@serenogroup.com', phone: '(650) 555-0104', type: 'agent', typeLabel: 'Agent', company: 'Sereno Group', initials: 'JP', lastInteraction: '3 days ago', buyerNeeds: 'Downsizers looking for single-story', relationshipStrength: 3, listingId: null, createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'c-5', teamId: 't-1', name: 'Robert Chen', email: 'robert@firstrepublic.com', phone: '(415) 555-0105', type: 'lender', typeLabel: 'Lender', company: 'First Republic', initials: 'RC', lastInteraction: '1 week ago', buyerNeeds: null, relationshipStrength: null, listingId: null, createdAt: new Date(), updatedAt: new Date() },
+	];
+
+	const activityItems: any[] = [
+		{ id: 'a-1', teamId: 't-1', listingId: 'l-1', type: 'message', authorId: 'tm-1', authorName: 'Lauren Chen', authorInitials: 'LC', content: 'Updated the client on showing feedback from this weekend.', metadata: null, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'a-2', teamId: 't-1', listingId: 'l-1', type: 'email', authorId: 'tm-1', authorName: 'Lauren Chen', authorInitials: 'LC', content: 'Sent comparative market analysis to client.', metadata: { subject: 'CMA for 123 Main St' }, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'a-3', teamId: 't-1', listingId: 'l-2', type: 'task_complete', authorId: 'tm-1', authorName: 'Lauren Chen', authorInitials: 'LC', content: 'Completed staging consultation for 456 Oak Ave.', metadata: null, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'a-4', teamId: 't-1', listingId: null, type: 'ai_insight', authorId: null, authorName: 'HomeTrack', authorInitials: 'HT', content: 'Price adjustment may improve showing velocity for 123 Main St.', metadata: null, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'a-5', teamId: 't-1', listingId: 'l-1', type: 'voice_memo', authorId: 'tm-1', authorName: 'Lauren Chen', authorInitials: 'LC', content: 'Notes from showing with the Kim family.', metadata: { duration: '2:34' }, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+	];
+
+	const aiInsights: any[] = [
+		{ id: 'ai-1', teamId: 't-1', listingId: 'l-1', type: 'connection', title: 'Buyer match found', description: 'Sarah Kim has a buyer looking for exactly this type of property — 4 bed in Palo Alto.', actionLabel: 'View match', actionUrl: '/contacts/c-2', dismissed: false, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'ai-2', teamId: 't-1', listingId: 'l-1', type: 'anomaly', title: 'Views dropping', description: 'Online views for 123 Main St have declined 25% in the past week. Consider a price adjustment or fresh marketing push.', actionLabel: 'Review analytics', actionUrl: '/analytics/listings', dismissed: false, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'ai-3', teamId: 't-1', listingId: null, type: 'recommendation', title: 'Optimal list timing', description: 'Based on seasonal patterns, listings going active in the next 2 weeks see 15% more engagement.', actionLabel: 'Schedule listing', actionUrl: '/listings', dismissed: false, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+		{ id: 'ai-4', teamId: 't-1', listingId: 'l-4', type: 'warning', title: 'Disclosure deadline approaching', description: 'TDS for 321 Pine Ct is due in 3 days. The document has not yet been uploaded.', actionLabel: 'Upload now', actionUrl: '/listings/l-4', dismissed: false, timestamp: new Date(), createdAt: new Date(), updatedAt: new Date() },
+	];
 </script>
 
 <svelte:head>
@@ -276,7 +302,7 @@
 				<tr class="hover:bg-muted/50 transition-colors">
 					<td class="px-4 py-3 text-sm font-medium">{item.address}</td>
 					<td class="px-4 py-3 text-sm text-muted-foreground">{item.city}</td>
-					<td class="px-4 py-3 text-right text-sm font-serif font-semibold">{item.priceFormatted}</td>
+					<td class="px-4 py-3 text-right text-sm font-serif font-semibold">{"$" + (item.price / 1000000).toFixed(1) + "M"}</td>
 					<td class="px-4 py-3"><PhaseBadge phase={item.phase} size="sm" /></td>
 					<td class="px-4 py-3 text-sm text-muted-foreground">{item.agent.name}</td>
 				</tr>

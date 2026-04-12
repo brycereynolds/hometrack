@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { listings } from '$lib/data/mock-data.js';
 	import {
 		Eye,
 		EyeOff,
@@ -34,7 +32,8 @@
 		Trash2
 	} from 'lucide-svelte';
 
-	const listing = $derived(listings.find((l) => l.id === $page.params.id));
+	let { data } = $props();
+	const listing = $derived(data.listing);
 
 	// Portal section visibility toggles
 	let portalSections = $state([
@@ -66,9 +65,9 @@
 	];
 
 	// Client access
-	const clientAccess = [
+	const clientAccess = $derived([
 		{ name: listing?.client?.name || 'Client', email: listing?.client?.email || '', role: 'Owner', status: 'active', lastAccess: '2 hours ago', magicLinkExpires: '2026-04-17' }
-	];
+	]);
 
 	// Notification settings
 	let notificationSettings = $state([
@@ -130,21 +129,10 @@
 		<Card>
 			<CardContent class="p-4">
 				<div class="flex items-center gap-3">
-					<div class="rounded-lg bg-primary/10 p-2">
-						<Globe class="size-5 text-primary" />
-					</div>
-					<div class="flex-1 min-w-0">
-						<p class="text-sm font-medium">Portal Link</p>
-						<p class="text-xs text-muted-foreground truncate">{portalUrl}</p>
-					</div>
-					<Button variant="outline" size="sm" onclick={copyPortalUrl}>
-						<Copy class="mr-1.5 size-3.5" />
-						{copyButtonText}
-					</Button>
-					<Button size="sm">
-						<Send class="mr-1.5 size-3.5" />
-						Send to Client
-					</Button>
+					<div class="rounded-lg bg-primary/10 p-2"><Globe class="size-5 text-primary" /></div>
+					<div class="flex-1 min-w-0"><p class="text-sm font-medium">Portal Link</p><p class="text-xs text-muted-foreground truncate">{portalUrl}</p></div>
+					<Button variant="outline" size="sm" onclick={copyPortalUrl}><Copy class="mr-1.5 size-3.5" />{copyButtonText}</Button>
+					<Button size="sm"><Send class="mr-1.5 size-3.5" />Send to Client</Button>
 				</div>
 			</CardContent>
 		</Card>
@@ -152,30 +140,15 @@
 		<div class="grid gap-6 lg:grid-cols-2">
 			<!-- Section Visibility Toggles -->
 			<Card>
-				<CardHeader>
-					<CardTitle class="font-serif text-base">Portal Sections</CardTitle>
-					<CardDescription>Toggle visibility of each section in the client portal</CardDescription>
-				</CardHeader>
+				<CardHeader><CardTitle class="font-serif text-base">Portal Sections</CardTitle><CardDescription>Toggle visibility of each section in the client portal</CardDescription></CardHeader>
 				<CardContent>
 					<div class="divide-y">
 						{#each portalSections as section}
 							{@const Icon = section.icon}
 							<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-								<div class="rounded-md p-1.5 {section.enabled ? 'bg-primary/10' : 'bg-muted'}">
-									<Icon class="size-4 {section.enabled ? 'text-primary' : 'text-muted-foreground'}" />
-								</div>
-								<div class="flex-1 min-w-0">
-									<p class="text-sm font-medium">{section.label}</p>
-									<p class="text-xs text-muted-foreground">{section.description}</p>
-								</div>
-								<button
-									onclick={() => toggleSection(section.id)}
-									class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {section.enabled ? 'bg-primary' : 'bg-muted'}"
-								>
-									<span
-										class="inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform {section.enabled ? 'translate-x-6' : 'translate-x-1'}"
-									></span>
-								</button>
+								<div class="rounded-md p-1.5 {section.enabled ? 'bg-primary/10' : 'bg-muted'}"><Icon class="size-4 {section.enabled ? 'text-primary' : 'text-muted-foreground'}" /></div>
+								<div class="flex-1 min-w-0"><p class="text-sm font-medium">{section.label}</p><p class="text-xs text-muted-foreground">{section.description}</p></div>
+								<button onclick={() => toggleSection(section.id)} class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {section.enabled ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform {section.enabled ? 'translate-x-6' : 'translate-x-1'}"></span></button>
 							</div>
 						{/each}
 					</div>
@@ -184,33 +157,14 @@
 
 			<!-- Document Sharing Controls -->
 			<Card>
-				<CardHeader>
-					<CardTitle class="font-serif text-base">Document Sharing</CardTitle>
-					<CardDescription>Control which document categories clients can access</CardDescription>
-				</CardHeader>
+				<CardHeader><CardTitle class="font-serif text-base">Document Sharing</CardTitle><CardDescription>Control which document categories clients can access</CardDescription></CardHeader>
 				<CardContent>
 					<div class="divide-y">
 						{#each documentSharing as doc}
 							<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-								<div class="rounded-md p-1.5 {doc.shared ? 'bg-green-50' : 'bg-muted'}">
-									{#if doc.shared}
-										<Eye class="size-4 text-green-600" />
-									{:else}
-										<EyeOff class="size-4 text-muted-foreground" />
-									{/if}
-								</div>
-								<div class="flex-1">
-									<p class="text-sm font-medium">{doc.label}</p>
-									<p class="text-xs text-muted-foreground">{doc.count} document{doc.count !== 1 ? 's' : ''}</p>
-								</div>
-								<button
-									onclick={() => toggleDocSharing(doc.id)}
-									class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {doc.shared ? 'bg-green-500' : 'bg-muted'}"
-								>
-									<span
-										class="inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform {doc.shared ? 'translate-x-6' : 'translate-x-1'}"
-									></span>
-								</button>
+								<div class="rounded-md p-1.5 {doc.shared ? 'bg-green-50' : 'bg-muted'}">{#if doc.shared}<Eye class="size-4 text-green-600" />{:else}<EyeOff class="size-4 text-muted-foreground" />{/if}</div>
+								<div class="flex-1"><p class="text-sm font-medium">{doc.label}</p><p class="text-xs text-muted-foreground">{doc.count} document{doc.count !== 1 ? 's' : ''}</p></div>
+								<button onclick={() => toggleDocSharing(doc.id)} class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {doc.shared ? 'bg-green-500' : 'bg-muted'}"><span class="inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform {doc.shared ? 'translate-x-6' : 'translate-x-1'}"></span></button>
 							</div>
 						{/each}
 					</div>
@@ -220,42 +174,20 @@
 
 		<!-- Approval Queue -->
 		<Card>
-			<CardHeader>
-				<CardTitle class="font-serif text-base">Approval Queue</CardTitle>
-				<CardDescription>Pending client requests and access approvals</CardDescription>
-			</CardHeader>
+			<CardHeader><CardTitle class="font-serif text-base">Approval Queue</CardTitle><CardDescription>Pending client requests and access approvals</CardDescription></CardHeader>
 			<CardContent>
 				<div class="divide-y">
 					{#each approvalQueue as item}
 						<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-							<div class="rounded-full p-1.5 {item.status === 'pending' ? 'bg-amber-100' : 'bg-green-100'}">
-								{#if item.status === 'pending'}
-									<Clock class="size-4 text-amber-600" />
-								{:else}
-									<CheckCircle2 class="size-4 text-green-600" />
-								{/if}
-							</div>
-							<div class="flex-1 min-w-0">
-								<p class="text-sm font-medium">{item.label}</p>
-								<p class="text-xs text-muted-foreground">
-									Requested by {item.requestedBy} -- {item.date}
-								</p>
-							</div>
+							<div class="rounded-full p-1.5 {item.status === 'pending' ? 'bg-amber-100' : 'bg-green-100'}">{#if item.status === 'pending'}<Clock class="size-4 text-amber-600" />{:else}<CheckCircle2 class="size-4 text-green-600" />{/if}</div>
+							<div class="flex-1 min-w-0"><p class="text-sm font-medium">{item.label}</p><p class="text-xs text-muted-foreground">Requested by {item.requestedBy} -- {item.date}</p></div>
 							{#if item.status === 'pending'}
 								<div class="flex gap-1.5">
-									<Button variant="outline" size="sm" class="h-7 text-xs text-green-700 border-green-300 hover:bg-green-50">
-										<CheckCircle2 class="mr-1 size-3" />
-										Approve
-									</Button>
-									<Button variant="outline" size="sm" class="h-7 text-xs text-red-600 border-red-200 hover:bg-red-50">
-										<X class="mr-1 size-3" />
-										Deny
-									</Button>
+									<Button variant="outline" size="sm" class="h-7 text-xs text-green-700 border-green-300 hover:bg-green-50"><CheckCircle2 class="mr-1 size-3" />Approve</Button>
+									<Button variant="outline" size="sm" class="h-7 text-xs text-red-600 border-red-200 hover:bg-red-50"><X class="mr-1 size-3" />Deny</Button>
 								</div>
 							{:else}
-								<Badge variant="outline" class="text-[10px] bg-green-100 text-green-700 border-green-200">
-									Approved
-								</Badge>
+								<Badge variant="outline" class="text-[10px] bg-green-100 text-green-700 border-green-200">Approved</Badge>
 							{/if}
 						</div>
 					{/each}
@@ -265,59 +197,18 @@
 
 		<!-- Notification Settings -->
 		<Card>
-			<CardHeader>
-				<CardTitle class="font-serif text-base">Client Notifications</CardTitle>
-				<CardDescription>Configure which alerts your client receives</CardDescription>
-			</CardHeader>
+			<CardHeader><CardTitle class="font-serif text-base">Client Notifications</CardTitle><CardDescription>Configure which alerts your client receives</CardDescription></CardHeader>
 			<CardContent>
 				<div class="overflow-x-auto -mx-6 px-6">
 					<table class="w-full text-sm">
-						<thead>
-							<tr class="border-b">
-								<th class="pb-2 text-left font-medium text-muted-foreground">Notification</th>
-								<th class="pb-2 text-center font-medium text-muted-foreground w-20">
-									<div class="flex items-center justify-center gap-1">
-										<Mail class="size-3.5" />
-										Email
-									</div>
-								</th>
-								<th class="pb-2 text-center font-medium text-muted-foreground w-20">
-									<div class="flex items-center justify-center gap-1">
-										<Smartphone class="size-3.5" />
-										SMS
-									</div>
-								</th>
-							</tr>
-						</thead>
+						<thead><tr class="border-b"><th class="pb-2 text-left font-medium text-muted-foreground">Notification</th><th class="pb-2 text-center font-medium text-muted-foreground w-20"><div class="flex items-center justify-center gap-1"><Mail class="size-3.5" />Email</div></th><th class="pb-2 text-center font-medium text-muted-foreground w-20"><div class="flex items-center justify-center gap-1"><Smartphone class="size-3.5" />SMS</div></th></tr></thead>
 						<tbody class="divide-y">
 							{#each notificationSettings as setting}
 								{@const Icon = setting.icon}
 								<tr>
-									<td class="py-3">
-										<div class="flex items-center gap-2.5">
-											<Icon class="size-4 text-muted-foreground shrink-0" />
-											<div>
-												<p class="font-medium">{setting.label}</p>
-												<p class="text-xs text-muted-foreground">{setting.description}</p>
-											</div>
-										</div>
-									</td>
-									<td class="py-3 text-center">
-										<button
-											onclick={() => toggleNotification(setting.id, 'email')}
-											class="relative mx-auto inline-flex h-5 w-9 items-center rounded-full transition-colors {setting.email ? 'bg-primary' : 'bg-muted'}"
-										>
-											<span class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform {setting.email ? 'translate-x-4.5' : 'translate-x-0.5'}"></span>
-										</button>
-									</td>
-									<td class="py-3 text-center">
-										<button
-											onclick={() => toggleNotification(setting.id, 'sms')}
-											class="relative mx-auto inline-flex h-5 w-9 items-center rounded-full transition-colors {setting.sms ? 'bg-primary' : 'bg-muted'}"
-										>
-											<span class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform {setting.sms ? 'translate-x-4.5' : 'translate-x-0.5'}"></span>
-										</button>
-									</td>
+									<td class="py-3"><div class="flex items-center gap-2.5"><Icon class="size-4 text-muted-foreground shrink-0" /><div><p class="font-medium">{setting.label}</p><p class="text-xs text-muted-foreground">{setting.description}</p></div></div></td>
+									<td class="py-3 text-center"><button onclick={() => toggleNotification(setting.id, 'email')} class="relative mx-auto inline-flex h-5 w-9 items-center rounded-full transition-colors {setting.email ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform {setting.email ? 'translate-x-4.5' : 'translate-x-0.5'}"></span></button></td>
+									<td class="py-3 text-center"><button onclick={() => toggleNotification(setting.id, 'sms')} class="relative mx-auto inline-flex h-5 w-9 items-center rounded-full transition-colors {setting.sms ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform {setting.sms ? 'translate-x-4.5' : 'translate-x-0.5'}"></span></button></td>
 								</tr>
 							{/each}
 						</tbody>
@@ -328,52 +219,22 @@
 
 		<!-- Client Access Management -->
 		<Card>
-			<CardHeader class="flex-row items-center justify-between">
-				<div>
-					<CardTitle class="font-serif text-base">Client Access</CardTitle>
-					<CardDescription>Manage who can access this listing's portal</CardDescription>
-				</div>
-				<Button variant="outline" size="sm">
-					<UserPlus class="mr-1.5 size-3.5" />
-					Invite
-				</Button>
-			</CardHeader>
+			<CardHeader class="flex-row items-center justify-between"><div><CardTitle class="font-serif text-base">Client Access</CardTitle><CardDescription>Manage who can access this listing's portal</CardDescription></div><Button variant="outline" size="sm"><UserPlus class="mr-1.5 size-3.5" />Invite</Button></CardHeader>
 			<CardContent>
 				<div class="divide-y">
 					{#each clientAccess as client}
 						<div class="py-4 first:pt-0 last:pb-0">
 							<div class="flex items-center gap-3">
-								<Avatar class="size-10">
-									<AvatarFallback class="bg-primary/10 text-primary text-xs">
-										{listing.client.initials}
-									</AvatarFallback>
-								</Avatar>
-								<div class="flex-1 min-w-0">
-									<p class="text-sm font-medium">{client.name}</p>
-									<p class="text-xs text-muted-foreground">{client.email}</p>
-								</div>
-								<div class="text-right">
-									<Badge variant="secondary" class="text-[10px]">{client.role}</Badge>
-									<p class="text-[10px] text-muted-foreground mt-0.5">Last active: {client.lastAccess}</p>
-								</div>
-								<Badge variant="outline" class="text-[10px] bg-green-100 text-green-700 border-green-200">
-									Active
-								</Badge>
+								<Avatar class="size-10"><AvatarFallback class="bg-primary/10 text-primary text-xs">{listing?.client?.initials ?? '?'}</AvatarFallback></Avatar>
+								<div class="flex-1 min-w-0"><p class="text-sm font-medium">{client.name}</p><p class="text-xs text-muted-foreground">{client.email}</p></div>
+								<div class="text-right"><Badge variant="secondary" class="text-[10px]">{client.role}</Badge><p class="text-[10px] text-muted-foreground mt-0.5">Last active: {client.lastAccess}</p></div>
+								<Badge variant="outline" class="text-[10px] bg-green-100 text-green-700 border-green-200">Active</Badge>
 							</div>
-							<!-- Magic link & access controls -->
 							<div class="mt-3 ml-13 flex flex-wrap items-center gap-2 pl-[52px]">
-								<Button variant="outline" size="sm" class="h-7 text-xs">
-									<Link2 class="mr-1 size-3" />
-									Regenerate Magic Link
-								</Button>
-								<span class="text-[10px] text-muted-foreground">
-									Expires: {client.magicLinkExpires}
-								</span>
+								<Button variant="outline" size="sm" class="h-7 text-xs"><Link2 class="mr-1 size-3" />Regenerate Magic Link</Button>
+								<span class="text-[10px] text-muted-foreground">Expires: {client.magicLinkExpires}</span>
 								<div class="flex-1"></div>
-								<Button variant="outline" size="sm" class="h-7 text-xs text-red-600 border-red-200 hover:bg-red-50">
-									<Trash2 class="mr-1 size-3" />
-									Revoke Access
-								</Button>
+								<Button variant="outline" size="sm" class="h-7 text-xs text-red-600 border-red-200 hover:bg-red-50"><Trash2 class="mr-1 size-3" />Revoke Access</Button>
 							</div>
 						</div>
 					{/each}

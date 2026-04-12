@@ -4,10 +4,13 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { contacts, type ContactType } from '$lib/data/mock-data.js';
+	import type { ContactType } from '$lib/config.js';
 	import { Plus, Search, Mail, Phone, Users, Star, ArrowUpDown } from 'lucide-svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Button as Btn } from '$lib/components/ui/button/index.js';
+
+	let { data } = $props();
+	const contacts = $derived(data.contacts);
 
 	type FilterType = 'all' | ContactType;
 
@@ -32,6 +35,15 @@
 		{ label: 'Inspectors', value: 'inspector' },
 	];
 
+	const typeLabels: Record<string, string> = {
+		client: 'Client',
+		agent: 'Agent',
+		vendor: 'Vendor',
+		lender: 'Lender',
+		inspector: 'Inspector',
+		title: 'Title',
+	};
+
 	const typeColors: Record<string, string> = {
 		client: 'bg-primary/10 text-primary',
 		agent: 'bg-blue-100 text-blue-700',
@@ -52,12 +64,16 @@
 				(c) =>
 					c.name.toLowerCase().includes(q) ||
 					(c.company && c.company.toLowerCase().includes(q)) ||
-					c.email.toLowerCase().includes(q)
+					(c.email && c.email.toLowerCase().includes(q))
 			);
 		}
 		result = [...result].sort((a, b) => {
 			if (sortBy === 'name') return a.name.localeCompare(b.name);
-			if (sortBy === 'lastInteraction') return b.lastInteractionDate.localeCompare(a.lastInteractionDate);
+			if (sortBy === 'lastInteraction') {
+				const aDate = a.lastInteractionDate ? new Date(a.lastInteractionDate).getTime() : 0;
+				const bDate = b.lastInteractionDate ? new Date(b.lastInteractionDate).getTime() : 0;
+				return bDate - aDate;
+			}
 			return a.type.localeCompare(b.type);
 		});
 		return result;
@@ -135,7 +151,7 @@
 					<CardContent class="flex items-center gap-4 p-4">
 						<Avatar class="size-10">
 							<AvatarFallback class="bg-primary/10 text-sm font-semibold text-primary"
-								>{contact.initials}</AvatarFallback
+								>{contact.initials ?? contact.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}</AvatarFallback
 							>
 						</Avatar>
 						<div class="min-w-0 flex-1">
@@ -146,7 +162,7 @@
 										contact.type
 									]}"
 								>
-									{contact.typeLabel}
+									{typeLabels[contact.type] ?? contact.type}
 								</span>
 							</div>
 							<div class="mt-0.5 flex items-center gap-3 text-sm text-muted-foreground">
@@ -154,19 +170,11 @@
 									<span>{contact.company}</span>
 									<span class="text-border">|</span>
 								{/if}
-								<span class="truncate">{contact.lastInteraction}</span>
+								<span class="truncate">{contact.lastInteraction ?? ''}</span>
 							</div>
 						</div>
 
-						<!-- Listing count -->
-						{#if contact.listingsCount > 0}
-							<div class="hidden text-center sm:block">
-								<p class="text-lg font-semibold">{contact.listingsCount}</p>
-								<p class="text-[10px] text-muted-foreground">
-									listing{contact.listingsCount !== 1 ? 's' : ''}
-								</p>
-							</div>
-						{/if}
+						<!-- Listing count placeholder -->
 
 						<!-- Agent relationship strength -->
 						{#if contact.type === 'agent' && contact.relationshipStrength}

@@ -2,7 +2,7 @@
   PhaseBadge.svelte — Listing phase badge with colored dot + label
 -->
 <script lang="ts">
-  import { PHASES, type ListingPhase } from '$lib/data/mock-data';
+  import { PHASES, type ListingPhase } from '$lib/config';
 
   interface Props {
     phase: ListingPhase;

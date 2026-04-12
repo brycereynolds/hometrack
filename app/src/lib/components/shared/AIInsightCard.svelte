@@ -3,10 +3,10 @@
   Distinct visual treatment: warm accent background, sparkle icon, action button.
 -->
 <script lang="ts">
-  import type { AIInsight } from '$lib/data/mock-data';
+  import type { AIInsight } from '$lib/types';
 
   interface Props {
-    insight: AIInsight;
+    insight: AIInsight & { listingAddress?: string; timeAgo?: string };
     compact?: boolean;
     onDismiss?: (id: string) => void;
     onAction?: (id: string) => void;
@@ -65,9 +65,9 @@
         <p class="mt-1 text-sm text-foreground-secondary leading-relaxed">{insight.description}</p>
       {/if}
 
-      {#if insight.listingAddress}
+      {#if insight.listingId}
         <p class="mt-1 text-xs text-foreground-muted">
-          <a href="/listings/{insight.listingId}" class="text-primary hover:underline">{insight.listingAddress}</a>
+          <a href="/listings/{insight.listingId}" class="text-primary hover:underline">View listing</a>
         </p>
       {/if}
 
@@ -94,7 +94,7 @@
       {/if}
 
       {#if compact}
-        <p class="mt-1 text-xs text-foreground-muted">{insight.timeAgo}</p>
+        <p class="mt-1 text-xs text-foreground-muted">{insight.timeAgo ?? ""}</p>
       {/if}
     </div>
   </div>

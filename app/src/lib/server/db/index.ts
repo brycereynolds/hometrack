@@ -28,6 +28,8 @@ const rlsDb = drizzle(rlsClient, { schema });
 // Type for the database instance (admin or RLS transaction)
 export type AppDatabase = typeof adminDb;
 
+const ALLOWED_ROLES = new Set(['authenticated', 'anon']);
+
 /**
  * Execute Drizzle queries with RLS context from the authenticated user.
  * Sets Postgres session variables so RLS policies can check auth.uid().
@@ -37,6 +39,13 @@ export async function withRLS<T>(
   role: string,
   fn: (tx: AppDatabase) => Promise<T>,
 ): Promise<T> {
+  if (!userId) {
+    throw new Error('withRLS requires a valid userId');
+  }
+  if (!ALLOWED_ROLES.has(role)) {
+    throw new Error(`Invalid role: ${role}`);
+  }
+
   return rlsDb.transaction(async (tx) => {
     await tx.execute(sql`
       SELECT set_config('request.jwt.claim.sub', ${userId}, TRUE);

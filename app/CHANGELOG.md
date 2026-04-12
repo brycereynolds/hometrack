@@ -4,7 +4,7 @@
 
 ### Frontend Mockup (Complete)
 
-Built a 48-page interactive SvelteKit application showcasing the full HomeTrack product vision.
+Built a 49-page interactive SvelteKit application showcasing the full HomeTrack product vision.
 
 **Tech Stack:**
 - SvelteKit 2.57 with Svelte 5 (runes mode)
@@ -20,7 +20,7 @@ Built a 48-page interactive SvelteKit application showcasing the full HomeTrack 
 - Warm off-white backgrounds with full dark mode support
 - 9 pipeline phase colors, status badge system
 
-**Pages Built (48 total):**
+**Pages Built (49 total):**
 
 | Route Group | Pages | Highlights |
 |---|---|---|
@@ -32,7 +32,7 @@ Built a 48-page interactive SvelteKit application showcasing the full HomeTrack 
 | Settings | 7 | Team, integrations, workflows, notifications, billing, branding, data management |
 | Mobile | 5 | Voice memo, field notes, showing feedback, open house check-in, quick task |
 | Portal | 4 | Client dashboard, approvals, documents, messages |
-| Auth | 3 | Magic link login, invite flow, invite acceptance |
+| Auth | 5 | Email/password login, signup, invite flow, invite acceptance, logout |
 | Other | 1 | Design system preview |
 
 **Shared Components (17):** AppLayout, AuthLayout, PortalLayout, Sidebar, MobileBottomNav, PageHeader, Breadcrumbs, MetricCard, ListingCard, ContactCard, PhaseBadge, StatusBadge, ActivityFeedItem, AIInsightCard, EmptyState, DataTable, ListingDetailTabs
@@ -45,7 +45,7 @@ Built a 48-page interactive SvelteKit application showcasing the full HomeTrack 
 
 Added Drizzle ORM with full PostgreSQL schema matching the frontend data model.
 
-**19 Tables:**
+**19 Tables** (later expanded to 24 with analytics and files tables — see 2026-04-11 entries)**:**
 - Core: `teams`, `team_members`
 - Listings: `listings`, `tasks`, `activity_items`, `documents`, `showings`, `offers`, `marketing_assets`
 - People: `contacts`
@@ -54,7 +54,7 @@ Added Drizzle ORM with full PostgreSQL schema matching the frontend data model.
 - Intelligence: `ai_insights`, `comp_sales`
 - Config: `integrations`, `workflow_templates`
 
-**16 Enum Types:** listing_phase, task_status, task_priority, contact_type, activity_type, ai_insight_type, offer_status, document_category, document_status, interested_level, team_member_role, marketing_asset_type, marketing_asset_status, quote_status, integration_status, integration_category
+**17 Enum Types:** listing_phase, task_category, task_status, task_priority, contact_type, activity_type, ai_insight_type, offer_status, document_category, document_status, interested_level, team_member_role, marketing_asset_type, marketing_asset_status, quote_status, integration_status, integration_category
 
 **Key Design Decisions:**
 - UUID primary keys on all tables

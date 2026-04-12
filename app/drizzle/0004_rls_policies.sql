@@ -7,10 +7,7 @@
 -- 1. auth.uid() helper (self-hosted Supabase may not have it)
 CREATE OR REPLACE FUNCTION auth.uid() RETURNS uuid
 LANGUAGE sql STABLE AS $$
-  SELECT COALESCE(
-    current_setting('request.jwt.claim.sub', TRUE)::uuid,
-    '00000000-0000-0000-0000-000000000000'::uuid
-  )
+  SELECT NULLIF(current_setting('request.jwt.claim.sub', TRUE), '')::uuid
 $$;
 
 -- 2. FK from team_members.user_id → auth.users(id)
@@ -195,3 +192,6 @@ CREATE POLICY "team_member_access" ON quote_line_items
 -- ============================================================
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO authenticated;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO authenticated;
+
+-- 7. Standalone index on team_members.user_id for RLS policy performance
+CREATE INDEX IF NOT EXISTS team_members_user_id_idx ON team_members(user_id);

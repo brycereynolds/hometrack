@@ -6,12 +6,9 @@
 	import { onMount } from 'svelte';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import {
-		listings,
-		PHASES,
-		formatCurrency,
-		type Listing,
-	} from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config.js';
+	import { formatCurrency } from '$lib/utils.js';
+	import type { ListingWithRelations } from '$lib/types.js';
 	import {
 		Plus,
 		LayoutGrid,
@@ -26,15 +23,18 @@
 		ChevronRight,
 	} from 'lucide-svelte';
 
+	let { data } = $props();
+	const listings = $derived(data.listings);
+
 	let mapContainer: HTMLDivElement;
 	let map: any;
 	let searchQuery = $state('');
-	let selectedListing = $state<Listing | null>(null);
+	let selectedListing = $state<ListingWithRelations | null>(null);
 
 	let filteredListings = $derived(
 		searchQuery
 			? listings.filter(
-					(l) =>
+					(l: ListingWithRelations) =>
 						l.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
 						l.city.toLowerCase().includes(searchQuery.toLowerCase())
 				)
@@ -52,10 +52,11 @@
 		}).addTo(map);
 
 		// Add markers for each listing
-		listings.forEach((listing) => {
+		const markersWithCoords = listings.filter((l: ListingWithRelations) => l.lat && l.lng);
+		markersWithCoords.forEach((listing: ListingWithRelations) => {
 			const phaseConfig = PHASES[listing.phase];
 
-			const marker = L.circleMarker([listing.lat, listing.lng], {
+			const marker = L.circleMarker([listing.lat!, listing.lng!], {
 				radius: 10,
 				fillColor: phaseConfig.color,
 				color: '#fff',
@@ -72,10 +73,10 @@
 						<div style="font-weight: 600; font-size: 14px; margin-bottom: 2px;">${listing.address}</div>
 						<div style="font-size: 12px; color: #6b7280; margin-bottom: 6px;">${listing.city}, ${listing.state} ${listing.zip}</div>
 						<div style="display: flex; align-items: center; justify-content: space-between;">
-							<span style="font-weight: 700; font-size: 15px;">${listing.priceFormatted}</span>
-							<span style="font-size: 11px; padding: 2px 8px; border-radius: 9999px; color: white; background-color: ${phaseConfig.color};">${listing.phaseLabel}</span>
+							<span style="font-weight: 700; font-size: 15px;">${formatCurrency(listing.price ?? 0)}</span>
+							<span style="font-size: 11px; padding: 2px 8px; border-radius: 9999px; color: white; background-color: ${phaseConfig.color};">${phaseConfig.label}</span>
 						</div>
-						<div style="font-size: 12px; color: #6b7280; margin-top: 4px;">${listing.beds} bd &middot; ${listing.baths} ba &middot; ${listing.sqft.toLocaleString()} sqft</div>
+						<div style="font-size: 12px; color: #6b7280; margin-top: 4px;">${listing.beds ?? 0} bd &middot; ${listing.baths ?? 0} ba &middot; ${(listing.sqft ?? 0).toLocaleString()} sqft</div>
 						<a href="/listings/${listing.id}" style="display: inline-block; margin-top: 8px; font-size: 12px; color: #C4704B; text-decoration: none; font-weight: 500;">View details &rarr;</a>
 					</div>
 				</div>
@@ -89,18 +90,20 @@
 		});
 
 		// Fit bounds to markers
-		const group = L.featureGroup(
-			listings.map((l) => L.circleMarker([l.lat, l.lng]))
-		);
-		map.fitBounds(group.getBounds().pad(0.15));
+		if (markersWithCoords.length > 0) {
+			const group = L.featureGroup(
+				markersWithCoords.map((l: ListingWithRelations) => L.circleMarker([l.lat!, l.lng!]))
+			);
+			map.fitBounds(group.getBounds().pad(0.15));
+		}
 
 		return () => {
 			map.remove();
 		};
 	});
 
-	function panToListing(listing: Listing) {
-		if (map) {
+	function panToListing(listing: ListingWithRelations) {
+		if (map && listing.lat && listing.lng) {
 			map.setView([listing.lat, listing.lng], 14);
 			selectedListing = listing;
 		}
@@ -173,17 +176,17 @@
 								<p class="text-sm font-medium truncate">{listing.address}</p>
 								<p class="text-xs text-muted-foreground">{listing.city}</p>
 								<div class="mt-1 flex items-center justify-between">
-									<span class="text-sm font-semibold">{listing.priceFormatted}</span>
+									<span class="text-sm font-semibold">{formatCurrency(listing.price ?? 0)}</span>
 									<Badge
 										variant="outline"
 										class="text-[10px]"
 										style="border-color: {phaseConfig.color}; color: {phaseConfig.color}"
 									>
-										{listing.phaseLabel}
+										{phaseConfig.label}
 									</Badge>
 								</div>
 								<p class="text-xs text-muted-foreground mt-1">
-									{listing.beds} bd &middot; {listing.baths} ba &middot; {listing.sqft.toLocaleString()} sqft
+									{listing.beds ?? 0} bd &middot; {listing.baths ?? 0} ba &middot; {(listing.sqft ?? 0).toLocaleString()} sqft
 								</p>
 							</div>
 						</div>
@@ -200,7 +203,7 @@
 			<div class="absolute bottom-4 right-4 bg-background/95 backdrop-blur-sm rounded-lg border px-3 py-2 shadow-sm z-[1000]">
 				<p class="text-xs font-medium mb-1.5">Phase Legend</p>
 				<div class="grid grid-cols-2 gap-x-4 gap-y-1">
-					{#each Object.entries(PHASES).filter(([key]) => listings.some((l) => l.phase === key)) as [key, phase]}
+					{#each Object.entries(PHASES).filter(([key]) => listings.some((l: ListingWithRelations) => l.phase === key)) as [key, phase]}
 						<div class="flex items-center gap-1.5">
 							<span class="size-2.5 rounded-full shrink-0" style="background-color: {phase.color}"></span>
 							<span class="text-[10px] text-muted-foreground whitespace-nowrap">{phase.label}</span>

@@ -20,9 +20,10 @@
 		FileText,
 		Sparkles
 	} from 'lucide-svelte';
-	import { listings, aiInsights } from '$lib/data/mock-data';
+	let { children, data } = $props();
 
-	let { children } = $props();
+	const listings = $derived(data.listings ?? []);
+	const aiInsights = $derived(data.aiInsights ?? []);
 
 	const navItems = [
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -38,7 +39,7 @@
 		{ label: 'Quick Note', icon: FileText }
 	];
 
-	const activeAlerts = aiInsights.filter((a) => !a.dismissed).slice(0, 2);
+	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed).slice(0, 2));
 </script>
 
 <Sidebar.SidebarProvider>

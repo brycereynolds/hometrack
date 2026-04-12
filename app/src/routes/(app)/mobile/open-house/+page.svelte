@@ -11,9 +11,11 @@
 		Clock,
 		Home
 	} from 'lucide-svelte';
-	import { listings } from '$lib/data/mock-data';
+	let { data } = $props();
 
-	let selectedListing = $state('l-1');
+	const listings = $derived(data.listings);
+
+	let selectedListing = $state(listings[0]?.id ?? '');
 	let guestName = $state('');
 	let guestEmail = $state('');
 	let guestPhone = $state('');
@@ -69,7 +71,7 @@
 				bind:value={selectedListing}
 				class="h-11 w-full appearance-none rounded-xl border bg-muted/50 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
 			>
-				{#each listings.filter((l) => l.showingsCount > 0) as listing}
+				{#each listings.filter((l) => (l.showingsCount ?? 0) > 0) as listing}
 					<option value={listing.id}>{listing.address} — Sat 1-4 PM</option>
 				{/each}
 			</select>

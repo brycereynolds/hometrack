@@ -1,42 +1,68 @@
-# sv
+# HomeTrack
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Real estate listing management platform for teams. Multi-tenant SaaS with Supabase authentication, RLS security, and real-time collaboration.
 
-## Creating a project
+## Tech Stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Frontend:** SvelteKit 2.57, Svelte 5 (runes), Tailwind CSS v4
+- **Database:** PostgreSQL via Drizzle ORM
+- **Auth:** Supabase GoTrue (self-hosted)
+- **Storage:** Supabase Storage (S3-compatible)
+- **Deployment:** Railway with adapter-node
 
-```sh
-# create a new project
-npx sv create my-app
-```
+## Getting Started
 
-To recreate this project with the same configuration:
+### Prerequisites
+- Node.js 20+
+- Access to a Supabase Postgres instance (or self-hosted)
 
-```sh
-# recreate this project
-npx sv@0.15.0 create --template minimal --types ts --no-install .
-```
+### Setup
 
-## Developing
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+2. Copy environment variables:
+   ```bash
+   cp .env.example .env
+   ```
 
-```sh
-npm run dev
+3. Configure `.env` with your Supabase credentials:
+   ```
+   DATABASE_URL=postgresql://postgres:password@host:port/postgres
+   SUPABASE_URL=https://your-kong-url
+   SUPABASE_ANON_KEY=your-anon-key
+   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+   ```
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+4. Push schema and seed data:
+   ```bash
+   npm run db:reset
+   ```
 
-## Building
+5. Start development server:
+   ```bash
+   npm run dev
+   ```
 
-To create a production version of your app:
+## Scripts
 
-```sh
-npm run build
-```
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm start` | Run production build |
+| `npm run db:generate` | Generate Drizzle migrations |
+| `npm run db:migrate` | Run migrations |
+| `npm run db:push` | Push schema to DB |
+| `npm run db:seed` | Seed demo data |
+| `npm run db:reset` | Reset DB (push + seed) |
+| `npm run db:studio` | Open Drizzle Studio |
 
-You can preview the production build with `npm run preview`.
+## Architecture
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- **Data Layer:** Drizzle ORM with dual clients -- `adminDb` (bypasses RLS) and `withRLS()` (enforces row-level security)
+- **Auth:** GoTrue JWT verified in `hooks.server.ts`, session via httpOnly cookies
+- **Security:** RLS policies on all 24 tables, tenant isolation via `team_id`
+- **Storage:** Supabase Storage for file uploads, Drizzle for metadata

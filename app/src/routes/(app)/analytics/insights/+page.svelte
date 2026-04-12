@@ -3,7 +3,9 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { aiInsights } from '$lib/data/mock-data.js';
+	let { data } = $props();
+	const aiInsights = $derived(data.aiInsights ?? []);
+
 	import {
 		Sparkles,
 		Link2,
@@ -158,7 +160,7 @@
 											<Sparkles class="size-2.5" />
 											Auto-Generated
 										</Badge>
-										<span class="text-xs text-muted-foreground">{insight.timeAgo}</span>
+										<span class="text-xs text-muted-foreground"></span>
 									</div>
 									<button
 										onclick={() => dismiss(insight.id)}
@@ -173,11 +175,11 @@
 								<p class="mt-1.5 text-sm text-muted-foreground leading-relaxed">{insight.description}</p>
 
 								<!-- Related listing -->
-								{#if insight.listingAddress}
+								{#if insight.listingId}
 									<div class="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
 										<Eye class="size-3" />
 										<a href="/listings/{insight.listingId}" class="hover:underline hover:text-foreground transition-colors">
-											{insight.listingAddress}
+											View listing
 										</a>
 									</div>
 								{/if}

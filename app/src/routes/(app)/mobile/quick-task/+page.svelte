@@ -10,21 +10,26 @@
 		ChevronRight,
 		ListChecks
 	} from 'lucide-svelte';
-	import { tasks, listings } from '$lib/data/mock-data';
+	let { data } = $props();
 
-	// Get tasks for the current user (Lauren Chen, tm-1), grouped by listing
-	const myTasks = tasks
-		.filter((t) => t.assignee.id === 'tm-1' && t.status !== 'done')
-		.sort((a, b) => {
-			if (a.isOverdue && !b.isOverdue) return -1;
-			if (!a.isOverdue && b.isOverdue) return 1;
-			const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
-			return priorityOrder[a.priority] - priorityOrder[b.priority];
-		});
+	const allTasks = $derived(data.tasks);
+	const listings = $derived(data.listings);
+
+	// Get tasks for the current user, grouped by listing
+	const myTasks = $derived(
+		allTasks
+			.filter((t) => t.status !== 'done')
+			.sort((a, b) => {
+				if (a.isOverdue && !b.isOverdue) return -1;
+				if (!a.isOverdue && b.isOverdue) return 1;
+				const priorityOrder: Record<string, number> = { urgent: 0, high: 1, medium: 2, low: 3 };
+				return (priorityOrder[a.priority] ?? 3) - (priorityOrder[b.priority] ?? 3);
+			})
+	);
 
 	// Group tasks by listing
-	const overdueTasks = myTasks.filter((t) => t.isOverdue);
-	const todayTasks = myTasks.filter((t) => !t.isOverdue);
+	const overdueTasks = $derived(myTasks.filter((t) => t.isOverdue));
+	const todayTasks = $derived(myTasks.filter((t) => !t.isOverdue));
 
 	// Group today tasks by listing
 	const tasksByListing = $derived(() => {
@@ -122,7 +127,7 @@
 									</p>
 									<div class="mt-1 flex items-center gap-2 text-xs text-red-600">
 										<Clock class="size-3" />
-										Due {task.dueDate}
+										Due {task.dueDate?.toLocaleDateString() ?? ''}
 									</div>
 								</div>
 								<Badge variant="outline" class="shrink-0 border-red-200 text-red-600 text-[10px]">
@@ -174,7 +179,7 @@
 									</p>
 									<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 										<Clock class="size-3" />
-										Due {task.dueDate}
+										Due {task.dueDate?.toLocaleDateString() ?? ''}
 										<Badge variant="outline" class="text-[10px] {getPriorityColor(task.priority)}">
 											{task.priority}
 										</Badge>

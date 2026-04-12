@@ -5,27 +5,32 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import {
-		listings,
-		tasks,
-		activityItems,
-		aiInsights,
-		showings,
-		teamMembers,
-		getMyTasks,
-		getActiveListingsCount,
-		getTotalPipelineValue,
-		getOverdueTasks,
-		getRecentActivity,
-		getListingsByPhase,
-		PHASES,
-		PHASE_LIST,
-		formatCurrency,
-		type ListingPhase,
-	} from '$lib/data/mock-data.js';
+	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config';
+	import { formatCurrency } from '$lib/utils';
 
 	let { data } = $props();
+
+	const listings = $derived(data.listings ?? []);
+	const tasks = $derived(data.tasks ?? []);
+	const aiInsights = $derived(data.aiInsights ?? []);
+	const showings = $derived(data.showings ?? []);
 	const teamPerformanceData = $derived(data.teamPerformanceData ?? { members: [] as string[], activeTasks: [] as number[], completedThisMonth: [] as number[], avgCompletionDays: [] as number[] });
+
+	// Computed dashboard values from server data
+	const activeCount = $derived(listings.filter((l: any) => l.phase === 'active').length);
+	const pipelineValue = $derived(formatCurrency(data.pipelineValue ?? 0));
+	const overdueTasks = $derived(data.overdueTasks ?? []);
+	const recentActivity = $derived(data.recentActivity ?? []);
+	const listingsByPhase = $derived((() => {
+		const grouped: Record<string, any[]> = {};
+		for (const listing of listings) {
+			const phase = (listing as any).phase;
+			if (!grouped[phase]) grouped[phase] = [];
+			grouped[phase].push(listing);
+		}
+		return grouped;
+	})());
+
 	import {
 		TrendingUp,
 		TrendingDown,
@@ -56,25 +61,19 @@
 	import { Chart, registerables } from 'chart.js';
 	Chart.register(...registerables);
 
-	const myTasks = getMyTasks();
-	const overdueTasks = getOverdueTasks();
-	const recentActivity = getRecentActivity(8);
-	const activeCount = getActiveListingsCount();
-	const pipelineValue = getTotalPipelineValue();
-	const listingsByPhase = getListingsByPhase();
-	const avgDom = Math.round(
-		listings.filter((l) => l.daysOnMarket > 0).reduce((s, l) => s + l.daysOnMarket, 0) /
-			(listings.filter((l) => l.daysOnMarket > 0).length || 1)
-	);
+	const avgDom = $derived(Math.round(
+		listings.filter((l: any) => l.daysOnMarket > 0).reduce((s: number, l: any) => s + l.daysOnMarket, 0) /
+			(listings.filter((l: any) => l.daysOnMarket > 0).length || 1)
+	));
 
-	const openTaskCount = tasks.filter((t) => t.status !== 'done').length;
+	const openTaskCount = $derived(tasks.filter((t: any) => t.status !== 'done').length);
 
-	const stats = [
+	const stats = $derived([
 		{ label: 'Active Listings', value: String(activeCount), icon: Home, trend: 'up' as const, change: '+2 this month' },
 		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, trend: 'up' as const, change: '+$1.2M from last month' },
 		{ label: 'Avg. Days on Market', value: String(avgDom), icon: Clock, trend: 'down' as const, change: '-3 days vs. last quarter' },
 		{ label: 'Open Tasks', value: String(openTaskCount), icon: CheckSquare, trend: 'up' as const, change: `${overdueTasks.length} overdue` },
-	];
+	]);
 
 	// Task filter state
 	let taskFilter = $state<'upcoming' | 'overdue'>('upcoming');
@@ -85,22 +84,22 @@
 
 	let filteredTasks = $derived(
 		(() => {
-			const allOpen = tasks.filter((t) => t.status !== 'done');
+			const allOpen = tasks.filter((t: any) => t.status !== 'done');
 			switch (taskFilter) {
 				case 'overdue':
-					return allOpen.filter((t) => t.isOverdue);
+					return allOpen.filter((t: any) => t.isOverdue);
 				case 'upcoming':
-					return allOpen.filter((t) => !t.isOverdue).sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+					return allOpen.filter((t: any) => !t.isOverdue).sort((a: any, b: any) => (a.dueDate ?? '').localeCompare(b.dueDate ?? ''));
 			}
 		})()
 	);
 
 	// AI Insights (non-dismissed)
 	let dismissedIds = $state<Set<string>>(new Set());
-	let visibleInsights = $derived(aiInsights.filter((a) => !a.dismissed && !dismissedIds.has(a.id)));
+	let visibleInsights = $derived(aiInsights.filter((a: any) => !a.dismissed && !dismissedIds.has(a.id)));
 
 	// Today's showings
-	const todayShowings = showings.filter((s) => s.date === '2026-04-09' || s.date === '2026-04-10' || s.date === '2026-04-11').slice(0, 3);
+	const todayShowings = $derived(showings.slice(0, 3));
 
 	// Activity type icons mapping
 	function getActivityIcon(type: string) {
@@ -344,7 +343,7 @@
 										<Badge variant={getPriorityVariant(task.priority)} class="text-[10px] px-1.5 py-0">
 											{task.priority}
 										</Badge>
-										<span class="text-xs text-muted-foreground">{task.listingAddress}</span>
+										<span class="text-xs text-muted-foreground">{task.listing?.address ?? ''}</span>
 									</div>
 									<p class="text-xs text-muted-foreground mt-0.5">Due {task.dueDate}</p>
 								</div>
@@ -410,14 +409,14 @@
 							</div>
 							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
-									<span class="text-sm font-medium truncate">{item.author}</span>
-									<span class="text-xs text-muted-foreground shrink-0">{item.timeAgo}</span>
+									<span class="text-sm font-medium truncate">{item.authorName}</span>
+									<span class="text-xs text-muted-foreground shrink-0"></span>
 								</div>
 								<p class="mt-0.5 text-sm text-muted-foreground line-clamp-2">{item.content}</p>
-								{#if item.listingAddress}
+								{#if item.listingId}
 									<a href="/listings/{item.listingId}" class="mt-1 inline-flex items-center gap-1 text-xs text-primary hover:underline">
 										<MapPin class="size-3" />
-										{item.listingAddress}
+										View listing
 									</a>
 								{/if}
 							</div>
@@ -453,7 +452,7 @@
 													{insight.actionLabel}
 												</a>
 											{/if}
-											<span class="text-xs text-muted-foreground">{insight.timeAgo}</span>
+											<span class="text-xs text-muted-foreground"></span>
 										</div>
 									</div>
 								</div>
@@ -490,11 +489,11 @@
 					{#each todayShowings as showing}
 						<a href="/listings/{showing.listingId}" class="group flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
 							<div class="text-center shrink-0">
-								<div class="text-lg font-bold leading-tight">{showing.date.split('-')[2]}</div>
+								<div class="text-lg font-bold leading-tight">{new Date(showing.date).getDate()}</div>
 								<div class="text-xs text-muted-foreground">Apr</div>
 							</div>
 							<div class="min-w-0 flex-1">
-								<p class="text-sm font-medium group-hover:text-primary transition-colors">{showing.listingAddress}</p>
+								<p class="text-sm font-medium group-hover:text-primary transition-colors">Showing</p>
 								<p class="text-xs text-muted-foreground">{showing.time} &middot; {showing.agentName}</p>
 								<p class="text-xs text-muted-foreground">{showing.agentCompany} &middot; {showing.buyerType}</p>
 							</div>

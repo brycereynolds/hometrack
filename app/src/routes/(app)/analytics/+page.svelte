@@ -3,14 +3,8 @@
 	import { Chart, registerables } from 'chart.js';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import {
-		listings,
-		getActiveListingsCount,
-		getTotalPipelineValue,
-		formatCurrency,
-		formatNumber,
-		PHASES
-	} from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config';
+	import { formatCurrency, formatNumber } from '$lib/utils';
 
 	let { data } = $props();
 	const pipelineValueTimeSeries = $derived(data.pipelineValueTimeSeries ?? { labels: [] as string[], values: [] as number[], closedDeals: [] as number[] });
@@ -27,6 +21,9 @@
 
 	Chart.register(...registerables);
 
+	// Listings come from the parent layout's load function
+	const listings = $derived(data.listings ?? []);
+
 	const tabs = [
 		{ href: '/analytics', label: 'Overview', active: true },
 		{ href: '/analytics/listings', label: 'Listing Performance', active: false },
@@ -34,23 +31,24 @@
 		{ href: '/analytics/insights', label: 'Insights', active: false }
 	];
 
-	const activeListings = listings.filter((l) => l.daysOnMarket > 0);
-	const avgDOM = activeListings.length
-		? Math.round(activeListings.reduce((s, l) => s + l.daysOnMarket, 0) / activeListings.length)
-		: 0;
-	const totalViews = listings.reduce((s, l) => s + l.zillowViews, 0);
-	const totalSaves = listings.reduce((s, l) => s + l.zillowSaves, 0);
+	const activeListings = $derived(listings.filter((l: any) => (l.daysOnMarket ?? 0) > 0));
+	const avgDOM = $derived(activeListings.length
+		? Math.round(activeListings.reduce((s: number, l: any) => s + (l.daysOnMarket ?? 0), 0) / activeListings.length)
+		: 0);
+	const totalViews = $derived(listings.reduce((s: number, l: any) => s + (l.zillowViews ?? 0), 0));
+	const totalSaves = $derived(listings.reduce((s: number, l: any) => s + (l.zillowSaves ?? 0), 0));
 	const listToSaleRatio = '97.2%';
-	const inventoryLevel = listings.length;
+	const activeCount = $derived(listings.filter((l: any) => l.phase === 'active').length);
+	const pipelineValue = $derived(formatCurrency(listings.reduce((s: number, l: any) => s + (l.price ?? 0), 0)));
 
-	const marketStats = [
-		{ label: 'Active Listings', value: String(getActiveListingsCount()), icon: Home, change: '+2 this month', positive: true },
-		{ label: 'Pipeline Value', value: getTotalPipelineValue(), icon: DollarSign, change: '+$2.2M vs last month', positive: true },
+	const marketStats = $derived([
+		{ label: 'Active Listings', value: String(activeCount), icon: Home, change: '+2 this month', positive: true },
+		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, change: '+$2.2M vs last month', positive: true },
 		{ label: 'Avg DOM', value: `${avgDOM} days`, icon: Clock, change: '-3 days vs avg', positive: true },
 		{ label: 'List-to-Sale Ratio', value: listToSaleRatio, icon: Target, change: 'Above market avg', positive: true },
 		{ label: 'Total Online Views', value: formatNumber(totalViews), icon: Eye, change: '+18% this week', positive: true },
 		{ label: 'Total Saves', value: formatNumber(totalSaves), icon: Activity, change: `${totalSaves} across platforms`, positive: true }
-	];
+	]);
 
 	// Closed deals data
 	const closedDeals = [
@@ -229,10 +227,10 @@
 											class="text-xs"
 											style="border-color: {PHASES[listing.phase].color}; color: {PHASES[listing.phase].color}"
 										>
-											{listing.phaseLabel}
+											{PHASES[listing.phase].label}
 										</Badge>
 									</td>
-									<td class="px-4 py-2.5 text-right font-mono">{listing.priceFormatted}</td>
+									<td class="px-4 py-2.5 text-right font-mono">{formatCurrency(listing.price ?? 0)}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.daysOnMarket || '—'}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.zillowViews ? formatNumber(listing.zillowViews) : '—'}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.offersCount || '—'}</td>

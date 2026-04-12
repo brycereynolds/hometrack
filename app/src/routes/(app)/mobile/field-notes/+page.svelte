@@ -3,9 +3,11 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Camera, ChevronDown, Save, X, Tag } from 'lucide-svelte';
-	import { listings } from '$lib/data/mock-data';
+	let { data } = $props();
 
-	let selectedListing = $state(listings[0].id);
+	const listings = $derived(data.listings);
+
+	let selectedListing = $state(listings[0]?.id ?? '');
 	let noteText = $state('');
 	let selectedTag = $state<string>('showing');
 	let photos = $state<string[]>([

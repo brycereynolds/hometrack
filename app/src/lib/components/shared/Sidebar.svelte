@@ -4,17 +4,19 @@
 -->
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { aiInsights, listings } from '$lib/data/mock-data';
   import * as Dialog from '$lib/components/ui/dialog/index.js';
   import { Button } from '$lib/components/ui/button/index.js';
+  import type { Listing, AIInsight } from '$lib/types';
 
   interface Props {
     collapsed?: boolean;
     onToggle?: () => void;
     activePath?: string;
+    listings?: Listing[];
+    aiInsights?: AIInsight[];
   }
 
-  let { collapsed = false, onToggle, activePath = '/dashboard' }: Props = $props();
+  let { collapsed = false, onToggle, activePath = '/dashboard', listings = [], aiInsights = [] }: Props = $props();
 
   type NavItem = {
     label: string;
@@ -24,7 +26,7 @@
     children?: { label: string; href: string }[];
   };
 
-  const navItems: NavItem[] = [
+  const navItems: NavItem[] = $derived([
     { label: 'Dashboard', href: '/dashboard', icon: 'layout-dashboard' },
     { label: 'Listings', href: '/listings', icon: 'home', badge: String(listings.length) },
     { label: 'Contacts', href: '/contacts', icon: 'users' },
@@ -37,9 +39,9 @@
       ],
     },
     { label: 'Analytics', href: '/analytics', icon: 'bar-chart-3' },
-  ];
+  ]);
 
-  const activeAlerts = aiInsights.filter((a) => !a.dismissed).slice(0, 2);
+  const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed).slice(0, 2));
 
   let expandedNavItems = $state<Set<string>>(new Set());
   let showVoiceMemoModal = $state(false);

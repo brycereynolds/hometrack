@@ -121,19 +121,63 @@ Added Drizzle ORM with full PostgreSQL schema matching the frontend data model.
 
 ---
 
+## 2026-04-11 — Drizzle + Supabase RLS for Multi-Tenant Security
+
+### Authentication
+
+- Created `hooks.server.ts` — extracts JWT from `sb-access-token` cookie or `Authorization` header, verifies via GoTrue `getUser()`, populates `event.locals.user`
+- Extended `App.Locals` with typed `user` and `accessToken` properties
+- Login/signup pages with email/password via GoTrue (`(auth)/login`, `(auth)/signup`)
+- Logout endpoint clears cookies and redirects (`(auth)/logout`)
+- Cookie strategy: `httpOnly`, `secure`, `sameSite=lax` for access and refresh tokens
+
+### Row-Level Security (RLS)
+
+- Added `userId` column to `team_members` linking GoTrue `auth.users` to team membership
+- Created `get_team_ids_for_user()` SECURITY DEFINER function for RLS policy lookups
+- RLS enabled on all 24 tables with policies using `auth.uid()`:
+  - Pattern A: 19 tables with direct `team_id` column
+  - Pattern B: 3 tables via parent FK (analytics → listings, team_performance → team_members)
+  - Pattern C: 2 grandchild tables (financial_categories → budgets, quote_line_items → quotes)
+- Migration: `drizzle/0004_rls_policies.sql`
+
+### Dual Drizzle Clients
+
+- `adminDb` — bypasses RLS, used for seeding, migrations, background jobs
+- `withRLS(userId, role, fn)` — wraps queries in a transaction that sets Postgres session variables (`request.jwt.claim.sub`, `SET LOCAL ROLE authenticated`) so RLS policies apply
+- `prepare: false` on RLS connection (required for `SET LOCAL ROLE` in transaction mode)
+- All 6 query files accept optional `db` parameter (defaults to `adminDb` for backward compat)
+
+### Route Handler Updates
+
+- Root layout now requires auth, redirects to `/login` if unauthenticated
+- All 10 route handlers wrapped in `withRLS()` for RLS-enforced queries
+- Fixed 5 routes that bypassed `parent()` for team context (analytics, showings)
+- Added `"start": "node build"` to package.json for Railway deployment
+
+### Architecture Decision
+
+Using Drizzle + Supabase together (not one or the other):
+- **Drizzle** for type-safe server-side data queries with RLS enforcement
+- **Supabase JS client** for Storage (file uploads), Auth (GoTrue), and Realtime (planned)
+- RLS is belt-and-suspenders: app-level `teamId` filtering + database-level policy enforcement
+
+---
+
 ## What's Left
 
 ### Immediate Next Steps
-1. **Register domain** — Choose from top candidates and register via Cloudflare
-2. **Wire up frontend** — Update components to use `data` from server load functions instead of direct mock imports
-3. **Deploy to Railway** — Connect SvelteKit app to self-hosted Supabase
+1. **Fix DATABASE_URL** — Change to `supabase_admin` user and `postgres` database
+2. **Register domain** — Choose from top candidates and register via Cloudflare
+3. **Deploy to Railway** — Connect SvelteKit app with correct env vars
+4. **Create first GoTrue user** — Link to team_members for dev testing
 
 ### Future Work
-- Real-time updates (Supabase Realtime)
+- Real-time updates (Supabase Realtime — broadcasts Drizzle writes via WAL)
 - MLS/IDX integration for comp data
 - Email/calendar sync (Google Workspace, Outlook)
 - DocuSign integration for e-signatures
 - AI layer (Anthropic Claude API for insights, comp narratives, action extraction)
-- Row-Level Security (RLS) for multi-tenant defense-in-depth
 - Full-text search (PostgreSQL tsvector or Typesense)
 - Audit logging table
+- Token refresh logic in hooks (refresh token → new access token)

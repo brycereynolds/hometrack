@@ -102,6 +102,7 @@ async function main() {
       teamId,
       name: tm.name,
       email: tm.email,
+      userId: null,
       role: tm.role,
       roleLabel: tm.roleLabel,
       avatar: '',

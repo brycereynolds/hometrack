@@ -1,5 +1,5 @@
 import { eq, and, desc, sql } from 'drizzle-orm';
-import { db } from '../index.js';
+import { adminDb, type AppDatabase } from '../index.js';
 import {
   analyticsEvents,
   analyticsShowings,
@@ -17,7 +17,7 @@ export interface ViewTimeSeries {
 }
 
 /** Get view time-series for a listing, grouped by platform and date */
-export async function getListingViewTimeSeries(listingId: string): Promise<ViewTimeSeries> {
+export async function getListingViewTimeSeries(listingId: string, db: AppDatabase = adminDb): Promise<ViewTimeSeries> {
   const rows = await db
     .select({
       date: analyticsEvents.date,
@@ -51,7 +51,7 @@ export async function getListingViewTimeSeries(listingId: string): Promise<ViewT
 }
 
 /** Get showing volume for a listing, aggregated by week */
-export async function getListingShowingsSeries(listingId: string) {
+export async function getListingShowingsSeries(listingId: string, db: AppDatabase = adminDb) {
   const rows = await db
     .select()
     .from(analyticsShowings)
@@ -67,7 +67,7 @@ export async function getListingShowingsSeries(listingId: string) {
 }
 
 /** Get pipeline value trends for a team */
-export async function getPipelineTimeSeries(teamId: string) {
+export async function getPipelineTimeSeries(teamId: string, db: AppDatabase = adminDb) {
   const rows = await db
     .select()
     .from(pipelineMetrics)
@@ -85,7 +85,7 @@ export async function getPipelineTimeSeries(teamId: string) {
 }
 
 /** Get team performance data for charts */
-export async function getTeamPerformanceData(teamMemberIds: string[]) {
+export async function getTeamPerformanceData(teamMemberIds: string[], db: AppDatabase = adminDb) {
   const rows = await db
     .select()
     .from(teamPerformance)

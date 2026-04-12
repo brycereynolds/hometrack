@@ -1,14 +1,20 @@
 import type { PageServerLoad } from './$types';
-import { db } from '$lib/server/db/index.js';
-import { teams } from '$lib/server/db/schema/index.js';
 import { getPipelineTimeSeries } from '$lib/server/db/queries/analytics.js';
+import { withRLS } from '$lib/server/db/index.js';
 
-export const load: PageServerLoad = async () => {
-  const [team] = await db.select({ id: teams.id }).from(teams).limit(1);
-  if (!team) {
+export const load: PageServerLoad = async ({ locals, parent }) => {
+  const { team } = await parent();
+
+  if (!team || !locals.user) {
     return { pipelineValueTimeSeries: null };
   }
 
-  const pipelineValueTimeSeries = await getPipelineTimeSeries(team.id);
-  return { pipelineValueTimeSeries };
+  try {
+    const pipelineValueTimeSeries = await withRLS(locals.user.id, 'authenticated', async (db) => {
+      return getPipelineTimeSeries(team.id, db);
+    });
+    return { pipelineValueTimeSeries };
+  } catch {
+    return { pipelineValueTimeSeries: null };
+  }
 };

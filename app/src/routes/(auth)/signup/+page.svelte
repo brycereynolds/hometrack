@@ -9,9 +9,9 @@
 
 <div class="space-y-6">
 	<div class="text-center">
-		<h2 class="text-xl font-semibold">Welcome back</h2>
+		<h2 class="text-xl font-semibold">Create your account</h2>
 		<p class="mt-1 text-sm text-muted-foreground">
-			Sign in to your HomeTrack account.
+			Get started with HomeTrack today.
 		</p>
 	</div>
 
@@ -52,9 +52,24 @@
 				id="password"
 				name="password"
 				type="password"
-				autocomplete="current-password"
+				autocomplete="new-password"
 				required
-				placeholder="Enter your password"
+				placeholder="Create a password"
+				minlength="8"
+				class="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+			/>
+		</div>
+
+		<div class="space-y-2">
+			<label for="password_confirm" class="text-sm font-medium">Confirm password</label>
+			<input
+				id="password_confirm"
+				name="password_confirm"
+				type="password"
+				autocomplete="new-password"
+				required
+				placeholder="Confirm your password"
+				minlength="8"
 				class="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
 			/>
 		</div>
@@ -69,15 +84,15 @@
 					<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
 					<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
 				</svg>
-				Signing in...
+				Creating account...
 			{:else}
-				Sign in
+				Create account
 			{/if}
 		</button>
 	</form>
 
 	<div class="text-center text-sm text-muted-foreground">
-		Don't have an account?
-		<a href="/signup" class="font-medium text-primary hover:underline">Create one</a>
+		Already have an account?
+		<a href="/login" class="font-medium text-primary hover:underline">Sign in</a>
 	</div>
 </div>

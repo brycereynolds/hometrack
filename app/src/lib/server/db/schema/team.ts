@@ -25,6 +25,7 @@ export const teamMembers = pgTable(
       .references(() => teams.id, { onDelete: 'cascade' }),
     name: text('name').notNull(),
     email: text('email').notNull(),
+    userId: text('user_id'),
     role: teamMemberRoleEnum('role').notNull(),
     roleLabel: text('role_label'),
     avatar: text('avatar'),
@@ -34,6 +35,7 @@ export const teamMembers = pgTable(
   },
   (table) => [
     uniqueIndex('team_members_team_email_idx').on(table.teamId, table.email),
+    uniqueIndex('team_members_team_user_idx').on(table.teamId, table.userId),
   ],
 );
 

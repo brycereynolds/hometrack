@@ -1,8 +1,8 @@
 import { eq, desc } from 'drizzle-orm';
-import { db } from '../index.js';
+import { adminDb, type AppDatabase } from '../index.js';
 import { listings, tasks, activityItems, aiInsights, showings } from '../schema/index.js';
 
-export async function getDashboardData(teamId: string) {
+export async function getDashboardData(teamId: string, db: AppDatabase = adminDb) {
   const [allListings, allTasks, recentActivity, insights, recentShowings] = await Promise.all([
     db.query.listings.findMany({
       where: eq(listings.teamId, teamId),

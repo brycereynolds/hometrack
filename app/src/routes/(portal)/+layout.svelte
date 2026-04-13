@@ -6,6 +6,7 @@
 
 	let { children } = $props();
 	let mobileMenuOpen = $state(false);
+	const teamName = $derived($page.data?.team?.name ?? '');
 
 	const portalNav = [
 		{ href: '', label: 'Dashboard', icon: Home },
@@ -24,7 +25,7 @@
 					C
 				</div>
 				<div>
-					<span class="text-sm font-semibold">Chen Realty Group</span>
+					<span class="text-sm font-semibold">{teamName}</span>
 					<span class="ml-2 text-xs text-muted-foreground">Client Portal</span>
 				</div>
 			</div>

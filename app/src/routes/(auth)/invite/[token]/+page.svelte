@@ -18,7 +18,7 @@
 		</div>
 		<h2 class="text-xl font-semibold">You've been invited!</h2>
 		<p class="mt-1 text-sm text-muted-foreground">
-			Join <span class="font-medium text-foreground">Chen Realty Group</span> on HomeTrack
+			Join <span class="font-medium text-foreground">your team</span> on HomeTrack
 		</p>
 	</div>
 
@@ -28,11 +28,11 @@
 	<div class="rounded-lg bg-muted/50 p-4">
 		<div class="flex items-center gap-3">
 			<div class="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-				C
+				H
 			</div>
 			<div>
-				<p class="text-sm font-medium">Chen Realty Group</p>
-				<p class="text-xs text-muted-foreground">Invited by Lauren Chen</p>
+				<p class="text-sm font-medium">Team Invitation</p>
+				<p class="text-xs text-muted-foreground">You've been invited to join a team</p>
 			</div>
 			<Badge variant="outline" class="ml-auto text-xs">Transaction Coordinator</Badge>
 		</div>

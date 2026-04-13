@@ -28,20 +28,21 @@ export const load: LayoutServerLoad = async ({ locals }) => {
         }),
       ]);
 
-      return { team: membership.team, listings: allListings, aiInsights: insights };
+      return { team: membership.team, membership, listings: allListings, aiInsights: insights };
     });
 
     if (!result) {
-      return { team: null, teamMembers: [], listings: [], aiInsights: [] };
+      return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [] };
     }
 
     return {
       team: result.team,
       teamMembers: result.team.members,
+      currentUser: result.membership,
       listings: result.listings,
       aiInsights: result.aiInsights,
     };
   } catch {
-    return { team: null, teamMembers: [], listings: [], aiInsights: [] };
+    return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [] };
   }
 };

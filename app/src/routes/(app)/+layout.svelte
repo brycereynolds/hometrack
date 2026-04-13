@@ -24,6 +24,15 @@
 
 	const listings = $derived(data.listings ?? []);
 	const aiInsights = $derived(data.aiInsights ?? []);
+	const currentUser = $derived(data.currentUser);
+	const teamName = $derived(data.team?.name ?? '');
+	const userName = $derived(currentUser?.name ?? '');
+	const userInitials = $derived(
+		userName
+			? userName.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
+			: '?'
+	);
+	const userRole = $derived(currentUser?.roleLabel ?? '');
 
 	const navItems = [
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -53,7 +62,7 @@
 						</div>
 						<div class="grid flex-1 text-left text-sm leading-tight">
 							<span class="truncate font-semibold">HomeTrack</span>
-							<span class="truncate text-xs text-muted-foreground">Chen Realty Group</span>
+							<span class="truncate text-xs text-muted-foreground">{teamName}</span>
 						</div>
 					</Sidebar.SidebarMenuButton>
 				</Sidebar.SidebarMenuItem>
@@ -144,11 +153,11 @@
 							{#snippet child({ props })}
 								<Sidebar.SidebarMenuButton {...props} size="lg">
 									<Avatar class="size-8">
-										<AvatarFallback class="bg-primary/10 text-primary text-xs font-medium">LC</AvatarFallback>
+										<AvatarFallback class="bg-primary/10 text-primary text-xs font-medium">{userInitials}</AvatarFallback>
 									</Avatar>
 									<div class="grid flex-1 text-left text-sm leading-tight">
-										<span class="truncate font-semibold">Lauren Chen</span>
-										<span class="truncate text-xs text-muted-foreground">Team Lead</span>
+										<span class="truncate font-semibold">{userName}</span>
+										<span class="truncate text-xs text-muted-foreground">{userRole}</span>
 									</div>
 									<ChevronUp class="ml-auto size-4" />
 								</Sidebar.SidebarMenuButton>
@@ -160,10 +169,12 @@
 								Settings
 							</DropdownMenu.Item>
 							<DropdownMenu.Separator />
-							<DropdownMenu.Item>
-								<LogOut class="mr-2 size-4" />
-								Sign out
-							</DropdownMenu.Item>
+							<form method="POST" action="/logout">
+								<button type="submit" class="relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+									<LogOut class="mr-2 size-4" />
+									Sign out
+								</button>
+							</form>
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 				</Sidebar.SidebarMenuItem>
@@ -192,7 +203,7 @@
 				<span class="absolute right-1 top-1 size-2 rounded-full bg-destructive"></span>
 			</Button>
 			<Avatar class="size-8">
-				<AvatarFallback class="bg-primary text-primary-foreground text-xs font-medium">LC</AvatarFallback>
+				<AvatarFallback class="bg-primary text-primary-foreground text-xs font-medium">{userInitials}</AvatarFallback>
 			</Avatar>
 		</header>
 

@@ -139,7 +139,7 @@
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 		<div>
 			<h1 class="font-serif text-2xl font-bold tracking-tight">Market Intelligence</h1>
-			<p class="text-muted-foreground">Real-time analytics for Chen Realty Group</p>
+			<p class="text-muted-foreground">Real-time analytics for {data.team?.name ?? 'your team'}</p>
 		</div>
 		<div class="flex items-center gap-2 text-xs text-muted-foreground">
 			<span class="inline-block size-2 rounded-full bg-green-500 animate-pulse"></span>

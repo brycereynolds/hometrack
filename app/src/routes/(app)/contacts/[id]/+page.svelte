@@ -377,7 +377,7 @@
 						<Separator class="my-4" />
 						<div class="rounded-md bg-muted/50 p-3">
 							<div class="flex items-center justify-between">
-								<span class="text-xs font-medium text-muted-foreground">Lauren Chen</span>
+								<span class="text-xs font-medium text-muted-foreground">{data.currentUser?.name ?? 'Agent'}</span>
 								<span class="text-xs text-muted-foreground">{formatDate(contact.lastInteractionDate)}</span>
 							</div>
 							<p class="mt-1 text-sm">{contact.lastInteraction ?? ''}</p>

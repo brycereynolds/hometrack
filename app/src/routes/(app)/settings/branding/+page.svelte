@@ -5,6 +5,9 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Upload, Palette, Globe, FileText, Eye } from 'lucide-svelte';
 
+	let { data } = $props();
+	const teamName = $derived(data.team?.name ?? 'Your Team');
+
 	let primaryColor = $state('#C4704B');
 	let customDomain = $state('portal.chenrealtygroup.com');
 	let welcomeMessage = $state('Welcome to your client portal. Here you can track the progress of your listing, view documents, and stay updated on showings and offers.');
@@ -149,7 +152,7 @@
 						<div class="flex items-center justify-between">
 							<div class="flex items-center gap-2">
 								<div class="size-8 rounded bg-white/20 flex items-center justify-center text-white text-xs font-bold">CR</div>
-								<span class="text-sm font-semibold text-white">Chen Realty Group</span>
+								<span class="text-sm font-semibold text-white">{teamName}</span>
 							</div>
 							<div class="flex items-center gap-2">
 								<div class="size-6 rounded-full bg-white/20"></div>

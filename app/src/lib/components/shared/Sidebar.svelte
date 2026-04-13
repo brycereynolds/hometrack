@@ -14,9 +14,13 @@
     activePath?: string;
     listings?: Listing[];
     aiInsights?: AIInsight[];
+    teamName?: string;
+    userName?: string;
+    userInitials?: string;
+    userRole?: string;
   }
 
-  let { collapsed = false, onToggle, activePath = '/dashboard', listings = [], aiInsights = [] }: Props = $props();
+  let { collapsed = false, onToggle, activePath = '/dashboard', listings = [], aiInsights = [], teamName = '', userName = '', userInitials = '?', userRole = '' }: Props = $props();
 
   type NavItem = {
     label: string;
@@ -97,7 +101,7 @@
       </div>
       <div class="flex-1 truncate">
         <p class="text-sm font-semibold text-foreground">HomeTrack</p>
-        <p class="text-xs text-foreground-muted">Chen Realty Group</p>
+        <p class="text-xs text-foreground-muted">{teamName}</p>
       </div>
     {:else}
       <div class="mx-auto flex size-8 items-center justify-center rounded-lg bg-primary">
@@ -278,11 +282,11 @@
       <!-- User profile row -->
       <div class="mt-1 flex items-center gap-3 rounded-md px-3 py-2">
         <div class="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-medium text-primary-foreground">
-          LC
+          {userInitials}
         </div>
         <div class="flex-1 truncate">
-          <p class="text-sm font-medium text-foreground">Lauren Chen</p>
-          <p class="text-xs text-foreground-muted">Team Lead</p>
+          <p class="text-sm font-medium text-foreground">{userName}</p>
+          <p class="text-xs text-foreground-muted">{userRole}</p>
         </div>
       </div>
     {/if}

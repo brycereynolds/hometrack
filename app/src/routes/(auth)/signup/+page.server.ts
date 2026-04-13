@@ -44,10 +44,12 @@ export const actions: Actions = {
 			return { success: true, email, message: 'Check your email to confirm your account.' };
 		}
 
+		const isSecure = env.NODE_ENV === 'production';
+
 		cookies.set('sb-access-token', data.session.access_token, {
 			path: '/',
 			httpOnly: true,
-			secure: true,
+			secure: isSecure,
 			sameSite: 'lax',
 			maxAge: data.session.expires_in,
 		});
@@ -55,7 +57,7 @@ export const actions: Actions = {
 		cookies.set('sb-refresh-token', data.session.refresh_token, {
 			path: '/',
 			httpOnly: true,
-			secure: true,
+			secure: isSecure,
 			sameSite: 'lax',
 			maxAge: 60 * 60 * 24 * 30, // 30 days
 		});

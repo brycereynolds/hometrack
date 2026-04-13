@@ -89,7 +89,7 @@
 				case 'overdue':
 					return allOpen.filter((t: any) => t.isOverdue);
 				case 'upcoming':
-					return allOpen.filter((t: any) => !t.isOverdue).sort((a: any, b: any) => (a.dueDate ?? '').localeCompare(b.dueDate ?? ''));
+					return allOpen.filter((t: any) => !t.isOverdue).sort((a: any, b: any) => new Date(a.dueDate ?? 0).getTime() - new Date(b.dueDate ?? 0).getTime());
 			}
 		})()
 	);
@@ -202,7 +202,7 @@
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 		<div>
 			<h1 class="font-serif text-2xl font-bold tracking-tight">Dashboard</h1>
-			<p class="text-muted-foreground">Welcome back, Lauren. Here's your overview for today.</p>
+			<p class="text-muted-foreground">Welcome back, {data.currentUser?.name?.split(' ')[0] ?? 'there'}. Here's your overview for today.</p>
 		</div>
 		<div class="flex items-center gap-2">
 			<a href="/listings/new">

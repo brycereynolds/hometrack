@@ -42,7 +42,8 @@ export const load: LayoutServerLoad = async ({ locals }) => {
       listings: result.listings,
       aiInsights: result.aiInsights,
     };
-  } catch {
+  } catch (err) {
+    console.error('Layout load error:', err);
     return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [] };
   }
 };

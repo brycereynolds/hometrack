@@ -1,31 +1,53 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import { sql } from 'drizzle-orm';
+import { env } from '$env/dynamic/private';
 import * as schema from './schema/index.js';
 
-const connectionString = process.env.DATABASE_URL!;
+function getConnectionString() {
+  const url = env.DATABASE_URL;
+  if (!url) throw new Error('DATABASE_URL is not set');
+  return url;
+}
 
-// Admin client — bypasses RLS, used for seeding/migrations/background jobs
-const adminClient = postgres(connectionString, {
-  max: 10,
-  idle_timeout: 20,
-  connect_timeout: 10,
+// Lazy-initialized clients (avoids module-init timing issues with env loading)
+let _adminDb: ReturnType<typeof drizzle<typeof schema>> | null = null;
+let _rlsDb: ReturnType<typeof drizzle<typeof schema>> | null = null;
+
+function getAdminDb() {
+  if (!_adminDb) {
+    const client = postgres(getConnectionString(), {
+      max: 10,
+      idle_timeout: 20,
+      connect_timeout: 10,
+    });
+    _adminDb = drizzle(client, { schema });
+  }
+  return _adminDb;
+}
+
+function getRlsDb() {
+  if (!_rlsDb) {
+    const client = postgres(getConnectionString(), {
+      max: 10,
+      idle_timeout: 20,
+      connect_timeout: 10,
+      prepare: false,
+    });
+    _rlsDb = drizzle(client, { schema });
+  }
+  return _rlsDb;
+}
+
+// Public accessors
+export const adminDb = new Proxy({} as ReturnType<typeof drizzle<typeof schema>>, {
+  get(_, prop) {
+    return (getAdminDb() as any)[prop];
+  },
 });
-export const adminDb = drizzle(adminClient, { schema });
 
-// Backward-compat alias (will be removed once all routes use withRLS)
 export const db = adminDb;
 
-// RLS client — prepare:false required for SET LOCAL ROLE in transactions
-const rlsClient = postgres(connectionString, {
-  max: 10,
-  idle_timeout: 20,
-  connect_timeout: 10,
-  prepare: false,
-});
-const rlsDb = drizzle(rlsClient, { schema });
-
-// Type for the database instance (admin or RLS transaction)
 export type AppDatabase = typeof adminDb;
 
 const ALLOWED_ROLES = new Set(['authenticated', 'anon']);
@@ -46,19 +68,16 @@ export async function withRLS<T>(
     throw new Error(`Invalid role: ${role}`);
   }
 
+  const rlsDb = getRlsDb();
   return rlsDb.transaction(async (tx) => {
-    await tx.execute(sql`
-      SELECT set_config('request.jwt.claim.sub', ${userId}, TRUE);
-      SET LOCAL ROLE ${sql.raw(role)};
-    `);
+    await tx.execute(sql`SELECT set_config('request.jwt.claim.sub', ${userId}, TRUE)`);
+    await tx.execute(sql`SET LOCAL ROLE ${sql.raw(role)}`);
 
     try {
       return await fn(tx as unknown as AppDatabase);
     } finally {
-      await tx.execute(sql`
-        SELECT set_config('request.jwt.claim.sub', '', TRUE);
-        RESET ROLE;
-      `);
+      await tx.execute(sql`SELECT set_config('request.jwt.claim.sub', '', TRUE)`);
+      await tx.execute(sql`RESET ROLE`);
     }
   });
 }

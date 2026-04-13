@@ -194,10 +194,10 @@
 
 						<!-- Actions -->
 						<div class="hidden items-center gap-1 sm:flex">
-							<Button variant="ghost" size="icon" class="size-8">
+							<Button variant="ghost" size="icon" class="size-8" href="mailto:{contact.email ?? ''}">
 								<Mail class="size-3.5" />
 							</Button>
-							<Button variant="ghost" size="icon" class="size-8">
+							<Button variant="ghost" size="icon" class="size-8" href="tel:{contact.phone ?? ''}">
 								<Phone class="size-3.5" />
 							</Button>
 						</div>

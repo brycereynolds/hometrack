@@ -184,11 +184,11 @@
 				</div>
 			</div>
 			<div class="flex items-center gap-2">
-				<Button variant="outline" size="sm">
+				<Button variant="outline" size="sm" href="mailto:{vendor.email}">
 					<Mail class="mr-1.5 size-3.5" />
 					Email
 				</Button>
-				<Button variant="outline" size="sm">
+				<Button variant="outline" size="sm" href="tel:{vendor.phone}">
 					<Phone class="mr-1.5 size-3.5" />
 					Call
 				</Button>
@@ -219,7 +219,7 @@
 						</div>
 						<div class="flex items-center gap-3">
 							<Phone class="size-4 shrink-0 text-muted-foreground" />
-							<span>{vendor.phone}</span>
+							<a href="tel:{vendor.phone}" class="text-primary hover:underline">{vendor.phone}</a>
 						</div>
 						<div class="flex items-center gap-3">
 							<MapPin class="size-4 shrink-0 text-muted-foreground" />

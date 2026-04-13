@@ -141,15 +141,15 @@
 					</div>
 				</div>
 				<div class="flex items-center gap-2">
-					<Button variant="outline" size="sm">
+					<Button variant="outline" size="sm" href="mailto:{contact.email ?? ''}">
 						<Mail class="mr-1.5 size-3.5" />
 						Email
 					</Button>
-					<Button variant="outline" size="sm">
+					<Button variant="outline" size="sm" href="tel:{contact.phone ?? ''}">
 						<Phone class="mr-1.5 size-3.5" />
 						Call
 					</Button>
-					<Button size="sm">
+					<Button size="sm" href="mailto:{contact.email ?? ''}?subject=Re: {contact.name}">
 						<MessageSquare class="mr-1.5 size-3.5" />
 						Message
 					</Button>
@@ -172,7 +172,7 @@
 						</div>
 						<div class="flex items-center gap-3">
 							<Phone class="size-4 shrink-0 text-muted-foreground" />
-							<span>{contact.phone ?? ''}</span>
+							<a href="tel:{contact.phone ?? ''}" class="text-primary hover:underline">{contact.phone ?? ''}</a>
 						</div>
 						{#if contact.company}
 							<div class="flex items-center gap-3">

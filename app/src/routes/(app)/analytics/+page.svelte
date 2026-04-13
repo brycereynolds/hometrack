@@ -37,26 +37,43 @@
 		: 0);
 	const totalViews = $derived(listings.reduce((s: number, l: any) => s + (l.zillowViews ?? 0), 0));
 	const totalSaves = $derived(listings.reduce((s: number, l: any) => s + (l.zillowSaves ?? 0), 0));
-	const listToSaleRatio = '97.2%';
 	const activeCount = $derived(listings.filter((l: any) => l.phase === 'active').length);
 	const pipelineValue = $derived(formatCurrency(listings.reduce((s: number, l: any) => s + (l.price ?? 0), 0)));
 
+	const deltas = $derived(data.analyticsDeltas ?? { listingsDelta: 0, pipelineValueDelta: 0, listToSaleRatio: null, closedDealsByMonth: [] });
+
+	function formatDelta(value: number, suffix: string): string {
+		const sign = value >= 0 ? '+' : '';
+		return `${sign}${value} ${suffix}`;
+	}
+
+	function formatCurrencyDelta(value: number, suffix: string): string {
+		const sign = value >= 0 ? '+' : '-';
+		const abs = Math.abs(value);
+		let formatted: string;
+		if (abs >= 1_000_000) formatted = `$${(abs / 1_000_000).toFixed(1)}M`;
+		else if (abs >= 1_000) formatted = `$${(abs / 1_000).toFixed(0)}K`;
+		else formatted = `$${abs.toFixed(0)}`;
+		return `${sign}${formatted} ${suffix}`;
+	}
+
+	const listToSaleRatio = $derived(deltas.listToSaleRatio ? `${deltas.listToSaleRatio}%` : '--');
+
 	const marketStats = $derived([
-		{ label: 'Active Listings', value: String(activeCount), icon: Home, change: '+2 this month', positive: true },
-		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, change: '+$2.2M vs last month', positive: true },
-		{ label: 'Avg DOM', value: `${avgDOM} days`, icon: Clock, change: '-3 days vs avg', positive: true },
-		{ label: 'List-to-Sale Ratio', value: listToSaleRatio, icon: Target, change: 'Above market avg', positive: true },
-		{ label: 'Total Online Views', value: formatNumber(totalViews), icon: Eye, change: '+18% this week', positive: true },
+		{ label: 'Active Listings', value: String(activeCount), icon: Home, change: formatDelta(deltas.listingsDelta, 'this month'), positive: deltas.listingsDelta >= 0 },
+		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, change: formatCurrencyDelta(deltas.pipelineValueDelta, 'vs last month'), positive: deltas.pipelineValueDelta >= 0 },
+		{ label: 'Avg DOM', value: `${avgDOM} days`, icon: Clock, change: `${avgDOM} day avg`, positive: true },
+		{ label: 'List-to-Sale Ratio', value: listToSaleRatio, icon: Target, change: deltas.listToSaleRatio ? 'From closed deals' : 'No closed deals yet', positive: true },
+		{ label: 'Total Online Views', value: formatNumber(totalViews), icon: Eye, change: `${totalViews} across platforms`, positive: true },
 		{ label: 'Total Saves', value: formatNumber(totalSaves), icon: Activity, change: `${totalSaves} across platforms`, positive: true }
 	]);
 
-	// Closed deals data
-	const closedDeals = [
-		{ month: 'January', count: 2, volume: '$4,200,000' },
-		{ month: 'February', count: 1, volume: '$1,850,000' },
-		{ month: 'March', count: 3, volume: '$8,425,000' },
-		{ month: 'April (MTD)', count: 0, volume: '$0' }
-	];
+	// Closed deals from server data
+	const closedDeals = $derived(
+		(deltas.closedDealsByMonth ?? []).length > 0
+			? deltas.closedDealsByMonth.map((d: any) => ({ month: d.month, count: d.count, volume: formatCurrency(d.volume) }))
+			: []
+	);
 
 	let pipelineCanvas: HTMLCanvasElement;
 	let pipelineChart: Chart | undefined;

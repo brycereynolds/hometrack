@@ -91,8 +91,8 @@
 				class="mt-0.5 size-4 rounded border-border accent-primary"
 			/>
 			<span class="text-xs text-muted-foreground leading-relaxed">
-				I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a>
-				and <a href="#" class="text-primary hover:underline">Privacy Policy</a>.
+				I agree to the <a href="/terms" class="text-primary hover:underline">Terms of Service</a>
+				and <a href="/privacy" class="text-primary hover:underline">Privacy Policy</a>.
 			</span>
 		</label>
 

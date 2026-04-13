@@ -187,7 +187,7 @@
 								<!-- Action button -->
 								{#if insight.actionLabel}
 									<div class="mt-3 flex items-center gap-2">
-										<Button size="sm" variant="default" class="h-7 text-xs gap-1.5">
+										<Button size="sm" variant="default" class="h-7 text-xs gap-1.5" href={insight.actionUrl || '#'}>
 											{insight.actionLabel}
 											<ExternalLink class="size-3" />
 										</Button>

@@ -268,10 +268,12 @@
 							{/snippet}
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content side="top" class="w-[--bits-dropdown-menu-anchor-width]">
-							<DropdownMenu.Item>
-								<Settings class="mr-2 size-4" />
-								Settings
-							</DropdownMenu.Item>
+							<a href="/settings">
+								<DropdownMenu.Item>
+									<Settings class="mr-2 size-4" />
+									Settings
+								</DropdownMenu.Item>
+							</a>
 							<DropdownMenu.Separator />
 							<form method="POST" action="/logout">
 								<button type="submit" class="relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">

@@ -5,7 +5,10 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Chart, registerables } from 'chart.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import {
 		Calendar,
 		Clock,
@@ -24,6 +27,22 @@
 	Chart.register(...registerables);
 
 	let { data } = $props();
+
+	// Schedule Showing modal state
+	let showShowingModal = $state(false);
+	let showingDate = $state('');
+	let showingTime = $state('');
+	let showingAgentName = $state('');
+	let showingAgentCompany = $state('');
+	let showingBuyerType = $state('');
+
+	function resetShowingForm() {
+		showingDate = '';
+		showingTime = '';
+		showingAgentName = '';
+		showingAgentCompany = '';
+		showingBuyerType = '';
+	}
 	const listing = $derived(data.listing);
 	const listingShowings = $derived(data.showings ?? []);
 	const showingsTimeSeries = $derived(data.showingsTimeSeries ?? { labels: [] as string[], showings: [] as number[], openHouseAttendees: [] as number[] });
@@ -92,7 +111,7 @@
 	<div class="space-y-6">
 		<div class="flex items-center justify-between">
 			<div><h2 class="font-serif text-lg font-semibold">Showings</h2><p class="text-sm text-muted-foreground">{listingShowings.length} total showings</p></div>
-			<Button size="sm"><Plus class="mr-1.5 size-4" />Schedule Showing</Button>
+			<Button size="sm" onclick={() => { resetShowingForm(); showShowingModal = true; }}><Plus class="mr-1.5 size-4" />Schedule Showing</Button>
 		</div>
 
 		<!-- Charts Row -->
@@ -174,7 +193,71 @@
 		{/if}
 
 		{#if listingShowings.length === 0}
-			<Card><CardContent class="flex flex-col items-center justify-center py-12"><Calendar class="size-10 text-muted-foreground/30 mb-3" /><p class="text-sm text-muted-foreground">No showings scheduled yet.</p><Button variant="outline" size="sm" class="mt-3">Schedule First Showing</Button></CardContent></Card>
+			<Card><CardContent class="flex flex-col items-center justify-center py-12"><Calendar class="size-10 text-muted-foreground/30 mb-3" /><p class="text-sm text-muted-foreground">No showings scheduled yet.</p><Button variant="outline" size="sm" class="mt-3" onclick={() => { resetShowingForm(); showShowingModal = true; }}>Schedule First Showing</Button></CardContent></Card>
 		{/if}
 	</div>
 {/if}
+
+<!-- Schedule Showing Modal -->
+<Dialog.Root bind:open={showShowingModal}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Schedule Showing</Dialog.Title>
+			<Dialog.Description>Add a new showing for this listing.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/scheduleShowing"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Showing scheduled');
+						showShowingModal = false;
+						await update();
+					} else {
+						toast.error('Failed to schedule showing');
+					}
+				};
+			}}
+		>
+			<div class="space-y-4 py-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="showing-date" class="text-sm font-medium">Date</label>
+						<input id="showing-date" name="date" type="date" bind:value={showingDate} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="showing-time" class="text-sm font-medium">Time</label>
+						<input id="showing-time" name="time" type="time" bind:value={showingTime} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="showing-agent" class="text-sm font-medium">Agent Name</label>
+						<input id="showing-agent" name="agentName" type="text" bind:value={showingAgentName} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="showing-company" class="text-sm font-medium">Company</label>
+						<input id="showing-company" name="agentCompany" type="text" bind:value={showingAgentCompany} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div>
+					<label for="showing-buyer-type" class="text-sm font-medium">Buyer Type</label>
+					<select id="showing-buyer-type" name="buyerType" bind:value={showingBuyerType} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2">
+						<option value="">Select...</option>
+						<option value="First-time buyer">First-time buyer</option>
+						<option value="Move-up buyer">Move-up buyer</option>
+						<option value="Investor">Investor</option>
+						<option value="Relocating">Relocating</option>
+						<option value="Downsizing">Downsizing</option>
+						<option value="Other">Other</option>
+					</select>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showShowingModal = false}>Cancel</Button>
+				<Button type="submit">Schedule Showing</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

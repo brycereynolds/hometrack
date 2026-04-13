@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -8,20 +10,15 @@
 		Upload,
 		Search,
 		File,
-		FileCheck,
-		FileClock,
-		FileEdit,
-		FileWarning,
+		FolderOpen,
 		Shield,
-		Home,
 		Scale,
 		FileSignature,
 		ImageIcon,
 		Megaphone,
-		FolderOpen,
 		CheckCircle2,
 		Circle,
-		Clock
+		Loader2
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -29,6 +26,11 @@
 	const listingDocs = $derived(data.documents ?? []);
 
 	let activeCategory = $state('all');
+	let uploading = $state(false);
+	let dragOver = $state(false);
+	let selectedCategory = $state('other');
+	let fileInput: HTMLInputElement;
+	let formEl: HTMLFormElement;
 
 	function formatDate(d: any): string {
 		if (!d) return '';
@@ -71,7 +73,25 @@
 		}
 	}
 
-	// Disclosure checklist for the listing
+	function handleFileSelect() {
+		if (fileInput?.files?.length) {
+			formEl?.requestSubmit();
+		}
+	}
+
+	function handleDrop(e: DragEvent) {
+		e.preventDefault();
+		dragOver = false;
+		const files = e.dataTransfer?.files;
+		if (files?.length && fileInput) {
+			const dt = new DataTransfer();
+			dt.items.add(files[0]);
+			fileInput.files = dt.files;
+			formEl?.requestSubmit();
+		}
+	}
+
+	// Disclosure checklist
 	const disclosureChecklist = $derived([
 		{ name: 'Transfer Disclosure Statement (TDS)', required: true, done: listingDocs.some((d: any) => d.name.includes('TDS') && (d.status === 'signed' || d.status === 'complete')) },
 		{ name: 'Seller Property Questionnaire (SPQ)', required: true, done: listingDocs.some((d: any) => d.name.includes('SPQ') && (d.status === 'signed' || d.status === 'complete')) },
@@ -91,11 +111,49 @@
 				<h2 class="font-serif text-lg font-semibold">Documents</h2>
 				<p class="text-sm text-muted-foreground">{listingDocs.length} documents</p>
 			</div>
-			<Button size="sm">
-				<Upload class="mr-1.5 size-4" />
-				Upload
+			<Button size="sm" onclick={() => fileInput?.click()} disabled={uploading}>
+				{#if uploading}
+					<Loader2 class="mr-1.5 size-4 animate-spin" />
+					Uploading...
+				{:else}
+					<Upload class="mr-1.5 size-4" />
+					Upload
+				{/if}
 			</Button>
 		</div>
+
+		<!-- Hidden upload form -->
+		<form
+			bind:this={formEl}
+			method="POST"
+			action="?/upload"
+			enctype="multipart/form-data"
+			class="hidden"
+			use:enhance={() => {
+				uploading = true;
+				return async ({ result, update }) => {
+					uploading = false;
+					if (result.type === 'success') {
+						toast.success('Document uploaded successfully');
+						if (fileInput) fileInput.value = '';
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(result.data?.error ?? 'Upload failed');
+					} else {
+						await update();
+					}
+				};
+			}}
+		>
+			<input
+				bind:this={fileInput}
+				type="file"
+				name="file"
+				accept=".pdf,.doc,.docx,.zip,.jpg,.jpeg,.png,.gif,.xls,.xlsx"
+				onchange={handleFileSelect}
+			/>
+			<input type="hidden" name="category" value={selectedCategory} />
+		</form>
 
 		<div class="grid gap-6 lg:grid-cols-4">
 			<!-- Category Sidebar -->
@@ -107,7 +165,10 @@
 								{@const Icon = cat.icon}
 								{@const count = cat.id === 'all' ? listingDocs.length : listingDocs.filter((d: any) => d.category === cat.id).length}
 								<button
-									onclick={() => (activeCategory = cat.id)}
+									onclick={() => {
+										activeCategory = cat.id;
+										if (cat.id !== 'all') selectedCategory = cat.id;
+									}}
 									class="flex w-full items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors {activeCategory === cat.id
 										? 'bg-primary text-primary-foreground'
 										: 'text-muted-foreground hover:bg-muted hover:text-foreground'}"
@@ -159,12 +220,29 @@
 			<!-- Document Grid -->
 			<div class="lg:col-span-3 space-y-4">
 				<!-- Upload Drop Zone -->
-				<div class="rounded-lg border-2 border-dashed border-muted-foreground/20 p-6 text-center transition-colors hover:border-primary/40 hover:bg-muted/30 cursor-pointer">
-					<Upload class="mx-auto size-8 text-muted-foreground/40" />
-					<p class="mt-2 text-sm text-muted-foreground">
-						Drag & drop files here, or <span class="text-primary font-medium">browse</span>
-					</p>
-					<p class="mt-1 text-xs text-muted-foreground/60">PDF, DOC, ZIP, JPG up to 50MB</p>
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div
+					class="rounded-lg border-2 border-dashed p-6 text-center transition-colors cursor-pointer
+						{dragOver ? 'border-primary bg-primary/5' : 'border-muted-foreground/20 hover:border-primary/40 hover:bg-muted/30'}
+						{uploading ? 'pointer-events-none opacity-60' : ''}"
+					onclick={() => fileInput?.click()}
+					ondragover={(e) => { e.preventDefault(); dragOver = true; }}
+					ondragleave={() => { dragOver = false; }}
+					ondrop={handleDrop}
+					role="button"
+					tabindex="0"
+					onkeydown={(e) => { if (e.key === 'Enter' || e.key === ' ') fileInput?.click(); }}
+				>
+					{#if uploading}
+						<Loader2 class="mx-auto size-8 text-primary animate-spin" />
+						<p class="mt-2 text-sm text-muted-foreground">Uploading document...</p>
+					{:else}
+						<Upload class="mx-auto size-8 text-muted-foreground/40" />
+						<p class="mt-2 text-sm text-muted-foreground">
+							Drag & drop files here, or <span class="text-primary font-medium">browse</span>
+						</p>
+						<p class="mt-1 text-xs text-muted-foreground/60">PDF, DOC, ZIP, JPG up to 50MB</p>
+					{/if}
 				</div>
 
 				<!-- Document List -->

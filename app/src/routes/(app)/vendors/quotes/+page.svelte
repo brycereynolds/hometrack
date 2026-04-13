@@ -17,6 +17,8 @@
 		User,
 		Scale,
 	} from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 
@@ -246,14 +248,40 @@
 										<!-- Actions -->
 										{#if quote.status === 'received'}
 											<div class="flex items-center gap-2 pt-2">
-												<Button size="sm" class="h-8">
-													<Check class="mr-1.5 size-3.5" />
-													Approve
-												</Button>
-												<Button variant="outline" size="sm" class="h-8">
-													<X class="mr-1.5 size-3.5" />
-													Decline
-												</Button>
+												<form method="POST" action="?/approve" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Quote approved');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String(result.data?.error ?? 'Failed to approve'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+													<Button size="sm" class="h-8" type="submit">
+														<Check class="mr-1.5 size-3.5" />
+														Approve
+													</Button>
+												</form>
+												<form method="POST" action="?/decline" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Quote declined');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String(result.data?.error ?? 'Failed to decline'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+													<Button variant="outline" size="sm" class="h-8" type="submit">
+														<X class="mr-1.5 size-3.5" />
+														Decline
+													</Button>
+												</form>
 											</div>
 										{/if}
 									</div>
@@ -345,13 +373,39 @@
 											<td class="py-3">
 												{#if quote.status === 'received'}
 													<div class="flex items-center gap-1">
-														<Button variant="default" size="sm" class="h-7 text-xs">
-															<Check class="mr-1 size-3" />
-															Approve
-														</Button>
-														<Button variant="ghost" size="sm" class="h-7 text-xs">
-															<X class="size-3" />
-														</Button>
+														<form method="POST" action="?/approve" use:enhance={() => {
+															return async ({ result, update }) => {
+																if (result.type === 'success') {
+																	toast.success('Quote approved');
+																	await update();
+																} else if (result.type === 'failure') {
+																	toast.error(String(result.data?.error ?? 'Failed to approve'));
+																}
+															};
+														}}>
+															<input type="hidden" name="quoteId" value={quote.id} />
+															<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+															<Button variant="default" size="sm" class="h-7 text-xs" type="submit">
+																<Check class="mr-1 size-3" />
+																Approve
+															</Button>
+														</form>
+														<form method="POST" action="?/decline" use:enhance={() => {
+															return async ({ result, update }) => {
+																if (result.type === 'success') {
+																	toast.success('Quote declined');
+																	await update();
+																} else if (result.type === 'failure') {
+																	toast.error(String(result.data?.error ?? 'Failed to decline'));
+																}
+															};
+														}}>
+															<input type="hidden" name="quoteId" value={quote.id} />
+															<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+															<Button variant="ghost" size="sm" class="h-7 text-xs" type="submit">
+																<X class="size-3" />
+															</Button>
+														</form>
 													</div>
 												{:else if quote.status === 'approved'}
 													<span class="text-xs text-emerald-600 font-medium">Approved</span>

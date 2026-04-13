@@ -14,6 +14,8 @@
 		Users,
 	} from 'lucide-svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 
@@ -31,6 +33,7 @@
 	let newVendorPhone = $state('');
 	let newVendorCategory = $state('contractor');
 	let newVendorSpecialties = $state('');
+	let submittingVendor = $state(false);
 
 	const vendors = $derived(data.vendors);
 
@@ -253,81 +256,109 @@
 			<Dialog.Title class="font-serif">Add Vendor</Dialog.Title>
 			<Dialog.Description>Add a new service provider to your directory.</Dialog.Description>
 		</Dialog.Header>
-		<div class="space-y-4 py-4">
-			<div class="grid grid-cols-2 gap-4">
+		<form
+			method="POST"
+			action="?/create"
+			use:enhance={() => {
+				submittingVendor = true;
+				return async ({ result, update }) => {
+					submittingVendor = false;
+					if (result.type === 'success') {
+						showAddVendor = false;
+						toast.success('Vendor added successfully');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to add vendor'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="vendor-name" class="text-sm font-medium">Contact Name</label>
+						<input
+							id="vendor-name"
+							name="name"
+							type="text"
+							bind:value={newVendorName}
+							placeholder="e.g. Mike Johnson"
+							required
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="vendor-company" class="text-sm font-medium">Company</label>
+						<input
+							id="vendor-company"
+							name="company"
+							type="text"
+							bind:value={newVendorCompany}
+							placeholder="e.g. Bay Area Contractors"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="vendor-email" class="text-sm font-medium">Email</label>
+						<input
+							id="vendor-email"
+							name="email"
+							type="email"
+							bind:value={newVendorEmail}
+							placeholder="mike@example.com"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="vendor-phone" class="text-sm font-medium">Phone</label>
+						<input
+							id="vendor-phone"
+							name="phone"
+							type="tel"
+							bind:value={newVendorPhone}
+							placeholder="(555) 123-4567"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
 				<div>
-					<label for="vendor-name" class="text-sm font-medium">Contact Name</label>
+					<label for="vendor-category" class="text-sm font-medium">Category</label>
+					<select
+						id="vendor-category"
+						name="category"
+						bind:value={newVendorCategory}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						<option value="contractor">Contractor</option>
+						<option value="stager">Stager</option>
+						<option value="photographer">Photographer</option>
+						<option value="inspector">Inspector</option>
+						<option value="landscaper">Landscaper</option>
+						<option value="painter">Painter</option>
+					</select>
+				</div>
+				<div>
+					<label for="vendor-specialties" class="text-sm font-medium">Specialties</label>
 					<input
-						id="vendor-name"
+						id="vendor-specialties"
+						name="specialties"
 						type="text"
-						bind:value={newVendorName}
-						placeholder="e.g. Mike Johnson"
+						bind:value={newVendorSpecialties}
+						placeholder="e.g. Kitchen remodels, Bathroom renovations"
 						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
 					/>
-				</div>
-				<div>
-					<label for="vendor-company" class="text-sm font-medium">Company</label>
-					<input
-						id="vendor-company"
-						type="text"
-						bind:value={newVendorCompany}
-						placeholder="e.g. Bay Area Contractors"
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					/>
+					<p class="mt-1 text-xs text-muted-foreground">Comma-separated list</p>
 				</div>
 			</div>
-			<div class="grid grid-cols-2 gap-4">
-				<div>
-					<label for="vendor-email" class="text-sm font-medium">Email</label>
-					<input
-						id="vendor-email"
-						type="email"
-						bind:value={newVendorEmail}
-						placeholder="mike@example.com"
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					/>
-				</div>
-				<div>
-					<label for="vendor-phone" class="text-sm font-medium">Phone</label>
-					<input
-						id="vendor-phone"
-						type="tel"
-						bind:value={newVendorPhone}
-						placeholder="(555) 123-4567"
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					/>
-				</div>
-			</div>
-			<div>
-				<label for="vendor-category" class="text-sm font-medium">Category</label>
-				<select
-					id="vendor-category"
-					bind:value={newVendorCategory}
-					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-				>
-					<option value="contractor">Contractor</option>
-					<option value="stager">Stager</option>
-					<option value="photographer">Photographer</option>
-					<option value="inspector">Inspector</option>
-					<option value="landscaper">Landscaper</option>
-					<option value="painter">Painter</option>
-				</select>
-			</div>
-			<div>
-				<label for="vendor-specialties" class="text-sm font-medium">Specialties</label>
-				<input
-					id="vendor-specialties"
-					type="text"
-					bind:value={newVendorSpecialties}
-					placeholder="e.g. Kitchen remodels, Bathroom renovations"
-					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-				/>
-				<p class="mt-1 text-xs text-muted-foreground">Comma-separated list</p>
-			</div>
-		</div>
-		<Dialog.Footer>
-			<Button variant="outline" onclick={() => showAddVendor = false}>Cancel</Button>
-			<Button onclick={() => showAddVendor = false}>Add Vendor</Button>
-		</Dialog.Footer>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showAddVendor = false}>Cancel</Button>
+				<Button type="submit" disabled={submittingVendor || !newVendorName.trim()}>
+					{submittingVendor ? 'Adding...' : 'Add Vendor'}
+				</Button>
+			</Dialog.Footer>
+		</form>
 	</Dialog.Content>
 </Dialog.Root>

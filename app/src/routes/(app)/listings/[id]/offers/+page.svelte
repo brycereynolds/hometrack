@@ -3,7 +3,10 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { formatCurrency } from '$lib/utils.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import {
 		DollarSign,
 		ArrowRight,
@@ -25,6 +28,28 @@
 	} from 'lucide-svelte';
 
 	let { data } = $props();
+
+	// Log Offer modal state
+	let showOfferModal = $state(false);
+	let offerBuyerName = $state('');
+	let offerBuyerAgent = $state('');
+	let offerPrice = $state('');
+	let offerEarnest = $state('');
+	let offerFinancing = $state('');
+	let offerContingencies = $state('');
+	let offerCloseDate = $state('');
+	let offerNotes = $state('');
+
+	function resetOfferForm() {
+		offerBuyerName = '';
+		offerBuyerAgent = '';
+		offerPrice = '';
+		offerEarnest = '';
+		offerFinancing = '';
+		offerContingencies = '';
+		offerCloseDate = '';
+		offerNotes = '';
+	}
 	const listing = $derived(data.listing);
 	const listingOffers = $derived(data.offers ?? []);
 
@@ -93,7 +118,7 @@
 				<h2 class="font-serif text-lg font-semibold">Offers</h2>
 				<p class="text-sm text-muted-foreground">{listingOffers.length} offers received</p>
 			</div>
-			<Button size="sm"><Plus class="mr-1.5 size-4" />Log Offer</Button>
+			<Button size="sm" onclick={() => { resetOfferForm(); showOfferModal = true; }}><Plus class="mr-1.5 size-4" />Log Offer</Button>
 		</div>
 
 		{#if listingOffers.length > 0}
@@ -211,3 +236,82 @@
 		{/if}
 	</div>
 {/if}
+
+<!-- Log Offer Modal -->
+<Dialog.Root bind:open={showOfferModal}>
+	<Dialog.Content class="sm:max-w-lg">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Log Offer</Dialog.Title>
+			<Dialog.Description>Record a new offer for this listing.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/logOffer"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Offer logged');
+						showOfferModal = false;
+						await update();
+					} else {
+						toast.error('Failed to log offer');
+					}
+				};
+			}}
+		>
+			<div class="space-y-4 py-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="offer-buyer" class="text-sm font-medium">Buyer Name</label>
+						<input id="offer-buyer" name="buyerName" type="text" bind:value={offerBuyerName} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="offer-agent" class="text-sm font-medium">Buyer's Agent</label>
+						<input id="offer-agent" name="buyerAgent" type="text" bind:value={offerBuyerAgent} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="offer-price" class="text-sm font-medium">Offer Price</label>
+						<input id="offer-price" name="price" type="number" step="1000" bind:value={offerPrice} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="offer-earnest" class="text-sm font-medium">Earnest Deposit</label>
+						<input id="offer-earnest" name="earnestDeposit" type="number" step="100" bind:value={offerEarnest} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="offer-financing" class="text-sm font-medium">Financing Type</label>
+						<select id="offer-financing" name="financingType" bind:value={offerFinancing} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2">
+							<option value="">Select...</option>
+							<option value="Cash">Cash</option>
+							<option value="Conventional 20%">Conventional 20%</option>
+							<option value="Conventional 10%">Conventional 10%</option>
+							<option value="FHA">FHA</option>
+							<option value="VA">VA</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+					<div>
+						<label for="offer-close" class="text-sm font-medium">Close Date</label>
+						<input id="offer-close" name="closeDate" type="date" bind:value={offerCloseDate} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div>
+					<label for="offer-contingencies" class="text-sm font-medium">Contingencies</label>
+					<input id="offer-contingencies" name="contingencies" type="text" bind:value={offerContingencies} placeholder="Inspection, Appraisal, Financing" class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					<p class="mt-1 text-xs text-muted-foreground">Comma-separated</p>
+				</div>
+				<div>
+					<label for="offer-notes" class="text-sm font-medium">Notes</label>
+					<textarea id="offer-notes" name="notes" bind:value={offerNotes} rows="2" class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showOfferModal = false}>Cancel</Button>
+				<Button type="submit">Log Offer</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

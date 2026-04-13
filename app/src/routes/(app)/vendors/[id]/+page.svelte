@@ -23,11 +23,22 @@
 		Home,
 		Users,
 	} from 'lucide-svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 
 	const vendor = $derived(data.vendor);
 	const vendorQuotes = $derived(data.quotes);
+	const listings = $derived(data.listings ?? []);
+
+	// Request Quote modal state
+	let showRequestQuote = $state(false);
+	let quoteListingId = $state('');
+	let quoteScope = $state('');
+	let quoteNotes = $state('');
+	let submittingQuote = $state(false);
 
 	function categoryLabel(cat: string | null) {
 		if (!cat) return '';
@@ -181,7 +192,12 @@
 					<Phone class="mr-1.5 size-3.5" />
 					Call
 				</Button>
-				<Button size="sm">
+				<Button size="sm" onclick={() => {
+					quoteListingId = '';
+					quoteScope = '';
+					quoteNotes = '';
+					showRequestQuote = true;
+				}}>
 					<FileText class="mr-1.5 size-3.5" />
 					Request Quote
 				</Button>
@@ -382,6 +398,81 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Request Quote Modal -->
+	<Dialog.Root bind:open={showRequestQuote}>
+		<Dialog.Content class="sm:max-w-md">
+			<Dialog.Header>
+				<Dialog.Title class="font-serif">Request Quote</Dialog.Title>
+				<Dialog.Description>Request a quote from {vendor?.name ?? 'this vendor'}.</Dialog.Description>
+			</Dialog.Header>
+			<form
+				method="POST"
+				action="?/requestQuote"
+				use:enhance={() => {
+					submittingQuote = true;
+					return async ({ result, update }) => {
+						submittingQuote = false;
+						if (result.type === 'success') {
+							showRequestQuote = false;
+							toast.success('Quote requested');
+							await update();
+						} else if (result.type === 'failure') {
+							toast.error(String(result.data?.error ?? 'Failed to request quote'));
+						}
+					};
+				}}
+			>
+				<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+				<div class="space-y-4 py-4">
+					<div>
+						<label for="quote-listing" class="text-sm font-medium">Listing</label>
+						<select
+							id="quote-listing"
+							name="listingId"
+							bind:value={quoteListingId}
+							required
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="">Select a listing...</option>
+							{#each listings as listing}
+								<option value={listing.id}>{listing.address} - {listing.city}</option>
+							{/each}
+						</select>
+					</div>
+					<div>
+						<label for="quote-scope" class="text-sm font-medium">Scope of Work</label>
+						<textarea
+							id="quote-scope"
+							name="scope"
+							bind:value={quoteScope}
+							placeholder="Describe the work needed..."
+							rows="3"
+							required
+							class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+						></textarea>
+					</div>
+					<div>
+						<label for="quote-notes" class="text-sm font-medium">Notes (optional)</label>
+						<textarea
+							id="quote-notes"
+							name="notes"
+							bind:value={quoteNotes}
+							placeholder="Any additional details..."
+							rows="2"
+							class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+						></textarea>
+					</div>
+				</div>
+				<Dialog.Footer>
+					<Button variant="outline" type="button" onclick={() => showRequestQuote = false}>Cancel</Button>
+					<Button type="submit" disabled={submittingQuote || !quoteListingId || !quoteScope.trim()}>
+						{submittingQuote ? 'Requesting...' : 'Request Quote'}
+					</Button>
+				</Dialog.Footer>
+			</form>
+		</Dialog.Content>
+	</Dialog.Root>
 {:else}
 	<div class="py-12 text-center">
 		<Users class="mx-auto size-10 text-muted-foreground/40" />

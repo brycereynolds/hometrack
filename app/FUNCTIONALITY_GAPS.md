@@ -244,39 +244,51 @@ These pages correctly display real database data with working filters, sorts, an
 
 ---
 
-## Recommended Build Order
+## Build Status (as of 2026-04-13)
 
-### Phase 1: Core CRUD (enables real usage)
-1. Create listing (form action + server endpoint)
-2. Create/edit task (form action + toggle persistence)
-3. Create contact (form action)
-4. Task status toggle (server mutation)
-5. Phase change (button handler + server mutation)
-6. Activity note posting (form action)
+### Phase 1: Core CRUD — COMPLETE
+- [x] Create listing (form action + server endpoint)
+- [x] Create/edit task (form action + toggle persistence)
+- [x] Create contact (form action + save notes + log interaction)
+- [x] Task status toggle (server mutation)
+- [x] Phase change (button handler + server mutation + kanban DnD)
+- [x] Activity note posting (form action)
 
-### Phase 2: File & Data Operations
-7. Document upload (file input + Supabase Storage)
-8. Log offer (form action)
-9. Schedule showing (form action)
-10. Create vendor (form action)
-11. Request/approve quote (form actions)
+### Phase 2: File & Data Operations — COMPLETE
+- [x] Document upload (file input + Supabase Storage)
+- [x] Log offer (form action)
+- [x] Schedule showing (form action)
+- [x] Create vendor (form action)
+- [x] Request/approve quote (form actions)
 
-### Phase 3: UX Infrastructure
-12. Toast notification system
-13. Error pages (404, 500)
-14. Loading states / skeleton screens
-15. Search bar implementation
-16. Command palette search
+### Phase 3: UX Infrastructure — COMPLETE
+- [x] Toast notification system (svelte-sonner)
+- [x] Error pages (404, 500)
+- [x] Loading states (progress bar via navigating store)
+- [x] Search bar (API endpoint + debounced dropdown)
+- [x] Computed dashboard metrics (replaced all hardcoded values)
+- [x] Settings persistence (branding, notifications, workflows)
+- [x] Quick action buttons wired (voice memo, quick note, share)
+- [x] Dead buttons wired (mailto, tel, navigate, actionUrl)
 
-### Phase 4: Settings & Config
-17. Save branding settings
-18. Save notification preferences
-19. Workflow template editing
-20. Integration connect/disconnect
+### Phase 4: Advanced Features — COMPLETE
+- [x] Token refresh in hooks.server.ts (30-day session persistence)
+- [x] Voice memo recording + Supabase Storage upload
+- [x] Field notes save to database
+- [x] Showing feedback save to database
+- [x] Open house check-in + tablet view with QR code
+- [x] Supabase Realtime (live updates for listings, tasks, activity)
+- [x] Portal approval workflow (approve/decline offers + quotes)
+- [x] Portal document viewer + signed URL downloads
+- [x] Google OAuth (Gmail + Calendar read/write scopes)
 
-### Phase 5: Advanced Features
-21. Token refresh in hooks
-22. Dark mode
-23. Portal approval workflow
-24. Portal document signing
-25. Real-time updates (Supabase Realtime)
+### Remaining Items (need design decisions or future infrastructure)
+- [ ] DocuSign integration (portal "Sign Now" button)
+- [ ] Integration sync functionality (Sync button on settings/integrations)
+- [ ] Field notes photo upload (Add photo button)
+- [ ] Mobile voice memo ETL pipeline (transcription via Python)
+- [ ] Stripe billing integration (placeholder UI exists)
+- [ ] Agent intelligence messaging (Message/Schedule buttons)
+- [ ] Full-text search (PostgreSQL tsvector or Typesense)
+- [ ] Audit logging table
+- [ ] PWA manifest + service worker (offline support)

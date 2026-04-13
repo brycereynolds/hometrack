@@ -6,7 +6,16 @@ import { eq } from 'drizzle-orm';
 import { getSupabaseAdmin } from '$lib/server/supabase.js';
 import { startFieldMediaWorkflow } from '$lib/server/temporal.js';
 
-const BUCKET = 'voice-memos';
+const BUCKET = 'field-media';
+
+const ALLOWED_TYPES = new Set([
+	'video/mp4',
+	'video/quicktime',
+	'video/webm',
+	'image/jpeg',
+	'image/png',
+	'image/webp',
+]);
 
 export const POST: RequestHandler = async ({ locals, request }) => {
 	if (!locals.user) {
@@ -14,13 +23,18 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 	}
 
 	const formData = await request.formData();
-	const file = formData.get('audio') as File | null;
+	const file = formData.get('file') as File | null;
 	const listingId = formData.get('listingId') as string | null;
-	const duration = parseInt(formData.get('duration') as string, 10) || 0;
 
 	if (!file || !listingId) {
-		return json({ error: 'Missing audio file or listingId' }, { status: 400 });
+		return json({ error: 'Missing file or listingId' }, { status: 400 });
 	}
+
+	if (!ALLOWED_TYPES.has(file.type)) {
+		return json({ error: 'Unsupported file type' }, { status: 400 });
+	}
+
+	const isVideo = file.type.startsWith('video/');
 
 	try {
 		const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
@@ -31,7 +45,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
 			// Upload to Supabase Storage
 			const timestamp = Date.now();
-			const storagePath = `${member.teamId}/${listingId}/${timestamp}.webm`;
+			const ext = file.name.split('.').pop() ?? (isVideo ? 'mp4' : 'jpg');
+			const storagePath = `${member.teamId}/${listingId}/${timestamp}.${ext}`;
 			const arrayBuffer = await file.arrayBuffer();
 			const buffer = new Uint8Array(arrayBuffer);
 
@@ -39,7 +54,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			const { error: uploadError } = await supabase.storage
 				.from(BUCKET)
 				.upload(storagePath, buffer, {
-					contentType: 'audio/webm',
+					contentType: file.type,
 					upsert: false,
 				});
 
@@ -47,37 +62,38 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
 			// Insert activity item
 			const id = crypto.randomUUID();
+			const type = isVideo ? 'video' : 'photo';
 			await db.insert(activityItems).values({
 				id,
 				teamId: member.teamId,
 				listingId,
-				type: 'voice_memo',
+				type,
 				authorId: member.id,
 				authorName: member.name,
 				authorInitials: member.initials,
-				content: `Voice memo (${formatDuration(duration)})`,
+				content: `${isVideo ? 'Video' : 'Photo'} uploaded`,
 				metadata: {
 					storagePath,
 					bucket: BUCKET,
-					duration,
-					mimeType: 'audio/webm',
+					mimeType: file.type,
 					fileSize: buffer.byteLength,
+					originalName: file.name,
 				},
 				timestamp: new Date(),
 			});
 
-			// Trigger Temporal workflow for transcription
+			// Trigger Temporal workflow for processing
 			const workflow = await startFieldMediaWorkflow({
-				mediaType: 'voice_memo',
+				mediaType: isVideo ? 'video' : 'text',
 				storagePath,
 				listingId,
 				teamId: member.teamId,
 				authorId: member.id,
 				authorName: member.name,
 				metadata: {
-					duration,
-					mimeType: 'audio/webm',
+					mimeType: file.type,
 					fileSize: buffer.byteLength,
+					originalName: file.name,
 				},
 			});
 
@@ -86,13 +102,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
 		return json({ success: true, ...result });
 	} catch (err) {
-		console.error('Voice memo upload error:', err);
-		return json({ error: 'Failed to save voice memo' }, { status: 500 });
+		console.error('Field media upload error:', err);
+		return json({ error: 'Failed to upload media' }, { status: 500 });
 	}
 };
-
-function formatDuration(seconds: number): string {
-	const m = Math.floor(seconds / 60);
-	const s = seconds % 60;
-	return `${m}:${s.toString().padStart(2, '0')}`;
-}

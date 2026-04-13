@@ -68,11 +68,32 @@
 
 	const openTaskCount = $derived(tasks.filter((t: any) => t.status !== 'done').length);
 
+	const deltas = $derived(data.deltas ?? { listingsDelta: 0, pipelineValueDelta: 0, domDelta: 0 });
+
+	function formatDelta(value: number, suffix: string): string {
+		const sign = value >= 0 ? '+' : '';
+		return `${sign}${value} ${suffix}`;
+	}
+
+	function formatCurrencyDelta(value: number, suffix: string): string {
+		const sign = value >= 0 ? '+' : '-';
+		const abs = Math.abs(value);
+		let formatted: string;
+		if (abs >= 1_000_000) {
+			formatted = `$${(abs / 1_000_000).toFixed(1)}M`;
+		} else if (abs >= 1_000) {
+			formatted = `$${(abs / 1_000).toFixed(0)}K`;
+		} else {
+			formatted = `$${abs.toFixed(0)}`;
+		}
+		return `${sign}${formatted} ${suffix}`;
+	}
+
 	const stats = $derived([
-		{ label: 'Active Listings', value: String(activeCount), icon: Home, trend: 'up' as const, change: '+2 this month' },
-		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, trend: 'up' as const, change: '+$1.2M from last month' },
-		{ label: 'Avg. Days on Market', value: String(avgDom), icon: Clock, trend: 'down' as const, change: '-3 days vs. last quarter' },
-		{ label: 'Open Tasks', value: String(openTaskCount), icon: CheckSquare, trend: 'up' as const, change: `${overdueTasks.length} overdue` },
+		{ label: 'Active Listings', value: String(activeCount), icon: Home, trend: (deltas.listingsDelta >= 0 ? 'up' : 'down') as 'up' | 'down', change: formatDelta(deltas.listingsDelta, 'this month') },
+		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, trend: (deltas.pipelineValueDelta >= 0 ? 'up' : 'down') as 'up' | 'down', change: formatCurrencyDelta(deltas.pipelineValueDelta, 'from last month') },
+		{ label: 'Avg. Days on Market', value: String(avgDom), icon: Clock, trend: (deltas.domDelta <= 0 ? 'down' : 'up') as 'up' | 'down', change: formatDelta(deltas.domDelta, 'days vs. last quarter') },
+		{ label: 'Open Tasks', value: String(openTaskCount), icon: CheckSquare, trend: (overdueTasks.length > 0 ? 'up' : 'down') as 'up' | 'down', change: `${overdueTasks.length} overdue` },
 	]);
 
 	// Task filter state

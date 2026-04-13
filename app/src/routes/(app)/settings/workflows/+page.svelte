@@ -4,10 +4,27 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { PHASES } from '$lib/config.js';
 	import { Plus, Pencil, Zap, ArrowRight, CheckSquare, Settings } from 'lucide-svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 
 	const workflowTemplates = $derived(data.workflowTemplates);
+
+	// Edit workflow modal state
+	let showEditWorkflow = $state(false);
+	let editWorkflowId = $state('');
+	let editWorkflowName = $state('');
+	let editWorkflowDescription = $state('');
+	let editSubmitting = $state(false);
+
+	function openEditWorkflow(wf: typeof workflowTemplates[number]) {
+		editWorkflowId = wf.id;
+		editWorkflowName = wf.name;
+		editWorkflowDescription = wf.description ?? '';
+		showEditWorkflow = true;
+	}
 
 	// Group by phase
 	const byPhase = $derived(() => {
@@ -103,7 +120,7 @@
 							>
 								{phase.label}
 							</Badge>
-							<Button variant="ghost" size="sm" class="h-7 text-xs gap-1">
+							<Button variant="ghost" size="sm" class="h-7 text-xs gap-1" onclick={() => openEditWorkflow(wf)}>
 								<Pencil class="size-3" />
 								Edit
 							</Button>
@@ -168,3 +185,62 @@
 		</CardContent>
 	</Card>
 </div>
+
+<!-- Edit Workflow Modal -->
+<Dialog.Root bind:open={showEditWorkflow}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Workflow</Dialog.Title>
+			<Dialog.Description>Update the name and description for this workflow template.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/editWorkflow"
+			use:enhance={() => {
+				editSubmitting = true;
+				return async ({ result, update }) => {
+					editSubmitting = false;
+					if (result.type === 'success') {
+						showEditWorkflow = false;
+						toast.success('Workflow updated');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to update workflow'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="workflowId" value={editWorkflowId} />
+			<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="wf-name" class="text-sm font-medium">Name</label>
+					<input
+						id="wf-name"
+						name="name"
+						type="text"
+						bind:value={editWorkflowName}
+						required
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="wf-description" class="text-sm font-medium">Description</label>
+					<textarea
+						id="wf-description"
+						name="description"
+						bind:value={editWorkflowDescription}
+						rows="3"
+						class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+					></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showEditWorkflow = false}>Cancel</Button>
+				<Button type="submit" disabled={editSubmitting || !editWorkflowName.trim()}>
+					{editSubmitting ? 'Saving...' : 'Save Changes'}
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

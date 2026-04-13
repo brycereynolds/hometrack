@@ -4,13 +4,18 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Upload, Palette, Globe, FileText, Eye } from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 	const teamName = $derived(data.team?.name ?? 'Your Team');
 
-	let primaryColor = $state('#C4704B');
-	let customDomain = $state('portal.chenrealtygroup.com');
-	let welcomeMessage = $state('Welcome to your client portal. Here you can track the progress of your listing, view documents, and stay updated on showings and offers.');
+	// Initialize from team settings if available
+	const brandingSettings = $derived((data.team?.settings as Record<string, any>)?.branding);
+	let primaryColor = $state(brandingSettings?.primaryColor ?? '#C4704B');
+	let customDomain = $state(brandingSettings?.customDomain ?? 'portal.chenrealtygroup.com');
+	let welcomeMessage = $state(brandingSettings?.welcomeMessage ?? 'Welcome to your client portal. Here you can track the progress of your listing, view documents, and stay updated on showings and offers.');
+	let saving = $state(false);
 </script>
 
 <div class="space-y-6">
@@ -200,7 +205,30 @@
 		</div>
 	</div>
 
-	<div class="flex justify-end">
-		<Button>Save Branding</Button>
-	</div>
+	<form
+		method="POST"
+		action="?/save"
+		use:enhance={() => {
+			saving = true;
+			return async ({ result, update }) => {
+				saving = false;
+				if (result.type === 'success') {
+					toast.success('Branding settings saved');
+					await update();
+				} else if (result.type === 'failure') {
+					toast.error(String(result.data?.error ?? 'Failed to save'));
+				}
+			};
+		}}
+	>
+		<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+		<input type="hidden" name="primaryColor" value={primaryColor} />
+		<input type="hidden" name="customDomain" value={customDomain} />
+		<input type="hidden" name="welcomeMessage" value={welcomeMessage} />
+		<div class="flex justify-end">
+			<Button type="submit" disabled={saving}>
+				{saving ? 'Saving...' : 'Save Branding'}
+			</Button>
+		</div>
+	</form>
 </div>

@@ -14,6 +14,11 @@
 		Moon,
 		Clock
 	} from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+
+	let { data } = $props();
+	let saving = $state(false);
 
 	type Channel = 'inApp' | 'email' | 'push';
 
@@ -212,7 +217,35 @@
 		</CardContent>
 	</Card>
 
-	<div class="flex justify-end">
-		<Button>Save Preferences</Button>
-	</div>
+	<form
+		method="POST"
+		action="?/save"
+		use:enhance={() => {
+			saving = true;
+			return async ({ result, update }) => {
+				saving = false;
+				if (result.type === 'success') {
+					toast.success('Notification preferences saved');
+					await update();
+				} else if (result.type === 'failure') {
+					toast.error(String(result.data?.error ?? 'Failed to save'));
+				}
+			};
+		}}
+	>
+		<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+		<input type="hidden" name="prefs" value={JSON.stringify(categories.map(c => ({
+			label: c.label,
+			prefs: c.prefs.map(p => ({ id: p.id, channels: p.channels }))
+		})))} />
+		<input type="hidden" name="quietHoursEnabled" value={String(quietHoursEnabled)} />
+		<input type="hidden" name="quietStart" value={quietStart} />
+		<input type="hidden" name="quietEnd" value={quietEnd} />
+		<input type="hidden" name="digestFrequency" value={digestFrequency} />
+		<div class="flex justify-end">
+			<Button type="submit" disabled={saving}>
+				{saving ? 'Saving...' : 'Save Preferences'}
+			</Button>
+		</div>
+	</form>
 </div>

@@ -3,6 +3,8 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import {
 		Send,
 		Paperclip,
@@ -97,33 +99,50 @@
 		<!-- Compose Bar -->
 		<Card>
 			<CardContent class="p-4">
-				<div class="flex gap-3">
-					<Avatar class="size-8 shrink-0">
-						<AvatarFallback class="bg-primary text-primary-foreground text-xs">LC</AvatarFallback>
-					</Avatar>
-					<div class="flex-1">
-						<div class="relative">
-							<textarea
-								bind:value={composeText}
-								placeholder="Add a note, message, or update..."
-								class="w-full resize-none rounded-lg border bg-transparent p-3 pr-24 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-								rows="2"
-							></textarea>
-							<div class="absolute bottom-2 right-2 flex items-center gap-1">
-								<Button variant="ghost" size="icon" class="size-8">
-									<Paperclip class="size-4 text-muted-foreground" />
-								</Button>
-								<Button variant="ghost" size="icon" class="size-8">
-									<Mic class="size-4 text-muted-foreground" />
-								</Button>
-								<Button size="sm" class="h-7" disabled={!composeText.trim()}>
-									<Send class="mr-1 size-3.5" />
-									Send
-								</Button>
+				<form
+					method="POST"
+					action="?/postNote"
+					use:enhance={() => {
+						return async ({ result, update }) => {
+							if (result.type === 'success') {
+								toast.success('Note posted');
+								composeText = '';
+								await update();
+							} else {
+								toast.error('Failed to post note');
+							}
+						};
+					}}
+				>
+					<div class="flex gap-3">
+						<Avatar class="size-8 shrink-0">
+							<AvatarFallback class="bg-primary text-primary-foreground text-xs">LC</AvatarFallback>
+						</Avatar>
+						<div class="flex-1">
+							<div class="relative">
+								<textarea
+									name="content"
+									bind:value={composeText}
+									placeholder="Add a note, message, or update..."
+									class="w-full resize-none rounded-lg border bg-transparent p-3 pr-24 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+									rows="2"
+								></textarea>
+								<div class="absolute bottom-2 right-2 flex items-center gap-1">
+									<Button variant="ghost" size="icon" type="button" class="size-8">
+										<Paperclip class="size-4 text-muted-foreground" />
+									</Button>
+									<Button variant="ghost" size="icon" type="button" class="size-8">
+										<Mic class="size-4 text-muted-foreground" />
+									</Button>
+									<Button type="submit" size="sm" class="h-7" disabled={!composeText.trim()}>
+										<Send class="mr-1 size-3.5" />
+										Send
+									</Button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			</CardContent>
 		</Card>
 

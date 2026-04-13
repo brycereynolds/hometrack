@@ -7,6 +7,7 @@
 	import { formatCurrency } from '$lib/utils.js';
 	import type { ListingWithRelations } from '$lib/types.js';
 	import { dndzone, SHADOW_ITEM_MARKER_PROPERTY_NAME } from 'svelte-dnd-action';
+	import { toast } from 'svelte-sonner';
 	import {
 		Plus,
 		LayoutGrid,
@@ -93,6 +94,21 @@
 		// Update the phase property on any listing that moved into this column
 		columns[phase] = e.detail.items.map((item) => {
 			if (item.phase !== phase) {
+				// Persist phase change to the server
+				fetch(`/api/listings/${item.id}/phase`, {
+					method: 'PATCH',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ phase }),
+				}).then((res) => {
+					if (res.ok) {
+						toast.success(`Moved to ${PHASES[phase].label}`);
+					} else {
+						toast.error('Failed to save phase change');
+					}
+				}).catch(() => {
+					toast.error('Failed to save phase change');
+				});
+
 				return {
 					...item,
 					phase,

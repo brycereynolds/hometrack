@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { PHASES, PHASE_LIST } from '$lib/config.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config.js';
 	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
@@ -11,13 +14,54 @@
 		Share2,
 		RefreshCw,
 		ChevronLeft,
-		ChevronRight
+		ChevronRight,
+		Check,
+		Loader2
 	} from 'lucide-svelte';
 
 	let { children, data } = $props();
 
 	const listing = $derived(data.listing);
 	const currentPhaseOrder = $derived(listing ? PHASES[listing.phase].order : 0);
+
+	// Dialog state
+	let phaseDialogOpen = $state(false);
+	let editDialogOpen = $state(false);
+	let phaseSubmitting = $state(false);
+	let editSubmitting = $state(false);
+
+	// Edit form state (populated when dialog opens)
+	let editAddress = $state('');
+	let editCity = $state('');
+	let editState = $state('');
+	let editZip = $state('');
+	let editPrice = $state('');
+	let editBeds = $state(0);
+	let editBaths = $state(0);
+	let editSqft = $state(0);
+	let editLotSqft = $state(0);
+	let editYearBuilt = $state(0);
+	let editPropertyType = $state('');
+	let editDescription = $state('');
+	let editMlsNumber = $state('');
+
+	function openEditDialog() {
+		if (!listing) return;
+		editAddress = listing.address;
+		editCity = listing.city;
+		editState = listing.state;
+		editZip = listing.zip;
+		editPrice = listing.price?.toString() ?? '';
+		editBeds = listing.beds ?? 0;
+		editBaths = listing.baths ?? 0;
+		editSqft = listing.sqft ?? 0;
+		editLotSqft = listing.lotSqft ?? 0;
+		editYearBuilt = listing.yearBuilt ?? 0;
+		editPropertyType = listing.propertyType ?? 'single_family';
+		editDescription = listing.description ?? '';
+		editMlsNumber = listing.mlsNumber ?? '';
+		editDialogOpen = true;
+	}
 
 	const tabs = [
 		{ href: '', label: 'Overview' },
@@ -72,11 +116,11 @@
 
 				<!-- Action buttons -->
 				<div class="absolute right-4 top-4 flex gap-2">
-					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
+					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white" onclick={openEditDialog}>
 						<Edit class="mr-1.5 size-4" />
 						Edit
 					</Button>
-					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
+					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white" onclick={() => phaseDialogOpen = true}>
 						<RefreshCw class="mr-1.5 size-4" />
 						Change Phase
 					</Button>
@@ -189,6 +233,181 @@
 			{@render children()}
 		</div>
 	</div>
+
+	<!-- Change Phase Dialog -->
+	<Dialog.Root bind:open={phaseDialogOpen}>
+		<Dialog.Content class="sm:max-w-md">
+			<Dialog.Header>
+				<Dialog.Title>Change Phase</Dialog.Title>
+				<Dialog.Description>Move this listing to a different phase in the pipeline.</Dialog.Description>
+			</Dialog.Header>
+			<form
+				method="POST"
+				action="/listings/{listing.id}?/changePhase"
+				use:enhance={() => {
+					phaseSubmitting = true;
+					return async ({ result, update }) => {
+						phaseSubmitting = false;
+						if (result.type === 'success') {
+							toast.success('Phase updated successfully');
+							phaseDialogOpen = false;
+							await update();
+						} else if (result.type === 'failure') {
+							toast.error(String(result.data?.error ?? 'Failed to change phase'));
+						} else {
+							await update();
+						}
+					};
+				}}
+			>
+				<div class="space-y-2 py-4">
+					{#each PHASE_LIST as phase}
+						<label
+							class="flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-all hover:bg-muted/50
+								{listing.phase === phase.key ? 'border-primary bg-primary/5 ring-1 ring-primary' : ''}
+							"
+						>
+							<input
+								type="radio"
+								name="phase"
+								value={phase.key}
+								checked={listing.phase === phase.key}
+								class="sr-only"
+							/>
+							<span class="size-3 rounded-full shrink-0" style="background-color: {phase.color}"></span>
+							<span class="text-sm font-medium flex-1">{phase.label}</span>
+							{#if listing.phase === phase.key}
+								<Badge variant="secondary" class="text-xs">Current</Badge>
+							{/if}
+						</label>
+					{/each}
+				</div>
+				<Dialog.Footer>
+					<Button type="button" variant="outline" onclick={() => phaseDialogOpen = false}>Cancel</Button>
+					<Button type="submit" disabled={phaseSubmitting}>
+						{#if phaseSubmitting}
+							<Loader2 class="mr-1.5 size-4 animate-spin" />
+							Updating...
+						{:else}
+							<Check class="mr-1.5 size-4" />
+							Update Phase
+						{/if}
+					</Button>
+				</Dialog.Footer>
+			</form>
+		</Dialog.Content>
+	</Dialog.Root>
+
+	<!-- Edit Listing Dialog -->
+	<Dialog.Root bind:open={editDialogOpen}>
+		<Dialog.Content class="sm:max-w-lg max-h-[85vh] overflow-y-auto">
+			<Dialog.Header>
+				<Dialog.Title>Edit Listing</Dialog.Title>
+				<Dialog.Description>Update the property details for this listing.</Dialog.Description>
+			</Dialog.Header>
+			<form
+				method="POST"
+				action="/listings/{listing.id}?/editListing"
+				use:enhance={() => {
+					editSubmitting = true;
+					return async ({ result, update }) => {
+						editSubmitting = false;
+						if (result.type === 'success') {
+							toast.success('Listing updated successfully');
+							editDialogOpen = false;
+							await update();
+						} else if (result.type === 'failure') {
+							toast.error(String(result.data?.error ?? 'Failed to update listing'));
+						} else {
+							await update();
+						}
+					};
+				}}
+			>
+				<div class="space-y-4 py-4">
+					<div>
+						<label for="edit-address" class="text-sm font-medium mb-1.5 block">Street Address</label>
+						<input id="edit-address" name="address" type="text" bind:value={editAddress} class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+					</div>
+					<div class="grid grid-cols-3 gap-3">
+						<div>
+							<label for="edit-city" class="text-sm font-medium mb-1.5 block">City</label>
+							<input id="edit-city" name="city" type="text" bind:value={editCity} class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+						<div>
+							<label for="edit-state" class="text-sm font-medium mb-1.5 block">State</label>
+							<input id="edit-state" name="state" type="text" bind:value={editState} class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+						<div>
+							<label for="edit-zip" class="text-sm font-medium mb-1.5 block">ZIP</label>
+							<input id="edit-zip" name="zip" type="text" bind:value={editZip} class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+					</div>
+					<Separator />
+					<div class="grid grid-cols-2 gap-3">
+						<div>
+							<label for="edit-price" class="text-sm font-medium mb-1.5 block">Price</label>
+							<input id="edit-price" name="price" type="text" bind:value={editPrice} class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+						<div>
+							<label for="edit-mls" class="text-sm font-medium mb-1.5 block">MLS Number</label>
+							<input id="edit-mls" name="mlsNumber" type="text" bind:value={editMlsNumber} class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+					</div>
+					<div>
+						<label for="edit-type" class="text-sm font-medium mb-1.5 block">Property Type</label>
+						<select id="edit-type" name="propertyType" bind:value={editPropertyType} class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+							<option value="single_family">Single Family Home</option>
+							<option value="condo">Condo / Apartment</option>
+							<option value="townhouse">Townhouse</option>
+							<option value="multi_family">Multi-Family</option>
+							<option value="land">Vacant Land</option>
+						</select>
+					</div>
+					<div class="grid grid-cols-3 gap-3">
+						<div>
+							<label for="edit-beds" class="text-sm font-medium mb-1.5 block">Beds</label>
+							<input id="edit-beds" name="beds" type="number" bind:value={editBeds} min="0" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+						<div>
+							<label for="edit-baths" class="text-sm font-medium mb-1.5 block">Baths</label>
+							<input id="edit-baths" name="baths" type="number" bind:value={editBaths} min="0" step="0.5" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+						<div>
+							<label for="edit-sqft" class="text-sm font-medium mb-1.5 block">Sq Ft</label>
+							<input id="edit-sqft" name="sqft" type="number" bind:value={editSqft} min="0" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+					</div>
+					<div class="grid grid-cols-2 gap-3">
+						<div>
+							<label for="edit-lot" class="text-sm font-medium mb-1.5 block">Lot Size (sqft)</label>
+							<input id="edit-lot" name="lotSqft" type="number" bind:value={editLotSqft} min="0" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+						<div>
+							<label for="edit-year" class="text-sm font-medium mb-1.5 block">Year Built</label>
+							<input id="edit-year" name="yearBuilt" type="number" bind:value={editYearBuilt} min="1800" max="2026" class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring" />
+						</div>
+					</div>
+					<div>
+						<label for="edit-desc" class="text-sm font-medium mb-1.5 block">Description</label>
+						<textarea id="edit-desc" name="description" bind:value={editDescription} rows="3" class="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"></textarea>
+					</div>
+				</div>
+				<Dialog.Footer>
+					<Button type="button" variant="outline" onclick={() => editDialogOpen = false}>Cancel</Button>
+					<Button type="submit" disabled={editSubmitting}>
+						{#if editSubmitting}
+							<Loader2 class="mr-1.5 size-4 animate-spin" />
+							Saving...
+						{:else}
+							<Check class="mr-1.5 size-4" />
+							Save Changes
+						{/if}
+					</Button>
+				</Dialog.Footer>
+			</form>
+		</Dialog.Content>
+	</Dialog.Root>
 {:else}
 	<div class="flex flex-col items-center justify-center py-12">
 		<p class="text-lg font-medium">Listing not found</p>

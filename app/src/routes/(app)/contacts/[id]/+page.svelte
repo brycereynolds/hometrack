@@ -25,9 +25,18 @@
 		Edit,
 		Users,
 	} from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 
 	let { data } = $props();
 	const contact = $derived(data.contact);
+
+	let savingNote = $state(false);
+	let showLogInteraction = $state(false);
+	let interactionType = $state('message');
+	let interactionContent = $state('');
+	let submittingInteraction = $state(false);
 
 	const associatedListings = $derived(() => {
 		return data.listings ?? [];
@@ -291,7 +300,11 @@
 					<CardHeader>
 						<div class="flex items-center justify-between">
 							<CardTitle class="text-sm">Interaction Timeline</CardTitle>
-							<Button variant="outline" size="sm" class="h-7 text-xs">
+							<Button variant="outline" size="sm" class="h-7 text-xs" onclick={() => {
+								interactionType = 'message';
+								interactionContent = '';
+								showLogInteraction = true;
+							}}>
 								<Plus class="mr-1 size-3" />
 								Log Interaction
 							</Button>
@@ -347,20 +360,41 @@
 						<CardTitle class="text-sm">Notes</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<div class="space-y-3">
-							<textarea
-								bind:value={newNote}
-								placeholder="Add a note about {contact.name}..."
-								rows="3"
-								class="w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
-							></textarea>
-							<div class="flex justify-end">
-								<Button size="sm" disabled={!newNote.trim()}>
-									<Send class="mr-1.5 size-3.5" />
-									Save Note
-								</Button>
+						<form
+							method="POST"
+							action="?/saveNote"
+							use:enhance={() => {
+								savingNote = true;
+								return async ({ result, update }) => {
+									savingNote = false;
+									if (result.type === 'success') {
+										newNote = '';
+										toast.success('Note saved');
+										await update();
+									} else if (result.type === 'failure') {
+										toast.error(String(result.data?.error ?? 'Failed to save note'));
+									}
+								};
+							}}
+						>
+							<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+							<input type="hidden" name="contactName" value={data.currentUser?.name ?? 'Agent'} />
+							<div class="space-y-3">
+								<textarea
+									name="content"
+									bind:value={newNote}
+									placeholder="Add a note about {contact.name}..."
+									rows="3"
+									class="w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+								></textarea>
+								<div class="flex justify-end">
+									<Button size="sm" type="submit" disabled={!newNote.trim() || savingNote}>
+										<Send class="mr-1.5 size-3.5" />
+										{savingNote ? 'Saving...' : 'Save Note'}
+									</Button>
+								</div>
 							</div>
-						</div>
+						</form>
 
 						{#if contact.notes}
 							<Separator class="my-4" />
@@ -387,6 +421,69 @@
 			</div>
 		</div>
 	</div>
+	<!-- Log Interaction Modal -->
+	<Dialog.Root bind:open={showLogInteraction}>
+		<Dialog.Content class="sm:max-w-md">
+			<Dialog.Header>
+				<Dialog.Title class="font-serif">Log Interaction</Dialog.Title>
+				<Dialog.Description>Record a new interaction with {contact?.name ?? 'this contact'}.</Dialog.Description>
+			</Dialog.Header>
+			<form
+				method="POST"
+				action="?/logInteraction"
+				use:enhance={() => {
+					submittingInteraction = true;
+					return async ({ result, update }) => {
+						submittingInteraction = false;
+						if (result.type === 'success') {
+							showLogInteraction = false;
+							toast.success('Interaction logged');
+							await update();
+						} else if (result.type === 'failure') {
+							toast.error(String(result.data?.error ?? 'Failed to log interaction'));
+						}
+					};
+				}}
+			>
+				<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+				<input type="hidden" name="authorName" value={data.currentUser?.name ?? 'Agent'} />
+				<div class="space-y-4 py-4">
+					<div>
+						<label for="interaction-type" class="text-sm font-medium">Type</label>
+						<select
+							id="interaction-type"
+							name="type"
+							bind:value={interactionType}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="message">Message</option>
+							<option value="email">Email</option>
+							<option value="note">Note</option>
+							<option value="voice_memo">Voice Memo</option>
+						</select>
+					</div>
+					<div>
+						<label for="interaction-content" class="text-sm font-medium">Details</label>
+						<textarea
+							id="interaction-content"
+							name="content"
+							bind:value={interactionContent}
+							placeholder="What happened?"
+							rows="4"
+							required
+							class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+						></textarea>
+					</div>
+				</div>
+				<Dialog.Footer>
+					<Button variant="outline" type="button" onclick={() => showLogInteraction = false}>Cancel</Button>
+					<Button type="submit" disabled={submittingInteraction || !interactionContent.trim()}>
+						{submittingInteraction ? 'Saving...' : 'Log Interaction'}
+					</Button>
+				</Dialog.Footer>
+			</form>
+		</Dialog.Content>
+	</Dialog.Root>
 {:else}
 	<div class="py-12 text-center">
 		<Users class="mx-auto size-10 text-muted-foreground/40" />

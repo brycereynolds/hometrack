@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Toaster } from 'svelte-sonner';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
@@ -50,6 +51,8 @@
 
 	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed).slice(0, 2));
 </script>
+
+<Toaster richColors position="top-right" />
 
 <Sidebar.SidebarProvider>
 	<Sidebar.Sidebar collapsible="icon">

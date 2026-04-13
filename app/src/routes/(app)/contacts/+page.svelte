@@ -8,6 +8,8 @@
 	import { Plus, Search, Mail, Phone, Users, Star, ArrowUpDown } from 'lucide-svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Button as Btn } from '$lib/components/ui/button/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 	const contacts = $derived(data.contacts);
@@ -25,6 +27,7 @@
 	let newContactPhone = $state('');
 	let newContactType = $state<ContactType>('client');
 	let newContactCompany = $state('');
+	let submittingContact = $state(false);
 
 	const filters: { label: string; value: FilterType }[] = [
 		{ label: 'All', value: 'all' },
@@ -218,67 +221,94 @@
 			<Dialog.Title class="font-serif">Add Contact</Dialog.Title>
 			<Dialog.Description>Add a new contact to your network.</Dialog.Description>
 		</Dialog.Header>
-		<div class="space-y-4 py-4">
-			<div>
-				<label for="contact-name" class="text-sm font-medium">Full Name</label>
-				<input
-					id="contact-name"
-					type="text"
-					bind:value={newContactName}
-					placeholder="e.g. Jane Smith"
-					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-				/>
-			</div>
-			<div>
-				<label for="contact-email" class="text-sm font-medium">Email</label>
-				<input
-					id="contact-email"
-					type="email"
-					bind:value={newContactEmail}
-					placeholder="jane@example.com"
-					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-				/>
-			</div>
-			<div>
-				<label for="contact-phone" class="text-sm font-medium">Phone</label>
-				<input
-					id="contact-phone"
-					type="tel"
-					bind:value={newContactPhone}
-					placeholder="(555) 123-4567"
-					class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-				/>
-			</div>
-			<div class="grid grid-cols-2 gap-4">
+		<form
+			method="POST"
+			action="?/create"
+			use:enhance={() => {
+				submittingContact = true;
+				return async ({ result, update }) => {
+					submittingContact = false;
+					if (result.type === 'success') {
+						showAddContact = false;
+						toast.success('Contact added successfully');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to add contact'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+			<div class="space-y-4 py-4">
 				<div>
-					<label for="contact-type" class="text-sm font-medium">Type</label>
-					<select
-						id="contact-type"
-						bind:value={newContactType}
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					>
-						<option value="client">Client</option>
-						<option value="agent">Agent</option>
-						<option value="vendor">Vendor</option>
-						<option value="lender">Lender</option>
-						<option value="inspector">Inspector</option>
-					</select>
-				</div>
-				<div>
-					<label for="contact-company" class="text-sm font-medium">Company</label>
+					<label for="contact-name" class="text-sm font-medium">Full Name</label>
 					<input
-						id="contact-company"
+						id="contact-name"
+						name="name"
 						type="text"
-						bind:value={newContactCompany}
-						placeholder="Optional"
+						bind:value={newContactName}
+						placeholder="e.g. Jane Smith"
+						required
 						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
 					/>
 				</div>
+				<div>
+					<label for="contact-email" class="text-sm font-medium">Email</label>
+					<input
+						id="contact-email"
+						name="email"
+						type="email"
+						bind:value={newContactEmail}
+						placeholder="jane@example.com"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="contact-phone" class="text-sm font-medium">Phone</label>
+					<input
+						id="contact-phone"
+						name="phone"
+						type="tel"
+						bind:value={newContactPhone}
+						placeholder="(555) 123-4567"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="contact-type" class="text-sm font-medium">Type</label>
+						<select
+							id="contact-type"
+							name="type"
+							bind:value={newContactType}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="client">Client</option>
+							<option value="agent">Agent</option>
+							<option value="vendor">Vendor</option>
+							<option value="lender">Lender</option>
+							<option value="inspector">Inspector</option>
+						</select>
+					</div>
+					<div>
+						<label for="contact-company" class="text-sm font-medium">Company</label>
+						<input
+							id="contact-company"
+							name="company"
+							type="text"
+							bind:value={newContactCompany}
+							placeholder="Optional"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
 			</div>
-		</div>
-		<Dialog.Footer>
-			<Btn variant="outline" onclick={() => showAddContact = false}>Cancel</Btn>
-			<Btn onclick={() => showAddContact = false}>Add Contact</Btn>
-		</Dialog.Footer>
+			<Dialog.Footer>
+				<Btn variant="outline" type="button" onclick={() => showAddContact = false}>Cancel</Btn>
+				<Btn type="submit" disabled={submittingContact || !newContactName.trim()}>
+					{submittingContact ? 'Adding...' : 'Add Contact'}
+				</Btn>
+			</Dialog.Footer>
+		</form>
 	</Dialog.Content>
 </Dialog.Root>

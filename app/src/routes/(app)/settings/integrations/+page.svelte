@@ -124,9 +124,17 @@
 										</div>
 									{:else}
 										<div class="mt-2">
-											<Button variant="outline" size="sm" class="h-7 text-xs">
-												Connect
-											</Button>
+											{#if integration.name === 'Gmail' || integration.name === 'Google Calendar'}
+												<a href="/api/integrations/google/connect">
+													<Button variant="outline" size="sm" class="h-7 text-xs">
+														Connect
+													</Button>
+												</a>
+											{:else}
+												<Button variant="outline" size="sm" class="h-7 text-xs">
+													Connect
+												</Button>
+											{/if}
 										</div>
 									{/if}
 								</div>

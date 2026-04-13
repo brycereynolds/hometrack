@@ -3,6 +3,7 @@ import { withRLS } from '$lib/server/db/index.js';
 import { teamMembers, listings as listingsTable, aiInsights as aiInsightsTable } from '$lib/server/db/schema/index.js';
 import { eq, desc } from 'drizzle-orm';
 import { redirect } from '@sveltejs/kit';
+import { getSupabaseConfig } from '$lib/server/supabase.js';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
   if (!locals.user) {
@@ -35,15 +36,19 @@ export const load: LayoutServerLoad = async ({ locals }) => {
       return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [] };
     }
 
+    const { supabaseUrl, anonKey } = getSupabaseConfig();
+
     return {
       team: result.team,
       teamMembers: result.team.members,
       currentUser: result.membership,
       listings: result.listings,
       aiInsights: result.aiInsights,
+      supabaseUrl,
+      supabaseAnonKey: anonKey,
     };
   } catch (err) {
     console.error('Layout load error:', err);
-    return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [] };
+    return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [], supabaseUrl: '', supabaseAnonKey: '' };
   }
 };

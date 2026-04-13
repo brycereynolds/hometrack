@@ -131,6 +131,12 @@ export const integrationStatusEnum = pgEnum('integration_status', [
   'error',
 ]);
 
+export const noteTagEnum = pgEnum('note_tag', [
+  'showing',
+  'vendor',
+  'client',
+]);
+
 export const integrationCategoryEnum = pgEnum('integration_category', [
   'email',
   'calendar',

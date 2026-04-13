@@ -6,7 +6,10 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
+	import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
+	import { onMount, onDestroy } from 'svelte';
+	import { browser } from '$app/environment';
 	import {
 		LayoutDashboard,
 		Home,
@@ -27,6 +30,28 @@
 		CheckSquare
 	} from 'lucide-svelte';
 	let { children, data } = $props();
+
+	// Supabase Realtime — subscribe to key tables and invalidate on changes
+	let realtimeChannel: RealtimeChannel | null = null;
+
+	onMount(() => {
+		if (!data.supabaseUrl || !data.supabaseAnonKey) return;
+
+		const supabase = createClient(data.supabaseUrl, data.supabaseAnonKey, {
+			auth: { autoRefreshToken: false, persistSession: false },
+		});
+
+		realtimeChannel = supabase
+			.channel('app-changes')
+			.on('postgres_changes', { event: '*', schema: 'public', table: 'listings' }, () => invalidateAll())
+			.on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, () => invalidateAll())
+			.on('postgres_changes', { event: '*', schema: 'public', table: 'activity_items' }, () => invalidateAll())
+			.subscribe();
+	});
+
+	onDestroy(() => {
+		realtimeChannel?.unsubscribe();
+	});
 
 	// Search state
 	let searchQuery = $state('');

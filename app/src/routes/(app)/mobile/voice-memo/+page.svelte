@@ -12,6 +12,7 @@
 		Trash2,
 		RotateCcw
 	} from 'lucide-svelte';
+	import { toast } from 'svelte-sonner';
 	let { data } = $props();
 
 	const listings = $derived(data.listings);
@@ -19,20 +20,58 @@
 	let isRecording = $state(false);
 	let hasRecording = $state(false);
 	let isPlaying = $state(false);
+	let isSaving = $state(false);
 	let recordingTime = $state(0);
 	let selectedListing = $state(listings[0]?.id ?? '');
 	let timer: ReturnType<typeof setInterval> | null = null;
 
-	function startRecording() {
-		isRecording = true;
-		hasRecording = false;
-		recordingTime = 0;
-		timer = setInterval(() => {
-			recordingTime++;
-		}, 1000);
+	// MediaRecorder state
+	let mediaRecorder: MediaRecorder | null = null;
+	let audioChunks: Blob[] = [];
+	let audioBlob: Blob | null = null;
+	let audioUrl: string | null = null;
+	let audioElement: HTMLAudioElement | null = null;
+
+	async function startRecording() {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			mediaRecorder = new MediaRecorder(stream, {
+				mimeType: MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+					? 'audio/webm;codecs=opus'
+					: 'audio/webm',
+			});
+			audioChunks = [];
+
+			mediaRecorder.ondataavailable = (event) => {
+				if (event.data.size > 0) {
+					audioChunks.push(event.data);
+				}
+			};
+
+			mediaRecorder.onstop = () => {
+				audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+				audioUrl = URL.createObjectURL(audioBlob);
+				// Stop all tracks to release the microphone
+				stream.getTracks().forEach((track) => track.stop());
+			};
+
+			mediaRecorder.start(1000); // Collect data every second
+			isRecording = true;
+			hasRecording = false;
+			recordingTime = 0;
+			timer = setInterval(() => {
+				recordingTime++;
+			}, 1000);
+		} catch (err) {
+			toast.error('Could not access microphone. Please check permissions.');
+			console.error('Microphone error:', err);
+		}
 	}
 
 	function stopRecording() {
+		if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+			mediaRecorder.stop();
+		}
 		isRecording = false;
 		hasRecording = true;
 		if (timer) {
@@ -47,12 +86,70 @@
 		return `${m}:${s.toString().padStart(2, '0')}`;
 	}
 
+	function togglePlayback() {
+		if (!audioUrl) return;
+		if (!audioElement) {
+			audioElement = new Audio(audioUrl);
+			audioElement.onended = () => {
+				isPlaying = false;
+			};
+		}
+		if (isPlaying) {
+			audioElement.pause();
+			isPlaying = false;
+		} else {
+			audioElement.play();
+			isPlaying = true;
+		}
+	}
+
 	function discardRecording() {
+		if (audioElement) {
+			audioElement.pause();
+			audioElement = null;
+		}
+		if (audioUrl) {
+			URL.revokeObjectURL(audioUrl);
+			audioUrl = null;
+		}
+		audioBlob = null;
+		audioChunks = [];
 		hasRecording = false;
+		isPlaying = false;
 		recordingTime = 0;
 	}
 
-	// Fake waveform bars
+	async function saveRecording() {
+		if (!audioBlob || !selectedListing) return;
+
+		isSaving = true;
+		try {
+			const formData = new FormData();
+			formData.append('audio', audioBlob, 'voice-memo.webm');
+			formData.append('listingId', selectedListing);
+			formData.append('duration', recordingTime.toString());
+
+			const response = await fetch('/api/voice-memos', {
+				method: 'POST',
+				body: formData,
+			});
+
+			if (!response.ok) {
+				const err = await response.json();
+				throw new Error(err.error || 'Upload failed');
+			}
+
+			toast.success('Voice memo saved');
+			discardRecording();
+		} catch (err: any) {
+			toast.error(err.message || 'Failed to save voice memo');
+			console.error('Save error:', err);
+		} finally {
+			isSaving = false;
+		}
+	}
+
+	// Waveform bars for visual feedback
 	const waveformBars = Array.from({ length: 40 }, (_, i) => ({
 		height: 20 + Math.sin(i * 0.5) * 15 + Math.random() * 20
 	}));
@@ -148,7 +245,7 @@
 						variant="outline"
 						size="icon"
 						class="size-12 rounded-full"
-						onclick={() => { isPlaying = !isPlaying; }}
+						onclick={togglePlayback}
 					>
 						{#if isPlaying}
 							<Pause class="size-5" />
@@ -158,14 +255,14 @@
 					</Button>
 				</div>
 
-				<!-- Transcription preview -->
+				<!-- Transcription preview (placeholder for future) -->
 				<Card class="mb-6 text-left">
 					<CardContent class="p-4">
 						<div class="flex items-center gap-2 mb-2">
 							<Badge variant="outline" class="text-xs">Auto-transcription</Badge>
 						</div>
 						<p class="text-sm text-muted-foreground italic leading-relaxed">
-							"Quick note after showing at 123 Main — buyer seemed very interested in the remodeled kitchen. Agent mentioned they have another property to see tomorrow. Follow up with Brian on Friday..."
+							Transcription will be available after saving...
 						</p>
 					</CardContent>
 				</Card>
@@ -176,17 +273,17 @@
 	<!-- Bottom actions -->
 	{#if hasRecording}
 		<div class="flex gap-3 pt-4">
-			<Button variant="outline" class="flex-1 gap-2" onclick={discardRecording}>
+			<Button variant="outline" class="flex-1 gap-2" onclick={discardRecording} disabled={isSaving}>
 				<Trash2 class="size-4" />
 				Discard
 			</Button>
-			<Button variant="outline" class="gap-2" onclick={() => { discardRecording(); }}>
+			<Button variant="outline" class="gap-2" onclick={() => { discardRecording(); startRecording(); }} disabled={isSaving}>
 				<RotateCcw class="size-4" />
 				Redo
 			</Button>
-			<Button class="flex-1 gap-2">
+			<Button class="flex-1 gap-2" onclick={saveRecording} disabled={isSaving}>
 				<Save class="size-4" />
-				Save
+				{isSaving ? 'Saving...' : 'Save'}
 			</Button>
 		</div>
 	{/if}

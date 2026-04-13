@@ -16,3 +16,4 @@ export * from './integration.js';
 export * from './workflow.js';
 export * from './analytics.js';
 export * from './file.js';
+export * from './field-note.js';

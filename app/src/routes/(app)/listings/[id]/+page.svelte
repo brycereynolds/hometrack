@@ -24,7 +24,8 @@
 		MessageSquare,
 		Mail,
 		Phone,
-		Globe
+		Globe,
+		Monitor
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -269,6 +270,12 @@
 
 			<!-- Sidebar -->
 			<div class="space-y-6">
+				<!-- Open House Button -->
+				<Button variant="outline" class="w-full gap-2" href="/open-house/{listing.id}">
+					<Monitor class="size-4" />
+					Start Open House
+				</Button>
+
 				<!-- Team Assignments -->
 				<Card>
 					<CardHeader>

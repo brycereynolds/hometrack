@@ -1,8 +1,28 @@
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import { sql } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 import * as schema from './schema/index.js';
+
+// Auto-load .env when running via tsx (SvelteKit handles this in dev/build)
+function loadEnv() {
+  try {
+    const envPath = resolve(import.meta.dirname, '../../../..', '.env');
+    const envFile = readFileSync(envPath, 'utf-8');
+    for (const line of envFile.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eqIdx = trimmed.indexOf('=');
+      if (eqIdx === -1) continue;
+      const key = trimmed.slice(0, eqIdx);
+      const value = trimmed.slice(eqIdx + 1);
+      if (!process.env[key]) process.env[key] = value;
+    }
+  } catch { /* .env not found, rely on existing env */ }
+}
+loadEnv();
 
 const {
   teams,
@@ -80,14 +100,14 @@ async function main() {
   console.log('  Creating team...');
   await db.insert(teams).values({
     id: teamId,
-    name: 'Reynolds & Associates',
-    slug: 'reynolds-associates',
+    name: 'Reynolds Realty',
+    slug: 'reynolds-realty',
   });
 
   // ─── 2. Team Members ──────────────────────────────────────────────────
   console.log('  Inserting team members...');
   const teamMemberData = [
-    { mockId: 'tm-1', name: 'Lauren Chen', email: 'lauren@hometrack.co', role: 'admin' as const, roleLabel: 'Team Lead / Listing Agent', initials: 'LC' },
+    { mockId: 'tm-1', name: 'Bryce Reynolds', email: 'bryce@hometrack.co', role: 'admin' as const, roleLabel: 'Team Lead / Listing Agent', initials: 'BR' },
     { mockId: 'tm-2', name: 'Marcus Rivera', email: 'marcus@hometrack.co', role: 'listing_agent' as const, roleLabel: 'Listing Agent', initials: 'MR' },
     { mockId: 'tm-3', name: 'Priya Patel', email: 'priya@hometrack.co', role: 'tc' as const, roleLabel: 'Transaction Coordinator', initials: 'PP' },
     { mockId: 'tm-4', name: 'Jordan Nakamura', email: 'jordan@hometrack.co', role: 'marketing' as const, roleLabel: 'Marketing Coordinator', initials: 'JN' },
@@ -390,7 +410,7 @@ async function main() {
   console.log('  Inserting activity items...');
   // Map author names to team member mock IDs (where applicable)
   const authorToMock: Record<string, string> = {
-    'Lauren Chen': 'tm-1',
+    'Bryce Reynolds': 'tm-1',
     'Marcus Rivera': 'tm-2',
     'Priya Patel': 'tm-3',
     'Jordan Nakamura': 'tm-4',
@@ -401,7 +421,7 @@ async function main() {
     { mockId: 'a-1', type: 'message' as const, authorName: 'David Nguyen', authorInitials: 'DN', timestamp: '2026-04-09T09:15:00', content: 'Hi Lauren, can we discuss the open house schedule for this weekend? We had some feedback from the neighbors about parking.', listingMock: 'l-1' },
     { mockId: 'a-2', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-09T08:30:00', content: 'New showing request from Brian Foster (Sereno Group) for April 11 at 2:00 PM.', listingMock: 'l-2' },
     { mockId: 'a-3', type: 'email' as const, authorName: 'Rebecca Thornton', authorInitials: 'RT', timestamp: '2026-04-09T07:45:00', content: 'RE: Photography Schedule — Looks great! I approved the twilight shoot for Thursday.', listingMock: 'l-2', metadata: { subject: 'RE: Photography Schedule' } },
-    { mockId: 'a-4', type: 'voice_memo' as const, authorName: 'Lauren Chen', authorInitials: 'LC', timestamp: '2026-04-08T17:30:00', content: 'Quick note after showing at 123 Main — buyer seemed very interested in the remodeled kitchen.', listingMock: 'l-1', metadata: { duration: '0:42' } },
+    { mockId: 'a-4', type: 'voice_memo' as const, authorName: 'Bryce Reynolds', authorInitials: 'BR', timestamp: '2026-04-08T17:30:00', content: 'Quick note after showing at 123 Main — buyer seemed very interested in the remodeled kitchen.', listingMock: 'l-1', metadata: { duration: '0:42' } },
     { mockId: 'a-5', type: 'task_complete' as const, authorName: 'Jordan Nakamura', authorInitials: 'JN', timestamp: '2026-04-08T16:00:00', content: 'Completed task: Update social media ads for Open House', listingMock: 'l-1' },
     { mockId: 'a-6', type: 'note' as const, authorName: 'Marcus Rivera', authorInitials: 'MR', timestamp: '2026-04-08T14:20:00', content: 'Spoke with Diana Reyes — she has a tech relocation client looking in Cupertino.', listingMock: 'l-3' },
     { mockId: 'a-7', type: 'phase_change' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-08T10:00:00', content: 'Listing moved from Pre-Market to Active.', listingMock: 'l-2' },
@@ -672,7 +692,7 @@ async function main() {
   const uploaderMap: Record<string, string> = {
     'Priya Patel': 'tm-3',
     'Robert Cheng': 'tm-3', // not a team member, but let's map to Priya for FK
-    'Lauren Chen': 'tm-1',
+    'Bryce Reynolds': 'tm-1',
     'Kevin Tran': 'tm-4', // not a team member, map to Jordan
     'Jordan Nakamura': 'tm-4',
     'Marcus Rivera': 'tm-2',
@@ -685,7 +705,7 @@ async function main() {
     { name: 'Natural Hazard Disclosure (NHD)', category: 'disclosures' as const, listingMock: 'l-1', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-30', fileSize: '1.2 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
     { name: 'Home Inspection Report', category: 'inspection' as const, listingMock: 'l-1', uploadedBy: 'Robert Cheng', uploadedDate: '2026-03-25', fileSize: '3.8 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
     { name: 'Pest Inspection Report', category: 'inspection' as const, listingMock: 'l-1', uploadedBy: 'Robert Cheng', uploadedDate: '2026-03-25', fileSize: '890 KB', fileType: 'PDF', status: 'complete' as const, version: 1 },
-    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-1', uploadedBy: 'Lauren Chen', uploadedDate: '2026-03-20', fileSize: '320 KB', fileType: 'PDF', status: 'signed' as const, version: 2 },
+    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-1', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-03-20', fileSize: '320 KB', fileType: 'PDF', status: 'signed' as const, version: 2 },
     { name: 'MLS Photo Package', category: 'photos' as const, listingMock: 'l-1', uploadedBy: 'Kevin Tran', uploadedDate: '2026-04-02', fileSize: '48 MB', fileType: 'ZIP', status: 'complete' as const, version: 1 },
     { name: 'Property Brochure', category: 'marketing' as const, listingMock: 'l-1', uploadedBy: 'Jordan Nakamura', uploadedDate: '2026-04-03', fileSize: '5.2 MB', fileType: 'PDF', status: 'complete' as const, version: 3 },
     { name: 'Purchase Agreement - Chen-Williams', category: 'contracts' as const, listingMock: 'l-1', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-09', fileSize: '420 KB', fileType: 'PDF', status: 'pending_signature' as const, version: 1 },
@@ -700,12 +720,12 @@ async function main() {
     { name: 'Seller Property Questionnaire (SPQ)', category: 'disclosures' as const, listingMock: 'l-4', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-04', fileSize: '175 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
     { name: 'Staging Proposal', category: 'marketing' as const, listingMock: 'l-4', uploadedBy: 'Sofia Andrade', uploadedDate: '2026-04-05', fileSize: '2.8 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
     // Documents for l-5
-    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-5', uploadedBy: 'Lauren Chen', uploadedDate: '2026-04-09', fileSize: '280 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
-    { name: 'Client Intake Form', category: 'contracts' as const, listingMock: 'l-5', uploadedBy: 'Lauren Chen', uploadedDate: '2026-04-08', fileSize: '145 KB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-5', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-04-09', fileSize: '280 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Client Intake Form', category: 'contracts' as const, listingMock: 'l-5', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-04-08', fileSize: '145 KB', fileType: 'PDF', status: 'complete' as const, version: 1 },
     // Documents for l-6
     { name: 'Transfer Disclosure Statement (TDS)', category: 'disclosures' as const, listingMock: 'l-6', uploadedBy: 'Priya Patel', uploadedDate: '2026-02-28', fileSize: '260 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
     { name: 'Natural Hazard Disclosure (NHD)', category: 'disclosures' as const, listingMock: 'l-6', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-01', fileSize: '1.4 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
-    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-6', uploadedBy: 'Lauren Chen', uploadedDate: '2026-02-22', fileSize: '340 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-6', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-02-22', fileSize: '340 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
     { name: 'Property Brochure', category: 'marketing' as const, listingMock: 'l-6', uploadedBy: 'Jordan Nakamura', uploadedDate: '2026-03-11', fileSize: '6.1 MB', fileType: 'PDF', status: 'complete' as const, version: 2 },
     // Documents for l-7
     { name: 'Transfer Disclosure Statement (TDS)', category: 'disclosures' as const, listingMock: 'l-7', uploadedBy: 'Priya Patel', uploadedDate: '2026-02-18', fileSize: '235 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
@@ -1061,6 +1081,66 @@ async function main() {
       tasksCompleted: p.completedThisMonth,
       avgCompletionDays: p.avgDays,
     });
+  }
+
+  // ─── Seed User (GoTrue + team member link) ─────────────────────────
+  const seedEmail = process.env.SEED_USER_EMAIL;
+  const seedPassword = process.env.SEED_USER_PASSWORD;
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (seedEmail && seedPassword && supabaseUrl && serviceRoleKey) {
+    console.log(`  Creating seed user (${seedEmail})...`);
+
+    // Create or fetch the GoTrue user via admin API
+    const res = await fetch(`${supabaseUrl}/auth/v1/admin/users`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${serviceRoleKey}`,
+        'apikey': serviceRoleKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: seedEmail,
+        password: seedPassword,
+        email_confirm: true,
+      }),
+    });
+
+    let userId: string | null = null;
+
+    if (res.ok) {
+      const user = await res.json();
+      userId = user.id;
+      console.log(`    Created user: ${userId}`);
+    } else {
+      // User might already exist — look them up
+      const listRes = await fetch(`${supabaseUrl}/auth/v1/admin/users?page=1&per_page=50`, {
+        headers: {
+          'Authorization': `Bearer ${serviceRoleKey}`,
+          'apikey': serviceRoleKey,
+        },
+      });
+      if (listRes.ok) {
+        const data = await listRes.json();
+        const users = data.users ?? data;
+        const existing = users.find((u: any) => u.email === seedEmail);
+        if (existing) {
+          userId = existing.id;
+          console.log(`    Found existing user: ${userId}`);
+        }
+      }
+    }
+
+    // Link the seed user to the admin team member (tm-1)
+    if (userId) {
+      await db.update(teamMembers)
+        .set({ userId })
+        .where(sql`id = ${tmMap['tm-1']}`);
+      console.log(`    Linked to team member: Bryce Reynolds (admin)`);
+    }
+  } else {
+    console.log('  Skipping seed user (SEED_USER_EMAIL/SEED_USER_PASSWORD not set)');
   }
 
   console.log('Seed complete!');

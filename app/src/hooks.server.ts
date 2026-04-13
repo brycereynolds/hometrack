@@ -1,14 +1,15 @@
 import { createClient } from '@supabase/supabase-js';
+import { env } from '$env/dynamic/private';
 import type { Handle } from '@sveltejs/kit';
-
-const supabaseUrl = process.env.SUPABASE_URL ?? '';
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? '';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// Extract access token from cookie or Authorization header
 	const accessToken =
 		event.cookies.get('sb-access-token') ??
 		event.request.headers.get('Authorization')?.replace('Bearer ', '');
+
+	const supabaseUrl = env.SUPABASE_URL ?? '';
+	const supabaseServiceKey = env.SUPABASE_SERVICE_ROLE_KEY ?? '';
 
 	if (accessToken && supabaseUrl && supabaseServiceKey) {
 		try {

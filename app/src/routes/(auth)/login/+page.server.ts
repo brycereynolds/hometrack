@@ -1,9 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { createClient } from '@supabase/supabase-js';
+import { env } from '$env/dynamic/private';
 import type { Actions } from './$types';
-
-const supabaseUrl = process.env.SUPABASE_URL ?? '';
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY ?? '';
 
 export const actions: Actions = {
 	default: async ({ request, cookies }) => {
@@ -13,6 +11,13 @@ export const actions: Actions = {
 
 		if (!email || !password) {
 			return fail(400, { error: 'Email and password are required', email });
+		}
+
+		const supabaseUrl = env.SUPABASE_URL ?? '';
+		const supabaseAnonKey = env.SUPABASE_ANON_KEY ?? '';
+
+		if (!supabaseUrl || !supabaseAnonKey) {
+			return fail(500, { error: 'Auth is not configured. Set SUPABASE_URL and SUPABASE_ANON_KEY in .env', email });
 		}
 
 		const supabase = createClient(supabaseUrl, supabaseAnonKey, {

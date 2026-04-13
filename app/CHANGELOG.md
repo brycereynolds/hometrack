@@ -139,7 +139,7 @@ Added Drizzle ORM with full PostgreSQL schema matching the frontend data model.
   - Pattern A: 19 tables with direct `team_id` column
   - Pattern B: 3 tables via parent FK (analytics → listings, team_performance → team_members)
   - Pattern C: 2 grandchild tables (financial_categories → budgets, quote_line_items → quotes)
-- Migration: `drizzle/0004_rls_policies.sql`
+- Migration: `drizzle/0001_rls_policies.sql` (clean regeneration from single schema migration)
 
 ### Dual Drizzle Clients
 
@@ -164,20 +164,51 @@ Using Drizzle + Supabase together (not one or the other):
 
 ---
 
+## 2026-04-13 — Mock Data Removal, Security Hardening, Dev Workflow
+
+### Mock Data Removal
+- Deleted `mock-data.ts` (3,892 lines) — all 49 pages now query the database
+- Created 28 new `+page.server.ts` load functions across all route groups
+- Added 11 new Drizzle query functions (listings detail, contacts)
+- Shared modules: `config.ts` (constants), `types.ts` (Drizzle-inferred), `utils.ts` (formatters)
+- Shared components accept data via props instead of importing mock arrays
+
+### Security Hardening
+- `withRLS()` validates userId (non-empty) and role (whitelist: authenticated/anon)
+- `auth.uid()` returns NULL on missing JWT (not all-zeros UUID)
+- `team_members.user_id` changed from `text` to `uuid` — proper FK to `auth.users`
+- Logout endpoint changed from GET to POST
+- Standalone index on `team_members.user_id` for RLS query performance
+- Graceful error handling for missing Supabase env vars in auth routes
+- SvelteKit `$env/dynamic/private` for env vars (not `process.env`)
+
+### Dev Workflow
+- `db:wipe` — drops public + drizzle schemas (refuses in production)
+- `db:reset` — wipe → migrate → seed (full 0→1 cycle)
+- `db:seed` auto-creates GoTrue user from `SEED_USER_EMAIL`/`SEED_USER_PASSWORD` env vars
+- All db scripts use `node --env-file=.env` for consistent env loading
+- Clean migration regeneration: `0000_common_riptide.sql` (schema) + `0001_rls_policies.sql` (RLS)
+- Demo org: Reynolds Realty with admin user Bryce Reynolds
+
+### Fixes
+- Fixed favicon.ico routing to portal `[team]` catch-all
+- Fixed `drizzle.config.ts` env loading for migrations
+- Expanded seed data: all 8 listings have financials, documents, showings, marketing
+
+---
+
 ## What's Left
 
 ### Immediate Next Steps
-1. **Fix DATABASE_URL** — Change to `supabase_admin` user and `postgres` database
+1. **Deploy to Railway** — Set env vars, verify build + start
 2. **Register domain** — Choose from top candidates and register via Cloudflare
-3. **Deploy to Railway** — Connect SvelteKit app with correct env vars
-4. **Create first GoTrue user** — Link to team_members for dev testing
 
 ### Future Work
 - Real-time updates (Supabase Realtime — broadcasts Drizzle writes via WAL)
+- Token refresh logic in hooks (refresh token → new access token)
 - MLS/IDX integration for comp data
 - Email/calendar sync (Google Workspace, Outlook)
 - DocuSign integration for e-signatures
 - AI layer (Anthropic Claude API for insights, comp narratives, action extraction)
 - Full-text search (PostgreSQL tsvector or Typesense)
 - Audit logging table
-- Token refresh logic in hooks (refresh token → new access token)

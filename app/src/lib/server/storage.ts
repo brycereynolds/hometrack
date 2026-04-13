@@ -1,4 +1,4 @@
-import { supabaseAdmin } from './supabase.js';
+import { getSupabaseAdmin } from './supabase.js';
 
 const BUCKET = 'documents';
 
@@ -18,7 +18,7 @@ export async function uploadFile(
 	buffer: Buffer | Uint8Array,
 	contentType: string,
 ): Promise<{ path: string }> {
-	const { data, error } = await supabaseAdmin.storage
+	const { data, error } = await getSupabaseAdmin().storage
 		.from(BUCKET)
 		.upload(path, buffer, {
 			contentType,
@@ -31,7 +31,7 @@ export async function uploadFile(
 
 /** Generate a signed download URL (default 1 hour). */
 export async function getSignedUrl(path: string, expiresIn = 3600): Promise<string> {
-	const { data, error } = await supabaseAdmin.storage
+	const { data, error } = await getSupabaseAdmin().storage
 		.from(BUCKET)
 		.createSignedUrl(path, expiresIn);
 
@@ -41,7 +41,7 @@ export async function getSignedUrl(path: string, expiresIn = 3600): Promise<stri
 
 /** Delete a single file from Supabase Storage. */
 export async function deleteFile(path: string): Promise<void> {
-	const { error } = await supabaseAdmin.storage
+	const { error } = await getSupabaseAdmin().storage
 		.from(BUCKET)
 		.remove([path]);
 
@@ -54,7 +54,7 @@ export async function listFiles(prefix: string): Promise<{ name: string; size: n
 	const parts = prefix.split('/');
 	const folder = parts.join('/');
 
-	const { data, error } = await supabaseAdmin.storage
+	const { data, error } = await getSupabaseAdmin().storage
 		.from(BUCKET)
 		.list(folder);
 

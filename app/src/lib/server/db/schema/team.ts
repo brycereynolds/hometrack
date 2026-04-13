@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, jsonb, uniqueIndex, index } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, jsonb, uniqueIndex, index, uuid } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { teamMemberRoleEnum } from './enums.js';
 
@@ -25,7 +25,7 @@ export const teamMembers = pgTable(
       .references(() => teams.id, { onDelete: 'cascade' }),
     name: text('name').notNull(),
     email: text('email').notNull(),
-    userId: text('user_id'),
+    userId: uuid('user_id'),
     role: teamMemberRoleEnum('role').notNull(),
     roleLabel: text('role_label'),
     avatar: text('avatar'),

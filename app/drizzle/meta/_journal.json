@@ -5,36 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1775877684002,
-      "tag": "0000_many_madrox",
+      "when": 1776110023134,
+      "tag": "0000_common_riptide",
       "breakpoints": true
     },
     {
       "idx": 1,
       "version": "7",
-      "when": 1775964084002,
-      "tag": "0001_pipeline_redesign",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1775940054675,
-      "tag": "0002_wide_praxagora",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1775940387542,
-      "tag": "0003_dizzy_union_jack",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1776105600000,
-      "tag": "0004_rls_policies",
+      "when": 1776110023135,
+      "tag": "0001_rls_policies",
       "breakpoints": true
     }
   ]

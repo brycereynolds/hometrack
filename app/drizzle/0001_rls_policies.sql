@@ -20,7 +20,7 @@ CREATE OR REPLACE FUNCTION public.get_team_ids_for_user(user_uuid uuid)
 RETURNS SETOF text
 LANGUAGE sql STABLE SECURITY DEFINER
 AS $$
-  SELECT team_id FROM public.team_members WHERE user_id = user_uuid::text
+  SELECT team_id FROM public.team_members WHERE user_id = user_uuid
 $$;
 
 -- 4. Grant schema usage to Supabase roles

@@ -6,11 +6,12 @@ CREATE TYPE "public"."document_status" AS ENUM('draft', 'pending_signature', 'si
 CREATE TYPE "public"."integration_category" AS ENUM('email', 'calendar', 'documents', 'mls', 'marketing', 'financial', 'communication');--> statement-breakpoint
 CREATE TYPE "public"."integration_status" AS ENUM('connected', 'disconnected', 'error');--> statement-breakpoint
 CREATE TYPE "public"."interested_level" AS ENUM('very', 'somewhat', 'not');--> statement-breakpoint
-CREATE TYPE "public"."listing_phase" AS ENUM('onboarding', 'improvement', 'staging', 'content', 'marketing', 'showings', 'offers', 'contract', 'closing');--> statement-breakpoint
+CREATE TYPE "public"."listing_phase" AS ENUM('pre_market', 'active', 'closed', 'canceled');--> statement-breakpoint
 CREATE TYPE "public"."marketing_asset_status" AS ENUM('scheduled', 'in_production', 'complete', 'published');--> statement-breakpoint
 CREATE TYPE "public"."marketing_asset_type" AS ENUM('photo', 'video', 'floorplan', 'brochure', 'social_post', 'virtual_tour');--> statement-breakpoint
 CREATE TYPE "public"."offer_status" AS ENUM('received', 'reviewed', 'countered', 'accepted', 'declined');--> statement-breakpoint
 CREATE TYPE "public"."quote_status" AS ENUM('requested', 'received', 'approved', 'declined');--> statement-breakpoint
+CREATE TYPE "public"."task_category" AS ENUM('onboarding', 'improvements', 'disclosures', 'staging', 'media', 'pricing', 'marketing', 'showings', 'offers', 'escrow', 'general');--> statement-breakpoint
 CREATE TYPE "public"."task_priority" AS ENUM('low', 'medium', 'high', 'urgent');--> statement-breakpoint
 CREATE TYPE "public"."task_status" AS ENUM('todo', 'in_progress', 'done', 'overdue');--> statement-breakpoint
 CREATE TYPE "public"."team_member_role" AS ENUM('admin', 'listing_agent', 'tc', 'marketing', 'staging_lead');--> statement-breakpoint
@@ -19,6 +20,7 @@ CREATE TABLE "team_members" (
 	"team_id" text NOT NULL,
 	"name" text NOT NULL,
 	"email" text NOT NULL,
+	"user_id" uuid,
 	"role" "team_member_role" NOT NULL,
 	"role_label" text,
 	"avatar" text,
@@ -79,11 +81,16 @@ CREATE TABLE "listings" (
 	"photos" jsonb,
 	"lat" real,
 	"lng" real,
-	"phase" "listing_phase" DEFAULT 'onboarding' NOT NULL,
+	"phase" "listing_phase" DEFAULT 'pre_market' NOT NULL,
+	"under_contract" boolean DEFAULT false NOT NULL,
 	"days_in_phase" integer DEFAULT 0,
 	"days_on_market" integer DEFAULT 0,
 	"list_date" timestamp,
 	"target_list_date" timestamp,
+	"listing_agreement_date" timestamp,
+	"close_date" timestamp,
+	"canceled_at" timestamp,
+	"cancel_reason" text,
 	"agent_id" text,
 	"client_id" text,
 	"tasks_done" integer DEFAULT 0,
@@ -106,6 +113,7 @@ CREATE TABLE "tasks" (
 	"priority" "task_priority" DEFAULT 'medium' NOT NULL,
 	"assignee_id" text,
 	"phase" "listing_phase",
+	"task_category" "task_category",
 	"due_date" timestamp,
 	"is_overdue" boolean DEFAULT false,
 	"subtasks" jsonb,
@@ -320,11 +328,78 @@ CREATE TABLE "workflow_templates" (
 	"team_id" text NOT NULL,
 	"name" text NOT NULL,
 	"phase" "listing_phase" NOT NULL,
+	"task_category" "task_category",
 	"task_count" integer DEFAULT 0,
 	"description" text,
 	"is_default" boolean DEFAULT false,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "analytics_events" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"listing_id" text,
+	"platform" text NOT NULL,
+	"event_type" text NOT NULL,
+	"count" integer DEFAULT 0 NOT NULL,
+	"date" date NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "analytics_showings" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"listing_id" text,
+	"date" date NOT NULL,
+	"showing_count" integer DEFAULT 0 NOT NULL,
+	"open_house_attendees" integer DEFAULT 0 NOT NULL,
+	"feedback_score" real,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "pipeline_metrics" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"team_id" text,
+	"date" date NOT NULL,
+	"total_value" real NOT NULL,
+	"active_listings" integer NOT NULL,
+	"pre_market_listings" integer NOT NULL,
+	"closed_value" real DEFAULT 0 NOT NULL,
+	"closed_deals" integer DEFAULT 0 NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "team_performance" (
+	"id" serial PRIMARY KEY NOT NULL,
+	"team_member_id" text,
+	"period" text NOT NULL,
+	"period_start" date NOT NULL,
+	"active_listings" integer DEFAULT 0 NOT NULL,
+	"closed_deals" integer DEFAULT 0 NOT NULL,
+	"total_volume" real DEFAULT 0 NOT NULL,
+	"avg_days_on_market" integer,
+	"client_satisfaction" real,
+	"tasks_completed" integer DEFAULT 0 NOT NULL,
+	"avg_completion_days" real,
+	"created_at" timestamp DEFAULT now() NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE "files" (
+	"id" text PRIMARY KEY NOT NULL,
+	"team_id" text NOT NULL,
+	"listing_id" text,
+	"contact_id" text,
+	"uploaded_by_id" text NOT NULL,
+	"filename" text NOT NULL,
+	"original_filename" text NOT NULL,
+	"mime_type" text NOT NULL,
+	"size_bytes" integer NOT NULL,
+	"storage_path" text NOT NULL,
+	"category" text,
+	"description" text,
+	"access_level" text DEFAULT 'team' NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT "files_storage_path_unique" UNIQUE("storage_path")
 );
 --> statement-breakpoint
 ALTER TABLE "team_members" ADD CONSTRAINT "team_members_team_id_teams_id_fk" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
@@ -361,7 +436,16 @@ ALTER TABLE "marketing_assets" ADD CONSTRAINT "marketing_assets_listing_id_listi
 ALTER TABLE "integrations" ADD CONSTRAINT "integrations_team_id_teams_id_fk" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "integrations" ADD CONSTRAINT "integrations_connected_by_id_team_members_id_fk" FOREIGN KEY ("connected_by_id") REFERENCES "public"."team_members"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "workflow_templates" ADD CONSTRAINT "workflow_templates_team_id_teams_id_fk" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "analytics_events" ADD CONSTRAINT "analytics_events_listing_id_listings_id_fk" FOREIGN KEY ("listing_id") REFERENCES "public"."listings"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "analytics_showings" ADD CONSTRAINT "analytics_showings_listing_id_listings_id_fk" FOREIGN KEY ("listing_id") REFERENCES "public"."listings"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "pipeline_metrics" ADD CONSTRAINT "pipeline_metrics_team_id_teams_id_fk" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "team_performance" ADD CONSTRAINT "team_performance_team_member_id_team_members_id_fk" FOREIGN KEY ("team_member_id") REFERENCES "public"."team_members"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "files" ADD CONSTRAINT "files_team_id_teams_id_fk" FOREIGN KEY ("team_id") REFERENCES "public"."teams"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "files" ADD CONSTRAINT "files_listing_id_listings_id_fk" FOREIGN KEY ("listing_id") REFERENCES "public"."listings"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "files" ADD CONSTRAINT "files_contact_id_contacts_id_fk" FOREIGN KEY ("contact_id") REFERENCES "public"."contacts"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "files" ADD CONSTRAINT "files_uploaded_by_id_team_members_id_fk" FOREIGN KEY ("uploaded_by_id") REFERENCES "public"."team_members"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
 CREATE UNIQUE INDEX "team_members_team_email_idx" ON "team_members" USING btree ("team_id","email");--> statement-breakpoint
+CREATE UNIQUE INDEX "team_members_team_user_idx" ON "team_members" USING btree ("team_id","user_id");--> statement-breakpoint
 CREATE INDEX "contacts_team_id_idx" ON "contacts" USING btree ("team_id");--> statement-breakpoint
 CREATE INDEX "contacts_team_type_idx" ON "contacts" USING btree ("team_id","type");--> statement-breakpoint
 CREATE INDEX "contacts_email_idx" ON "contacts" USING btree ("email");--> statement-breakpoint
@@ -411,4 +495,18 @@ CREATE INDEX "marketing_assets_team_type_idx" ON "marketing_assets" USING btree 
 CREATE INDEX "integrations_team_id_idx" ON "integrations" USING btree ("team_id");--> statement-breakpoint
 CREATE INDEX "integrations_team_category_idx" ON "integrations" USING btree ("team_id","category");--> statement-breakpoint
 CREATE INDEX "workflow_templates_team_id_idx" ON "workflow_templates" USING btree ("team_id");--> statement-breakpoint
-CREATE INDEX "workflow_templates_team_phase_idx" ON "workflow_templates" USING btree ("team_id","phase");
+CREATE INDEX "workflow_templates_team_phase_idx" ON "workflow_templates" USING btree ("team_id","phase");--> statement-breakpoint
+CREATE INDEX "analytics_events_listing_id_idx" ON "analytics_events" USING btree ("listing_id");--> statement-breakpoint
+CREATE INDEX "analytics_events_date_idx" ON "analytics_events" USING btree ("date");--> statement-breakpoint
+CREATE INDEX "analytics_events_listing_date_idx" ON "analytics_events" USING btree ("listing_id","date");--> statement-breakpoint
+CREATE INDEX "analytics_showings_listing_id_idx" ON "analytics_showings" USING btree ("listing_id");--> statement-breakpoint
+CREATE INDEX "analytics_showings_date_idx" ON "analytics_showings" USING btree ("date");--> statement-breakpoint
+CREATE INDEX "pipeline_metrics_team_id_idx" ON "pipeline_metrics" USING btree ("team_id");--> statement-breakpoint
+CREATE INDEX "pipeline_metrics_date_idx" ON "pipeline_metrics" USING btree ("date");--> statement-breakpoint
+CREATE INDEX "team_performance_member_id_idx" ON "team_performance" USING btree ("team_member_id");--> statement-breakpoint
+CREATE INDEX "team_performance_period_idx" ON "team_performance" USING btree ("period","period_start");--> statement-breakpoint
+CREATE INDEX "files_team_id_idx" ON "files" USING btree ("team_id");--> statement-breakpoint
+CREATE INDEX "files_listing_id_idx" ON "files" USING btree ("listing_id");--> statement-breakpoint
+CREATE INDEX "files_contact_id_idx" ON "files" USING btree ("contact_id");--> statement-breakpoint
+CREATE INDEX "files_team_category_idx" ON "files" USING btree ("team_id","category");--> statement-breakpoint
+CREATE INDEX "files_uploaded_by_id_idx" ON "files" USING btree ("uploaded_by_id");

@@ -232,11 +232,11 @@
 					New Listing
 				</Button>
 			</a>
-			<Button variant="outline" size="sm">
+			<Button variant="outline" size="sm" href="/mobile/voice-memo">
 				<Mic class="mr-1.5 size-4" />
 				Voice Memo
 			</Button>
-			<Button variant="outline" size="sm">
+			<Button variant="outline" size="sm" href="/mobile/field-notes">
 				<FileText class="mr-1.5 size-4" />
 				Quick Note
 			</Button>

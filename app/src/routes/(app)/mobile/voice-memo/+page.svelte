@@ -205,17 +205,19 @@
 					<span class="font-mono text-4xl font-bold text-primary">{formatTime(recordingTime)}</span>
 				</div>
 				<div class="mb-8 flex items-center justify-center gap-2">
-					<div class="size-2 animate-pulse rounded-full bg-red-500"></div>
-					<span class="text-sm font-medium text-red-500">Recording</span>
+					<div class="size-2 animate-pulse rounded-full bg-primary"></div>
+					<span class="text-sm font-medium text-primary">Recording</span>
 				</div>
 
 				<!-- Stop button -->
-				<button
-					class="flex size-20 items-center justify-center rounded-full bg-red-500 shadow-lg transition-all active:scale-95"
-					onclick={stopRecording}
-				>
-					<Square class="size-8 text-white" />
-				</button>
+				<div class="flex justify-center">
+					<button
+						class="flex size-20 items-center justify-center rounded-full bg-primary shadow-lg transition-all hover:bg-primary/90 active:scale-95"
+						onclick={stopRecording}
+					>
+						<Square class="size-8 text-white" />
+					</button>
+				</div>
 			</div>
 		{:else if hasRecording}
 			<!-- Playback state -->

@@ -23,9 +23,9 @@
 		{ href: '/analytics/insights', label: 'Insights', active: false }
 	];
 
-	let tasksCanvas: HTMLCanvasElement;
-	let workloadCanvas: HTMLCanvasElement;
-	let completionCanvas: HTMLCanvasElement;
+	let tasksCanvas = $state<HTMLCanvasElement>(null!);
+	let workloadCanvas = $state<HTMLCanvasElement>(null!);
+	let completionCanvas = $state<HTMLCanvasElement>(null!);
 	let tasksChart: Chart | undefined;
 	let workloadChart: Chart | undefined;
 	let completionChart: Chart | undefined;

@@ -32,9 +32,9 @@
 	const viewsTimeSeries = $derived(data.viewsTimeSeries ?? { labels: [] as string[], zillow: [] as number[], redfin: [] as number[], realtor: [] as number[], website: [] as number[], social: [] as number[] });
 	const showingsTimeSeries = $derived(data.showingsTimeSeries ?? { labels: [] as string[], showings: [] as number[], openHouseAttendees: [] as number[] });
 
-	let viewsCanvas: HTMLCanvasElement;
-	let trafficCanvas: HTMLCanvasElement;
-	let showingsCanvas: HTMLCanvasElement;
+	let viewsCanvas = $state<HTMLCanvasElement>(null!);
+	let trafficCanvas = $state<HTMLCanvasElement>(null!);
+	let showingsCanvas = $state<HTMLCanvasElement>(null!);
 	let viewsChart: Chart | null = null;
 	let trafficChart: Chart | null = null;
 	let showingsChart: Chart | null = null;

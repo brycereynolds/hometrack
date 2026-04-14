@@ -49,7 +49,7 @@
 	// Track which column is being dragged over
 	let dragOverPhase = $state<ListingPhase | null>(null);
 
-	const agents = [...new Set(data.listings.map((l) => l.agent?.name).filter(Boolean))];
+	const agents = $derived([...new Set(data.listings.map((l) => l.agent?.name).filter(Boolean))]);
 
 	// Filtering: when filters are active, show filtered view (non-draggable).
 	// When no filters, show the draggable columns directly.

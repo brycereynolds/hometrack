@@ -75,7 +75,7 @@
 			: []
 	);
 
-	let pipelineCanvas: HTMLCanvasElement;
+	let pipelineCanvas = $state<HTMLCanvasElement>(null!);
 	let pipelineChart: Chart | undefined;
 
 	onMount(() => {

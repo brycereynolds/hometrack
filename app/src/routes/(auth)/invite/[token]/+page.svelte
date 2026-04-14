@@ -67,7 +67,7 @@
 
 		<!-- Avatar upload -->
 		<div class="space-y-2">
-			<label class="text-sm font-medium">Profile photo</label>
+			<p class="text-sm font-medium">Profile photo</p>
 			<div class="flex items-center gap-4">
 				<Avatar class="size-16">
 					<AvatarFallback class="bg-primary/10 text-primary text-lg">

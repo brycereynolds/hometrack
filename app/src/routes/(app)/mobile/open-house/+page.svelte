@@ -17,7 +17,8 @@
 	const listings = $derived(data.listings);
 	const loadedCheckIns = $derived(data.checkIns ?? []);
 
-	let selectedListing = $state(listings[0]?.id ?? '');
+	let selectedListing = $state('');
+	$effect(() => { if (!selectedListing && listings[0]) selectedListing = listings[0].id; });
 	let guestName = $state('');
 	let guestEmail = $state('');
 	let guestPhone = $state('');

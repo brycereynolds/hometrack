@@ -163,7 +163,8 @@
 		<CardContent>
 			<div class="flex items-center gap-4">
 				<button
-					onclick={() => quietHoursEnabled = !quietHoursEnabled}
+					aria-label="Toggle quiet hours"
+				onclick={() => quietHoursEnabled = !quietHoursEnabled}
 					class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {quietHoursEnabled ? 'bg-primary' : 'bg-muted'}"
 				>
 					<span class="inline-block size-4 transform rounded-full bg-white transition-transform shadow {quietHoursEnabled ? 'translate-x-6' : 'translate-x-1'}"></span>

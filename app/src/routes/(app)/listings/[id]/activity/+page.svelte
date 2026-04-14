@@ -215,7 +215,7 @@
 							{:else if activity.type === 'voice_memo'}
 								<div class="mt-2 rounded-lg border bg-muted/50 p-3">
 									<div class="flex items-center gap-2">
-										<button class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
+										<button aria-label="Play voice memo" class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
 											<svg class="size-3 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
 												<polygon points="5,3 19,12 5,21" />
 											</svg>

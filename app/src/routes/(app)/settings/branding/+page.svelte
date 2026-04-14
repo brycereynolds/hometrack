@@ -12,9 +12,16 @@
 
 	// Initialize from team settings if available
 	const brandingSettings = $derived((data.team?.settings as Record<string, any>)?.branding);
-	let primaryColor = $state(brandingSettings?.primaryColor ?? '#C4704B');
-	let customDomain = $state(brandingSettings?.customDomain ?? 'portal.chenrealtygroup.com');
-	let welcomeMessage = $state(brandingSettings?.welcomeMessage ?? 'Welcome to your client portal. Here you can track the progress of your listing, view documents, and stay updated on showings and offers.');
+	let primaryColor = $state('#C4704B');
+	let customDomain = $state('portal.chenrealtygroup.com');
+	let welcomeMessage = $state('Welcome to your client portal. Here you can track the progress of your listing, view documents, and stay updated on showings and offers.');
+	$effect(() => {
+		if (brandingSettings) {
+			if (brandingSettings.primaryColor) primaryColor = brandingSettings.primaryColor;
+			if (brandingSettings.customDomain) customDomain = brandingSettings.customDomain;
+			if (brandingSettings.welcomeMessage) welcomeMessage = brandingSettings.welcomeMessage;
+		}
+	});
 	let saving = $state(false);
 </script>
 
@@ -77,11 +84,12 @@
 							class="w-28 rounded-md border bg-transparent px-3 py-1.5 text-sm font-mono"
 						/>
 						<div class="flex gap-1.5">
-							{#each ['#C4704B', '#5B8BA5', '#7B8B6F', '#C49A3C', '#6B5B95', '#2C3E50'] as color}
+							{#each ['#C4704B', '#5B8BA5', '#7B8B6F', '#C49A3C', '#6B5B95', '#2C3E50'] as swatch}
 								<button
-									onclick={() => primaryColor = color}
-									class="size-6 rounded-full border-2 transition-transform hover:scale-110 {primaryColor === color ? 'border-foreground ring-2 ring-offset-2 ring-primary' : 'border-transparent'}"
-									style="background-color: {color}"
+									aria-label="Select color {swatch}"
+									onclick={() => primaryColor = swatch}
+									class="size-6 rounded-full border-2 transition-transform hover:scale-110 {primaryColor === swatch ? 'border-foreground ring-2 ring-offset-2 ring-primary' : 'border-transparent'}"
+									style="background-color: {swatch}"
 								></button>
 							{/each}
 						</div>

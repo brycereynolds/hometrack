@@ -22,7 +22,8 @@
 	let isPlaying = $state(false);
 	let isSaving = $state(false);
 	let recordingTime = $state(0);
-	let selectedListing = $state(listings[0]?.id ?? '');
+	let selectedListing = $state('');
+	$effect(() => { if (!selectedListing && listings[0]) selectedListing = listings[0].id; });
 	let timer: ReturnType<typeof setInterval> | null = null;
 
 	// MediaRecorder state

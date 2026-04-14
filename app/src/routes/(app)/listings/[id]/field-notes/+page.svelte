@@ -220,10 +220,8 @@
 									{#if note.status === 'processing'}
 										<Loader2 class="size-3 animate-spin" />
 									{:else}
-										<svelte:component
-											this={status.icon}
-											class="size-3"
-										/>
+										{@const Icon = status.icon}
+										<Icon class="size-3" />
 									{/if}
 									<span class="text-[10px] font-medium"
 										>{status.label}</span

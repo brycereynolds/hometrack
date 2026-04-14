@@ -29,8 +29,8 @@
 	let uploading = $state(false);
 	let dragOver = $state(false);
 	let selectedCategory = $state('other');
-	let fileInput: HTMLInputElement;
-	let formEl: HTMLFormElement;
+	let fileInput = $state<HTMLInputElement>(null!);
+	let formEl = $state<HTMLFormElement>(null!);
 
 	function formatDate(d: any): string {
 		if (!d) return '';

@@ -148,7 +148,7 @@
 							<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
 								<div class="rounded-md p-1.5 {section.enabled ? 'bg-primary/10' : 'bg-muted'}"><Icon class="size-4 {section.enabled ? 'text-primary' : 'text-muted-foreground'}" /></div>
 								<div class="flex-1 min-w-0"><p class="text-sm font-medium">{section.label}</p><p class="text-xs text-muted-foreground">{section.description}</p></div>
-								<button onclick={() => toggleSection(section.id)} class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {section.enabled ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform {section.enabled ? 'translate-x-6' : 'translate-x-1'}"></span></button>
+								<button aria-label="Toggle {section.label}" onclick={() => toggleSection(section.id)} class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {section.enabled ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform {section.enabled ? 'translate-x-6' : 'translate-x-1'}"></span></button>
 							</div>
 						{/each}
 					</div>
@@ -164,7 +164,7 @@
 							<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
 								<div class="rounded-md p-1.5 {doc.shared ? 'bg-green-50' : 'bg-muted'}">{#if doc.shared}<Eye class="size-4 text-green-600" />{:else}<EyeOff class="size-4 text-muted-foreground" />{/if}</div>
 								<div class="flex-1"><p class="text-sm font-medium">{doc.label}</p><p class="text-xs text-muted-foreground">{doc.count} document{doc.count !== 1 ? 's' : ''}</p></div>
-								<button onclick={() => toggleDocSharing(doc.id)} class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {doc.shared ? 'bg-green-500' : 'bg-muted'}"><span class="inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform {doc.shared ? 'translate-x-6' : 'translate-x-1'}"></span></button>
+								<button aria-label="Toggle {doc.label} sharing" onclick={() => toggleDocSharing(doc.id)} class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {doc.shared ? 'bg-green-500' : 'bg-muted'}"><span class="inline-block h-4 w-4 rounded-full bg-white shadow-sm transition-transform {doc.shared ? 'translate-x-6' : 'translate-x-1'}"></span></button>
 							</div>
 						{/each}
 					</div>
@@ -207,8 +207,8 @@
 								{@const Icon = setting.icon}
 								<tr>
 									<td class="py-3"><div class="flex items-center gap-2.5"><Icon class="size-4 text-muted-foreground shrink-0" /><div><p class="font-medium">{setting.label}</p><p class="text-xs text-muted-foreground">{setting.description}</p></div></div></td>
-									<td class="py-3 text-center"><button onclick={() => toggleNotification(setting.id, 'email')} class="relative mx-auto inline-flex h-5 w-9 items-center rounded-full transition-colors {setting.email ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform {setting.email ? 'translate-x-4.5' : 'translate-x-0.5'}"></span></button></td>
-									<td class="py-3 text-center"><button onclick={() => toggleNotification(setting.id, 'sms')} class="relative mx-auto inline-flex h-5 w-9 items-center rounded-full transition-colors {setting.sms ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform {setting.sms ? 'translate-x-4.5' : 'translate-x-0.5'}"></span></button></td>
+									<td class="py-3 text-center"><button aria-label="Toggle {setting.label} email" onclick={() => toggleNotification(setting.id, 'email')} class="relative mx-auto inline-flex h-5 w-9 items-center rounded-full transition-colors {setting.email ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform {setting.email ? 'translate-x-4.5' : 'translate-x-0.5'}"></span></button></td>
+									<td class="py-3 text-center"><button aria-label="Toggle {setting.label} SMS" onclick={() => toggleNotification(setting.id, 'sms')} class="relative mx-auto inline-flex h-5 w-9 items-center rounded-full transition-colors {setting.sms ? 'bg-primary' : 'bg-muted'}"><span class="inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform {setting.sms ? 'translate-x-4.5' : 'translate-x-0.5'}"></span></button></td>
 								</tr>
 							{/each}
 						</tbody>

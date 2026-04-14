@@ -11,7 +11,8 @@
 
 	let { fieldNoteId, initialStatus }: Props = $props();
 
-	let status = $state(initialStatus);
+	let statusOverride = $state<string | null>(null);
+	const status = $derived(statusOverride ?? initialStatus);
 	let currentStage = $state('');
 	let errorMessage = $state('');
 	let pollInterval: ReturnType<typeof setInterval> | null = null;
@@ -40,7 +41,7 @@
 			if (!res.ok) return;
 
 			const data = await res.json();
-			status = data.status;
+			statusOverride = data.status;
 
 			if (Array.isArray(data.stages)) {
 				const inProgress = data.stages.find((s: any) => s.status === 'in_progress');
@@ -85,7 +86,7 @@
 	});
 
 	function retry() {
-		status = 'processing';
+		statusOverride = 'processing';
 		errorMessage = '';
 		fetchStatus();
 	}

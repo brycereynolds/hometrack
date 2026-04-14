@@ -175,7 +175,7 @@
 	}
 
 	// Workload chart
-	let workloadCanvas: HTMLCanvasElement;
+	let workloadCanvas = $state<HTMLCanvasElement>(null!);
 
 	onMount(() => {
 		new Chart(workloadCanvas, {

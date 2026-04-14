@@ -73,7 +73,7 @@
 	];
 
 	// Chart.js cost trend
-	let chartCanvas: HTMLCanvasElement;
+	let chartCanvas = $state<HTMLCanvasElement>(null!);
 
 	onMount(async () => {
 		const { Chart, registerables } = await import('chart.js');

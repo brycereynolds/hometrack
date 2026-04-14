@@ -65,7 +65,7 @@
 
 	const fieldNotesCount = $derived(data.fieldNotesCount ?? 0);
 
-	const tabs = [
+	const tabs = $derived([
 		{ href: '', label: 'Overview', count: 0 },
 		{ href: '/activity', label: 'Activity', count: 0 },
 		{ href: '/tasks', label: 'Tasks', count: 0 },
@@ -77,9 +77,9 @@
 		{ href: '/offers', label: 'Offers', count: 0 },
 		{ href: '/analytics', label: 'Analytics', count: 0 },
 		{ href: '/portal-settings', label: 'Portal', count: 0 }
-	];
+	]);
 
-	let tabsContainer: HTMLDivElement;
+	let tabsContainer = $state<HTMLDivElement>(null!);
 
 	function scrollTabs(direction: 'left' | 'right') {
 		if (tabsContainer) {

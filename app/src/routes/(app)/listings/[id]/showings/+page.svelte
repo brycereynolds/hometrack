@@ -57,8 +57,8 @@
 	const veryInterested = $derived(listingShowings.filter((s: any) => s.interestedLevel === 'very').length);
 	const somewhatInterested = $derived(listingShowings.filter((s: any) => s.interestedLevel === 'somewhat').length);
 
-	let funnelCanvas: HTMLCanvasElement;
-	let volumeCanvas: HTMLCanvasElement;
+	let funnelCanvas = $state<HTMLCanvasElement>(null!);
+	let volumeCanvas = $state<HTMLCanvasElement>(null!);
 	let funnelChart: Chart | null = null;
 	let volumeChart: Chart | null = null;
 

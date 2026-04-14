@@ -28,8 +28,8 @@
 	const financial = $derived(data.financial);
 	const listingQuotes = $derived(data.quotes ?? []);
 
-	let budgetCanvas: HTMLCanvasElement;
-	let breakdownCanvas: HTMLCanvasElement;
+	let budgetCanvas = $state<HTMLCanvasElement>(null!);
+	let breakdownCanvas = $state<HTMLCanvasElement>(null!);
 	let budgetChart: Chart | null = null;
 	let breakdownChart: Chart | null = null;
 

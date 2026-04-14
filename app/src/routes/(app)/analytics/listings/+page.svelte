@@ -48,8 +48,8 @@
 		{ label: 'Offers', value: funnelData.offers, color: '#7B8B6F' }
 	]);
 
-	let viewsCanvas: HTMLCanvasElement;
-	let platformCanvas: HTMLCanvasElement;
+	let viewsCanvas = $state<HTMLCanvasElement>(null!);
+	let platformCanvas = $state<HTMLCanvasElement>(null!);
 	let viewsChart: Chart | undefined;
 	let platformChart: Chart | undefined;
 

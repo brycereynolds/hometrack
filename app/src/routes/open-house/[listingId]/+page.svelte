@@ -6,7 +6,8 @@
 	let { data } = $props();
 	const listing = $derived(data.listing);
 	const registerUrl = $derived(data.registerUrl);
-	let visitorCount = $state(data.visitorCount);
+	let visitorCount = $state(0);
+	$effect(() => { visitorCount = data.visitorCount; });
 	let qrDataUrl = $state('');
 
 	onMount(() => {

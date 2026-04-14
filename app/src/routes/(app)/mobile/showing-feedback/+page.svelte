@@ -10,8 +10,10 @@
 	const listings = $derived(data.listings);
 	const showings = $derived(data.showings);
 
-	let selectedListing = $state(listings[0]?.id ?? '');
-	let selectedShowing = $state(showings[0]?.id ?? '');
+	let selectedListing = $state('');
+	let selectedShowing = $state('');
+	$effect(() => { if (!selectedListing && listings[0]) selectedListing = listings[0].id; });
+	$effect(() => { if (!selectedShowing && showings[0]) selectedShowing = showings[0].id; });
 	let interestLevel = $state<string>('');
 	let rating = $state(0);
 	let hoverRating = $state(0);
@@ -106,7 +108,7 @@
 
 		<!-- Interest Level — large tap targets -->
 		<div class="mb-6">
-			<label class="mb-3 block text-sm font-semibold">Buyer interest level</label>
+			<p class="mb-3 text-sm font-semibold">Buyer interest level</p>
 			<div class="grid grid-cols-3 gap-2">
 				{#each [
 					{ id: 'very', label: 'Very Interested', icon: ThumbsUp, color: 'bg-emerald-500/10 border-emerald-300 text-emerald-700' },
@@ -128,7 +130,7 @@
 
 		<!-- Star Rating -->
 		<div class="mb-6">
-			<label class="mb-3 block text-sm font-semibold">Overall rating</label>
+			<p class="mb-3 text-sm font-semibold">Overall rating</p>
 			<div class="flex justify-center gap-2">
 				{#each [1, 2, 3, 4, 5] as star}
 					<button
@@ -150,7 +152,7 @@
 
 		<!-- Price Feedback -->
 		<div class="mb-6">
-			<label class="mb-3 block text-sm font-semibold">Price perception</label>
+			<p class="mb-3 text-sm font-semibold">Price perception</p>
 			<div class="grid grid-cols-3 gap-2">
 				{#each [
 					{ id: 'high', label: 'Too High' },
@@ -173,7 +175,7 @@
 
 		<!-- Pros -->
 		<div class="mb-6">
-			<label class="mb-3 block text-sm font-semibold">Property pros</label>
+			<p class="mb-3 text-sm font-semibold">Property pros</p>
 			<div class="flex flex-wrap gap-2">
 				{#each pros as item}
 					<button
@@ -192,7 +194,7 @@
 
 		<!-- Cons -->
 		<div class="mb-6">
-			<label class="mb-3 block text-sm font-semibold">Property cons</label>
+			<p class="mb-3 text-sm font-semibold">Property cons</p>
 			<div class="flex flex-wrap gap-2">
 				{#each cons as item}
 					<button
@@ -211,8 +213,9 @@
 
 		<!-- Open text feedback -->
 		<div class="mb-6">
-			<label class="mb-2 block text-sm font-semibold">Additional comments</label>
+			<label for="comments" class="mb-2 block text-sm font-semibold">Additional comments</label>
 			<textarea
+				id="comments"
 				name="comments"
 				bind:value={comments}
 				placeholder="Any other feedback from the showing..."

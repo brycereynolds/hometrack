@@ -9,7 +9,8 @@
 
 	const listings = $derived(data.listings);
 
-	let selectedListing = $state(listings[0]?.id ?? '');
+	let selectedListing = $state('');
+	$effect(() => { if (!selectedListing && listings[0]) selectedListing = listings[0].id; });
 	let noteText = $state('');
 	let selectedTag = $state<string>('showing');
 	let saving = $state(false);

@@ -143,13 +143,13 @@
 	);
 	const userRole = $derived(currentUser?.roleLabel ?? '');
 
-	const navItems = [
+	const navItems = $derived([
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 		{ href: '/listings', label: 'Listings', icon: Home, badge: String(listings.length) },
 		{ href: '/contacts', label: 'Contacts', icon: Users },
 		{ href: '/vendors', label: 'Vendors', icon: Wrench },
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }
-	];
+	]);
 
 	const quickActions = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },

@@ -52,8 +52,10 @@
 	let pricingStrategy = $state('market');
 
 	let selectedClientId = $state('');
-	let selectedAgentId = $state(teamMembers[0]?.id ?? '');
-	let selectedTcId = $state(teamMembers[2]?.id ?? '');
+	let selectedAgentId = $state('');
+	let selectedTcId = $state('');
+	$effect(() => { if (!selectedAgentId && teamMembers[0]) selectedAgentId = teamMembers[0].id; });
+	$effect(() => { if (!selectedTcId && teamMembers[2]) selectedTcId = teamMembers[2].id; });
 	let selectedPhase = $state<string>('pre_market');
 
 	let isComplete = $derived(currentStep === STEPS.length - 1);
@@ -288,7 +290,7 @@
 						</div>
 
 						<div>
-							<label class="text-sm font-medium mb-3 block">Pricing Strategy</label>
+							<p class="text-sm font-medium mb-3">Pricing Strategy</p>
 							<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
 								{#each [
 									{ value: 'market', label: 'Market Price', desc: 'List at estimated market value based on comps' },
@@ -323,7 +325,7 @@
 					<!-- Step 3: Client Assignment -->
 					<div class="space-y-4">
 						<div>
-							<label class="text-sm font-medium mb-3 block">Select Seller Client</label>
+							<p class="text-sm font-medium mb-3">Select Seller Client</p>
 							<div class="space-y-2">
 								{#each clientContacts as client}
 									<button
@@ -410,7 +412,7 @@
 					<!-- Step 5: Pipeline & Phase -->
 					<div class="space-y-4">
 						<div>
-							<label class="text-sm font-medium mb-3 block">Initial Phase</label>
+							<p class="text-sm font-medium mb-3">Initial Phase</p>
 							<div class="space-y-2">
 								{#each PHASE_LIST as phase}
 									<button

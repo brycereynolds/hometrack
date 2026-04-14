@@ -4,11 +4,13 @@ import signal
 from temporalio.client import Client
 from temporalio.worker import Worker
 
-from src.activities.caption_frames import caption_frames
+from src.activities.analyze_key_moments import analyze_key_moments
+from src.activities.caption_frames import correlate_frames
 from src.activities.download_media import download_media
 from src.activities.extract_audio import extract_audio
 from src.activities.extract_frames import extract_frames
 from src.activities.extract_insights import extract_insights
+from src.activities.generate_enriched_transcript import generate_enriched_transcript
 from src.activities.save_results import save_results
 from src.activities.transcribe import transcribe
 from src.config import (
@@ -41,8 +43,10 @@ async def main() -> None:
             extract_audio,
             extract_frames,
             transcribe,
-            caption_frames,
+            analyze_key_moments,
+            correlate_frames,
             extract_insights,
+            generate_enriched_transcript,
             save_results,
         ],
     )

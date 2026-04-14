@@ -1,33 +1,26 @@
-from dataclasses import dataclass
 from datetime import timedelta
 
 from temporalio import workflow
 
 with workflow.unsafe.imports_passed_through():
-    from src.activities.caption_frames import FrameCaption, caption_frames
-    from src.activities.download_media import DownloadResult, download_media
+    from src.activities.analyze_key_moments import analyze_key_moments
+    from src.activities.caption_frames import correlate_frames
+    from src.activities.download_media import download_media
     from src.activities.extract_audio import extract_audio
-    from src.activities.extract_frames import FrameData, extract_frames
-    from src.activities.extract_insights import InsightResults, extract_insights
-    from src.activities.save_results import SaveInput, save_results
-    from src.activities.transcribe import TranscriptionResult, transcribe
-
-
-@dataclass
-class FieldMediaInput:
-    media_type: str          # "video", "voice_memo", "text"
-    storage_path: str        # Path in Supabase Storage
-    listing_id: str          # Which listing this is for
-    team_id: str             # Team context
-    author_id: str           # Who captured it (team_member.id)
-    author_name: str         # Display name
-    metadata: dict           # Additional context (tags, duration, etc.)
+    from src.activities.extract_frames import extract_frames
+    from src.activities.extract_insights import extract_insights
+    from src.activities.generate_enriched_transcript import generate_enriched_transcript
+    from src.activities.save_results import save_results
+    from src.activities.transcribe import transcribe
+    from src.models import FieldMediaInput
 
 
 @workflow.defn
 class ProcessFieldMedia:
     @workflow.run
-    async def run(self, input: FieldMediaInput) -> dict:
+    async def run(self, input_data: dict) -> dict:
+        input = FieldMediaInput(**input_data)
+
         if input.media_type == "video":
             return await self._process_video(input)
         elif input.media_type == "voice_memo":
@@ -38,135 +31,176 @@ class ProcessFieldMedia:
             raise ValueError(f"Unknown media_type: {input.media_type}")
 
     async def _process_video(self, input: FieldMediaInput) -> dict:
-        # 1. Download
-        download_result: DownloadResult = await workflow.execute_activity(
+        # 1. Download + downscale
+        download_result: dict = await workflow.execute_activity(
             download_media, input.storage_path,
-            start_to_close_timeout=timedelta(minutes=5),
-            heartbeat_timeout=timedelta(minutes=2),
+            start_to_close_timeout=timedelta(minutes=10),
+            heartbeat_timeout=timedelta(minutes=3),
         )
+        local_path = download_result["local_path"]
+        content_hash = download_result["content_hash"]
 
-        # 2. Extract audio and frames in parallel
+        # 2. Extract audio
         audio_path: str = await workflow.execute_activity(
-            extract_audio, download_result.local_path,
+            extract_audio, local_path,
             start_to_close_timeout=timedelta(minutes=10),
             heartbeat_timeout=timedelta(minutes=5),
         )
 
-        frame_list: list[FrameData] = await workflow.execute_activity(
-            extract_frames, download_result.local_path,
+        # 3. Extract frames (interval-based with scene detection merge)
+        frames_data: list[dict] = await workflow.execute_activity(
+            extract_frames, local_path,
             start_to_close_timeout=timedelta(minutes=10),
             heartbeat_timeout=timedelta(minutes=5),
         )
 
-        # 3. Transcribe audio
-        transcript: TranscriptionResult = await workflow.execute_activity(
+        # 4. Transcribe with speaker diarization
+        transcript_data: dict = await workflow.execute_activity(
             transcribe, audio_path,
             start_to_close_timeout=timedelta(minutes=15),
             heartbeat_timeout=timedelta(minutes=5),
         )
 
-        # 4. Caption frames with transcript context
-        captions: list[FrameCaption] = await workflow.execute_activity(
-            caption_frames, args=[frame_list, transcript.segments],
-            start_to_close_timeout=timedelta(minutes=20),
+        # 5. Analyze key moments
+        moments_data: list[dict] = await workflow.execute_activity(
+            analyze_key_moments, transcript_data,
+            start_to_close_timeout=timedelta(minutes=5),
+            heartbeat_timeout=timedelta(minutes=3),
+        )
+
+        # 6. Correlate frames with key moments (vision)
+        correlations_data: list[dict] = await workflow.execute_activity(
+            correlate_frames, args=[frames_data, moments_data],
+            start_to_close_timeout=timedelta(minutes=30),
             heartbeat_timeout=timedelta(minutes=5),
         )
 
-        # 5. Extract insights from enriched transcript
-        caption_texts = [c.caption for c in captions]
-        insights: InsightResults = await workflow.execute_activity(
-            extract_insights, args=[transcript.full_text, caption_texts],
+        # 7. Generate enriched transcript
+        enriched_transcript: str = await workflow.execute_activity(
+            generate_enriched_transcript,
+            args=[transcript_data, moments_data, correlations_data],
             start_to_close_timeout=timedelta(minutes=5),
-            heartbeat_timeout=timedelta(minutes=2),
+            heartbeat_timeout=timedelta(minutes=3),
         )
 
-        # 6. Save results
-        save_input = SaveInput(
-            listing_id=input.listing_id,
-            team_id=input.team_id,
-            author_id=input.author_id,
-            author_name=input.author_name,
-            transcription=transcript.full_text,
-            media_type=input.media_type,
-            action_items=insights.action_items,
-            observations=insights.observations,
-            follow_ups=insights.follow_ups,
-            frame_captions=[
-                {"index": c.index, "timestamp": c.timestamp_seconds, "caption": c.caption}
-                for c in captions
-            ],
+        # 8. Extract insights (HomeTrack-specific with Pydantic)
+        # Build a correlations summary for the insights extractor
+        corr_summary = _build_correlations_summary(correlations_data)
+        insights_data: dict = await workflow.execute_activity(
+            extract_insights,
+            args=[enriched_transcript, corr_summary],
+            start_to_close_timeout=timedelta(minutes=5),
+            heartbeat_timeout=timedelta(minutes=3),
         )
-        result = await workflow.execute_activity(
-            save_results, save_input,
-            start_to_close_timeout=timedelta(minutes=2),
+
+        # 9. Save results (full storage)
+        result: dict = await workflow.execute_activity(
+            save_results,
+            args=[
+                input.listing_id, input.team_id, input.author_id,
+                input.author_name, input.media_type, content_hash,
+                transcript_data, enriched_transcript, insights_data,
+                frames_data, correlations_data,
+            ],
+            start_to_close_timeout=timedelta(minutes=10),
+            heartbeat_timeout=timedelta(minutes=5),
         )
         return result
 
     async def _process_voice_memo(self, input: FieldMediaInput) -> dict:
         # 1. Download
-        download_result: DownloadResult = await workflow.execute_activity(
+        download_result: dict = await workflow.execute_activity(
             download_media, input.storage_path,
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
         )
+        local_path = download_result["local_path"]
+        content_hash = download_result["content_hash"]
 
-        # 2. Transcribe (already audio, skip extraction)
-        transcript: TranscriptionResult = await workflow.execute_activity(
-            transcribe, download_result.local_path,
+        # 2. Transcribe with diarization (already audio, skip extraction)
+        transcript_data: dict = await workflow.execute_activity(
+            transcribe, local_path,
             start_to_close_timeout=timedelta(minutes=15),
             heartbeat_timeout=timedelta(minutes=5),
         )
 
-        # 3. Extract insights
-        insights: InsightResults = await workflow.execute_activity(
-            extract_insights, args=[transcript.full_text, None],
+        # 3. Analyze key moments
+        moments_data: list[dict] = await workflow.execute_activity(
+            analyze_key_moments, transcript_data,
+            start_to_close_timeout=timedelta(minutes=5),
+            heartbeat_timeout=timedelta(minutes=3),
+        )
+
+        # 4. Generate enriched transcript (no frames/correlations)
+        enriched_transcript: str = await workflow.execute_activity(
+            generate_enriched_transcript,
+            args=[transcript_data, moments_data, []],
+            start_to_close_timeout=timedelta(minutes=5),
+            heartbeat_timeout=timedelta(minutes=3),
+        )
+
+        # 5. Extract insights
+        insights_data: dict = await workflow.execute_activity(
+            extract_insights,
+            args=[enriched_transcript, None],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
         )
 
-        # 4. Save results
-        save_input = SaveInput(
-            listing_id=input.listing_id,
-            team_id=input.team_id,
-            author_id=input.author_id,
-            author_name=input.author_name,
-            transcription=transcript.full_text,
-            media_type=input.media_type,
-            action_items=insights.action_items,
-            observations=insights.observations,
-            follow_ups=insights.follow_ups,
-        )
-        result = await workflow.execute_activity(
-            save_results, save_input,
-            start_to_close_timeout=timedelta(minutes=2),
+        # 6. Save results
+        result: dict = await workflow.execute_activity(
+            save_results,
+            args=[
+                input.listing_id, input.team_id, input.author_id,
+                input.author_name, input.media_type, content_hash,
+                transcript_data, enriched_transcript, insights_data,
+                None, None,
+            ],
+            start_to_close_timeout=timedelta(minutes=5),
+            heartbeat_timeout=timedelta(minutes=2),
         )
         return result
 
     async def _process_text(self, input: FieldMediaInput) -> dict:
-        # Text content is passed in metadata
         text = input.metadata.get("text", "")
+        content_hash = input.metadata.get("content_hash", "text_" + input.listing_id)
 
-        # 1. Extract insights directly
-        insights: InsightResults = await workflow.execute_activity(
-            extract_insights, args=[text, None],
+        # 1. Extract insights directly from text
+        insights_data: dict = await workflow.execute_activity(
+            extract_insights,
+            args=[text, None],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
         )
 
         # 2. Save results
-        save_input = SaveInput(
-            listing_id=input.listing_id,
-            team_id=input.team_id,
-            author_id=input.author_id,
-            author_name=input.author_name,
-            transcription=text,
-            media_type=input.media_type,
-            action_items=insights.action_items,
-            observations=insights.observations,
-            follow_ups=insights.follow_ups,
-        )
-        result = await workflow.execute_activity(
-            save_results, save_input,
-            start_to_close_timeout=timedelta(minutes=2),
+        result: dict = await workflow.execute_activity(
+            save_results,
+            args=[
+                input.listing_id, input.team_id, input.author_id,
+                input.author_name, input.media_type, content_hash,
+                None, text, insights_data,
+                None, None,
+            ],
+            start_to_close_timeout=timedelta(minutes=5),
+            heartbeat_timeout=timedelta(minutes=2),
         )
         return result
+
+
+def _build_correlations_summary(correlations_data: list[dict]) -> str:
+    """Build a text summary of frame correlations for the insights extractor."""
+    if not correlations_data:
+        return ""
+    lines = []
+    for corr in correlations_data:
+        desc = corr.get("moment_description", "")
+        ts = corr.get("moment_timestamp", 0)
+        frames = corr.get("ranked_frames", [])
+        if frames:
+            best = frames[0]
+            lines.append(
+                f"- [{ts:.0f}s] {desc}: {best.get('caption', '')} "
+                f"(relevance: {best.get('relevance_score', 0):.1f})"
+            )
+    return "\n".join(lines)

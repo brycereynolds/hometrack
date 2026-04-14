@@ -1,75 +1,116 @@
 import base64
-import glob
+import glob as globmod
 import os
 import subprocess
 import tempfile
-from dataclasses import dataclass
 
 from temporalio import activity
 
 from src.config import logger
+from src.models import ExtractedFrame
 
-MAX_FRAMES = 50
-MIN_INTERVAL_SECONDS = 3
+DEFAULT_INTERVAL_SECONDS = 5
 SCENE_CHANGE_THRESHOLD = 0.3
 
 
-@dataclass
-class FrameData:
-    index: int
-    timestamp_seconds: float
-    base64_jpeg: str
-
-
 @activity.defn
-async def extract_frames(video_path: str) -> list[FrameData]:
-    """Extract key frames from video using ffmpeg scene-change detection."""
+async def extract_frames(
+    video_path: str,
+    interval_seconds: float = DEFAULT_INTERVAL_SECONDS,
+    use_scene_detection: bool = True,
+) -> list[dict]:
+    """Extract frames at fixed intervals, optionally merging scene-change frames."""
     activity.heartbeat("extracting frames")
 
     tmp_dir = tempfile.mkdtemp(prefix="frames_")
 
-    # Use scene change detection filter
+    # 1. Interval-based extraction
+    interval_dir = os.path.join(tmp_dir, "interval")
+    os.makedirs(interval_dir)
     cmd = [
         "ffmpeg", "-i", video_path,
-        "-vf", f"select='gt(scene,{SCENE_CHANGE_THRESHOLD})',showinfo",
-        "-vsync", "vfr",
-        "-frame_pts", "1",
+        "-vf", f"fps=1/{interval_seconds}",
         "-q:v", "2",
-        os.path.join(tmp_dir, "frame_%04d.jpg"),
+        os.path.join(interval_dir, "frame_%06d.jpg"),
     ]
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
-        logger.warning("Scene detection failed, falling back to interval extraction: %s", result.stderr[:300])
-        # Fallback: extract one frame every 3 seconds
-        cmd = [
+        logger.error("Interval extraction failed: %s", result.stderr[:300])
+        raise RuntimeError(f"ffmpeg frame extraction failed: {result.stderr[:500]}")
+
+    interval_files = sorted(globmod.glob(os.path.join(interval_dir, "frame_*.jpg")))
+    # Build timestamp map: frame N -> (N-1) * interval
+    timestamps: dict[str, float] = {}
+    for i, fpath in enumerate(interval_files):
+        timestamps[fpath] = i * interval_seconds
+
+    # 2. Optional scene detection merge
+    if use_scene_detection:
+        scene_dir = os.path.join(tmp_dir, "scene")
+        os.makedirs(scene_dir)
+        scene_cmd = [
             "ffmpeg", "-i", video_path,
-            "-vf", f"fps=1/{MIN_INTERVAL_SECONDS}",
+            "-vf", f"select='gt(scene,{SCENE_CHANGE_THRESHOLD})',showinfo",
+            "-vsync", "vfr",
+            "-frame_pts", "1",
             "-q:v", "2",
-            os.path.join(tmp_dir, "frame_%04d.jpg"),
+            os.path.join(scene_dir, "scene_%06d.jpg"),
         ]
-        subprocess.run(cmd, capture_output=True, text=True, check=True)
+        scene_result = subprocess.run(scene_cmd, capture_output=True, text=True)
+        if scene_result.returncode == 0:
+            scene_files = sorted(globmod.glob(os.path.join(scene_dir, "scene_*.jpg")))
+            # Parse timestamps from ffmpeg showinfo output
+            scene_ts = _parse_showinfo_timestamps(scene_result.stderr)
+            for i, fpath in enumerate(scene_files):
+                ts = scene_ts[i] if i < len(scene_ts) else None
+                if ts is not None:
+                    # Only add scene frame if it's not too close to an interval frame
+                    too_close = any(
+                        abs(ts - existing_ts) < interval_seconds * 0.5
+                        for existing_ts in timestamps.values()
+                    )
+                    if not too_close:
+                        timestamps[fpath] = ts
+        else:
+            logger.warning("Scene detection failed, using interval frames only")
 
-    frame_files = sorted(glob.glob(os.path.join(tmp_dir, "frame_*.jpg")))
+    # 3. Sort all frames by timestamp and build output
+    sorted_items = sorted(timestamps.items(), key=lambda x: x[1])
 
-    # Enforce min interval and max frames
-    frames: list[FrameData] = []
-    last_ts = -MIN_INTERVAL_SECONDS
-    for i, fpath in enumerate(frame_files):
-        ts = i * MIN_INTERVAL_SECONDS  # approximate timestamp
-        if ts - last_ts < MIN_INTERVAL_SECONDS:
-            continue
+    frames: list[ExtractedFrame] = []
+    for idx, (fpath, ts) in enumerate(sorted_items):
         with open(fpath, "rb") as f:
             b64 = base64.b64encode(f.read()).decode("ascii")
-        frames.append(FrameData(index=len(frames), timestamp_seconds=ts, base64_jpeg=b64))
-        last_ts = ts
-        if len(frames) >= MAX_FRAMES:
-            break
+        frames.append(ExtractedFrame(
+            index=idx,
+            timestamp_seconds=ts,
+            path=fpath,
+            base64_jpeg=b64,
+        ))
+        if (idx + 1) % 20 == 0:
+            activity.heartbeat(f"encoded {idx + 1}/{len(sorted_items)} frames")
 
-    # Clean up frame files
-    for fpath in frame_files:
-        os.unlink(fpath)
-    os.rmdir(tmp_dir)
+    # Clean up
+    for fpath in timestamps:
+        try:
+            os.unlink(fpath)
+        except OSError:
+            pass
+    for d in [os.path.join(tmp_dir, "interval"), os.path.join(tmp_dir, "scene"), tmp_dir]:
+        try:
+            os.rmdir(d)
+        except OSError:
+            pass
 
     activity.heartbeat(f"extracted {len(frames)} frames")
-    logger.info("Extracted %d key frames from video", len(frames))
-    return frames
+    logger.info("Extracted %d frames (interval=%.1fs)", len(frames), interval_seconds)
+    return [f.model_dump() for f in frames]
+
+
+def _parse_showinfo_timestamps(stderr: str) -> list[float]:
+    """Parse pts_time values from ffmpeg showinfo filter output."""
+    import re
+    timestamps = []
+    for match in re.finditer(r"pts_time:\s*([\d.]+)", stderr):
+        timestamps.append(float(match.group(1)))
+    return timestamps

@@ -1,0 +1,8 @@
+{
+  "name": "hometrack-temporal-worker",
+  "private": true,
+  "scripts": {
+    "dev": "python -m src.worker",
+    "start": "python -m src.worker"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "hometrack",
+  "private": true,
+  "workspaces": ["app", "temporal-worker"],
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:app": "turbo dev --filter=hometrack-app",
+    "dev:worker": "turbo dev --filter=hometrack-temporal-worker",
+    "build": "turbo build",
+    "build:app": "turbo build --filter=hometrack-app",
+    "db:migrate": "npm run db:migrate -w app",
+    "db:seed": "npm run db:seed -w app",
+    "db:reset": "npm run db:reset -w app",
+    "db:wipe": "npm run db:wipe -w app"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

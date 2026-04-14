@@ -3,7 +3,8 @@
 	import { Card, CardContent } from '$lib/components/ui/card/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { ChevronDown, Star, Send, ThumbsUp, ThumbsDown, Minus } from 'lucide-svelte';
+	import { Star, Send, ThumbsUp, ThumbsDown, Minus } from 'lucide-svelte';
+	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
 	let { data } = $props();
 
@@ -79,30 +80,18 @@
 
 		<!-- Listing & showing selector -->
 		<div class="mb-6 space-y-3">
-			<div class="relative">
-				<select
-					bind:value={selectedListing}
-					class="h-11 w-full appearance-none rounded-xl border bg-muted/50 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-				>
-					{#each listings.filter((l) => (l.showingsCount ?? 0) > 0) as listing}
-						<option value={listing.id}>{listing.address} — {listing.city}</option>
-					{/each}
-				</select>
-				<ChevronDown class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-			</div>
+			<Autocomplete
+				items={listings.filter((l) => (l.showingsCount ?? 0) > 0).map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+				bind:value={selectedListing}
+				placeholder="Search listings..."
+			/>
 
 			{#if listingShowings.length > 0}
-				<div class="relative">
-					<select
-						bind:value={selectedShowing}
-						class="h-11 w-full appearance-none rounded-xl border bg-muted/50 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-					>
-						{#each listingShowings as showing}
-							<option value={showing.id}>{showing.date.toLocaleDateString()} {showing.time ?? ''} — {showing.agentName} ({showing.agentCompany})</option>
-						{/each}
-					</select>
-					<ChevronDown class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-				</div>
+				<Autocomplete
+					items={listingShowings.map((s) => ({ value: s.id, label: `${s.date.toLocaleDateString()} ${s.time ?? ''}`, subtitle: `${s.agentName} (${s.agentCompany})` }))}
+					bind:value={selectedShowing}
+					placeholder="Search showings..."
+				/>
 			{/if}
 		</div>
 

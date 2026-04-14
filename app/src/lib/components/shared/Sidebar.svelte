@@ -6,6 +6,7 @@
   import { goto } from '$app/navigation';
   import * as Dialog from '$lib/components/ui/dialog/index.js';
   import { Button } from '$lib/components/ui/button/index.js';
+  import Autocomplete from './Autocomplete.svelte';
   import type { Listing, AIInsight } from '$lib/types';
 
   interface Props {
@@ -58,6 +59,8 @@
   // Quick note state
   let noteTitle = $state('');
   let noteContent = $state('');
+  let memoListingId = $state('');
+  let noteListingId = $state('');
 
   function isActive(href: string): boolean {
     return activePath === href || activePath.startsWith(href + '/');
@@ -340,12 +343,13 @@
       </div>
       <div>
         <label for="memo-listing" class="text-sm font-medium">Link to Listing (optional)</label>
-        <select id="memo-listing" class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2">
-          <option value="">None</option>
-          {#each listings as listing}
-            <option value={listing.id}>{listing.address}</option>
-          {/each}
-        </select>
+        <div class="mt-1">
+          <Autocomplete
+            items={[{ value: '', label: 'None' }, ...listings.map((l) => ({ value: l.id, label: l.address }))]}
+            bind:value={memoListingId}
+            placeholder="Search listings..."
+          />
+        </div>
       </div>
     </div>
     <Dialog.Footer>
@@ -385,12 +389,13 @@
       </div>
       <div>
         <label for="note-listing" class="text-sm font-medium">Link to Listing (optional)</label>
-        <select id="note-listing" class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2">
-          <option value="">None</option>
-          {#each listings as listing}
-            <option value={listing.id}>{listing.address}</option>
-          {/each}
-        </select>
+        <div class="mt-1">
+          <Autocomplete
+            items={[{ value: '', label: 'None' }, ...listings.map((l) => ({ value: l.id, label: l.address }))]}
+            bind:value={noteListingId}
+            placeholder="Search listings..."
+          />
+        </div>
       </div>
     </div>
     <Dialog.Footer>

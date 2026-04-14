@@ -26,6 +26,7 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
+	import { Autocomplete } from '$lib/components/shared';
 
 	let { data } = $props();
 
@@ -427,18 +428,15 @@
 				<div class="space-y-4 py-4">
 					<div>
 						<label for="quote-listing" class="text-sm font-medium">Listing</label>
-						<select
-							id="quote-listing"
-							name="listingId"
-							bind:value={quoteListingId}
-							required
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						>
-							<option value="">Select a listing...</option>
-							{#each listings as listing}
-								<option value={listing.id}>{listing.address} - {listing.city}</option>
-							{/each}
-						</select>
+						<div class="mt-1">
+							<Autocomplete
+								items={listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+								bind:value={quoteListingId}
+								placeholder="Search listings..."
+								name="listingId"
+								required
+							/>
+						</div>
 					</div>
 					<div>
 						<label for="quote-scope" class="text-sm font-medium">Scope of Work</label>

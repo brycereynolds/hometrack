@@ -18,6 +18,7 @@
 		Check,
 		Loader2,
 	} from 'lucide-svelte';
+	import { Autocomplete } from '$lib/components/shared';
 
 	let { data } = $props();
 	const teamMembers = $derived(data.teamMembers);
@@ -363,28 +364,20 @@
 					<div class="space-y-4">
 						<div>
 							<label for="agent" class="text-sm font-medium mb-1.5 block">Listing Agent</label>
-							<select
-								id="agent"
+							<Autocomplete
+								items={teamMembers.filter((m) => m.role === 'admin' || m.role === 'listing_agent').map((m) => ({ value: m.id, label: m.name, subtitle: m.roleLabel ?? m.role }))}
 								bind:value={selectedAgentId}
-								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-							>
-								{#each teamMembers.filter((m) => m.role === 'admin' || m.role === 'listing_agent') as member}
-									<option value={member.id}>{member.name} - {member.roleLabel ?? member.role}</option>
-								{/each}
-							</select>
+								placeholder="Search team members..."
+							/>
 						</div>
 
 						<div>
 							<label for="tc" class="text-sm font-medium mb-1.5 block">Transaction Coordinator</label>
-							<select
-								id="tc"
+							<Autocomplete
+								items={teamMembers.map((m) => ({ value: m.id, label: m.name, subtitle: m.roleLabel ?? m.role }))}
 								bind:value={selectedTcId}
-								class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-							>
-								{#each teamMembers as member}
-									<option value={member.id}>{member.name} - {member.roleLabel ?? member.role}</option>
-								{/each}
-							</select>
+								placeholder="Search team members..."
+							/>
 						</div>
 
 						<Separator />

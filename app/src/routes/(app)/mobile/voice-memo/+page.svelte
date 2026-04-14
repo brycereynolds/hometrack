@@ -8,10 +8,10 @@
 		Play,
 		Pause,
 		Save,
-		ChevronDown,
 		Trash2,
 		RotateCcw
 	} from 'lucide-svelte';
+	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
 	let { data } = $props();
 
@@ -166,18 +166,11 @@
 	<!-- Listing selector -->
 	<div class="mb-6">
 		<label for="listing-select" class="mb-1.5 block text-sm font-medium">Associate with listing</label>
-		<div class="relative">
-			<select
-				id="listing-select"
-				bind:value={selectedListing}
-				class="h-11 w-full appearance-none rounded-xl border bg-muted/50 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-			>
-				{#each listings as listing}
-					<option value={listing.id}>{listing.address} — {listing.city}</option>
-				{/each}
-			</select>
-			<ChevronDown class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-		</div>
+		<Autocomplete
+			items={listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+			bind:value={selectedListing}
+			placeholder="Search listings..."
+		/>
 	</div>
 
 	<!-- Main recording area -->

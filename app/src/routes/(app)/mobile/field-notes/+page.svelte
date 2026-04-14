@@ -3,7 +3,8 @@
 	import { goto } from '$app/navigation';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { Camera, ChevronDown, Save, X, Tag, Video, Loader2 } from 'lucide-svelte';
+	import { Camera, Save, X, Tag, Video, Loader2 } from 'lucide-svelte';
+	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
 	let { data } = $props();
 
@@ -155,18 +156,12 @@
 
 		<!-- Listing selector -->
 		<div class="mb-4">
-			<div class="relative">
-				<select
-					name="listingId"
-					bind:value={selectedListing}
-					class="h-11 w-full appearance-none rounded-xl border bg-muted/50 px-4 pr-10 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-				>
-					{#each listings as listing}
-						<option value={listing.id}>{listing.address} — {listing.city}</option>
-					{/each}
-				</select>
-				<ChevronDown class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-			</div>
+			<Autocomplete
+				items={listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+				bind:value={selectedListing}
+				placeholder="Search listings..."
+				name="listingId"
+			/>
 		</div>
 
 		<!-- Tag selector -->

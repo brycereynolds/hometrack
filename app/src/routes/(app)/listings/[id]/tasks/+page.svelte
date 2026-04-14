@@ -21,6 +21,7 @@
 		User,
 		Pencil
 	} from 'lucide-svelte';
+	import { Autocomplete } from '$lib/components/shared';
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
@@ -165,15 +166,12 @@
 				<div class="flex flex-wrap gap-3">
 					<div class="flex items-center gap-2">
 						<User class="size-3.5 text-muted-foreground" />
-						<select
+						<Autocomplete
+							items={[{ value: 'all', label: 'All Assignees' }, ...uniqueAssignees.map((a) => ({ value: a.id, label: a.name }))]}
 							bind:value={filterAssignee}
-							class="h-8 rounded-md border bg-transparent px-2 text-sm focus:outline-none focus:ring-1 focus:ring-ring"
-						>
-							<option value="all">All Assignees</option>
-							{#each uniqueAssignees as assignee}
-								<option value={assignee.id}>{assignee.name}</option>
-							{/each}
-						</select>
+							placeholder="Filter assignee..."
+							class="w-44"
+						/>
 					</div>
 					<div class="flex items-center gap-2">
 						<Filter class="size-3.5 text-muted-foreground" />

@@ -24,6 +24,7 @@ export { default as ContactCard } from './ContactCard.svelte';
 export { default as ActivityFeedItem } from './ActivityFeedItem.svelte';
 export { default as AIInsightCard } from './AIInsightCard.svelte';
 export { default as ProcessingStatus } from './ProcessingStatus.svelte';
+export { default as Autocomplete } from './Autocomplete.svelte';
 
 // Config, types, and utilities (replaces mock-data re-export)
 export * from '$lib/config';

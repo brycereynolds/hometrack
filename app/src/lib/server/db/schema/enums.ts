@@ -135,6 +135,28 @@ export const noteTagEnum = pgEnum('note_tag', [
   'showing',
   'vendor',
   'client',
+  'general',
+]);
+
+export const fieldNoteMediaTypeEnum = pgEnum('field_note_media_type', [
+  'video',
+  'voice_memo',
+  'text',
+  'photo',
+]);
+
+export const fieldNoteStatusEnum = pgEnum('field_note_status', [
+  'pending',
+  'processing',
+  'completed',
+  'failed',
+]);
+
+export const fieldNoteActionStatusEnum = pgEnum('field_note_action_status', [
+  'suggested',
+  'accepted',
+  'dismissed',
+  'task_created',
 ]);
 
 export const integrationCategoryEnum = pgEnum('integration_category', [

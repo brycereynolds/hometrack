@@ -20,10 +20,25 @@ class TranscriptSegment(BaseModel):
 class KeyMoment(BaseModel):
     timestamp: float
     end_timestamp: float | None = None
-    category: str  # visual_reference, observation, decision, action_item, topic_change
+    category: str  # topic_change, observation, decision, action_item, condition_note, visual_reference
     description: str
     transcript_context: str
     importance: str = "medium"  # low, medium, high
+    # Correlation fields (populated after correlate_frames stage)
+    best_frame_index: int | None = None
+    best_frame_timestamp: float | None = None
+    ranked_frames: list[RankedFrame] | None = None
+    scrub_start: float | None = None
+    scrub_end: float | None = None
+    enriched_caption: str | None = None
+    speech_visual_relationship: str | None = None
+    visual_description: str | None = None
+
+
+class RankedFrame(BaseModel):
+    timestamp: float
+    rank: int
+    relevance: float
 
 
 class CorrelatedFrame(BaseModel):
@@ -42,16 +57,20 @@ class FrameCorrelation(BaseModel):
     ranked_frames: list[CorrelatedFrame]
     scrub_window_start: float
     scrub_window_end: float
+    enriched_caption: str | None = None
+    visual_description: str | None = None
 
 
 class ActionItem(BaseModel):
     title: str
     description: str = ""
     priority: str = "medium"  # low, medium, high, urgent
-    category: str = "general"  # improvements, staging, media, marketing, disclosures, general
+    category: str = "general"  # demolition, flooring, fixtures, paint, cleaning, moving, staging, quoting, general
     quote_needed: bool = False
+    estimated_vendor_category: str | None = None  # handyman, flooring, electrician, etc.
     source_timestamp: float | None = None
     source_quote: str = ""
+    extraction_confidence: float | None = None
 
 
 class PropertyObservation(BaseModel):
@@ -90,19 +109,24 @@ class FieldNoteInsights(BaseModel):
 
 
 class FieldMediaInput(BaseModel):
-    media_type: str          # "video", "voice_memo", "text"
+    media_type: str          # "video", "voice_memo", "text", "photo"
     storage_path: str        # Path in Supabase Storage
     listing_id: str          # Which listing this is for
     team_id: str             # Team context
     author_id: str           # Who captured it (team_member.id)
     author_name: str         # Display name
+    content_hash: str = ""   # SHA256 of original file
     metadata: dict = Field(default_factory=dict)
 
 
 class ProcessingResult(BaseModel):
+    field_note_id: str
     listing_id: str
     media_type: str
     tasks_created: list[str] = Field(default_factory=list)
     activity_items_created: list[str] = Field(default_factory=list)
     storage_paths: dict = Field(default_factory=dict)
-    processing_record_id: str | None = None
+    transcript_id: str | None = None
+    frame_ids: list[str] = Field(default_factory=list)
+    moment_ids: list[str] = Field(default_factory=list)
+    action_ids: list[str] = Field(default_factory=list)

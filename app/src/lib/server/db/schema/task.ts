@@ -24,6 +24,7 @@ export const tasks = pgTable(
     dueDate: timestamp('due_date'),
     isOverdue: boolean('is_overdue').default(false),
     subtasks: jsonb('subtasks'),
+    sourceFieldNoteActionId: text('source_field_note_action_id'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

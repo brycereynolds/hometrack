@@ -17,8 +17,10 @@
 		Sparkles,
 		GitBranch,
 		CheckCircle2,
-		Filter
+		Filter,
+		ArrowRight
 	} from 'lucide-svelte';
+	import ProcessingStatus from '$lib/components/shared/ProcessingStatus.svelte';
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
@@ -235,6 +237,23 @@
 								</div>
 							{:else}
 								<p class="mt-1 text-sm text-muted-foreground">{activity.content}</p>
+							{/if}
+
+							{#if (activity.type === 'voice_memo' || activity.type === 'note') && (activity.metadata as any)?.fieldNoteId}
+								{@const fieldNoteId = (activity.metadata as any).fieldNoteId}
+								{@const fieldNoteStatus = (activity.metadata as any)?.fieldNoteStatus}
+								<div class="mt-2 flex items-center gap-3">
+									{#if fieldNoteStatus && fieldNoteStatus !== 'completed'}
+										<ProcessingStatus {fieldNoteId} initialStatus={fieldNoteStatus} />
+									{/if}
+									<a
+										href="/listings/{listing?.id}/field-notes/{fieldNoteId}"
+										class="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+									>
+										View full note
+										<ArrowRight class="size-3" />
+									</a>
+								</div>
 							{/if}
 
 							{#if isAI}

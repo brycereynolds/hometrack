@@ -63,17 +63,20 @@
 		editDialogOpen = true;
 	}
 
+	const fieldNotesCount = $derived(data.fieldNotesCount ?? 0);
+
 	const tabs = [
-		{ href: '', label: 'Overview' },
-		{ href: '/activity', label: 'Activity' },
-		{ href: '/tasks', label: 'Tasks' },
-		{ href: '/documents', label: 'Documents' },
-		{ href: '/financials', label: 'Financials' },
-		{ href: '/marketing', label: 'Marketing' },
-		{ href: '/showings', label: 'Showings' },
-		{ href: '/offers', label: 'Offers' },
-		{ href: '/analytics', label: 'Analytics' },
-		{ href: '/portal-settings', label: 'Portal' }
+		{ href: '', label: 'Overview', count: 0 },
+		{ href: '/activity', label: 'Activity', count: 0 },
+		{ href: '/tasks', label: 'Tasks', count: 0 },
+		{ href: '/field-notes', label: 'Field Notes', count: fieldNotesCount },
+		{ href: '/documents', label: 'Documents', count: 0 },
+		{ href: '/financials', label: 'Financials', count: 0 },
+		{ href: '/marketing', label: 'Marketing', count: 0 },
+		{ href: '/showings', label: 'Showings', count: 0 },
+		{ href: '/offers', label: 'Offers', count: 0 },
+		{ href: '/analytics', label: 'Analytics', count: 0 },
+		{ href: '/portal-settings', label: 'Portal', count: 0 }
 	];
 
 	let tabsContainer: HTMLDivElement;
@@ -90,7 +93,7 @@
 		if (tabHref === '') {
 			return currentPath === basePath || currentPath === basePath + '/';
 		}
-		return currentPath === basePath + tabHref;
+		return currentPath.startsWith(basePath + tabHref);
 	}
 </script>
 
@@ -219,11 +222,16 @@
 					{@const active = isActiveTab(tab.href)}
 					<a
 						href="/listings/{$page.params.id}{tab.href}"
-						class="shrink-0 border-b-2 px-3 py-3 text-sm font-medium transition-colors sm:px-4 {active
+						class="shrink-0 border-b-2 px-3 py-3 text-sm font-medium transition-colors sm:px-4 flex items-center gap-1.5 {active
 							? 'border-primary text-primary'
 							: 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'}"
 					>
 						{tab.label}
+						{#if tab.count > 0}
+							<span class="inline-flex items-center justify-center rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold leading-none {active ? 'bg-primary/10 text-primary' : 'text-muted-foreground'}">
+								{tab.count}
+							</span>
+						{/if}
 					</a>
 				{/each}
 			</div>

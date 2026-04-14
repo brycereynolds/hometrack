@@ -31,6 +31,8 @@ class ProcessFieldMedia:
             raise ValueError(f"Unknown media_type: {input.media_type}")
 
     async def _process_video(self, input: FieldMediaInput) -> dict:
+        field_note_id = input.metadata.get("field_note_id", "")
+
         # 1. Download + downscale
         download_result: dict = await workflow.execute_activity(
             download_media, input.storage_path,
@@ -84,7 +86,6 @@ class ProcessFieldMedia:
         )
 
         # 8. Extract insights (HomeTrack-specific with Pydantic)
-        # Build a correlations summary for the insights extractor
         corr_summary = _build_correlations_summary(correlations_data)
         insights_data: dict = await workflow.execute_activity(
             extract_insights,
@@ -93,14 +94,18 @@ class ProcessFieldMedia:
             heartbeat_timeout=timedelta(minutes=3),
         )
 
-        # 9. Save results (full storage)
+        # Derive duration from transcript if available
+        duration = _get_duration(transcript_data)
+
+        # 9. Save results (full storage + all DB tables)
         result: dict = await workflow.execute_activity(
             save_results,
             args=[
-                input.listing_id, input.team_id, input.author_id,
-                input.author_name, input.media_type, content_hash,
-                transcript_data, enriched_transcript, insights_data,
-                frames_data, correlations_data,
+                field_note_id, input.listing_id, input.team_id,
+                input.author_id, input.author_name, input.media_type,
+                content_hash, transcript_data, enriched_transcript,
+                insights_data, frames_data, correlations_data,
+                duration, None,
             ],
             start_to_close_timeout=timedelta(minutes=10),
             heartbeat_timeout=timedelta(minutes=5),
@@ -108,6 +113,8 @@ class ProcessFieldMedia:
         return result
 
     async def _process_voice_memo(self, input: FieldMediaInput) -> dict:
+        field_note_id = input.metadata.get("field_note_id", "")
+
         # 1. Download
         download_result: dict = await workflow.execute_activity(
             download_media, input.storage_path,
@@ -147,14 +154,17 @@ class ProcessFieldMedia:
             heartbeat_timeout=timedelta(minutes=2),
         )
 
+        duration = _get_duration(transcript_data)
+
         # 6. Save results
         result: dict = await workflow.execute_activity(
             save_results,
             args=[
-                input.listing_id, input.team_id, input.author_id,
-                input.author_name, input.media_type, content_hash,
-                transcript_data, enriched_transcript, insights_data,
-                None, None,
+                field_note_id, input.listing_id, input.team_id,
+                input.author_id, input.author_name, input.media_type,
+                content_hash, transcript_data, enriched_transcript,
+                insights_data, None, None,
+                duration, None,
             ],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
@@ -162,8 +172,9 @@ class ProcessFieldMedia:
         return result
 
     async def _process_text(self, input: FieldMediaInput) -> dict:
+        field_note_id = input.metadata.get("field_note_id", "")
         text = input.metadata.get("text", "")
-        content_hash = input.metadata.get("content_hash", "text_" + input.listing_id)
+        content_hash = input.content_hash or f"text_{field_note_id}"
 
         # 1. Extract insights directly from text
         insights_data: dict = await workflow.execute_activity(
@@ -177,10 +188,10 @@ class ProcessFieldMedia:
         result: dict = await workflow.execute_activity(
             save_results,
             args=[
-                input.listing_id, input.team_id, input.author_id,
-                input.author_name, input.media_type, content_hash,
-                None, text, insights_data,
-                None, None,
+                field_note_id, input.listing_id, input.team_id,
+                input.author_id, input.author_name, input.media_type,
+                content_hash, None, text, insights_data,
+                None, None, None, None,
             ],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
@@ -204,3 +215,13 @@ def _build_correlations_summary(correlations_data: list[dict]) -> str:
                 f"(relevance: {best.get('relevance_score', 0):.1f})"
             )
     return "\n".join(lines)
+
+
+def _get_duration(transcript_data: dict | None) -> float | None:
+    """Derive duration from the last segment's end timestamp."""
+    if not transcript_data:
+        return None
+    segments = transcript_data.get("segments", [])
+    if segments:
+        return segments[-1].get("end")
+    return None

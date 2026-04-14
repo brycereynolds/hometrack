@@ -41,17 +41,20 @@ export const actions: Actions = {
     }
 
     try {
+      const noteId = nanoid();
       await withRLS(locals.user.id, 'authenticated', async (db) => {
         await db.insert(fieldNotes).values({
-          id: nanoid(),
+          id: noteId,
           teamId,
           listingId,
           tag: tag as 'showing' | 'vendor' | 'client',
-          content,
+          textContent: content,
+          mediaType: 'text',
+          status: 'completed',
           authorId: locals.user!.id,
         });
       });
-      return { success: true };
+      return { success: true, noteId, listingId };
     } catch (e) {
       console.error('Save field note error:', e);
       return fail(500, { error: 'Failed to save note' });

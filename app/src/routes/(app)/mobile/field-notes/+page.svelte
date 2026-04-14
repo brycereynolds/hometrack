@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Camera, ChevronDown, Save, X, Tag, Video, Loader2 } from 'lucide-svelte';
@@ -126,6 +127,17 @@
 					} else {
 						toast.success('Note saved');
 					}
+
+					// Redirect to the field note detail view
+					const noteId = (result.data as any)?.noteId;
+					const listingId = (result.data as any)?.listingId;
+					if (noteId && listingId) {
+						attachments.forEach((a) => { if (a.previewUrl) URL.revokeObjectURL(a.previewUrl); });
+						attachments = [];
+						goto(`/listings/${listingId}/field-notes/${noteId}`);
+						return;
+					}
+
 					noteText = '';
 					attachments.forEach((a) => { if (a.previewUrl) URL.revokeObjectURL(a.previewUrl); });
 					attachments = [];

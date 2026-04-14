@@ -2,7 +2,7 @@
   "name": "hometrack-temporal-worker",
   "private": true,
   "scripts": {
-    "dev": "python -m src.worker",
-    "start": "python -m src.worker"
+    "dev": ".venv/bin/python -m src.worker",
+    "start": ".venv/bin/python -m src.worker"
   }
 }

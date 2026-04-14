@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
-import { activityItems, teamMembers } from '$lib/server/db/schema/index.js';
+import { activityItems, teamMembers, fieldNotes } from '$lib/server/db/schema/index.js';
 import { eq } from 'drizzle-orm';
 import { getSupabaseAdmin } from '$lib/server/supabase.js';
 import { startFieldMediaWorkflow } from '$lib/server/temporal.js';
@@ -60,11 +60,25 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
 			if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`);
 
+			// Create field_notes record BEFORE triggering workflow
+			const fieldNoteId = crypto.randomUUID();
+			await db.insert(fieldNotes).values({
+				id: fieldNoteId,
+				teamId: member.teamId,
+				listingId,
+				authorId: member.id,
+				mediaType: isVideo ? 'video' : 'photo',
+				status: 'pending',
+				contentHash: `${file.name}-${buffer.byteLength}-${timestamp}`,
+				tag: 'general',
+				mediaStoragePath: storagePath,
+			});
+
 			// Insert activity item
-			const id = crypto.randomUUID();
+			const activityId = crypto.randomUUID();
 			const type = isVideo ? 'video' : 'photo';
 			await db.insert(activityItems).values({
-				id,
+				id: activityId,
 				teamId: member.teamId,
 				listingId,
 				type,
@@ -78,6 +92,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 					mimeType: file.type,
 					fileSize: buffer.byteLength,
 					originalName: file.name,
+					fieldNoteId,
 				},
 				timestamp: new Date(),
 			});
@@ -94,10 +109,11 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 					mimeType: file.type,
 					fileSize: buffer.byteLength,
 					originalName: file.name,
+					fieldNoteId,
 				},
 			});
 
-			return { id, storagePath, workflowId: workflow?.workflowId ?? null };
+			return { id: activityId, fieldNoteId, storagePath, workflowId: workflow?.workflowId ?? null };
 		});
 
 		return json({ success: true, ...result });

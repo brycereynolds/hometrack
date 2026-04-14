@@ -73,6 +73,7 @@
 
 	$effect(() => {
 		if (shouldPoll) {
+			fetchStatus(); // Initial fetch immediately
 			startPolling();
 		} else {
 			stopPolling();

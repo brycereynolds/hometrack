@@ -284,13 +284,13 @@
 
 		<div class="mt-16 grid gap-8 sm:grid-cols-2 lg:mt-24 lg:grid-cols-3 lg:gap-12">
 			{#each features as feature, i}
+				{@const Icon = feature.icon}
 				<div
 					class="fade-up group rounded-2xl border border-border bg-card p-8 opacity-0 transition-all duration-300 hover:border-primary/30 hover:shadow-lg lg:p-10"
 					style="transition-delay: {i * 100}ms;"
 				>
 					<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-						{@const Icon = feature.icon}
-					<Icon class="h-6 w-6" />
+						<Icon class="h-6 w-6" />
 					</div>
 					<h3 class="mt-6 font-serif text-xl text-foreground">{feature.title}</h3>
 					<p class="mt-3 leading-relaxed text-foreground-secondary">{feature.description}</p>
@@ -343,6 +343,7 @@
 
 		<div class="mt-16 grid gap-8 lg:mt-24 lg:grid-cols-3 lg:gap-16">
 			{#each steps as step, i}
+				{@const StepIcon = step.icon}
 				<div
 					class="fade-up relative text-center opacity-0"
 					style="transition-delay: {i * 150}ms;"
@@ -353,8 +354,7 @@
 					{/if}
 
 					<div class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-						{@const Icon = step.icon}
-					<Icon class="h-8 w-8" />
+						<StepIcon class="h-8 w-8" />
 					</div>
 					<p class="mt-4 text-sm font-bold tracking-widest text-primary/60">{step.number}</p>
 					<h3 class="mt-2 font-serif text-2xl text-foreground">{step.title}</h3>

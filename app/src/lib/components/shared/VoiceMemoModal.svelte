@@ -165,7 +165,7 @@
 </script>
 
 <Dialog.Root bind:open onOpenChange={(v) => { if (!v) resetAndClose(); }}>
-	<Dialog.Content class="sm:max-w-md">
+	<Dialog.Content class="sm:max-w-md" onOpenAutoFocus={(e) => e.preventDefault()}>
 		<Dialog.Header>
 			<Dialog.Title class="font-serif">Voice Memo</Dialog.Title>
 			<Dialog.Description>Record a quick voice note</Dialog.Description>

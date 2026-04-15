@@ -87,7 +87,7 @@
 
 	const quickActions: { label: string; icon: typeof Plus; href?: string; action?: () => void }[] = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
-		{ label: 'Voice Memo', icon: Mic, action: () => { voiceMemoOpen = true; } },
+		{ label: 'Voice Memo', icon: Mic, href: '/mobile/voice-memo' },
 		{ label: 'Quick Note', icon: FileText, action: () => { quickNoteOpen = true; } }
 	];
 

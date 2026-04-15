@@ -14,6 +14,7 @@
 		name?: string;
 		required?: boolean;
 		disabled?: boolean;
+		autofocus?: boolean;
 		class?: string;
 	}
 
@@ -24,6 +25,7 @@
 		name,
 		required = false,
 		disabled = false,
+		autofocus = false,
 		class: className = '',
 	}: Props = $props();
 

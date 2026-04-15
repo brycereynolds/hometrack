@@ -117,114 +117,12 @@ async def _upsert_property_from_comp(conn, comp: dict) -> str | None:
     return property_id
 
 
-async def _find_cached_comps(params: dict) -> list[dict]:
-    """Check properties table for recently synced data matching search criteria.
-
-    Returns cached property data as comp dicts if last_synced within 7 days.
-    """
-    lat = params["lat"]
-    lng = params["lng"]
-    radius = params.get("radius_miles", 1.0)
-    beds = params.get("beds")
-    baths = params.get("baths")
-    sqft = params.get("sqft")
-    status = params.get("status", "sold")
-    limit = params.get("limit", 50)
-
-    seven_days_ago = datetime.now(timezone.utc) - timedelta(days=7)
-
-    # Use a bounding box approximation for lat/lng (1 degree lat ~ 69 miles)
-    lat_delta = radius / 69.0
-    lng_delta = radius / (69.0 * math.cos(math.radians(lat)))
-
-    conditions = [
-        "last_synced > $1",
-        "lat BETWEEN $2 AND $3",
-        "lng BETWEEN $4 AND $5",
-    ]
-    values: list = [
-        seven_days_ago,
-        lat - lat_delta, lat + lat_delta,
-        lng - lng_delta, lng + lng_delta,
-    ]
-    param_idx = 6
-
-    if beds:
-        conditions.append(f"beds BETWEEN ${param_idx} AND ${param_idx + 1}")
-        values.extend([max(1, beds - 1), beds + 1])
-        param_idx += 2
-
-    if baths:
-        conditions.append(f"baths BETWEEN ${param_idx} AND ${param_idx + 1}")
-        values.extend([max(1, baths - 1), baths + 1])
-        param_idx += 2
-
-    if sqft:
-        conditions.append(f"sqft BETWEEN ${param_idx} AND ${param_idx + 1}")
-        values.extend([int(sqft * 0.7), int(sqft * 1.3)])
-        param_idx += 2
-
-    # For sold comps, filter by last_sold_price being set
-    if status == "sold":
-        conditions.append("last_sold_price IS NOT NULL")
-
-    where_clause = " AND ".join(conditions)
-    query = f"""
-        SELECT id, address, city, state, zip, lat, lng,
-               beds, baths, sqft, lot_sqft, year_built,
-               last_sold_price, photos
-        FROM properties
-        WHERE {where_clause}
-        LIMIT ${param_idx}
-    """
-    values.append(limit)
-
-    pool = await get_pool()
-    async with pool.acquire() as conn:
-        rows = await conn.fetch(query, *values)
-
-    comps = []
-    for row in rows:
-        photos = json.loads(row["photos"]) if isinstance(row["photos"], str) else (row["photos"] or [])
-        photo_url = photos[0].get("url") if photos else None
-
-        price = row["last_sold_price"]
-        sqft_val = row["sqft"]
-        price_per_sqft = round(price / sqft_val) if price and sqft_val else None
-
-        comps.append({
-            "property_id": row["id"],
-            "external_id": "",
-            "address": row["address"],
-            "city": row["city"],
-            "state": row["state"],
-            "zip": row["zip"],
-            "price": price,
-            "price_per_sqft": price_per_sqft,
-            "beds": row["beds"],
-            "baths": row["baths"],
-            "sqft": sqft_val,
-            "lot_sqft": row["lot_sqft"],
-            "year_built": row["year_built"],
-            "sold_date": None,
-            "days_on_market": None,
-            "status": status,
-            "distance_miles": round(_haversine_miles(lat, lng, row["lat"], row["lng"]), 2),
-            "lat": row["lat"],
-            "lng": row["lng"],
-            "photo_url": photo_url,
-            "from_cache": True,
-        })
-
-    return comps
-
-
 @activity.defn
 async def search_comps(params: dict) -> list[dict]:
     """Search for comparable properties via Realty API.
 
-    Checks the properties table cache first (7-day window) before calling the API.
-    Persists all API results into the properties table.
+    Always performs a fresh API search. Persists all returned properties
+    into the properties table so we build up rich property pages over time.
 
     params:
         lat, lng: center point
@@ -245,21 +143,6 @@ async def search_comps(params: dict) -> list[dict]:
     baths = params.get("baths")
     sqft = params.get("sqft")
     limit = params.get("limit", 50)
-
-    # Check cache first
-    try:
-        cached = await _find_cached_comps(params)
-        if len(cached) >= limit:
-            cached.sort(key=lambda c: c["distance_miles"])
-            logger.info(
-                "Cache hit: %d %s comps within %s miles of (%s, %s)",
-                len(cached), status, radius, lat, lng,
-            )
-            return cached[:limit]
-        logger.info("Cache: found %d/%d comps, will supplement from API", len(cached), limit)
-    except Exception as e:
-        logger.warning("Cache lookup failed, falling back to API: %s", e)
-        cached = []
 
     # Build query params
     query: dict = {
@@ -335,15 +218,6 @@ async def search_comps(params: dict) -> list[dict]:
                 except Exception as e:
                     logger.warning("Failed to persist property %s: %s", comp.get("address"), e)
 
-        # Merge with cached results (deduplicate by address)
-        if cached:
-            cached_addresses = {(c["address"], c["city"], c["state"]) for c in cached}
-            for comp in comps:
-                key = (comp.get("address"), comp.get("city"), comp.get("state"))
-                if key not in cached_addresses:
-                    cached.append(comp)
-            comps = cached
-
         # Sort by distance
         comps.sort(key=lambda c: c["distance_miles"])
 
@@ -355,14 +229,7 @@ async def search_comps(params: dict) -> list[dict]:
 
     except httpx.HTTPStatusError as e:
         logger.error("Realty API error (%d): %s", e.response.status_code, e.response.text[:500])
-        # Return cached results if API fails
-        if cached:
-            logger.info("Returning %d cached comps after API failure", len(cached))
-            return cached
         return []
     except Exception as e:
         logger.error("Comp search failed: %s", e)
-        if cached:
-            logger.info("Returning %d cached comps after error", len(cached))
-            return cached
         return []

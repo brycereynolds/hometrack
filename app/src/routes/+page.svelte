@@ -196,41 +196,32 @@
 
 {#if isComingSoon}
 <!-- Coming Soon Page -->
-<div class="relative flex min-h-screen items-center justify-center overflow-hidden">
-	<!-- Background -->
-	<div class="absolute inset-0">
-		<img
-			src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
-			alt="Luxury home exterior"
-			class="h-full w-full object-cover"
-		/>
-		<div class="absolute inset-0 bg-gradient-to-br from-stone-900/90 via-stone-900/80 to-stone-900/70 backdrop-blur-sm"></div>
+<div class="coming-soon relative flex min-h-screen items-center justify-center overflow-hidden bg-stone-950">
+	<!-- Abstract background -->
+	<div class="absolute inset-0 overflow-hidden">
+		<div class="absolute -left-1/3 -top-1/3 h-[800px] w-[800px] rounded-full bg-stone-800/30 blur-3xl"></div>
+		<div class="absolute -bottom-1/4 -right-1/4 h-[600px] w-[600px] rounded-full bg-stone-800/20 blur-3xl"></div>
+		<div class="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"></div>
 	</div>
 
-	<div class="relative z-10 mx-auto max-w-2xl px-6 text-center">
+	<div class="relative z-10 mx-auto max-w-md px-6 text-center">
 		<!-- Logo -->
 		<div class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary shadow-lg">
 			<span class="text-xl font-bold text-primary-foreground">H</span>
 		</div>
 
-		<h1 class="font-serif text-2xl text-white/60">HomeTrack</h1>
+		<h1 class="font-serif text-2xl text-white/50">HomeTrack</h1>
 
-		<h2 class="mt-8 font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
-			Coming Soon
-		</h2>
-
-		<p class="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-white/70 sm:text-xl">
-			The AI-powered operating system for modern real estate teams.
-		</p>
+		<p class="mt-10 text-lg text-white/70 sm:text-xl">Something new is coming.</p>
 
 		<!-- Waitlist form -->
 		{#if waitlistSubmitted}
 			<div class="mt-10 rounded-xl border border-white/10 bg-white/5 px-8 py-6 backdrop-blur-md">
 				<p class="text-lg font-medium text-white">You're on the list.</p>
-				<p class="mt-2 text-sm text-white/60">We'll notify you as soon as HomeTrack is ready.</p>
+				<p class="mt-2 text-sm text-white/40">We'll be in touch.</p>
 			</div>
 		{:else}
-			<form onsubmit={handleWaitlistSubmit} class="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:flex-row">
+			<form onsubmit={handleWaitlistSubmit} class="mx-auto mt-10 flex max-w-sm flex-col gap-3 sm:flex-row">
 				<div class="relative flex-1">
 					<Mail class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/30" />
 					<input
@@ -238,19 +229,19 @@
 						required
 						bind:value={waitlistEmail}
 						placeholder="you@example.com"
-						class="h-12 w-full rounded-lg border border-white/15 bg-white/10 pl-10 pr-4 text-sm text-white placeholder:text-white/40 backdrop-blur-md focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+						class="h-12 w-full rounded-lg border border-white/10 bg-white/5 pl-10 pr-4 text-sm text-white placeholder:text-white/30 backdrop-blur-md focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/10"
 					/>
 				</div>
 				<button
 					type="submit"
-					class="h-12 rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover"
+					class="h-12 rounded-lg bg-white/10 px-6 text-sm font-medium text-white/80 transition-colors hover:bg-white/15"
 				>
-					Notify Me
+					Get Notified
 				</button>
 			</form>
 		{/if}
 
-		<p class="mt-12 text-xs text-white/30">&copy; 2026 HomeTrack. All rights reserved.</p>
+		<p class="mt-16 text-xs text-white/20">&copy; 2026 HomeTrack</p>
 	</div>
 </div>
 {:else}

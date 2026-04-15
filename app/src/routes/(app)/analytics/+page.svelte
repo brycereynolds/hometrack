@@ -3,15 +3,11 @@
 	import { Chart, registerables } from 'chart.js';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import {
-		listings,
-		pipelineValueTimeSeries,
-		getActiveListingsCount,
-		getTotalPipelineValue,
-		formatCurrency,
-		formatNumber,
-		PHASES
-	} from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config';
+	import { formatCurrency, formatNumber } from '$lib/utils';
+
+	let { data } = $props();
+	const pipelineValueTimeSeries = $derived(data.pipelineValueTimeSeries ?? { labels: [] as string[], values: [] as number[], closedDeals: [] as number[] });
 	import {
 		BarChart3,
 		TrendingUp,
@@ -25,40 +21,61 @@
 
 	Chart.register(...registerables);
 
+	// Listings come from the parent layout's load function
+	const listings = $derived(data.listings ?? []);
+
 	const tabs = [
 		{ href: '/analytics', label: 'Overview', active: true },
 		{ href: '/analytics/listings', label: 'Listing Performance', active: false },
 		{ href: '/analytics/team', label: 'Team Performance', active: false },
-		{ href: '/analytics/insights', label: 'AI Insights', active: false }
+		{ href: '/analytics/insights', label: 'Insights', active: false }
 	];
 
-	const activeListings = listings.filter((l) => l.daysOnMarket > 0);
-	const avgDOM = activeListings.length
-		? Math.round(activeListings.reduce((s, l) => s + l.daysOnMarket, 0) / activeListings.length)
-		: 0;
-	const totalViews = listings.reduce((s, l) => s + l.zillowViews, 0);
-	const totalSaves = listings.reduce((s, l) => s + l.zillowSaves, 0);
-	const listToSaleRatio = '97.2%';
-	const inventoryLevel = listings.length;
+	const activeListings = $derived(listings.filter((l: any) => (l.daysOnMarket ?? 0) > 0));
+	const avgDOM = $derived(activeListings.length
+		? Math.round(activeListings.reduce((s: number, l: any) => s + (l.daysOnMarket ?? 0), 0) / activeListings.length)
+		: 0);
+	const totalViews = $derived(listings.reduce((s: number, l: any) => s + (l.zillowViews ?? 0), 0));
+	const totalSaves = $derived(listings.reduce((s: number, l: any) => s + (l.zillowSaves ?? 0), 0));
+	const activeCount = $derived(listings.filter((l: any) => l.phase === 'active').length);
+	const pipelineValue = $derived(formatCurrency(listings.reduce((s: number, l: any) => s + (l.price ?? 0), 0)));
 
-	const marketStats = [
-		{ label: 'Active Listings', value: String(getActiveListingsCount()), icon: Home, change: '+2 this month', positive: true },
-		{ label: 'Pipeline Value', value: getTotalPipelineValue(), icon: DollarSign, change: '+$2.2M vs last month', positive: true },
-		{ label: 'Avg DOM', value: `${avgDOM} days`, icon: Clock, change: '-3 days vs avg', positive: true },
-		{ label: 'List-to-Sale Ratio', value: listToSaleRatio, icon: Target, change: 'Above market avg', positive: true },
-		{ label: 'Total Online Views', value: formatNumber(totalViews), icon: Eye, change: '+18% this week', positive: true },
+	const deltas = $derived(data.analyticsDeltas ?? { listingsDelta: 0, pipelineValueDelta: 0, listToSaleRatio: null, closedDealsByMonth: [] });
+
+	function formatDelta(value: number, suffix: string): string {
+		const sign = value >= 0 ? '+' : '';
+		return `${sign}${value} ${suffix}`;
+	}
+
+	function formatCurrencyDelta(value: number, suffix: string): string {
+		const sign = value >= 0 ? '+' : '-';
+		const abs = Math.abs(value);
+		let formatted: string;
+		if (abs >= 1_000_000) formatted = `$${(abs / 1_000_000).toFixed(1)}M`;
+		else if (abs >= 1_000) formatted = `$${(abs / 1_000).toFixed(0)}K`;
+		else formatted = `$${abs.toFixed(0)}`;
+		return `${sign}${formatted} ${suffix}`;
+	}
+
+	const listToSaleRatio = $derived(deltas.listToSaleRatio ? `${deltas.listToSaleRatio}%` : '--');
+
+	const marketStats = $derived([
+		{ label: 'Active Listings', value: String(activeCount), icon: Home, change: formatDelta(deltas.listingsDelta, 'this month'), positive: deltas.listingsDelta >= 0 },
+		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, change: formatCurrencyDelta(deltas.pipelineValueDelta, 'vs last month'), positive: deltas.pipelineValueDelta >= 0 },
+		{ label: 'Avg DOM', value: `${avgDOM} days`, icon: Clock, change: `${avgDOM} day avg`, positive: true },
+		{ label: 'List-to-Sale Ratio', value: listToSaleRatio, icon: Target, change: deltas.listToSaleRatio ? 'From closed deals' : 'No closed deals yet', positive: true },
+		{ label: 'Total Online Views', value: formatNumber(totalViews), icon: Eye, change: `${totalViews} across platforms`, positive: true },
 		{ label: 'Total Saves', value: formatNumber(totalSaves), icon: Activity, change: `${totalSaves} across platforms`, positive: true }
-	];
+	]);
 
-	// Closed deals data
-	const closedDeals = [
-		{ month: 'January', count: 2, volume: '$4,200,000' },
-		{ month: 'February', count: 1, volume: '$1,850,000' },
-		{ month: 'March', count: 3, volume: '$8,425,000' },
-		{ month: 'April (MTD)', count: 0, volume: '$0' }
-	];
+	// Closed deals from server data
+	const closedDeals = $derived(
+		(deltas.closedDealsByMonth ?? []).length > 0
+			? deltas.closedDealsByMonth.map((d: any) => ({ month: d.month, count: d.count, volume: formatCurrency(d.volume) }))
+			: []
+	);
 
-	let pipelineCanvas: HTMLCanvasElement;
+	let pipelineCanvas = $state<HTMLCanvasElement>(null!);
 	let pipelineChart: Chart | undefined;
 
 	onMount(() => {
@@ -139,7 +156,7 @@
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 		<div>
 			<h1 class="font-serif text-2xl font-bold tracking-tight">Market Intelligence</h1>
-			<p class="text-muted-foreground">Real-time analytics for Chen Realty Group</p>
+			<p class="text-muted-foreground">Real-time analytics for {data.team?.name ?? 'your team'}</p>
 		</div>
 		<div class="flex items-center gap-2 text-xs text-muted-foreground">
 			<span class="inline-block size-2 rounded-full bg-green-500 animate-pulse"></span>
@@ -227,10 +244,10 @@
 											class="text-xs"
 											style="border-color: {PHASES[listing.phase].color}; color: {PHASES[listing.phase].color}"
 										>
-											{listing.phaseLabel}
+											{PHASES[listing.phase].label}
 										</Badge>
 									</td>
-									<td class="px-4 py-2.5 text-right font-mono">{listing.priceFormatted}</td>
+									<td class="px-4 py-2.5 text-right font-mono">{listing.price ? formatCurrency(listing.price) : 'No Price'}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.daysOnMarket || '—'}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.zillowViews ? formatNumber(listing.zillowViews) : '—'}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.offersCount || '—'}</td>

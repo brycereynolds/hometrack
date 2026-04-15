@@ -4,13 +4,14 @@
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import {
-		teamMembers,
-		teamPerformanceData,
-		tasks,
-		listings,
-		formatCurrency
-	} from '$lib/data/mock-data.js';
+	import { formatCurrency } from '$lib/utils';
+
+	let { data } = $props();
+
+	const teamPerformanceData = $derived(data.teamPerformanceData ?? { members: [] as string[], activeTasks: [] as number[], completedThisMonth: [] as number[], avgCompletionDays: [] as number[] });
+	const memberTaskCounts = $derived(data.memberTaskCounts ?? []);
+	const projectedCommission = $derived(data.projectedCommission ?? 0);
+	const ytdClosed = $derived(data.ytdClosed ?? 0);
 	import { Users, CheckCircle, Clock, DollarSign, BarChart3, PieChart } from 'lucide-svelte';
 
 	Chart.register(...registerables);
@@ -19,24 +20,12 @@
 		{ href: '/analytics', label: 'Overview', active: false },
 		{ href: '/analytics/listings', label: 'Listing Performance', active: false },
 		{ href: '/analytics/team', label: 'Team Performance', active: true },
-		{ href: '/analytics/insights', label: 'AI Insights', active: false }
+		{ href: '/analytics/insights', label: 'Insights', active: false }
 	];
 
-	// Per-member task counts
-	const memberTaskCounts = teamMembers.map((m) => ({
-		...m,
-		activeTasks: tasks.filter((t) => t.assignee.id === m.id && t.status !== 'done').length,
-		completedTasks: tasks.filter((t) => t.assignee.id === m.id && t.status === 'done').length,
-		overdueTasks: tasks.filter((t) => t.assignee.id === m.id && t.isOverdue).length
-	}));
-
-	// Revenue data
-	const projectedCommission = listings.reduce((s, l) => s + l.price * 0.025, 0);
-	const ytdClosed = 14475000 * 0.025;
-
-	let tasksCanvas: HTMLCanvasElement;
-	let workloadCanvas: HTMLCanvasElement;
-	let completionCanvas: HTMLCanvasElement;
+	let tasksCanvas = $state<HTMLCanvasElement>(null!);
+	let workloadCanvas = $state<HTMLCanvasElement>(null!);
+	let completionCanvas = $state<HTMLCanvasElement>(null!);
 	let tasksChart: Chart | undefined;
 	let workloadChart: Chart | undefined;
 	let completionChart: Chart | undefined;

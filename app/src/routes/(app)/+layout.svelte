@@ -1,9 +1,18 @@
 <script lang="ts">
+	import { Toaster } from 'svelte-sonner';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
+	import { invalidateAll, goto } from '$app/navigation';
+	import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
+	import { onMount, onDestroy } from 'svelte';
+	import CommandPalette from '$lib/components/shared/CommandPalette.svelte';
+	import VoiceMemoModal from '$lib/components/shared/VoiceMemoModal.svelte';
+	import QuickNoteModal from '$lib/components/shared/QuickNoteModal.svelte';
+	import FloatingVoiceButton from '$lib/components/shared/FloatingVoiceButton.svelte';
 	import {
 		LayoutDashboard,
 		Home,
@@ -20,26 +29,95 @@
 		FileText,
 		Sparkles
 	} from 'lucide-svelte';
-	import { listings, aiInsights } from '$lib/data/mock-data';
+	let { children, data } = $props();
 
-	let { children } = $props();
+	// Supabase Realtime — subscribe to key tables and invalidate on changes
+	let realtimeChannel: RealtimeChannel | null = null;
 
-	const navItems = [
+	onMount(() => {
+		if (!data.supabaseUrl || !data.supabaseAnonKey) return;
+
+		const supabase = createClient(data.supabaseUrl, data.supabaseAnonKey, {
+			auth: { autoRefreshToken: false, persistSession: false },
+		});
+
+		realtimeChannel = supabase
+			.channel('app-changes')
+			.on('postgres_changes', { event: '*', schema: 'public', table: 'listings' }, () => invalidateAll())
+			.on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, () => invalidateAll())
+			.on('postgres_changes', { event: '*', schema: 'public', table: 'activity_items' }, () => invalidateAll())
+			.subscribe();
+	});
+
+	onDestroy(() => {
+		realtimeChannel?.unsubscribe();
+	});
+
+	// Command palette state
+	let commandOpen = $state(false);
+	let voiceMemoOpen = $state(false);
+	let quickNoteOpen = $state(false);
+
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+			e.preventDefault();
+			commandOpen = !commandOpen;
+		}
+	}
+
+	const listings = $derived(data.listings ?? []);
+	const aiInsights = $derived(data.aiInsights ?? []);
+	const currentUser = $derived(data.currentUser);
+	const teamName = $derived(data.team?.name ?? '');
+	const userName = $derived(currentUser?.name ?? '');
+	const userInitials = $derived(
+		userName
+			? userName.split(' ').map((n: string) => n[0]).join('').slice(0, 2).toUpperCase()
+			: '?'
+	);
+	const userRole = $derived(currentUser?.roleLabel ?? '');
+
+	const navItems = $derived([
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 		{ href: '/listings', label: 'Listings', icon: Home, badge: String(listings.length) },
 		{ href: '/contacts', label: 'Contacts', icon: Users },
 		{ href: '/vendors', label: 'Vendors', icon: Wrench },
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }
+	]);
+
+	const quickActions: { label: string; icon: typeof Plus; href?: string; action?: () => void }[] = [
+		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
+		{ label: 'Voice Memo', icon: Mic, href: '/mobile/voice-memo' },
+		{ label: 'Quick Note', icon: FileText, action: () => { quickNoteOpen = true; } }
 	];
 
-	const quickActions = [
-		{ label: 'New Listing', icon: Plus },
-		{ label: 'Voice Memo', icon: Mic },
-		{ label: 'Quick Note', icon: FileText }
-	];
+	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed).slice(0, 2));
+	const recentInsights = $derived(aiInsights.slice(0, 5));
 
-	const activeAlerts = aiInsights.filter((a) => !a.dismissed).slice(0, 2);
+	function timeAgo(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		const now = new Date();
+		const diff = now.getTime() - date.getTime();
+		const minutes = Math.floor(diff / 60000);
+		if (minutes < 60) return `${minutes}m ago`;
+		const hours = Math.floor(minutes / 60);
+		if (hours < 24) return `${hours}h ago`;
+		const days = Math.floor(hours / 24);
+		return `${days}d ago`;
+	}
 </script>
+
+<svelte:window onkeydown={handleKeydown} />
+<CommandPalette
+	bind:open={commandOpen}
+	onVoiceMemo={() => { voiceMemoOpen = true; }}
+	onQuickNote={() => { quickNoteOpen = true; }}
+/>
+<VoiceMemoModal bind:open={voiceMemoOpen} listings={listings} teamId={data.team?.id ?? ''} />
+<QuickNoteModal bind:open={quickNoteOpen} listings={listings} teamId={data.team?.id ?? ''} />
+<FloatingVoiceButton onclick={() => { voiceMemoOpen = true; }} />
+<Toaster richColors position="top-right" />
 
 <Sidebar.SidebarProvider>
 	<Sidebar.Sidebar collapsible="icon">
@@ -52,7 +130,7 @@
 						</div>
 						<div class="grid flex-1 text-left text-sm leading-tight">
 							<span class="truncate font-semibold">HomeTrack</span>
-							<span class="truncate text-xs text-muted-foreground">Chen Realty Group</span>
+							<span class="truncate text-xs text-muted-foreground">{teamName}</span>
 						</div>
 					</Sidebar.SidebarMenuButton>
 				</Sidebar.SidebarMenuItem>
@@ -91,22 +169,33 @@
 					<Sidebar.SidebarMenu>
 						{#each quickActions as action}
 							<Sidebar.SidebarMenuItem>
-								<Sidebar.SidebarMenuButton>
-									<action.icon class="size-4" />
-									<span>{action.label}</span>
-								</Sidebar.SidebarMenuButton>
+								{#if action.href}
+									<Sidebar.SidebarMenuButton asChild>
+										{#snippet child({ props })}
+											<a href={action.href} {...props}>
+												<action.icon class="size-4" />
+												<span>{action.label}</span>
+											</a>
+										{/snippet}
+									</Sidebar.SidebarMenuButton>
+								{:else if action.action}
+									<Sidebar.SidebarMenuButton onclick={action.action}>
+										<action.icon class="size-4" />
+										<span>{action.label}</span>
+									</Sidebar.SidebarMenuButton>
+								{/if}
 							</Sidebar.SidebarMenuItem>
 						{/each}
 					</Sidebar.SidebarMenu>
 				</Sidebar.SidebarGroupContent>
 			</Sidebar.SidebarGroup>
 
-			<!-- AI Alerts — hidden when sidebar is collapsed to icon mode -->
+			<!-- Alerts — hidden when sidebar is collapsed to icon mode -->
 			{#if activeAlerts.length > 0}
 				<Sidebar.SidebarGroup class="group-data-[collapsible=icon]:hidden">
 					<Sidebar.SidebarGroupLabel>
 						<Sparkles class="mr-1 size-3" />
-						AI Alerts
+						Alerts
 					</Sidebar.SidebarGroupLabel>
 					<Sidebar.SidebarGroupContent>
 						<div class="space-y-2 px-2">
@@ -143,26 +232,30 @@
 							{#snippet child({ props })}
 								<Sidebar.SidebarMenuButton {...props} size="lg">
 									<Avatar class="size-8">
-										<AvatarFallback class="bg-primary/10 text-primary text-xs font-medium">LC</AvatarFallback>
+										<AvatarFallback class="bg-primary/10 text-primary text-xs font-medium">{userInitials}</AvatarFallback>
 									</Avatar>
 									<div class="grid flex-1 text-left text-sm leading-tight">
-										<span class="truncate font-semibold">Lauren Chen</span>
-										<span class="truncate text-xs text-muted-foreground">Team Lead</span>
+										<span class="truncate font-semibold">{userName}</span>
+										<span class="truncate text-xs text-muted-foreground">{userRole}</span>
 									</div>
 									<ChevronUp class="ml-auto size-4" />
 								</Sidebar.SidebarMenuButton>
 							{/snippet}
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content side="top" class="w-[--bits-dropdown-menu-anchor-width]">
-							<DropdownMenu.Item>
-								<Settings class="mr-2 size-4" />
-								Settings
-							</DropdownMenu.Item>
+							<a href="/settings">
+								<DropdownMenu.Item>
+									<Settings class="mr-2 size-4" />
+									Settings
+								</DropdownMenu.Item>
+							</a>
 							<DropdownMenu.Separator />
-							<DropdownMenu.Item>
-								<LogOut class="mr-2 size-4" />
-								Sign out
-							</DropdownMenu.Item>
+							<form method="POST" action="/logout">
+								<button type="submit" class="relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+									<LogOut class="mr-2 size-4" />
+									Sign out
+								</button>
+							</form>
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 				</Sidebar.SidebarMenuItem>
@@ -177,22 +270,88 @@
 			<Sidebar.SidebarTrigger class="-ml-1" />
 			<Separator orientation="vertical" class="mr-2 h-4" />
 			<div class="flex flex-1 items-center gap-2">
-				<div class="relative flex-1 max-w-sm">
-					<Search class="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-					<input
-						type="search"
-						placeholder="Search listings, contacts, tasks..."
-						class="h-8 w-full rounded-md border bg-transparent pl-8 pr-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-					/>
-				</div>
+				<button
+					onclick={() => commandOpen = true}
+					class="flex items-center gap-2 h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 text-sm text-muted-foreground hover:bg-accent/50 transition-colors"
+				>
+					<Search class="size-4" />
+					<span>Search listings, contacts, vendors...</span>
+					<kbd class="ml-auto text-xs bg-muted px-1.5 py-0.5 rounded font-mono">⌘K</kbd>
+				</button>
 			</div>
-			<Button variant="ghost" size="icon" class="relative">
-				<Bell class="size-4" />
-				<span class="absolute right-1 top-1 size-2 rounded-full bg-destructive"></span>
-			</Button>
-			<Avatar class="size-8">
-				<AvatarFallback class="bg-primary text-primary-foreground text-xs font-medium">LC</AvatarFallback>
-			</Avatar>
+			<Popover.Root>
+				<Popover.Trigger>
+					{#snippet child({ props })}
+						<Button variant="ghost" size="icon" {...props}>
+							<span class="relative inline-flex">
+								<Bell class="size-4" />
+								{#if recentInsights.length > 0}
+									<span class="absolute -right-1 -top-1 size-2 rounded-full bg-primary ring-2 ring-background"></span>
+								{/if}
+							</span>
+						</Button>
+					{/snippet}
+				</Popover.Trigger>
+				<Popover.Content class="w-80 p-0" align="end">
+					<div class="border-b px-4 py-3">
+						<div class="flex items-center gap-2">
+							<Sparkles class="size-4 text-amber-500" />
+							<span class="text-sm font-semibold">Notifications</span>
+						</div>
+					</div>
+					{#if recentInsights.length > 0}
+						<div class="max-h-72 overflow-y-auto divide-y">
+							{#each recentInsights as insight}
+								<a
+									href={insight.actionUrl || '#'}
+									class="block px-4 py-3 transition-colors hover:bg-muted/50"
+								>
+									<div class="flex items-start justify-between gap-2">
+										<p class="text-sm font-medium line-clamp-1">{insight.title}</p>
+										<span class="text-[10px] text-muted-foreground whitespace-nowrap">{timeAgo(insight.timestamp)}</span>
+									</div>
+									<p class="mt-0.5 text-xs text-muted-foreground line-clamp-2">{insight.description}</p>
+								</a>
+							{/each}
+						</div>
+					{:else}
+						<div class="px-4 py-6 text-center text-sm text-muted-foreground">
+							No notifications
+						</div>
+					{/if}
+				</Popover.Content>
+			</Popover.Root>
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					{#snippet child({ props })}
+						<button {...props} class="rounded-full outline-none ring-ring focus-visible:ring-2">
+							<Avatar class="size-8 cursor-pointer">
+								<AvatarFallback class="bg-primary text-primary-foreground text-xs font-medium">{userInitials}</AvatarFallback>
+							</Avatar>
+						</button>
+					{/snippet}
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content align="end" class="w-48">
+					<div class="px-2 py-1.5">
+						<p class="text-sm font-medium">{userName}</p>
+						<p class="text-xs text-muted-foreground">{userRole}</p>
+					</div>
+					<DropdownMenu.Separator />
+					<DropdownMenu.Item onclick={() => goto('/settings')}>
+						<Settings class="mr-2 size-4" />
+						Settings
+					</DropdownMenu.Item>
+					<DropdownMenu.Separator />
+					<form method="POST" action="/logout">
+						<DropdownMenu.Item>
+							<button type="submit" class="flex w-full items-center">
+								<LogOut class="mr-2 size-4" />
+								Sign out
+							</button>
+						</DropdownMenu.Item>
+					</form>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
 		</header>
 
 		<main class="flex-1 p-4 md:p-6 lg:p-8">

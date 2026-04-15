@@ -1,0 +1,3143 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/2130291013_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 18749.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 3014500,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "123 E Main St",
+    "city": "Los Gatos",
+    "state": "CA",
+    "zipcode": "95030",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "123 E Main St"
+        },
+        {
+          "fullValue": "Los Gatos, CA 95030"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 2,
+      "bathroomsFull": null,
+      "bathroomsThreeQuarter": null,
+      "bathroomsHalf": null,
+      "bathroomsOneQuarter": null,
+      "bedrooms": null,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": null,
+      "buildingName": null,
+      "appliances": [],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "SingleFamily"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": null
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": null
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": null
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "No Data"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": "8 Acres"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": null,
+      "bathroomsPartial": null,
+      "bathroomsFloat": 2,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": null,
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "Los Gatos",
+      "commonWalls": null,
+      "communityFeatures": [],
+      "compensationBasedOn": null,
+      "constructionMaterials": [],
+      "contingency": null,
+      "cooling": [],
+      "coveredParkingCapacity": null,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": null,
+      "fireplaces": null,
+      "flooring": [],
+      "foundationArea": null,
+      "foundationDetails": [],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": null,
+      "gas": null,
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": null,
+      "hasAttachedProperty": false,
+      "hasCooling": false,
+      "hasCarport": null,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": false,
+      "hasHeating": false,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [],
+      "highSchool": null,
+      "highSchoolDistrict": "Los Gatos School",
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": null,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": null,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": null,
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": "8 Acres",
+      "lotSizeDimensions": null,
+      "livingArea": null,
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [],
+      "middleOrJuniorSchool": null,
+      "middleOrJuniorSchoolDistrict": "Los Gatos School",
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": null,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": null,
+      "parkingCapacity": 0,
+      "parkingFeatures": [],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": null,
+      "propertyCondition": null,
+      "propertySubType": null,
+      "roadSurfaceType": null,
+      "roofType": null,
+      "rooms": [],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": null,
+      "spaFeatures": null,
+      "specialListingConditions": null,
+      "stories": null,
+      "storiesDecimal": null,
+      "storiesTotal": null,
+      "structureType": null,
+      "subdivisionName": null,
+      "taxAnnualAmount": null,
+      "taxAssessedValue": null,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": null,
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": null,
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": "",
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": null,
+      "yearBuiltEffective": null,
+      "zoning": null,
+      "zoningDescription": null,
+      "elementarySchool": null,
+      "elementarySchoolDistrict": "Los Gatos School",
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": null,
+    "homeStatus": "OTHER",
+    "listingProvider": {
+      "logos": [],
+      "title": "Listing Provided by",
+      "disclaimerText": null,
+      "enhancedVideoURL": null,
+      "enhancedDescriptionText": null,
+      "showLogos": null,
+      "showNoContactInfoMessage": false,
+      "agentName": null,
+      "agentLicenseNumber": null,
+      "postingWebsiteURL": null,
+      "postingWebsiteLinkText": "See listing website",
+      "postingGroupName": null,
+      "sourceText": null,
+      "isZRMSourceText": null
+    },
+    "livingArea": null,
+    "livingAreaValue": null,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": null,
+      "mlsName": null,
+      "providerLogo": null,
+      "listingAgreement": null,
+      "agentEmail": null,
+      "agentLicenseNumber": null,
+      "agentName": null,
+      "agentPhoneNumber": null,
+      "attributionTitle": null,
+      "brokerName": null,
+      "brokerPhoneNumber": null,
+      "buyerAgentMemberStateLicense": null,
+      "buyerAgentName": null,
+      "buyerBrokerageName": null,
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": null,
+      "lastUpdated": null,
+      "listingOffices": [
+        {
+          "associatedOfficeType": "listOffice",
+          "officeName": null
+        }
+      ],
+      "listingAgents": [],
+      "mlsDisclaimer": null,
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": null,
+      "infoString5": null,
+      "infoString10": null,
+      "infoString16": null
+    },
+    "listingDataSource": "Legacy",
+    "zpid": 2130291013,
+    "address": {
+      "streetAddress": "123 E Main St",
+      "city": "Los Gatos",
+      "state": "CA",
+      "zipcode": "95030",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": null,
+    "bathrooms": 2,
+    "yearBuilt": null,
+    "livingAreaUnitsShort": null,
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/dd3ec03bf95237a60286c68cc08d684d-p_c.jpg"
+                }
+              ],
+              "price": 3200000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2216,
+              "livingAreaValue": 2216,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 12480,
+              "lotAreaValue": 0.2865013774104683,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "25 Grove St",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "25 Grove St"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.21902,
+              "longitude": -121.97508,
+              "zpid": 19749574,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/25-Grove-St-Los-Gatos-CA-95030/19749574_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82027713",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Nevis and Ardizzone",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3206d5576a5756e92e99f625474b3ae8-p_c.jpg"
+                }
+              ],
+              "price": 3149000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1808,
+              "livingAreaValue": 1808,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7700,
+              "lotAreaValue": 7700,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "40 Pleasant St",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "40 Pleasant St"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.222385,
+              "longitude": -121.97369,
+              "zpid": 19749377,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/40-Pleasant-St-Los-Gatos-CA-95030/19749377_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039993",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Lucy Wedemeyer",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ad9f8d437671428dcb519107013e6f5e-p_c.jpg"
+                }
+              ],
+              "price": 3188000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2672,
+              "livingAreaValue": 2672,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 12432,
+              "lotAreaValue": 0.28539944903581266,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "14900 Quito Rd",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "14900 Quito Rd"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.2524,
+              "longitude": -121.99358,
+              "zpid": 19666275,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/14900-Quito-Rd-Los-Gatos-CA-95032/19666275_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042799",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Mahsa Manavi",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/f69634ade0e074ada450c7aa5eaf6aa7-p_c.jpg"
+                }
+              ],
+              "price": 2980000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1720,
+              "livingAreaValue": 1720,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6250,
+              "lotAreaValue": 6250,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "321 Johnson Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "321 Johnson Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.218506,
+              "longitude": -121.96957,
+              "zpid": 19750972,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/321-Johnson-Ave-Los-Gatos-CA-95030/19750972_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039554",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Serena Zhang",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/474c5ca5583a0d191d65e7ddbd147e58-p_c.jpg"
+                }
+              ],
+              "price": 3250000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2309,
+              "livingAreaValue": 2309,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10428,
+              "lotAreaValue": 10428,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "216 Montclair Rd",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "216 Montclair Rd"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.25482,
+              "longitude": -121.989525,
+              "zpid": 112094320,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/216-Montclair-Rd-Los-Gatos-CA-95032/112094320_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042880",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Lucy Wedemeyer",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/278ad44f3a30a33739a87c5a275357a4-p_c.jpg"
+                }
+              ],
+              "price": 3778000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 2194,
+              "livingAreaValue": 2194,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9375,
+              "lotAreaValue": 9375,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "15781 Poppy Ln",
+                "city": "Monte Sereno",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "15781 Poppy Ln"
+                  },
+                  {
+                    "fullValue": "Monte Sereno, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.2393,
+              "longitude": -121.98235,
+              "zpid": 19668374,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/15781-Poppy-Ln-Monte-Sereno-CA-95030/19668374_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042660",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Amy McCafferty",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/9daf5e1a22d303e92a14074e77be54c6-p_c.jpg"
+                }
+              ],
+              "price": 4500000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3298,
+              "livingAreaValue": 3298,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5280,
+              "lotAreaValue": 5280,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "117 Edelen Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "117 Edelen Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.224117,
+              "longitude": -121.98079,
+              "zpid": 19748791,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/117-Edelen-Ave-Los-Gatos-CA-95030/19748791_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042839",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Steve&ChristinePerry",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3285c11455fd32110da76ee93d4a687c-p_c.jpg"
+                }
+              ],
+              "price": 2680000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1409,
+              "livingAreaValue": 1409,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 560721,
+              "lotAreaValue": 12.8724,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "19375 Montevina Rd",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95033"
+              },
+              "parentRegion": {
+                "name": "95033"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "19375 Montevina Rd"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95033"
+                  }
+                ]
+              },
+              "latitude": 37.201855,
+              "longitude": -122.0099,
+              "zpid": 19751899,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/19375-Montevina-Rd-Los-Gatos-CA-95033/19751899_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82033907",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ashley Melikian",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ef8ad16854d7605d4c0b4babef506e3f-p_c.jpg"
+                }
+              ],
+              "price": 2899000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 2067,
+              "livingAreaValue": 2067,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7000,
+              "lotAreaValue": 7000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "136 Loma Alta Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "136 Loma Alta Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.220085,
+              "longitude": -121.97062,
+              "zpid": 19751051,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/136-Loma-Alta-Ave-Los-Gatos-CA-95030/19751051_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037857",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Nicolette Rodman Kelly",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/d8928319837203474465b89b61594031-p_c.jpg"
+                }
+              ],
+              "price": 3250000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2788,
+              "livingAreaValue": 2788,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 12632,
+              "lotAreaValue": 0.28999081726354453,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "215 Vista De Sierra",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "215 Vista De Sierra"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.22074,
+              "longitude": -121.96196,
+              "zpid": 19751271,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/215-Vista-De-Sierra-Los-Gatos-CA-95030/19751271_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038631",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Andy Tse",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2df9bb21ef2c11c480667b4417599e15-p_c.jpg"
+                }
+              ],
+              "price": 3249000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 4,
+              "livingArea": 2053,
+              "livingAreaValue": 2053,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 4056,
+              "lotAreaValue": 4056,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "174 Villa Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "174 Villa Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.219933,
+              "longitude": -121.97515,
+              "zpid": 19749554,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/174-Villa-Ave-Los-Gatos-CA-95030/19749554_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036932",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Amy McCafferty",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/34a6dcb47d79c690300c093898c4bbb2-p_c.jpg"
+                }
+              ],
+              "price": 2598000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 1156,
+              "livingAreaValue": 1156,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6500,
+              "lotAreaValue": 6500,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "15 Stacia St",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "15 Stacia St"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.222874,
+              "longitude": -121.97066,
+              "zpid": 19751425,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/15-Stacia-St-Los-Gatos-CA-95030/19751425_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040650",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Donald Knight",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/6472250aba85e4c083c443f594147349-p_c.jpg"
+                }
+              ],
+              "price": 2988000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1843,
+              "livingAreaValue": 1843,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10044,
+              "lotAreaValue": 10044,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "183 Belvue Dr",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "183 Belvue Dr"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.234467,
+              "longitude": -121.91831,
+              "zpid": 19747643,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/183-Belvue-Dr-Los-Gatos-CA-95032/19747643_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042268",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Denise Carr",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/c3f084d512f826a8cf33b37db879750c-p_c.jpg"
+                }
+              ],
+              "price": 2995000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2613,
+              "livingAreaValue": 2613,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 12449,
+              "lotAreaValue": 0.2858126721763085,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "2986 Lantz Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2986 Lantz Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.2677,
+              "longitude": -121.93594,
+              "zpid": 19671117,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2986-Lantz-Ave-San-Jose-CA-95124/19671117_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042585",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Erin Burke",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/65e6179e66738f2eef1c57cdac44ae99-p_c.jpg"
+                }
+              ],
+              "price": 3498000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1933,
+              "livingAreaValue": 1933,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 90604,
+              "lotAreaValue": 2.08,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "19601 Canon Dr",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "19601 Canon Dr"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.235306,
+              "longitude": -122.0152,
+              "zpid": 61323198,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/19601-Canon-Dr-Los-Gatos-CA-95030/61323198_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036860",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Elaine Pitek",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/01630d8b32c3f4cec43bed291b4bad4f-p_c.jpg"
+                }
+              ],
+              "price": 2398000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 1985,
+              "livingAreaValue": 1985,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8000,
+              "lotAreaValue": 8000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "124 & 126 Camellia Ter",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "124 & 126 Camellia Ter"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.2389,
+              "longitude": -121.96032,
+              "zpid": 349962654,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/124-126-Camellia-Ter-Los-Gatos-CA-95032/349962654_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041363",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Dani Wolter",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/cee18b0cafd7be6518ce923619ff9113-p_c.jpg"
+                }
+              ],
+              "price": 2849900,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2103,
+              "livingAreaValue": 2103,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6193,
+              "lotAreaValue": 6193,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "226 San Mateo Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "226 San Mateo Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.2353,
+              "longitude": -121.97897,
+              "zpid": 19668574,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/226-San-Mateo-Ave-Los-Gatos-CA-95030/19668574_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037137",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Chandani Group",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/c5c434a34982c7c3c109e8d00e2278c2-p_c.jpg"
+                }
+              ],
+              "price": 3600000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 2488,
+              "livingAreaValue": 2488,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9940,
+              "lotAreaValue": 9940,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "70 Central Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "70 Central Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.21679,
+              "longitude": -121.976425,
+              "zpid": 19749597,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/70-Central-Ave-Los-Gatos-CA-95030/19749597_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040336",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Anita Hunter",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/6bc9b09b50a03f0ce5116985535ee739-p_c.jpg"
+                }
+              ],
+              "price": 3200000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2573,
+              "livingAreaValue": 2573,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 1437480,
+              "lotAreaValue": 33,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "20471 Black Rd",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95033"
+              },
+              "parentRegion": {
+                "name": "95033"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "20471 Black Rd"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95033"
+                  }
+                ]
+              },
+              "latitude": 37.204247,
+              "longitude": -122.02857,
+              "zpid": 2128229125,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/20471-Black-Rd-Los-Gatos-CA-95033/2128229125_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040577",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Cassandra Maas",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/99c8367e8ac1082f05b7817967ca7b84-p_c.jpg"
+                }
+              ],
+              "price": 3495000,
+              "currency": "USD",
+              "bedrooms": 7,
+              "bathrooms": 4,
+              "livingArea": 3167,
+              "livingAreaValue": 3167,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10000,
+              "lotAreaValue": 10000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "272 Belblossom Way",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "272 Belblossom Way"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.235176,
+              "longitude": -121.921364,
+              "zpid": 19747368,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/272-Belblossom-Way-Los-Gatos-CA-95032/19747368_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042846",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Alexandra Celo-Cruz",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "72162a4c27129e96a9d41a943e55952e"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/123-E-Main-St-Los-Gatos-CA-95030/2130291013_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-cruz-ca/"
+        },
+        "name": "Santa Cruz",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/watsonville-ca/"
+        },
+        "name": "Watsonville",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/los-gatos-ca-95030/"
+        },
+        "name": "95030",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/los-gatos-ca-95031/"
+        },
+        "name": "95031",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/los-gatos-ca-95032/"
+        },
+        "name": "95032",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/los-gatos-ca-95033/"
+        },
+        "name": "95033",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95120/"
+        },
+        "name": "95120",
+        "body": null
+      }
+    ],
+    "cityId": 19100,
+    "citySearchUrl": {
+      "text": "Homes in Los Gatos",
+      "path": "/los-gatos-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/los-gatos-ca-95030/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/los-gatos-ca-95030/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/los-gatos-ca-95030/rent-houses/"
+    },
+    "abbreviatedAddress": "123 E Main St",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": null,
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": null,
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "not_for_sale",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "price_band": "z3m",
+      "zestimate": "3014500",
+      "zestibuck": "3m-3_999m",
+      "price": "3014500",
+      "lot": "8",
+      "bd": "0",
+      "ba": "2",
+      "aamgnrc1": "123 E Main St",
+      "city": "Los_Gatos",
+      "state": "CA",
+      "zip": "95030",
+      "pid": "2130291013",
+      "premieragent": "no",
+      "tflag": "verizon",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "b898aa65-3088-465c-be2c-f527aa1ea004"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 3014500,
+    "newConstructionType": null,
+    "zestimateLowPercent": "19",
+    "zestimateHighPercent": "26",
+    "rentZestimate": 7545,
+    "restimateLowPercent": null,
+    "restimateHighPercent": null,
+    "schools": [
+      {
+        "distance": 0.9,
+        "name": "Louise Van Meter Elementary School",
+        "rating": 10,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/los-gatos/5529-Louise-Van-Meter-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.1,
+        "name": "Raymond J. Fisher Middle School",
+        "rating": 8,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/los-gatos/5527-Raymond-J.-Fisher-Middle-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.1,
+        "name": "Los Gatos High School",
+        "rating": 10,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/los-gatos/5523-Los-Gatos-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "95030",
+      "regionId": 97936
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 153436712,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=208+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=5qwlMdwY0ic0ZOdon5Pf0b786zE="
+          }
+        ],
+        "price": 0,
+        "currency": "USD",
+        "bedrooms": 0,
+        "bathrooms": 0,
+        "livingArea": null,
+        "livingAreaValue": null,
+        "livingAreaUnits": null,
+        "livingAreaUnitsShort": null,
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "208 E Main St",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "208 E Main St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.22071,
+        "longitude": -121.97774,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/208-E-Main-St-Los-Gatos-CA-95030/153436712_zpid/",
+        "hdpTypeDimension": "NoZestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 2123259059,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=210+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=1Mz4dWx7__mUVsEyFOCeoHr2HW8="
+          }
+        ],
+        "price": 3361800,
+        "currency": "USD",
+        "bedrooms": null,
+        "bathrooms": null,
+        "livingArea": null,
+        "livingAreaValue": null,
+        "livingAreaUnits": null,
+        "livingAreaUnitsShort": null,
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "210 E Main St",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "210 E Main St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.22109,
+        "longitude": -121.9773,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/210-E-Main-St-Los-Gatos-CA-95030/2123259059_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 153436710,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=110+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=HCUXQsUTJT4MXhX7b7CF9NvDUt0="
+          }
+        ],
+        "price": 3308100,
+        "currency": "USD",
+        "bedrooms": null,
+        "bathrooms": null,
+        "livingArea": null,
+        "livingAreaValue": null,
+        "livingAreaUnits": null,
+        "livingAreaUnitsShort": null,
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 279763,
+        "lotAreaValue": 6.422474747474747,
+        "lotAreaUnits": "Acres",
+        "address": {
+          "streetAddress": "110 E Main St",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "110 E Main St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.220406,
+        "longitude": -121.9787,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/110-E-Main-St-Los-Gatos-CA-95030/153436710_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 67693826,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/6355dcfe8ca7dac203b57ad640bd9861-p_c.jpg"
+          }
+        ],
+        "price": 1065300,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "livingArea": 1447,
+        "livingAreaValue": 1447,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "55 Church St UNIT 1101",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "55 Church St UNIT 1101"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.22192,
+        "longitude": -121.97934,
+        "homeStatus": "OTHER",
+        "homeType": "APARTMENT",
+        "hdpUrl": "/homedetails/55-Church-St-UNIT-1101-Los-Gatos-CA-95030/67693826_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Apartment",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": "1wt76xzk2ebfh",
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 2069179714,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/52a468e6ecf6ff90b1e01112139eaebd-p_c.jpg"
+          }
+        ],
+        "price": 0,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "livingArea": 1575,
+        "livingAreaValue": 1575,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "55 Church St",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "55 Church St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.22192,
+        "longitude": -121.97934,
+        "homeStatus": "OTHER",
+        "homeType": "APARTMENT",
+        "hdpUrl": "/homedetails/55-Church-St-Los-Gatos-CA-95030/2069179714_zpid/",
+        "hdpTypeDimension": "NoZestimate",
+        "propertyTypeDimension": "Apartment",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": "2yxbcf0dfxa35",
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19750091,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/9ba40b5f51a34496d021b7f89e31fd64-p_c.jpg"
+          }
+        ],
+        "price": 1360400,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "livingArea": 1600,
+        "livingAreaValue": 1600,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "55 Church St UNIT 1306",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "55 Church St UNIT 1306"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.221794,
+        "longitude": -121.97958,
+        "homeStatus": "OTHER",
+        "homeType": "APARTMENT",
+        "hdpUrl": "/homedetails/55-Church-St-UNIT-1306-Los-Gatos-CA-95030/19750091_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Apartment",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": "4x8cp6zagzgd",
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19750073,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/fbcb4233f83782921eea221e724081b4-p_c.jpg"
+          }
+        ],
+        "price": 829800,
+        "currency": "USD",
+        "bedrooms": 1,
+        "bathrooms": 1,
+        "livingArea": 1059,
+        "livingAreaValue": 1059,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 2178,
+        "lotAreaValue": 2178,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "55 Church St UNIT 1102",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "55 Church St UNIT 1102"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.221905,
+        "longitude": -121.97951,
+        "homeStatus": "OTHER",
+        "homeType": "CONDO",
+        "hdpUrl": "/homedetails/55-Church-St-UNIT-1102-Los-Gatos-CA-95030/19750073_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Condo",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19750074,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.22190475463867,-121.97950744628906&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=6g-q5ZkiErXthEiJBGihv4xOie0="
+          }
+        ],
+        "price": 1169900,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "livingArea": 1496,
+        "livingAreaValue": 1496,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 1742,
+        "lotAreaValue": 1742,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "55 Church St UNIT 1103",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "55 Church St UNIT 1103"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.221905,
+        "longitude": -121.97951,
+        "homeStatus": "OTHER",
+        "homeType": "CONDO",
+        "hdpUrl": "/homedetails/55-Church-St-UNIT-1103-Los-Gatos-CA-95030/19750074_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Condo",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "This is a 2.0 bathroom, single family home. This home is located at 123 E Main St, Los Gatos, CA 95030.",
+    "whatILove": null,
+    "timeOnZillow": null,
+    "pageViewCount": 3,
+    "favoriteCount": 0,
+    "daysOnZillow": null,
+    "latitude": 37.221195,
+    "longitude": -121.97817,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=550x413&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=7L-YNCeleZ9JPQZtaZaf_PDSX4M=",
+    "brokerageName": null,
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [],
+    "homeInsights": null,
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273042209
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273042209
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273042209
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=1025x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=8gKLCixci-EjaJJdqgt0-eWnuDw=",
+    "mlsid": null,
+    "ouid": null,
+    "palsId": "9a3336ff1f457e21d23fb50659f79a71",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I own this home and would like a professional estimate at 123 E Main St, Los Gatos, CA 95030.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 1,
+    "livingAreaUnits": null,
+    "lotSize": 348480,
+    "lotAreaValue": 8,
+    "lotAreaUnits": "Acres",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [
+      {
+        "date": "2010-09-10",
+        "price": 1200000,
+        "time": 1284076800000,
+        "pricePerSquareFoot": null,
+        "priceChangeRate": 0,
+        "event": "Listing removed",
+        "source": "Greenfield Group",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Greenfield Group",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2010-09-02",
+        "price": 1200000,
+        "time": 1283385600000,
+        "pricePerSquareFoot": null,
+        "priceChangeRate": 0,
+        "event": "Listed for sale",
+        "source": "Greenfield Group",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Greenfield Group",
+          "infoString3": null
+        }
+      }
+    ],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=jeLj0tStTlZgXZDi9Ii3B0s6hSA=",
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": null,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=46x46&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=1h4vRye-2JvDJmzu6fd2kMT9PvY="
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=st0xcmnOkoaPETDFlYQP3prkHsM="
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "Zestimate",
+    "listingTypeDimension": "Unknown Listed By",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Unknown Listed By",
+    "keystoneHomeStatus": "NotForSale",
+    "pageUrlFragment": "Zestimate",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=AI4tdQt86eKycMwpVEPeamETjKk=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Rietr_4XVrJXCOFzAPLXOV4wTj4=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=YZyqnqc8aNIolAUpRWm9XonR0sg=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=YdM__8LayN9S_UdRO5cVreWLaBg=",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=AI4tdQt86eKycMwpVEPeamETjKk=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Rietr_4XVrJXCOFzAPLXOV4wTj4=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=YZyqnqc8aNIolAUpRWm9XonR0sg=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=123+E+Main+St%2C+Los+Gatos%2C+CA+95030&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=YdM__8LayN9S_UdRO5cVreWLaBg=",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": null,
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": null,
+    "taxHistory": [],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/123-E-Main-St_-Los%20Gatos-95030/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/95030",
+    "neighborhoodId": null,
+    "zipcodeId": 97936,
+    "sellingSoon": []
+  }
+}

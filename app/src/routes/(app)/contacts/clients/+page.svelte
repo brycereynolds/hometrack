@@ -3,7 +3,8 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { contacts, listings } from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Search,
@@ -15,19 +16,32 @@
 		Shield,
 	} from 'lucide-svelte';
 
+	let { data } = $props();
+
 	let search = $state('');
 
 	const clients = $derived(() => {
-		const list = contacts.filter((c) => c.type === 'client');
+		const list = data.clients;
 		if (!search.trim()) return list;
 		const q = search.toLowerCase();
 		return list.filter(
-			(c) => c.name.toLowerCase().includes(q) || c.email.toLowerCase().includes(q)
+			(c) => c.name.toLowerCase().includes(q) || (c.email && c.email.toLowerCase().includes(q))
 		);
 	});
 
 	function getClientListings(clientId: string) {
-		return listings.filter((l) => l.client.id === clientId);
+		return data.listings.filter((l) => l.clientId === clientId);
+	}
+
+	function getInitials(name: string, initials?: string | null): string {
+		if (initials) return initials;
+		return name.split(' ').map((n: string) => n[0]).join('').slice(0, 2);
+	}
+
+	function formatDate(d: string | Date | null): string {
+		if (!d) return '';
+		const date = typeof d === 'string' ? new Date(d) : d;
+		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 	}
 </script>
 
@@ -41,7 +55,7 @@
 			<div>
 				<h1 class="font-serif text-3xl font-bold">Clients</h1>
 				<p class="mt-1 text-sm text-muted-foreground">
-					{contacts.filter((c) => c.type === 'client').length} active clients
+					{data.clients.length} active clients
 				</p>
 			</div>
 		</div>
@@ -68,7 +82,7 @@
 						<div class="flex items-start gap-4">
 							<Avatar class="size-12">
 								<AvatarFallback class="bg-primary/10 text-sm font-semibold text-primary">
-									{client.initials}
+									{getInitials(client.name, client.initials)}
 								</AvatarFallback>
 							</Avatar>
 							<div class="min-w-0 flex-1">
@@ -79,11 +93,11 @@
 								</h3>
 								<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 									<Mail class="size-3" />
-									<span class="truncate">{client.email}</span>
+									<span class="truncate">{client.email ?? ''}</span>
 								</div>
 								<div class="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
 									<Phone class="size-3" />
-									<span>{client.phone}</span>
+									<span>{client.phone ?? ''}</span>
 								</div>
 							</div>
 						</div>
@@ -101,25 +115,9 @@
 											<span class="flex-1 truncate">{listing.address}</span>
 											<span
 												class="rounded-full px-2 py-0.5 text-[10px] font-medium"
-												style="background-color: {listing.phase === 'marketing'
-													? '#C4704B20'
-													: listing.phase === 'showings'
-														? '#D4956B20'
-														: listing.phase === 'offers'
-															? '#5B8BA520'
-															: listing.phase === 'contract'
-																? '#5E8C6120'
-																: '#7B8B6F20'}; color: {listing.phase === 'marketing'
-													? '#C4704B'
-													: listing.phase === 'showings'
-														? '#D4956B'
-														: listing.phase === 'offers'
-															? '#5B8BA5'
-															: listing.phase === 'contract'
-																? '#5E8C61'
-																: '#7B8B6F'}"
+												style="background-color: {PHASES[listing.phase].color}20; color: {PHASES[listing.phase].color}"
 											>
-												{listing.phaseLabel}
+												{PHASES[listing.phase].label}
 											</span>
 										</div>
 									{/each}
@@ -131,7 +129,7 @@
 						<div
 							class="mt-4 flex items-center justify-between border-t border-border pt-3 text-xs text-muted-foreground"
 						>
-							<span>Last: {client.lastInteractionDate}</span>
+							<span>Last: {formatDate(client.lastInteractionDate)}</span>
 							<div class="flex items-center gap-1.5">
 								<Shield class="size-3" />
 								<span class="font-medium text-emerald-600">Portal Active</span>

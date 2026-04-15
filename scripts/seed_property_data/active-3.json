@@ -1,0 +1,4595 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/19692731_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 27957.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": false,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 4495000,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "1430 Callecita St",
+    "city": "San Jose",
+    "state": "CA",
+    "zipcode": "95125",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "1430 Callecita St"
+        },
+        {
+          "fullValue": "San Jose, CA 95125"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 5,
+      "bathroomsFull": 4,
+      "bathroomsThreeQuarter": 0,
+      "bathroomsHalf": 1,
+      "bathroomsOneQuarter": null,
+      "bedrooms": 5,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": "Other",
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": null,
+      "buildingName": null,
+      "appliances": null,
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "Single Family Residence"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "2026"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "Forced Air, Other"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": "Central Air"
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "2 Attached Garage spaces"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": null
+        },
+        {
+          "factLabel": "Days on Zillow",
+          "factValue": "40 Days"
+        },
+        {
+          "factLabel": "Price/sqft",
+          "factValue": "$1,179"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": null,
+      "bathroomsPartial": null,
+      "bathroomsFloat": 5,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": "Thomas James Homes",
+      "buildingArea": null,
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "San Jose",
+      "commonWalls": null,
+      "communityFeatures": null,
+      "compensationBasedOn": null,
+      "constructionMaterials": [],
+      "contingency": null,
+      "cooling": [
+        "Central Air"
+      ],
+      "coveredParkingCapacity": null,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": null,
+      "fireplaces": null,
+      "flooring": null,
+      "foundationArea": null,
+      "foundationDetails": [],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": 2,
+      "gas": null,
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": true,
+      "hasAttachedProperty": false,
+      "hasCooling": true,
+      "hasCarport": null,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": true,
+      "hasHeating": true,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [
+        "Forced Air",
+        "Other"
+      ],
+      "highSchool": "Willow Glen High School",
+      "highSchoolDistrict": "San Jose Unified",
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": null,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": true,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": null,
+      "leaseTerm": null,
+      "levels": "2.0",
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": null,
+      "lotSizeDimensions": null,
+      "livingArea": "3,811 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [],
+      "middleOrJuniorSchool": "Willow Glen Middle School",
+      "middleOrJuniorSchoolDistrict": "San Jose Unified",
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": 1772735157000,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "44626033",
+      "parkingCapacity": 2,
+      "parkingFeatures": [
+        "Attached"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": 1179,
+      "propertyCondition": "New Construction",
+      "propertySubType": [
+        "Single Family Residence"
+      ],
+      "roadSurfaceType": null,
+      "roofType": null,
+      "rooms": [],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": null,
+      "spaFeatures": null,
+      "specialListingConditions": null,
+      "stories": 2,
+      "storiesDecimal": 2,
+      "storiesTotal": 2,
+      "structureType": "House",
+      "subdivisionName": "Santa Clara County",
+      "taxAnnualAmount": 28031,
+      "taxAssessedValue": 2193000,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": null,
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": null,
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": null,
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 2026,
+      "yearBuiltEffective": null,
+      "zoning": null,
+      "zoningDescription": null,
+      "elementarySchool": "Booksin Elementary School",
+      "elementarySchoolDistrict": "San Jose Unified",
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": 31209,
+    "homeStatus": "PENDING",
+    "listingProvider": {
+      "logos": [],
+      "title": "Listing Provided by",
+      "disclaimerText": null,
+      "enhancedVideoURL": null,
+      "enhancedDescriptionText": null,
+      "showLogos": null,
+      "showNoContactInfoMessage": false,
+      "agentName": null,
+      "agentLicenseNumber": null,
+      "postingWebsiteURL": "https://tjh.com/for-sale/1430-callecita-street/?utm_medium=newhomefeed&utm_source=zillow%2Fpaid_network&nhf_channel=6&nhf_listing_id=2559137&nhf_listing_type=home&utm_term=home_1430CallecitaStreet&utm_campaign=San+Jose%2FCA",
+      "postingWebsiteLinkText": "Thomas James Homes",
+      "postingGroupName": "Thomas James Homes",
+      "sourceText": "Source: Thomas James Homes",
+      "isZRMSourceText": null
+    },
+    "livingArea": 3811,
+    "livingAreaValue": 3811,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": null,
+      "mlsName": "Thomas James Homes",
+      "providerLogo": null,
+      "listingAgreement": null,
+      "agentEmail": null,
+      "agentLicenseNumber": null,
+      "agentName": null,
+      "agentPhoneNumber": "925-270-6807",
+      "attributionTitle": null,
+      "brokerName": "Thomas James Homes",
+      "brokerPhoneNumber": "925-270-6807",
+      "buyerAgentMemberStateLicense": null,
+      "buyerAgentName": null,
+      "buyerBrokerageName": null,
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": "2026-04-10 16:30:07",
+      "lastUpdated": "2026-04-10 16:30:07",
+      "listingOffices": [
+        {
+          "associatedOfficeType": "listOffice",
+          "officeName": "Thomas James Homes"
+        }
+      ],
+      "listingAgents": [
+        {
+          "associatedAgentType": "listAgent",
+          "memberFullName": null,
+          "memberStateLicense": null
+        }
+      ],
+      "mlsDisclaimer": null,
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": null,
+      "infoString5": "925-270-6807",
+      "infoString10": null,
+      "infoString16": null
+    },
+    "listingDataSource": "Phoenix",
+    "zpid": 19692731,
+    "address": {
+      "streetAddress": "1430 Callecita St",
+      "city": "San Jose",
+      "state": "CA",
+      "zipcode": "95125",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": "Santa Clara County"
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 5,
+    "bathrooms": 5,
+    "yearBuilt": 2026,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/afa57db3cee15c88bb401cce10bae9fd-p_c.jpg"
+                }
+              ],
+              "price": 4395000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3811,
+              "livingAreaValue": 3811,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8207,
+              "lotAreaValue": 8207,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "2106 Marques Ave",
+                "city": "Sanjose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2106 Marques Ave"
+                  },
+                  {
+                    "fullValue": "Sanjose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": null,
+              "longitude": null,
+              "zpid": 458747276,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2106-Marques-Ave-Sanjose-CA-95125/458747276_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036453",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Frances Ibay",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/bc9bd378d43c2227ef08d90301af1594-p_c.jpg"
+                }
+              ],
+              "price": 4498000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 5,
+              "livingArea": 2991,
+              "livingAreaValue": 2991,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6652,
+              "lotAreaValue": 6652,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1067 Camino Pablo",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1067 Camino Pablo"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.30638,
+              "longitude": -121.90823,
+              "zpid": 19578973,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1067-Camino-Pablo-San-Jose-CA-95125/19578973_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042905",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Valerie Mein",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/17b708ed163c1cec877c24b191b5231a-p_c.jpg"
+                }
+              ],
+              "price": 3795000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 3012,
+              "livingAreaValue": 3012,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7000,
+              "lotAreaValue": 7000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1759 Willowhurst Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1759 Willowhurst Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.293648,
+              "longitude": -121.91722,
+              "zpid": 19593644,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1759-Willowhurst-Ave-San-Jose-CA-95125/19593644_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction Spec",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": "31139705",
+              "attributionInfo": {
+                "mlsId": "ML82042848",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Frances Ibay",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": true,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/99e928b67e8ef58f65172a60ee6db65b-p_c.jpg"
+                }
+              ],
+              "price": 3795000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3551,
+              "livingAreaValue": 3551,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 12481,
+              "lotAreaValue": 0.286524334251607,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "1751 Willow St",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1751 Willow St"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.30192,
+              "longitude": -121.91775,
+              "zpid": 19590783,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1751-Willow-St-San-Jose-CA-95125/19590783_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040413",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Frances Ibay",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/5921a226f72b3200ff2985a0c126a66e-p_c.jpg"
+                }
+              ],
+              "price": 4750000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3839,
+              "livingAreaValue": 3839,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10296,
+              "lotAreaValue": 10296,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "12763 Lantana Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95130"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "12763 Lantana Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95130"
+                  }
+                ]
+              },
+              "latitude": 37.282604,
+              "longitude": -121.987236,
+              "zpid": 19660454,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/12763-Lantana-Ave-San-Jose-CA-95130/19660454_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction Spec",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": "31139705",
+              "attributionInfo": {
+                "mlsId": null,
+                "mlsName": "Thomas James Homes",
+                "providerLogo": null,
+                "agentName": null,
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": true,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/362e878b23e227b285b73cc62e5e523a-p_c.jpg"
+                }
+              ],
+              "price": 3595000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 3186,
+              "livingAreaValue": 3186,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10872,
+              "lotAreaValue": 10872,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "2114 Ardis Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2114 Ardis Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.29553,
+              "longitude": -121.88176,
+              "zpid": 19686769,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2114-Ardis-Dr-San-Jose-CA-95125/19686769_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction Spec",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": "31139705",
+              "attributionInfo": {
+                "mlsId": "ML82033897",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Frances Ibay",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": true,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ace3e9b20fbf3cd1e07e39ccd6faec93-p_c.jpg"
+                }
+              ],
+              "price": 3495000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 3007,
+              "livingAreaValue": 3007,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6425,
+              "lotAreaValue": 6425,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1111 Mayette Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1111 Mayette Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.29537,
+              "longitude": -121.8934,
+              "zpid": 19687401,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1111-Mayette-Ave-San-Jose-CA-95125/19687401_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038355",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Frances Ibay",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3ef17a0a5b6fe537e514eec3d1433d02-p_c.jpg"
+                }
+              ],
+              "price": 3075000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2852,
+              "livingAreaValue": 2852,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6603,
+              "lotAreaValue": 6603,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1029 Broadway Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1029 Broadway Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.312805,
+              "longitude": -121.90006,
+              "zpid": 19578512,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1029-Broadway-Ave-San-Jose-CA-95125/19578512_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction Spec",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": "31139705",
+              "attributionInfo": {
+                "mlsId": "ML82042540",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Frances Ibay",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": true,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/66c3ea780f1f392abd13934df9738d29-p_c.jpg"
+                }
+              ],
+              "price": 2900000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2466,
+              "livingAreaValue": 2466,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9040,
+              "lotAreaValue": 9040,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1132 Denise Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1132 Denise Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.282814,
+              "longitude": -121.8841,
+              "zpid": 19687562,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1132-Denise-Way-San-Jose-CA-95125/19687562_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041421",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Gina Marciano",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.33999252319336,-121.9162368774414&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=-IV4JSJtdn3feJR_nK9ZvBX4CuY="
+                }
+              ],
+              "price": 3350000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 3071,
+              "livingAreaValue": 3071,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10000,
+              "lotAreaValue": 10000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "860 Asbury St",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95126"
+              },
+              "parentRegion": {
+                "name": "Downtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "860 Asbury St"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95126"
+                  }
+                ]
+              },
+              "latitude": 37.339993,
+              "longitude": -121.91624,
+              "zpid": 19574964,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/860-Asbury-St-San-Jose-CA-95126/19574964_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction Spec",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": "31139705",
+              "attributionInfo": {
+                "mlsId": null,
+                "mlsName": "Thomas James Homes",
+                "providerLogo": null,
+                "agentName": null,
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": true,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3b7f393a2a151cce97c044b34617ff6a-p_c.jpg"
+                }
+              ],
+              "price": 3199000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2566,
+              "livingAreaValue": 2566,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8690,
+              "lotAreaValue": 8690,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "2260 Constitution Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2260 Constitution Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.281578,
+              "longitude": -121.91507,
+              "zpid": 19689365,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2260-Constitution-Dr-San-Jose-CA-95124/19689365_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039930",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Gina Marciano",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/859efa7b7ae74c5ea8af336803e0c0f3-p_c.jpg"
+                }
+              ],
+              "price": 3895000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3788,
+              "livingAreaValue": 3788,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10454,
+              "lotAreaValue": 10454.4,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "2854 Lowell Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95121"
+              },
+              "parentRegion": {
+                "name": "Evergreen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2854 Lowell Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95121"
+                  }
+                ]
+              },
+              "latitude": 37.30255,
+              "longitude": -121.788055,
+              "zpid": 121041863,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2854-Lowell-Ct-San-Jose-CA-95121/121041863_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "41129180",
+                "mlsName": "CCAR",
+                "providerLogo": null,
+                "agentName": "Gregory Watkins",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/a4ba999e06af7e3fdb083b7aa4f5d645-p_c.jpg"
+                }
+              ],
+              "price": 4398000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 5,
+              "livingArea": 3466,
+              "livingAreaValue": 3466,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6455,
+              "lotAreaValue": 6455,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "16988 Kennedy Rd",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "16988 Kennedy Rd"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.21582,
+              "longitude": -121.92788,
+              "zpid": 300480870,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/16988-Kennedy-Rd-Los-Gatos-CA-95032/300480870_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039850",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Stine Jackson",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": true,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/654c82b130239464ad7143a43ed07e27-p_c.jpg"
+                }
+              ],
+              "price": 3898000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 3848,
+              "livingAreaValue": 3848,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 21904,
+              "lotAreaValue": 0.5028466483011937,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "1103 Barnes Ln",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95120"
+              },
+              "parentRegion": {
+                "name": "Almaden Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1103 Barnes Ln"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95120"
+                  }
+                ]
+              },
+              "latitude": 37.200584,
+              "longitude": -121.837524,
+              "zpid": 19767441,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1103-Barnes-Ln-San-Jose-CA-95120/19767441_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039366",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jacklyn Friedland",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/01ded49ea9da6ff91d60bba78faab667-p_c.jpg"
+                }
+              ],
+              "price": 2398000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 2029,
+              "livingAreaValue": 2029,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7169,
+              "lotAreaValue": 7169,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1748 Harte Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1748 Harte Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.27502,
+              "longitude": -121.91273,
+              "zpid": 19690093,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1748-Harte-Dr-San-Jose-CA-95124/19690093_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042801",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Julie Tsai Law",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/6dfe494ebd614c5d99ec621f903dd63b-p_c.jpg"
+                }
+              ],
+              "price": 4650000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3070,
+              "livingAreaValue": 3070,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9006,
+              "lotAreaValue": 9006,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "19110 Dagmar Dr",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Fruitvale"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "19110 Dagmar Dr"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.27436,
+              "longitude": -122.00671,
+              "zpid": 19655288,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/19110-Dagmar-Dr-Saratoga-CA-95070/19655288_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036230",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Andy Tse",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/62cf7b8cbc124bc176df834528cb7d9e-p_c.jpg"
+                }
+              ],
+              "price": 3950000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2303,
+              "livingAreaValue": 2303,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9600,
+              "lotAreaValue": 9600,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "16344 Camellia Ter",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "16344 Camellia Ter"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.240158,
+              "longitude": -121.95542,
+              "zpid": 19745841,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/16344-Camellia-Ter-Los-Gatos-CA-95032/19745841_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042418",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Denise Carr",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/09603e04e236f4ce929f6ec8dd98dd31-p_c.jpg"
+                }
+              ],
+              "price": 2495000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 2688,
+              "livingAreaValue": 2688,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5227,
+              "lotAreaValue": 5227.2,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1158 Fremont St",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95126"
+              },
+              "parentRegion": {
+                "name": "Downtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1158 Fremont St"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95126"
+                  }
+                ]
+              },
+              "latitude": 37.334602,
+              "longitude": -121.917145,
+              "zpid": 19575347,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1158-Fremont-St-San-Jose-CA-95126/19575347_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "41130714",
+                "mlsName": "Bay East AOR",
+                "providerLogo": null,
+                "agentName": "Amanda Elhassan",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ff6b55b798255acedcc3a247cc8a1541-p_c.jpg"
+                }
+              ],
+              "price": 3998000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2575,
+              "livingAreaValue": 2575,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 14606,
+              "lotAreaValue": 0.33530762167125805,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "13120 Via Madronas Dr",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Triangle South"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "13120 Via Madronas Dr"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.277752,
+              "longitude": -122.01186,
+              "zpid": 19656238,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/13120-Via-Madronas-Dr-Saratoga-CA-95070/19656238_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041570",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Andy Tse",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ef5ba4f8b5221e2ff5089bc01b648afe-p_c.jpg"
+                }
+              ],
+              "price": 4998000,
+              "currency": "USD",
+              "bedrooms": 8,
+              "bathrooms": 6,
+              "livingArea": 3572,
+              "livingAreaValue": 3572,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 15149,
+              "lotAreaValue": 0.3477731864095501,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "13090 Heath St",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Quito"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "13090 Heath St"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.277462,
+              "longitude": -122.001076,
+              "zpid": 19654479,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/13090-Heath-St-Saratoga-CA-95070/19654479_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040675",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Andy Tse",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "7987a0a0e95b983a36f2cd2f5a3d7faa"
+        }
+      ]
+    },
+    "providerListingID": "31139705",
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/1430-Callecita-St-San-Jose-CA-95125/19692731_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca/"
+        },
+        "name": "Cupertino",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/morgan-hill-ca/"
+        },
+        "name": "Morgan Hill",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [
+      {
+        "regionUrl": {
+          "path": "/almaden-valley-san-jose-ca/"
+        },
+        "name": "Almaden Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/blossom-valley-san-jose-ca/"
+        },
+        "name": "Blossom Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/cambrian-park-san-jose-ca/"
+        },
+        "name": "Cambrian Park",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/downtown-san-jose-ca/"
+        },
+        "name": "Downtown",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/east-san-jose-san-jose-ca/"
+        },
+        "name": "East San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/evergreen-san-jose-ca/"
+        },
+        "name": "Evergreen",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/fairgrounds-san-jose-ca/"
+        },
+        "name": "Fairgrounds",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/north-valley-san-jose-ca/"
+        },
+        "name": "North Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/west-san-jose-san-jose-ca/"
+        },
+        "name": "West San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/willow-glen-san-jose-ca/"
+        },
+        "name": "Willow Glen",
+        "body": null
+      }
+    ],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95111/"
+        },
+        "name": "95111",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95112/"
+        },
+        "name": "95112",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95116/"
+        },
+        "name": "95116",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95122/"
+        },
+        "name": "95122",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95123/"
+        },
+        "name": "95123",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95124/"
+        },
+        "name": "95124",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95125/"
+        },
+        "name": "95125",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95127/"
+        },
+        "name": "95127",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95136/"
+        },
+        "name": "95136",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95148/"
+        },
+        "name": "95148",
+        "body": null
+      }
+    ],
+    "cityId": 33839,
+    "citySearchUrl": {
+      "text": "Homes in San Jose",
+      "path": "/san-jose-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/san-jose-ca-95125/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/san-jose-ca-95125/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/san-jose-ca-95125/rent-houses/"
+    },
+    "abbreviatedAddress": "1430 Callecita St",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": {
+      "name": "Willow Glen"
+    },
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": {
+      "path": "/willow-glen-san-jose-ca/"
+    },
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": {
+      "path": "/community/santa-clara-county/31139705_plid/"
+    },
+    "isShowcaseListing": false,
+    "isPremierBuilder": true,
+    "adTargets": {
+      "listtp": "buy_builder_community",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "hood": "Willow_Glen",
+      "price_band": "z3m",
+      "zestimate": "4298100",
+      "zestibuck": "4m-4_999m",
+      "price": "4495000",
+      "prange": "4m-4_999m",
+      "bd": "5",
+      "ba": "5",
+      "sqft": "3811",
+      "sqftrange": "3500-3999",
+      "yrblt": "2020-2029",
+      "aamgnrc1": "1430 Callecita St",
+      "city": "San_Jose",
+      "state": "CA",
+      "zip": "95125",
+      "pid": "19692731",
+      "plid": "31139705",
+      "premieragent": "no",
+      "ssid": "31209",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "4e92983a-8011-4e90-be42-cf42f96db6f1"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 4298100,
+    "newConstructionType": "BUILDER_SPEC",
+    "zestimateLowPercent": "5",
+    "zestimateHighPercent": "5",
+    "rentZestimate": 8195,
+    "restimateLowPercent": null,
+    "restimateHighPercent": null,
+    "schools": [
+      {
+        "distance": 0.2,
+        "name": "Booksin Elementary School",
+        "rating": 9,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5651-Booksin-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.4,
+        "name": "Willow Glen Middle School",
+        "rating": 5,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5698-Willow-Glen-Middle-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.3,
+        "name": "Willow Glen High School",
+        "rating": 8,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/5697-Willow-Glen-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "Willow Glen",
+      "regionId": 118987
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 19692730,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1438+Callecita+St%2C+San+Jose%2C+CA+95125&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=nqpweMAVe5gt3LczvPZjwdMlzos="
+          }
+        ],
+        "price": 2737400,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 2199,
+        "livingAreaValue": 2199,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 8712,
+        "lotAreaValue": 8712,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1438 Callecita St",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1438 Callecita St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.28914,
+        "longitude": -121.90299,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1438-Callecita-St-San-Jose-CA-95125/19692730_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19692732,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1418+Callecita+St%2C+San+Jose%2C+CA+95125&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=naz7WLQue5pbnmtqrls-TPaFLP8="
+          }
+        ],
+        "price": 1799100,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 1.5,
+        "livingArea": 1276,
+        "livingAreaValue": 1276,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 8712,
+        "lotAreaValue": 8712,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1418 Callecita St",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1418 Callecita St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.289303,
+        "longitude": -121.90262,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1418-Callecita-St-San-Jose-CA-95125/19692732_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19692729,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1444+Callecita+St%2C+San+Jose%2C+CA+95125&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=c4mU7CZdpnKoc3UFer4S3GyWWI4="
+          }
+        ],
+        "price": 2718300,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2.5,
+        "livingArea": 2401,
+        "livingAreaValue": 2401,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 8712,
+        "lotAreaValue": 8712,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1444 Callecita St",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1444 Callecita St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.289055,
+        "longitude": -121.90318,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1444-Callecita-St-San-Jose-CA-95125/19692729_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19692733,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/e9541b8bac92fcd2e038f414d1588623-p_c.jpg"
+          }
+        ],
+        "price": 3911900,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 4,
+        "livingArea": 3805,
+        "livingAreaValue": 3805,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 11168,
+        "lotAreaValue": 0.2563820018365473,
+        "lotAreaUnits": "Acres",
+        "address": {
+          "streetAddress": "1406 Callecita St",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1406 Callecita St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.28939,
+        "longitude": -121.90241,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1406-Callecita-St-San-Jose-CA-95125/19692733_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19692737,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1535+Edgewood+Way%2C+San+Jose%2C+CA+95125&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=fTCYXKJD0CyNvN--OqFIhC3VBx8="
+          }
+        ],
+        "price": 2130500,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 2.5,
+        "livingArea": 1766,
+        "livingAreaValue": 1766,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 7840,
+        "lotAreaValue": 7840,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1535 Edgewood Way",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1535 Edgewood Way"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.2888,
+        "longitude": -121.9027,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1535-Edgewood-Way-San-Jose-CA-95125/19692737_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19692728,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1450+Callecita+St%2C+San+Jose%2C+CA+95125&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=oNRmhwf1yWRZYEb9NNpaHgwAoXA="
+          }
+        ],
+        "price": 3293100,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3.5,
+        "livingArea": 3422,
+        "livingAreaValue": 3422,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 8712,
+        "lotAreaValue": 8712,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1450 Callecita St",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1450 Callecita St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.28897,
+        "longitude": -121.90337,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1450-Callecita-St-San-Jose-CA-95125/19692728_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19692738,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1541+Edgewood+Way%2C+San+Jose%2C+CA+95125&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=5f18AzUm1qw_5ayy8dSBbjXHn24="
+          }
+        ],
+        "price": 3168600,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 4,
+        "livingArea": 3329,
+        "livingAreaValue": 3329,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 8712,
+        "lotAreaValue": 8712,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1541 Edgewood Way",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1541 Edgewood Way"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.288727,
+        "longitude": -121.90288,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1541-Edgewood-Way-San-Jose-CA-95125/19692738_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19692714,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1429+Callecita+St%2C+San+Jose%2C+CA+95125&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=QsFUrTBJ_CG8RaV79Hqsdy7P4kQ="
+          }
+        ],
+        "price": 3902800,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 4,
+        "livingArea": 4124,
+        "livingAreaValue": 4124,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 8712,
+        "lotAreaValue": 8712,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1429 Callecita St",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1429 Callecita St"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.28972,
+        "longitude": -121.90315,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1429-Callecita-St-San-Jose-CA-95125/19692714_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "Distinguished 5-bedroom, 4.5-bathroom Transitional-style home built by Thomas James Homes. Estimated home completion is Spring 2026.\n\nJust inside the front porch is the living and dining room areas with a fireplace. Continue through the main floor to the great room with large doors that lead to the covered patio, and gourmet kitchen that includes an island with bar seating, walk-in pantry, and nook. The main floor comes complete with an ADU with kitchenette and en suite bedroom and bathroom.\n\nHead upstairs to a spacious loft, laundry room with sink and storage, 3 secondary bedrooms, and 2 full bathrooms. Enjoy the luxurious grand suite, which includes a spa-like bath and walk-in closet, or step out to your own fully fenced yard, all in a prime Willow Glen location.",
+    "whatILove": null,
+    "timeOnZillow": "40 days",
+    "pageViewCount": 452,
+    "favoriteCount": 19,
+    "daysOnZillow": 40,
+    "latitude": 37.28924,
+    "longitude": -121.902885,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-p_h.jpg",
+    "brokerageName": "Thomas James Homes",
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [
+      {
+        "id": "BROKER",
+        "elements": [
+          {
+            "id": "NAME",
+            "text": "Thomas James Homes",
+            "action": null
+          }
+        ],
+        "textStyle": null
+      }
+    ],
+    "homeInsights": [
+      {
+        "insights": [
+          {
+            "modelId": "z-nrt-pdc-llm-tags",
+            "treatmentId": "model_0",
+            "phrases": [
+              "Spacious loft",
+              "Fully fenced yard",
+              "Front porch",
+              "Gourmet kitchen",
+              "Luxurious grand suite",
+              "Spa-like bath",
+              "Island with bar seating"
+            ]
+          },
+          {
+            "modelId": "z-nrt-pdc-llm-tags",
+            "treatmentId": "model_1",
+            "phrases": [
+              "Spacious loft",
+              "Fully fenced yard",
+              "Front porch",
+              "Gourmet kitchen",
+              "Luxurious grand suite",
+              "Spa-like bath",
+              "Island with bar seating"
+            ]
+          }
+        ]
+      }
+    ],
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776274235621
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776274235621
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776274235621
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-p_f.jpg",
+    "mlsid": null,
+    "ouid": null,
+    "palsId": "31209001_lot:3936178",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I am interested in the home pending sale at 1430 Callecita St, San Jose, CA 95125.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 24,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": null,
+    "lotAreaValue": null,
+    "lotAreaUnits": "sqft",
+    "postingProductType": "Spec",
+    "marketingName": "Plan",
+    "priceHistory": [
+      {
+        "date": "2026-04-10",
+        "price": 4495000,
+        "time": 1775779200000,
+        "pricePerSquareFoot": 1179,
+        "priceChangeRate": 0,
+        "event": "Pending sale",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2026-04-08",
+        "price": 4495000,
+        "time": 1775606400000,
+        "pricePerSquareFoot": 1179,
+        "priceChangeRate": 0,
+        "event": "Listing removed",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2026-03-31",
+        "price": 4495000,
+        "time": 1774915200000,
+        "pricePerSquareFoot": 1179,
+        "priceChangeRate": 0,
+        "event": "Pending sale",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2026-03-05",
+        "price": 4495000,
+        "time": 1772668800000,
+        "pricePerSquareFoot": 1179,
+        "priceChangeRate": 0.022753128555176336,
+        "event": "Listed for sale",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2026-01-23",
+        "price": 4395000,
+        "time": 1769126400000,
+        "pricePerSquareFoot": 1153,
+        "priceChangeRate": 0,
+        "event": "Listing removed",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2025-12-17",
+        "price": 4395000,
+        "time": 1765929600000,
+        "pricePerSquareFoot": 1153,
+        "priceChangeRate": 0.010344827586206896,
+        "event": "Price change",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2025-11-13",
+        "price": 4350000,
+        "time": 1762992000000,
+        "pricePerSquareFoot": 1141,
+        "priceChangeRate": 0.023529411764705882,
+        "event": "Listed for sale",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2025-09-10",
+        "price": 4250000,
+        "time": 1757462400000,
+        "pricePerSquareFoot": 1115,
+        "priceChangeRate": 0,
+        "event": "Listing removed",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2025-07-29",
+        "price": 4250000,
+        "time": 1753747200000,
+        "pricePerSquareFoot": 1115,
+        "priceChangeRate": 1.1794871794871795,
+        "event": "Listed for sale",
+        "source": "Thomas James Homes",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Thomas James Homes",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2025-03-25",
+        "price": 1950000,
+        "time": 1742860800000,
+        "pricePerSquareFoot": 512,
+        "priceChangeRate": 0,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      }
+    ],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": true
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "2026-03-05",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=1430+Callecita+St%2C+San+Jose%2C+CA+95125&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=Am1AgOTUxSrWP1LMmKyJJKFS1qU=",
+    "postingUrl": "https://tjh.com/for-sale/1430-callecita-street/?utm_medium=newhomefeed&utm_source=zillow%2Fpaid_network&nhf_channel=6&nhf_listing_id=2559137&nhf_listing_type=home&utm_term=home_1430CallecitaStreet&utm_campaign=San+Jose%2FCA",
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": 1950000,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-p_a.jpg"
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-p_c.jpg"
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "Pending",
+    "listingTypeDimension": "New Construction Spec",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "New Construction Spec",
+    "keystoneHomeStatus": "Pending",
+    "pageUrlFragment": "ForSale",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0240253fec1f6d31778fec83c8e48f60-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0240253fec1f6d31778fec83c8e48f60-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0240253fec1f6d31778fec83c8e48f60-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0240253fec1f6d31778fec83c8e48f60-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0240253fec1f6d31778fec83c8e48f60-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0240253fec1f6d31778fec83c8e48f60-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0240253fec1f6d31778fec83c8e48f60-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0240253fec1f6d31778fec83c8e48f60-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/30291701fe012ada4ae3df84afad0891-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/30291701fe012ada4ae3df84afad0891-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/30291701fe012ada4ae3df84afad0891-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/30291701fe012ada4ae3df84afad0891-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/30291701fe012ada4ae3df84afad0891-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/30291701fe012ada4ae3df84afad0891-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/30291701fe012ada4ae3df84afad0891-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/30291701fe012ada4ae3df84afad0891-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/c759d90a915f14e00e55551d74ae5ce7-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c759d90a915f14e00e55551d74ae5ce7-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c759d90a915f14e00e55551d74ae5ce7-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c759d90a915f14e00e55551d74ae5ce7-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/c759d90a915f14e00e55551d74ae5ce7-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c759d90a915f14e00e55551d74ae5ce7-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c759d90a915f14e00e55551d74ae5ce7-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c759d90a915f14e00e55551d74ae5ce7-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/ce40090c7323a4fee9d0c839598c4c80-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ce40090c7323a4fee9d0c839598c4c80-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ce40090c7323a4fee9d0c839598c4c80-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ce40090c7323a4fee9d0c839598c4c80-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/ce40090c7323a4fee9d0c839598c4c80-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ce40090c7323a4fee9d0c839598c4c80-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ce40090c7323a4fee9d0c839598c4c80-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ce40090c7323a4fee9d0c839598c4c80-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/663e039de5e835b05e00356de8ec7638-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/663e039de5e835b05e00356de8ec7638-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/663e039de5e835b05e00356de8ec7638-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/663e039de5e835b05e00356de8ec7638-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/663e039de5e835b05e00356de8ec7638-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/663e039de5e835b05e00356de8ec7638-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/663e039de5e835b05e00356de8ec7638-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/663e039de5e835b05e00356de8ec7638-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/4acb2874e17ed399fe54438cee127396-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4acb2874e17ed399fe54438cee127396-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4acb2874e17ed399fe54438cee127396-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4acb2874e17ed399fe54438cee127396-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/4acb2874e17ed399fe54438cee127396-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4acb2874e17ed399fe54438cee127396-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4acb2874e17ed399fe54438cee127396-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4acb2874e17ed399fe54438cee127396-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/bdc6ed7eb737479ea190a8eeb973ff34-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/bdc6ed7eb737479ea190a8eeb973ff34-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/bdc6ed7eb737479ea190a8eeb973ff34-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/bdc6ed7eb737479ea190a8eeb973ff34-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/bdc6ed7eb737479ea190a8eeb973ff34-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/bdc6ed7eb737479ea190a8eeb973ff34-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/bdc6ed7eb737479ea190a8eeb973ff34-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/bdc6ed7eb737479ea190a8eeb973ff34-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/feed0ee4921dc292904cc95e0e82202f-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feed0ee4921dc292904cc95e0e82202f-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feed0ee4921dc292904cc95e0e82202f-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feed0ee4921dc292904cc95e0e82202f-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/feed0ee4921dc292904cc95e0e82202f-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feed0ee4921dc292904cc95e0e82202f-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feed0ee4921dc292904cc95e0e82202f-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feed0ee4921dc292904cc95e0e82202f-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e314bf9a588a2a4249f2302ec36c81d1-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e314bf9a588a2a4249f2302ec36c81d1-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e314bf9a588a2a4249f2302ec36c81d1-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e314bf9a588a2a4249f2302ec36c81d1-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e314bf9a588a2a4249f2302ec36c81d1-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e314bf9a588a2a4249f2302ec36c81d1-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e314bf9a588a2a4249f2302ec36c81d1-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e314bf9a588a2a4249f2302ec36c81d1-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e468fb9606cdef187a28b28b0c7d8fc1-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e468fb9606cdef187a28b28b0c7d8fc1-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e468fb9606cdef187a28b28b0c7d8fc1-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e468fb9606cdef187a28b28b0c7d8fc1-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/e468fb9606cdef187a28b28b0c7d8fc1-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e468fb9606cdef187a28b28b0c7d8fc1-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e468fb9606cdef187a28b28b0c7d8fc1-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/e468fb9606cdef187a28b28b0c7d8fc1-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/af4cbe2fdd73035464f2355cd62e7f25-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/af4cbe2fdd73035464f2355cd62e7f25-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/af4cbe2fdd73035464f2355cd62e7f25-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/af4cbe2fdd73035464f2355cd62e7f25-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/af4cbe2fdd73035464f2355cd62e7f25-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/af4cbe2fdd73035464f2355cd62e7f25-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/af4cbe2fdd73035464f2355cd62e7f25-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/af4cbe2fdd73035464f2355cd62e7f25-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/dcce4c801947a624e3e06991d65e8c8d-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/dcce4c801947a624e3e06991d65e8c8d-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/dcce4c801947a624e3e06991d65e8c8d-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/dcce4c801947a624e3e06991d65e8c8d-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/dcce4c801947a624e3e06991d65e8c8d-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/dcce4c801947a624e3e06991d65e8c8d-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/dcce4c801947a624e3e06991d65e8c8d-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/dcce4c801947a624e3e06991d65e8c8d-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/cf580aeaf4aed43123ee71370cd28043-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cf580aeaf4aed43123ee71370cd28043-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cf580aeaf4aed43123ee71370cd28043-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cf580aeaf4aed43123ee71370cd28043-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/cf580aeaf4aed43123ee71370cd28043-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cf580aeaf4aed43123ee71370cd28043-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cf580aeaf4aed43123ee71370cd28043-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cf580aeaf4aed43123ee71370cd28043-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0dfd94b25dcf10734f50ca1b676313e1-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0dfd94b25dcf10734f50ca1b676313e1-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0dfd94b25dcf10734f50ca1b676313e1-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0dfd94b25dcf10734f50ca1b676313e1-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0dfd94b25dcf10734f50ca1b676313e1-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0dfd94b25dcf10734f50ca1b676313e1-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0dfd94b25dcf10734f50ca1b676313e1-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0dfd94b25dcf10734f50ca1b676313e1-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": true,
+      "isNewHome": true,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": null,
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": "44626033",
+    "taxHistory": [
+      {
+        "time": 1744738235601,
+        "taxPaid": 28031.34,
+        "taxIncreaseRate": 8.596619,
+        "value": 2193000,
+        "valueIncreaseRate": 16.807117
+      },
+      {
+        "time": 1713202235601,
+        "taxPaid": 2920.96,
+        "taxIncreaseRate": 0.034656636,
+        "value": 123153,
+        "valueIncreaseRate": 0.01999354
+      },
+      {
+        "time": 1681579835601,
+        "taxPaid": 2823.12,
+        "taxIncreaseRate": 0.009129332,
+        "value": 120739,
+        "valueIncreaseRate": 0.019996284
+      },
+      {
+        "time": 1650043835601,
+        "taxPaid": 2797.58,
+        "taxIncreaseRate": 0.042775888,
+        "value": 118372,
+        "valueIncreaseRate": 0.019999828
+      },
+      {
+        "time": 1618507835601,
+        "taxPaid": 2682.82,
+        "taxIncreaseRate": 0.041904274,
+        "value": 116051,
+        "valueIncreaseRate": 0.010351553
+      },
+      {
+        "time": 1586971835601,
+        "taxPaid": 2574.92,
+        "taxIncreaseRate": 0,
+        "value": 114862,
+        "valueIncreaseRate": 0.019989166
+      },
+      {
+        "time": 1555349435601,
+        "taxPaid": 2574.92,
+        "taxIncreaseRate": 0.05291304,
+        "value": 112611,
+        "valueIncreaseRate": 0.019990217
+      },
+      {
+        "time": 1523813435601,
+        "taxPaid": 2445.52,
+        "taxIncreaseRate": 0,
+        "value": 110404,
+        "valueIncreaseRate": 0.019992609
+      },
+      {
+        "time": 1492277435601,
+        "taxPaid": 2445.52,
+        "taxIncreaseRate": -0.00851402,
+        "value": 108240,
+        "valueIncreaseRate": 0.019986996
+      },
+      {
+        "time": 1460741435601,
+        "taxPaid": 2466.52,
+        "taxIncreaseRate": 0.07355758,
+        "value": 106119,
+        "valueIncreaseRate": 0.015240227
+      },
+      {
+        "time": 1429119035601,
+        "taxPaid": 2297.52,
+        "taxIncreaseRate": 0.25897023,
+        "value": 104526,
+        "valueIncreaseRate": 0.019974824
+      },
+      {
+        "time": 1397583035601,
+        "taxPaid": 1824.92,
+        "taxIncreaseRate": 0,
+        "value": 102479,
+        "valueIncreaseRate": 0.004528657
+      },
+      {
+        "time": 1366047035601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 102017,
+        "valueIncreaseRate": 0.019986402
+      },
+      {
+        "time": 1334511035601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 100018,
+        "valueIncreaseRate": 0.01998817
+      },
+      {
+        "time": 1302888635601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 98058,
+        "valueIncreaseRate": 0.007521115
+      },
+      {
+        "time": 1271352635601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 97326,
+        "valueIncreaseRate": -0.0023780726
+      },
+      {
+        "time": 1239816635601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 97558,
+        "valueIncreaseRate": 0.01999038
+      },
+      {
+        "time": 1208280635601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 95646,
+        "valueIncreaseRate": 0.019995522
+      },
+      {
+        "time": 1176658235601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 93771,
+        "valueIncreaseRate": 0.019981725
+      },
+      {
+        "time": 1145122235601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 91934,
+        "valueIncreaseRate": 0.0199929
+      },
+      {
+        "time": 1113586235601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 90132,
+        "valueIncreaseRate": 0.019985063
+      },
+      {
+        "time": 1082050235601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 88366,
+        "valueIncreaseRate": 0.01866347
+      },
+      {
+        "time": 1050427835601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 86747,
+        "valueIncreaseRate": 0.019988947
+      },
+      {
+        "time": 1018891835601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 85047,
+        "valueIncreaseRate": 0.019992804
+      },
+      {
+        "time": 987355835601,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 83380,
+        "valueIncreaseRate": 0
+      }
+    ],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/1430-Callecita-St_-San%20Jose-95125/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/95125/?bedrooms=5",
+    "neighborhoodId": 118987,
+    "zipcodeId": 97993,
+    "sellingSoon": [
+      {
+        "modelId": "v2",
+        "treatmentId": "model_v2",
+        "percentile": 0.110804595
+      }
+    ]
+  }
+}

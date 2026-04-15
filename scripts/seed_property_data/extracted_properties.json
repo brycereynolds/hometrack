@@ -1,0 +1,2611 @@
+[
+  {
+    "mockId": "sold-1",
+    "address": "672 Willow St",
+    "city": "San Jose",
+    "state": "CA",
+    "zip": "95125",
+    "county": "Santa Clara",
+    "lat": 37.312473,
+    "lng": -121.89292,
+    "beds": 2,
+    "baths": 3,
+    "bathsFull": 2,
+    "bathsHalf": 1,
+    "sqft": 1367,
+    "lotSqft": 1682,
+    "lotSizeAcres": 0.04,
+    "yearBuilt": 2003,
+    "propertyType": "TOWNHOME",
+    "stories": 2,
+    "architecturalStyle": null,
+    "constructionMaterials": [],
+    "roof": "Composition",
+    "foundation": [
+      "Slab"
+    ],
+    "basement": null,
+    "features": {
+      "pool": false,
+      "garage": true,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Central Forced Air Gas"
+      ],
+      "cooling": [
+        "Central Air"
+      ],
+      "appliances": [
+        "Dishwasher",
+        "Microwave",
+        "Gas Oven/Range",
+        "Refrigerator",
+        "Washer/Dryer"
+      ],
+      "flooring": [
+        "Carpet",
+        "Hardwood",
+        "Tile"
+      ],
+      "laundry": [
+        "Upper Floor",
+        "In Utility Room"
+      ],
+      "exteriorFeatures": [
+        "Courtyard"
+      ],
+      "waterfront": false
+    },
+    "parkingSpaces": 2,
+    "garageSpaces": 2,
+    "parkingFeatures": [
+      "Attached"
+    ],
+    "lotFeatures": [],
+    "roomsCount": 4,
+    "rooms": [
+      {
+        "roomType": "Bedroom"
+      },
+      {
+        "roomType": "Bathroom"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      }
+    ],
+    "taxAssessedValue": 1224000,
+    "taxAnnualAmount": 16369,
+    "taxYear": 2025,
+    "parcelNumber": "43418038",
+    "hoaFee": 385,
+    "hoaFeeFrequency": "monthly",
+    "sewer": [
+      "Public Sewer"
+    ],
+    "waterSource": [
+      "Public"
+    ],
+    "electric": null,
+    "gas": [
+      "PublicUtilities"
+    ],
+    "nearbySchools": [
+      {
+        "name": "Willow Glen Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 0.7,
+        "rating": 5,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5696-Willow-Glen-Elementary-School/"
+      },
+      {
+        "name": "Willow Glen Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 1.6,
+        "rating": 5,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5698-Willow-Glen-Middle-School/"
+      },
+      {
+        "name": "Willow Glen High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 1.6,
+        "rating": 8,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/5697-Willow-Glen-High-School/"
+      }
+    ],
+    "elementarySchool": null,
+    "elementarySchoolDistrict": "SanJoseUnified",
+    "middleSchool": null,
+    "middleSchoolDistrict": null,
+    "highSchool": null,
+    "highSchoolDistrict": "SanJoseUnified",
+    "neighborhood": "Willow Glen",
+    "photos": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/eb7362e8109b31e4221575303a2e3b66-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/5a41ee717920461682ee6695f78a76e2-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/b0ca61edb7b4db0c02b4c0c782143664-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/674c8cba2d53aa923d232fa86fd9677f-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/efdd556b7709d0884e16ea339c2d8636-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/fcc5f6cc0e9db48c3fe3a194e37aa1f0-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/cd29c96c05f576dd7b18e64140f44d4c-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/a9cbc40d4dc6b25feb198a0fecc5401c-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/8404b17fa1de04ab5f2316aeddff0e83-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/f3bb0cc624693cf5a4560734c62b281d-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 1200000,
+    "zillowId": 63065738,
+    "zillowUrl": "https://www.zillow.com/homedetails/672-Willow-St-San-Jose-CA-95125/63065738_zpid/",
+    "zestimate": 1127300,
+    "rentZestimate": 3798,
+    "priceHistory": [
+      {
+        "date": "2024-05-08",
+        "event": "Sold",
+        "price": 1200000,
+        "pricePerSqft": 878,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2024-04-18",
+        "event": "Pending sale",
+        "price": 1049000,
+        "pricePerSqft": 767,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2024-04-10",
+        "event": "Listed for sale",
+        "price": 1049000,
+        "pricePerSqft": 767,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2006-05-18",
+        "event": "Sold",
+        "price": 650000,
+        "pricePerSqft": 475,
+        "source": "Public Record"
+      },
+      {
+        "date": "2003-09-17",
+        "event": "Sold",
+        "price": 465000,
+        "pricePerSqft": 340,
+        "source": "Public Record"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744737885396,
+        "taxAmount": 16368.74,
+        "value": 1224000
+      },
+      {
+        "year": 1713201885396,
+        "taxAmount": 11621.46,
+        "value": 870844
+      },
+      {
+        "year": 1681579485396,
+        "taxAmount": 11178.96,
+        "value": 835000
+      },
+      {
+        "year": 1650043485396,
+        "taxAmount": 11288.02,
+        "value": 837030
+      },
+      {
+        "year": 1618507485396,
+        "taxAmount": 11049.5,
+        "value": 820618
+      }
+    ],
+    "description": "Welcome to remodeled luxury living in Willow Glen! A few short blocks from Willow Glens vibrant Downtown, this move-in-ready end-unit home is the perfect place to begin your next chapter. Built in 2003 and fully remodeled in 2024, this 2-story home features a modern open-concept floor plan, high ceilings, and a finished 2-car garage. Oversized windows highlight the main level, which flows effortlessly from the living to dining and kitchen spaces. Plus, a practical half bathroom completes the first floor. The luxurious chef's kitchen boasts quartz countertops, designer tile backsplash, and brand-new Samsung appliances, including a gas range. Upstairs, you'll find two remodeled ensuite bedrooms connected by a flexible space, which can be used as a second living room or an office, and a full side-by-side laundry room with additional storage. The spacious primary suite retreat includes a remodeled ensuite bath with a double vanity, seamless shower, and a large walk-in closet. This home has every modern convenience, including central heat & AC, water softener, motorized blinds, new carpet, new paint, closet organizers, and more! Freshly landscaped front and side yards! Incredible location near Downtown Willow Glen, with easy access to Tamien Caltrain, DTSJ, and HW 87 & 280!",
+    "status": "sold"
+  },
+  {
+    "mockId": "sold-2",
+    "address": "377 Derby Ave",
+    "city": "San Mateo",
+    "state": "CA",
+    "zip": "94403",
+    "county": "San Mateo",
+    "lat": 37.543602,
+    "lng": -122.297165,
+    "beds": 2,
+    "baths": 3,
+    "bathsFull": 2,
+    "bathsHalf": 1,
+    "sqft": 1390,
+    "lotSqft": 0.2924471992653811,
+    "lotSizeAcres": 0.0,
+    "yearBuilt": 2015,
+    "propertyType": "TOWNHOME",
+    "stories": 3,
+    "architecturalStyle": null,
+    "constructionMaterials": [],
+    "roof": "Composition, Shingle",
+    "foundation": [
+      "Slab"
+    ],
+    "basement": null,
+    "features": {
+      "pool": false,
+      "garage": true,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Central Forced Air"
+      ],
+      "cooling": [
+        "Central Air"
+      ],
+      "appliances": [
+        "Gas Cooktop",
+        "Dishwasher",
+        "Disposal",
+        "Refrigerator",
+        "Washer/Dryer"
+      ],
+      "flooring": [
+        "Carpet",
+        "Hardwood",
+        "Tile"
+      ],
+      "laundry": [
+        "Inside"
+      ],
+      "interiorFeatures": [
+        "Walk-In Closet(s)"
+      ],
+      "waterfront": false
+    },
+    "parkingSpaces": 2,
+    "garageSpaces": 2,
+    "parkingFeatures": [
+      "Attached",
+      "On Street"
+    ],
+    "lotFeatures": [],
+    "roomsCount": 3,
+    "rooms": [
+      {
+        "roomType": "Bathroom"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      }
+    ],
+    "taxAssessedValue": 1475000,
+    "taxAnnualAmount": 22408,
+    "taxYear": 2025,
+    "parcelNumber": "124260100",
+    "hoaFee": 453,
+    "hoaFeeFrequency": "monthly",
+    "sewer": [
+      "Public Sewer"
+    ],
+    "waterSource": [
+      "Public"
+    ],
+    "electric": null,
+    "gas": [
+      "IndividualGasMeters"
+    ],
+    "nearbySchools": [
+      {
+        "name": "George Hall Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 0.5,
+        "rating": 8,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-mateo/6965-George-Hall-Elementary-School/"
+      },
+      {
+        "name": "Abbott Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 1.1,
+        "rating": 4,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-mateo/6955-Abbott-Middle-School/"
+      },
+      {
+        "name": "Hillsdale High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 1.3,
+        "rating": 9,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-mateo/6978-Hillsdale-High-School/"
+      }
+    ],
+    "elementarySchool": "GeorgeHallElementary",
+    "elementarySchoolDistrict": "SanMateoFosterCityElementary",
+    "middleSchool": null,
+    "middleSchoolDistrict": null,
+    "highSchool": null,
+    "highSchoolDistrict": "SanMateoUnionHigh",
+    "neighborhood": "Bay Meadows",
+    "photos": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/600798422a9883d3e0803ba7f220762b-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/ec9818863605c76c55ed54b89927843a-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/dafb50fa8fa2a50fa5cf178b55798554-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/5b7d6b1579d1bde1531993a56d960ace-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/be331a69af8d660a527793e59ee41c8f-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/3139e0a8488e942485871db9adb979dc-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/ca0b3f21afe1c5d8e923cf599b3bae66-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/16cca232aece8c55960f734f9c7cc37c-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/f0a3999bed856247d7ecdcbba93525b6-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/b1a8bf308a6bb84bfdf2cf03a9884aab-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 1475000,
+    "zillowId": 349979531,
+    "zillowUrl": "https://www.zillow.com/homedetails/377-Derby-Ave-San-Mateo-CA-94403/349979531_zpid/",
+    "zestimate": 1418600,
+    "rentZestimate": 5034,
+    "priceHistory": [
+      {
+        "date": "2024-07-03",
+        "event": "Sold",
+        "price": 1475000,
+        "pricePerSqft": 1061,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2024-06-13",
+        "event": "Pending sale",
+        "price": 1499000,
+        "pricePerSqft": 1078,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2024-05-14",
+        "event": "Listed for sale",
+        "price": 1499000,
+        "pricePerSqft": 1078,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2015-08-13",
+        "event": "Sold",
+        "price": 1006500,
+        "pricePerSqft": 724,
+        "source": "Public Record"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744737886529,
+        "taxAmount": 22407.62,
+        "value": 1475000
+      },
+      {
+        "year": 1713201886529,
+        "taxAmount": 18980.12,
+        "value": 1168122
+      },
+      {
+        "year": 1681579486529,
+        "taxAmount": 18494.68,
+        "value": 1145218
+      },
+      {
+        "year": 1650043486529,
+        "taxAmount": 18364.72,
+        "value": 1122764
+      },
+      {
+        "year": 1618507486529,
+        "taxAmount": 18857.44,
+        "value": 1100750
+      }
+    ],
+    "description": "Embrace vibrant Bay Meadows living in this stunning 2-bed, 2.5-bath townhouse. This home offers the most coveted location in the community, overlooking Paddock Park. Bask in the sunlit open-concept great room with bookend balconies. The living and dining rooms flow into the expansive gourmet chef's kitchen, featuring dining peninsula, quartz counters, stainless steel appliances, abundant storage, & gas range. Indulge in the tranquility of park views from your living room balcony and dine alfresco on the inviting kitchen terrace. The top floor boasts two ensuite bedrooms and laundry area. Retreat to the stylish primary suite with custom wood accent wall, walk-in closet and elegant bathroom, featuring dual vanity and glass-enclosed shower. Additional upgrades include hardwood floors, built-in speakers, & custom garage storage. Enjoy the ultimate urban lifestyle offered at Bay Meadows, with access to multiple parks, playgrounds, a vibrant community garden, & BBQ area. Incredible proximity to Caltrain, Whole Foods, Hillsdale Shopping Center, Fieldworks Brewery, & Blue Bottle. With its prime location and easy access to major thoroughfares such as 101, 92, & 280, this residence offers a stylish abode and serves as your gateway to a refined and connected living experience.",
+    "status": "sold"
+  },
+  {
+    "mockId": "sold-3",
+    "address": "1597 Calle De Stuarda",
+    "city": "San Jose",
+    "state": "CA",
+    "zip": "95118",
+    "county": "Santa Clara",
+    "lat": 37.259167,
+    "lng": -121.90047,
+    "beds": 3,
+    "baths": 2,
+    "bathsFull": 2,
+    "bathsHalf": null,
+    "sqft": 1614,
+    "lotSqft": 6500,
+    "lotSizeAcres": 0.15,
+    "yearBuilt": 1975,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": 1,
+    "architecturalStyle": null,
+    "constructionMaterials": [],
+    "roof": "Composition, Shingle",
+    "foundation": [
+      "Concrete Perimeter and Slab"
+    ],
+    "basement": null,
+    "features": {
+      "pool": true,
+      "garage": true,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Central Forced Air Gas",
+        "Solar"
+      ],
+      "cooling": [
+        "Central Air"
+      ],
+      "appliances": [
+        "Gas Cooktop",
+        "Dishwasher",
+        "Disposal",
+        "Double Oven",
+        "Refrigerator",
+        "Washer/Dryer"
+      ],
+      "flooring": [
+        "Carpet",
+        "Other"
+      ],
+      "laundry": [
+        "In Garage"
+      ],
+      "interiorFeatures": [
+        "High Ceilings",
+        "Vaulted Ceiling(s)"
+      ],
+      "exteriorFeatures": [
+        "Back Yard",
+        "Fenced",
+        "Storage Shed Structure"
+      ],
+      "waterfront": false
+    },
+    "parkingSpaces": 2,
+    "garageSpaces": 2,
+    "parkingFeatures": [
+      "Attached",
+      "On Street"
+    ],
+    "lotFeatures": [
+      "Level"
+    ],
+    "roomsCount": 4,
+    "rooms": [
+      {
+        "roomType": "Bedroom"
+      },
+      {
+        "roomType": "Bathroom"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      }
+    ],
+    "taxAssessedValue": 1800000,
+    "taxAnnualAmount": 32990,
+    "taxYear": 2025,
+    "parcelNumber": "45144077",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": [
+      "Public Sewer"
+    ],
+    "waterSource": [
+      "Public"
+    ],
+    "electric": null,
+    "gas": [
+      "PublicUtilities"
+    ],
+    "nearbySchools": [
+      {
+        "name": "Oster Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 1.1,
+        "rating": 9,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5718-Oster-Elementary-School/"
+      },
+      {
+        "name": "Dartmouth Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 1.4,
+        "rating": 7,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5713-Dartmouth-Middle-School/"
+      },
+      {
+        "name": "Branham High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 0.3,
+        "rating": 9,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/11149-Branham-High-School/"
+      }
+    ],
+    "elementarySchool": "OsterElementary",
+    "elementarySchoolDistrict": "UnionElementary",
+    "middleSchool": "DartmouthMiddle_1",
+    "middleSchoolDistrict": null,
+    "highSchool": "BranhamHigh",
+    "highSchoolDistrict": "CampbellUnionHigh",
+    "neighborhood": "Cambrian Park",
+    "photos": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=dETgA_SB670tzzKETH_YECZOarQ=",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 1800000,
+    "zillowId": 19699251,
+    "zillowUrl": "https://www.zillow.com/homedetails/1597-Calle-De-Stuarda-San-Jose-CA-95118/19699251_zpid/",
+    "zestimate": 1715700,
+    "rentZestimate": 4821,
+    "priceHistory": [
+      {
+        "date": "2024-10-04",
+        "event": "Sold",
+        "price": 1800000,
+        "pricePerSqft": 1115,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2024-08-29",
+        "event": "Pending sale",
+        "price": 1499000,
+        "pricePerSqft": 929,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2024-08-23",
+        "event": "Listed for sale",
+        "price": 1499000,
+        "pricePerSqft": 929,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2019-06-01",
+        "event": "Listing removed",
+        "price": 3695,
+        "pricePerSqft": 2,
+        "source": "Mynd Property Management"
+      },
+      {
+        "date": "2019-05-22",
+        "event": "Price change",
+        "price": 3695,
+        "pricePerSqft": 2,
+        "source": "Mynd Property Management"
+      },
+      {
+        "date": "2019-05-01",
+        "event": "Listed for rent",
+        "price": 3795,
+        "pricePerSqft": 2,
+        "source": "Mynd Property Management"
+      },
+      {
+        "date": "2003-02-14",
+        "event": "Sold",
+        "price": 552000,
+        "pricePerSqft": 342,
+        "source": "Public Record"
+      },
+      {
+        "date": "1999-07-01",
+        "event": "Sold",
+        "price": 348500,
+        "pricePerSqft": 216,
+        "source": "Public Record"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744737887739,
+        "taxAmount": 32989.68,
+        "value": 1800000
+      },
+      {
+        "year": 1713201887739,
+        "taxAmount": 11509.4,
+        "value": 783430
+      },
+      {
+        "year": 1681579487739,
+        "taxAmount": 11266.48,
+        "value": 768070
+      },
+      {
+        "year": 1650043487739,
+        "taxAmount": 11041.26,
+        "value": 753011
+      },
+      {
+        "year": 1618507487739,
+        "taxAmount": 10813.24,
+        "value": 738247
+      }
+    ],
+    "description": "Set on a corner lot in a picturesque Cambrian neighborhood, this single-story residence blends luxury, convenience, and acclaimed schools (Oster/Dartmouth/Branham). The open layout and remodeled kitchen highlight the modern allure of the home, while soaring vaulted ceilings and large windows create a distinct first impression as you enter. The free-flowing layout connects living, dining, and kitchen areas seamlessly. The living room features a floor-to-ceiling fireplace and opens to a serene backyard with a pool, spa, & covered patio. The gourmet kitchen boasts shaker cabinets, quartz countertops & backsplash, and stainless steel appliances, including an LG ThinQ smart refrigerator, Frigidaire gas range, & double ovens. The spacious primary suite offers a walk-in closet, private access to the backyard, & spa-like ensuite with a custom jacuzzi, standing shower, & dual vanities. Two additional bedrooms, an updated hallway bathroom, & a dedicated laundry space add to the home's functionality. Additional upgrades include copper plumbing, leased solar, and central heat/AC. Conveniently located near Almaden Plaza, Oakridge Mall, Downtown Willow Glen, Los Gatos, & the Pruneyard, with easy access to VTA and highways 85 & 87. Top schools: Oster/Dartmouth/Branham (buyer to verify).",
+    "status": "sold"
+  },
+  {
+    "mockId": "sold-4",
+    "address": "256 Los Gatos Blvd",
+    "city": "Los Gatos",
+    "state": "CA",
+    "zip": "95030",
+    "county": "Santa Clara",
+    "lat": 37.22432,
+    "lng": -121.96991,
+    "beds": 5,
+    "baths": 6,
+    "bathsFull": 4,
+    "bathsHalf": 2,
+    "sqft": 2511,
+    "lotSqft": 7250,
+    "lotSizeAcres": 0.17,
+    "yearBuilt": 1899,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": 2,
+    "architecturalStyle": "Victorian",
+    "constructionMaterials": [],
+    "roof": "Composition",
+    "foundation": [
+      "Concrete Perimeter"
+    ],
+    "basement": null,
+    "features": {
+      "pool": false,
+      "garage": false,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Wall Furnace"
+      ],
+      "cooling": [
+        "None"
+      ],
+      "appliances": [
+        "Dishwasher",
+        "Exhaust Fan",
+        "Disposal",
+        "Microwave",
+        "Other",
+        "Double Oven",
+        "Gas Oven",
+        "Refrigerator",
+        "Washer/Dryer"
+      ],
+      "flooring": [
+        "Carpet",
+        "Laminate",
+        "Vinyl Linoleum"
+      ],
+      "laundry": [
+        "Other"
+      ],
+      "interiorFeatures": [
+        "High Ceilings"
+      ],
+      "exteriorFeatures": [
+        "Storage Shed Structure"
+      ],
+      "fencing": "Back Yard,Gate,Wood",
+      "waterfront": false,
+      "patioAndPorch": [
+        "Enclosed"
+      ]
+    },
+    "parkingSpaces": 8,
+    "garageSpaces": 0,
+    "parkingFeatures": [
+      "Common",
+      "No Garage",
+      "On Street",
+      "Parking Area",
+      "Tandem"
+    ],
+    "lotFeatures": [],
+    "roomsCount": 5,
+    "rooms": [
+      {
+        "roomType": "Bedroom"
+      },
+      {
+        "roomType": "Bathroom"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      },
+      {
+        "roomType": "Kitchen"
+      }
+    ],
+    "taxAssessedValue": 97794,
+    "taxAnnualAmount": 2825,
+    "taxYear": 2025,
+    "parcelNumber": "53237011",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": [
+      "Public Sewer"
+    ],
+    "waterSource": [
+      "Public"
+    ],
+    "electric": null,
+    "gas": [
+      "PublicUtilities"
+    ],
+    "nearbySchools": [
+      {
+        "name": "Louise Van Meter Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 0.5,
+        "rating": 10,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/los-gatos/5529-Louise-Van-Meter-Elementary-School/"
+      },
+      {
+        "name": "Raymond J. Fisher Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 0.7,
+        "rating": 8,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/los-gatos/5527-Raymond-J.-Fisher-Middle-School/"
+      },
+      {
+        "name": "Los Gatos High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 0.4,
+        "rating": 10,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/los-gatos/5523-Los-Gatos-High-School/"
+      }
+    ],
+    "elementarySchool": "LouiseVanMeterElementary",
+    "elementarySchoolDistrict": "LosGatosUnionElementary",
+    "middleSchool": "RaymondJFisherMiddle",
+    "middleSchoolDistrict": null,
+    "highSchool": "LosGatosHigh",
+    "highSchoolDistrict": "LosGatosSaratogaJointUnionHigh",
+    "neighborhood": "95030",
+    "photos": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/bbc6ad85d4c1d9b18332be139fd903f5-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/46ed36845830a829670bb1071208d533-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/6915ccc3696a85e8e55210c855f81a41-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/9a7fd00c6fadace44099feede42696e1-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/d7a43e77c9a1d8dcfd76c75085c078c1-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/15ee6b75831d0c1fd8c68d8cb575ac42-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/439be6795b1a1efc740c6ab6899eb27a-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/2ff5af953e4ab263744115267fafdf0a-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/0fa0a44c142dbe67920daf3028d11b95-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/ef2ede84475764fd76869a6cef4deece-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 2360000,
+    "zillowId": 19751431,
+    "zillowUrl": "https://www.zillow.com/homedetails/256-Los-Gatos-Blvd-Los-Gatos-CA-95030/19751431_zpid/",
+    "zestimate": 2352300,
+    "rentZestimate": 5186,
+    "priceHistory": [
+      {
+        "date": "2026-02-27",
+        "event": "Sold",
+        "price": 2360000,
+        "pricePerSqft": 940,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-02-21",
+        "event": "Pending sale",
+        "price": 2399000,
+        "pricePerSqft": 955,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-02-07",
+        "event": "Contingent",
+        "price": 2399000,
+        "pricePerSqft": 955,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-01-27",
+        "event": "Listed for sale",
+        "price": 2399000,
+        "pricePerSqft": 955,
+        "source": "MLSListings Inc"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744737888865,
+        "taxAmount": 2824.7,
+        "value": 97794
+      },
+      {
+        "year": 1713201888865,
+        "taxAmount": 2770.42,
+        "value": 95878
+      },
+      {
+        "year": 1681579488865,
+        "taxAmount": 2666.52,
+        "value": 93999
+      },
+      {
+        "year": 1650043488865,
+        "taxAmount": 2664.22,
+        "value": 92157
+      },
+      {
+        "year": 1618507488865,
+        "taxAmount": 2523.56,
+        "value": 90351
+      }
+    ],
+    "description": "PRIME LOCATION & TOP LOS GATOS SCHOOLS | Just blocks from Downtown Los Gatos, this rarely available corner-lot Victorian duplex offers timeless character and exceptional flexibility. Zoned for top Los Gatos schools, its ideal for owner-occupants, multi-generational living, or long-term investment. The upper unit (3 bd / 2.5 ba) is freshly updated with new carpet, designer lighting, and updated bathrooms, while maintaining its vintage charm through soaring ceilings, stained-glass accents, and a clawfoot tub. Vacant and move-in ready, its set up for an owner to live upstairs and collect rent from the lower unit to offset the mortgage. The lower unit (2 bd / 2.5 ba) has a remodeled kitchen with soft-close cabinetry, quartz countertops, and stainless appliances, plus two en-suites with walk-in closets (tenant occupied at market rent). Both units include private laundry and direct access to a shared backyard with lawn, dining, and lounge zones, rare this close to downtown. Enjoy 8 off-street parking spaces and room to add a garage + ADU (buyer to verify). Minutes to Downtown Los Gatos and quick access to HWY 17. Strong inspections, updated systems, and consistent maintenance deliver a turnkey opportunity with meaningful upside.",
+    "status": "sold"
+  },
+  {
+    "mockId": "sold-5",
+    "address": "1664 Andalusia Way",
+    "city": "San Jose",
+    "state": "CA",
+    "zip": "95125",
+    "county": "Santa Clara",
+    "lat": 37.277847,
+    "lng": -121.90564,
+    "beds": 3,
+    "baths": 2,
+    "bathsFull": 2,
+    "bathsHalf": null,
+    "sqft": 1584,
+    "lotSqft": 7182,
+    "lotSizeAcres": 0.16,
+    "yearBuilt": 1961,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": 1,
+    "architecturalStyle": null,
+    "constructionMaterials": [],
+    "roof": "Composition, Shingle",
+    "foundation": [
+      "Concrete Perimeter and Slab"
+    ],
+    "basement": null,
+    "features": {
+      "pool": false,
+      "garage": true,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Central Forced Air"
+      ],
+      "cooling": [
+        "Central Air",
+        "Whole House Fan"
+      ],
+      "appliances": [
+        "Electric Cooktop",
+        "Dishwasher",
+        "Ice Maker",
+        "Built In Oven",
+        "Refrigerator"
+      ],
+      "flooring": [
+        "Hardwood"
+      ],
+      "exteriorFeatures": [
+        "Back Yard",
+        "Fenced"
+      ],
+      "fencing": "Wood",
+      "waterfront": false
+    },
+    "parkingSpaces": 2,
+    "garageSpaces": 2,
+    "parkingFeatures": [
+      "Attached",
+      "Electric Vehicle Charging Station(s)",
+      "Garage Door Opener",
+      "On Street",
+      "Parking Area"
+    ],
+    "lotFeatures": [],
+    "roomsCount": 4,
+    "rooms": [
+      {
+        "roomType": "Bedroom"
+      },
+      {
+        "roomType": "Bathroom"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      }
+    ],
+    "taxAssessedValue": 2281596,
+    "taxAnnualAmount": 29189,
+    "taxYear": 2025,
+    "parcelNumber": "44612058",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": [
+      "Public Sewer"
+    ],
+    "waterSource": [
+      "Public"
+    ],
+    "electric": null,
+    "gas": [
+      "PublicUtilities"
+    ],
+    "nearbySchools": [
+      {
+        "name": "Schallenberger Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 1.0,
+        "rating": 7,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5688-Schallenberger-Elementary-School/"
+      },
+      {
+        "name": "Willow Glen Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 1.0,
+        "rating": 5,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5698-Willow-Glen-Middle-School/"
+      },
+      {
+        "name": "Willow Glen High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 0.9,
+        "rating": 8,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/5697-Willow-Glen-High-School/"
+      }
+    ],
+    "elementarySchool": "SchallenbergerElementary",
+    "elementarySchoolDistrict": "SanJoseUnified",
+    "middleSchool": "WillowGlenMiddle",
+    "middleSchoolDistrict": null,
+    "highSchool": "WillowGlenHigh",
+    "highSchoolDistrict": "SanJoseUnified",
+    "neighborhood": "Willow Glen",
+    "photos": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=1664+Andalusia+Way%2C+San+Jose%2C+CA+95125&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=eAj8yTKZiU-KHi4dJz8tvB0LsJc=",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 2290000,
+    "zillowId": 19691943,
+    "zillowUrl": "https://www.zillow.com/homedetails/1664-Andalusia-Way-San-Jose-CA-95125/19691943_zpid/",
+    "zestimate": 2281500,
+    "rentZestimate": 4874,
+    "priceHistory": [
+      {
+        "date": "2026-03-02",
+        "event": "Sold",
+        "price": 2290000,
+        "pricePerSqft": 1446,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-02-05",
+        "event": "Pending sale",
+        "price": 1999000,
+        "pricePerSqft": 1262,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-01-27",
+        "event": "Listed for sale",
+        "price": 1999000,
+        "pricePerSqft": 1262,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2022-03-24",
+        "event": "Sold",
+        "price": 2150000,
+        "pricePerSqft": 1357,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2022-03-04",
+        "event": "Listed for sale",
+        "price": 1765000,
+        "pricePerSqft": 1114,
+        "source": "MLSListings Inc"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744737890054,
+        "taxAmount": 29188.6,
+        "value": 2281596
+      },
+      {
+        "year": 1713201890054,
+        "taxAmount": 21752.94,
+        "value": 1750000
+      },
+      {
+        "year": 1681579490054,
+        "taxAmount": 22868.2,
+        "value": 1845000
+      },
+      {
+        "year": 1650043490054,
+        "taxAmount": 26558.1,
+        "value": 2100000
+      },
+      {
+        "year": 1618507490054,
+        "taxAmount": 2361.18,
+        "value": 95137
+      }
+    ],
+    "description": "Nestled in a picture-perfect Willow Glen neighborhood, this TJ Martin-built home is known for solid bones and long-term durability. Completely move-in ready, it blends timeless character with modern upgrades, including striking black-clad windows and abundant natural light throughout. The remodeled kitchen features a spacious walk-in pantry, new cabinetry, quartz countertops, and a subway tile backsplash, flowing into an open layout with two living spaces and an expanded dining room. Enjoy better everyday living with a whole-home water softener plus a reverse osmosis water filter at the kitchen sink. The spacious primary suite is a peaceful retreat, and both bathrooms have been thoughtfully updated with modern finishes. Outside, lush lawns and an oversized backyard patio with gazebo invite dining, play, and quiet relaxation, with room for an ADU, pool, or expansion. A 200-amp panel and Tesla EV charger add convenience. Minutes from Downtown Willow Glen and Campbell, near Presentation High and St. Christopher School, with easy access to Highways 17 and 85.",
+    "status": "sold"
+  },
+  {
+    "mockId": "sold-6",
+    "address": "2330 Maximilian Dr",
+    "city": "Campbell",
+    "state": "CA",
+    "zip": "95008",
+    "county": "Santa Clara",
+    "lat": 37.278885,
+    "lng": -121.966995,
+    "beds": 3,
+    "baths": 2,
+    "bathsFull": 2,
+    "bathsHalf": null,
+    "sqft": 1540,
+    "lotSqft": 6596,
+    "lotSizeAcres": 0.15,
+    "yearBuilt": 1962,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": 1,
+    "architecturalStyle": null,
+    "constructionMaterials": [],
+    "roof": "Composition, Shingle",
+    "foundation": [
+      "Crawl Space"
+    ],
+    "basement": null,
+    "features": {
+      "pool": false,
+      "garage": true,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Central Forced Air Gas",
+        "Solar"
+      ],
+      "cooling": [
+        "Central Air"
+      ],
+      "appliances": [
+        "Dishwasher",
+        "Exhaust Fan",
+        "Disposal",
+        "Electric Oven",
+        "Self Cleaning Oven",
+        "Electric Oven/Range",
+        "Refrigerator",
+        "Washer/Dryer"
+      ],
+      "flooring": [
+        "Laminate",
+        "Tile",
+        "Wood"
+      ],
+      "laundry": [
+        "In Garage"
+      ],
+      "exteriorFeatures": [
+        "Back Yard",
+        "Fenced",
+        "Storage Shed Structure"
+      ],
+      "fencing": "Back Yard,Wood",
+      "waterfront": false,
+      "patioAndPorch": [
+        "Balcony/Patio"
+      ]
+    },
+    "parkingSpaces": 2,
+    "garageSpaces": 2,
+    "parkingFeatures": [
+      "Attached"
+    ],
+    "lotFeatures": [],
+    "roomsCount": 5,
+    "rooms": [
+      {
+        "roomType": "Bedroom"
+      },
+      {
+        "roomType": "Bathroom"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      },
+      {
+        "roomType": "Kitchen"
+      }
+    ],
+    "taxAssessedValue": null,
+    "taxAnnualAmount": null,
+    "taxYear": 2025,
+    "parcelNumber": "40420003",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": [
+      "Public Sewer"
+    ],
+    "waterSource": [
+      "Public"
+    ],
+    "electric": null,
+    "gas": [
+      "PublicUtilities"
+    ],
+    "nearbySchools": [
+      {
+        "name": "Capri Elementary School",
+        "type": "Charter",
+        "level": "Elementary",
+        "distance": 0.9,
+        "rating": 7,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/campbell/5412-Capri-Elementary-School/"
+      },
+      {
+        "name": "Rolling Hills Middle School",
+        "type": "Charter",
+        "level": "Middle",
+        "distance": 1.4,
+        "rating": 8,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/los-gatos/5419-Rolling-Hills-Middle-School/"
+      },
+      {
+        "name": "Westmont High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 1.2,
+        "rating": 9,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/campbell/5427-Westmont-High-School/"
+      }
+    ],
+    "elementarySchool": "CapriElementary_1",
+    "elementarySchoolDistrict": "CampbellUnionElementary",
+    "middleSchool": "RollingHillsMiddle_1",
+    "middleSchoolDistrict": null,
+    "highSchool": "WestmontHigh",
+    "highSchoolDistrict": "CampbellUnionHigh",
+    "neighborhood": "San Tomas Aquinos",
+    "photos": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 2169375,
+    "zillowId": 447319303,
+    "zillowUrl": "https://www.zillow.com/homedetails/2330-Maximilian-Dr-Campbell-CA-95008/447319303_zpid/",
+    "zestimate": 2160500,
+    "rentZestimate": 4868,
+    "priceHistory": [
+      {
+        "date": "2026-03-04",
+        "event": "Sold",
+        "price": 2169375,
+        "pricePerSqft": 1409,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-02-12",
+        "event": "Pending sale",
+        "price": 1899000,
+        "pricePerSqft": 1233,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-02-03",
+        "event": "Listed for sale",
+        "price": 1899000,
+        "pricePerSqft": 1233,
+        "source": "MLSListings Inc"
+      }
+    ],
+    "taxHistory": null,
+    "description": "Tucked along a quiet, tree-lined street in a central Campbell location, this beautifully updated single-story home offers move-in-ready comfort with exciting future potential. Served by award-winning Capri Elementary, Rolling Hills Middle, and Westmont High, the home also features owned Tesla solar and approved permits for a 4th bedroom addition, delivering a rare blend of efficiency and flexibility. The remodeled kitchen is a standout with new cabinetry, quartz counters, tile backsplash, LVP flooring, and new appliances, creating a polished space for everyday living and entertaining. Gleaming hardwood floors run throughout, while remodeled bathrooms add a polished finish. A permitted sunroom expands the living space and features new flooring installed in 2026, offering a versatile area ideal for a home office, gym, playroom, or relaxed lounge with a natural connection to the backyard. Outside, enjoy a peaceful setting for lounging and gatherings, with an attached 2-car garage. Additional highlights include a roof replaced in 2013, 220V outlet for EV charging, designer light fixtures, recessed LED lighting, full interior and exterior paint, & refreshed landscaping. Minutes from Downtown Campbell (~1 mi), with easy access to Lawrence and San Tomas Expressways and Hwy 85/880/280.",
+    "status": "sold"
+  },
+  {
+    "mockId": "active-1",
+    "address": "809 Midvale Ln",
+    "city": "San Jose",
+    "state": "CA",
+    "zip": "95136",
+    "county": "Santa Clara",
+    "lat": 37.273056,
+    "lng": -121.86593,
+    "beds": 5,
+    "baths": 3,
+    "bathsFull": 2,
+    "bathsHalf": 1,
+    "sqft": 2112,
+    "lotSqft": 6969,
+    "lotSizeAcres": 0.16,
+    "yearBuilt": 1965,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": null,
+    "architecturalStyle": "Craftsman",
+    "constructionMaterials": [
+      "wood frame"
+    ],
+    "roof": null,
+    "foundation": [],
+    "basement": "None",
+    "features": {
+      "pool": false,
+      "garage": false,
+      "fireplace": true,
+      "spa": false,
+      "heating": [
+        "Forced air",
+        "Gas"
+      ],
+      "cooling": [
+        "Central"
+      ],
+      "appliances": [
+        "Dishwasher",
+        "Dryer",
+        "Freezer",
+        "Garbage disposal",
+        "Microwave",
+        "Range / Oven",
+        "Refrigerator",
+        "Trash compactor",
+        "Washer"
+      ],
+      "flooring": [
+        "Hardwood",
+        "Slate"
+      ],
+      "exteriorFeatures": [
+        "Stucco",
+        "Composition"
+      ],
+      "buildingFeatures": [
+        "L-Shaped"
+      ],
+      "waterfront": false
+    },
+    "parkingSpaces": 0,
+    "garageSpaces": null,
+    "parkingFeatures": [
+      "Garage - Attached",
+      "Off-street",
+      "On-street"
+    ],
+    "lotFeatures": [],
+    "roomsCount": 10,
+    "rooms": [
+      {
+        "roomType": "BreakfastNook"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      },
+      {
+        "roomType": "LaundryRoom"
+      },
+      {
+        "roomType": "MasterBath"
+      },
+      {
+        "roomType": "MudRoom"
+      },
+      {
+        "roomType": "Office"
+      },
+      {
+        "roomType": "Pantry"
+      },
+      {
+        "roomType": "RecreationRoom"
+      },
+      {
+        "roomType": "Workshop"
+      }
+    ],
+    "taxAssessedValue": 974886,
+    "taxAnnualAmount": 13233,
+    "taxYear": 2025,
+    "parcelNumber": "45926006",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": null,
+    "waterSource": null,
+    "electric": null,
+    "gas": null,
+    "nearbySchools": [
+      {
+        "name": "Terrell Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 0.2,
+        "rating": 2,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5692-Terrell-Elementary-School/"
+      },
+      {
+        "name": "John Muir Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 1.2,
+        "rating": 5,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5679-John-Muir-Middle-School/"
+      },
+      {
+        "name": "Gunderson High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 1.2,
+        "rating": 6,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/5667-Gunderson-High-School/"
+      }
+    ],
+    "elementarySchool": "Terrell Elementary",
+    "elementarySchoolDistrict": "San Jose Unified",
+    "middleSchool": "John Muir Middle",
+    "middleSchoolDistrict": "San Jose Unified",
+    "highSchool": "Gunderson High",
+    "highSchoolDistrict": "San Jose Unified",
+    "neighborhood": "Blossom Valley",
+    "photos": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=B4Qb3VtFrLQxvOHcNfHKXcAMTMs=",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 840000,
+    "zillowId": 19703350,
+    "zillowUrl": "https://www.zillow.com/homedetails/809-Midvale-Ln-San-Jose-CA-95136/19703350_zpid/",
+    "zestimate": 1701400,
+    "rentZestimate": 5554,
+    "priceHistory": [
+      {
+        "date": "2016-07-08",
+        "event": "Sold",
+        "price": 840000,
+        "pricePerSqft": 398,
+        "source": "Public Record"
+      },
+      {
+        "date": "2016-06-10",
+        "event": "Pending sale",
+        "price": 868000,
+        "pricePerSqft": 411,
+        "source": "Better Homes and Gardens Real Estate Ventura Barnett Properties"
+      },
+      {
+        "date": "2016-05-19",
+        "event": "Listed for sale",
+        "price": 868000,
+        "pricePerSqft": 411,
+        "source": "Better Homes & Gardens Real EstateVentura Barnett"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744737892150,
+        "taxAmount": 13233.48,
+        "value": 974886
+      },
+      {
+        "year": 1713201892150,
+        "taxAmount": 12474.44,
+        "value": 955771
+      },
+      {
+        "year": 1681579492150,
+        "taxAmount": 12235.8,
+        "value": 937031
+      },
+      {
+        "year": 1650043492150,
+        "taxAmount": 12129.72,
+        "value": 918659
+      },
+      {
+        "year": 1618507492150,
+        "taxAmount": 11880.32,
+        "value": 900647
+      }
+    ],
+    "description": "5 Bedroom home located in sought after Pinehurst Neighborhood. Well maintained by second owner for almost 50 years. Popular floor plan with 4 spacious bedrooms upstairs and 1 ground floor bedroom.  Lovely open formal dining and living room combination.  Fireplace in living room.  Hardwood flooring in L/R & D/R and all bedrooms. Granite counter top in kitchen. Indoor laundry/mudroom with washer dryer and freezer. Spacious backyard with patio and mature landscape. Optional Cabana Club offering a wonderful community feel and competitive Piranha swim team. Easy access to major freeway and downtown San Jose.  This is a \"must see\" home!",
+    "status": "active"
+  },
+  {
+    "mockId": "active-2",
+    "address": "126 University Ave",
+    "city": "Los Gatos",
+    "state": "CA",
+    "zip": "95030",
+    "county": "Santa Clara",
+    "lat": 37.22447,
+    "lng": -121.98101,
+    "beds": 3,
+    "baths": 3,
+    "bathsFull": 2,
+    "bathsHalf": 1,
+    "sqft": 1582,
+    "lotSqft": 4068,
+    "lotSizeAcres": 0.09,
+    "yearBuilt": 1900,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": null,
+    "architecturalStyle": "Queen Anne / Victorian",
+    "constructionMaterials": [
+      "wood frame"
+    ],
+    "roof": "Composition",
+    "foundation": [],
+    "basement": "Partially finished",
+    "features": {
+      "pool": false,
+      "garage": false,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Forced air",
+        "Gas"
+      ],
+      "cooling": [
+        "Central"
+      ],
+      "appliances": [
+        "Dishwasher",
+        "Dryer",
+        "Freezer",
+        "Garbage disposal",
+        "Microwave",
+        "Range / Oven",
+        "Refrigerator",
+        "Washer"
+      ],
+      "flooring": [
+        "Hardwood"
+      ],
+      "laundry": [
+        "Inside",
+        "In Utility Room",
+        "Electricity Hookup (220V)"
+      ],
+      "exteriorFeatures": [
+        "Stone",
+        "Wood"
+      ],
+      "buildingFeatures": [
+        "L-Shaped"
+      ],
+      "view": [
+        "City"
+      ],
+      "waterfront": false
+    },
+    "parkingSpaces": 0,
+    "garageSpaces": null,
+    "parkingFeatures": [
+      "Garage - Detached",
+      "Off-street"
+    ],
+    "lotFeatures": [],
+    "roomsCount": 6,
+    "rooms": [
+      {
+        "roomType": "WalkInCloset"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      },
+      {
+        "roomType": "MasterBath"
+      },
+      {
+        "roomType": "Office"
+      },
+      {
+        "roomType": "Pantry"
+      }
+    ],
+    "taxAssessedValue": 2865261,
+    "taxAnnualAmount": 34064,
+    "taxYear": 2025,
+    "parcelNumber": "52902016",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": null,
+    "waterSource": null,
+    "electric": null,
+    "gas": null,
+    "nearbySchools": [
+      {
+        "name": "Daves Avenue Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 1.1,
+        "rating": 10,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/los-gatos/5526-Daves-Avenue-Elementary-School/"
+      },
+      {
+        "name": "Raymond J. Fisher Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 1.0,
+        "rating": 8,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/los-gatos/5527-Raymond-J.-Fisher-Middle-School/"
+      },
+      {
+        "name": "Los Gatos High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 0.3,
+        "rating": 10,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/los-gatos/5523-Los-Gatos-High-School/"
+      }
+    ],
+    "elementarySchool": null,
+    "elementarySchoolDistrict": null,
+    "middleSchool": null,
+    "middleSchoolDistrict": null,
+    "highSchool": null,
+    "highSchoolDistrict": null,
+    "neighborhood": "95030",
+    "photos": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 2700000,
+    "zillowId": 19748787,
+    "zillowUrl": "https://www.zillow.com/homedetails/126-University-Ave-Los-Gatos-CA-95030/19748787_zpid/",
+    "zestimate": 3005200,
+    "rentZestimate": 5970,
+    "priceHistory": [
+      {
+        "date": "2022-02-28",
+        "event": "Sold",
+        "price": 2700000,
+        "pricePerSqft": 1707,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2022-01-28",
+        "event": "Listed for sale",
+        "price": 2450000,
+        "pricePerSqft": 1549,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2019-06-07",
+        "event": "Sold",
+        "price": 2150000,
+        "pricePerSqft": 1359,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2019-05-21",
+        "event": "Pending sale",
+        "price": 2199000,
+        "pricePerSqft": 1390,
+        "source": "KW Bay Area Estates"
+      },
+      {
+        "date": "2019-04-29",
+        "event": "Price change",
+        "price": 2199000,
+        "pricePerSqft": 1390,
+        "source": "KW Bay Area Estates"
+      },
+      {
+        "date": "2019-04-15",
+        "event": "Listed for sale",
+        "price": 2250000,
+        "pricePerSqft": 1422,
+        "source": "KW Bay Area Estates"
+      },
+      {
+        "date": "2019-04-07",
+        "event": "Pending sale",
+        "price": 2250000,
+        "pricePerSqft": 1422,
+        "source": "KW Bay Area Estates"
+      },
+      {
+        "date": "2019-03-05",
+        "event": "Price change",
+        "price": 2250000,
+        "pricePerSqft": 1422,
+        "source": "Keller Williams Realty Los Gatos Estates"
+      },
+      {
+        "date": "2019-01-15",
+        "event": "Listed for sale",
+        "price": 2299000,
+        "pricePerSqft": 1453,
+        "source": "KW Bay Area Estates"
+      },
+      {
+        "date": "2013-08-15",
+        "event": "Sold",
+        "price": 1437000,
+        "pricePerSqft": 908,
+        "source": "Public Record"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744738234244,
+        "taxAmount": 34064.18,
+        "value": 2865261
+      },
+      {
+        "year": 1713202234244,
+        "taxAmount": 32838.66,
+        "value": 2809080
+      },
+      {
+        "year": 1681579834244,
+        "taxAmount": 32281.84,
+        "value": 2754000
+      },
+      {
+        "year": 1650043834244,
+        "taxAmount": 32069.22,
+        "value": 2260031
+      },
+      {
+        "year": 1618507834244,
+        "taxAmount": 26674.04,
+        "value": 2215718
+      }
+    ],
+    "description": "Stylishly remodeled Victorian-style home offers all the charms of downtown Los Gatos living just steps away from top restaurants and shopping. Inviting two front living spaces feature hardwood floors, crown molding and detailed door casings, large single hung windows, built-in speakers, and Lutron light controls throughout. The updated kitchen is perfect space for a break from downtown eating, featuring quartz counters and tile backsplash, skylight, island, and a large walk-in pantry. 2 large bedrooms on the main level share a full bath. Lower level bedroom suite showcases a luxuriously remodeled Carrara marble tile bathroom, walk-in closet and access to huge basement storage. Tranquil backyard features a paver patio and professional landscaping, while the multi-use detached garage can be easily arranged as an office or studio with large glass sliding doors and covered overhang. Enjoy downtown living in this stylish historic house filled with charming details and modern touches.",
+    "status": "active"
+  },
+  {
+    "mockId": "active-3",
+    "address": "1430 Callecita St",
+    "city": "San Jose",
+    "state": "CA",
+    "zip": "95125",
+    "county": "Santa Clara",
+    "lat": 37.28924,
+    "lng": -121.902885,
+    "beds": 5,
+    "baths": 5,
+    "bathsFull": 4,
+    "bathsHalf": 1,
+    "sqft": 3811,
+    "lotSqft": null,
+    "lotSizeAcres": null,
+    "yearBuilt": 2026,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": 2,
+    "architecturalStyle": "Other",
+    "constructionMaterials": [],
+    "roof": null,
+    "foundation": [],
+    "basement": null,
+    "features": {
+      "pool": false,
+      "garage": true,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Forced Air",
+        "Other"
+      ],
+      "cooling": [
+        "Central Air"
+      ],
+      "waterfront": false
+    },
+    "parkingSpaces": 2,
+    "garageSpaces": 2,
+    "parkingFeatures": [
+      "Attached"
+    ],
+    "lotFeatures": [],
+    "roomsCount": null,
+    "rooms": null,
+    "taxAssessedValue": 2193000,
+    "taxAnnualAmount": 28031,
+    "taxYear": 2025,
+    "parcelNumber": "44626033",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": null,
+    "waterSource": null,
+    "electric": null,
+    "gas": null,
+    "nearbySchools": [
+      {
+        "name": "Booksin Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 0.2,
+        "rating": 9,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5651-Booksin-Elementary-School/"
+      },
+      {
+        "name": "Willow Glen Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 0.4,
+        "rating": 5,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5698-Willow-Glen-Middle-School/"
+      },
+      {
+        "name": "Willow Glen High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 0.3,
+        "rating": 8,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/5697-Willow-Glen-High-School/"
+      }
+    ],
+    "elementarySchool": "Booksin Elementary School",
+    "elementarySchoolDistrict": "San Jose Unified",
+    "middleSchool": "Willow Glen Middle School",
+    "middleSchoolDistrict": "San Jose Unified",
+    "highSchool": "Willow Glen High School",
+    "highSchoolDistrict": "San Jose Unified",
+    "neighborhood": "Willow Glen",
+    "photos": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/732f1f907e18324f4e2ec208efef63d2-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/d088e3229aac7c09bbef0d9466b2ae1a-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/e50566499caf5ea9281adaccf102c4f3-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/8b8c9025eefcfd8fec5633fe1a751b5a-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/3bdce739369925aec6f631ff9398deaa-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/e0a45ca3fbcea109bdc108e16c53dabb-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 1950000,
+    "zillowId": 19692731,
+    "zillowUrl": "https://www.zillow.com/homedetails/1430-Callecita-St-San-Jose-CA-95125/19692731_zpid/",
+    "zestimate": 4298100,
+    "rentZestimate": 8195,
+    "priceHistory": [
+      {
+        "date": "2026-04-10",
+        "event": "Pending sale",
+        "price": 4495000,
+        "pricePerSqft": 1179,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2026-04-08",
+        "event": "Listing removed",
+        "price": 4495000,
+        "pricePerSqft": 1179,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2026-03-31",
+        "event": "Pending sale",
+        "price": 4495000,
+        "pricePerSqft": 1179,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2026-03-05",
+        "event": "Listed for sale",
+        "price": 4495000,
+        "pricePerSqft": 1179,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2026-01-23",
+        "event": "Listing removed",
+        "price": 4395000,
+        "pricePerSqft": 1153,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2025-12-17",
+        "event": "Price change",
+        "price": 4395000,
+        "pricePerSqft": 1153,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2025-11-13",
+        "event": "Listed for sale",
+        "price": 4350000,
+        "pricePerSqft": 1141,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2025-09-10",
+        "event": "Listing removed",
+        "price": 4250000,
+        "pricePerSqft": 1115,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2025-07-29",
+        "event": "Listed for sale",
+        "price": 4250000,
+        "pricePerSqft": 1115,
+        "source": "Thomas James Homes"
+      },
+      {
+        "date": "2025-03-25",
+        "event": "Sold",
+        "price": 1950000,
+        "pricePerSqft": 512,
+        "source": "Public Record"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744738235601,
+        "taxAmount": 28031.34,
+        "value": 2193000
+      },
+      {
+        "year": 1713202235601,
+        "taxAmount": 2920.96,
+        "value": 123153
+      },
+      {
+        "year": 1681579835601,
+        "taxAmount": 2823.12,
+        "value": 120739
+      },
+      {
+        "year": 1650043835601,
+        "taxAmount": 2797.58,
+        "value": 118372
+      },
+      {
+        "year": 1618507835601,
+        "taxAmount": 2682.82,
+        "value": 116051
+      }
+    ],
+    "description": "Distinguished 5-bedroom, 4.5-bathroom Transitional-style home built by Thomas James Homes. Estimated home completion is Spring 2026.\n\nJust inside the front porch is the living and dining room areas with a fireplace. Continue through the main floor to the great room with large doors that lead to the covered patio, and gourmet kitchen that includes an island with bar seating, walk-in pantry, and nook. The main floor comes complete with an ADU with kitchenette and en suite bedroom and bathroom.\n\nHead upstairs to a spacious loft, laundry room with sink and storage, 3 secondary bedrooms, and 2 full bathrooms. Enjoy the luxurious grand suite, which includes a spa-like bath and walk-in closet, or step out to your own fully fenced yard, all in a prime Willow Glen location.",
+    "status": "active"
+  },
+  {
+    "mockId": "active-4",
+    "address": "40 Pleasant St",
+    "city": "Los Gatos",
+    "state": "CA",
+    "zip": "95030",
+    "county": "Santa Clara",
+    "lat": 37.222385,
+    "lng": -121.97369,
+    "beds": 3,
+    "baths": 2,
+    "bathsFull": 2,
+    "bathsHalf": null,
+    "sqft": 1808,
+    "lotSqft": 7700,
+    "lotSizeAcres": 0.18,
+    "yearBuilt": 1939,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": 2,
+    "architecturalStyle": "Cape Cod,Cottage",
+    "constructionMaterials": [],
+    "roof": "Composition",
+    "foundation": [
+      "Concrete Perimeter",
+      "Wood Frame"
+    ],
+    "basement": null,
+    "features": {
+      "pool": false,
+      "garage": true,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Central Forced Air"
+      ],
+      "cooling": [
+        "Central Air"
+      ],
+      "appliances": [
+        "Dishwasher",
+        "Disposal",
+        "Range Hood",
+        "Oven/Range",
+        "Gas Oven/Range",
+        "Refrigerator",
+        "Washer/Dryer"
+      ],
+      "flooring": [
+        "Hardwood",
+        "Tile"
+      ],
+      "laundry": [
+        "Inside"
+      ],
+      "interiorFeatures": [
+        "Walk-In Closet(s)"
+      ],
+      "exteriorFeatures": [
+        "Back Yard",
+        "Barbecue",
+        "Fenced"
+      ],
+      "fencing": "Back Yard,Front Yard,Partial",
+      "waterfront": false,
+      "patioAndPorch": [
+        "Balcony/Patio",
+        "Deck"
+      ]
+    },
+    "parkingSpaces": 2,
+    "garageSpaces": 2,
+    "parkingFeatures": [
+      "Detached"
+    ],
+    "lotFeatures": [
+      "Level"
+    ],
+    "roomsCount": 5,
+    "rooms": [
+      {
+        "roomType": "Bedroom"
+      },
+      {
+        "roomType": "Bathroom"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      },
+      {
+        "roomType": "Kitchen"
+      }
+    ],
+    "taxAssessedValue": 2733600,
+    "taxAnnualAmount": 32635,
+    "taxYear": 2025,
+    "parcelNumber": "52926020",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": null,
+    "waterSource": [
+      "Public"
+    ],
+    "electric": null,
+    "gas": [
+      "PublicUtilities"
+    ],
+    "nearbySchools": [
+      {
+        "name": "Louise Van Meter Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 0.7,
+        "rating": 10,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/los-gatos/5529-Louise-Van-Meter-Elementary-School/"
+      },
+      {
+        "name": "Raymond J. Fisher Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 0.9,
+        "rating": 8,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/los-gatos/5527-Raymond-J.-Fisher-Middle-School/"
+      },
+      {
+        "name": "Los Gatos High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 0.2,
+        "rating": 10,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/los-gatos/5523-Los-Gatos-High-School/"
+      }
+    ],
+    "elementarySchool": "LouiseVanMeterElementary",
+    "elementarySchoolDistrict": "LosGatosUnionElementary",
+    "middleSchool": "RaymondJFisherMiddle",
+    "middleSchoolDistrict": null,
+    "highSchool": "LosGatosHigh",
+    "highSchoolDistrict": "LosGatosSaratogaJointUnionHigh",
+    "neighborhood": "95030",
+    "photos": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/3206d5576a5756e92e99f625474b3ae8-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/3614a0e3779fb85ebac849f3dbfbd1a8-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/20343761d0a21de7d97b6ca2a450d3fb-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/c882b616361708fb5ef78c2ebe0cc823-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/22f8d61606ce65c3d34d0495ad80096f-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/ee3141ba55556a5b33e80c96792bdc05-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/10158733865a1ecfc57af476fca81312-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/f6bdf296f5f847528deb94693ba4902c-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/4974e10f5966d8096727e6c41404182b-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      },
+      {
+        "url": "https://photos.zillowstatic.com/fp/2491a29483e435218f2af78cee5eb01e-uncropped_scaled_within_1536_1152.jpg",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 2680000,
+    "zillowId": 19749377,
+    "zillowUrl": "https://www.zillow.com/homedetails/40-Pleasant-St-Los-Gatos-CA-95030/19749377_zpid/",
+    "zestimate": 3098700,
+    "rentZestimate": 7613,
+    "priceHistory": [
+      {
+        "date": "2026-03-24",
+        "event": "Listed for sale",
+        "price": 3149000,
+        "pricePerSqft": 1742,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2023-08-25",
+        "event": "Sold",
+        "price": 2680000,
+        "pricePerSqft": 1482,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2023-08-17",
+        "event": "Pending sale",
+        "price": 2350000,
+        "pricePerSqft": 1300,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2023-08-10",
+        "event": "Listed for sale",
+        "price": 2350000,
+        "pricePerSqft": 1300,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "1999-07-30",
+        "event": "Sold",
+        "price": 692000,
+        "pricePerSqft": 383,
+        "source": "Public Record"
+      },
+      {
+        "date": "1994-09-23",
+        "event": "Sold",
+        "price": 419500,
+        "pricePerSqft": 232,
+        "source": "Public Record"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744738236932,
+        "taxAmount": 32635.42,
+        "value": 2733600
+      },
+      {
+        "year": 1713202236932,
+        "taxAmount": 47027.18,
+        "value": 2680000
+      },
+      {
+        "year": 1681579836932,
+        "taxAmount": 12694.32,
+        "value": 1022275
+      },
+      {
+        "year": 1650043836932,
+        "taxAmount": 12617.94,
+        "value": 1002232
+      },
+      {
+        "year": 1618507836932,
+        "taxAmount": 12377.38,
+        "value": 982581
+      }
+    ],
+    "description": "Absolutely Charming Vintage Gem, Nestled beneath Majestic trees, in the Vibrant Sought-After Town of Los Gatos. Bathed in Sunlight with Delightful Blooming Gardens providing incentive to enjoy being outdoors!  Remodeled with Designers eye, the Captivating Interiors boast rich oak floors, walls of windows, Superb Chef's Kitchen offering a perfect blend for Entertaining and Family gatherings! Impressive kitchen is a highlight, with gas range, stone counters, and abundance of cabinets, making it ideal for culinary enthusiasts. Upstairs Spacious Primary Suite sets the stage for a Retreat and Haven of Privacy to Unwind the day with Spacious Sitting area, High Ceilings, Walls of Windows, Walk-In Closet and Classy Fireplace! Stay Cool with A/C and efficient Ceiling fans! Backyard invites Play or just morning coffee. Detached 2 car Garage with EV Hookup allows access to Terrace Court and additional parking.\nExceptional Urban Setting, just steps to Award-Winning Los Gatos High and all it has to Offer! Close to Fabulous Restaurants, Shopping, Hiking and so much more!",
+    "status": "active"
+  },
+  {
+    "mockId": "active-5",
+    "address": "841 Willis Ave",
+    "city": "San Jose",
+    "state": "CA",
+    "zip": "95125",
+    "county": "Santa Clara",
+    "lat": 37.31884,
+    "lng": -121.8957,
+    "beds": 3,
+    "baths": 2,
+    "bathsFull": 1,
+    "bathsHalf": 1,
+    "sqft": 1344,
+    "lotSqft": 7400,
+    "lotSizeAcres": 0.17,
+    "yearBuilt": 1910,
+    "propertyType": "SINGLE_FAMILY",
+    "stories": 2,
+    "architecturalStyle": null,
+    "constructionMaterials": [],
+    "roof": "Composition, Fiberglass",
+    "foundation": [
+      "Concrete Perimeter"
+    ],
+    "basement": null,
+    "features": {
+      "pool": true,
+      "garage": false,
+      "fireplace": false,
+      "spa": false,
+      "heating": [
+        "Forced Air",
+        "Gas"
+      ],
+      "cooling": [
+        "None"
+      ],
+      "appliances": [
+        "Gas Cooktop",
+        "Disposal",
+        "Built In Oven",
+        "Refrigerator"
+      ],
+      "flooring": [
+        "Carpet",
+        "Wood"
+      ],
+      "laundry": [
+        "In Utility Room"
+      ],
+      "exteriorFeatures": [
+        "Storage Shed Structure"
+      ],
+      "waterfront": false
+    },
+    "parkingSpaces": 0,
+    "garageSpaces": 0,
+    "parkingFeatures": [
+      "Other"
+    ],
+    "lotFeatures": [
+      "None"
+    ],
+    "roomsCount": 5,
+    "rooms": [
+      {
+        "roomType": "Bedroom"
+      },
+      {
+        "roomType": "Bathroom"
+      },
+      {
+        "roomType": "DiningRoom"
+      },
+      {
+        "roomType": "FamilyRoom"
+      },
+      {
+        "roomType": "Kitchen"
+      }
+    ],
+    "taxAssessedValue": 549976,
+    "taxAnnualAmount": 8101,
+    "taxYear": 2025,
+    "parcelNumber": "26441010",
+    "hoaFee": null,
+    "hoaFeeFrequency": null,
+    "sewer": [
+      "Public Sewer"
+    ],
+    "waterSource": [
+      "Public"
+    ],
+    "electric": null,
+    "gas": [
+      "PublicUtilities"
+    ],
+    "nearbySchools": [
+      {
+        "name": "Gardner Elementary School",
+        "type": "Public",
+        "level": "Elementary",
+        "distance": 0.2,
+        "rating": 1,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5664-Gardner-Elementary-School/"
+      },
+      {
+        "name": "Herbert Hoover Middle School",
+        "type": "Public",
+        "level": "Middle",
+        "distance": 1.8,
+        "rating": 4,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5672-Herbert-Hoover-Middle-School/"
+      },
+      {
+        "name": "Abraham Lincoln High School",
+        "type": "Public",
+        "level": "High",
+        "distance": 1.8,
+        "rating": 7,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/5675-Abraham-Lincoln-High-School/"
+      }
+    ],
+    "elementarySchool": "GardnerElementary",
+    "elementarySchoolDistrict": "SanJoseUnified",
+    "middleSchool": "HerbertHooverMiddle_1",
+    "middleSchoolDistrict": null,
+    "highSchool": "AbrahamLincolnHigh_1",
+    "highSchoolDistrict": "SanJoseUnified",
+    "neighborhood": "Willow Glen",
+    "photos": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=841+Willis+Ave%2C+San+Jose%2C+CA+95125&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=4wexIfMF_UrTzko1XpgnN-63zdk=",
+        "source": "zillow"
+      }
+    ],
+    "lastSoldPrice": 1200000,
+    "zillowId": 19577508,
+    "zillowUrl": "https://www.zillow.com/homedetails/841-Willis-Ave-San-Jose-CA-95125/19577508_zpid/",
+    "zestimate": 1192100,
+    "rentZestimate": 4758,
+    "priceHistory": [
+      {
+        "date": "2026-02-06",
+        "event": "Sold",
+        "price": 1200000,
+        "pricePerSqft": 893,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-01-13",
+        "event": "Pending sale",
+        "price": 1199000,
+        "pricePerSqft": 892,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2026-01-07",
+        "event": "Price change",
+        "price": 1199000,
+        "pricePerSqft": 892,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2025-11-18",
+        "event": "Price change",
+        "price": 1249000,
+        "pricePerSqft": 929,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2025-10-30",
+        "event": "Price change",
+        "price": 1279000,
+        "pricePerSqft": 952,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2025-09-18",
+        "event": "Listed for sale",
+        "price": 1299900,
+        "pricePerSqft": 967,
+        "source": "MLSListings Inc"
+      },
+      {
+        "date": "2001-04-13",
+        "event": "Sold",
+        "price": 365000,
+        "pricePerSqft": 272,
+        "source": "Public Record"
+      },
+      {
+        "date": "1999-08-26",
+        "event": "Sold",
+        "price": 275000,
+        "pricePerSqft": 205,
+        "source": "Public Record"
+      }
+    ],
+    "taxHistory": [
+      {
+        "year": 1744738238221,
+        "taxAmount": 8100.98,
+        "value": 549976
+      },
+      {
+        "year": 1713202238221,
+        "taxAmount": 7694.62,
+        "value": 539193
+      },
+      {
+        "year": 1681579838221,
+        "taxAmount": 7526.4,
+        "value": 528622
+      },
+      {
+        "year": 1650043838221,
+        "taxAmount": 7460.64,
+        "value": 518258
+      },
+      {
+        "year": 1618507838221,
+        "taxAmount": 7278.62,
+        "value": 508097
+      }
+    ],
+    "description": "Classic Charm in the Heart of Willow Glen!\n\nCharming Tudor home nestled in the highly desirable Willow Glen neighborhood, 841 Willis Avenue blends timeless character with thoughtful potential. Defined by classic appeal, lasting beauty, and vintage craftsmanship, this home highlights an old-world fireplace that sets the stage for cozy evenings and inviting gatherings.\n\nSitting on an oversized lot, the eclectic backyard offers endless possibilities, whether you dream of adding an ADU or guest cottage, cultivating a lush garden, creating an art studio or designing an outdoor retreat perfect for entertaining. Enjoy fresh lemons and oranges from the mature fruit trees while relaxing on the private deck just off the kitchen.\n\nInside, a separate full laundry room adds convenience and flexibility, while multiple storage areas, including a detached utility room, provide the ideal space for hobbies, a workshop, or seasonal organization.\n\nLocated steps from a community center and park, and just minutes from Diridon Station, SAP Center, and major freeways, this home delivers the ideal balance of comfort, convenience, and connection that defines Willow Glen living.\n\nDon't miss this Silicon Valley gem where charm, opportunity, and prime location come together beautifully!",
+    "status": "active"
+  }
+]

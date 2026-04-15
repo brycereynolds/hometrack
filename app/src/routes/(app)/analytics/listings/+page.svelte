@@ -3,13 +3,15 @@
 	import { Chart, registerables } from 'chart.js';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import {
-		listings,
-		viewsTimeSeries,
-		showingsTimeSeries,
-		formatNumber,
-		PHASES
-	} from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config';
+	import { formatNumber, formatCurrency } from '$lib/utils';
+
+	let { data } = $props();
+
+	// Listings come from the parent layout's load function
+	const listings = $derived(data.listings ?? []);
+	const viewsTimeSeries = $derived(data.viewsTimeSeries ?? { labels: [] as string[], zillow: [] as number[], redfin: [] as number[], realtor: [] as number[], website: [] as number[], social: [] as number[] });
+	const showingsTimeSeries = $derived(data.showingsTimeSeries ?? { labels: [] as string[], showings: [] as number[], openHouseAttendees: [] as number[] });
 	import { Eye, Heart, Users, TrendingUp, ArrowRight } from 'lucide-svelte';
 
 	Chart.register(...registerables);
@@ -18,36 +20,36 @@
 		{ href: '/analytics', label: 'Overview', active: false },
 		{ href: '/analytics/listings', label: 'Listing Performance', active: true },
 		{ href: '/analytics/team', label: 'Team Performance', active: false },
-		{ href: '/analytics/insights', label: 'AI Insights', active: false }
+		{ href: '/analytics/insights', label: 'Insights', active: false }
 	];
 
-	const activeListings = listings.filter((l) => l.zillowViews > 0);
-	const totalViews = listings.reduce((s, l) => s + l.zillowViews, 0);
-	const totalSaves = listings.reduce((s, l) => s + l.zillowSaves, 0);
-	const totalShowings = listings.reduce((s, l) => s + l.showingsCount, 0);
+	const activeListings = $derived(listings.filter((l: any) => (l.zillowViews ?? 0) > 0));
+	const totalViews = $derived(listings.reduce((s: number, l: any) => s + (l.zillowViews ?? 0), 0));
+	const totalSaves = $derived(listings.reduce((s: number, l: any) => s + (l.zillowSaves ?? 0), 0));
+	const totalShowings = $derived(listings.reduce((s: number, l: any) => s + (l.showingsCount ?? 0), 0));
 
 	// Top performers
-	const topByViews = [...listings].sort((a, b) => b.zillowViews - a.zillowViews).slice(0, 5);
-	const topBySaves = [...listings].sort((a, b) => b.zillowSaves - a.zillowSaves).slice(0, 5);
-	const topByShowings = [...listings].sort((a, b) => b.showingsCount - a.showingsCount).slice(0, 5);
+	const topByViews = $derived([...listings].sort((a: any, b: any) => (b.zillowViews ?? 0) - (a.zillowViews ?? 0)).slice(0, 5));
+	const topBySaves = $derived([...listings].sort((a: any, b: any) => (b.zillowSaves ?? 0) - (a.zillowSaves ?? 0)).slice(0, 5));
+	const topByShowings = $derived([...listings].sort((a: any, b: any) => (b.showingsCount ?? 0) - (a.showingsCount ?? 0)).slice(0, 5));
 
 	// Showing conversion funnel
-	const funnelData = {
+	const funnelData = $derived({
 		totalShowings: totalShowings,
 		feedbackReceived: 4,
 		interested: 3,
-		offers: listings.reduce((s, l) => s + l.offersCount, 0)
-	};
+		offers: listings.reduce((s: number, l: any) => s + (l.offersCount ?? 0), 0)
+	});
 
-	const funnelSteps = [
+	const funnelSteps = $derived([
 		{ label: 'Total Showings', value: funnelData.totalShowings, color: '#C4704B' },
 		{ label: 'Feedback Received', value: funnelData.feedbackReceived, color: '#D4956B' },
 		{ label: 'Interested', value: funnelData.interested, color: '#C49A3C' },
 		{ label: 'Offers', value: funnelData.offers, color: '#7B8B6F' }
-	];
+	]);
 
-	let viewsCanvas: HTMLCanvasElement;
-	let platformCanvas: HTMLCanvasElement;
+	let viewsCanvas = $state<HTMLCanvasElement>(null!);
+	let platformCanvas = $state<HTMLCanvasElement>(null!);
 	let viewsChart: Chart | undefined;
 	let platformChart: Chart | undefined;
 
@@ -354,10 +356,10 @@
 										class="text-xs"
 										style="border-color: {PHASES[listing.phase].color}; color: {PHASES[listing.phase].color}"
 									>
-										{listing.phaseLabel}
+										{PHASES[listing.phase].label}
 									</Badge>
 								</td>
-								<td class="px-4 py-2.5 text-right font-mono">{listing.priceFormatted}</td>
+								<td class="px-4 py-2.5 text-right font-mono">{listing.price ? formatCurrency(listing.price) : 'No Price'}</td>
 								<td class="px-4 py-2.5 text-right font-mono">{listing.daysOnMarket || '—'}</td>
 								<td class="px-4 py-2.5 text-right font-mono">{listing.zillowViews ? formatNumber(listing.zillowViews) : '—'}</td>
 								<td class="px-4 py-2.5 text-right font-mono">{listing.zillowSaves || '—'}</td>

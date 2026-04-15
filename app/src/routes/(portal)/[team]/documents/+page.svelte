@@ -11,18 +11,19 @@
 		Camera,
 		ClipboardList,
 		Search as SearchIcon,
-		FileCheck
+		FileCheck,
+		X
 	} from 'lucide-svelte';
-	import { documents } from '$lib/data/mock-data';
+	let { data } = $props();
 
-	// Filter documents for listing l-1 (client's property)
-	const clientDocs = documents.filter((d) => d.listingId === 'l-1');
+	const clientDocs = $derived(data.documents ?? []);
 
 	// Group by category
 	const categories = [
 		{ key: 'contracts', label: 'Contracts', icon: FileText },
 		{ key: 'disclosures', label: 'Disclosures', icon: Shield },
 		{ key: 'inspection', label: 'Inspection Reports', icon: ClipboardList },
+		{ key: 'title', label: 'Title Documents', icon: FileText },
 		{ key: 'marketing', label: 'Marketing Materials', icon: Camera },
 		{ key: 'photos', label: 'Photos & Media', icon: Camera }
 	] as const;
@@ -46,19 +47,90 @@
 	let filteredDocs = $derived(
 		searchQuery
 			? clientDocs.filter(
-					(d) =>
+					(d: any) =>
 						d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-						d.categoryLabel.toLowerCase().includes(searchQuery.toLowerCase())
+						(d.category ?? '').toLowerCase().includes(searchQuery.toLowerCase())
 				)
 			: clientDocs
 	);
 	let pendingSig = $derived(filteredDocs.filter((d) => d.status === 'pending_signature'));
+
+	// Document viewer state
+	let viewerDoc = $state<{ url: string; name: string; type: string } | null>(null);
+	let downloading = $state<string | null>(null);
+
+	async function getDocumentUrl(docId: string): Promise<string | null> {
+		try {
+			const res = await fetch(`/api/documents/${docId}/download`);
+			if (!res.ok) return null;
+			const { url } = await res.json();
+			return url;
+		} catch {
+			return null;
+		}
+	}
+
+	async function viewDocument(doc: any) {
+		downloading = doc.id;
+		const url = await getDocumentUrl(doc.id);
+		downloading = null;
+		if (!url) return;
+
+		const mimeType = doc.fileType ?? '';
+		viewerDoc = { url, name: doc.name, type: mimeType };
+	}
+
+	async function downloadDocument(doc: any) {
+		downloading = doc.id;
+		const url = await getDocumentUrl(doc.id);
+		downloading = null;
+		if (!url) return;
+
+		const link = document.createElement('a');
+		link.href = url;
+		link.download = doc.name;
+		link.target = '_blank';
+		link.click();
+	}
 </script>
+
+<!-- Document viewer overlay -->
+{#if viewerDoc}
+	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+		<div class="relative flex h-[90vh] w-full max-w-4xl flex-col rounded-lg bg-background shadow-xl">
+			<div class="flex items-center justify-between border-b px-4 py-3">
+				<h3 class="text-sm font-medium truncate">{viewerDoc.name}</h3>
+				<Button variant="ghost" size="icon" class="size-8" onclick={() => viewerDoc = null}>
+					<X class="size-4" />
+				</Button>
+			</div>
+			<div class="flex-1 overflow-hidden">
+				{#if viewerDoc.type.includes('pdf') || viewerDoc.type === 'PDF'}
+					<iframe src={viewerDoc.url} class="h-full w-full" title={viewerDoc.name}></iframe>
+				{:else if viewerDoc.type.startsWith('image') || ['JPG', 'PNG', 'JPEG', 'GIF', 'WEBP'].includes(viewerDoc.type.toUpperCase())}
+					<div class="flex h-full items-center justify-center p-4">
+						<img src={viewerDoc.url} alt={viewerDoc.name} class="max-h-full max-w-full object-contain" />
+					</div>
+				{:else}
+					<div class="flex h-full items-center justify-center">
+						<div class="text-center text-muted-foreground">
+							<FileText class="mx-auto mb-2 size-12" />
+							<p>Preview not available for this file type.</p>
+							<a href={viewerDoc.url} target="_blank" rel="noopener noreferrer" class="mt-2 inline-block text-sm text-primary hover:underline">
+								Open in new tab
+							</a>
+						</div>
+					</div>
+				{/if}
+			</div>
+		</div>
+	</div>
+{/if}
 
 <div class="space-y-6">
 	<div>
 		<h1 class="font-serif text-2xl font-bold tracking-tight">Documents</h1>
-		<p class="text-muted-foreground">All documents shared with you for 123 Main Street.</p>
+		<p class="text-muted-foreground">All documents shared with you for your listing.</p>
 	</div>
 
 	<!-- Search -->
@@ -88,9 +160,9 @@
 							{pendingSig.map((d) => d.name).join(', ')}
 						</p>
 					</div>
-					<Button size="sm" class="shrink-0 gap-1.5 bg-amber-600 hover:bg-amber-700">
+					<Button size="sm" class="shrink-0 gap-1.5 opacity-50" disabled>
 						<PenTool class="size-3.5" />
-						Sign Now
+						Coming Soon
 					</Button>
 				</div>
 			</CardContent>
@@ -136,15 +208,27 @@
 								</Badge>
 								<div class="flex gap-1">
 									{#if doc.status === 'pending_signature'}
-										<Button size="sm" variant="default" class="gap-1 text-xs">
+										<Button size="sm" variant="default" class="gap-1 text-xs opacity-50" disabled>
 											<PenTool class="size-3" />
-											Sign
+											Coming Soon
 										</Button>
 									{:else}
-										<Button variant="ghost" size="icon" class="size-8">
+										<Button
+											variant="ghost"
+											size="icon"
+											class="size-8"
+											disabled={downloading === doc.id}
+											onclick={() => viewDocument(doc)}
+										>
 											<Eye class="size-3.5" />
 										</Button>
-										<Button variant="ghost" size="icon" class="size-8">
+										<Button
+											variant="ghost"
+											size="icon"
+											class="size-8"
+											disabled={downloading === doc.id}
+											onclick={() => downloadDocument(doc)}
+										>
 											<Download class="size-3.5" />
 										</Button>
 									{/if}

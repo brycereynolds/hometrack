@@ -23,6 +23,12 @@ export { default as ListingCard } from './ListingCard.svelte';
 export { default as ContactCard } from './ContactCard.svelte';
 export { default as ActivityFeedItem } from './ActivityFeedItem.svelte';
 export { default as AIInsightCard } from './AIInsightCard.svelte';
+export { default as ProcessingStatus } from './ProcessingStatus.svelte';
+export { default as Autocomplete } from './Autocomplete.svelte';
+export { default as VoiceMemoModal } from './VoiceMemoModal.svelte';
+export { default as QuickNoteModal } from './QuickNoteModal.svelte';
 
-// Mock data
-export * from '$lib/data/mock-data';
+// Config, types, and utilities (replaces mock-data re-export)
+export * from '$lib/config';
+export * from '$lib/utils';
+export * from '$lib/types';

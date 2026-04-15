@@ -3,8 +3,15 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { teamMembers } from '$lib/data/mock-data.js';
-	import { UserPlus, Shield, Crown, Briefcase, ClipboardList, Megaphone, PaintBucket } from 'lucide-svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+	import { UserPlus, Shield, Crown, Briefcase, ClipboardList, Megaphone, PaintBucket, Trash2 } from 'lucide-svelte';
+
+	let { data } = $props();
+
+	const teamMembers = $derived(data.teamMembers ?? []);
+	const team = $derived(data.team);
 
 	const roleIcons: Record<string, typeof Shield> = {
 		admin: Crown,
@@ -12,6 +19,14 @@
 		tc: ClipboardList,
 		marketing: Megaphone,
 		staging_lead: PaintBucket
+	};
+
+	const roleLabels: Record<string, string> = {
+		admin: 'Admin',
+		listing_agent: 'Listing Agent',
+		tc: 'Transaction Coordinator',
+		marketing: 'Marketing',
+		staging_lead: 'Staging Lead'
 	};
 
 	const roleDescriptions: Record<string, string> = {
@@ -22,19 +37,28 @@
 		staging_lead: 'Coordinate staging vendors, design consultations, and improvement planning.'
 	};
 
-	const allMembers = [
+	const allMembers = $derived([
 		...teamMembers.map((m) => ({ ...m, status: 'active' as const })),
-		{
-			id: 'tm-inv-1',
-			name: 'Alex Thompson',
-			email: 'alex.t@hometrack.co',
-			role: 'listing_agent' as const,
-			roleLabel: 'Listing Agent',
-			avatar: '',
-			initials: 'AT',
-			status: 'invited' as const
-		}
-	];
+	]);
+
+	// Invite member modal state
+	let showInviteModal = $state(false);
+	let inviteEmail = $state('');
+	let inviteName = $state('');
+	let inviteRole = $state('listing_agent');
+	let inviteSubmitting = $state(false);
+
+	// Remove member confirmation
+	let showRemoveConfirm = $state(false);
+	let removeMemberId = $state('');
+	let removeMemberName = $state('');
+	let removeSubmitting = $state(false);
+
+	function openRemoveConfirm(member: { id: string; name: string }) {
+		removeMemberId = member.id;
+		removeMemberName = member.name;
+		showRemoveConfirm = true;
+	}
 </script>
 
 <div class="space-y-6">
@@ -43,7 +67,7 @@
 			<h2 class="font-serif text-lg font-semibold">Team Management</h2>
 			<p class="text-sm text-muted-foreground">Manage your team members and their roles</p>
 		</div>
-		<Button class="gap-2">
+		<Button class="gap-2" onclick={() => showInviteModal = true}>
 			<UserPlus class="size-4" />
 			Invite Member
 		</Button>
@@ -54,8 +78,8 @@
 		<CardContent class="p-4">
 			<div class="flex items-center justify-between">
 				<div>
-					<p class="text-sm font-medium">Chen Realty Group</p>
-					<p class="text-xs text-muted-foreground">hometrack.co/chen-realty</p>
+					<p class="text-sm font-medium">{team?.name ?? 'Your Team'}</p>
+					<p class="text-xs text-muted-foreground">{team?.slug ? `hometrack.co/${team.slug}` : ''}</p>
 				</div>
 				<Badge variant="outline">{allMembers.length} members</Badge>
 			</div>
@@ -66,7 +90,7 @@
 	<Card>
 		<CardHeader>
 			<CardTitle>Team Members</CardTitle>
-			<CardDescription>{allMembers.filter((m) => m.status === 'active').length} active, {allMembers.filter((m) => m.status === 'invited').length} pending invitation</CardDescription>
+			<CardDescription>{allMembers.length} member{allMembers.length === 1 ? '' : 's'}</CardDescription>
 		</CardHeader>
 		<CardContent class="p-0">
 			<div class="divide-y">
@@ -80,9 +104,6 @@
 							<div>
 								<div class="flex items-center gap-2">
 									<p class="font-medium text-sm">{member.name}</p>
-									{#if member.status === 'invited'}
-										<Badge variant="secondary" class="text-xs">Invited</Badge>
-									{/if}
 								</div>
 								<p class="text-xs text-muted-foreground">{member.email}</p>
 							</div>
@@ -93,14 +114,14 @@
 								{member.roleLabel}
 							</Badge>
 							<div class="flex items-center gap-1">
-								{#if member.status === 'active'}
-									<span class="inline-block size-2 rounded-full bg-green-500"></span>
-									<span class="text-xs text-muted-foreground">Active</span>
-								{:else}
-									<span class="inline-block size-2 rounded-full bg-amber-400"></span>
-									<span class="text-xs text-muted-foreground">Pending</span>
-								{/if}
+								<span class="inline-block size-2 rounded-full bg-green-500"></span>
+								<span class="text-xs text-muted-foreground">Active</span>
 							</div>
+							{#if member.role !== 'admin'}
+								<Button variant="ghost" size="sm" class="h-7 text-xs text-muted-foreground hover:text-red-600" onclick={() => openRemoveConfirm(member)}>
+									<Trash2 class="size-3" />
+								</Button>
+							{/if}
 						</div>
 					</div>
 				{/each}
@@ -124,7 +145,7 @@
 							<RoleIcon class="size-4 text-muted-foreground" />
 						</div>
 						<div>
-							<p class="text-sm font-medium">{member?.roleLabel || role}</p>
+							<p class="text-sm font-medium">{member?.roleLabel || roleLabels[role] || role}</p>
 							<p class="text-xs text-muted-foreground mt-0.5 leading-relaxed">{description}</p>
 						</div>
 					</div>
@@ -133,3 +154,116 @@
 		</CardContent>
 	</Card>
 </div>
+
+<!-- Invite Member Modal -->
+<Dialog.Root bind:open={showInviteModal}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Invite Team Member</Dialog.Title>
+			<Dialog.Description>Send an invitation to join your team. They'll be linked when they sign up.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/inviteMember"
+			use:enhance={() => {
+				inviteSubmitting = true;
+				return async ({ result, update }) => {
+					inviteSubmitting = false;
+					if (result.type === 'success') {
+						showInviteModal = false;
+						inviteEmail = '';
+						inviteName = '';
+						inviteRole = 'listing_agent';
+						toast.success('Team member invited');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to invite member'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="teamId" value={team?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="invite-name" class="text-sm font-medium">Name</label>
+					<input
+						id="invite-name"
+						name="name"
+						type="text"
+						bind:value={inviteName}
+						required
+						placeholder="e.g. Alex Thompson"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="invite-email" class="text-sm font-medium">Email</label>
+					<input
+						id="invite-email"
+						name="email"
+						type="email"
+						bind:value={inviteEmail}
+						required
+						placeholder="alex@example.com"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="invite-role" class="text-sm font-medium">Role</label>
+					<select
+						id="invite-role"
+						name="role"
+						bind:value={inviteRole}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						{#each Object.entries(roleLabels) as [value, label]}
+							<option {value}>{label}</option>
+						{/each}
+					</select>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showInviteModal = false}>Cancel</Button>
+				<Button type="submit" disabled={inviteSubmitting || !inviteName.trim() || !inviteEmail.trim()}>
+					{inviteSubmitting ? 'Inviting...' : 'Invite Member'}
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Remove Member Confirmation -->
+<Dialog.Root bind:open={showRemoveConfirm}>
+	<Dialog.Content class="sm:max-w-sm">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Remove Team Member</Dialog.Title>
+			<Dialog.Description>Are you sure you want to remove <strong>{removeMemberName}</strong> from the team? This action cannot be undone.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/removeMember"
+			use:enhance={() => {
+				removeSubmitting = true;
+				return async ({ result, update }) => {
+					removeSubmitting = false;
+					if (result.type === 'success') {
+						showRemoveConfirm = false;
+						toast.success(`${removeMemberName} removed from team`);
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to remove member'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="memberId" value={removeMemberId} />
+			<input type="hidden" name="teamId" value={team?.id ?? ''} />
+			<Dialog.Footer class="pt-4">
+				<Button variant="outline" type="button" onclick={() => showRemoveConfirm = false}>Cancel</Button>
+				<Button type="submit" variant="destructive" disabled={removeSubmitting}>
+					{removeSubmitting ? 'Removing...' : 'Remove Member'}
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

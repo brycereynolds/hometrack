@@ -18,7 +18,7 @@
 		</div>
 		<h2 class="text-xl font-semibold">You've been invited!</h2>
 		<p class="mt-1 text-sm text-muted-foreground">
-			Join <span class="font-medium text-foreground">Chen Realty Group</span> on HomeTrack
+			Join <span class="font-medium text-foreground">your team</span> on HomeTrack
 		</p>
 	</div>
 
@@ -28,11 +28,11 @@
 	<div class="rounded-lg bg-muted/50 p-4">
 		<div class="flex items-center gap-3">
 			<div class="flex size-10 items-center justify-center rounded-lg bg-primary text-primary-foreground text-sm font-bold">
-				C
+				H
 			</div>
 			<div>
-				<p class="text-sm font-medium">Chen Realty Group</p>
-				<p class="text-xs text-muted-foreground">Invited by Lauren Chen</p>
+				<p class="text-sm font-medium">Team Invitation</p>
+				<p class="text-xs text-muted-foreground">You've been invited to join a team</p>
 			</div>
 			<Badge variant="outline" class="ml-auto text-xs">Transaction Coordinator</Badge>
 		</div>
@@ -67,7 +67,7 @@
 
 		<!-- Avatar upload -->
 		<div class="space-y-2">
-			<label class="text-sm font-medium">Profile photo</label>
+			<p class="text-sm font-medium">Profile photo</p>
 			<div class="flex items-center gap-4">
 				<Avatar class="size-16">
 					<AvatarFallback class="bg-primary/10 text-primary text-lg">
@@ -91,8 +91,8 @@
 				class="mt-0.5 size-4 rounded border-border accent-primary"
 			/>
 			<span class="text-xs text-muted-foreground leading-relaxed">
-				I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a>
-				and <a href="#" class="text-primary hover:underline">Privacy Policy</a>.
+				I agree to the <a href="/terms" class="text-primary hover:underline">Terms of Service</a>
+				and <a href="/privacy" class="text-primary hover:underline">Privacy Policy</a>.
 			</span>
 		</label>
 

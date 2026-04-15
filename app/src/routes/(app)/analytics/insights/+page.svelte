@@ -3,7 +3,9 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { aiInsights } from '$lib/data/mock-data.js';
+	let { data } = $props();
+	const aiInsights = $derived(data.aiInsights ?? []);
+
 	import {
 		Sparkles,
 		Link2,
@@ -22,7 +24,7 @@
 		{ href: '/analytics', label: 'Overview', active: false },
 		{ href: '/analytics/listings', label: 'Listing Performance', active: false },
 		{ href: '/analytics/team', label: 'Team Performance', active: false },
-		{ href: '/analytics/insights', label: 'AI Insights', active: true }
+		{ href: '/analytics/insights', label: 'Insights', active: true }
 	];
 
 	let dismissedIds = $state<Set<string>>(new Set());
@@ -43,7 +45,7 @@
 			color: '#5B8BA5',
 			bgColor: 'bg-[#5B8BA5]/10',
 			borderColor: 'border-[#5B8BA5]/30',
-			description: 'Relationships and matches AI has identified'
+			description: 'Relationships and matches identified across your data'
 		},
 		anomaly: {
 			label: 'Anomalies',
@@ -84,20 +86,20 @@
 </script>
 
 <div class="space-y-6">
-	<!-- Header with AI sparkle -->
+	<!-- Header -->
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 		<div class="flex items-start gap-3">
 			<div class="rounded-xl bg-gradient-to-br from-[#C4704B] to-[#C49A3C] p-2.5 shadow-lg shadow-[#C4704B]/20">
 				<Sparkles class="size-6 text-white" />
 			</div>
 			<div>
-				<h1 class="font-serif text-2xl font-bold tracking-tight">AI Insights</h1>
+				<h1 class="font-serif text-2xl font-bold tracking-tight">Insights</h1>
 				<p class="text-muted-foreground">Your intelligent assistant analyzing patterns across your business</p>
 			</div>
 		</div>
 		<Badge variant="outline" class="gap-1.5 border-[#C49A3C]/30 text-[#C49A3C] self-start">
 			<Sparkles class="size-3" />
-			Powered by HomeTrack AI
+			Powered by HomeTrack
 		</Badge>
 	</div>
 
@@ -151,14 +153,14 @@
 					{#each insights as insight (insight.id)}
 						<Card class="relative overflow-hidden transition-all hover:shadow-md {config.borderColor} border-l-4" style="border-left-color: {config.color}">
 							<CardContent class="p-4">
-								<!-- AI Generated badge -->
+								<!-- Generated badge -->
 								<div class="flex items-start justify-between gap-2 mb-2">
 									<div class="flex items-center gap-2">
 										<Badge variant="outline" class="gap-1 text-xs border-[#C49A3C]/30 text-[#C49A3C]">
 											<Sparkles class="size-2.5" />
-											AI Generated
+											Auto-Generated
 										</Badge>
-										<span class="text-xs text-muted-foreground">{insight.timeAgo}</span>
+										<span class="text-xs text-muted-foreground"></span>
 									</div>
 									<button
 										onclick={() => dismiss(insight.id)}
@@ -173,11 +175,11 @@
 								<p class="mt-1.5 text-sm text-muted-foreground leading-relaxed">{insight.description}</p>
 
 								<!-- Related listing -->
-								{#if insight.listingAddress}
+								{#if insight.listingId}
 									<div class="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
 										<Eye class="size-3" />
 										<a href="/listings/{insight.listingId}" class="hover:underline hover:text-foreground transition-colors">
-											{insight.listingAddress}
+											View listing
 										</a>
 									</div>
 								{/if}
@@ -185,7 +187,7 @@
 								<!-- Action button -->
 								{#if insight.actionLabel}
 									<div class="mt-3 flex items-center gap-2">
-										<Button size="sm" variant="default" class="h-7 text-xs gap-1.5">
+										<Button size="sm" variant="default" class="h-7 text-xs gap-1.5" href={insight.actionUrl || '#'}>
 											{insight.actionLabel}
 											<ExternalLink class="size-3" />
 										</Button>
@@ -215,14 +217,14 @@
 		</Card>
 	{/if}
 
-	<!-- AI explanation footer -->
+	<!-- Explanation footer -->
 	<div class="rounded-xl border border-dashed p-4">
 		<div class="flex items-start gap-3">
 			<TrendingUp class="size-5 text-muted-foreground/50 flex-shrink-0 mt-0.5" />
 			<div>
-				<p class="text-sm font-medium text-muted-foreground">How HomeTrack AI works</p>
+				<p class="text-sm font-medium text-muted-foreground">How HomeTrack Insights work</p>
 				<p class="mt-1 text-xs text-muted-foreground/70 leading-relaxed">
-					HomeTrack AI continuously analyzes your listings, contacts, market data, and team activity to surface
+					HomeTrack continuously analyzes your listings, contacts, market data, and team activity to surface
 					actionable insights. It identifies buyer-listing matches from your contact network, detects performance
 					anomalies before they become problems, and recommends timing and pricing strategies based on comparable
 					sales and seasonal patterns. All insights are generated locally from your data — nothing is shared externally.

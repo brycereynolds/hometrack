@@ -1,100 +1,83 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Input } from '$lib/components/ui/input/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { Mail, ArrowLeft, Sparkles, Shield } from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import type { ActionData } from './$types';
 
-	let email = $state('');
-	let sent = $state(false);
+	let { form }: { form: ActionData } = $props();
 
-	function handleSend() {
-		if (email.trim()) {
-			sent = true;
-		}
-	}
+	let loading = $state(false);
 </script>
 
-{#if !sent}
-	<!-- Login form -->
-	<div class="space-y-6">
-		<div class="text-center">
-			<h2 class="text-xl font-semibold">Welcome back</h2>
-			<p class="mt-1 text-sm text-muted-foreground">
-				Sign in with a magic link — no password needed.
-			</p>
-		</div>
-
-		<div class="space-y-4">
-			<div class="space-y-2">
-				<label for="email" class="text-sm font-medium">Email address</label>
-				<Input
-					id="email"
-					type="email"
-					placeholder="you@example.com"
-					bind:value={email}
-					onkeydown={(e) => { if (e.key === 'Enter') handleSend(); }}
-				/>
-			</div>
-
-			<Button class="w-full gap-2" onclick={handleSend} disabled={!email.trim()}>
-				<Sparkles class="size-4" />
-				Send Magic Link
-			</Button>
-		</div>
-
-		<div class="relative">
-			<Separator />
-			<span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-card px-2 text-xs text-muted-foreground">
-				secure & passwordless
-			</span>
-		</div>
-
-		<div class="flex items-center gap-3 rounded-lg bg-muted/50 p-3">
-			<Shield class="size-5 shrink-0 text-primary" />
-			<p class="text-xs text-muted-foreground">
-				We'll send a secure link to your email. Click it to sign in instantly — no password to remember.
-			</p>
-		</div>
-
-		<div class="flex items-center justify-between text-xs">
-			<a href="#" class="text-primary hover:underline">Create an account</a>
-			<a href="#" class="text-muted-foreground hover:underline">Need help?</a>
-		</div>
+<div class="space-y-6">
+	<div class="text-center">
+		<h2 class="text-xl font-semibold">Welcome back</h2>
+		<p class="mt-1 text-sm text-muted-foreground">
+			Sign in to your HomeTrack account.
+		</p>
 	</div>
-{:else}
-	<!-- Confirmation state -->
-	<div class="space-y-6 text-center">
-		<div class="mx-auto flex size-16 items-center justify-center rounded-full bg-primary/10">
-			<Mail class="size-8 text-primary" />
+
+	{#if form?.error}
+		<div class="rounded-lg border border-error/30 bg-error-subtle p-3 text-sm text-error">
+			{form.error}
+		</div>
+	{/if}
+
+	<form
+		method="POST"
+		use:enhance={() => {
+			loading = true;
+			return async ({ update }) => {
+				loading = false;
+				await update();
+			};
+		}}
+		class="space-y-4"
+	>
+		<div class="space-y-2">
+			<label for="email" class="text-sm font-medium">Email address</label>
+			<input
+				id="email"
+				name="email"
+				type="email"
+				autocomplete="email"
+				required
+				placeholder="you@example.com"
+				value={form?.email ?? ''}
+				class="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+			/>
 		</div>
 
-		<div>
-			<h2 class="text-xl font-semibold">Check your inbox</h2>
-			<p class="mt-2 text-sm text-muted-foreground">
-				We sent a magic link to
-			</p>
-			<p class="mt-1 text-sm font-medium">{email}</p>
+		<div class="space-y-2">
+			<label for="password" class="text-sm font-medium">Password</label>
+			<input
+				id="password"
+				name="password"
+				type="password"
+				autocomplete="current-password"
+				required
+				placeholder="Enter your password"
+				class="flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+			/>
 		</div>
 
-		<div class="rounded-lg bg-muted/50 p-4">
-			<p class="text-xs text-muted-foreground">
-				Click the link in the email to sign in. The link will expire in 15 minutes. Check your spam folder if you don't see it.
-			</p>
-		</div>
+		<button
+			type="submit"
+			disabled={loading}
+			class="inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-1 disabled:pointer-events-none disabled:opacity-50"
+		>
+			{#if loading}
+				<svg class="size-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+					<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+					<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+				</svg>
+				Signing in...
+			{:else}
+				Sign in
+			{/if}
+		</button>
+	</form>
 
-		<div class="space-y-3">
-			<Button variant="outline" class="w-full gap-2" onclick={handleSend}>
-				<Mail class="size-4" />
-				Resend magic link
-			</Button>
-
-			<button
-				class="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground"
-				onclick={() => { sent = false; }}
-			>
-				<ArrowLeft class="size-3" />
-				Use a different email
-			</button>
-		</div>
+	<div class="text-center text-sm text-muted-foreground">
+		Don't have an account?
+		<a href="/signup" class="font-medium text-primary hover:underline">Create one</a>
 	</div>
-{/if}
+</div>

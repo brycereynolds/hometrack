@@ -4,14 +4,30 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { contacts, type ContactType } from '$lib/data/mock-data.js';
+	import type { ContactType } from '$lib/config.js';
 	import { Plus, Search, Mail, Phone, Users, Star, ArrowUpDown } from 'lucide-svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { Button as Btn } from '$lib/components/ui/button/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+
+	let { data } = $props();
+	const contacts = $derived(data.contacts);
 
 	type FilterType = 'all' | ContactType;
 
 	let search = $state('');
 	let activeFilter = $state<FilterType>('all');
 	let sortBy = $state<'name' | 'lastInteraction' | 'type'>('name');
+
+	// Add Contact modal state
+	let showAddContact = $state(false);
+	let newContactName = $state('');
+	let newContactEmail = $state('');
+	let newContactPhone = $state('');
+	let newContactType = $state<ContactType>('client');
+	let newContactCompany = $state('');
+	let submittingContact = $state(false);
 
 	const filters: { label: string; value: FilterType }[] = [
 		{ label: 'All', value: 'all' },
@@ -21,6 +37,15 @@
 		{ label: 'Lenders', value: 'lender' },
 		{ label: 'Inspectors', value: 'inspector' },
 	];
+
+	const typeLabels: Record<string, string> = {
+		client: 'Client',
+		agent: 'Agent',
+		vendor: 'Vendor',
+		lender: 'Lender',
+		inspector: 'Inspector',
+		title: 'Title',
+	};
 
 	const typeColors: Record<string, string> = {
 		client: 'bg-primary/10 text-primary',
@@ -42,12 +67,16 @@
 				(c) =>
 					c.name.toLowerCase().includes(q) ||
 					(c.company && c.company.toLowerCase().includes(q)) ||
-					c.email.toLowerCase().includes(q)
+					(c.email && c.email.toLowerCase().includes(q))
 			);
 		}
 		result = [...result].sort((a, b) => {
 			if (sortBy === 'name') return a.name.localeCompare(b.name);
-			if (sortBy === 'lastInteraction') return b.lastInteractionDate.localeCompare(a.lastInteractionDate);
+			if (sortBy === 'lastInteraction') {
+				const aDate = a.lastInteractionDate ? new Date(a.lastInteractionDate).getTime() : 0;
+				const bDate = b.lastInteractionDate ? new Date(b.lastInteractionDate).getTime() : 0;
+				return bDate - aDate;
+			}
 			return a.type.localeCompare(b.type);
 		});
 		return result;
@@ -61,7 +90,14 @@
 			<h1 class="font-serif text-3xl font-bold">Contacts</h1>
 			<p class="mt-1 text-sm text-muted-foreground">{contacts.length} contacts in your network</p>
 		</div>
-		<Button>
+		<Button onclick={() => {
+			newContactName = '';
+			newContactEmail = '';
+			newContactPhone = '';
+			newContactType = 'client';
+			newContactCompany = '';
+			showAddContact = true;
+		}}>
 			<Plus class="mr-1.5 size-4" />
 			Add Contact
 		</Button>
@@ -118,7 +154,7 @@
 					<CardContent class="flex items-center gap-4 p-4">
 						<Avatar class="size-10">
 							<AvatarFallback class="bg-primary/10 text-sm font-semibold text-primary"
-								>{contact.initials}</AvatarFallback
+								>{contact.initials ?? contact.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}</AvatarFallback
 							>
 						</Avatar>
 						<div class="min-w-0 flex-1">
@@ -129,7 +165,7 @@
 										contact.type
 									]}"
 								>
-									{contact.typeLabel}
+									{typeLabels[contact.type] ?? contact.type}
 								</span>
 							</div>
 							<div class="mt-0.5 flex items-center gap-3 text-sm text-muted-foreground">
@@ -137,19 +173,11 @@
 									<span>{contact.company}</span>
 									<span class="text-border">|</span>
 								{/if}
-								<span class="truncate">{contact.lastInteraction}</span>
+								<span class="truncate">{contact.lastInteraction ?? ''}</span>
 							</div>
 						</div>
 
-						<!-- Listing count -->
-						{#if contact.listingsCount > 0}
-							<div class="hidden text-center sm:block">
-								<p class="text-lg font-semibold">{contact.listingsCount}</p>
-								<p class="text-[10px] text-muted-foreground">
-									listing{contact.listingsCount !== 1 ? 's' : ''}
-								</p>
-							</div>
-						{/if}
+						<!-- Listing count placeholder -->
 
 						<!-- Agent relationship strength -->
 						{#if contact.type === 'agent' && contact.relationshipStrength}
@@ -166,10 +194,10 @@
 
 						<!-- Actions -->
 						<div class="hidden items-center gap-1 sm:flex">
-							<Button variant="ghost" size="icon" class="size-8">
+							<Button variant="ghost" size="icon" class="size-8" href="mailto:{contact.email ?? ''}">
 								<Mail class="size-3.5" />
 							</Button>
-							<Button variant="ghost" size="icon" class="size-8">
+							<Button variant="ghost" size="icon" class="size-8" href="tel:{contact.phone ?? ''}">
 								<Phone class="size-3.5" />
 							</Button>
 						</div>
@@ -185,3 +213,102 @@
 		{/each}
 	</div>
 </div>
+
+<!-- Add Contact Modal -->
+<Dialog.Root bind:open={showAddContact}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Add Contact</Dialog.Title>
+			<Dialog.Description>Add a new contact to your network.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/create"
+			use:enhance={() => {
+				submittingContact = true;
+				return async ({ result, update }) => {
+					submittingContact = false;
+					if (result.type === 'success') {
+						showAddContact = false;
+						toast.success('Contact added successfully');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to add contact'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="contact-name" class="text-sm font-medium">Full Name</label>
+					<input
+						id="contact-name"
+						name="name"
+						type="text"
+						bind:value={newContactName}
+						placeholder="e.g. Jane Smith"
+						required
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="contact-email" class="text-sm font-medium">Email</label>
+					<input
+						id="contact-email"
+						name="email"
+						type="email"
+						bind:value={newContactEmail}
+						placeholder="jane@example.com"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="contact-phone" class="text-sm font-medium">Phone</label>
+					<input
+						id="contact-phone"
+						name="phone"
+						type="tel"
+						bind:value={newContactPhone}
+						placeholder="(555) 123-4567"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="contact-type" class="text-sm font-medium">Type</label>
+						<select
+							id="contact-type"
+							name="type"
+							bind:value={newContactType}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="client">Client</option>
+							<option value="agent">Agent</option>
+							<option value="vendor">Vendor</option>
+							<option value="lender">Lender</option>
+							<option value="inspector">Inspector</option>
+						</select>
+					</div>
+					<div>
+						<label for="contact-company" class="text-sm font-medium">Company</label>
+						<input
+							id="contact-company"
+							name="company"
+							type="text"
+							bind:value={newContactCompany}
+							placeholder="Optional"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Btn variant="outline" type="button" onclick={() => showAddContact = false}>Cancel</Btn>
+				<Btn type="submit" disabled={submittingContact || !newContactName.trim()}>
+					{submittingContact ? 'Adding...' : 'Add Contact'}
+				</Btn>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

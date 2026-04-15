@@ -3,7 +3,6 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { vendors } from '$lib/data/mock-data.js';
 	import {
 		Plus,
 		Star,
@@ -14,12 +13,34 @@
 		DollarSign,
 		Users,
 	} from 'lucide-svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+
+	let { data } = $props();
 
 	type CategoryFilter = 'all' | string;
 
 	let search = $state('');
 	let activeCategory = $state<CategoryFilter>('all');
 	let sortBy = $state<'rating' | 'reliability' | 'cost' | 'projects'>('rating');
+
+	// Add Vendor modal state
+	let showAddVendor = $state(false);
+	let newVendorName = $state('');
+	let newVendorCompany = $state('');
+	let newVendorEmail = $state('');
+	let newVendorPhone = $state('');
+	let newVendorCategory = $state('contractor');
+	let newVendorSpecialties = $state('');
+	let submittingVendor = $state(false);
+
+	const vendors = $derived(data.vendors);
+
+	function categoryLabel(cat: string | null) {
+		if (!cat) return '';
+		return cat.charAt(0).toUpperCase() + cat.slice(1);
+	}
 
 	const categories: { label: string; value: CategoryFilter }[] = [
 		{ label: 'All', value: 'all' },
@@ -50,23 +71,23 @@
 			result = result.filter(
 				(v) =>
 					v.name.toLowerCase().includes(q) ||
-					v.company.toLowerCase().includes(q) ||
-					v.specialties.some((s) => s.toLowerCase().includes(q))
+					(v.company ?? '').toLowerCase().includes(q) ||
+					(Array.isArray(v.specialties) && (v.specialties as string[]).some((s: string) => s.toLowerCase().includes(q)))
 			);
 		}
 		result = [...result].sort((a, b) => {
-			if (sortBy === 'rating') return b.rating - a.rating;
-			if (sortBy === 'reliability') return b.reliabilityScore - a.reliabilityScore;
-			if (sortBy === 'projects') return b.projectsCompleted - a.projectsCompleted;
-			const costA = parseInt(a.avgCost.replace(/[$,]/g, ''));
-			const costB = parseInt(b.avgCost.replace(/[$,]/g, ''));
+			if (sortBy === 'rating') return (b.rating ?? 0) - (a.rating ?? 0);
+			if (sortBy === 'reliability') return (b.reliabilityScore ?? 0) - (a.reliabilityScore ?? 0);
+			if (sortBy === 'projects') return (b.projectsCompleted ?? 0) - (a.projectsCompleted ?? 0);
+			const costA = parseInt((a.avgCost ?? '0').replace(/[$,]/g, ''));
+			const costB = parseInt((b.avgCost ?? '0').replace(/[$,]/g, ''));
 			return costA - costB;
 		});
 		return result;
 	});
 
-	function isPreferred(vendor: typeof vendors[0]): boolean {
-		return vendor.rating >= 4.8 && vendor.reliabilityScore >= 95;
+	function isPreferred(vendor: typeof vendors[number]): boolean {
+		return (vendor.rating ?? 0) >= 4.8 && (vendor.reliabilityScore ?? 0) >= 95;
 	}
 </script>
 
@@ -84,7 +105,15 @@
 				<DollarSign class="mr-1.5 size-4" />
 				Manage Quotes
 			</Button>
-			<Button>
+			<Button onclick={() => {
+				newVendorName = '';
+				newVendorCompany = '';
+				newVendorEmail = '';
+				newVendorPhone = '';
+				newVendorCategory = 'contractor';
+				newVendorSpecialties = '';
+				showAddVendor = true;
+			}}>
 				<Plus class="mr-1.5 size-4" />
 				Add Vendor
 			</Button>
@@ -157,8 +186,8 @@
 
 						<!-- Category & Rating -->
 						<div class="mt-3 flex items-center justify-between">
-							<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {categoryColors[vendor.category] ?? 'bg-muted text-muted-foreground'}">
-								{vendor.categoryLabel}
+							<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {categoryColors[vendor.category ?? ''] ?? 'bg-muted text-muted-foreground'}">
+								{categoryLabel(vendor.category)}
 							</span>
 							<div class="flex items-center gap-1">
 								<Star class="size-4 fill-amber-400 text-amber-400" />
@@ -170,16 +199,16 @@
 						<div class="mt-3">
 							<div class="flex items-center justify-between text-xs">
 								<span class="text-muted-foreground">Reliability</span>
-								<span class="font-medium">{vendor.reliabilityScore}%</span>
+								<span class="font-medium">{vendor.reliabilityScore ?? 0}%</span>
 							</div>
 							<div class="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-muted">
 								<div
-									class="h-full rounded-full transition-all {vendor.reliabilityScore >= 95
+									class="h-full rounded-full transition-all {(vendor.reliabilityScore ?? 0) >= 95
 										? 'bg-emerald-500'
-										: vendor.reliabilityScore >= 85
+										: (vendor.reliabilityScore ?? 0) >= 85
 											? 'bg-amber-500'
 											: 'bg-red-400'}"
-									style="width: {vendor.reliabilityScore}%"
+									style="width: {vendor.reliabilityScore ?? 0}%"
 								></div>
 							</div>
 						</div>
@@ -219,3 +248,117 @@
 		{/each}
 	</div>
 </div>
+
+<!-- Add Vendor Modal -->
+<Dialog.Root bind:open={showAddVendor}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Add Vendor</Dialog.Title>
+			<Dialog.Description>Add a new service provider to your directory.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/create"
+			use:enhance={() => {
+				submittingVendor = true;
+				return async ({ result, update }) => {
+					submittingVendor = false;
+					if (result.type === 'success') {
+						showAddVendor = false;
+						toast.success('Vendor added successfully');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to add vendor'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="vendor-name" class="text-sm font-medium">Contact Name</label>
+						<input
+							id="vendor-name"
+							name="name"
+							type="text"
+							bind:value={newVendorName}
+							placeholder="e.g. Mike Johnson"
+							required
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="vendor-company" class="text-sm font-medium">Company</label>
+						<input
+							id="vendor-company"
+							name="company"
+							type="text"
+							bind:value={newVendorCompany}
+							placeholder="e.g. Bay Area Contractors"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="vendor-email" class="text-sm font-medium">Email</label>
+						<input
+							id="vendor-email"
+							name="email"
+							type="email"
+							bind:value={newVendorEmail}
+							placeholder="mike@example.com"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="vendor-phone" class="text-sm font-medium">Phone</label>
+						<input
+							id="vendor-phone"
+							name="phone"
+							type="tel"
+							bind:value={newVendorPhone}
+							placeholder="(555) 123-4567"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+				<div>
+					<label for="vendor-category" class="text-sm font-medium">Category</label>
+					<select
+						id="vendor-category"
+						name="category"
+						bind:value={newVendorCategory}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						<option value="contractor">Contractor</option>
+						<option value="stager">Stager</option>
+						<option value="photographer">Photographer</option>
+						<option value="inspector">Inspector</option>
+						<option value="landscaper">Landscaper</option>
+						<option value="painter">Painter</option>
+					</select>
+				</div>
+				<div>
+					<label for="vendor-specialties" class="text-sm font-medium">Specialties</label>
+					<input
+						id="vendor-specialties"
+						name="specialties"
+						type="text"
+						bind:value={newVendorSpecialties}
+						placeholder="e.g. Kitchen remodels, Bathroom renovations"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+					<p class="mt-1 text-xs text-muted-foreground">Comma-separated list</p>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showAddVendor = false}>Cancel</Button>
+				<Button type="submit" disabled={submittingVendor || !newVendorName.trim()}>
+					{submittingVendor ? 'Adding...' : 'Add Vendor'}
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

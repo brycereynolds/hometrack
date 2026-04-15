@@ -3,15 +3,19 @@
   Supports: message, email, note, voice_memo, system, ai_insight, phase_change, task_complete
 -->
 <script lang="ts">
-  import type { ActivityItem } from '$lib/data/mock-data';
+  import type { ActivityItem } from '$lib/types';
 
   interface Props {
-    item: ActivityItem;
+    item: ActivityItem & { author?: string; timeAgo?: string; listingAddress?: string };
     /** Show listing context (for cross-listing feeds like dashboard) */
     showListing?: boolean;
   }
 
   let { item, showListing = false }: Props = $props();
+
+  const authorDisplay = $derived(item.author ?? item.authorName ?? '');
+  const timeDisplay = $derived(item.timeAgo ?? '');
+  const listingAddr = $derived(item.listingAddress ?? '');
 
   const typeConfig: Record<string, { label: string; color: string; bgColor: string }> = {
     message: { label: 'Message', color: 'text-primary', bgColor: 'bg-primary-subtle' },
@@ -19,7 +23,7 @@
     note: { label: 'Note', color: 'text-secondary', bgColor: 'bg-secondary-subtle' },
     voice_memo: { label: 'Voice Memo', color: 'text-accent', bgColor: 'bg-accent-subtle' },
     system: { label: 'System', color: 'text-foreground-muted', bgColor: 'bg-background-tertiary' },
-    ai_insight: { label: 'AI Insight', color: 'text-accent', bgColor: 'bg-accent-subtle' },
+    ai_insight: { label: 'Insight', color: 'text-accent', bgColor: 'bg-accent-subtle' },
     phase_change: { label: 'Phase Change', color: 'text-info', bgColor: 'bg-info-subtle' },
     task_complete: { label: 'Task Complete', color: 'text-success', bgColor: 'bg-success-subtle' },
   };
@@ -54,31 +58,31 @@
   <!-- Content -->
   <div class="flex-1 min-w-0">
     <div class="flex items-center gap-2">
-      <span class="text-sm font-medium text-foreground">{item.author}</span>
-      <span class="text-xs text-foreground-muted">{item.timeAgo}</span>
-      {#if showListing && item.listingAddress}
+      <span class="text-sm font-medium text-foreground">{authorDisplay}</span>
+      <span class="text-xs text-foreground-muted">{timeDisplay}</span>
+      {#if showListing && listingAddr}
         <span class="text-xs text-foreground-muted">
-          &middot; <a href="/listings/{item.listingId}" class="text-primary hover:underline">{item.listingAddress}</a>
+          &middot; <a href="/listings/{item.listingId}" class="text-primary hover:underline">{listingAddr}</a>
         </span>
       {/if}
     </div>
 
     <!-- Email subject line -->
-    {#if item.type === 'email' && item.metadata?.subject}
-      <p class="mt-0.5 text-xs font-medium text-foreground-secondary">{item.metadata.subject}</p>
+    {#if item.type === 'email' && (item.metadata as any)?.subject}
+      <p class="mt-0.5 text-xs font-medium text-foreground-secondary">{(item.metadata as any)?.subject}</p>
     {/if}
 
     <!-- Content text -->
     <p class="mt-1 text-sm text-foreground-secondary leading-relaxed">{item.content}</p>
 
     <!-- Voice memo duration -->
-    {#if item.type === 'voice_memo' && item.metadata?.duration}
+    {#if item.type === 'voice_memo' && (item.metadata as any)?.duration}
       <div class="mt-2 flex items-center gap-2">
         <button class="flex items-center gap-2 rounded-md bg-accent-subtle px-3 py-1.5 text-xs font-medium text-accent hover:bg-accent-subtle/80">
           <svg class="size-3.5" fill="currentColor" viewBox="0 0 24 24">
             <polygon points="5,3 19,12 5,21 5,3" />
           </svg>
-          Play ({item.metadata.duration})
+          Play ({(item.metadata as any)?.duration})
         </button>
       </div>
     {/if}

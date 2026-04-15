@@ -3,7 +3,6 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { contacts } from '$lib/data/mock-data.js';
 	import {
 		ArrowLeft,
 		Search,
@@ -16,10 +15,12 @@
 		Clock,
 	} from 'lucide-svelte';
 
+	let { data } = $props();
+
 	let search = $state('');
 
 	const agents = $derived(() => {
-		const list = contacts.filter((c) => c.type === 'agent');
+		const list = data.agents;
 		if (!search.trim()) return list;
 		const q = search.toLowerCase();
 		return list.filter(
@@ -30,7 +31,18 @@
 		);
 	});
 
-	const totalAgents = contacts.filter((c) => c.type === 'agent').length;
+	const totalAgents = $derived(data.agents.length);
+
+	function getInitials(name: string, initials?: string | null): string {
+		if (initials) return initials;
+		return name.split(' ').map((n: string) => n[0]).join('').slice(0, 2);
+	}
+
+	function formatDate(d: string | Date | null): string {
+		if (!d) return '';
+		const date = typeof d === 'string' ? new Date(d) : d;
+		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+	}
 </script>
 
 <div class="space-y-6">
@@ -52,9 +64,9 @@
 				<Sparkles class="mr-1.5 size-4" />
 				Intelligence Dashboard
 			</Button>
-			<Button>
+			<Button disabled class="opacity-50">
 				<MessageSquare class="mr-1.5 size-4" />
-				Log Interaction
+				Coming Soon
 			</Button>
 		</div>
 	</div>
@@ -80,7 +92,7 @@
 						<div class="flex items-start gap-3">
 							<Avatar class="size-11">
 								<AvatarFallback class="bg-blue-50 text-sm font-semibold text-blue-700">
-									{agent.initials}
+									{getInitials(agent.name, agent.initials)}
 								</AvatarFallback>
 							</Avatar>
 							<div class="min-w-0 flex-1">
@@ -130,7 +142,7 @@
 						>
 							<div class="flex items-center gap-1.5 text-xs text-muted-foreground">
 								<Clock class="size-3" />
-								<span>{agent.lastInteractionDate}</span>
+								<span>{formatDate(agent.lastInteractionDate)}</span>
 							</div>
 							<Button
 								variant="ghost"

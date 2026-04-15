@@ -2,9 +2,37 @@
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { workflowTemplates, PHASES } from '$lib/data/mock-data.js';
-	import type { ListingPhase } from '$lib/data/mock-data.js';
-	import { Plus, Pencil, Zap, ArrowRight, CheckSquare, Settings } from 'lucide-svelte';
+	import { PHASES } from '$lib/config.js';
+	import { Plus, Pencil, Zap, ArrowRight, CheckSquare, Settings, Lock } from 'lucide-svelte';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+
+	let { data } = $props();
+
+	const workflowTemplates = $derived(data.workflowTemplates);
+
+	// Edit workflow modal state
+	let showEditWorkflow = $state(false);
+	let editWorkflowId = $state('');
+	let editWorkflowName = $state('');
+	let editWorkflowDescription = $state('');
+	let editSubmitting = $state(false);
+
+	function openEditWorkflow(wf: typeof workflowTemplates[number]) {
+		editWorkflowId = wf.id;
+		editWorkflowName = wf.name;
+		editWorkflowDescription = wf.description ?? '';
+		showEditWorkflow = true;
+	}
+
+	// Create workflow modal state
+	let showCreateWorkflow = $state(false);
+	let createWorkflowName = $state('');
+	let createWorkflowDescription = $state('');
+	let createWorkflowPhase = $state('pre_market');
+	let createSubmitting = $state(false);
 
 	// Group by phase
 	const byPhase = $derived(() => {
@@ -22,7 +50,7 @@
 	const automationRules = [
 		{
 			id: 'ar-1',
-			trigger: 'Listing enters "Showings" phase',
+			trigger: 'Listing enters "Active" phase',
 			condition: 'Has scheduled open house',
 			action: 'Send showing prep checklist to staging lead',
 			enabled: true
@@ -45,7 +73,7 @@
 			id: 'ar-4',
 			trigger: 'Client message received',
 			condition: 'No response within 2 hours',
-			action: 'Send AI-generated alert to assigned agent',
+			action: 'Send alert to assigned agent',
 			enabled: false
 		}
 	];
@@ -57,7 +85,7 @@
 			<h2 class="font-serif text-lg font-semibold">Workflows & Automations</h2>
 			<p class="text-sm text-muted-foreground">Phase templates and automation rules</p>
 		</div>
-		<Button class="gap-2">
+		<Button class="gap-2" onclick={() => showCreateWorkflow = true}>
 			<Plus class="size-4" />
 			Create Custom Workflow
 		</Button>
@@ -100,7 +128,7 @@
 							>
 								{phase.label}
 							</Badge>
-							<Button variant="ghost" size="sm" class="h-7 text-xs gap-1">
+							<Button variant="ghost" size="sm" class="h-7 text-xs gap-1" onclick={() => openEditWorkflow(wf)}>
 								<Pencil class="size-3" />
 								Edit
 							</Button>
@@ -119,22 +147,30 @@
 					<CardTitle class="flex items-center gap-2">
 						<Zap class="size-4 text-[#C49A3C]" />
 						Automation Rules
+						<Badge variant="secondary" class="text-xs font-normal">Coming Soon</Badge>
 					</CardTitle>
 					<CardDescription>Trigger-based automations that run in the background</CardDescription>
 				</div>
-				<Button variant="outline" size="sm" class="gap-1">
-					<Plus class="size-3" />
-					Add Rule
-				</Button>
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
+							<Plus class="size-3" />
+							Add Rule
+						</Button>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p>Coming Soon</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
 			</div>
 		</CardHeader>
 		<CardContent class="p-0">
 			<div class="divide-y">
 				{#each automationRules as rule}
-					<div class="px-6 py-4 {rule.enabled ? '' : 'opacity-50'}">
+					<div class="px-6 py-4 opacity-60">
 						<div class="flex items-start justify-between gap-4">
 							<div class="flex items-start gap-3 flex-1">
-								<Zap class="size-4 mt-0.5 flex-shrink-0 {rule.enabled ? 'text-[#C49A3C]' : 'text-muted-foreground'}" />
+								<Zap class="size-4 mt-0.5 flex-shrink-0 text-muted-foreground" />
 								<div class="space-y-2 flex-1">
 									<div class="flex flex-wrap items-center gap-2 text-sm">
 										<Badge variant="outline" class="text-xs font-normal">When</Badge>
@@ -151,12 +187,19 @@
 								</div>
 							</div>
 							<div class="flex items-center gap-2">
-								<Badge variant={rule.enabled ? 'default' : 'secondary'} class="text-xs">
+								<Badge variant="secondary" class="text-xs">
 									{rule.enabled ? 'Active' : 'Disabled'}
 								</Badge>
-								<Button variant="ghost" size="sm" class="h-7">
-									<Settings class="size-3" />
-								</Button>
+								<Tooltip.Root>
+									<Tooltip.Trigger>
+										<Button variant="ghost" size="sm" class="h-7 opacity-50" disabled>
+											<Settings class="size-3" />
+										</Button>
+									</Tooltip.Trigger>
+									<Tooltip.Content>
+										<p>Coming Soon</p>
+									</Tooltip.Content>
+								</Tooltip.Root>
 							</div>
 						</div>
 					</div>
@@ -165,3 +208,138 @@
 		</CardContent>
 	</Card>
 </div>
+
+<!-- Edit Workflow Modal -->
+<Dialog.Root bind:open={showEditWorkflow}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Workflow</Dialog.Title>
+			<Dialog.Description>Update the name and description for this workflow template.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/editWorkflow"
+			use:enhance={() => {
+				editSubmitting = true;
+				return async ({ result, update }) => {
+					editSubmitting = false;
+					if (result.type === 'success') {
+						showEditWorkflow = false;
+						toast.success('Workflow updated');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to update workflow'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="workflowId" value={editWorkflowId} />
+			<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="wf-name" class="text-sm font-medium">Name</label>
+					<input
+						id="wf-name"
+						name="name"
+						type="text"
+						bind:value={editWorkflowName}
+						required
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="wf-description" class="text-sm font-medium">Description</label>
+					<textarea
+						id="wf-description"
+						name="description"
+						bind:value={editWorkflowDescription}
+						rows="3"
+						class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+					></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showEditWorkflow = false}>Cancel</Button>
+				<Button type="submit" disabled={editSubmitting || !editWorkflowName.trim()}>
+					{editSubmitting ? 'Saving...' : 'Save Changes'}
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Create Workflow Modal -->
+<Dialog.Root bind:open={showCreateWorkflow}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Create Custom Workflow</Dialog.Title>
+			<Dialog.Description>Add a new workflow template for a listing phase.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/createWorkflow"
+			use:enhance={() => {
+				createSubmitting = true;
+				return async ({ result, update }) => {
+					createSubmitting = false;
+					if (result.type === 'success') {
+						showCreateWorkflow = false;
+						createWorkflowName = '';
+						createWorkflowDescription = '';
+						createWorkflowPhase = 'pre_market';
+						toast.success('Workflow created');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to create workflow'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="create-wf-name" class="text-sm font-medium">Name</label>
+					<input
+						id="create-wf-name"
+						name="name"
+						type="text"
+						bind:value={createWorkflowName}
+						required
+						placeholder="e.g. Custom Pre-Market Prep"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="create-wf-phase" class="text-sm font-medium">Phase</label>
+					<select
+						id="create-wf-phase"
+						name="phase"
+						bind:value={createWorkflowPhase}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						{#each Object.entries(PHASES) as [value, phase]}
+							<option {value}>{phase.label}</option>
+						{/each}
+					</select>
+				</div>
+				<div>
+					<label for="create-wf-description" class="text-sm font-medium">Description</label>
+					<textarea
+						id="create-wf-description"
+						name="description"
+						bind:value={createWorkflowDescription}
+						rows="3"
+						placeholder="What does this workflow cover?"
+						class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+					></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showCreateWorkflow = false}>Cancel</Button>
+				<Button type="submit" disabled={createSubmitting || !createWorkflowName.trim()}>
+					{createSubmitting ? 'Creating...' : 'Create Workflow'}
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

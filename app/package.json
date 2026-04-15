@@ -11,10 +11,13 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"db:generate": "drizzle-kit generate",
-		"db:migrate": "drizzle-kit migrate",
-		"db:push": "drizzle-kit push",
-		"db:studio": "drizzle-kit studio",
-		"db:seed": "tsx src/lib/server/db/seed.ts"
+		"db:migrate": "node --env-file=.env node_modules/.bin/drizzle-kit migrate",
+		"db:push": "node --env-file=.env node_modules/.bin/drizzle-kit push",
+		"db:studio": "node --env-file=.env node_modules/.bin/drizzle-kit studio",
+		"db:seed": "node --env-file=.env node_modules/.bin/tsx src/lib/server/db/seed.ts",
+		"db:wipe": "node --env-file=.env node_modules/.bin/tsx src/lib/server/db/wipe.ts",
+		"db:reset": "npm run db:wipe && npm run db:migrate && npm run db:seed",
+		"start": "node build"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^5.5.4",
@@ -33,14 +36,21 @@
 	"dependencies": {
 		"@internationalized/date": "^3.12.0",
 		"@lucide/svelte": "^1.8.0",
+		"@supabase/supabase-js": "^2.103.0",
+		"@temporalio/client": "^1.16.0",
 		"@types/leaflet": "^1.9.21",
+		"@types/qrcode": "^1.5.6",
 		"bits-ui": "^2.17.3",
 		"chart.js": "^4.5.1",
 		"clsx": "^2.1.1",
+		"dotenv": "^17.4.2",
 		"drizzle-orm": "^0.45.2",
 		"leaflet": "^1.9.4",
 		"lucide-svelte": "^1.0.1",
 		"postgres": "^3.4.9",
+		"qrcode": "^1.5.4",
+		"svelte-dnd-action": "^0.9.69",
+		"svelte-sonner": "^1.1.0",
 		"tailwind-merge": "^3.5.0",
 		"tailwind-variants": "^3.2.2"
 	}

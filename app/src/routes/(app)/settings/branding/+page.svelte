@@ -4,10 +4,25 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Upload, Palette, Globe, FileText, Eye } from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 
+	let { data } = $props();
+	const teamName = $derived(data.team?.name ?? 'Your Team');
+
+	// Initialize from team settings if available
+	const brandingSettings = $derived((data.team?.settings as Record<string, any>)?.branding);
 	let primaryColor = $state('#C4704B');
 	let customDomain = $state('portal.chenrealtygroup.com');
 	let welcomeMessage = $state('Welcome to your client portal. Here you can track the progress of your listing, view documents, and stay updated on showings and offers.');
+	$effect(() => {
+		if (brandingSettings) {
+			if (brandingSettings.primaryColor) primaryColor = brandingSettings.primaryColor;
+			if (brandingSettings.customDomain) customDomain = brandingSettings.customDomain;
+			if (brandingSettings.welcomeMessage) welcomeMessage = brandingSettings.welcomeMessage;
+		}
+	});
+	let saving = $state(false);
 </script>
 
 <div class="space-y-6">
@@ -37,9 +52,9 @@
 							</div>
 						</div>
 						<div class="space-y-2">
-							<Button variant="outline" size="sm" class="gap-1">
+							<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
 								<Upload class="size-3" />
-								Upload Logo
+								Coming Soon
 							</Button>
 							<p class="text-xs text-muted-foreground">PNG, SVG, or JPG. Max 2MB. Recommended 200x60px.</p>
 						</div>
@@ -69,11 +84,12 @@
 							class="w-28 rounded-md border bg-transparent px-3 py-1.5 text-sm font-mono"
 						/>
 						<div class="flex gap-1.5">
-							{#each ['#C4704B', '#5B8BA5', '#7B8B6F', '#C49A3C', '#6B5B95', '#2C3E50'] as color}
+							{#each ['#C4704B', '#5B8BA5', '#7B8B6F', '#C49A3C', '#6B5B95', '#2C3E50'] as swatch}
 								<button
-									onclick={() => primaryColor = color}
-									class="size-6 rounded-full border-2 transition-transform hover:scale-110 {primaryColor === color ? 'border-foreground ring-2 ring-offset-2 ring-primary' : 'border-transparent'}"
-									style="background-color: {color}"
+									aria-label="Select color {swatch}"
+									onclick={() => primaryColor = swatch}
+									class="size-6 rounded-full border-2 transition-transform hover:scale-110 {primaryColor === swatch ? 'border-foreground ring-2 ring-offset-2 ring-primary' : 'border-transparent'}"
+									style="background-color: {swatch}"
 								></button>
 							{/each}
 						</div>
@@ -149,7 +165,7 @@
 						<div class="flex items-center justify-between">
 							<div class="flex items-center gap-2">
 								<div class="size-8 rounded bg-white/20 flex items-center justify-center text-white text-xs font-bold">CR</div>
-								<span class="text-sm font-semibold text-white">Chen Realty Group</span>
+								<span class="text-sm font-semibold text-white">{teamName}</span>
 							</div>
 							<div class="flex items-center gap-2">
 								<div class="size-6 rounded-full bg-white/20"></div>
@@ -159,34 +175,61 @@
 
 					<!-- Portal body mock -->
 					<div class="p-4 space-y-3">
-						<h4 class="font-serif text-sm font-semibold">Welcome, David</h4>
+						<h4 class="font-serif text-sm font-semibold">Welcome back.</h4>
 						<p class="text-xs text-muted-foreground leading-relaxed">{welcomeMessage}</p>
 
 						<Separator />
 
-						<!-- Mock listing card -->
-						<div class="rounded-md border p-3">
-							<div class="flex items-center gap-3">
-								<div class="size-12 rounded bg-muted flex-shrink-0"></div>
-								<div>
-									<p class="text-xs font-medium">123 Main Street</p>
-									<p class="text-[10px] text-muted-foreground">Los Gatos, CA 95030</p>
-									<div class="mt-1 flex gap-1">
-										<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Active Marketing</div>
+						<!-- Property hero -->
+						<div class="rounded-md border overflow-hidden">
+							<div class="h-20 bg-muted flex items-center justify-center">
+								<div class="text-[10px] text-muted-foreground">Property Photo</div>
+							</div>
+							<div class="p-2.5">
+								<div class="flex items-start justify-between">
+									<div>
+										<p class="text-xs font-medium">123 Main Street</p>
+										<p class="text-[10px] text-muted-foreground">Los Gatos, CA 95030</p>
 									</div>
+									<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Active</div>
 								</div>
+								<p class="mt-1 text-xs font-semibold" style="color: {primaryColor}">$1,895,000</p>
 							</div>
 						</div>
 
-						<div class="rounded-md border p-3">
-							<div class="flex items-center gap-3">
-								<div class="size-12 rounded bg-muted flex-shrink-0"></div>
-								<div>
-									<p class="text-xs font-medium">456 Oak Avenue</p>
-									<p class="text-[10px] text-muted-foreground">Palo Alto, CA 94301</p>
-									<div class="mt-1 flex gap-1">
-										<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Showings</div>
+						<!-- Progress timeline -->
+						<div class="space-y-1.5">
+							<p class="text-[10px] font-medium text-muted-foreground">Listing Progress</p>
+							<div class="flex items-center gap-1">
+								{#each ['Pre-Market', 'Active', 'Closed'] as phase, i}
+									<div class="flex items-center gap-1 flex-1">
+										<div
+											class="size-4 rounded-full border flex items-center justify-center text-[7px]"
+											style={i < 2 ? `background-color: ${primaryColor}; border-color: ${primaryColor}; color: white` : ''}
+										>
+											{#if i < 1}&#10003;{/if}
+										</div>
+										<span class="text-[8px] {i === 1 ? 'font-semibold' : 'text-muted-foreground'}">{phase}</span>
 									</div>
+								{/each}
+							</div>
+						</div>
+
+						<!-- Recent activity -->
+						<div class="space-y-1.5">
+							<p class="text-[10px] font-medium text-muted-foreground">Recent Activity</p>
+							<div class="space-y-1">
+								<div class="flex items-center gap-2">
+									<div class="size-1.5 rounded-full" style="background-color: {primaryColor}"></div>
+									<p class="text-[10px]">Photography completed</p>
+								</div>
+								<div class="flex items-center gap-2">
+									<div class="size-1.5 rounded-full" style="background-color: {primaryColor}"></div>
+									<p class="text-[10px]">Listed on MLS</p>
+								</div>
+								<div class="flex items-center gap-2">
+									<div class="size-1.5 rounded-full bg-muted-foreground/30"></div>
+									<p class="text-[10px] text-muted-foreground">Open house scheduled</p>
 								</div>
 							</div>
 						</div>
@@ -197,7 +240,30 @@
 		</div>
 	</div>
 
-	<div class="flex justify-end">
-		<Button>Save Branding</Button>
-	</div>
+	<form
+		method="POST"
+		action="?/save"
+		use:enhance={() => {
+			saving = true;
+			return async ({ result, update }) => {
+				saving = false;
+				if (result.type === 'success') {
+					toast.success('Branding settings saved');
+					await update();
+				} else if (result.type === 'failure') {
+					toast.error(String(result.data?.error ?? 'Failed to save'));
+				}
+			};
+		}}
+	>
+		<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+		<input type="hidden" name="primaryColor" value={primaryColor} />
+		<input type="hidden" name="customDomain" value={customDomain} />
+		<input type="hidden" name="welcomeMessage" value={welcomeMessage} />
+		<div class="flex justify-end">
+			<Button type="submit" disabled={saving}>
+				{saving ? 'Saving...' : 'Save Branding'}
+			</Button>
+		</div>
+	</form>
 </div>

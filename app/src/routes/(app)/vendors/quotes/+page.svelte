@@ -3,7 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { quotes } from '$lib/data/mock-data.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		DollarSign,
@@ -17,6 +17,12 @@
 		User,
 		Scale,
 	} from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+
+	let { data } = $props();
+
+	const quotes = $derived(data.quotes);
 
 	type StatusFilter = 'all' | 'requested' | 'received' | 'approved' | 'declined';
 
@@ -24,13 +30,13 @@
 	let expandedQuotes = $state<Set<string>>(new Set());
 	let compareMode = $state(false);
 
-	const statusTabs: { label: string; value: StatusFilter; count: number }[] = [
-		{ label: 'All', value: 'all', count: quotes.length },
-		{ label: 'Requested', value: 'requested', count: quotes.filter((q) => q.status === 'requested').length },
-		{ label: 'Received', value: 'received', count: quotes.filter((q) => q.status === 'received').length },
-		{ label: 'Approved', value: 'approved', count: quotes.filter((q) => q.status === 'approved').length },
-		{ label: 'Declined', value: 'declined', count: quotes.filter((q) => q.status === 'declined').length },
-	];
+	const statusTabs = $derived([
+		{ label: 'All', value: 'all' as StatusFilter, count: quotes.length },
+		{ label: 'Requested', value: 'requested' as StatusFilter, count: quotes.filter((q) => q.status === 'requested').length },
+		{ label: 'Received', value: 'received' as StatusFilter, count: quotes.filter((q) => q.status === 'received').length },
+		{ label: 'Approved', value: 'approved' as StatusFilter, count: quotes.filter((q) => q.status === 'approved').length },
+		{ label: 'Declined', value: 'declined' as StatusFilter, count: quotes.filter((q) => q.status === 'declined').length },
+	]);
 
 	const statusColors: Record<string, string> = {
 		requested: 'bg-blue-100 text-blue-700',
@@ -73,9 +79,9 @@
 		return [...groups.entries()].filter(([, qs]) => qs.length >= 2);
 	});
 
-	const totalValue = quotes.reduce((s, q) => s + q.amount, 0);
-	const pendingCount = quotes.filter((q) => q.status === 'received').length;
-	const approvedTotal = quotes.filter((q) => q.status === 'approved').reduce((s, q) => s + q.amount, 0);
+	const totalValue = $derived(quotes.reduce((s, q) => s + (q.amount ?? 0), 0));
+	const pendingCount = $derived(quotes.filter((q) => q.status === 'received').length);
+	const approvedTotal = $derived(quotes.filter((q) => q.status === 'approved').reduce((s, q) => s + (q.amount ?? 0), 0));
 </script>
 
 <div class="space-y-6">
@@ -121,7 +127,7 @@
 		<div class="rounded-lg border border-border bg-card p-4">
 			<p class="text-xs text-muted-foreground">Awaiting Response</p>
 			<p class="mt-1 font-serif text-2xl font-bold text-blue-600">
-				{quotes.filter((q) => q.status === 'requested').length}
+				{quotes.filter((q: typeof quotes[number]) => q.status === 'requested').length}
 			</p>
 		</div>
 	</div>
@@ -160,18 +166,18 @@
 							<div class="flex size-2 shrink-0 rounded-full {statusDotColors[quote.status]}"></div>
 							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
-									<span class="font-medium">{quote.vendorName}</span>
-									<span class="text-xs text-muted-foreground">({quote.vendorCompany})</span>
+									<span class="font-medium">{quote.vendor?.name ?? 'Unknown'}</span>
+									<span class="text-xs text-muted-foreground">({quote.vendor?.company ?? ''})</span>
 								</div>
 								<div class="mt-0.5 flex items-center gap-2 text-sm text-muted-foreground">
 									<Home class="size-3" />
-									<span>{quote.listingAddress}</span>
+									<a href="/listings/{quote.listingId}" class="hover:text-primary hover:underline">{quote.listing?.address ?? 'Unknown listing'}</a>
 									<span class="text-border">|</span>
 									<span>{quote.scope}</span>
 								</div>
 							</div>
 							<div class="flex items-center gap-3">
-								<span class="text-lg font-semibold">{quote.amountFormatted}</span>
+								<span class="text-lg font-semibold">{formatCurrency(quote.amount ?? 0)}</span>
 								<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {statusColors[quote.status]}">
 									{quote.status}
 								</span>
@@ -195,13 +201,13 @@
 												{#each quote.lineItems as item}
 													<div class="flex items-center justify-between rounded bg-background px-3 py-2 text-sm">
 														<span>{item.description}</span>
-														<span class="font-medium">${item.amount.toLocaleString()}</span>
+														<span class="font-medium">${(item.amount ?? 0).toLocaleString()}</span>
 													</div>
 												{/each}
 												<Separator />
 												<div class="flex items-center justify-between px-3 py-1 text-sm font-semibold">
 													<span>Total</span>
-													<span>{quote.amountFormatted}</span>
+													<span>{formatCurrency(quote.amount ?? 0)}</span>
 												</div>
 											</div>
 										{:else}
@@ -216,18 +222,18 @@
 											<div class="mt-1 space-y-1">
 												<div class="flex items-center justify-between">
 													<span class="text-muted-foreground">Requested</span>
-													<span>{quote.requestedDate}</span>
+													<span>{quote.requestedDate?.toLocaleDateString() ?? ''}</span>
 												</div>
 												{#if quote.receivedDate}
 													<div class="flex items-center justify-between">
 														<span class="text-muted-foreground">Received</span>
-														<span>{quote.receivedDate}</span>
+														<span>{quote.receivedDate.toLocaleDateString()}</span>
 													</div>
 												{/if}
 												{#if quote.validUntil}
 													<div class="flex items-center justify-between">
 														<span class="text-muted-foreground">Valid Until</span>
-														<span class="font-medium">{quote.validUntil}</span>
+														<span class="font-medium">{quote.validUntil.toLocaleDateString()}</span>
 													</div>
 												{/if}
 											</div>
@@ -242,14 +248,40 @@
 										<!-- Actions -->
 										{#if quote.status === 'received'}
 											<div class="flex items-center gap-2 pt-2">
-												<Button size="sm" class="h-8">
-													<Check class="mr-1.5 size-3.5" />
-													Approve
-												</Button>
-												<Button variant="outline" size="sm" class="h-8">
-													<X class="mr-1.5 size-3.5" />
-													Decline
-												</Button>
+												<form method="POST" action="?/approve" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Quote approved');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String(result.data?.error ?? 'Failed to approve'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+													<Button size="sm" class="h-8" type="submit">
+														<Check class="mr-1.5 size-3.5" />
+														Approve
+													</Button>
+												</form>
+												<form method="POST" action="?/decline" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Quote declined');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String(result.data?.error ?? 'Failed to decline'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+													<Button variant="outline" size="sm" class="h-8" type="submit">
+														<X class="mr-1.5 size-3.5" />
+														Decline
+													</Button>
+												</form>
 											</div>
 										{/if}
 									</div>
@@ -279,7 +311,7 @@
 						</CardTitle>
 						<CardDescription class="flex items-center gap-1.5">
 							<Home class="size-3.5" />
-							{groupQuotes[0].listingAddress} -- {groupQuotes.length} quotes
+							<a href="/listings/{listingId}" class="hover:text-primary hover:underline">{groupQuotes[0].listing?.address ?? 'Unknown listing'}</a> -- {groupQuotes.length} quotes
 						</CardDescription>
 					</CardHeader>
 					<CardContent>
@@ -297,14 +329,14 @@
 								</thead>
 								<tbody class="divide-y divide-border">
 									{#each groupQuotes as quote}
-										{@const isLowest = quote.amount === Math.min(...groupQuotes.map((q) => q.amount))}
+										{@const isLowest = (quote.amount ?? 0) === Math.min(...groupQuotes.map((q) => q.amount ?? 0))}
 										<tr class="{isLowest ? 'bg-emerald-50/50' : ''}">
 											<td class="py-3 pr-4">
 												<div>
 													<a href="/vendors/{quote.vendorId}" class="text-sm font-medium hover:text-primary">
-														{quote.vendorName}
+														{quote.vendor?.name ?? 'Unknown'}
 													</a>
-													<p class="text-xs text-muted-foreground">{quote.vendorCompany}</p>
+													<p class="text-xs text-muted-foreground">{quote.vendor?.company ?? ''}</p>
 												</div>
 											</td>
 											<td class="py-3 pr-4">
@@ -312,7 +344,7 @@
 											</td>
 											<td class="py-3 pr-4">
 												<div class="flex items-center gap-1.5">
-													<span class="text-sm font-semibold">{quote.amountFormatted}</span>
+													<span class="text-sm font-semibold">{formatCurrency(quote.amount ?? 0)}</span>
 													{#if isLowest}
 														<span class="rounded-full bg-emerald-100 px-1.5 py-0.5 text-[9px] font-semibold text-emerald-700">
 															LOWEST
@@ -330,24 +362,50 @@
 											</td>
 											<td class="py-3 pr-4 text-xs text-muted-foreground">
 												{#if quote.receivedDate}
-													<p>Recv: {quote.receivedDate}</p>
+													<p>Recv: {quote.receivedDate.toLocaleDateString()}</p>
 												{:else}
-													<p>Req: {quote.requestedDate}</p>
+													<p>Req: {quote.requestedDate?.toLocaleDateString() ?? ''}</p>
 												{/if}
 												{#if quote.validUntil}
-													<p>Exp: {quote.validUntil}</p>
+													<p>Exp: {quote.validUntil.toLocaleDateString()}</p>
 												{/if}
 											</td>
 											<td class="py-3">
 												{#if quote.status === 'received'}
 													<div class="flex items-center gap-1">
-														<Button variant="default" size="sm" class="h-7 text-xs">
-															<Check class="mr-1 size-3" />
-															Approve
-														</Button>
-														<Button variant="ghost" size="sm" class="h-7 text-xs">
-															<X class="size-3" />
-														</Button>
+														<form method="POST" action="?/approve" use:enhance={() => {
+															return async ({ result, update }) => {
+																if (result.type === 'success') {
+																	toast.success('Quote approved');
+																	await update();
+																} else if (result.type === 'failure') {
+																	toast.error(String(result.data?.error ?? 'Failed to approve'));
+																}
+															};
+														}}>
+															<input type="hidden" name="quoteId" value={quote.id} />
+															<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+															<Button variant="default" size="sm" class="h-7 text-xs" type="submit">
+																<Check class="mr-1 size-3" />
+																Approve
+															</Button>
+														</form>
+														<form method="POST" action="?/decline" use:enhance={() => {
+															return async ({ result, update }) => {
+																if (result.type === 'success') {
+																	toast.success('Quote declined');
+																	await update();
+																} else if (result.type === 'failure') {
+																	toast.error(String(result.data?.error ?? 'Failed to decline'));
+																}
+															};
+														}}>
+															<input type="hidden" name="quoteId" value={quote.id} />
+															<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+															<Button variant="ghost" size="sm" class="h-7 text-xs" type="submit">
+																<X class="size-3" />
+															</Button>
+														</form>
 													</div>
 												{:else if quote.status === 'approved'}
 													<span class="text-xs text-emerald-600 font-medium">Approved</span>
@@ -369,18 +427,18 @@
 							<div class="grid gap-4 sm:grid-cols-{itemizedQuotes.length}">
 								{#each itemizedQuotes as quote}
 									<div class="rounded-lg border border-border p-3">
-										<p class="mb-2 text-sm font-medium">{quote.vendorName}</p>
+										<p class="mb-2 text-sm font-medium">{quote.vendor?.name ?? 'Unknown'}</p>
 										<div class="space-y-1.5">
 											{#each quote.lineItems as item}
 												<div class="flex items-center justify-between text-xs">
 													<span class="text-muted-foreground">{item.description}</span>
-													<span class="font-medium">${item.amount.toLocaleString()}</span>
+													<span class="font-medium">${(item.amount ?? 0).toLocaleString()}</span>
 												</div>
 											{/each}
 											<Separator />
 											<div class="flex items-center justify-between text-sm font-semibold">
 												<span>Total</span>
-												<span>{quote.amountFormatted}</span>
+												<span>{formatCurrency(quote.amount ?? 0)}</span>
 											</div>
 										</div>
 									</div>

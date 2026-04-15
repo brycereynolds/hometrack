@@ -1,8 +1,8 @@
-import { eq, and, lt, ne, desc } from 'drizzle-orm';
-import { db } from '../index.js';
+import { eq, and, desc } from 'drizzle-orm';
+import { adminDb, type AppDatabase } from '../index.js';
 import { tasks } from '../schema/index.js';
 
-export async function getTasks(teamId: string) {
+export async function getTasks(teamId: string, db: AppDatabase = adminDb) {
   return db.query.tasks.findMany({
     where: eq(tasks.teamId, teamId),
     with: {
@@ -13,7 +13,7 @@ export async function getTasks(teamId: string) {
   });
 }
 
-export async function getTasksByListing(teamId: string, listingId: string) {
+export async function getTasksByListing(teamId: string, listingId: string, db: AppDatabase = adminDb) {
   return db.query.tasks.findMany({
     where: and(eq(tasks.teamId, teamId), eq(tasks.listingId, listingId)),
     with: {
@@ -23,7 +23,7 @@ export async function getTasksByListing(teamId: string, listingId: string) {
   });
 }
 
-export async function getOverdueTasks(teamId: string) {
+export async function getOverdueTasks(teamId: string, db: AppDatabase = adminDb) {
   return db.query.tasks.findMany({
     where: and(
       eq(tasks.teamId, teamId),

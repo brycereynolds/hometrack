@@ -1,15 +1,24 @@
 import { pgEnum } from 'drizzle-orm/pg-core';
 
 export const listingPhaseEnum = pgEnum('listing_phase', [
+  'pre_market',
+  'active',
+  'closed',
+  'canceled',
+]);
+
+export const taskCategoryEnum = pgEnum('task_category', [
   'onboarding',
-  'improvement',
+  'improvements',
+  'disclosures',
   'staging',
-  'content',
+  'media',
+  'pricing',
   'marketing',
   'showings',
   'offers',
-  'contract',
-  'closing',
+  'escrow',
+  'general',
 ]);
 
 export const taskStatusEnum = pgEnum('task_status', [
@@ -120,6 +129,34 @@ export const integrationStatusEnum = pgEnum('integration_status', [
   'connected',
   'disconnected',
   'error',
+]);
+
+export const noteTagEnum = pgEnum('note_tag', [
+  'showing',
+  'vendor',
+  'client',
+  'general',
+]);
+
+export const fieldNoteMediaTypeEnum = pgEnum('field_note_media_type', [
+  'video',
+  'voice_memo',
+  'text',
+  'photo',
+]);
+
+export const fieldNoteStatusEnum = pgEnum('field_note_status', [
+  'pending',
+  'processing',
+  'completed',
+  'failed',
+]);
+
+export const fieldNoteActionStatusEnum = pgEnum('field_note_action_status', [
+  'suggested',
+  'accepted',
+  'dismissed',
+  'task_created',
 ]);
 
 export const integrationCategoryEnum = pgEnum('integration_category', [

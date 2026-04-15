@@ -1,0 +1,3372 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/19684500_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 4746.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 759300,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "1190 Bird Ave",
+    "city": "San Jose",
+    "state": "CA",
+    "zipcode": "95125",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "1190 Bird Ave"
+        },
+        {
+          "fullValue": "San Jose, CA 95125"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 2,
+      "bathroomsFull": null,
+      "bathroomsThreeQuarter": null,
+      "bathroomsHalf": null,
+      "bathroomsOneQuarter": null,
+      "bedrooms": 2,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": [
+        "C-Shaped"
+      ],
+      "buildingName": null,
+      "appliances": [],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "Condo"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "1981"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "Other"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": null
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "Garage - Attached"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": null,
+      "bathroomsPartial": null,
+      "bathroomsFloat": 2.5,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": null,
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "San Jose",
+      "commonWalls": null,
+      "communityFeatures": [],
+      "compensationBasedOn": null,
+      "constructionMaterials": [
+        "wood frame"
+      ],
+      "contingency": null,
+      "cooling": [],
+      "coveredParkingCapacity": null,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": null,
+      "fireplaces": null,
+      "flooring": [],
+      "foundationArea": null,
+      "foundationDetails": [],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": null,
+      "gas": null,
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": null,
+      "hasAttachedProperty": false,
+      "hasCooling": false,
+      "hasCarport": null,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": false,
+      "hasHeating": true,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [
+        "Other"
+      ],
+      "highSchool": null,
+      "highSchoolDistrict": null,
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "Condo",
+      "horseAmenities": null,
+      "horseYN": null,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": null,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": null,
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": "871 sqft",
+      "lotSizeDimensions": null,
+      "livingArea": "1,244 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [],
+      "middleOrJuniorSchool": null,
+      "middleOrJuniorSchoolDistrict": null,
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": null,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "43433011",
+      "parkingCapacity": 0,
+      "parkingFeatures": [
+        "Garage - Attached"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": 610,
+      "propertyCondition": null,
+      "propertySubType": null,
+      "roadSurfaceType": null,
+      "roofType": null,
+      "rooms": [],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": null,
+      "spaFeatures": null,
+      "specialListingConditions": null,
+      "stories": null,
+      "storiesDecimal": null,
+      "storiesTotal": null,
+      "structureType": "Other",
+      "subdivisionName": null,
+      "taxAnnualAmount": 4510,
+      "taxAssessedValue": 256448,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": null,
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": null,
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": "",
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 1981,
+      "yearBuiltEffective": null,
+      "zoning": null,
+      "zoningDescription": null,
+      "elementarySchool": null,
+      "elementarySchoolDistrict": null,
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": null,
+    "homeStatus": "OTHER",
+    "listingProvider": {
+      "logos": [],
+      "title": "Listing Provided by",
+      "disclaimerText": null,
+      "enhancedVideoURL": null,
+      "enhancedDescriptionText": null,
+      "showLogos": null,
+      "showNoContactInfoMessage": false,
+      "agentName": null,
+      "agentLicenseNumber": null,
+      "postingWebsiteURL": null,
+      "postingWebsiteLinkText": "See listing website",
+      "postingGroupName": null,
+      "sourceText": null,
+      "isZRMSourceText": null
+    },
+    "livingArea": 1244,
+    "livingAreaValue": 1244,
+    "homeType": "CONDO",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": null,
+      "mlsName": null,
+      "providerLogo": null,
+      "listingAgreement": null,
+      "agentEmail": null,
+      "agentLicenseNumber": null,
+      "agentName": null,
+      "agentPhoneNumber": null,
+      "attributionTitle": null,
+      "brokerName": null,
+      "brokerPhoneNumber": null,
+      "buyerAgentMemberStateLicense": null,
+      "buyerAgentName": null,
+      "buyerBrokerageName": null,
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": null,
+      "lastUpdated": null,
+      "listingOffices": [],
+      "listingAgents": [],
+      "mlsDisclaimer": null,
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": null,
+      "infoString5": null,
+      "infoString10": null,
+      "infoString16": null
+    },
+    "listingDataSource": "Legacy",
+    "zpid": 19684500,
+    "address": {
+      "streetAddress": "1190 Bird Ave",
+      "city": "San Jose",
+      "state": "CA",
+      "zipcode": "95125",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 2,
+    "bathrooms": 2.5,
+    "yearBuilt": 1981,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/1ca9ddc63419f5712a071d29a00151e0-p_c.jpg"
+                }
+              ],
+              "price": 675000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1071,
+              "livingAreaValue": 1071,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1473 Alma Loop",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1473 Alma Loop"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.308098,
+              "longitude": -121.88666,
+              "zpid": 19684561,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1473-Alma-Loop-San-Jose-CA-95125/19684561_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040910",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Nicholas French",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/a532ce940c5571930bec2d26dcf496f1-p_c.jpg"
+                }
+              ],
+              "price": 699500,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1071,
+              "livingAreaValue": 1071,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1414 Alma Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1414 Alma Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.308414,
+              "longitude": -121.88576,
+              "zpid": 19684662,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1414-Alma-Way-San-Jose-CA-95125/19684662_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82029765",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Paul Middione",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/19fb49d44410f108ced842715a034195-p_c.jpg"
+                }
+              ],
+              "price": 789000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 995,
+              "livingAreaValue": 995,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 1047,
+              "lotAreaValue": 1047,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1751 Braddock Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1751 Braddock Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.29528,
+              "longitude": -121.92335,
+              "zpid": 19591316,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1751-Braddock-Ct-San-Jose-CA-95125/19591316_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036821",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Brittany Barnes",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/d7b4b267d8f676563a30ee56561ee4de-p_c.jpg"
+                }
+              ],
+              "price": 729800,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1067,
+              "livingAreaValue": 1067,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1853 Almaden Rd APT 207",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1853 Almaden Rd APT 207"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.301548,
+              "longitude": -121.88005,
+              "zpid": 325806390,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1853-Almaden-Rd-APT-207-San-Jose-CA-95125/325806390_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042362",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "David Amaral",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/4811e56befc45703209ede7af1d1737a-p_c.jpg"
+                }
+              ],
+              "price": 749800,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1007,
+              "livingAreaValue": 1007,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1853 Almaden Rd APT 509",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1853 Almaden Rd APT 509"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.301548,
+              "longitude": -121.88005,
+              "zpid": 325806460,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1853-Almaden-Rd-APT-509-San-Jose-CA-95125/325806460_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040604",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "David Amaral",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/8e0b520418f95b78c61060160fcb1b27-p_c.jpg"
+                }
+              ],
+              "price": 828000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 954,
+              "livingAreaValue": 954,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 506,
+              "lotAreaValue": 506,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1152 Brace Ave APT 10",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1152 Brace Ave APT 10"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.30342,
+              "longitude": -121.90077,
+              "zpid": 19682761,
+              "homeStatus": "FOR_SALE",
+              "homeType": "TOWNHOUSE",
+              "hdpUrl": "/homedetails/1152-Brace-Ave-APT-10-San-Jose-CA-95125/19682761_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Townhouse",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040370",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Michelle Thompson",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/48189ee1f542b2791c279115d96da057-p_c.jpg"
+                }
+              ],
+              "price": 780000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1020,
+              "livingAreaValue": 1020,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1776 Braddock Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1776 Braddock Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.296017,
+              "longitude": -121.92318,
+              "zpid": 19591826,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1776-Braddock-Ct-San-Jose-CA-95125/19591826_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82035007",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Joseph Da Rosa",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/5f29b0ab48e682a9a066a4140028ac42-p_c.jpg"
+                }
+              ],
+              "price": 749999,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1096,
+              "livingAreaValue": 1096,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 1306,
+              "lotAreaValue": 1306.8,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1375 Lick Ave APT 522",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95110"
+              },
+              "parentRegion": {
+                "name": "Fairgrounds"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "Not Listed"
+                  },
+                  {
+                    "fullValue": "1375 Lick Ave APT 522"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95110"
+                  }
+                ]
+              },
+              "latitude": 37.31084,
+              "longitude": -121.88254,
+              "zpid": 82962462,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1375-Lick-Ave-APT-522-San-Jose-CA-95110/82962462_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "41127587",
+                "mlsName": "Bay East AOR",
+                "providerLogo": null,
+                "agentName": "Patty Ho",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/288db9f3217ebcf09888df19d0aaf01d-p_c.jpg"
+                }
+              ],
+              "price": 798800,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 1,
+              "livingArea": 895,
+              "livingAreaValue": 895,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 3216,
+              "lotAreaValue": 3216,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "501 Sanger Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "501 Sanger Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.298725,
+              "longitude": -121.877365,
+              "zpid": 19700749,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/501-Sanger-Way-San-Jose-CA-95125/19700749_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038364",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Nicki Banucci",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2ea17dc1b502294a41b2f7cb5e616132-p_c.jpg"
+                }
+              ],
+              "price": 799888,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 3,
+              "livingArea": 1327,
+              "livingAreaValue": 1327,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 522,
+              "lotAreaValue": 522,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "2070 Almaden Rd",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2070 Almaden Rd"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.297394,
+              "longitude": -121.88008,
+              "zpid": 89476191,
+              "homeStatus": "FOR_SALE",
+              "homeType": "TOWNHOUSE",
+              "hdpUrl": "/homedetails/2070-Almaden-Rd-San-Jose-CA-95125/89476191_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Townhouse",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040904",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "David Cao",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2d07d06354609497432cb36a5591e0e5-p_c.jpg"
+                }
+              ],
+              "price": 849000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1071,
+              "livingAreaValue": 1071,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1940 Huxley Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1940 Huxley Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.296616,
+              "longitude": -121.92462,
+              "zpid": 19591930,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1940-Huxley-Ct-San-Jose-CA-95125/19591930_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039996",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Julie Wyss",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/442c232cbeab9f0af34f01748d1b752d-p_c.jpg"
+                }
+              ],
+              "price": 555000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1054,
+              "livingAreaValue": 1054,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1427 Alma Loop",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1427 Alma Loop"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.308853,
+              "longitude": -121.886826,
+              "zpid": 19684524,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1427-Alma-Loop-San-Jose-CA-95125/19684524_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82034274",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jennie Gomez",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/017f607651cf5bcf253e4f5633c7cd17-p_c.jpg"
+                }
+              ],
+              "price": 758000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1216,
+              "livingAreaValue": 1216,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1445 Fruitdale Ave Unit 313",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95128"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1445 Fruitdale Ave Unit 313"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95128"
+                  }
+                ]
+              },
+              "latitude": 37.311367,
+              "longitude": -121.91605,
+              "zpid": 89476079,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1445-Fruitdale-Ave-UNIT-313-San-Jose-CA-95128/89476079_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036286",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " The Moses Team",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3464c34ba7ec4c583a5276b50e99b9c7-p_c.jpg"
+                }
+              ],
+              "price": 759000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1258,
+              "livingAreaValue": 1258,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "1310 Saddle Rack St APT 314",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95126"
+              },
+              "parentRegion": {
+                "name": "Downtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1310 Saddle Rack St APT 314"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95126"
+                  }
+                ]
+              },
+              "latitude": 37.32009,
+              "longitude": -121.91137,
+              "zpid": 63065372,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/1310-Saddle-Rack-St-APT-314-San-Jose-CA-95126/63065372_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037031",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Sherri Dershimer",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/948a533f22f2587c9df7be64d4248b4c-p_c.jpg"
+                }
+              ],
+              "price": 739995,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1421,
+              "livingAreaValue": 1421,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 841,
+              "lotAreaValue": 841,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "144 S 3rd St Unit 439",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95112"
+              },
+              "parentRegion": {
+                "name": "Downtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "144 S 3rd St Unit 439"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95112"
+                  }
+                ]
+              },
+              "latitude": 37.334454,
+              "longitude": -121.88604,
+              "zpid": 19712336,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/144-S-3rd-St-UNIT-439-San-Jose-CA-95112/19712336_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039059",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jose Martinez",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/46d4917fce8bbd1b84887944b6e97ba8-p_c.jpg"
+                }
+              ],
+              "price": 599000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1163,
+              "livingAreaValue": 1163,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "2212 Almaden Rd #A",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2212 Almaden Rd #A"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.29367,
+              "longitude": -121.87945,
+              "zpid": 19700633,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/2212-Almaden-Rd-A-San-Jose-CA-95125/19700633_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039226",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Michael R. Perrelli",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/fb5b06fa4e45036b38144f03cd793115-p_c.jpg"
+                }
+              ],
+              "price": 685000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1048,
+              "livingAreaValue": 1048,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "411 Park Ave Unit 105",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95110"
+              },
+              "parentRegion": {
+                "name": "Downtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "411 Park Ave Unit 105"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95110"
+                  }
+                ]
+              },
+              "latitude": 37.329224,
+              "longitude": -121.89739,
+              "zpid": 19574529,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/411-Park-Ave-UNIT-105-San-Jose-CA-95110/19574529_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041943",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Susan Polito",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/a34f330c4b647e379009c7b676f257bc-p_c.jpg"
+                }
+              ],
+              "price": 788888,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1274,
+              "livingAreaValue": 1274,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "809 Auzerais Ave Unit 340",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95126"
+              },
+              "parentRegion": {
+                "name": "Downtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "809 Auzerais Ave Unit 340"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95126"
+                  }
+                ]
+              },
+              "latitude": 37.321426,
+              "longitude": -121.905266,
+              "zpid": 82958193,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/809-Auzerais-Ave-UNIT-340-San-Jose-CA-95126/82958193_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036643",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "C.T. Harris",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2ac8721c11ca871d9bcbab03378a9a7d-p_c.jpg"
+                }
+              ],
+              "price": 760000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1317,
+              "livingAreaValue": 1317,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 435,
+              "lotAreaValue": 435.6,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "88 E San Fernando St Unit 303",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95113"
+              },
+              "parentRegion": {
+                "name": "Downtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "Unknown"
+                  },
+                  {
+                    "fullValue": "88 E San Fernando St Unit 303"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95113"
+                  }
+                ]
+              },
+              "latitude": 37.334743,
+              "longitude": -121.887375,
+              "zpid": 89474972,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/88-E-San-Fernando-St-UNIT-303-San-Jose-CA-95113/89474972_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "41126625",
+                "mlsName": "Bay East AOR",
+                "providerLogo": null,
+                "agentName": "Adrian Yip",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/fe5f5abd05873d8a5b412bc9397fa23f-p_c.jpg"
+                }
+              ],
+              "price": 839000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1275,
+              "livingAreaValue": 1275,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": null,
+              "lotAreaValue": null,
+              "lotAreaUnits": "sqft",
+              "address": {
+                "streetAddress": "88 Bush St Unit 3170",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95126"
+              },
+              "parentRegion": {
+                "name": "Downtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "88 Bush St Unit 3170"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95126"
+                  }
+                ]
+              },
+              "latitude": 37.329285,
+              "longitude": -121.903824,
+              "zpid": 82960991,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/88-Bush-St-UNIT-3170-San-Jose-CA-95126/82960991_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041930",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Eric Woodward",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "557cd7e14f45e407e1d326b40f21e38c"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/1190-Bird-Ave-San-Jose-CA-95125/19684500_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca/"
+        },
+        "name": "Cupertino",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/morgan-hill-ca/"
+        },
+        "name": "Morgan Hill",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [
+      {
+        "regionUrl": {
+          "path": "/almaden-valley-san-jose-ca/"
+        },
+        "name": "Almaden Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/blossom-valley-san-jose-ca/"
+        },
+        "name": "Blossom Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/cambrian-park-san-jose-ca/"
+        },
+        "name": "Cambrian Park",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/downtown-san-jose-ca/"
+        },
+        "name": "Downtown",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/east-san-jose-san-jose-ca/"
+        },
+        "name": "East San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/evergreen-san-jose-ca/"
+        },
+        "name": "Evergreen",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/fairgrounds-san-jose-ca/"
+        },
+        "name": "Fairgrounds",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/north-valley-san-jose-ca/"
+        },
+        "name": "North Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/west-san-jose-san-jose-ca/"
+        },
+        "name": "West San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/willow-glen-san-jose-ca/"
+        },
+        "name": "Willow Glen",
+        "body": null
+      }
+    ],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95111/"
+        },
+        "name": "95111",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95112/"
+        },
+        "name": "95112",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95116/"
+        },
+        "name": "95116",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95122/"
+        },
+        "name": "95122",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95123/"
+        },
+        "name": "95123",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95124/"
+        },
+        "name": "95124",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95125/"
+        },
+        "name": "95125",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95127/"
+        },
+        "name": "95127",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95136/"
+        },
+        "name": "95136",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95148/"
+        },
+        "name": "95148",
+        "body": null
+      }
+    ],
+    "cityId": 33839,
+    "citySearchUrl": {
+      "text": "Homes in San Jose",
+      "path": "/san-jose-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/san-jose-ca-95125/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/san-jose-ca-95125/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/san-jose-ca-95125/rent-houses/"
+    },
+    "abbreviatedAddress": "1190 Bird Ave",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": {
+      "name": "Willow Glen"
+    },
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": {
+      "path": "/willow-glen-san-jose-ca/"
+    },
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "not_for_sale",
+      "proptp": "cnd",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "hood": "Willow_Glen",
+      "price_band": "z700",
+      "zestimate": "759300",
+      "zestibuck": "700-799k",
+      "price": "759300",
+      "lot": "1",
+      "bd": "2",
+      "ba": "2.5",
+      "sqft": "1244",
+      "sqftrange": "1000-1499",
+      "yrblt": "1980-1989",
+      "aamgnrc1": "1190 Bird Ave",
+      "city": "San_Jose",
+      "state": "CA",
+      "zip": "95125",
+      "pid": "19684500",
+      "premieragent": "no",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "b898aa65-3088-465c-be2c-f527aa1ea004"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 759300,
+    "newConstructionType": null,
+    "zestimateLowPercent": "8",
+    "zestimateHighPercent": "8",
+    "rentZestimate": 3438,
+    "restimateLowPercent": "5",
+    "restimateHighPercent": "5",
+    "schools": [
+      {
+        "distance": 0.5,
+        "name": "Willow Glen Elementary School",
+        "rating": 5,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5696-Willow-Glen-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.4,
+        "name": "Willow Glen Middle School",
+        "rating": 5,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5698-Willow-Glen-Middle-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.4,
+        "name": "Willow Glen High School",
+        "rating": 8,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/5697-Willow-Glen-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "Willow Glen",
+      "regionId": 118987
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 19684499,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/8e6e4f9e7e4584ae4e4b0551f5fdfb7b-p_c.jpg"
+          }
+        ],
+        "price": 965600,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 3,
+        "livingArea": 1282,
+        "livingAreaValue": 1282,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "1192 Bird Ave",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1192 Bird Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.309586,
+        "longitude": -121.893654,
+        "homeStatus": "OTHER",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/1192-Bird-Ave-San-Jose-CA-95125/19684499_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": "118wjam8257g5",
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19684498,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.309539794921875,-121.89360809326172&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=qki8dH7aD7RxfnXx2oZ08lnc0Wo="
+          }
+        ],
+        "price": 793500,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2.5,
+        "livingArea": 1282,
+        "livingAreaValue": 1282,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 435,
+        "lotAreaValue": 435,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1194 Bird Ave",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1194 Bird Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.30954,
+        "longitude": -121.89361,
+        "homeStatus": "OTHER",
+        "homeType": "CONDO",
+        "hdpUrl": "/homedetails/1194-Bird-Ave-San-Jose-CA-95125/19684498_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Condo",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19684493,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/1cb89a36b2806628382f0505c3881ec6-p_c.jpg"
+          }
+        ],
+        "price": 876200,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2.5,
+        "livingArea": 1244,
+        "livingAreaValue": 1244,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 925,
+        "lotAreaValue": 925,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1202 Bird Ave",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1202 Bird Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.309544,
+        "longitude": -121.89386,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1202-Bird-Ave-San-Jose-CA-95125/19684493_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19684494,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/c271ed39d1d9f6e243a327a2959a38fd-p_c.jpg"
+          }
+        ],
+        "price": 933900,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 3,
+        "livingArea": 1282,
+        "livingAreaValue": 1282,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "1204 Bird Ave",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1204 Bird Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.309486,
+        "longitude": -121.893814,
+        "homeStatus": "OTHER",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/1204-Bird-Ave-San-Jose-CA-95125/19684494_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": "3u8ezffraghm1",
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19684504,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/ad5d2e990dbc11da9a2796a6036c3286-p_c.jpg"
+          }
+        ],
+        "price": 1120000,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 3,
+        "livingArea": 1244,
+        "livingAreaValue": 1244,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 1045,
+        "lotAreaValue": 1045.44,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1182 Bird Ave",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1182 Bird Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.309765,
+        "longitude": -121.89355,
+        "homeStatus": "SOLD",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/1182-Bird-Ave-San-Jose-CA-95125/19684504_zpid/",
+        "hdpTypeDimension": "RecentlySold",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": "ML81958337",
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19684497,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.30948257446289,-121.8935546875&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=9NN7knuGTrrn3EDnEh8m-YAFa-0="
+          }
+        ],
+        "price": 869300,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 3,
+        "livingArea": 1244,
+        "livingAreaValue": 1244,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 871,
+        "lotAreaValue": 871,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1196 Bird Ave",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1196 Bird Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.309483,
+        "longitude": -121.893555,
+        "homeStatus": "OTHER",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/1196-Bird-Ave-San-Jose-CA-95125/19684497_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19684495,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/f30004284dff9d4d0a2a4fa12d938e4e-p_c.jpg"
+          }
+        ],
+        "price": 974500,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2.5,
+        "livingArea": 1282,
+        "livingAreaValue": 1282,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 823,
+        "lotAreaValue": 823,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1206 Bird Ave",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1206 Bird Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.30944,
+        "longitude": -121.89376,
+        "homeStatus": "OTHER",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/1206-Bird-Ave-San-Jose-CA-95125/19684495_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19684501,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/852c7637a2218241cd147965016a901f-p_c.jpg"
+          }
+        ],
+        "price": 971200,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 3,
+        "livingArea": 1244,
+        "livingAreaValue": 1244,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 1058,
+        "lotAreaValue": 1058,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1180 Bird Ave",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95125"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1180 Bird Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.309814,
+        "longitude": -121.89385,
+        "homeStatus": "OTHER",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/1180-Bird-Ave-San-Jose-CA-95125/19684501_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "This 1244 square foot condo home has 2 bedrooms and 2.5 bathrooms. This home is located at 1190 Bird Ave, San Jose, CA 95125.",
+    "whatILove": null,
+    "timeOnZillow": null,
+    "pageViewCount": 4,
+    "favoriteCount": 0,
+    "daysOnZillow": null,
+    "latitude": 37.30964,
+    "longitude": -121.893715,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=550x413&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=IefJQTYEhV8C1LQtoUXepa-dAww=",
+    "brokerageName": null,
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [],
+    "homeInsights": null,
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 5.374,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273018361
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.086,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273018361
+      },
+      "arm5Bucket": {
+        "rate": 5.853,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273018361
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=1025x768&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=o3rDvZQoyyWOTyP8AM7KA0n2nrI=",
+    "mlsid": null,
+    "ouid": null,
+    "palsId": "19014d35c53791caea8411298b967ece",
+    "propertyTypeDimension": "Condo",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I own this home and would like a professional estimate at 1190 Bird Ave, San Jose, CA 95125.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": null,
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 1,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": 871,
+    "lotAreaValue": 871,
+    "lotAreaUnits": "Square Feet",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": null,
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": null,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=46x46&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=N9WgPazK4wkaOrYiT3vNE953bBU="
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=KRbsm8R0nslwgo8teGuXUC0cmaQ="
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "Zestimate",
+    "listingTypeDimension": "Unknown Listed By",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Unknown Listed By",
+    "keystoneHomeStatus": "NotForSale",
+    "pageUrlFragment": "Zestimate",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=800x600&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=uGxo5yR39QNV5Petcm8HaEIStFE=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=1024x768&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=u5BcHwGzVVgJI2hvo4N3RbF1L00=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=1344x1008&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=tkOdRkrUEfArgZ8Ayuzqh9D2Tmw=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=1536x1152&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=gZGxrlLrI3cMFoKu-EjyGPyxGWY=",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=800x600&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=uGxo5yR39QNV5Petcm8HaEIStFE=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=1024x768&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=u5BcHwGzVVgJI2hvo4N3RbF1L00=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=1344x1008&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=tkOdRkrUEfArgZ8Ayuzqh9D2Tmw=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=1536x1152&zoom=17&center=37.30963897705078,-121.89371490478516&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=gZGxrlLrI3cMFoKu-EjyGPyxGWY=",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": null,
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": "43433011",
+    "taxHistory": [
+      {
+        "time": 1744737018356,
+        "taxPaid": 4510.26,
+        "taxIncreaseRate": 0.054602224,
+        "value": 256448,
+        "valueIncreaseRate": 0.019994352
+      },
+      {
+        "time": 1713201018356,
+        "taxPaid": 4276.74,
+        "taxIncreaseRate": 0.028497633,
+        "value": 251421,
+        "valueIncreaseRate": 0.019996593
+      },
+      {
+        "time": 1681578618356,
+        "taxPaid": 4158.24,
+        "taxIncreaseRate": 0.008703843,
+        "value": 246492,
+        "valueIncreaseRate": 0.019999254
+      },
+      {
+        "time": 1650042618356,
+        "taxPaid": 4122.36,
+        "taxIncreaseRate": 0.033483706,
+        "value": 241659,
+        "valueIncreaseRate": 0.019993922
+      },
+      {
+        "time": 1618506618356,
+        "taxPaid": 3988.8,
+        "taxIncreaseRate": 0.0152460355,
+        "value": 236922,
+        "valueIncreaseRate": 0.01035421
+      },
+      {
+        "time": 1586970618356,
+        "taxPaid": 3928.9,
+        "taxIncreaseRate": 0,
+        "value": 234494,
+        "valueIncreaseRate": 0.019995911
+      },
+      {
+        "time": 1555348218356,
+        "taxPaid": 3928.9,
+        "taxIncreaseRate": 0.04353251,
+        "value": 229897,
+        "valueIncreaseRate": 0.019996451
+      },
+      {
+        "time": 1523812218356,
+        "taxPaid": 3765,
+        "taxIncreaseRate": 0,
+        "value": 225390,
+        "valueIncreaseRate": 0.019993484
+      },
+      {
+        "time": 1492276218356,
+        "taxPaid": 3765,
+        "taxIncreaseRate": 0.011672509,
+        "value": 220972,
+        "valueIncreaseRate": 0.019996308
+      },
+      {
+        "time": 1460740218356,
+        "taxPaid": 3721.56,
+        "taxIncreaseRate": 0.05126437,
+        "value": 216640,
+        "valueIncreaseRate": 0.01524936
+      },
+      {
+        "time": 1429117818356,
+        "taxPaid": 3540.08,
+        "taxIncreaseRate": 0.13527419,
+        "value": 213386,
+        "valueIncreaseRate": 0.019975431
+      },
+      {
+        "time": 1397581818356,
+        "taxPaid": 3118.26,
+        "taxIncreaseRate": 0,
+        "value": 209207,
+        "valueIncreaseRate": 0.0045375535
+      },
+      {
+        "time": 1366045818356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 208262,
+        "valueIncreaseRate": 0.019997159
+      },
+      {
+        "time": 1334509818356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 204179,
+        "valueIncreaseRate": 0.019992307
+      },
+      {
+        "time": 1302887418356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 200177,
+        "valueIncreaseRate": 0.007524587
+      },
+      {
+        "time": 1271351418356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 198682,
+        "valueIncreaseRate": -0.0023750346
+      },
+      {
+        "time": 1239815418356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 199155,
+        "valueIncreaseRate": 0.019994777
+      },
+      {
+        "time": 1208279418356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 195251,
+        "valueIncreaseRate": 0.019997597
+      },
+      {
+        "time": 1176657018356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 191423,
+        "valueIncreaseRate": 0.019992433
+      },
+      {
+        "time": 1145121018356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 187671,
+        "valueIncreaseRate": 0.019995434
+      },
+      {
+        "time": 1113585018356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 183992,
+        "valueIncreaseRate": 0.01999612
+      },
+      {
+        "time": 1082049018356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 180385,
+        "valueIncreaseRate": 0.018663881
+      },
+      {
+        "time": 1050426618356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 177080,
+        "valueIncreaseRate": 0.019993203
+      },
+      {
+        "time": 1018890618356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 173609,
+        "valueIncreaseRate": 0.019993419
+      },
+      {
+        "time": 987354618356,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 170206,
+        "valueIncreaseRate": 0
+      }
+    ],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/1190-Bird-Ave_-San%20Jose-95125/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/95125/?bedrooms=2",
+    "neighborhoodId": 118987,
+    "zipcodeId": 97993,
+    "sellingSoon": []
+  }
+}

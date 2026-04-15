@@ -12,7 +12,7 @@
     children: Snippet;
   }
 
-  let { teamName = 'Chen Realty Group', activePath = '/portal', children }: Props = $props();
+  let { teamName = '', activePath = '/portal', children }: Props = $props();
 
   const navItems = [
     { label: 'Dashboard', href: '/portal' },

@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { listings, activityItems } from '$lib/data/mock-data.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import {
 		Send,
 		Paperclip,
@@ -17,11 +17,14 @@
 		Sparkles,
 		GitBranch,
 		CheckCircle2,
-		Filter
+		Filter,
+		ArrowRight
 	} from 'lucide-svelte';
+	import ProcessingStatus from '$lib/components/shared/ProcessingStatus.svelte';
 
-	const listing = $derived(listings.find((l) => l.id === $page.params.id));
-	const allActivity = $derived(activityItems.filter((a) => a.listingId === listing?.id));
+	let { data } = $props();
+	const listing = $derived(data.listing);
+	const allActivity = $derived(data.activityItems ?? []);
 
 	let activeFilter = $state('all');
 
@@ -32,16 +35,29 @@
 		{ id: 'note', label: 'Notes' },
 		{ id: 'voice_memo', label: 'Voice Memos' },
 		{ id: 'system', label: 'System' },
-		{ id: 'ai_insight', label: 'AI' }
+		{ id: 'ai_insight', label: 'Insights' }
 	];
 
 	const filteredActivity = $derived(
 		activeFilter === 'all'
 			? allActivity
-			: allActivity.filter((a) => a.type === activeFilter)
+			: allActivity.filter((a: any) => a.type === activeFilter)
 	);
 
 	let composeText = $state('');
+
+	function timeAgo(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		const now = new Date();
+		const diff = now.getTime() - date.getTime();
+		const minutes = Math.floor(diff / 60000);
+		if (minutes < 60) return `${minutes}m ago`;
+		const hours = Math.floor(minutes / 60);
+		if (hours < 24) return `${hours}h ago`;
+		const days = Math.floor(hours / 24);
+		return `${days}d ago`;
+	}
 
 	function getTypeIcon(type: string) {
 		switch (type) {
@@ -85,33 +101,50 @@
 		<!-- Compose Bar -->
 		<Card>
 			<CardContent class="p-4">
-				<div class="flex gap-3">
-					<Avatar class="size-8 shrink-0">
-						<AvatarFallback class="bg-primary text-primary-foreground text-xs">LC</AvatarFallback>
-					</Avatar>
-					<div class="flex-1">
-						<div class="relative">
-							<textarea
-								bind:value={composeText}
-								placeholder="Add a note, message, or update..."
-								class="w-full resize-none rounded-lg border bg-transparent p-3 pr-24 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-								rows="2"
-							></textarea>
-							<div class="absolute bottom-2 right-2 flex items-center gap-1">
-								<Button variant="ghost" size="icon" class="size-8">
-									<Paperclip class="size-4 text-muted-foreground" />
-								</Button>
-								<Button variant="ghost" size="icon" class="size-8">
-									<Mic class="size-4 text-muted-foreground" />
-								</Button>
-								<Button size="sm" class="h-7" disabled={!composeText.trim()}>
-									<Send class="mr-1 size-3.5" />
-									Send
-								</Button>
+				<form
+					method="POST"
+					action="?/postNote"
+					use:enhance={() => {
+						return async ({ result, update }) => {
+							if (result.type === 'success') {
+								toast.success('Note posted');
+								composeText = '';
+								await update();
+							} else {
+								toast.error('Failed to post note');
+							}
+						};
+					}}
+				>
+					<div class="flex gap-3">
+						<Avatar class="size-8 shrink-0">
+							<AvatarFallback class="bg-primary text-primary-foreground text-xs">LC</AvatarFallback>
+						</Avatar>
+						<div class="flex-1">
+							<div class="relative">
+								<textarea
+									name="content"
+									bind:value={composeText}
+									placeholder="Add a note, message, or update..."
+									class="w-full resize-none rounded-lg border bg-transparent p-3 pr-24 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+									rows="2"
+								></textarea>
+								<div class="absolute bottom-2 right-2 flex items-center gap-1">
+									<Button variant="ghost" size="icon" type="button" class="size-8">
+										<Paperclip class="size-4 text-muted-foreground" />
+									</Button>
+									<Button variant="ghost" size="icon" type="button" class="size-8">
+										<Mic class="size-4 text-muted-foreground" />
+									</Button>
+									<Button type="submit" size="sm" class="h-7" disabled={!composeText.trim()}>
+										<Send class="mr-1 size-3.5" />
+										Send
+									</Button>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</form>
 			</CardContent>
 		</Card>
 
@@ -145,7 +178,7 @@
 								<Icon class="size-3" />
 							</div>
 							<span>{activity.content}</span>
-							<span class="text-muted-foreground/60">-- {activity.timeAgo}</span>
+							<span class="text-muted-foreground/60">-- {timeAgo(activity.timestamp)}</span>
 						</div>
 						<div class="flex-1 h-px bg-border"></div>
 					</div>
@@ -155,7 +188,7 @@
 						<div class="relative shrink-0">
 							<Avatar class="size-9">
 								<AvatarFallback class="text-xs {getAvatarColor(activity.type)}">
-									{activity.authorInitials}
+									{activity.authorInitials ?? '?'}
 								</AvatarFallback>
 							</Avatar>
 							<div class="absolute -bottom-0.5 -right-0.5 rounded-full p-0.5 bg-background">
@@ -166,24 +199,23 @@
 						</div>
 						<div class="min-w-0 flex-1">
 							<div class="flex items-center gap-2">
-								<span class="text-sm font-medium">{activity.author}</span>
+								<span class="text-sm font-medium">{activity.authorName ?? 'System'}</span>
 								<Badge variant="outline" class="text-[10px] font-normal px-1.5 py-0 h-4">
 									{activity.type === 'voice_memo' ? 'Voice Memo' :
-									 activity.type === 'ai_insight' ? 'AI' :
+									 activity.type === 'ai_insight' ? 'Insight' :
 									 activity.type === 'task_complete' ? 'Task' :
 									 activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
 								</Badge>
-								<span class="text-xs text-muted-foreground">{activity.timeAgo}</span>
+								<span class="text-xs text-muted-foreground">{timeAgo(activity.timestamp)}</span>
 							</div>
 
-							{#if activity.type === 'email' && activity.metadata?.subject}
-								<p class="mt-1 text-sm font-medium text-violet-700">{activity.metadata.subject}</p>
+							{#if activity.type === 'email' && (activity.metadata as any)?.subject}
+								<p class="mt-1 text-sm font-medium text-violet-700">{(activity.metadata as any).subject}</p>
 								<p class="mt-0.5 text-sm text-muted-foreground">{activity.content}</p>
 							{:else if activity.type === 'voice_memo'}
 								<div class="mt-2 rounded-lg border bg-muted/50 p-3">
-									<!-- Waveform visualization -->
 									<div class="flex items-center gap-2">
-										<button class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
+										<button aria-label="Play voice memo" class="flex size-7 items-center justify-center rounded-full bg-primary text-primary-foreground">
 											<svg class="size-3 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
 												<polygon points="5,3 19,12 5,21" />
 											</svg>
@@ -197,8 +229,8 @@
 												></div>
 											{/each}
 										</div>
-										{#if activity.metadata?.duration}
-											<span class="text-xs text-muted-foreground shrink-0">{activity.metadata.duration}</span>
+										{#if (activity.metadata as any)?.duration}
+											<span class="text-xs text-muted-foreground shrink-0">{(activity.metadata as any).duration}</span>
 										{/if}
 									</div>
 									<p class="mt-2 text-xs text-muted-foreground italic">{activity.content}</p>
@@ -207,10 +239,27 @@
 								<p class="mt-1 text-sm text-muted-foreground">{activity.content}</p>
 							{/if}
 
+							{#if (activity.type === 'voice_memo' || activity.type === 'note') && (activity.metadata as any)?.fieldNoteId}
+								{@const fieldNoteId = (activity.metadata as any).fieldNoteId}
+								{@const fieldNoteStatus = (activity.metadata as any)?.fieldNoteStatus}
+								<div class="mt-2 flex items-center gap-3">
+									{#if fieldNoteStatus && fieldNoteStatus !== 'completed'}
+										<ProcessingStatus {fieldNoteId} initialStatus={fieldNoteStatus} />
+									{/if}
+									<a
+										href="/listings/{listing?.id}/field-notes/{fieldNoteId}"
+										class="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+									>
+										View full note
+										<ArrowRight class="size-3" />
+									</a>
+								</div>
+							{/if}
+
 							{#if isAI}
 								<div class="mt-2">
-									<Button variant="outline" size="sm" class="h-7 text-xs text-amber-700 border-amber-300 hover:bg-amber-50">
-										Take Action
+									<Button variant="outline" size="sm" class="h-7 text-xs text-amber-700 border-amber-300 hover:bg-amber-50 opacity-50" disabled>
+										Coming Soon
 									</Button>
 								</div>
 							{/if}

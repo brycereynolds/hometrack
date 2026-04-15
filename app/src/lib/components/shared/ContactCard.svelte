@@ -4,14 +4,25 @@
 -->
 <script lang="ts">
   import StatusBadge from './StatusBadge.svelte';
-  import type { Contact } from '$lib/data/mock-data';
+  import type { Contact } from '$lib/types';
 
   interface Props {
-    contact: Contact;
+    contact: Contact & { typeLabel?: string };
     variant?: 'card' | 'row';
   }
 
   let { contact, variant = 'card' }: Props = $props();
+
+  const TYPE_LABELS: Record<string, string> = {
+    client: 'Client',
+    agent: 'Agent',
+    vendor: 'Vendor',
+    lender: 'Lender',
+    inspector: 'Inspector',
+    title: 'Title',
+  };
+
+  const typeLabel = $derived((contact as any).typeLabel ?? TYPE_LABELS[contact.type] ?? contact.type);
 
   const typeVariant: Record<string, 'primary' | 'info' | 'success' | 'warning' | 'neutral'> = {
     client: 'primary',
@@ -39,7 +50,7 @@
           <p class="text-sm font-semibold text-foreground truncate group-hover:text-primary transition-colors">
             {contact.name}
           </p>
-          <StatusBadge status={contact.typeLabel} variant={typeVariant[contact.type]} size="sm" />
+          <StatusBadge status={typeLabel} variant={typeVariant[contact.type]} size="sm" />
         </div>
 
         {#if contact.company}
@@ -100,6 +111,6 @@
       <p class="text-sm font-medium text-foreground truncate group-hover:text-primary">{contact.name}</p>
       <p class="text-xs text-foreground-muted truncate">{contact.company ?? contact.email}</p>
     </div>
-    <StatusBadge status={contact.typeLabel} variant={typeVariant[contact.type]} size="sm" />
+    <StatusBadge status={typeLabel} variant={typeVariant[contact.type]} size="sm" />
   </a>
 {/if}

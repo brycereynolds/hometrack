@@ -1,0 +1,3755 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/19699251_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 10908.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 1800000,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "1597 Calle De Stuarda",
+    "city": "San Jose",
+    "state": "CA",
+    "zipcode": "95118",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "1597 Calle De Stuarda"
+        },
+        {
+          "fullValue": "San Jose, CA 95118"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 2,
+      "bathroomsFull": 2,
+      "bathroomsThreeQuarter": null,
+      "bathroomsHalf": null,
+      "bathroomsOneQuarter": null,
+      "bedrooms": 3,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": null,
+      "buildingName": null,
+      "appliances": [
+        "Gas Cooktop",
+        "Dishwasher",
+        "Disposal",
+        "Double Oven",
+        "Refrigerator",
+        "Washer/Dryer"
+      ],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "Single Family Residence, Residential"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "1975"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "Central Forced Air Gas, Solar"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": "Central Air"
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "2 Attached Garage spaces"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": "6,500 sqft"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": null,
+      "bathroomsPartial": null,
+      "bathroomsFloat": 2,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": "1,614",
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "San Jose",
+      "commonWalls": null,
+      "communityFeatures": null,
+      "compensationBasedOn": null,
+      "constructionMaterials": [],
+      "contingency": null,
+      "cooling": [
+        "Central Air"
+      ],
+      "coveredParkingCapacity": 2,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [
+        "Back Yard",
+        "Fenced",
+        "Storage Shed Structure"
+      ],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": [
+        "Living Room",
+        "Wood Burning"
+      ],
+      "fireplaces": 1,
+      "flooring": [
+        "Carpet",
+        "Other"
+      ],
+      "foundationArea": null,
+      "foundationDetails": [
+        "Concrete Perimeter and Slab"
+      ],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": 2,
+      "gas": [
+        "PublicUtilities"
+      ],
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": true,
+      "hasAttachedProperty": false,
+      "hasCooling": true,
+      "hasCarport": false,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": true,
+      "hasHeating": true,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [
+        "Central Forced Air Gas",
+        "Solar"
+      ],
+      "highSchool": "BranhamHigh",
+      "highSchoolDistrict": "CampbellUnionHigh",
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": false,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": [
+        "High Ceilings",
+        "Vaulted Ceiling(s)"
+      ],
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": false,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": [
+        "In Garage"
+      ],
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": [
+        "Level"
+      ],
+      "lotSize": "6,500 sqft",
+      "lotSizeDimensions": null,
+      "livingArea": "1,614 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [
+        {
+          "mediaCategory": "BrandedVirtualTour",
+          "mediaURL": null
+        },
+        {
+          "mediaCategory": "UnbrandedVirtualTour",
+          "mediaURL": null
+        }
+      ],
+      "middleOrJuniorSchool": "DartmouthMiddle_1",
+      "middleOrJuniorSchoolDistrict": null,
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": 1724371200000,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "45144077",
+      "parkingCapacity": 2,
+      "parkingFeatures": [
+        "Attached",
+        "On Street"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": [
+        "In Ground",
+        "Pool/Spa Combo"
+      ],
+      "pricePerSquareFoot": 1115,
+      "propertyCondition": null,
+      "propertySubType": [
+        "Single Family Residence",
+        "Residential"
+      ],
+      "roadSurfaceType": null,
+      "roofType": "Composition, Shingle",
+      "rooms": [
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "PrimarySuiteRetreat",
+            " WalkinCloset"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Bedroom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "DoubleSinks",
+            " PrimaryStallShowers",
+            " PrimaryTubwJets"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Bathroom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "DiningAreainLivingRoom"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "DiningRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "KitchenFamilyRoomCombo"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "FamilyRoom",
+          "roomWidth": null
+        }
+      ],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": [
+        "Public Sewer"
+      ],
+      "spaFeatures": [
+        "Pool/SpaCombo"
+      ],
+      "specialListingConditions": "Standard",
+      "stories": 1,
+      "storiesDecimal": 1,
+      "storiesTotal": null,
+      "structureType": null,
+      "subdivisionName": null,
+      "taxAnnualAmount": 32990,
+      "taxAssessedValue": 1800000,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": [
+        "Public Utilities",
+        "Water Public"
+      ],
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": [
+        "Public"
+      ],
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": null,
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 1975,
+      "yearBuiltEffective": null,
+      "zoning": "R1B6",
+      "zoningDescription": null,
+      "elementarySchool": "OsterElementary",
+      "elementarySchoolDistrict": "UnionElementary",
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": 18932,
+    "homeStatus": "SOLD",
+    "listingProvider": null,
+    "livingArea": 1614,
+    "livingAreaValue": 1614,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": "ML81977876",
+      "mlsName": "MLSListings Inc",
+      "providerLogo": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_95_35.jpg",
+      "listingAgreement": "ExclusiveRightToSell",
+      "agentEmail": null,
+      "agentLicenseNumber": "02006177",
+      "agentName": "Roxy Laufer",
+      "agentPhoneNumber": "408-314-1290",
+      "attributionTitle": null,
+      "brokerName": "Christie's International Real Estate Sereno",
+      "brokerPhoneNumber": "408-335-1400",
+      "buyerAgentMemberStateLicense": "02002877",
+      "buyerAgentName": "Joel Stieber",
+      "buyerBrokerageName": "KW Bay Area Estates",
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": "2026-04-15 09:54:16",
+      "lastUpdated": "2026-02-01 15:36:09",
+      "listingOffices": [
+        {
+          "associatedOfficeType": "listOffice",
+          "officeName": "Christie's International Real Estate Sereno"
+        },
+        {
+          "associatedOfficeType": "buyerOffice",
+          "officeName": "KW Bay Area Estates"
+        }
+      ],
+      "listingAgents": [
+        {
+          "associatedAgentType": "listAgent",
+          "memberFullName": "Roxy Laufer",
+          "memberStateLicense": "02006177"
+        },
+        {
+          "associatedAgentType": "buyerAgent",
+          "memberFullName": "Joel Stieber",
+          "memberStateLicense": "02002877"
+        }
+      ],
+      "mlsDisclaimer": "Based on information from the MLSListings MLS as of 2026-04-15 09:54:16 PDT. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information.",
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_95_35.jpg",
+      "infoString5": "408-314-1290",
+      "infoString10": "Based on information from the MLSListings MLS as of 2026-04-15 09:54:16 PDT. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information.",
+      "infoString16": null
+    },
+    "listingDataSource": "Phoenix",
+    "zpid": 19699251,
+    "address": {
+      "streetAddress": "1597 Calle De Stuarda",
+      "city": "San Jose",
+      "state": "CA",
+      "zipcode": "95118",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "yearBuilt": 1975,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/28f857b8f9fb657c377f20b8dad59089-p_c.jpg"
+                }
+              ],
+              "price": 1800000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1910,
+              "livingAreaValue": 1910,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8249,
+              "lotAreaValue": 8249,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1647 Natalie Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1647 Natalie Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.247875,
+              "longitude": -121.90562,
+              "zpid": 19757988,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1647-Natalie-Ct-San-Jose-CA-95118/19757988_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042395",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Wayne Haraguchi",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ec0952017d386bde712eece66998dcc5-p_c.jpg"
+                }
+              ],
+              "price": 1499000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1614,
+              "livingAreaValue": 1614,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6700,
+              "lotAreaValue": 6700,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4802 Tampico Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4802 Tampico Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.25674,
+              "longitude": -121.89506,
+              "zpid": 19759227,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4802-Tampico-Way-San-Jose-CA-95118/19759227_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042517",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Therese Swan",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/14bc68865a5d00f31ff0fae56de3253e-p_c.jpg"
+                }
+              ],
+              "price": 1888000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1949,
+              "livingAreaValue": 1949,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7342,
+              "lotAreaValue": 7342,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4733 Jarvis Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4733 Jarvis Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.25794,
+              "longitude": -121.890175,
+              "zpid": 19758969,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4733-Jarvis-Ave-San-Jose-CA-95118/19758969_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042392",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Harry He",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3ef5264abdfd76314655ff5e9bcb4c9a-p_c.jpg"
+                }
+              ],
+              "price": 1799999,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1579,
+              "livingAreaValue": 1579,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6180,
+              "lotAreaValue": 6180,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "5031 Las Cruces Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "5031 Las Cruces Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.252323,
+              "longitude": -121.8923,
+              "zpid": 19759152,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/5031-Las-Cruces-Ct-San-Jose-CA-95118/19759152_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038938",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Navneet Parmar",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2858350faa326a3dec5155fd238adce7-p_c.jpg"
+                }
+              ],
+              "price": 1749000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1497,
+              "livingAreaValue": 1497,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6200,
+              "lotAreaValue": 6200,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1657 Glenhurst Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1657 Glenhurst Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.264156,
+              "longitude": -121.90553,
+              "zpid": 19695382,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1657-Glenhurst-Dr-San-Jose-CA-95124/19695382_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042875",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Frank Quinn",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/5dacfe94ce5c9cc9a0d005fcb31c2af8-p_c.jpg"
+                }
+              ],
+              "price": 1898000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1774,
+              "livingAreaValue": 1774,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6100,
+              "lotAreaValue": 6100,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1313 Lindsay Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1313 Lindsay Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.27042,
+              "longitude": -121.885155,
+              "zpid": 19697001,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1313-Lindsay-Way-San-Jose-CA-95118/19697001_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041974",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Nicki Banucci",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/0a1a82d9816330a7db137addf84b7161-p_c.jpg"
+                }
+              ],
+              "price": 1788530,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1660,
+              "livingAreaValue": 1660,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1393 Annapolis Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1393 Annapolis Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.253662,
+              "longitude": -121.88803,
+              "zpid": 19758621,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1393-Annapolis-Way-San-Jose-CA-95118/19758621_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040093",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Awne Elrabadi",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/00a7b5021f543cf07867e4ba5c641327-p_c.jpg"
+                }
+              ],
+              "price": 1750000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1601,
+              "livingAreaValue": 1601,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10416,
+              "lotAreaValue": 10416,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "5380 Hammerton Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "5380 Hammerton Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.24936,
+              "longitude": -121.882,
+              "zpid": 19759757,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/5380-Hammerton-Ct-San-Jose-CA-95118/19759757_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039283",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Mary Tian",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/fd51da82816e76b3af1cb327b82aa595-p_c.jpg"
+                }
+              ],
+              "price": 2099995,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1910,
+              "livingAreaValue": 1910,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1567 Glencrest Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1567 Glencrest Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.26314,
+              "longitude": -121.898125,
+              "zpid": 19697943,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1567-Glencrest-Dr-San-Jose-CA-95118/19697943_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042236",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Brian Tanger",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/4ab90ee75deb4e23c82311a859e21b8c-p_c.jpg"
+                }
+              ],
+              "price": 1799000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1700,
+              "livingAreaValue": 1700,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7810,
+              "lotAreaValue": 7810,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "5717 Condor Cir",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Almaden Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "5717 Condor Cir"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.235172,
+              "longitude": -121.89819,
+              "zpid": 19754739,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/5717-Condor-Cir-San-Jose-CA-95118/19754739_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038617",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Joseph Da Rosa",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/762e6d4e67d17f7c80af3704f270ffc5-p_c.jpg"
+                }
+              ],
+              "price": 1388000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1214,
+              "livingAreaValue": 1214,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "3108 Santa Margarita Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "3108 Santa Margarita Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.271725,
+              "longitude": -121.89599,
+              "zpid": 19693425,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/3108-Santa-Margarita-Ave-San-Jose-CA-95118/19693425_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042907",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jackie Jones",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ff3c2a58a8e39c563fa2f2cd525f09d0-p_c.jpg"
+                }
+              ],
+              "price": 1799999,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1628,
+              "livingAreaValue": 1628,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6200,
+              "lotAreaValue": 6200,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1619 Hallbrook Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1619 Hallbrook Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.259895,
+              "longitude": -121.90335,
+              "zpid": 19698198,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1619-Hallbrook-Dr-San-Jose-CA-95124/19698198_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82023775",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Olga Golovko",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/61c686b8c793972e16383935ed050667-p_c.jpg"
+                }
+              ],
+              "price": 1668800,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1943,
+              "livingAreaValue": 1943,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6077,
+              "lotAreaValue": 6077,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "5231 Leesa Ann Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "5231 Leesa Ann Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.24312,
+              "longitude": -121.91013,
+              "zpid": 19755611,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/5231-Leesa-Ann-Ct-San-Jose-CA-95124/19755611_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042909",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Terese Ferrara",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/0b692538573f7b993ed1b8e561434003-p_c.jpg"
+                }
+              ],
+              "price": 1748000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1614,
+              "livingAreaValue": 1614,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6540,
+              "lotAreaValue": 6540,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1638 Corte De Callas",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1638 Corte De Callas"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.25579,
+              "longitude": -121.89904,
+              "zpid": 19699447,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1638-Corte-De-Callas-San-Jose-CA-95124/19699447_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038107",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Steven Gary",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/9ef6d71eed6a928177ebf27dd8f45013-p_c.jpg"
+                }
+              ],
+              "price": 1588000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2117,
+              "livingAreaValue": 2117,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1579 Branham Ln",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1579 Branham Ln"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.254345,
+              "longitude": -121.90096,
+              "zpid": 19698339,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1579-Branham-Ln-San-Jose-CA-95118/19698339_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041442",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jordan Mott",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ce50836e27fe2b52426b55b27352962e-p_c.jpg"
+                }
+              ],
+              "price": 1748000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 1310,
+              "livingAreaValue": 1310,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7252,
+              "lotAreaValue": 7252,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "2734 Coit Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2734 Coit Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.27198,
+              "longitude": -121.92226,
+              "zpid": 19690379,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2734-Coit-Dr-San-Jose-CA-95124/19690379_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82043002",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Fan Wang",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/abc6246ad017868b1189d5ea033e2ca9-p_c.jpg"
+                }
+              ],
+              "price": 1595000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1252,
+              "livingAreaValue": 1252,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "5657 Rotterdam Ln",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Almaden Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "5657 Rotterdam Ln"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.23988,
+              "longitude": -121.89028,
+              "zpid": 19755336,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/5657-Rotterdam-Ln-San-Jose-CA-95118/19755336_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042271",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Heidi Tang",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/a243de02428ab6981807f3645bba9a30-p_c.jpg"
+                }
+              ],
+              "price": 1788888,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1467,
+              "livingAreaValue": 1467,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6180,
+              "lotAreaValue": 6180,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1611 Glenfield Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1611 Glenfield Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.27715,
+              "longitude": -121.901405,
+              "zpid": 19692269,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1611-Glenfield-Dr-San-Jose-CA-95125/19692269_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042213",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ron Evans",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/32e04638ae733af31f424d9953a87b7d-p_c.jpg"
+                }
+              ],
+              "price": 1499000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 1463,
+              "livingAreaValue": 1463,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5800,
+              "lotAreaValue": 5800,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1567 Jacob Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1567 Jacob Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.263706,
+              "longitude": -121.89883,
+              "zpid": 19695265,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1567-Jacob-Ave-San-Jose-CA-95118/19695265_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040499",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Dana Pasquale",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/08d3b481ea90d9b76239105df3f25e1e-p_c.jpg"
+                }
+              ],
+              "price": 1698000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1370,
+              "livingAreaValue": 1370,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6120,
+              "lotAreaValue": 6120,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1441 Dentwood Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1441 Dentwood Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.249454,
+              "longitude": -121.894325,
+              "zpid": 19757203,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1441-Dentwood-Dr-San-Jose-CA-95118/19757203_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036135",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Lorena Murillo Weldon",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "ba0e668b2f9df09ea602145f830522dc"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/1597-Calle-De-Stuarda-San-Jose-CA-95118/19699251_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca/"
+        },
+        "name": "Cupertino",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/morgan-hill-ca/"
+        },
+        "name": "Morgan Hill",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [
+      {
+        "regionUrl": {
+          "path": "/almaden-valley-san-jose-ca/"
+        },
+        "name": "Almaden Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/blossom-valley-san-jose-ca/"
+        },
+        "name": "Blossom Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/cambrian-park-san-jose-ca/"
+        },
+        "name": "Cambrian Park",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/downtown-san-jose-ca/"
+        },
+        "name": "Downtown",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/east-san-jose-san-jose-ca/"
+        },
+        "name": "East San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/evergreen-san-jose-ca/"
+        },
+        "name": "Evergreen",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/fairgrounds-san-jose-ca/"
+        },
+        "name": "Fairgrounds",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/north-valley-san-jose-ca/"
+        },
+        "name": "North Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/west-san-jose-san-jose-ca/"
+        },
+        "name": "West San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/willow-glen-san-jose-ca/"
+        },
+        "name": "Willow Glen",
+        "body": null
+      }
+    ],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95111/"
+        },
+        "name": "95111",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95112/"
+        },
+        "name": "95112",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95116/"
+        },
+        "name": "95116",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95122/"
+        },
+        "name": "95122",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95123/"
+        },
+        "name": "95123",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95124/"
+        },
+        "name": "95124",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95125/"
+        },
+        "name": "95125",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95127/"
+        },
+        "name": "95127",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95136/"
+        },
+        "name": "95136",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95148/"
+        },
+        "name": "95148",
+        "body": null
+      }
+    ],
+    "cityId": 33839,
+    "citySearchUrl": {
+      "text": "Homes in San Jose",
+      "path": "/san-jose-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/san-jose-ca-95118/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/san-jose-ca-95118/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/san-jose-ca-95118/rent-houses/"
+    },
+    "abbreviatedAddress": "1597 Calle De Stuarda",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": {
+      "name": "Cambrian Park"
+    },
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": {
+      "path": "/cambrian-park-san-jose-ca/"
+    },
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "buy_sold",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "hood": "Cambrian_Park",
+      "price_band": "z1m",
+      "zestimate": "1715700",
+      "zestibuck": "1_5-1_999m",
+      "price": "1800000",
+      "prange": "1_5-1_999m",
+      "lot": "2",
+      "bd": "3",
+      "ba": "2",
+      "sqft": "1614",
+      "sqftrange": "1500-1999",
+      "yrblt": "1970-1979",
+      "aamgnrc1": "1597 Calle De Stuarda",
+      "city": "San_Jose",
+      "state": "CA",
+      "zip": "95118",
+      "pid": "19699251",
+      "premieragent": "no",
+      "tflag": "verizon",
+      "ssid": "18932",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "9793f741-d7bd-42bd-83b2-bcfb9f46b6fa"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 1715700,
+    "newConstructionType": null,
+    "zestimateLowPercent": "9",
+    "zestimateHighPercent": "10",
+    "rentZestimate": 4821,
+    "restimateLowPercent": "5",
+    "restimateHighPercent": "5",
+    "schools": [
+      {
+        "distance": 1.1,
+        "name": "Oster Elementary School",
+        "rating": 9,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5718-Oster-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.4,
+        "name": "Dartmouth Middle School",
+        "rating": 7,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5713-Dartmouth-Middle-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.3,
+        "name": "Branham High School",
+        "rating": 9,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/11149-Branham-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "Cambrian Park",
+      "regionId": 114074
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 19699250,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/98a2da2b4ec71afbbca74d2eac2ea7e6-p_c.jpg"
+          }
+        ],
+        "price": 2113700,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "livingArea": 1880,
+        "livingAreaValue": 1880,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "1595 Calle De Stuarda",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95118"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1595 Calle De Stuarda"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.259262,
+        "longitude": -121.90023,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1595-Calle-De-Stuarda-San-Jose-CA-95118/19699250_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": "1pjvptfhsej7w",
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19699249,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=4231+Corte+De+Tebaldi%2C+San+Jose%2C+CA+95118&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=65C8RTeWpSc-lNWqMAaoBjsQSP4="
+          }
+        ],
+        "price": 2140300,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "livingArea": 1900,
+        "livingAreaValue": 1900,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 8276,
+        "lotAreaValue": 8276,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "4231 Corte De Tebaldi",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95118"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "4231 Corte De Tebaldi"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.25943,
+        "longitude": -121.900536,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/4231-Corte-De-Tebaldi-San-Jose-CA-95118/19699249_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19699252,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1596+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=wBDNWhe4CKejfHAIu_wc9FI2Qlo="
+          }
+        ],
+        "price": 1746300,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1426,
+        "livingAreaValue": 1426,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6534,
+        "lotAreaValue": 6534,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1596 Calle De Stuarda",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95118"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1596 Calle De Stuarda"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.258736,
+        "longitude": -121.90029,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1596-Calle-De-Stuarda-San-Jose-CA-95118/19699252_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 112091374,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1608+Corte+De+Anna%2C+San+Jose%2C+CA+95124&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=uX-QecHd6fpVAk9lclHSRCBH5RU="
+          }
+        ],
+        "price": 1919600,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingArea": 1910,
+        "livingAreaValue": 1910,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 3484,
+        "lotAreaValue": 3484,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1608 Corte De Anna",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95124"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1608 Corte De Anna"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.259094,
+        "longitude": -121.90104,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1608-Corte-De-Anna-San-Jose-CA-95124/112091374_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19698376,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1602+Corte+De+Anna%2C+San+Jose%2C+CA+95124&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=iJHhe5zE_wOIYNdvd2dl7NqDVmU="
+          }
+        ],
+        "price": 1906600,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingArea": 1910,
+        "livingAreaValue": 1910,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 3920,
+        "lotAreaValue": 3920,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1602 Corte De Anna",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95124"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1602 Corte De Anna"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.25896,
+        "longitude": -121.900986,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1602-Corte-De-Anna-San-Jose-CA-95124/19698376_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19699253,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=1594+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=H5s98Vtq-T_yjO3mwIjQvUsDusA="
+          }
+        ],
+        "price": 1862800,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1614,
+        "livingAreaValue": 1614,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 5662,
+        "lotAreaValue": 5662,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1594 Calle De Stuarda",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95118"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1594 Calle De Stuarda"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.258816,
+        "longitude": -121.90008,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/1594-Calle-De-Stuarda-San-Jose-CA-95118/19699253_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19699248,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/3526fa2a87522c789156eede3f4ef180-p_c.jpg"
+          }
+        ],
+        "price": 2407100,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1614,
+        "livingAreaValue": 1614,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 10785,
+        "lotAreaValue": 10785,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "4221 Corte De Tebaldi",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95118"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "4221 Corte De Tebaldi"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.25964,
+        "longitude": -121.900536,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/4221-Corte-De-Tebaldi-San-Jose-CA-95118/19699248_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19698377,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/2c1ada4ed82a59c16e3b70cdf9b44d71-p_c.jpg"
+          }
+        ],
+        "price": 1419200,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2.5,
+        "livingArea": 1500,
+        "livingAreaValue": 1500,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 4791,
+        "lotAreaValue": 4791,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "1614 Corte De Anna",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95124"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "1614 Corte De Anna"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.25924,
+        "longitude": -121.901085,
+        "homeStatus": "OTHER",
+        "homeType": "MULTI_FAMILY",
+        "hdpUrl": "/homedetails/1614-Corte-De-Anna-San-Jose-CA-95124/19698377_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Multi Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "Set on a corner lot in a picturesque Cambrian neighborhood, this single-story residence blends luxury, convenience, and acclaimed schools (Oster/Dartmouth/Branham). The open layout and remodeled kitchen highlight the modern allure of the home, while soaring vaulted ceilings and large windows create a distinct first impression as you enter. The free-flowing layout connects living, dining, and kitchen areas seamlessly. The living room features a floor-to-ceiling fireplace and opens to a serene backyard with a pool, spa, & covered patio. The gourmet kitchen boasts shaker cabinets, quartz countertops & backsplash, and stainless steel appliances, including an LG ThinQ smart refrigerator, Frigidaire gas range, & double ovens. The spacious primary suite offers a walk-in closet, private access to the backyard, & spa-like ensuite with a custom jacuzzi, standing shower, & dual vanities. Two additional bedrooms, an updated hallway bathroom, & a dedicated laundry space add to the home's functionality. Additional upgrades include copper plumbing, leased solar, and central heat/AC. Conveniently located near Almaden Plaza, Oakridge Mall, Downtown Willow Glen, Los Gatos, & the Pruneyard, with easy access to VTA and highways 85 & 87. Top schools: Oster/Dartmouth/Branham (buyer to verify).",
+    "whatILove": null,
+    "timeOnZillow": "557 days",
+    "pageViewCount": 8,
+    "favoriteCount": 0,
+    "daysOnZillow": 557,
+    "latitude": 37.259167,
+    "longitude": -121.90047,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=550x413&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=FGR2WMOQZzap5yAZJyTDFKW7yVI=",
+    "brokerageName": "Christie's International Real Estate Sereno",
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [
+      {
+        "id": "LISTING_AGENT",
+        "elements": [
+          {
+            "id": "NAME",
+            "text": "Roxy Laufer",
+            "action": null
+          },
+          {
+            "id": "LICENSE",
+            "text": "02006177",
+            "action": null
+          },
+          {
+            "id": "PHONE",
+            "text": "408-314-1290",
+            "action": null
+          }
+        ],
+        "textStyle": null
+      },
+      {
+        "id": "BROKER",
+        "elements": [
+          {
+            "id": "NAME",
+            "text": "Christie's International Real Estate Sereno",
+            "action": null
+          },
+          {
+            "id": "PHONE",
+            "text": "408-335-1400",
+            "action": null
+          }
+        ],
+        "textStyle": null
+      }
+    ],
+    "homeInsights": [
+      {
+        "insights": [
+          {
+            "modelId": "z-nrt-pdc-llm-tags",
+            "treatmentId": "model_1",
+            "phrases": [
+              "Floor-to-ceiling fireplace",
+              "Gourmet kitchen",
+              "Spa-like ensuite",
+              "Open layout",
+              "Spacious primary suite",
+              "Large windows",
+              "Corner lot"
+            ]
+          }
+        ]
+      }
+    ],
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776266290378
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776266290378
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776266290378
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1025x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=G_uubgw6E5jWOWspXKuNAzPOtbo=",
+    "mlsid": "ML81977876",
+    "ouid": "M00000101",
+    "palsId": "18932001_ML81977876",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I own this home and would like a professional estimate at 1597 Calle De Stuarda, San Jose, CA 95118.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 1,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": 6500,
+    "lotAreaValue": 6500,
+    "lotAreaUnits": "Square Feet",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [
+      {
+        "date": "2024-10-04",
+        "price": 1800000,
+        "time": 1728000000000,
+        "pricePerSquareFoot": 1115,
+        "priceChangeRate": 0.2008005336891261,
+        "event": "Sold",
+        "source": "MLSListings Inc",
+        "buyerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/Joel-Stieber/",
+          "name": "Joel Stieber"
+        },
+        "sellerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/RoxyLaufer/",
+          "name": "Roxy Laufer"
+        },
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81977876",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_logo_inf_11.jpg"
+        }
+      },
+      {
+        "date": "2024-08-29",
+        "price": 1499000,
+        "time": 1724889600000,
+        "pricePerSquareFoot": 929,
+        "priceChangeRate": 0,
+        "event": "Pending sale",
+        "source": "MLSListings Inc",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81977876",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_logo_inf_11.jpg"
+        }
+      },
+      {
+        "date": "2024-08-23",
+        "price": 1499000,
+        "time": 1724371200000,
+        "pricePerSquareFoot": 929,
+        "priceChangeRate": 1.7155797101449275,
+        "event": "Listed for sale",
+        "source": "MLSListings Inc",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81977876",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_logo_inf_11.jpg"
+        }
+      },
+      {
+        "date": "2019-06-01",
+        "price": 3695,
+        "time": 1559347200000,
+        "pricePerSquareFoot": 2,
+        "priceChangeRate": 0,
+        "event": "Listing removed",
+        "source": "Mynd Property Management",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": true,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Mynd Property Management",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2019-05-22",
+        "price": 3695,
+        "time": 1558483200000,
+        "pricePerSquareFoot": 2,
+        "priceChangeRate": -0.026350461133069828,
+        "event": "Price change",
+        "source": "Mynd Property Management",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": true,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Mynd Property Management",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2019-05-01",
+        "price": 3795,
+        "time": 1556668800000,
+        "pricePerSquareFoot": 2,
+        "priceChangeRate": 0,
+        "event": "Listed for rent",
+        "source": "Mynd Property Management",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": true,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Mynd Property Management",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2003-02-14",
+        "price": 552000,
+        "time": 1045180800000,
+        "pricePerSquareFoot": 342,
+        "priceChangeRate": 0.5839311334289814,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "1999-07-01",
+        "price": 348500,
+        "time": 930787200000,
+        "pricePerSquareFoot": 216,
+        "priceChangeRate": 0,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      }
+    ],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "2024-08-23",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=wed11Wte0B7rjFMhuBv25dmh04E=",
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": 1800000,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=46x46&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=eqQ7qV2oMk3eVIJKefRkONVriFA="
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=w-PUu0gdxbhHTvNRTRxHlw_NMkI="
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "RecentlySold",
+    "listingTypeDimension": "Unknown Listed By",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Unknown Listed By",
+    "keystoneHomeStatus": "RecentlySold",
+    "pageUrlFragment": "RecentlySold",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=1TrY-7Kswf8caJbzhgmFyJRklnw=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Cc_ZQQ37zBATAdCjxQy-kbeUNc8=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=r3rY1NWIwJnxTuAKzJhh1gM2ICc=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=dETgA_SB670tzzKETH_YECZOarQ=",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=1TrY-7Kswf8caJbzhgmFyJRklnw=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Cc_ZQQ37zBATAdCjxQy-kbeUNc8=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=r3rY1NWIwJnxTuAKzJhh1gM2ICc=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=dETgA_SB670tzzKETH_YECZOarQ=",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": "X1-ZU10zjwtb37dpft_9tzap",
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": "45144077",
+    "taxHistory": [
+      {
+        "time": 1744737887739,
+        "taxPaid": 32989.68,
+        "taxIncreaseRate": 1.8663248,
+        "value": 1800000,
+        "valueIncreaseRate": 1.2975888
+      },
+      {
+        "time": 1713201887739,
+        "taxPaid": 11509.4,
+        "taxIncreaseRate": 0.021561297,
+        "value": 783430,
+        "valueIncreaseRate": 0.019998178
+      },
+      {
+        "time": 1681579487739,
+        "taxPaid": 11266.48,
+        "taxIncreaseRate": 0.020398099,
+        "value": 768070,
+        "valueIncreaseRate": 0.019998379
+      },
+      {
+        "time": 1650043487739,
+        "taxPaid": 11041.26,
+        "taxIncreaseRate": 0.021087067,
+        "value": 753011,
+        "valueIncreaseRate": 0.019998727
+      },
+      {
+        "time": 1618507487739,
+        "taxPaid": 10813.24,
+        "taxIncreaseRate": 0.022097562,
+        "value": 738247,
+        "valueIncreaseRate": 0.010358872
+      },
+      {
+        "time": 1586971487739,
+        "taxPaid": 10579.46,
+        "taxIncreaseRate": 0,
+        "value": 730678,
+        "valueIncreaseRate": 0.019998549
+      },
+      {
+        "time": 1555349087739,
+        "taxPaid": 10579.46,
+        "taxIncreaseRate": 0.044064123,
+        "value": 716352,
+        "valueIncreaseRate": 0.019998377
+      },
+      {
+        "time": 1523813087739,
+        "taxPaid": 10132.96,
+        "taxIncreaseRate": 0,
+        "value": 702307,
+        "valueIncreaseRate": 0.019998925
+      },
+      {
+        "time": 1492277087739,
+        "taxPaid": 10132.96,
+        "taxIncreaseRate": 0.013297975,
+        "value": 688537,
+        "valueIncreaseRate": 0.019998904
+      },
+      {
+        "time": 1460741087739,
+        "taxPaid": 9999.98,
+        "taxIncreaseRate": 0.0660142,
+        "value": 675037,
+        "valueIncreaseRate": 0.015247429
+      },
+      {
+        "time": 1429118687739,
+        "taxPaid": 9380.72,
+        "taxIncreaseRate": 0.063554354,
+        "value": 664899,
+        "valueIncreaseRate": 0.019977726
+      },
+      {
+        "time": 1397582687739,
+        "taxPaid": 8820.16,
+        "taxIncreaseRate": 0,
+        "value": 651876,
+        "valueIncreaseRate": 0.004538233
+      },
+      {
+        "time": 1366046687739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 648931,
+        "valueIncreaseRate": 0.18202367
+      },
+      {
+        "time": 1334510687739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 549000,
+        "valueIncreaseRate": -0.04521739
+      },
+      {
+        "time": 1302888287739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 575000,
+        "valueIncreaseRate": -0.07119193
+      },
+      {
+        "time": 1271352287739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 619073,
+        "valueIncreaseRate": -0.0023721084
+      },
+      {
+        "time": 1239816287739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 620545,
+        "valueIncreaseRate": 0.01999908
+      },
+      {
+        "time": 1208280287739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 608378,
+        "valueIncreaseRate": 0.019998323
+      },
+      {
+        "time": 1176657887739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 596450,
+        "valueIncreaseRate": 0.019999828
+      },
+      {
+        "time": 1145121887739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 584755,
+        "valueIncreaseRate": 0.019998604
+      },
+      {
+        "time": 1113585887739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 573290,
+        "valueIncreaseRate": 0.01999822
+      },
+      {
+        "time": 1082049887739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 562050,
+        "valueIncreaseRate": 0.51975644
+      },
+      {
+        "time": 1050427487739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 369829,
+        "valueIncreaseRate": 0.019995643
+      },
+      {
+        "time": 1018891487739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 362579,
+        "valueIncreaseRate": 0.019998875
+      },
+      {
+        "time": 987355487739,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 355470,
+        "valueIncreaseRate": 0
+      }
+    ],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/1597-Calle%20De%20Stuarda_-San%20Jose-95118/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/95118/?bedrooms=3",
+    "neighborhoodId": 114074,
+    "zipcodeId": 97986,
+    "sellingSoon": []
+  }
+}

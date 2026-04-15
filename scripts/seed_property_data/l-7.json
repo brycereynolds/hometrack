@@ -1,0 +1,3281 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_exad_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/19525620_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 43480.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 6990800,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "310 Waverly Ln",
+    "city": "Los Altos",
+    "state": "CA",
+    "zipcode": "94022",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "310 Waverly Ln"
+        },
+        {
+          "fullValue": "Los Altos, CA 94022"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 4,
+      "bathroomsFull": null,
+      "bathroomsThreeQuarter": null,
+      "bathroomsHalf": null,
+      "bathroomsOneQuarter": null,
+      "bedrooms": 5,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": [
+        "Slightly Irregular"
+      ],
+      "buildingName": null,
+      "appliances": [],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "SingleFamily"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "1995"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "Other"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": null
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "Garage - Attached"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": "0.33 Acres"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": null,
+      "bathroomsPartial": null,
+      "bathroomsFloat": 4,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": null,
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "Los Altos",
+      "commonWalls": null,
+      "communityFeatures": [],
+      "compensationBasedOn": null,
+      "constructionMaterials": [
+        "wood frame"
+      ],
+      "contingency": null,
+      "cooling": [],
+      "coveredParkingCapacity": null,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": null,
+      "fireplaces": null,
+      "flooring": [],
+      "foundationArea": null,
+      "foundationDetails": [],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": null,
+      "gas": null,
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": null,
+      "hasAttachedProperty": false,
+      "hasCooling": false,
+      "hasCarport": null,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": false,
+      "hasHeating": true,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": true,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [
+        "Other"
+      ],
+      "highSchool": null,
+      "highSchoolDistrict": null,
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": null,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": null,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": null,
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": "0.33 Acres",
+      "lotSizeDimensions": null,
+      "livingArea": "3,544 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [],
+      "middleOrJuniorSchool": null,
+      "middleOrJuniorSchoolDistrict": null,
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": null,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "17027041",
+      "parkingCapacity": 0,
+      "parkingFeatures": [
+        "Garage - Attached"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": 1973,
+      "propertyCondition": null,
+      "propertySubType": null,
+      "roadSurfaceType": null,
+      "roofType": null,
+      "rooms": [],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": null,
+      "spaFeatures": null,
+      "specialListingConditions": null,
+      "stories": null,
+      "storiesDecimal": null,
+      "storiesTotal": null,
+      "structureType": "Other",
+      "subdivisionName": null,
+      "taxAnnualAmount": 29270,
+      "taxAssessedValue": 2394824,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": null,
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": null,
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": "",
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 1995,
+      "yearBuiltEffective": null,
+      "zoning": null,
+      "zoningDescription": null,
+      "elementarySchool": null,
+      "elementarySchoolDistrict": null,
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": null,
+    "homeStatus": "OTHER",
+    "listingProvider": {
+      "logos": [],
+      "title": "Listing Provided by",
+      "disclaimerText": null,
+      "enhancedVideoURL": null,
+      "enhancedDescriptionText": null,
+      "showLogos": null,
+      "showNoContactInfoMessage": false,
+      "agentName": null,
+      "agentLicenseNumber": null,
+      "postingWebsiteURL": null,
+      "postingWebsiteLinkText": "See listing website",
+      "postingGroupName": null,
+      "sourceText": null,
+      "isZRMSourceText": null
+    },
+    "livingArea": 3544,
+    "livingAreaValue": 3544,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": null,
+      "mlsName": null,
+      "providerLogo": null,
+      "listingAgreement": null,
+      "agentEmail": null,
+      "agentLicenseNumber": null,
+      "agentName": null,
+      "agentPhoneNumber": null,
+      "attributionTitle": null,
+      "brokerName": null,
+      "brokerPhoneNumber": null,
+      "buyerAgentMemberStateLicense": null,
+      "buyerAgentName": null,
+      "buyerBrokerageName": null,
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": null,
+      "lastUpdated": null,
+      "listingOffices": [],
+      "listingAgents": [],
+      "mlsDisclaimer": null,
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": null,
+      "infoString5": null,
+      "infoString10": null,
+      "infoString16": null
+    },
+    "listingDataSource": "Legacy",
+    "zpid": 19525620,
+    "address": {
+      "streetAddress": "310 Waverly Ln",
+      "city": "Los Altos",
+      "state": "CA",
+      "zipcode": "94022",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "yearBuilt": 1995,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/599bc02fc36978317c331cbf73114b31-p_c.jpg"
+                }
+              ],
+              "price": 7498000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 6,
+              "livingArea": 4749,
+              "livingAreaValue": 4749,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 25700,
+              "lotAreaValue": 0.5899908172635445,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "875 Madonna Way",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94024"
+              },
+              "parentRegion": {
+                "name": "94024"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "875 Madonna Way"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94024"
+                  }
+                ]
+              },
+              "latitude": 37.365265,
+              "longitude": -122.11132,
+              "zpid": 19628673,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/875-Madonna-Way-Los-Altos-CA-94024/19628673_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042656",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " The Troyer & Cabot Group",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/b51a48d469ded61eb2a9c88c648ceee0-p_c.jpg"
+                }
+              ],
+              "price": 6088000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 3182,
+              "livingAreaValue": 3182,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 22496,
+              "lotAreaValue": 0.5164370982552801,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "140 University Ave",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "140 University Ave"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.37947,
+              "longitude": -122.12113,
+              "zpid": 19526858,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/140-University-Ave-Los-Altos-CA-94022/19526858_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040390",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jon Cassin",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/43b06623e94fae1906c324822844f7c4-p_c.jpg"
+                }
+              ],
+              "price": 6899000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 6,
+              "livingArea": 5088,
+              "livingAreaValue": 5088,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 52707,
+              "lotAreaValue": 1.21,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "12800 Clausen Ct",
+                "city": "Los Altos Hills",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "12800 Clausen Ct"
+                  },
+                  {
+                    "fullValue": "Los Altos Hills, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.36203,
+              "longitude": -122.11771,
+              "zpid": 19629098,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/12800-Clausen-Ct-Los-Altos-Hills-CA-94022/19629098_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "41124245",
+                "mlsName": "Bay East AOR",
+                "providerLogo": null,
+                "agentName": "Janki Patel",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/d958fc9c691ac8c565c2ce9a4011e3db-p_c.jpg"
+                }
+              ],
+              "price": 6494000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 3157,
+              "livingAreaValue": 3157,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 43560,
+              "lotAreaValue": 1,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "24855 Prospect Ave",
+                "city": "Los Altos Hills",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "24855 Prospect Ave"
+                  },
+                  {
+                    "fullValue": "Los Altos Hills, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.355343,
+              "longitude": -122.12556,
+              "zpid": 19629180,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/24855-Prospect-Ave-Los-Altos-Hills-CA-94022/19629180_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041407",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Alan Nguyen",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/bc93a9b1e3857604e9e63c3c761913c6-p_c.jpg"
+                }
+              ],
+              "price": 5595000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 3900,
+              "livingAreaValue": 3900,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 119005,
+              "lotAreaValue": 2.732,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "12390 Gigli Ct",
+                "city": "Los Altos Hills",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "12390 Gigli Ct"
+                  },
+                  {
+                    "fullValue": "Los Altos Hills, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.37506,
+              "longitude": -122.14906,
+              "zpid": 112099434,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/12390-Gigli-Ct-Los-Altos-Hills-CA-94022/112099434_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042057",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Gary Campi",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/9a659c0b7decaaf789efbd6776d6d0e7-p_c.jpg"
+                }
+              ],
+              "price": 5795000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 3123,
+              "livingAreaValue": 3123,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 13375,
+              "lotAreaValue": 0.30704775022956843,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "526 Pinecrest Dr",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94024"
+              },
+              "parentRegion": {
+                "name": "94024"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "526 Pinecrest Dr"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94024"
+                  }
+                ]
+              },
+              "latitude": 37.340103,
+              "longitude": -122.073265,
+              "zpid": 19629760,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/526-Pinecrest-Dr-Los-Altos-CA-94024/19629760_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042869",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Kathy Bridgman",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/7d42e4ae685f80bfdbfc540683e00a5d-p_c.jpg"
+                }
+              ],
+              "price": 5995000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 5,
+              "livingArea": 5255,
+              "livingAreaValue": 5255,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 18270,
+              "lotAreaValue": 0.4194214876033058,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "795 Nash Rd",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94024"
+              },
+              "parentRegion": {
+                "name": "94024"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "795 Nash Rd"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94024"
+                  }
+                ]
+              },
+              "latitude": 37.366463,
+              "longitude": -122.1129,
+              "zpid": 19628641,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/795-Nash-Rd-Los-Altos-CA-94024/19628641_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041928",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Kathy Bridgman",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/a31148a988e9be80b5a13005d8520216-p_c.jpg"
+                }
+              ],
+              "price": 5298000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3752,
+              "livingAreaValue": 3752,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 43995,
+              "lotAreaValue": 1.01,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "25550 Moody Rd",
+                "city": "Los Altos Hills",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "25550 Moody Rd"
+                  },
+                  {
+                    "fullValue": "Los Altos Hills, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.354687,
+              "longitude": -122.1382,
+              "zpid": 19629274,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/25550-Moody-Rd-Los-Altos-Hills-CA-94022/19629274_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041949",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Nicholas French",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/fd15d646168ea4dbc0e690c6b8ee59eb-p_c.jpg"
+                }
+              ],
+              "price": 7388000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 5,
+              "livingArea": 4410,
+              "livingAreaValue": 4410,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 65340,
+              "lotAreaValue": 1.5,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "26201 Dori Ln",
+                "city": "Los Altos Hills",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "26201 Dori Ln"
+                  },
+                  {
+                    "fullValue": "Los Altos Hills, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.3661,
+              "longitude": -122.13183,
+              "zpid": 19527900,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/26201-Dori-Ln-Los-Altos-Hills-CA-94022/19527900_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037019",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Kathy Bridgman",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/58813d6fc5486f7d5413b6a3677d0f3c-p_c.jpg"
+                }
+              ],
+              "price": 7990000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 5043,
+              "livingAreaValue": 5043,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 11818,
+              "lotAreaValue": 0.27130394857667584,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "484 Cherry Ave",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "484 Cherry Ave"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.39006,
+              "longitude": -122.11786,
+              "zpid": 68974667,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/484-Cherry-Ave-Los-Altos-CA-94022/68974667_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82023143",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Danny Mok",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/9aca05439d0d9f8e2b873dce551fb2e8-p_c.jpg"
+                }
+              ],
+              "price": 3998000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2408,
+              "livingAreaValue": 2408,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10078,
+              "lotAreaValue": 10078,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "807 University Ave",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94024"
+              },
+              "parentRegion": {
+                "name": "94024"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "807 University Ave"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94024"
+                  }
+                ]
+              },
+              "latitude": 37.36839,
+              "longitude": -122.110634,
+              "zpid": 19628599,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/807-University-Ave-Los-Altos-CA-94024/19628599_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042927",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Bogard-Tanigami Team",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/45df5622f0eccfee4308236e8468988a-p_c.jpg"
+                }
+              ],
+              "price": 6495000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 3811,
+              "livingAreaValue": 3811,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 43560,
+              "lotAreaValue": 1,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "10669 Magdalena Rd",
+                "city": "Los Altos Hills",
+                "state": "CA",
+                "zipcode": "94024"
+              },
+              "parentRegion": {
+                "name": "94024"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "10669 Magdalena Rd"
+                  },
+                  {
+                    "fullValue": "Los Altos Hills, CA 94024"
+                  }
+                ]
+              },
+              "latitude": 37.345146,
+              "longitude": -122.11586,
+              "zpid": 19629528,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/10669-Magdalena-Rd-Los-Altos-Hills-CA-94024/19629528_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039047",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Kathy Bridgman",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/a40855d3846813e9c4f76ad1c758a579-p_c.jpg"
+                }
+              ],
+              "price": 7998000,
+              "currency": "USD",
+              "bedrooms": 6,
+              "bathrooms": 6,
+              "livingArea": 4175,
+              "livingAreaValue": 4175,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 168159,
+              "lotAreaValue": 3.8604,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "138 Bolivar Ln",
+                "city": "Portola Valley",
+                "state": "CA",
+                "zipcode": "94028"
+              },
+              "parentRegion": {
+                "name": "94028"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "138 Bolivar Ln"
+                  },
+                  {
+                    "fullValue": "Portola Valley, CA 94028"
+                  }
+                ]
+              },
+              "latitude": 37.393394,
+              "longitude": -122.19995,
+              "zpid": 15601676,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/138-Bolivar-Ln-Portola-Valley-CA-94028/15601676_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042439",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Stephanie Elkins",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/044bf428ae40933e9191d0b6be5638bc-p_c.jpg"
+                }
+              ],
+              "price": 8988000,
+              "currency": "USD",
+              "bedrooms": 6,
+              "bathrooms": 4,
+              "livingArea": 4630,
+              "livingAreaValue": 4630,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 64904,
+              "lotAreaValue": 1.49,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "13321 La Paloma Rd",
+                "city": "Los Altos Hills",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "13321 La Paloma Rd"
+                  },
+                  {
+                    "fullValue": "Los Altos Hills, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.375816,
+              "longitude": -122.13401,
+              "zpid": 69301478,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/13321-La-Paloma-Rd-Los-Altos-Hills-CA-94022/69301478_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82027947",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Craig Pellegrini",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/49bf8fb90227d9586fc0df9c98c57a4d-p_c.jpg"
+                }
+              ],
+              "price": 6395000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 3718,
+              "livingAreaValue": 3718,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 48743,
+              "lotAreaValue": 1.119,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "50 Bear Gulch Dr",
+                "city": "Portola Valley",
+                "state": "CA",
+                "zipcode": "94028"
+              },
+              "parentRegion": {
+                "name": "94028"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "50 Bear Gulch Dr"
+                  },
+                  {
+                    "fullValue": "Portola Valley, CA 94028"
+                  }
+                ]
+              },
+              "latitude": 37.3788,
+              "longitude": -122.19763,
+              "zpid": 15602332,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/50-Bear-Gulch-Dr-Portola-Valley-CA-94028/15602332_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039321",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Peter Cowperthwaite",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/1a6b5c09116d52c84b29f7c1b4318fbc-p_c.jpg"
+                }
+              ],
+              "price": 5995000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 6,
+              "livingArea": 3671,
+              "livingAreaValue": 3671,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 71002,
+              "lotAreaValue": 1.63,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "730 Mora Dr",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94024"
+              },
+              "parentRegion": {
+                "name": "Loyola"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "730 Mora Dr"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94024"
+                  }
+                ]
+              },
+              "latitude": 37.34429,
+              "longitude": -122.092995,
+              "zpid": 19628226,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/730-Mora-Dr-Los-Altos-CA-94024/19628226_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82031198",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " The Dreyfus Group",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/43e0b21a7869fb32a5cd3513a4689373-p_c.jpg"
+                }
+              ],
+              "price": 5988000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3220,
+              "livingAreaValue": 3220,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8384,
+              "lotAreaValue": 8384,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "345 Vine St",
+                "city": "Menlo Park",
+                "state": "CA",
+                "zipcode": "94025"
+              },
+              "parentRegion": {
+                "name": "University Heights"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "345 Vine St"
+                  },
+                  {
+                    "fullValue": "Menlo Park, CA 94025"
+                  }
+                ]
+              },
+              "latitude": 37.42944,
+              "longitude": -122.19281,
+              "zpid": 15598915,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/345-Vine-St-Menlo-Park-CA-94025/15598915_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041554",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Mary Jo McCarthy",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/d2eeb700d327489211fd7f60fcff8ba8-p_c.jpg"
+                }
+              ],
+              "price": 7150000,
+              "currency": "USD",
+              "bedrooms": 6,
+              "bathrooms": 4,
+              "livingArea": 3913,
+              "livingAreaValue": 3913,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7500,
+              "lotAreaValue": 7500,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "839 Melville Ave",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94301"
+              },
+              "parentRegion": {
+                "name": "Community Center"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "839 Melville Ave"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94301"
+                  }
+                ]
+              },
+              "latitude": 37.44756,
+              "longitude": -122.14668,
+              "zpid": 19468403,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/839-Melville-Ave-Palo-Alto-CA-94301/19468403_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041182",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Christy Giuliacci",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/6a57fa3d6d5f8ac35aa5fcf824065cc3-p_c.jpg"
+                }
+              ],
+              "price": 4995000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 2487,
+              "livingAreaValue": 2487,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 45738,
+              "lotAreaValue": 1.05,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "12544 Corbetta Ln",
+                "city": "Los Altos Hills",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "12544 Corbetta Ln"
+                  },
+                  {
+                    "fullValue": "Los Altos Hills, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.360497,
+              "longitude": -122.14156,
+              "zpid": 19528614,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/12544-Corbetta-Ln-Los-Altos-Hills-CA-94022/19528614_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041013",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Kathy Bridgman",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/6f7faa665d503b1524a5f59cee372b8b-p_c.jpg"
+                }
+              ],
+              "price": 5888000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 2057,
+              "livingAreaValue": 2057,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 34580,
+              "lotAreaValue": 0.7938475665748393,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "488 Knoll Dr",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94024"
+              },
+              "parentRegion": {
+                "name": "Loyola"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "488 Knoll Dr"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94024"
+                  }
+                ]
+              },
+              "latitude": 37.359966,
+              "longitude": -122.10191,
+              "zpid": 19628825,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/488-Knoll-Dr-Los-Altos-CA-94024/19628825_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038382",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Spencer Snyder",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "74c21d050f560a3b17f6f59a7a5fa7a4"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/310-Waverly-Ln-Los-Altos-CA-94022/19525620_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca/"
+        },
+        "name": "Cupertino",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/morgan-hill-ca/"
+        },
+        "name": "Morgan Hill",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [
+      {
+        "regionUrl": {
+          "path": "/loyola-los-altos-ca/"
+        },
+        "name": "Loyola",
+        "body": null
+      }
+    ],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca-94022/"
+        },
+        "name": "94022",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/los-altos-ca-94023/"
+        },
+        "name": "94023",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/los-altos-ca-94024/"
+        },
+        "name": "94024",
+        "body": null
+      }
+    ],
+    "cityId": 39511,
+    "citySearchUrl": {
+      "text": "Homes in Los Altos",
+      "path": "/los-altos-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/palo-alto-ca-94022/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/palo-alto-ca-94022/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/palo-alto-ca-94022/rent-houses/"
+    },
+    "abbreviatedAddress": "310 Waverly Ln",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": null,
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": null,
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "not_for_sale",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "price_band": "z3m",
+      "zestimate": "6990800",
+      "zestibuck": "6m-6_999m",
+      "price": "6990800",
+      "lot": "3",
+      "bd": "5",
+      "ba": "4",
+      "sqft": "3544",
+      "sqftrange": "3500-3999",
+      "yrblt": "1990-1999",
+      "aamgnrc1": "310 Waverly Ln",
+      "city": "Los_Altos",
+      "state": "CA",
+      "zip": "94022",
+      "pid": "19525620",
+      "premieragent": "no",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "df916380-3df3-4128-81d5-f39a42b361c9"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 6990800,
+    "newConstructionType": null,
+    "zestimateLowPercent": "10",
+    "zestimateHighPercent": "12",
+    "rentZestimate": 12576,
+    "restimateLowPercent": null,
+    "restimateHighPercent": null,
+    "schools": [
+      {
+        "distance": 0.4,
+        "name": "Covington Elementary School",
+        "rating": 9,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-6",
+        "link": "https://www.greatschools.org/california/los-altos/12456-Covington-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.4,
+        "name": "Ardis G. Egan Junior High School",
+        "rating": 8,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "7-8",
+        "link": "https://www.greatschools.org/california/los-altos/5517-Ardis-G.-Egan-Junior-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.6,
+        "name": "Los Altos High School",
+        "rating": 10,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/los-altos/5580-Los-Altos-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "94022",
+      "regionId": 97513
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 19525602,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=290+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Qbaf4KB9ZbfO4nX1Sy633e5ksHE="
+          }
+        ],
+        "price": 4829400,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2.5,
+        "livingArea": 2527,
+        "livingAreaValue": 2527,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 8712,
+        "lotAreaValue": 8712,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "290 Waverly Ln",
+          "city": "Los Altos",
+          "state": "CA",
+          "zipcode": "94022"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "290 Waverly Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.377228,
+        "longitude": -122.10837,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/290-Waverly-Ln-Los-Altos-CA-94022/19525602_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19525592,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=259+Marvin+Ave%2C+Los+Altos%2C+CA+94022&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=GTzCEt0PLtUrROR8DeYGPph7bR0="
+          }
+        ],
+        "price": 7589700,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1827,
+        "livingAreaValue": 1827,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 18295,
+        "lotAreaValue": 0.41999540863177226,
+        "lotAreaUnits": "Acres",
+        "address": {
+          "streetAddress": "259 Marvin Ave",
+          "city": "Los Altos",
+          "state": "CA",
+          "zipcode": "94022"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "259 Marvin Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.376522,
+        "longitude": -122.10839,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/259-Marvin-Ave-Los-Altos-CA-94022/19525592_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19525621,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.376953125,-122.10891723632812&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=UW5jDAODgxK-WN19Fu7XTGhARQg="
+          }
+        ],
+        "price": 7750400,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 4.5,
+        "livingArea": 3346,
+        "livingAreaValue": 3346,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 21344,
+        "lotAreaValue": 0.48999081726354454,
+        "lotAreaUnits": "Acres",
+        "address": {
+          "streetAddress": "309 Eleanor Ave",
+          "city": "Los Altos",
+          "state": "CA",
+          "zipcode": "94022"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "309 Eleanor Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.376953,
+        "longitude": -122.10892,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/309-Eleanor-Ave-Los-Altos-CA-94022/19525621_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19525606,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=319+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=-x7wNDf--ynufbsoWfFB1a37uOg="
+          }
+        ],
+        "price": 4567400,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 2249,
+        "livingAreaValue": 2249,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 10790,
+        "lotAreaValue": 10790,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "319 Waverly Ln",
+          "city": "Los Altos",
+          "state": "CA",
+          "zipcode": "94022"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "319 Waverly Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.377056,
+        "longitude": -122.10783,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/319-Waverly-Ln-Los-Altos-CA-94022/19525606_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19525605,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=331+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=mMrCgawHWX_56h_MBE0jPvdPyNY="
+          }
+        ],
+        "price": 4497500,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingArea": 2152,
+        "livingAreaValue": 2152,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 10018,
+        "lotAreaValue": 10018,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "331 Waverly Ln",
+          "city": "Los Altos",
+          "state": "CA",
+          "zipcode": "94022"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "331 Waverly Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.37682,
+        "longitude": -122.10779,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/331-Waverly-Ln-Los-Altos-CA-94022/19525605_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19525593,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=235+Marvin+Ave%2C+Los+Altos%2C+CA+94022&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=0hJmEJsgwPQGWWqcfyLpbQcnzc4="
+          }
+        ],
+        "price": 7708200,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1780,
+        "livingAreaValue": 1780,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 777981568,
+        "lotAreaValue": 17859.999265381084,
+        "lotAreaUnits": "Acres",
+        "address": {
+          "streetAddress": "235 Marvin Ave",
+          "city": "Los Altos",
+          "state": "CA",
+          "zipcode": "94022"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "235 Marvin Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.376526,
+        "longitude": -122.10878,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/235-Marvin-Ave-Los-Altos-CA-94022/19525593_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19525603,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=355+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=ctifEZOwrja8AvzShCfX9OquLY8="
+          }
+        ],
+        "price": 4523900,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingArea": 2306,
+        "livingAreaValue": 2306,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 10200,
+        "lotAreaValue": 10200,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "355 Waverly Ln",
+          "city": "Los Altos",
+          "state": "CA",
+          "zipcode": "94022"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "355 Waverly Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.37645,
+        "longitude": -122.10804,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/355-Waverly-Ln-Los-Altos-CA-94022/19525603_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19525607,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/5d24e72dc416a4a1faea567e459fcbb2-p_c.jpg"
+          }
+        ],
+        "price": 6794200,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 4,
+        "livingArea": 3041,
+        "livingAreaValue": 3041,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 11460,
+        "lotAreaValue": 0.2630853994490358,
+        "lotAreaUnits": "Acres",
+        "address": {
+          "streetAddress": "297 Waverly Ln",
+          "city": "Los Altos",
+          "state": "CA",
+          "zipcode": "94022"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "297 Waverly Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.377285,
+        "longitude": -122.10783,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/297-Waverly-Ln-Los-Altos-CA-94022/19525607_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "This 3544 square foot single family home has 5 bedrooms and 4.0 bathrooms. This home is located at 310 Waverly Ln, Los Altos, CA 94022.",
+    "whatILove": null,
+    "timeOnZillow": null,
+    "pageViewCount": 5,
+    "favoriteCount": 0,
+    "daysOnZillow": null,
+    "latitude": 37.376915,
+    "longitude": -122.10838,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=550x413&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=uTEMWkXRnQUbtNzUMCczfRcqRyE=",
+    "brokerageName": null,
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [],
+    "homeInsights": null,
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776272958528
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776272958528
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776272958528
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=1025x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Kt1A5HEFUDdCGp15BDW7jNLtpmo=",
+    "mlsid": null,
+    "ouid": null,
+    "palsId": "837560ce0b5f1e757c069a774cfc05c7",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I own this home and would like a professional estimate at 310 Waverly Ln, Los Altos, CA 94022.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 1,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": 14374,
+    "lotAreaValue": 0.32998163452708906,
+    "lotAreaUnits": "Acres",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=eU4LVqAtIrR8rwqr2Y5ye_Azb28=",
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": null,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=46x46&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=i-8HTlD20uH5Q5hE_7nlzC9bfKg="
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=ZTtd87bOSXfZ_qoJhv07TYt1O1k="
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "Zestimate",
+    "listingTypeDimension": "Unknown Listed By",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Unknown Listed By",
+    "keystoneHomeStatus": "NotForSale",
+    "pageUrlFragment": "Zestimate",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=c26Z04yH6XLJFJ8VPin658PLd2k=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=F4u204jfNbHfqdvUNYbwimLheoo=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=kdCH5ltCqpNVfGWq3T8eDJOpU_0=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Cti8YEvUNXEvPJuEbw-zczQA7SA=",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=c26Z04yH6XLJFJ8VPin658PLd2k=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=F4u204jfNbHfqdvUNYbwimLheoo=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=kdCH5ltCqpNVfGWq3T8eDJOpU_0=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=310+Waverly+Ln%2C+Los+Altos%2C+CA+94022&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Cti8YEvUNXEvPJuEbw-zczQA7SA=",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": null,
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": "17027041",
+    "taxHistory": [
+      {
+        "time": 1744736958508,
+        "taxPaid": 29269.62,
+        "taxIncreaseRate": 0.03597611,
+        "value": 2394824,
+        "valueIncreaseRate": 0.01999942
+      },
+      {
+        "time": 1713200958508,
+        "taxPaid": 28253.18,
+        "taxIncreaseRate": 0.009943867,
+        "value": 2347868,
+        "valueIncreaseRate": 0.019999279
+      },
+      {
+        "time": 1681578558508,
+        "taxPaid": 27975,
+        "taxIncreaseRate": 0.0033347823,
+        "value": 2301833,
+        "valueIncreaseRate": 0.019999556
+      },
+      {
+        "time": 1650042558508,
+        "taxPaid": 27882.02,
+        "taxIncreaseRate": 0.004244312,
+        "value": 2256700,
+        "valueIncreaseRate": 0.01999953
+      },
+      {
+        "time": 1618506558508,
+        "taxPaid": 27764.18,
+        "taxIncreaseRate": -0.0046961517,
+        "value": 2212452,
+        "valueIncreaseRate": 0.01035955
+      },
+      {
+        "time": 1586970558508,
+        "taxPaid": 27895.18,
+        "taxIncreaseRate": 0,
+        "value": 2189767,
+        "valueIncreaseRate": 0.01999971
+      },
+      {
+        "time": 1555348158508,
+        "taxPaid": 27895.18,
+        "taxIncreaseRate": 0.061532285,
+        "value": 2146831,
+        "valueIncreaseRate": 0.019999648
+      },
+      {
+        "time": 1523812158508,
+        "taxPaid": 26278.22,
+        "taxIncreaseRate": 0,
+        "value": 2104737,
+        "valueIncreaseRate": 0.01999933
+      },
+      {
+        "time": 1492276158508,
+        "taxPaid": 26278.22,
+        "taxIncreaseRate": 0.040196765,
+        "value": 2063469,
+        "valueIncreaseRate": 0.01999991
+      },
+      {
+        "time": 1460740158508,
+        "taxPaid": 25262.74,
+        "taxIncreaseRate": 0.033684824,
+        "value": 2023009,
+        "valueIncreaseRate": 0.015249247
+      },
+      {
+        "time": 1429117758508,
+        "taxPaid": 24439.5,
+        "taxIncreaseRate": 0.012224818,
+        "value": 1992623,
+        "valueIncreaseRate": 0.019979617
+      },
+      {
+        "time": 1397581758508,
+        "taxPaid": 24144.34,
+        "taxIncreaseRate": 0,
+        "value": 1953591,
+        "valueIncreaseRate": 0.0045393705
+      },
+      {
+        "time": 1366045758508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1944763,
+        "valueIncreaseRate": 0.019999675
+      },
+      {
+        "time": 1334509758508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1906631,
+        "valueIncreaseRate": 0.019999497
+      },
+      {
+        "time": 1302887358508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1869247,
+        "valueIncreaseRate": 0.00752933
+      },
+      {
+        "time": 1271351358508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1855278,
+        "valueIncreaseRate": -0.002370829
+      },
+      {
+        "time": 1239815358508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1859687,
+        "valueIncreaseRate": 0.019999748
+      },
+      {
+        "time": 1208279358508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1823223,
+        "valueIncreaseRate": 0.019999731
+      },
+      {
+        "time": 1176656958508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1787474,
+        "valueIncreaseRate": 0.01999912
+      },
+      {
+        "time": 1145120958508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1752427,
+        "valueIncreaseRate": 0.019999221
+      },
+      {
+        "time": 1113584958508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1718067,
+        "valueIncreaseRate": 0.02818481
+      },
+      {
+        "time": 1082048958508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1670971,
+        "valueIncreaseRate": 0.03810876
+      },
+      {
+        "time": 1050426558508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1609630,
+        "valueIncreaseRate": 0.01999976
+      },
+      {
+        "time": 1018890558508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1578069,
+        "valueIncreaseRate": 0.019998992
+      },
+      {
+        "time": 987354558508,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1547128,
+        "valueIncreaseRate": 0
+      }
+    ],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/310-Waverly-Ln_-Los%20Altos-94022/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/94022/?bedrooms=5",
+    "neighborhoodId": null,
+    "zipcodeId": 97513,
+    "sellingSoon": []
+  }
+}

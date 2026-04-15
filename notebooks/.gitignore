@@ -1,0 +1,14 @@
+# Environment
+.env
+
+# Cache from video processing
+.video_cache/
+
+# Marimo generated files
+__marimo__/
+
+# Output files from pipeline runs
+*.json
+*.md
+!.env.example
+frames/

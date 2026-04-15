@@ -10,21 +10,29 @@
 		ChevronRight,
 		ListChecks
 	} from 'lucide-svelte';
-	import { tasks, listings } from '$lib/data/mock-data';
+	import { toast } from 'svelte-sonner';
+	import { enhance } from '$app/forms';
+	import { tick } from 'svelte';
+	let { data } = $props();
 
-	// Get tasks for the current user (Lauren Chen, tm-1), grouped by listing
-	const myTasks = tasks
-		.filter((t) => t.assignee.id === 'tm-1' && t.status !== 'done')
-		.sort((a, b) => {
-			if (a.isOverdue && !b.isOverdue) return -1;
-			if (!a.isOverdue && b.isOverdue) return 1;
-			const priorityOrder = { urgent: 0, high: 1, medium: 2, low: 3 };
-			return priorityOrder[a.priority] - priorityOrder[b.priority];
-		});
+	const allTasks = $derived(data.tasks);
+	const listings = $derived(data.listings);
+
+	// Get tasks for the current user, grouped by listing
+	const myTasks = $derived(
+		allTasks
+			.filter((t) => t.status !== 'done')
+			.sort((a, b) => {
+				if (a.isOverdue && !b.isOverdue) return -1;
+				if (!a.isOverdue && b.isOverdue) return 1;
+				const priorityOrder: Record<string, number> = { urgent: 0, high: 1, medium: 2, low: 3 };
+				return (priorityOrder[a.priority] ?? 3) - (priorityOrder[b.priority] ?? 3);
+			})
+	);
 
 	// Group tasks by listing
-	const overdueTasks = myTasks.filter((t) => t.isOverdue);
-	const todayTasks = myTasks.filter((t) => !t.isOverdue);
+	const overdueTasks = $derived(myTasks.filter((t) => t.isOverdue));
+	const todayTasks = $derived(myTasks.filter((t) => !t.isOverdue));
 
 	// Group today tasks by listing
 	const tasksByListing = $derived(() => {
@@ -38,8 +46,10 @@
 	});
 
 	let completedTasks = $state<Set<string>>(new Set());
+	let savingTasks = $state<Set<string>>(new Set());
 
-	function toggleTask(taskId: string) {
+	async function toggleTask(taskId: string) {
+		// Optimistic UI toggle
 		const next = new Set(completedTasks);
 		if (next.has(taskId)) {
 			next.delete(taskId);
@@ -47,6 +57,13 @@
 			next.add(taskId);
 		}
 		completedTasks = next;
+
+		// Wait for DOM to reflect the new hidden input values
+		await tick();
+
+		// Submit the hidden form for this task
+		const form = document.getElementById(`toggle-form-${taskId}`) as HTMLFormElement | null;
+		form?.requestSubmit();
 	}
 
 	function getPriorityColor(priority: string) {
@@ -122,7 +139,7 @@
 									</p>
 									<div class="mt-1 flex items-center gap-2 text-xs text-red-600">
 										<Clock class="size-3" />
-										Due {task.dueDate}
+										Due {task.dueDate?.toLocaleDateString() ?? ''}
 									</div>
 								</div>
 								<Badge variant="outline" class="shrink-0 border-red-200 text-red-600 text-[10px]">
@@ -174,7 +191,7 @@
 									</p>
 									<div class="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
 										<Clock class="size-3" />
-										Due {task.dueDate}
+										Due {task.dueDate?.toLocaleDateString() ?? ''}
 										<Badge variant="outline" class="text-[10px] {getPriorityColor(task.priority)}">
 											{task.priority}
 										</Badge>
@@ -189,7 +206,7 @@
 		</div>
 	{/each}
 
-	{#if myTasks.length === 0}
+	{#if myTasks.length === 0 && completedTasks.size === 0}
 		<div class="py-12 text-center">
 			<CheckCircle class="mx-auto mb-3 size-12 text-emerald-500" />
 			<p class="text-lg font-medium">All caught up!</p>
@@ -197,3 +214,38 @@
 		</div>
 	{/if}
 </div>
+
+<!-- Hidden forms for task status toggles -->
+{#each allTasks as task}
+	<form
+		id="toggle-form-{task.id}"
+		method="POST"
+		action="?/toggleStatus"
+		class="hidden"
+		use:enhance={() => {
+			savingTasks = new Set([...savingTasks, task.id]);
+			return async ({ result, update }) => {
+				const s = new Set(savingTasks);
+				s.delete(task.id);
+				savingTasks = s;
+				if (result.type === 'success') {
+					toast.success(completedTasks.has(task.id) ? 'Task completed' : 'Task reopened');
+					await update();
+				} else if (result.type === 'failure') {
+					// Revert optimistic update
+					const reverted = new Set(completedTasks);
+					if (reverted.has(task.id)) {
+						reverted.delete(task.id);
+					} else {
+						reverted.add(task.id);
+					}
+					completedTasks = reverted;
+					toast.error(String(result.data?.error ?? 'Failed to update task'));
+				}
+			};
+		}}
+	>
+		<input type="hidden" name="taskId" value={task.id} />
+		<input type="hidden" name="status" value={completedTasks.has(task.id) ? 'done' : 'todo'} />
+	</form>
+{/each}

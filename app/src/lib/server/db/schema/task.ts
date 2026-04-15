@@ -1,6 +1,6 @@
 import { pgTable, text, timestamp, boolean, jsonb, index } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
-import { taskStatusEnum, taskPriorityEnum, listingPhaseEnum } from './enums.js';
+import { taskStatusEnum, taskPriorityEnum, listingPhaseEnum, taskCategoryEnum } from './enums.js';
 import { teams, teamMembers } from './team.js';
 import { listings } from './listing.js';
 
@@ -18,10 +18,13 @@ export const tasks = pgTable(
     status: taskStatusEnum('status').notNull().default('todo'),
     priority: taskPriorityEnum('priority').notNull().default('medium'),
     assigneeId: text('assignee_id').references(() => teamMembers.id, { onDelete: 'set null' }),
+    /** @deprecated Use taskCategory instead. Kept for migration compatibility. */
     phase: listingPhaseEnum('phase'),
+    taskCategory: taskCategoryEnum('task_category'),
     dueDate: timestamp('due_date'),
     isOverdue: boolean('is_overdue').default(false),
     subtasks: jsonb('subtasks'),
+    sourceFieldNoteActionId: text('source_field_note_action_id'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

@@ -5,25 +5,32 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import {
-		listings,
-		tasks,
-		activityItems,
-		aiInsights,
-		showings,
-		teamMembers,
-		getMyTasks,
-		getActiveListingsCount,
-		getTotalPipelineValue,
-		getOverdueTasks,
-		getRecentActivity,
-		getListingsByPhase,
-		PHASES,
-		PHASE_LIST,
-		teamPerformanceData,
-		formatCurrency,
-		type ListingPhase,
-	} from '$lib/data/mock-data.js';
+	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config';
+	import { formatCurrency } from '$lib/utils';
+
+	let { data } = $props();
+
+	const listings = $derived(data.listings ?? []);
+	const tasks = $derived(data.tasks ?? []);
+	const aiInsights = $derived(data.aiInsights ?? []);
+	const showings = $derived(data.showings ?? []);
+	const teamPerformanceData = $derived(data.teamPerformanceData ?? { members: [] as string[], activeTasks: [] as number[], completedThisMonth: [] as number[], avgCompletionDays: [] as number[] });
+
+	// Computed dashboard values from server data
+	const activeCount = $derived(listings.filter((l: any) => l.phase === 'active').length);
+	const pipelineValue = $derived(formatCurrency(data.pipelineValue ?? 0));
+	const overdueTasks = $derived(data.overdueTasks ?? []);
+	const recentActivity = $derived(data.recentActivity ?? []);
+	const listingsByPhase = $derived((() => {
+		const grouped: Record<string, any[]> = {};
+		for (const listing of listings) {
+			const phase = (listing as any).phase;
+			if (!grouped[phase]) grouped[phase] = [];
+			grouped[phase].push(listing);
+		}
+		return grouped;
+	})());
+
 	import {
 		TrendingUp,
 		TrendingDown,
@@ -42,6 +49,8 @@
 		X,
 		Check,
 		Calendar,
+		CalendarPlus,
+		Bell,
 		Mail,
 		MessageSquare,
 		StickyNote,
@@ -52,50 +61,66 @@
 	import { Chart, registerables } from 'chart.js';
 	Chart.register(...registerables);
 
-	const myTasks = getMyTasks();
-	const overdueTasks = getOverdueTasks();
-	const recentActivity = getRecentActivity(8);
-	const activeCount = getActiveListingsCount();
-	const pipelineValue = getTotalPipelineValue();
-	const listingsByPhase = getListingsByPhase();
-	const avgDom = Math.round(
-		listings.filter((l) => l.daysOnMarket > 0).reduce((s, l) => s + l.daysOnMarket, 0) /
-			(listings.filter((l) => l.daysOnMarket > 0).length || 1)
-	);
+	const avgDom = $derived(Math.round(
+		listings.filter((l: any) => l.daysOnMarket > 0).reduce((s: number, l: any) => s + l.daysOnMarket, 0) /
+			(listings.filter((l: any) => l.daysOnMarket > 0).length || 1)
+	));
 
-	const openTaskCount = tasks.filter((t) => t.status !== 'done').length;
+	const openTaskCount = $derived(tasks.filter((t: any) => t.status !== 'done').length);
 
-	const stats = [
-		{ label: 'Active Listings', value: String(activeCount), icon: Home, trend: 'up' as const, change: '+2 this month' },
-		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, trend: 'up' as const, change: '+$1.2M from last month' },
-		{ label: 'Avg. Days on Market', value: String(avgDom), icon: Clock, trend: 'down' as const, change: '-3 days vs. last quarter' },
-		{ label: 'Open Tasks', value: String(openTaskCount), icon: CheckSquare, trend: 'up' as const, change: `${overdueTasks.length} overdue` },
-	];
+	const deltas = $derived(data.deltas ?? { listingsDelta: 0, pipelineValueDelta: 0, domDelta: 0 });
+
+	function formatDelta(value: number, suffix: string): string {
+		const sign = value >= 0 ? '+' : '';
+		return `${sign}${value} ${suffix}`;
+	}
+
+	function formatCurrencyDelta(value: number, suffix: string): string {
+		const sign = value >= 0 ? '+' : '-';
+		const abs = Math.abs(value);
+		let formatted: string;
+		if (abs >= 1_000_000) {
+			formatted = `$${(abs / 1_000_000).toFixed(1)}M`;
+		} else if (abs >= 1_000) {
+			formatted = `$${(abs / 1_000).toFixed(0)}K`;
+		} else {
+			formatted = `$${abs.toFixed(0)}`;
+		}
+		return `${sign}${formatted} ${suffix}`;
+	}
+
+	const stats = $derived([
+		{ label: 'Active Listings', value: String(activeCount), icon: Home, trend: (deltas.listingsDelta >= 0 ? 'up' : 'down') as 'up' | 'down', change: formatDelta(deltas.listingsDelta, 'this month') },
+		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, trend: (deltas.pipelineValueDelta >= 0 ? 'up' : 'down') as 'up' | 'down', change: formatCurrencyDelta(deltas.pipelineValueDelta, 'from last month') },
+		{ label: 'Avg. Days on Market', value: String(avgDom), icon: Clock, trend: (deltas.domDelta <= 0 ? 'down' : 'up') as 'up' | 'down', change: formatDelta(deltas.domDelta, 'days vs. last quarter') },
+		{ label: 'Open Tasks', value: String(openTaskCount), icon: CheckSquare, trend: (overdueTasks.length > 0 ? 'up' : 'down') as 'up' | 'down', change: `${overdueTasks.length} overdue` },
+	]);
 
 	// Task filter state
-	let taskFilter = $state<'today' | 'overdue' | 'upcoming'>('today');
+	let taskFilter = $state<'upcoming' | 'overdue'>('upcoming');
 	const todayStr = '2026-04-09';
+
+	// Reminder dropdown state
+	let reminderOpenForTask = $state<string | null>(null);
 
 	let filteredTasks = $derived(
 		(() => {
-			const allOpen = tasks.filter((t) => t.status !== 'done');
+			const allOpen = tasks.filter((t: any) => t.status !== 'done');
 			switch (taskFilter) {
-				case 'today':
-					return allOpen.filter((t) => t.dueDate <= todayStr);
 				case 'overdue':
-					return allOpen.filter((t) => t.isOverdue);
+					return allOpen.filter((t: any) => t.isOverdue);
 				case 'upcoming':
-					return allOpen.filter((t) => t.dueDate > todayStr);
+					return allOpen.filter((t: any) => !t.isOverdue).sort((a: any, b: any) => new Date(a.dueDate ?? 0).getTime() - new Date(b.dueDate ?? 0).getTime());
 			}
 		})()
 	);
 
 	// AI Insights (non-dismissed)
 	let dismissedIds = $state<Set<string>>(new Set());
-	let visibleInsights = $derived(aiInsights.filter((a) => !a.dismissed && !dismissedIds.has(a.id)));
+	let visibleInsights = $derived(aiInsights.filter((a: any) => !a.dismissed && !dismissedIds.has(a.id)));
 
 	// Today's showings
-	const todayShowings = showings.filter((s) => s.date === '2026-04-09' || s.date === '2026-04-10' || s.date === '2026-04-11').slice(0, 3);
+	const todayShowings = $derived(showings.slice(0, 3));
 
 	// Activity type icons mapping
 	function getActivityIcon(type: string) {
@@ -150,7 +175,7 @@
 	}
 
 	// Workload chart
-	let workloadCanvas: HTMLCanvasElement;
+	let workloadCanvas = $state<HTMLCanvasElement>(null!);
 
 	onMount(() => {
 		new Chart(workloadCanvas, {
@@ -198,7 +223,7 @@
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 		<div>
 			<h1 class="font-serif text-2xl font-bold tracking-tight">Dashboard</h1>
-			<p class="text-muted-foreground">Welcome back, Lauren. Here's your overview for today.</p>
+			<p class="text-muted-foreground">Welcome back, {data.currentUser?.name?.split(' ')[0] ?? 'there'}. Here's your overview for today.</p>
 		</div>
 		<div class="flex items-center gap-2">
 			<a href="/listings/new">
@@ -207,11 +232,11 @@
 					New Listing
 				</Button>
 			</a>
-			<Button variant="outline" size="sm">
+			<Button variant="outline" size="sm" href="/mobile/voice-memo">
 				<Mic class="mr-1.5 size-4" />
 				Voice Memo
 			</Button>
-			<Button variant="outline" size="sm">
+			<Button variant="outline" size="sm" href="/mobile/field-notes">
 				<FileText class="mr-1.5 size-4" />
 				Quick Note
 			</Button>
@@ -249,7 +274,7 @@
 				<div class="flex items-center justify-between">
 					<div>
 						<CardTitle>Pipeline Summary</CardTitle>
-						<CardDescription>{listings.length} listings across {PHASE_LIST.filter((p) => listingsByPhase[p.key]?.length > 0).length} phases</CardDescription>
+						<CardDescription>{listings.length} listings across 4 stages</CardDescription>
 					</div>
 					<a href="/listings" class="inline-flex items-center gap-1 text-sm text-primary hover:underline">
 						View board <ArrowRight class="size-3.5" />
@@ -302,7 +327,7 @@
 		</Card>
 	</div>
 
-	<!-- Bottom Row: Tasks, Activity, AI Alerts -->
+	<!-- Bottom Row: Tasks, Activity, Alerts -->
 	<div class="grid gap-6 lg:grid-cols-3">
 		<!-- My Tasks -->
 		<Card>
@@ -311,22 +336,16 @@
 					<CardTitle>My Tasks</CardTitle>
 					<div class="flex gap-1">
 						<button
-							onclick={() => taskFilter = 'today'}
-							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors {taskFilter === 'today' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}"
+							onclick={() => taskFilter = 'upcoming'}
+							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors {taskFilter === 'upcoming' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}"
 						>
-							Today
+							Upcoming
 						</button>
 						<button
 							onclick={() => taskFilter = 'overdue'}
 							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors {taskFilter === 'overdue' ? 'bg-destructive text-destructive-foreground' : 'text-muted-foreground hover:bg-muted'}"
 						>
 							Overdue
-						</button>
-						<button
-							onclick={() => taskFilter = 'upcoming'}
-							class="rounded-md px-2.5 py-1 text-xs font-medium transition-colors {taskFilter === 'upcoming' ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}"
-						>
-							Upcoming
 						</button>
 					</div>
 				</div>
@@ -345,13 +364,42 @@
 										<Badge variant={getPriorityVariant(task.priority)} class="text-[10px] px-1.5 py-0">
 											{task.priority}
 										</Badge>
-										<span class="text-xs text-muted-foreground">{task.listingAddress}</span>
+										<span class="text-xs text-muted-foreground">{task.listing?.address ?? ''}</span>
 									</div>
 									<p class="text-xs text-muted-foreground mt-0.5">Due {task.dueDate}</p>
 								</div>
-								{#if task.isOverdue}
-									<Badge variant="destructive" class="text-[10px] shrink-0">Overdue</Badge>
-								{/if}
+								<div class="flex items-center gap-1 shrink-0">
+									{#if task.isOverdue}
+										<Badge variant="destructive" class="text-[10px] mr-1">Overdue</Badge>
+									{/if}
+									<button
+										title="Add to calendar"
+										class="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+									>
+										<CalendarPlus class="size-3.5" />
+									</button>
+									<div class="relative">
+										<button
+											title="Set reminder"
+											onclick={() => reminderOpenForTask = reminderOpenForTask === task.id ? null : task.id}
+											class="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+										>
+											<Bell class="size-3.5" />
+										</button>
+										{#if reminderOpenForTask === task.id}
+											<div class="absolute right-0 top-full z-10 mt-1 w-40 rounded-md border bg-popover p-1 shadow-md">
+												{#each ['1 hour before', '1 day before', 'Morning of', 'Custom'] as option}
+													<button
+														onclick={() => reminderOpenForTask = null}
+														class="w-full rounded-sm px-2 py-1.5 text-left text-xs hover:bg-muted transition-colors"
+													>
+														{option}
+													</button>
+												{/each}
+											</div>
+										{/if}
+									</div>
+								</div>
 							</div>
 						{/each}
 					</div>
@@ -382,14 +430,14 @@
 							</div>
 							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
-									<span class="text-sm font-medium truncate">{item.author}</span>
-									<span class="text-xs text-muted-foreground shrink-0">{item.timeAgo}</span>
+									<span class="text-sm font-medium truncate">{item.authorName}</span>
+									<span class="text-xs text-muted-foreground shrink-0"></span>
 								</div>
 								<p class="mt-0.5 text-sm text-muted-foreground line-clamp-2">{item.content}</p>
-								{#if item.listingAddress}
+								{#if item.listingId}
 									<a href="/listings/{item.listingId}" class="mt-1 inline-flex items-center gap-1 text-xs text-primary hover:underline">
 										<MapPin class="size-3" />
-										{item.listingAddress}
+										View listing
 									</a>
 								{/if}
 							</div>
@@ -399,12 +447,12 @@
 			</CardContent>
 		</Card>
 
-		<!-- AI Alerts -->
+		<!-- Alerts -->
 		<Card>
 			<CardHeader class="pb-3">
 				<div class="flex items-center gap-2">
 					<Sparkles class="size-4 text-amber-500" />
-					<CardTitle>AI Alerts</CardTitle>
+					<CardTitle>Alerts</CardTitle>
 				</div>
 				<CardDescription>{visibleInsights.length} insights need your attention</CardDescription>
 			</CardHeader>
@@ -425,7 +473,7 @@
 													{insight.actionLabel}
 												</a>
 											{/if}
-											<span class="text-xs text-muted-foreground">{insight.timeAgo}</span>
+											<span class="text-xs text-muted-foreground"></span>
 										</div>
 									</div>
 								</div>
@@ -462,11 +510,11 @@
 					{#each todayShowings as showing}
 						<a href="/listings/{showing.listingId}" class="group flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
 							<div class="text-center shrink-0">
-								<div class="text-lg font-bold leading-tight">{showing.date.split('-')[2]}</div>
+								<div class="text-lg font-bold leading-tight">{new Date(showing.date).getDate()}</div>
 								<div class="text-xs text-muted-foreground">Apr</div>
 							</div>
 							<div class="min-w-0 flex-1">
-								<p class="text-sm font-medium group-hover:text-primary transition-colors">{showing.listingAddress}</p>
+								<p class="text-sm font-medium group-hover:text-primary transition-colors">Showing</p>
 								<p class="text-xs text-muted-foreground">{showing.time} &middot; {showing.agentName}</p>
 								<p class="text-xs text-muted-foreground">{showing.agentCompany} &middot; {showing.buyerType}</p>
 							</div>

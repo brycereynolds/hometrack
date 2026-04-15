@@ -4,7 +4,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { contacts, listings, aiInsights, type Contact, type Listing } from '$lib/data/mock-data.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Search,
@@ -27,7 +27,9 @@
 		Brain,
 	} from 'lucide-svelte';
 
-	const agents = contacts.filter((c) => c.type === 'agent');
+	let { data } = $props();
+	const agents = $derived(data.agents);
+	const listings = $derived(data.listings);
 
 	// Parse buyer needs into structured data for matching
 	interface BuyerNeed {
@@ -90,7 +92,7 @@
 	interface AIMatch {
 		id: string;
 		buyerNeed: BuyerNeed;
-		listing: Listing;
+		listingIndex: number;
 		matchScore: number;
 		matchReasons: string[];
 		mismatchReasons: string[];
@@ -98,11 +100,21 @@
 		priority: 'high' | 'medium' | 'low';
 	}
 
-	const aiMatches: AIMatch[] = [
+	function getPhaseLabel(phase: string): string {
+		const labels: Record<string, string> = {
+			pre_market: 'Pre-Market',
+			active: 'Active',
+			closed: 'Closed',
+			canceled: 'Canceled',
+		};
+		return labels[phase] ?? phase;
+	}
+
+	const aiMatchDefs: AIMatch[] = [
 		{
 			id: 'match-1',
 			buyerNeed: buyerNeeds[0],
-			listing: listings[0],
+			listingIndex: 0,
 			matchScore: 92,
 			matchReasons: [
 				'4BR matches buyer requirement',
@@ -117,7 +129,7 @@
 		{
 			id: 'match-2',
 			buyerNeed: buyerNeeds[1],
-			listing: listings[4],
+			listingIndex: 4,
 			matchScore: 78,
 			matchReasons: [
 				'2BR matches downsizer needs',
@@ -132,7 +144,7 @@
 		{
 			id: 'match-3',
 			buyerNeed: buyerNeeds[2],
-			listing: listings[2],
+			listingIndex: 2,
 			matchScore: 68,
 			matchReasons: [
 				'Cupertino location with top schools',
@@ -149,7 +161,7 @@
 		{
 			id: 'match-4',
 			buyerNeed: buyerNeeds[2],
-			listing: listings[5],
+			listingIndex: 5,
 			matchScore: 74,
 			matchReasons: [
 				'5BR exceeds 4BR+ requirement',
@@ -168,7 +180,7 @@
 		{
 			id: 'match-5',
 			buyerNeed: buyerNeeds[0],
-			listing: listings[5],
+			listingIndex: 5,
 			matchScore: 70,
 			matchReasons: [
 				'5BR exceeds 4BR requirement',
@@ -183,6 +195,19 @@
 			priority: 'low',
 		},
 	];
+
+	interface ResolvedMatch extends Omit<AIMatch, 'listingIndex'> {
+		listing: (typeof listings)[number];
+	}
+
+	const aiMatches = $derived(
+		aiMatchDefs
+			.filter((m) => m.listingIndex < listings.length)
+			.map((m) => ({
+				...m,
+				listing: listings[m.listingIndex],
+			})) as ResolvedMatch[]
+	);
 
 	let filterLocation = $state('all');
 	let filterBeds = $state('all');
@@ -202,15 +227,15 @@
 		}
 		if (filterBeds !== 'all') {
 			results = results.filter((m) => {
-				if (filterBeds === '4+') return m.listing.beds >= 4;
-				return m.listing.beds === parseInt(filterBeds);
+				if (filterBeds === '4+') return (m.listing.beds ?? 0) >= 4;
+				return (m.listing.beds ?? 0) === parseInt(filterBeds);
 			});
 		}
 		return results.sort((a, b) => b.matchScore - a.matchScore);
 	});
 
-	const highPriorityCount = aiMatches.filter((m) => m.priority === 'high').length;
-	const activeMatchCount = aiMatches.length;
+	const highPriorityCount = $derived(aiMatches.filter((m) => m.priority === 'high').length);
+	const activeMatchCount = $derived(aiMatches.length);
 	const totalBuyerNeeds = buyerNeeds.length;
 
 	function scoreColor(score: number): string {
@@ -244,7 +269,7 @@
 					<h1 class="font-serif text-3xl font-bold">Network Intelligence</h1>
 					<span class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
 						<Sparkles class="size-3" />
-						AI Powered
+						Smart Match
 					</span>
 				</div>
 				<p class="mt-1 text-sm text-muted-foreground">
@@ -264,7 +289,7 @@
 		<div class="rounded-lg border border-border bg-card p-4">
 			<p class="text-sm text-muted-foreground">Active Matches</p>
 			<p class="mt-1 font-serif text-3xl font-bold text-primary">{activeMatchCount}</p>
-			<p class="mt-1 text-xs text-muted-foreground">AI-generated connections</p>
+			<p class="mt-1 text-xs text-muted-foreground">Auto-generated connections</p>
 		</div>
 		<div class="rounded-lg border border-border bg-card p-4">
 			<p class="text-sm text-muted-foreground">High Priority</p>
@@ -274,7 +299,7 @@
 		<div class="rounded-lg border border-border bg-card p-4">
 			<p class="text-sm text-muted-foreground">Avg Match Score</p>
 			<p class="mt-1 font-serif text-3xl font-bold">
-				{Math.round(aiMatches.reduce((s, m) => s + m.matchScore, 0) / aiMatches.length)}%
+				{aiMatches.length > 0 ? Math.round(aiMatches.reduce((s, m) => s + m.matchScore, 0) / aiMatches.length) : 0}%
 			</p>
 			<p class="mt-1 text-xs text-muted-foreground">across all connections</p>
 		</div>
@@ -290,7 +315,7 @@
 					: 'text-muted-foreground hover:text-foreground'}"
 			>
 				<Sparkles class="mr-1.5 inline size-3.5" />
-				AI Matches
+				Matches
 			</button>
 			<button
 				onclick={() => (activeView = 'needs')}
@@ -345,7 +370,7 @@
 							<div class="flex items-center gap-3">
 								<div class="flex items-center gap-1.5">
 									<Brain class="size-4 text-primary" />
-									<span class="text-sm font-semibold">AI Connection Suggestion</span>
+									<span class="text-sm font-semibold">Connection Suggestion</span>
 								</div>
 								<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {priorityBadge(match.priority)}">
 									{match.priority} priority
@@ -427,14 +452,14 @@
 											{match.listing.address}
 										</a>
 										<p class="text-xs text-muted-foreground">{match.listing.city}, {match.listing.state}</p>
-										<p class="mt-0.5 text-sm font-semibold text-primary">{match.listing.priceFormatted}</p>
+										<p class="mt-0.5 text-sm font-semibold text-primary">{match.listing.price ? formatCurrency(match.listing.price) : 'No Price'}</p>
 									</div>
 								</div>
 								<div class="mt-4 space-y-2 text-sm">
 									<div class="flex items-center gap-2">
 										<BedDouble class="size-3.5 text-muted-foreground" />
 										<span class="text-muted-foreground">Beds:</span>
-										<span class="font-medium">{match.listing.beds}</span>
+										<span class="font-medium">{match.listing.beds ?? 0}</span>
 									</div>
 									<div class="flex items-center gap-2">
 										<MapPin class="size-3.5 text-muted-foreground" />
@@ -444,14 +469,14 @@
 									<div class="flex items-center gap-2">
 										<DollarSign class="size-3.5 text-muted-foreground" />
 										<span class="text-muted-foreground">Price:</span>
-										<span class="font-medium">{match.listing.priceFormatted}</span>
+										<span class="font-medium">{match.listing.price ? formatCurrency(match.listing.price) : 'No Price'}</span>
 									</div>
 									<div class="mt-2">
 										<span
 											class="rounded-full px-2 py-0.5 text-[10px] font-medium"
 											style="background-color: color-mix(in srgb, var(--color-primary) 10%, transparent); color: var(--color-primary);"
 										>
-											{match.listing.phaseLabel}
+											{getPhaseLabel(match.listing.phase)}
 										</span>
 									</div>
 								</div>
@@ -491,23 +516,16 @@
 							<div class="mt-4 flex items-start gap-2 rounded-md bg-primary/5 px-3 py-2.5">
 								<Sparkles class="mt-0.5 size-4 shrink-0 text-primary" />
 								<div>
-									<p class="text-xs font-medium text-primary">AI Recommendation</p>
+									<p class="text-xs font-medium text-primary">Recommendation</p>
 									<p class="mt-0.5 text-sm text-foreground/80">{match.suggestion}</p>
 								</div>
 							</div>
 
 							<!-- Actions -->
 							<div class="mt-3 flex items-center gap-2">
-								<Button size="sm" class="h-8">
+								<Button size="sm" class="h-8 opacity-50" disabled>
 									<MessageSquare class="mr-1.5 size-3.5" />
-									Message {match.buyerNeed.agentName.split(' ')[0]}
-								</Button>
-								<Button variant="outline" size="sm" class="h-8">
-									<Eye class="mr-1.5 size-3.5" />
-									Schedule Showing
-								</Button>
-								<Button variant="ghost" size="sm" class="h-8 text-muted-foreground">
-									Dismiss
+									Coming Soon
 								</Button>
 							</div>
 						</div>
@@ -612,7 +630,7 @@
 					Listing-Buyer Match Matrix
 				</CardTitle>
 				<CardDescription>
-					See which listings match which buyer needs at a glance. Scores represent AI-calculated compatibility.
+					See which listings match which buyer needs at a glance. Scores represent calculated compatibility.
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
@@ -650,7 +668,7 @@
 												<a href="/listings/{listing.id}" class="text-sm font-medium hover:text-primary">
 													{listing.address}
 												</a>
-												<p class="text-[11px] text-muted-foreground">{listing.city} | {listing.beds}BR | {listing.priceFormatted}</p>
+												<p class="text-[11px] text-muted-foreground">{listing.city} | {listing.beds ?? 0}BR | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
 											</div>
 										</div>
 									</td>

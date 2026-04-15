@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { contacts, listings, activityItems, PHASES } from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Mail,
@@ -25,25 +25,65 @@
 		Edit,
 		Users,
 	} from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 
-	const contact = $derived(contacts.find((c) => c.id === $page.params.id));
+	let { data } = $props();
+	const contact = $derived(data.contact);
+
+	let savingNote = $state(false);
+	let showLogInteraction = $state(false);
+	let interactionType = $state('message');
+	let interactionContent = $state('');
+	let submittingInteraction = $state(false);
 
 	const associatedListings = $derived(() => {
-		if (!contact) return [];
-		return listings.filter(
-			(l) => l.client.id === contact.id || l.agent.id === contact.id
-		);
+		return data.listings ?? [];
 	});
 
 	const contactActivity = $derived(() => {
 		if (!contact) return [];
 		const name = contact.name.split(' ')[0];
-		return activityItems.filter(
-			(a) =>
-				a.author.includes(name) ||
-				a.content.toLowerCase().includes(contact.name.toLowerCase().split(' ')[0])
+		return (data.activity ?? []).filter(
+			(a: { authorName: string | null; content: string | null }) =>
+				(a.authorName && a.authorName.includes(name)) ||
+				(a.content && a.content.toLowerCase().includes(contact.name.toLowerCase().split(' ')[0]))
 		);
 	});
+
+	const typeLabels: Record<string, string> = {
+		client: 'Client',
+		agent: 'Agent',
+		vendor: 'Vendor',
+		lender: 'Lender',
+		inspector: 'Inspector',
+		title: 'Title',
+	};
+
+	function getInitials(name: string, initials?: string | null): string {
+		if (initials) return initials;
+		return name.split(' ').map((n) => n[0]).join('').slice(0, 2);
+	}
+
+	function formatDate(d: string | Date | null): string {
+		if (!d) return '';
+		const date = typeof d === 'string' ? new Date(d) : d;
+		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+	}
+
+	function timeAgo(d: string | Date | null): string {
+		if (!d) return '';
+		const date = typeof d === 'string' ? new Date(d) : d;
+		const now = new Date();
+		const diff = now.getTime() - date.getTime();
+		const mins = Math.floor(diff / 60000);
+		if (mins < 60) return `${mins}m ago`;
+		const hours = Math.floor(mins / 60);
+		if (hours < 24) return `${hours}h ago`;
+		const days = Math.floor(hours / 24);
+		return `${days}d ago`;
+	}
 
 	const typeColors: Record<string, string> = {
 		client: 'bg-primary/10 text-primary',
@@ -79,14 +119,14 @@
 				<div class="flex items-center gap-4">
 					<Avatar class="size-16">
 						<AvatarFallback class="text-lg font-bold {typeColors[contact.type]?.split(' ')[0] ?? 'bg-primary/10'} {typeColors[contact.type]?.split(' ')[1] ?? 'text-primary'}">
-							{contact.initials}
+							{getInitials(contact.name, contact.initials)}
 						</AvatarFallback>
 					</Avatar>
 					<div>
 						<div class="flex items-center gap-2">
 							<h1 class="font-serif text-2xl font-bold">{contact.name}</h1>
 							<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold {typeColors[contact.type]}">
-								{contact.typeLabel}
+								{typeLabels[contact.type] ?? contact.type}
 							</span>
 						</div>
 						{#if contact.company}
@@ -96,20 +136,20 @@
 							</p>
 						{/if}
 						<p class="mt-1 text-xs text-muted-foreground">
-							Last interaction: {contact.lastInteractionDate}
+							Last interaction: {formatDate(contact.lastInteractionDate)}
 						</p>
 					</div>
 				</div>
 				<div class="flex items-center gap-2">
-					<Button variant="outline" size="sm">
+					<Button variant="outline" size="sm" href="mailto:{contact.email ?? ''}">
 						<Mail class="mr-1.5 size-3.5" />
 						Email
 					</Button>
-					<Button variant="outline" size="sm">
+					<Button variant="outline" size="sm" href="tel:{contact.phone ?? ''}">
 						<Phone class="mr-1.5 size-3.5" />
 						Call
 					</Button>
-					<Button size="sm">
+					<Button size="sm" href="mailto:{contact.email ?? ''}?subject=Re: {contact.name}">
 						<MessageSquare class="mr-1.5 size-3.5" />
 						Message
 					</Button>
@@ -128,11 +168,11 @@
 					<CardContent class="space-y-3 text-sm">
 						<div class="flex items-center gap-3">
 							<Mail class="size-4 shrink-0 text-muted-foreground" />
-							<a href="mailto:{contact.email}" class="text-primary hover:underline">{contact.email}</a>
+							<a href="mailto:{contact.email ?? ''}" class="text-primary hover:underline">{contact.email ?? ''}</a>
 						</div>
 						<div class="flex items-center gap-3">
 							<Phone class="size-4 shrink-0 text-muted-foreground" />
-							<span>{contact.phone}</span>
+							<a href="tel:{contact.phone ?? ''}" class="text-primary hover:underline">{contact.phone ?? ''}</a>
 						</div>
 						{#if contact.company}
 							<div class="flex items-center gap-3">
@@ -207,7 +247,7 @@
 							</div>
 							<div class="flex items-center justify-between">
 								<span class="text-sm text-muted-foreground">Active Listings</span>
-								<span class="text-sm font-medium">{contact.listingsCount}</span>
+								<span class="text-sm font-medium">{associatedListings().length}</span>
 							</div>
 							<div class="flex items-center justify-between">
 								<span class="text-sm text-muted-foreground">Approvals Pending</span>
@@ -235,13 +275,13 @@
 										</div>
 										<div class="min-w-0 flex-1">
 											<p class="truncate text-sm font-medium">{listing.address}</p>
-											<p class="text-xs text-muted-foreground">{listing.city} | {listing.priceFormatted}</p>
+											<p class="text-xs text-muted-foreground">{listing.city} | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
 										</div>
 										<span
 											class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium"
 											style="background-color: {PHASES[listing.phase].color}15; color: {PHASES[listing.phase].color}"
 										>
-											{listing.phaseLabel}
+											{PHASES[listing.phase].label}
 										</span>
 									</a>
 								{/each}
@@ -260,7 +300,11 @@
 					<CardHeader>
 						<div class="flex items-center justify-between">
 							<CardTitle class="text-sm">Interaction Timeline</CardTitle>
-							<Button variant="outline" size="sm" class="h-7 text-xs">
+							<Button variant="outline" size="sm" class="h-7 text-xs" onclick={() => {
+								interactionType = 'message';
+								interactionContent = '';
+								showLogInteraction = true;
+							}}>
 								<Plus class="mr-1 size-3" />
 								Log Interaction
 							</Button>
@@ -280,21 +324,21 @@
 										<div class="rounded-lg border border-border bg-card p-3">
 											<div class="flex items-center justify-between">
 												<div class="flex items-center gap-2">
-													<span class="text-sm font-medium">{activity.author}</span>
+													<span class="text-sm font-medium">{activity.authorName ?? 'System'}</span>
 													<span class="rounded-full bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
 														{activity.type.replace('_', ' ')}
 													</span>
 												</div>
-												<span class="text-xs text-muted-foreground">{activity.timeAgo}</span>
+												<span class="text-xs text-muted-foreground">{timeAgo(activity.timestamp)}</span>
 											</div>
-											<p class="mt-1.5 text-sm text-muted-foreground">{activity.content}</p>
-											{#if activity.listingAddress}
+											<p class="mt-1.5 text-sm text-muted-foreground">{activity.content ?? ''}</p>
+											{#if activity.listingId}
 												<a
 													href="/listings/{activity.listingId}"
 													class="mt-2 inline-flex items-center gap-1 text-xs text-primary hover:underline"
 												>
 													<Home class="size-3" />
-													{activity.listingAddress}
+													View Listing
 												</a>
 											{/if}
 										</div>
@@ -316,20 +360,41 @@
 						<CardTitle class="text-sm">Notes</CardTitle>
 					</CardHeader>
 					<CardContent>
-						<div class="space-y-3">
-							<textarea
-								bind:value={newNote}
-								placeholder="Add a note about {contact.name}..."
-								rows="3"
-								class="w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
-							></textarea>
-							<div class="flex justify-end">
-								<Button size="sm" disabled={!newNote.trim()}>
-									<Send class="mr-1.5 size-3.5" />
-									Save Note
-								</Button>
+						<form
+							method="POST"
+							action="?/saveNote"
+							use:enhance={() => {
+								savingNote = true;
+								return async ({ result, update }) => {
+									savingNote = false;
+									if (result.type === 'success') {
+										newNote = '';
+										toast.success('Note saved');
+										await update();
+									} else if (result.type === 'failure') {
+										toast.error(String(result.data?.error ?? 'Failed to save note'));
+									}
+								};
+							}}
+						>
+							<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+							<input type="hidden" name="contactName" value={data.currentUser?.name ?? 'Agent'} />
+							<div class="space-y-3">
+								<textarea
+									name="content"
+									bind:value={newNote}
+									placeholder="Add a note about {contact.name}..."
+									rows="3"
+									class="w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+								></textarea>
+								<div class="flex justify-end">
+									<Button size="sm" type="submit" disabled={!newNote.trim() || savingNote}>
+										<Send class="mr-1.5 size-3.5" />
+										{savingNote ? 'Saving...' : 'Save Note'}
+									</Button>
+								</div>
 							</div>
-						</div>
+						</form>
 
 						{#if contact.notes}
 							<Separator class="my-4" />
@@ -346,16 +411,79 @@
 						<Separator class="my-4" />
 						<div class="rounded-md bg-muted/50 p-3">
 							<div class="flex items-center justify-between">
-								<span class="text-xs font-medium text-muted-foreground">Lauren Chen</span>
-								<span class="text-xs text-muted-foreground">{contact.lastInteractionDate}</span>
+								<span class="text-xs font-medium text-muted-foreground">{data.currentUser?.name ?? 'Agent'}</span>
+								<span class="text-xs text-muted-foreground">{formatDate(contact.lastInteractionDate)}</span>
 							</div>
-							<p class="mt-1 text-sm">{contact.lastInteraction}</p>
+							<p class="mt-1 text-sm">{contact.lastInteraction ?? ''}</p>
 						</div>
 					</CardContent>
 				</Card>
 			</div>
 		</div>
 	</div>
+	<!-- Log Interaction Modal -->
+	<Dialog.Root bind:open={showLogInteraction}>
+		<Dialog.Content class="sm:max-w-md">
+			<Dialog.Header>
+				<Dialog.Title class="font-serif">Log Interaction</Dialog.Title>
+				<Dialog.Description>Record a new interaction with {contact?.name ?? 'this contact'}.</Dialog.Description>
+			</Dialog.Header>
+			<form
+				method="POST"
+				action="?/logInteraction"
+				use:enhance={() => {
+					submittingInteraction = true;
+					return async ({ result, update }) => {
+						submittingInteraction = false;
+						if (result.type === 'success') {
+							showLogInteraction = false;
+							toast.success('Interaction logged');
+							await update();
+						} else if (result.type === 'failure') {
+							toast.error(String(result.data?.error ?? 'Failed to log interaction'));
+						}
+					};
+				}}
+			>
+				<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+				<input type="hidden" name="authorName" value={data.currentUser?.name ?? 'Agent'} />
+				<div class="space-y-4 py-4">
+					<div>
+						<label for="interaction-type" class="text-sm font-medium">Type</label>
+						<select
+							id="interaction-type"
+							name="type"
+							bind:value={interactionType}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="message">Message</option>
+							<option value="email">Email</option>
+							<option value="note">Note</option>
+							<option value="voice_memo">Voice Memo</option>
+						</select>
+					</div>
+					<div>
+						<label for="interaction-content" class="text-sm font-medium">Details</label>
+						<textarea
+							id="interaction-content"
+							name="content"
+							bind:value={interactionContent}
+							placeholder="What happened?"
+							rows="4"
+							required
+							class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+						></textarea>
+					</div>
+				</div>
+				<Dialog.Footer>
+					<Button variant="outline" type="button" onclick={() => showLogInteraction = false}>Cancel</Button>
+					<Button type="submit" disabled={submittingInteraction || !interactionContent.trim()}>
+						{submittingInteraction ? 'Saving...' : 'Log Interaction'}
+					</Button>
+				</Dialog.Footer>
+			</form>
+		</Dialog.Content>
+	</Dialog.Root>
 {:else}
 	<div class="py-12 text-center">
 		<Users class="mx-auto size-10 text-muted-foreground/40" />

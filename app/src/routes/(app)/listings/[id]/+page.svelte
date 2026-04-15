@@ -1,19 +1,16 @@
+<svelte:head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</svelte:head>
+
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { onMount, onDestroy } from 'svelte';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import {
-		listings,
-		tasks,
-		activityItems,
-		aiInsights,
-		teamMembers,
-		PHASES,
-		type Listing
-	} from '$lib/data/mock-data.js';
+	import { PHASES } from '$lib/config.js';
+	import { formatCurrency } from '$lib/utils.js';
 	import {
 		Bed,
 		Bath,
@@ -32,24 +29,66 @@
 		MessageSquare,
 		Mail,
 		Phone,
-		Globe
+		Globe,
+		Monitor
 	} from 'lucide-svelte';
 
-	const listing = $derived(listings.find((l) => l.id === $page.params.id));
-	const listingTasks = $derived(tasks.filter((t) => t.listingId === listing?.id));
-	const listingActivity = $derived(activityItems.filter((a) => a.listingId === listing?.id).slice(0, 5));
-	const listingInsights = $derived(aiInsights.filter((a) => a.listingId === listing?.id && !a.dismissed).slice(0, 2));
+	let { data } = $props();
+	const listing = $derived(data.listing);
+	const tasks = $derived(data.tasks ?? []);
+	const activityItems = $derived((data.activityItems ?? []).slice(0, 5));
+	const aiInsights = $derived((data.aiInsights ?? []).filter((a: any) => !a.dismissed).slice(0, 2));
+	const teamMembers = $derived(data.teamMembers ?? []);
 
-	const tasksDoneCount = $derived(listingTasks.filter((t) => t.status === 'done').length);
-	const tasksOverdueCount = $derived(listingTasks.filter((t) => t.isOverdue).length);
+	const tasksDoneCount = $derived(tasks.filter((t: any) => t.status === 'done').length);
 
-	function getActivityIcon(type: string) {
-		switch (type) {
-			case 'message': return MessageSquare;
-			case 'email': return Mail;
-			case 'ai_insight': return Sparkles;
-			default: return MessageSquare;
+	// Overview map
+	let overviewMapContainer = $state<HTMLDivElement>(null!);
+	let overviewMap: any = null;
+
+	onMount(async () => {
+		if (!listing?.lat || !listing?.lng || !overviewMapContainer) return;
+
+		const L = (await import('leaflet')).default;
+		overviewMap = L.map(overviewMapContainer, { zoomControl: false, attributionControl: false }).setView([listing.lat, listing.lng], 15);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+		}).addTo(overviewMap);
+
+		const icon = L.divIcon({
+			className: 'overview-pin',
+			html: `<div style="background: #b45309; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">★</div>`,
+			iconSize: [28, 28],
+			iconAnchor: [14, 14],
+		});
+		L.marker([listing.lat, listing.lng], { icon }).addTo(overviewMap);
+	});
+
+	onDestroy(() => {
+		if (overviewMap) {
+			overviewMap.remove();
+			overviewMap = null;
 		}
+	});
+
+	function formatDate(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+	}
+
+	function timeAgo(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		const now = new Date();
+		const diff = now.getTime() - date.getTime();
+		const minutes = Math.floor(diff / 60000);
+		if (minutes < 60) return `${minutes}m ago`;
+		const hours = Math.floor(minutes / 60);
+		if (hours < 24) return `${hours}h ago`;
+		const days = Math.floor(hours / 24);
+		return `${days}d ago`;
 	}
 
 	function getActivityColor(type: string) {
@@ -79,13 +118,13 @@
 							</div>
 							<div>
 								<p class="text-xs text-muted-foreground">Tasks</p>
-								<p class="text-lg font-bold">{listing.tasksDone}/{listing.tasksTotal}</p>
+								<p class="text-lg font-bold">{listing.tasksDone ?? 0}/{listing.tasksTotal ?? 0}</p>
 							</div>
 						</div>
 						<div class="mt-2 h-1.5 rounded-full bg-muted">
 							<div
 								class="h-1.5 rounded-full bg-blue-500 transition-all"
-								style="width: {(listing.tasksDone / listing.tasksTotal) * 100}%"
+								style="width: {(listing.tasksTotal ?? 0) > 0 ? ((listing.tasksDone ?? 0) / (listing.tasksTotal ?? 1)) * 100 : 0}%"
 							></div>
 						</div>
 					</CardContent>
@@ -100,7 +139,7 @@
 							</div>
 							<div>
 								<p class="text-xs text-muted-foreground">Documents</p>
-								<p class="text-lg font-bold">{listing.documentsCount}</p>
+								<p class="text-lg font-bold">{listing.documentsCount ?? 0}</p>
 							</div>
 						</div>
 					</CardContent>
@@ -115,7 +154,7 @@
 							</div>
 							<div>
 								<p class="text-xs text-muted-foreground">Showings</p>
-								<p class="text-lg font-bold">{listing.showingsCount}</p>
+								<p class="text-lg font-bold">{listing.showingsCount ?? 0}</p>
 							</div>
 						</div>
 					</CardContent>
@@ -130,7 +169,7 @@
 							</div>
 							<div>
 								<p class="text-xs text-muted-foreground">Offers</p>
-								<p class="text-lg font-bold">{listing.offersCount}</p>
+								<p class="text-lg font-bold">{listing.offersCount ?? 0}</p>
 							</div>
 						</div>
 					</CardContent>
@@ -149,62 +188,42 @@
 					<CardContent>
 						<div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
 							<div class="flex items-center gap-2.5">
-								<div class="rounded-md bg-muted p-1.5">
-									<Bed class="size-4 text-muted-foreground" />
-								</div>
-								<div>
-									<p class="text-sm font-semibold">{listing.beds}</p>
-									<p class="text-xs text-muted-foreground">Beds</p>
-								</div>
+								<div class="rounded-md bg-muted p-1.5"><Bed class="size-4 text-muted-foreground" /></div>
+								<div><p class="text-sm font-semibold">{listing.beds ?? 0}</p><p class="text-xs text-muted-foreground">Beds</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
-								<div class="rounded-md bg-muted p-1.5">
-									<Bath class="size-4 text-muted-foreground" />
-								</div>
-								<div>
-									<p class="text-sm font-semibold">{listing.baths}</p>
-									<p class="text-xs text-muted-foreground">Baths</p>
-								</div>
+								<div class="rounded-md bg-muted p-1.5"><Bath class="size-4 text-muted-foreground" /></div>
+								<div><p class="text-sm font-semibold">{listing.baths ?? 0}</p><p class="text-xs text-muted-foreground">Baths</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
-								<div class="rounded-md bg-muted p-1.5">
-									<Ruler class="size-4 text-muted-foreground" />
-								</div>
-								<div>
-									<p class="text-sm font-semibold">{listing.sqft.toLocaleString()}</p>
-									<p class="text-xs text-muted-foreground">Sq Ft</p>
-								</div>
+								<div class="rounded-md bg-muted p-1.5"><Ruler class="size-4 text-muted-foreground" /></div>
+								<div><p class="text-sm font-semibold">{(listing.sqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Sq Ft</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
-								<div class="rounded-md bg-muted p-1.5">
-									<MapPin class="size-4 text-muted-foreground" />
-								</div>
-								<div>
-									<p class="text-sm font-semibold">{listing.lotSqft.toLocaleString()}</p>
-									<p class="text-xs text-muted-foreground">Lot Sq Ft</p>
-								</div>
+								<div class="rounded-md bg-muted p-1.5"><MapPin class="size-4 text-muted-foreground" /></div>
+								<div><p class="text-sm font-semibold">{(listing.lotSqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Lot Sq Ft</p></div>
 							</div>
 						</div>
 						<Separator class="my-4" />
 						<div class="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
 							<div>
 								<p class="text-muted-foreground">Property Type</p>
-								<p class="font-medium">{listing.propertyType}</p>
+								<p class="font-medium">{listing.propertyType ?? 'N/A'}</p>
 							</div>
 							<div>
 								<p class="text-muted-foreground">Year Built</p>
-								<p class="font-medium">{listing.yearBuilt}</p>
+								<p class="font-medium">{listing.yearBuilt ?? 'N/A'}</p>
 							</div>
 							<div>
 								<p class="text-muted-foreground">MLS Number</p>
-								<p class="font-medium">{listing.mlsNumber}</p>
+								<p class="font-medium">{listing.mlsNumber ?? 'N/A'}</p>
 							</div>
 						</div>
 						{#if listing.description}
 							<Separator class="my-4" />
 							<p class="text-sm leading-relaxed text-muted-foreground">{listing.description}</p>
 						{/if}
-						{#if listing.features && listing.features.length > 0}
+						{#if listing.features && (listing.features as string[]).length > 0}
 							<div class="mt-4 flex flex-wrap gap-2">
 								{#each listing.features as feature}
 									<Badge variant="secondary" class="font-normal">{feature}</Badge>
@@ -227,7 +246,7 @@
 									<span class="text-sm">Listed Date</span>
 								</div>
 								<span class="text-sm font-medium">
-									{listing.listDate || 'Not yet listed'}
+									{listing.listDate ? formatDate(listing.listDate) : 'Not yet listed'}
 								</span>
 							</div>
 							<div class="flex items-center justify-between py-3">
@@ -235,14 +254,14 @@
 									<Calendar class="size-4 text-muted-foreground" />
 									<span class="text-sm">Target List Date</span>
 								</div>
-								<span class="text-sm font-medium">{listing.targetListDate}</span>
+								<span class="text-sm font-medium">{listing.targetListDate ? formatDate(listing.targetListDate) : 'Not set'}</span>
 							</div>
 							<div class="flex items-center justify-between py-3 last:pb-0">
 								<div class="flex items-center gap-2.5">
 									<Calendar class="size-4 text-muted-foreground" />
 									<span class="text-sm">Days in Phase</span>
 								</div>
-								<Badge variant="outline">{listing.daysInPhase} days</Badge>
+								<Badge variant="outline">{listing.daysInPhase ?? 0} days</Badge>
 							</div>
 						</div>
 					</CardContent>
@@ -258,19 +277,19 @@
 						</Button>
 					</CardHeader>
 					<CardContent>
-						{#if listingActivity.length > 0}
+						{#if activityItems.length > 0}
 							<div class="divide-y">
-								{#each listingActivity as activity}
+								{#each activityItems as activity}
 									<div class="flex gap-3 py-3 first:pt-0 last:pb-0 {activity.type === 'ai_insight' ? 'border-l-2 border-l-amber-400 pl-3' : ''}">
 										<Avatar class="size-8 shrink-0">
 											<AvatarFallback class="text-xs {activity.type === 'ai_insight' ? 'bg-amber-100 text-amber-700' : activity.type === 'system' ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'}">
-												{activity.authorInitials}
+												{activity.authorInitials ?? '?'}
 											</AvatarFallback>
 										</Avatar>
 										<div class="min-w-0 flex-1">
 											<div class="flex items-center gap-2">
-												<span class="text-sm font-medium">{activity.author}</span>
-												<span class="text-xs text-muted-foreground">{activity.timeAgo}</span>
+												<span class="text-sm font-medium">{activity.authorName ?? 'System'}</span>
+												<span class="text-xs text-muted-foreground">{timeAgo(activity.timestamp)}</span>
 											</div>
 											<p class="mt-0.5 text-sm text-muted-foreground line-clamp-2">{activity.content}</p>
 										</div>
@@ -286,6 +305,27 @@
 
 			<!-- Sidebar -->
 			<div class="space-y-6">
+				<!-- Location Map -->
+				{#if listing.lat && listing.lng}
+					<Card>
+						<CardHeader class="pb-2">
+							<CardTitle class="font-serif text-base flex items-center gap-2">
+								<MapPin class="size-4 text-muted-foreground" />
+								Location
+							</CardTitle>
+						</CardHeader>
+						<CardContent class="p-3 pt-0">
+							<div bind:this={overviewMapContainer} class="h-40 rounded-lg overflow-hidden border"></div>
+						</CardContent>
+					</Card>
+				{/if}
+
+				<!-- Open House Button -->
+				<Button variant="outline" class="w-full gap-2" href="/open-house/{listing.id}">
+					<Monitor class="size-4" />
+					Start Open House
+				</Button>
+
 				<!-- Team Assignments -->
 				<Card>
 					<CardHeader>
@@ -293,23 +333,25 @@
 					</CardHeader>
 					<CardContent>
 						<div class="divide-y">
-							<div class="flex items-center gap-3 py-2.5 first:pt-0">
-								<Avatar class="size-9">
-									<AvatarFallback class="bg-primary/10 text-primary text-xs font-medium">{listing.agent.initials}</AvatarFallback>
-								</Avatar>
-								<div class="min-w-0">
-									<p class="text-sm font-medium truncate">{listing.agent.name}</p>
-									<p class="text-xs text-muted-foreground">{listing.agent.roleLabel}</p>
+							{#if listing.agent}
+								<div class="flex items-center gap-3 py-2.5 first:pt-0">
+									<Avatar class="size-9">
+										<AvatarFallback class="bg-primary/10 text-primary text-xs font-medium">{listing.agent.initials ?? '?'}</AvatarFallback>
+									</Avatar>
+									<div class="min-w-0">
+										<p class="text-sm font-medium truncate">{listing.agent.name}</p>
+										<p class="text-xs text-muted-foreground">{listing.agent.roleLabel ?? listing.agent.role}</p>
+									</div>
 								</div>
-							</div>
-							{#each teamMembers.filter(m => m.id !== listing.agent.id).slice(0, 3) as member}
+							{/if}
+							{#each teamMembers.filter((m: any) => m.id !== listing?.agent?.id).slice(0, 3) as member}
 								<div class="flex items-center gap-3 py-2.5 last:pb-0">
 									<Avatar class="size-9">
-										<AvatarFallback class="bg-muted text-muted-foreground text-xs font-medium">{member.initials}</AvatarFallback>
+										<AvatarFallback class="bg-muted text-muted-foreground text-xs font-medium">{member.initials ?? '?'}</AvatarFallback>
 									</Avatar>
 									<div class="min-w-0">
 										<p class="text-sm font-medium truncate">{member.name}</p>
-										<p class="text-xs text-muted-foreground">{member.roleLabel}</p>
+										<p class="text-xs text-muted-foreground">{member.roleLabel ?? member.role}</p>
 									</div>
 								</div>
 							{/each}
@@ -318,52 +360,54 @@
 				</Card>
 
 				<!-- Client Info -->
-				<Card>
-					<CardHeader>
-						<CardTitle class="font-serif text-base">Client</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<div class="flex items-center gap-3">
-							<Avatar class="size-10">
-								<AvatarFallback class="bg-primary/10 text-primary text-sm font-medium">{listing.client.initials}</AvatarFallback>
-							</Avatar>
-							<div>
-								<p class="text-sm font-medium">{listing.client.name}</p>
-								<p class="text-xs text-muted-foreground">{listing.client.typeLabel}</p>
+				{#if listing.client}
+					<Card>
+						<CardHeader>
+							<CardTitle class="font-serif text-base">Client</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<div class="flex items-center gap-3">
+								<Avatar class="size-10">
+									<AvatarFallback class="bg-primary/10 text-primary text-sm font-medium">{listing.client.initials ?? '?'}</AvatarFallback>
+								</Avatar>
+								<div>
+									<p class="text-sm font-medium">{listing.client.name}</p>
+									<p class="text-xs text-muted-foreground">{listing.client.type}</p>
+								</div>
 							</div>
-						</div>
-						<Separator class="my-3" />
-						<div class="space-y-2">
-							<div class="flex items-center gap-2 text-sm">
-								<Mail class="size-3.5 text-muted-foreground" />
-								<span class="text-muted-foreground truncate">{listing.client.email}</span>
+							<Separator class="my-3" />
+							<div class="space-y-2">
+								<div class="flex items-center gap-2 text-sm">
+									<Mail class="size-3.5 text-muted-foreground" />
+									<span class="text-muted-foreground truncate">{listing.client.email}</span>
+								</div>
+								<div class="flex items-center gap-2 text-sm">
+									<Phone class="size-3.5 text-muted-foreground" />
+									<span class="text-muted-foreground">{listing.client.phone}</span>
+								</div>
 							</div>
-							<div class="flex items-center gap-2 text-sm">
-								<Phone class="size-3.5 text-muted-foreground" />
-								<span class="text-muted-foreground">{listing.client.phone}</span>
+							<div class="mt-3 flex items-center gap-2">
+								<Badge variant="outline" class="text-xs">
+									<Globe class="mr-1 size-3" />
+									Portal Active
+								</Badge>
 							</div>
-						</div>
-						<div class="mt-3 flex items-center gap-2">
-							<Badge variant="outline" class="text-xs">
-								<Globe class="mr-1 size-3" />
-								Portal Active
-							</Badge>
-						</div>
-					</CardContent>
-				</Card>
+						</CardContent>
+					</Card>
+				{/if}
 
-				<!-- AI Insights -->
-				{#if listingInsights.length > 0}
+				<!-- Insights -->
+				{#if aiInsights.length > 0}
 					<Card class="border-amber-200 bg-amber-50/30">
 						<CardHeader>
 							<CardTitle class="flex items-center gap-2 font-serif text-base">
 								<Sparkles class="size-4 text-amber-500" />
-								AI Insights
+								Insights
 							</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div class="space-y-3">
-								{#each listingInsights as insight}
+								{#each aiInsights as insight}
 									<div class="rounded-lg border border-amber-200/50 bg-white p-3">
 										<p class="text-sm font-medium">{insight.title}</p>
 										<p class="mt-1 text-xs text-muted-foreground line-clamp-3">{insight.description}</p>

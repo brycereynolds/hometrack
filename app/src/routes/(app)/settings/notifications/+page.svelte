@@ -14,6 +14,11 @@
 		Moon,
 		Clock
 	} from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+
+	let { data } = $props();
+	let saving = $state(false);
 
 	type Channel = 'inApp' | 'email' | 'push';
 
@@ -30,7 +35,7 @@
 		prefs: NotificationPref[];
 	}
 
-	let categories = $state<NotificationCategory[]>([
+	const defaultCategories: NotificationCategory[] = [
 		{
 			label: 'Task Notifications',
 			icon: CheckSquare,
@@ -59,7 +64,7 @@
 			]
 		},
 		{
-			label: 'AI Alerts',
+			label: 'Alerts',
 			icon: Sparkles,
 			prefs: [
 				{ id: 'ai-connection', label: 'Connections found', description: 'Buyer-listing matches and agent connections', channels: { inApp: true, email: false, push: false } },
@@ -67,12 +72,49 @@
 				{ id: 'ai-recommendation', label: 'Recommendations', description: 'Pricing, timing, and strategy suggestions', channels: { inApp: true, email: false, push: false } }
 			]
 		}
-	]);
+	];
 
+	// Read saved notification settings from team data
+	const savedNotifications = $derived((data.team?.settings as Record<string, any>)?.notifications);
+
+	// Merge saved prefs into defaults: match by pref id to restore channel toggles
+	function buildCategories(saved: any): NotificationCategory[] {
+		if (!saved?.prefs) return structuredClone(defaultCategories);
+		const savedMap = new Map<string, Record<Channel, boolean>>();
+		for (const cat of saved.prefs) {
+			for (const p of cat.prefs) {
+				savedMap.set(p.id, p.channels);
+			}
+		}
+		return defaultCategories.map(cat => ({
+			...cat,
+			prefs: cat.prefs.map(p => ({
+				...p,
+				channels: savedMap.has(p.id) ? { ...savedMap.get(p.id)! } : { ...p.channels }
+			}))
+		}));
+	}
+
+	let categories = $state<NotificationCategory[]>(buildCategories(undefined));
 	let quietHoursEnabled = $state(true);
 	let quietStart = $state('22:00');
 	let quietEnd = $state('07:00');
 	let digestFrequency = $state('realtime');
+
+	// Initialize from saved settings when data loads
+	$effect(() => {
+		if (savedNotifications) {
+			categories = buildCategories(savedNotifications);
+			if (savedNotifications.quietHours) {
+				quietHoursEnabled = savedNotifications.quietHours.enabled ?? true;
+				quietStart = savedNotifications.quietHours.start ?? '22:00';
+				quietEnd = savedNotifications.quietHours.end ?? '07:00';
+			}
+			if (savedNotifications.digestFrequency) {
+				digestFrequency = savedNotifications.digestFrequency;
+			}
+		}
+	});
 
 	const channelIcons = {
 		inApp: Bell,
@@ -158,7 +200,8 @@
 		<CardContent>
 			<div class="flex items-center gap-4">
 				<button
-					onclick={() => quietHoursEnabled = !quietHoursEnabled}
+					aria-label="Toggle quiet hours"
+				onclick={() => quietHoursEnabled = !quietHoursEnabled}
 					class="relative inline-flex h-6 w-11 items-center rounded-full transition-colors {quietHoursEnabled ? 'bg-primary' : 'bg-muted'}"
 				>
 					<span class="inline-block size-4 transform rounded-full bg-white transition-transform shadow {quietHoursEnabled ? 'translate-x-6' : 'translate-x-1'}"></span>
@@ -212,7 +255,35 @@
 		</CardContent>
 	</Card>
 
-	<div class="flex justify-end">
-		<Button>Save Preferences</Button>
-	</div>
+	<form
+		method="POST"
+		action="?/save"
+		use:enhance={() => {
+			saving = true;
+			return async ({ result, update }) => {
+				saving = false;
+				if (result.type === 'success') {
+					toast.success('Notification preferences saved');
+					await update();
+				} else if (result.type === 'failure') {
+					toast.error(String(result.data?.error ?? 'Failed to save'));
+				}
+			};
+		}}
+	>
+		<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+		<input type="hidden" name="prefs" value={JSON.stringify(categories.map(c => ({
+			label: c.label,
+			prefs: c.prefs.map(p => ({ id: p.id, channels: p.channels }))
+		})))} />
+		<input type="hidden" name="quietHoursEnabled" value={String(quietHoursEnabled)} />
+		<input type="hidden" name="quietStart" value={quietStart} />
+		<input type="hidden" name="quietEnd" value={quietEnd} />
+		<input type="hidden" name="digestFrequency" value={digestFrequency} />
+		<div class="flex justify-end">
+			<Button type="submit" disabled={saving}>
+				{saving ? 'Saving...' : 'Save Preferences'}
+			</Button>
+		</div>
+	</form>
 </div>

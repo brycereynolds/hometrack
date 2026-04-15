@@ -331,6 +331,7 @@
       <div class="flex flex-col items-center gap-3 rounded-lg border border-dashed border-border p-6">
         <button
           onclick={() => memoRecording = !memoRecording}
+          aria-label={memoRecording ? 'Stop recording' : 'Start recording'}
           class="flex size-16 items-center justify-center rounded-full transition-colors {memoRecording ? 'bg-red-100 text-red-600 animate-pulse' : 'bg-primary/10 text-primary hover:bg-primary/20'}"
         >
           <svg class="size-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">

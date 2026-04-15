@@ -215,25 +215,25 @@
 			alt="Luxury home exterior"
 			class="h-full w-full object-cover"
 		/>
-		<div class="absolute inset-0 bg-gradient-to-r from-foreground/85 via-foreground/60 to-foreground/30"></div>
+		<div class="absolute inset-0 bg-gradient-to-r from-stone-900/85 via-stone-900/60 to-stone-900/30"></div>
 	</div>
 
 	<div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32 lg:py-40">
 		<div class="max-w-2xl">
-			<div class="fade-up opacity-0">
+			<div>
 				<h1 class="font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
 					The Operating System for Modern Real Estate Teams
 				</h1>
 			</div>
 
-			<div class="fade-up mt-8 opacity-0" style="transition-delay: 150ms;">
+			<div class="mt-8">
 				<p class="max-w-xl text-lg leading-relaxed text-white/80 sm:text-xl">
 					HomeTrack brings your listings, tasks, clients, and insights into one intelligent
 					platform — so you can close more deals with less chaos.
 				</p>
 			</div>
 
-			<div class="fade-up mt-10 flex flex-wrap gap-4 opacity-0" style="transition-delay: 300ms;">
+			<div class="mt-10 flex flex-wrap gap-4">
 				<a
 					href="/signup"
 					class="group inline-flex items-center gap-2 rounded-lg bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground transition-all hover:bg-primary-hover hover:shadow-lg"
@@ -249,7 +249,7 @@
 				</button>
 			</div>
 
-			<div class="fade-up mt-12 flex items-center gap-3 opacity-0" style="transition-delay: 450ms;">
+			<div class="mt-12 flex items-center gap-3">
 				<div class="flex -space-x-2">
 					{#each [1, 2, 3, 4, 5] as i}
 						<div class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white/20 bg-primary/80 text-xs font-semibold text-white">
@@ -289,7 +289,8 @@
 					style="transition-delay: {i * 100}ms;"
 				>
 					<div class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-						<svelte:component this={feature.icon} class="h-6 w-6" />
+						{@const Icon = feature.icon}
+					<Icon class="h-6 w-6" />
 					</div>
 					<h3 class="mt-6 font-serif text-xl text-foreground">{feature.title}</h3>
 					<p class="mt-3 leading-relaxed text-foreground-secondary">{feature.description}</p>
@@ -352,7 +353,8 @@
 					{/if}
 
 					<div class="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-						<svelte:component this={step.icon} class="h-8 w-8" />
+						{@const Icon = step.icon}
+					<Icon class="h-8 w-8" />
 					</div>
 					<p class="mt-4 text-sm font-bold tracking-widest text-primary/60">{step.number}</p>
 					<h3 class="mt-2 font-serif text-2xl text-foreground">{step.title}</h3>
@@ -425,7 +427,7 @@
 
 <!-- CTA Section -->
 <section class="relative overflow-hidden py-24 sm:py-32">
-	<div class="absolute inset-0 bg-gradient-to-br from-foreground via-foreground/95 to-foreground"></div>
+	<div class="absolute inset-0 bg-gradient-to-br from-stone-900 via-stone-900/95 to-stone-900"></div>
 	<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80')] bg-cover bg-center opacity-10"></div>
 	<div class="relative mx-auto max-w-3xl px-6 text-center">
 		<div class="fade-up opacity-0">
@@ -473,9 +475,9 @@
 				<ul class="mt-4 space-y-3">
 					<li><button onclick={() => scrollTo('features')} class="text-sm text-foreground-secondary transition-colors hover:text-primary">Features</button></li>
 					<li><button onclick={() => scrollTo('pricing')} class="text-sm text-foreground-secondary transition-colors hover:text-primary">Pricing</button></li>
-					<li><a href="#" class="text-sm text-foreground-secondary transition-colors hover:text-primary">About</a></li>
-					<li><a href="#" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Blog</a></li>
-					<li><a href="#" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Careers</a></li>
+					<li><a href="/about" class="text-sm text-foreground-secondary transition-colors hover:text-primary">About</a></li>
+					<li><a href="/blog" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Blog</a></li>
+					<li><a href="/careers" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Careers</a></li>
 				</ul>
 			</div>
 
@@ -483,9 +485,9 @@
 			<div>
 				<h4 class="text-sm font-semibold text-foreground">Legal</h4>
 				<ul class="mt-4 space-y-3">
-					<li><a href="#" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Privacy Policy</a></li>
-					<li><a href="#" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Terms of Service</a></li>
-					<li><a href="#" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Contact</a></li>
+					<li><a href="/privacy" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Privacy Policy</a></li>
+					<li><a href="/terms" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Terms of Service</a></li>
+					<li><a href="mailto:hello@hometrack.app" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Contact</a></li>
 				</ul>
 			</div>
 
@@ -493,8 +495,8 @@
 			<div>
 				<h4 class="text-sm font-semibold text-foreground">Connect</h4>
 				<ul class="mt-4 space-y-3">
-					<li><a href="#" class="text-sm text-foreground-secondary transition-colors hover:text-primary">Twitter</a></li>
-					<li><a href="#" class="text-sm text-foreground-secondary transition-colors hover:text-primary">LinkedIn</a></li>
+					<li><span class="cursor-pointer text-sm text-foreground-secondary transition-colors hover:text-primary">Twitter</span></li>
+					<li><span class="cursor-pointer text-sm text-foreground-secondary transition-colors hover:text-primary">LinkedIn</span></li>
 				</ul>
 			</div>
 		</div>
@@ -516,7 +518,7 @@
 			transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
-	.fade-up.animate-in {
+	:global(.fade-up.animate-in) {
 		opacity: 1 !important;
 		transform: translateY(0);
 	}

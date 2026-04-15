@@ -10,6 +10,9 @@
 		ChevronRight,
 		ListChecks
 	} from 'lucide-svelte';
+	import { toast } from 'svelte-sonner';
+	import { enhance } from '$app/forms';
+	import { tick } from 'svelte';
 	let { data } = $props();
 
 	const allTasks = $derived(data.tasks);
@@ -43,8 +46,10 @@
 	});
 
 	let completedTasks = $state<Set<string>>(new Set());
+	let savingTasks = $state<Set<string>>(new Set());
 
-	function toggleTask(taskId: string) {
+	async function toggleTask(taskId: string) {
+		// Optimistic UI toggle
 		const next = new Set(completedTasks);
 		if (next.has(taskId)) {
 			next.delete(taskId);
@@ -52,6 +57,13 @@
 			next.add(taskId);
 		}
 		completedTasks = next;
+
+		// Wait for DOM to reflect the new hidden input values
+		await tick();
+
+		// Submit the hidden form for this task
+		const form = document.getElementById(`toggle-form-${taskId}`) as HTMLFormElement | null;
+		form?.requestSubmit();
 	}
 
 	function getPriorityColor(priority: string) {
@@ -194,7 +206,7 @@
 		</div>
 	{/each}
 
-	{#if myTasks.length === 0}
+	{#if myTasks.length === 0 && completedTasks.size === 0}
 		<div class="py-12 text-center">
 			<CheckCircle class="mx-auto mb-3 size-12 text-emerald-500" />
 			<p class="text-lg font-medium">All caught up!</p>
@@ -202,3 +214,38 @@
 		</div>
 	{/if}
 </div>
+
+<!-- Hidden forms for task status toggles -->
+{#each allTasks as task}
+	<form
+		id="toggle-form-{task.id}"
+		method="POST"
+		action="?/toggleStatus"
+		class="hidden"
+		use:enhance={() => {
+			savingTasks = new Set([...savingTasks, task.id]);
+			return async ({ result, update }) => {
+				const s = new Set(savingTasks);
+				s.delete(task.id);
+				savingTasks = s;
+				if (result.type === 'success') {
+					toast.success(completedTasks.has(task.id) ? 'Task completed' : 'Task reopened');
+					await update();
+				} else if (result.type === 'failure') {
+					// Revert optimistic update
+					const reverted = new Set(completedTasks);
+					if (reverted.has(task.id)) {
+						reverted.delete(task.id);
+					} else {
+						reverted.add(task.id);
+					}
+					completedTasks = reverted;
+					toast.error(String(result.data?.error ?? 'Failed to update task'));
+				}
+			};
+		}}
+	>
+		<input type="hidden" name="taskId" value={task.id} />
+		<input type="hidden" name="status" value={completedTasks.has(task.id) ? 'done' : 'todo'} />
+	</form>
+{/each}

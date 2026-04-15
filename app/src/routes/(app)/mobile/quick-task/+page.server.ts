@@ -1,8 +1,9 @@
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad, Actions } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
 import { getListings } from '$lib/server/db/queries/listings.js';
-import { tasks } from '$lib/server/db/schema/index.js';
-import { eq } from 'drizzle-orm';
+import { tasks, teamMembers } from '$lib/server/db/schema/index.js';
+import { eq, and } from 'drizzle-orm';
+import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ locals, parent }) => {
   const { team } = await parent();
@@ -29,4 +30,36 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
   } catch {
     return { tasks: [], listings: [] };
   }
+};
+
+export const actions: Actions = {
+  toggleStatus: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const form = await request.formData();
+    const taskId = form.get('taskId') as string;
+    const newStatus = form.get('status') as string;
+
+    if (!taskId || !newStatus) {
+      return fail(400, { error: 'Task ID and status are required' });
+    }
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const member = await db.query.teamMembers.findFirst({
+          where: eq(teamMembers.userId, locals.user!.id),
+        });
+        if (!member) throw new Error('Team member not found');
+
+        await db
+          .update(tasks)
+          .set({ status: newStatus as any, updatedAt: new Date() })
+          .where(and(eq(tasks.id, taskId), eq(tasks.teamId, member.teamId)));
+      });
+      return { success: true };
+    } catch (err) {
+      console.error('toggleStatus error:', err);
+      return fail(500, { error: 'Failed to update task status' });
+    }
+  },
 };

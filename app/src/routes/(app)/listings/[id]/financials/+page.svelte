@@ -144,7 +144,7 @@
 				<CardHeader><CardTitle class="font-serif text-base">Estimated P&L</CardTitle><CardDescription>Projected returns based on current spending</CardDescription></CardHeader>
 				<CardContent>
 					<div class="divide-y">
-						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">List Price</span><span class="text-sm font-medium">{formatCurrency(listing.price ?? 0)}</span></div>
+						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">List Price</span><span class="text-sm font-medium">{listing.price ? formatCurrency(listing.price) : 'Unset'}</span></div>
 						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">Est. Commission (5%)</span><span class="text-sm font-medium text-red-600">-{formatCurrency((listing.price ?? 0) * 0.05)}</span></div>
 						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">Prep & Marketing Costs</span><span class="text-sm font-medium text-red-600">-{formatCurrency(financial.spent ?? 0)}</span></div>
 						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">Est. Closing Costs (1.5%)</span><span class="text-sm font-medium text-red-600">-{formatCurrency((listing.price ?? 0) * 0.015)}</span></div>

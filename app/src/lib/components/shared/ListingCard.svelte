@@ -16,7 +16,7 @@
 
   let { listing, variant = 'pipeline', stale = false }: Props = $props();
 
-  const priceFormatted = $derived(listing.priceFormatted ?? formatCurrency(listing.price ?? 0));
+  const priceFormatted = $derived(listing.priceFormatted ?? (listing.price ? formatCurrency(listing.price) : null));
   const agentInitials = $derived(listing.agent?.initials ?? '??');
   const agentName = $derived(listing.agent?.name ?? 'Unassigned');
 </script>
@@ -61,7 +61,11 @@
         {listing.address}
       </p>
       <p class="text-xs text-foreground-secondary">{listing.city}, {listing.state}</p>
-      <p class="mt-1 font-serif text-lg font-bold text-foreground">{priceFormatted}</p>
+      {#if priceFormatted}
+        <p class="mt-1 font-serif text-lg font-bold text-foreground">{priceFormatted}</p>
+      {:else}
+        <span class="mt-1 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">Unset</span>
+      {/if}
 
       <!-- Stats row -->
       <div class="mt-2 flex items-center gap-3 text-xs text-foreground-muted">
@@ -141,7 +145,11 @@
             </span>
           {/if}
         </div>
+        {#if priceFormatted}
         <p class="mt-0.5 font-serif text-lg font-bold text-foreground">{priceFormatted}</p>
+      {:else}
+        <span class="mt-0.5 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">Unset</span>
+      {/if}
         <div class="mt-1 flex items-center gap-3 text-xs text-foreground-muted">
           <span>{listing.beds}bd / {listing.baths}ba / {(listing.sqft ?? 0).toLocaleString()} sqft</span>
           <span class="text-border-strong">&middot;</span>

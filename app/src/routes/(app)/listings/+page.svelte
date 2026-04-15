@@ -214,9 +214,13 @@
 								loading="lazy"
 							/>
 							<div class="absolute top-2 left-2 flex items-center gap-1.5">
-								<Badge class="text-xs font-semibold shadow-sm bg-background/90 text-foreground backdrop-blur-sm">
-									{formatCurrency(listing.price ?? 0)}
-								</Badge>
+								{#if listing.price}
+									<Badge class="text-xs font-semibold shadow-sm bg-background/90 text-foreground backdrop-blur-sm">
+										{formatCurrency(listing.price)}
+									</Badge>
+								{:else}
+									<Badge class="text-xs font-medium shadow-sm bg-muted/90 text-muted-foreground backdrop-blur-sm">Unset</Badge>
+								{/if}
 								{#if listing.phase === 'active' && listing.underContract}
 									<Badge class="text-xs font-semibold shadow-sm bg-amber-500/90 text-white backdrop-blur-sm">
 										UNDER CONTRACT
@@ -341,9 +345,13 @@
 				loading="lazy"
 			/>
 			<div class="absolute top-2 left-2 flex items-center gap-1.5">
-				<Badge class="text-xs font-semibold shadow-sm bg-background/90 text-foreground backdrop-blur-sm">
-					{formatCurrency(listing.price ?? 0)}
-				</Badge>
+				{#if listing.price}
+					<Badge class="text-xs font-semibold shadow-sm bg-background/90 text-foreground backdrop-blur-sm">
+						{formatCurrency(listing.price)}
+					</Badge>
+				{:else}
+					<Badge class="text-xs font-medium shadow-sm bg-muted/90 text-muted-foreground backdrop-blur-sm">Unset</Badge>
+				{/if}
 			</div>
 			<div class="absolute top-2 right-2">
 				<span class="inline-flex items-center gap-1 text-xs text-white bg-black/50 backdrop-blur-sm rounded-full px-2 py-0.5">

@@ -65,7 +65,7 @@
 
 	const fieldNotesCount = $derived(data.fieldNotesCount ?? 0);
 
-	const listingPriceBadge = $derived(listing?.price ? formatCurrency(listing.price) : 'No Price');
+	const listingPriceBadge = $derived(listing?.price ? formatCurrency(listing.price) : 'Unset');
 
 	const tabs = $derived([
 		{ href: '', label: 'Overview', count: 0 },
@@ -155,7 +155,7 @@
 							>
 								{PHASES[listing.phase].label}
 							</Badge>
-							<span class="font-serif text-2xl font-bold sm:text-3xl">{formatCurrency(listing.price ?? 0)}</span>
+							{#if listing.price}<span class="font-serif text-2xl font-bold sm:text-3xl">{formatCurrency(listing.price)}</span>{:else}<span class="text-sm font-medium text-muted-foreground bg-muted/20 px-2 py-0.5 rounded">Unset</span>{/if}
 						</div>
 					</div>
 					<div class="mt-2 flex items-center gap-4 text-xs text-white/70 sm:text-sm">

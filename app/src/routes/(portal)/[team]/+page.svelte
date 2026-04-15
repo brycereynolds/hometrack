@@ -78,7 +78,7 @@
 			<CardContent class="flex-1 p-6">
 				<h2 class="font-serif text-xl font-bold">{listing.address}</h2>
 				<p class="text-sm text-muted-foreground">{listing.city}, {listing.state} {listing.zip}</p>
-				<p class="mt-2 text-2xl font-bold text-primary">{formatCurrency(listing.price ?? 0)}</p>
+				{#if listing.price}<p class="mt-2 text-2xl font-bold text-primary">{formatCurrency(listing.price)}</p>{:else}<span class="mt-2 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">Unset</span>{/if}
 				<div class="mt-3 flex flex-wrap gap-3 text-sm text-muted-foreground">
 					<span>{listing.beds} bed</span>
 					<span class="text-border">|</span>

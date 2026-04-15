@@ -275,7 +275,7 @@
 										</div>
 										<div class="min-w-0 flex-1">
 											<p class="truncate text-sm font-medium">{listing.address}</p>
-											<p class="text-xs text-muted-foreground">{listing.city} | {formatCurrency(listing.price ?? 0)}</p>
+											<p class="text-xs text-muted-foreground">{listing.city} | {listing.price ? formatCurrency(listing.price) : 'Unset'}</p>
 										</div>
 										<span
 											class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium"

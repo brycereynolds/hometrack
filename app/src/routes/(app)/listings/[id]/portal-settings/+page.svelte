@@ -97,7 +97,7 @@
 		);
 	}
 
-	const portalUrl = $derived(listing ? `https://portal.hometrack.co/${listing.id}` : '');
+	const portalUrl = $derived(listing ? `${typeof window !== 'undefined' ? window.location.origin : ''}/portal/${data.team?.slug ?? 'team'}` : '');
 	let copyButtonText = $state('Copy Link');
 
 	async function copyPortalUrl() {

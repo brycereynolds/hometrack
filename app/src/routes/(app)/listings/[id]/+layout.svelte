@@ -11,7 +11,7 @@
 	import {
 		ArrowLeft,
 		Edit,
-		Share2,
+		ExternalLink,
 		RefreshCw,
 		ChevronLeft,
 		ChevronRight,
@@ -127,17 +127,13 @@
 						<RefreshCw class="mr-1.5 size-4" />
 						Change Phase
 					</Button>
-					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white" onclick={() => {
-						if (navigator.share) {
-							navigator.share({ title: listing.address, url: window.location.href });
-						} else {
-							navigator.clipboard.writeText(window.location.href);
-							toast.success('Link copied to clipboard');
-						}
-					}}>
-						<Share2 class="mr-1.5 size-4" />
-						Share
-					</Button>
+					<a
+						href={`/listings/${listing.id}/portal-settings`}
+						class="inline-flex items-center rounded-md bg-white/90 px-3 py-1.5 text-sm font-medium text-stone-800 backdrop-blur-sm hover:bg-white transition-colors"
+					>
+						<ExternalLink class="mr-1.5 size-4" />
+						Client Portal
+					</a>
 				</div>
 
 				<!-- Hero content -->

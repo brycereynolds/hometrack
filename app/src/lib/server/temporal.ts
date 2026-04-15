@@ -45,7 +45,7 @@ export async function startFieldMediaWorkflow(input: FieldMediaInput) {
 	if (!client) return null;
 
 	try {
-		const handle = await client.workflow.start('process_field_media', {
+		const handle = await client.workflow.start('ProcessFieldMedia', {
 			taskQueue: 'field-media-processing',
 			workflowId: `field-media-${input.mediaType}-${Date.now()}`,
 			args: [input],

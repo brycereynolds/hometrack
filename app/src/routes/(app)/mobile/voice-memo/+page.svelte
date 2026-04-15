@@ -139,16 +139,14 @@
 				throw new Error(err.error || 'Upload failed');
 			}
 
-			const result = await response.json();
+			await response.json();
 			toast.success('Voice memo saved! Processing will begin shortly.');
+			discardRecording();
 
-			// Navigate to field notes detail if we have a listing, otherwise stay and show success
-			if (result.fieldNoteId && selectedListing) {
-				const { goto } = await import('$app/navigation');
-				goto(`/listings/${selectedListing}/field-notes/${result.fieldNoteId}`);
-			} else {
-				discardRecording();
-			}
+			// Refresh the page data to show the new memo in Recent list
+			const { invalidateAll } = await import('$app/navigation');
+			await invalidateAll();
+
 		} catch (err: any) {
 			toast.error(err.message || 'Failed to save voice memo');
 			console.error('Save error:', err);

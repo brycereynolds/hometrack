@@ -35,18 +35,10 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
           },
           moments: {
             orderBy: (moments, { asc }) => [asc(moments.momentIndex)],
-            with: {
-              bestFrame: true,
-            },
           },
           actions: {
             with: {
-              sourceMoment: {
-                with: {
-                  bestFrame: true,
-                },
-              },
-              linkedTask: true,
+              sourceMoment: true,
             },
           },
         },

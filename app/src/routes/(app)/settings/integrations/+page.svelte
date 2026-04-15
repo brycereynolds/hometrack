@@ -2,6 +2,7 @@
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import {
 		Mail,
 		Calendar,
@@ -60,6 +61,10 @@
 		disconnected: { icon: XCircle, color: 'text-muted-foreground', bg: 'bg-muted/50', label: 'Disconnected' },
 		error: { icon: AlertCircle, color: 'text-red-500', bg: 'bg-red-50', label: 'Error' }
 	};
+
+	function isGoogleIntegration(name: string) {
+		return name === 'Gmail' || name === 'Google Calendar';
+	}
 </script>
 
 <div class="space-y-6">
@@ -88,6 +93,7 @@
 					{@const Icon = iconMap[integration.icon ?? ''] || Database}
 					{@const status = statusConfig[integration.status]}
 					{@const StatusIcon = status.icon}
+					{@const isGoogle = isGoogleIntegration(integration.name)}
 					<Card class="transition-all hover:shadow-sm">
 						<CardContent class="p-4">
 							<div class="flex items-start gap-3">
@@ -117,23 +123,37 @@
 													<span> &middot; by {integration.connectedBy.name}</span>
 												{/if}
 											</div>
-											<Button variant="ghost" size="sm" class="h-6 text-xs gap-1">
-												<RefreshCw class="size-3" />
-												Sync
-											</Button>
+											<Tooltip.Root>
+												<Tooltip.Trigger>
+													<Button variant="ghost" size="sm" class="h-6 text-xs gap-1 opacity-50" disabled>
+														<RefreshCw class="size-3" />
+														Sync
+													</Button>
+												</Tooltip.Trigger>
+												<Tooltip.Content>
+													<p>Coming Soon</p>
+												</Tooltip.Content>
+											</Tooltip.Root>
 										</div>
 									{:else}
 										<div class="mt-2">
-											{#if integration.name === 'Gmail' || integration.name === 'Google Calendar'}
+											{#if isGoogle}
 												<a href="/api/integrations/google/connect">
 													<Button variant="outline" size="sm" class="h-7 text-xs">
 														Connect
 													</Button>
 												</a>
 											{:else}
-												<Button variant="outline" size="sm" class="h-7 text-xs">
-													Connect
-												</Button>
+												<Tooltip.Root>
+													<Tooltip.Trigger>
+														<Button variant="outline" size="sm" class="h-7 text-xs opacity-50" disabled>
+															Connect
+														</Button>
+													</Tooltip.Trigger>
+													<Tooltip.Content>
+														<p>Coming Soon</p>
+													</Tooltip.Content>
+												</Tooltip.Root>
 											{/if}
 										</div>
 									{/if}

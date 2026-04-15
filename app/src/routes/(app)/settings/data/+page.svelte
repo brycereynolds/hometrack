@@ -3,6 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import {
 		Download,
 		Upload,
@@ -69,10 +70,17 @@
 						</div>
 						<div class="flex items-center gap-3">
 							<span class="text-xs text-muted-foreground">Last export: {opt.lastExport}</span>
-							<Button variant="outline" size="sm" class="gap-1">
-								<Download class="size-3" />
-								Export
-							</Button>
+							<Tooltip.Root>
+								<Tooltip.Trigger>
+									<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
+										<Download class="size-3" />
+										Export
+									</Button>
+								</Tooltip.Trigger>
+								<Tooltip.Content>
+									<p>Coming Soon</p>
+								</Tooltip.Content>
+							</Tooltip.Root>
 						</div>
 					</div>
 				{/each}
@@ -121,10 +129,17 @@
 						<p class="text-xs text-muted-foreground">Last backup: Today at 3:00 AM &middot; Daily automatic backups enabled</p>
 					</div>
 				</div>
-				<Button variant="outline" size="sm" class="gap-1">
-					<RefreshCw class="size-3" />
-					Backup Now
-				</Button>
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
+							<RefreshCw class="size-3" />
+							Backup Now
+						</Button>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p>Coming Soon</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
 			</div>
 		</CardContent>
 	</Card>
@@ -143,18 +158,32 @@
 				<div class="rounded-lg border p-4 space-y-2">
 					<h4 class="text-sm font-medium">Data Access Request</h4>
 					<p class="text-xs text-muted-foreground">Generate a report of all data stored for a specific contact or client</p>
-					<Button variant="outline" size="sm" class="gap-1">
-						<FileText class="size-3" />
-						New Request
-					</Button>
+					<Tooltip.Root>
+						<Tooltip.Trigger>
+							<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
+								<FileText class="size-3" />
+								New Request
+							</Button>
+						</Tooltip.Trigger>
+						<Tooltip.Content>
+							<p>Coming Soon</p>
+						</Tooltip.Content>
+					</Tooltip.Root>
 				</div>
 				<div class="rounded-lg border p-4 space-y-2">
 					<h4 class="text-sm font-medium">Data Deletion Request</h4>
 					<p class="text-xs text-muted-foreground">Submit a request to permanently delete a contact's personal data</p>
-					<Button variant="outline" size="sm" class="gap-1 text-red-600 hover:text-red-700">
-						<Trash2 class="size-3" />
-						New Request
-					</Button>
+					<Tooltip.Root>
+						<Tooltip.Trigger>
+							<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
+								<Trash2 class="size-3" />
+								New Request
+							</Button>
+						</Tooltip.Trigger>
+						<Tooltip.Content>
+							<p>Coming Soon</p>
+						</Tooltip.Content>
+					</Tooltip.Root>
 				</div>
 			</div>
 			<div class="mt-3 rounded-md bg-muted/50 p-3">
@@ -171,11 +200,12 @@
 			<CardTitle class="flex items-center gap-2">
 				<Key class="size-4" />
 				API Keys
+				<Badge variant="secondary" class="text-xs font-normal">Coming Soon</Badge>
 			</CardTitle>
 			<CardDescription>Manage API keys for third-party integrations</CardDescription>
 		</CardHeader>
 		<CardContent>
-			<div class="rounded-lg border p-4">
+			<div class="rounded-lg border p-4 opacity-60">
 				<div class="flex items-center justify-between">
 					<div>
 						<p class="text-sm font-medium">Production API Key</p>
@@ -194,20 +224,34 @@
 							<Eye class="size-3.5" />
 						{/if}
 					</Button>
-					<Button variant="ghost" size="sm" class="h-7">
+					<Button variant="ghost" size="sm" class="h-7 opacity-50" disabled>
 						<Copy class="size-3.5" />
 					</Button>
 				</div>
 			</div>
 			<div class="mt-3 flex items-center gap-2">
-				<Button variant="outline" size="sm" class="gap-1">
-					<Key class="size-3" />
-					Generate New Key
-				</Button>
-				<Button variant="ghost" size="sm" class="gap-1 text-red-600 hover:text-red-700">
-					<Trash2 class="size-3" />
-					Revoke Key
-				</Button>
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
+							<Key class="size-3" />
+							Generate New Key
+						</Button>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p>Coming Soon</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Button variant="ghost" size="sm" class="gap-1 opacity-50" disabled>
+							<Trash2 class="size-3" />
+							Revoke Key
+						</Button>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p>Coming Soon</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
 			</div>
 		</CardContent>
 	</Card>

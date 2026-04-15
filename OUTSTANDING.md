@@ -5,10 +5,10 @@ Items that are UI-only and do not persist or function yet.
 ## Settings
 
 ### Team Management (`settings/+page.svelte`)
-- [ ] Invite Member button — no invite system (no form action, no email/invite flow)
+- [x] Invite Member button — wired with modal + form action, inserts into `team_members` with null userId
+- [x] Remove member — wired with confirmation dialog + form action, deletes from `team_members`
+- [x] Hardcoded invited member (Alex Thompson) removed
 - [ ] Role changes — roles display but cannot be changed (no edit UI or form action)
-- [ ] Remove/deactivate member — no action available
-- [ ] Invited member (Alex Thompson) is hardcoded in the component, not from DB
 
 ### Branding (`settings/branding/+page.svelte`)
 - [x] Save Branding — wired with form action, persists to `teams.settings.branding` via RLS
@@ -24,34 +24,32 @@ Items that are UI-only and do not persist or function yet.
 
 ### Workflows (`settings/workflows/+page.svelte`)
 - [x] Edit Workflow (name/description) — wired with form action, persists to `workflow_templates` table
-- [ ] Create Custom Workflow button — no create form or action
-- [ ] Automation Rules — entirely hardcoded mock data, no DB table or persistence
-- [ ] Add Rule button — no form or action
-- [ ] Enable/disable automation toggle — no persistence
-- [ ] Rule settings (gear icon) button — no action
+- [x] Create Custom Workflow button — wired with modal + form action, inserts into `workflow_templates`
+- [x] Automation Rules — marked "Coming Soon" (toggles disabled, settings gear disabled with tooltips)
+- [x] Add Rule button — disabled with "Coming Soon" tooltip
+- [x] Enable/disable automation toggle — disabled, rules shown at reduced opacity
+- [x] Rule settings (gear icon) button — disabled with "Coming Soon" tooltip
 
 ### Integrations (`settings/integrations/+page.svelte`)
-- [ ] Connect buttons (non-Google) — no OAuth flow or connection logic
+- [x] Connect buttons (non-Google) — disabled with "Coming Soon" tooltip
 - [ ] Google Connect (`/api/integrations/google/connect`) — endpoint may not exist
-- [ ] Sync button on connected integrations — no sync action or handler
+- [x] Sync button on connected integrations — disabled with "Coming Soon" tooltip
 - [ ] Integration status changes — no disconnect/reconnect actions
 
 ### Billing (`settings/billing/+page.svelte`)
 - [ ] No `+page.server.ts` — entire page is hardcoded mock data
 - [ ] Current plan, usage stats, invoices — all hardcoded in component
-- [ ] Upgrade/Downgrade buttons — no Stripe integration
-- [ ] Update Payment Method button — no payment provider
-- [ ] Download Invoice PDF buttons — no PDF generation or download endpoint
+- [x] Upgrade/Downgrade buttons — disabled with "Stripe integration coming soon" tooltip
+- [x] Update Payment Method button — disabled with "Stripe integration coming soon" tooltip
+- [x] Download Invoice PDF buttons — disabled with "Coming Soon" tooltip
 
 ### Data Management (`settings/data/+page.svelte`)
 - [ ] No `+page.server.ts` — entire page is hardcoded mock data
-- [ ] Export CSV/Reports buttons — no export endpoint or file generation
-- [ ] Backup Now button — no backup trigger action
-- [ ] Data Access Request / Data Deletion Request buttons — no request handling
-- [ ] API Key display — hardcoded fake key, no key generation or management
-- [ ] Generate New Key / Revoke Key buttons — no API key system
-- [ ] Show/Hide API key toggle — works client-side but key is fake
-- [ ] Copy API key button — no clipboard action wired
+- [x] Export CSV/Reports buttons — disabled with "Coming Soon" tooltip
+- [x] Backup Now button — disabled with "Coming Soon" tooltip
+- [x] Data Access Request / Data Deletion Request buttons — disabled with "Coming Soon" tooltip
+- [x] API Keys section — marked "Coming Soon" with badge, controls disabled
+- [x] Generate New Key / Revoke Key buttons — disabled with "Coming Soon" tooltip
 - [ ] Data retention settings — display only, not configurable
 
 ## Portal Settings (`listings/[id]/portal-settings/+page.svelte`)

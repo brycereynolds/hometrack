@@ -3,6 +3,7 @@ import { withRLS } from '$lib/server/db/index.js';
 import { workflowTemplates } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
+import { nanoid } from 'nanoid';
 
 export const load: PageServerLoad = async ({ locals, parent }) => {
   const { team } = await parent();
@@ -52,6 +53,38 @@ export const actions: Actions = {
     } catch (e) {
       console.error('Edit workflow error:', e);
       return fail(500, { error: 'Failed to update workflow' });
+    }
+  },
+
+  createWorkflow: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+
+    const formData = await request.formData();
+    const teamId = formData.get('teamId') as string;
+    const name = (formData.get('name') as string)?.trim();
+    const phase = formData.get('phase') as string;
+    const description = (formData.get('description') as string)?.trim() || null;
+
+    if (!teamId) return fail(400, { error: 'Missing team' });
+    if (!name) return fail(400, { error: 'Name is required' });
+    if (!phase) return fail(400, { error: 'Phase is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db.insert(workflowTemplates).values({
+          id: nanoid(),
+          teamId,
+          name,
+          phase: phase as 'pre_market' | 'active' | 'closed' | 'canceled',
+          description,
+          isDefault: false,
+          taskCount: 0,
+        });
+      });
+      return { success: true };
+    } catch (e) {
+      console.error('Create workflow error:', e);
+      return fail(500, { error: 'Failed to create workflow' });
     }
   },
 };

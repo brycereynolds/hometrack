@@ -3,6 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import {
 		CreditCard,
 		Check,
@@ -151,10 +152,17 @@
 							{#if plan.current}
 								<Button variant="outline" class="w-full" disabled>Current Plan</Button>
 							{:else}
-								<Button variant="outline" class="w-full gap-1">
-									{plan.price > currentPlan.price ? 'Upgrade' : 'Downgrade'}
-									<ArrowUpRight class="size-3" />
-								</Button>
+								<Tooltip.Root>
+									<Tooltip.Trigger class="w-full">
+										<Button variant="outline" class="w-full gap-1 opacity-50" disabled>
+											{plan.price > currentPlan.price ? 'Upgrade' : 'Downgrade'}
+											<ArrowUpRight class="size-3" />
+										</Button>
+									</Tooltip.Trigger>
+									<Tooltip.Content>
+										<p>Stripe integration coming soon</p>
+									</Tooltip.Content>
+								</Tooltip.Root>
 							{/if}
 						</div>
 					</div>
@@ -179,7 +187,14 @@
 						<p class="text-xs text-muted-foreground">Expires 08/2028</p>
 					</div>
 				</div>
-				<Button variant="outline" size="sm">Update</Button>
+				<Tooltip.Root>
+					<Tooltip.Trigger>
+						<Button variant="outline" size="sm" class="opacity-50" disabled>Update</Button>
+					</Tooltip.Trigger>
+					<Tooltip.Content>
+						<p>Stripe integration coming soon</p>
+					</Tooltip.Content>
+				</Tooltip.Root>
 			</div>
 		</CardContent>
 	</Card>
@@ -211,10 +226,17 @@
 									<Badge variant="secondary" class="text-xs">{inv.status}</Badge>
 								</td>
 								<td class="px-6 py-2.5 text-right">
-									<Button variant="ghost" size="sm" class="h-7 text-xs gap-1">
-										<Download class="size-3" />
-										PDF
-									</Button>
+									<Tooltip.Root>
+										<Tooltip.Trigger>
+											<Button variant="ghost" size="sm" class="h-7 text-xs gap-1 opacity-50" disabled>
+												<Download class="size-3" />
+												PDF
+											</Button>
+										</Tooltip.Trigger>
+										<Tooltip.Content>
+											<p>Coming Soon</p>
+										</Tooltip.Content>
+									</Tooltip.Root>
 								</td>
 							</tr>
 						{/each}

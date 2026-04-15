@@ -1,14 +1,14 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import {
 		Eye,
 		EyeOff,
 		Globe,
-		Lock,
 		Users,
 		FileText,
 		Image,
@@ -20,10 +20,8 @@
 		X,
 		ExternalLink,
 		Copy,
-		Shield,
 		UserPlus,
 		Send,
-		Settings,
 		Bell,
 		RefreshCw,
 		Mail,
@@ -34,56 +32,102 @@
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
+	const savedSettings = $derived((data.portalSettings ?? {}) as Record<string, any>);
 
-	// Portal section visibility toggles
-	let portalSections = $state([
-		{ id: 'overview', label: 'Property Overview', icon: Globe, enabled: true, description: 'Address, price, photos, and basic details' },
-		{ id: 'timeline', label: 'Timeline & Milestones', icon: Calendar, enabled: true, description: 'Phase progress and upcoming dates' },
-		{ id: 'documents', label: 'Documents', icon: FileText, enabled: true, description: 'Disclosures, contracts, and reports' },
-		{ id: 'photos', label: 'Photo Gallery', icon: Image, enabled: true, description: 'Marketing photos and virtual tours' },
-		{ id: 'showings', label: 'Showing Activity', icon: Users, enabled: false, description: 'Showing schedule and feedback summaries' },
-		{ id: 'analytics', label: 'Market Analytics', icon: BarChart3, enabled: false, description: 'Views, saves, and market data' },
-		{ id: 'offers', label: 'Offer Details', icon: FileText, enabled: false, description: 'Offer status and comparison' },
-		{ id: 'messages', label: 'Messages', icon: MessageSquare, enabled: true, description: 'Direct communication channel' }
-	]);
+	// Portal section visibility toggles — initialize from saved data
+	const defaultSections: Record<string, boolean> = {
+		overview: true, timeline: true, documents: true, photos: true,
+		showings: false, analytics: false, offers: false, messages: true
+	};
+	const sectionMeta = [
+		{ id: 'overview', label: 'Property Overview', icon: Globe, description: 'Address, price, photos, and basic details' },
+		{ id: 'timeline', label: 'Timeline & Milestones', icon: Calendar, description: 'Phase progress and upcoming dates' },
+		{ id: 'documents', label: 'Documents', icon: FileText, description: 'Disclosures, contracts, and reports' },
+		{ id: 'photos', label: 'Photo Gallery', icon: Image, description: 'Marketing photos and virtual tours' },
+		{ id: 'showings', label: 'Showing Activity', icon: Users, description: 'Showing schedule and feedback summaries' },
+		{ id: 'analytics', label: 'Market Analytics', icon: BarChart3, description: 'Views, saves, and market data' },
+		{ id: 'offers', label: 'Offer Details', icon: FileText, description: 'Offer status and comparison' },
+		{ id: 'messages', label: 'Messages', icon: MessageSquare, description: 'Direct communication channel' }
+	];
 
-	// Document sharing controls
-	let documentSharing = $state([
-		{ id: 'disclosures', label: 'Disclosures Package', shared: true, count: 3 },
-		{ id: 'inspection', label: 'Inspection Reports', shared: true, count: 2 },
-		{ id: 'title', label: 'Title Documents', shared: false, count: 1 },
-		{ id: 'contracts', label: 'Contracts', shared: false, count: 2 },
-		{ id: 'marketing', label: 'Marketing Materials', shared: true, count: 1 },
-		{ id: 'photos', label: 'Photo Package', shared: true, count: 1 }
-	]);
+	let portalSections = $state(
+		sectionMeta.map((s) => ({
+			...s,
+			enabled: savedSettings.sections?.[s.id] ?? defaultSections[s.id]
+		}))
+	);
 
-	// Approval queue items
-	const approvalQueue = [
+	// Document sharing controls — initialize from saved data
+	const defaultDocSharing: Record<string, boolean> = {
+		disclosures: true, inspection: true, title: false, contracts: false, marketing: true, photos: true
+	};
+	const docMeta = [
+		{ id: 'disclosures', label: 'Disclosures Package', count: 3 },
+		{ id: 'inspection', label: 'Inspection Reports', count: 2 },
+		{ id: 'title', label: 'Title Documents', count: 1 },
+		{ id: 'contracts', label: 'Contracts', count: 2 },
+		{ id: 'marketing', label: 'Marketing Materials', count: 1 },
+		{ id: 'photos', label: 'Photo Package', count: 1 }
+	];
+
+	let documentSharing = $state(
+		docMeta.map((d) => ({
+			...d,
+			shared: savedSettings.documentSharing?.[d.id] ?? defaultDocSharing[d.id]
+		}))
+	);
+
+	// Approval queue items — initialize from saved data or defaults
+	const defaultApprovalQueue = [
 		{ id: 'aq-1', type: 'document', label: 'Pest Inspection Report', requestedBy: 'Client', date: '2026-04-08', status: 'pending' },
 		{ id: 'aq-2', type: 'analytics', label: 'Zillow view data access', requestedBy: 'Client', date: '2026-04-09', status: 'pending' },
 		{ id: 'aq-3', type: 'document', label: 'Listing Agreement copy', requestedBy: 'Client', date: '2026-04-07', status: 'approved' }
 	];
+	let approvalQueue = $state(
+		(savedSettings.approvalQueue as typeof defaultApprovalQueue) ?? defaultApprovalQueue
+	);
 
 	// Client access
 	const clientAccess = $derived([
 		{ name: listing?.client?.name || 'Client', email: listing?.client?.email || '', role: 'Owner', status: 'active', lastAccess: '2 hours ago', magicLinkExpires: '2026-04-17' }
 	]);
 
-	// Notification settings
-	let notificationSettings = $state([
-		{ id: 'phase_change', label: 'Phase Changes', description: 'Notify when listing moves to a new phase', icon: RefreshCw, email: true, sms: false },
-		{ id: 'new_document', label: 'New Documents', description: 'Notify when new documents are shared', icon: FileText, email: true, sms: true },
-		{ id: 'showing_scheduled', label: 'Showing Scheduled', description: 'Notify when a new showing is booked', icon: Calendar, email: true, sms: true },
-		{ id: 'offer_received', label: 'Offer Received', description: 'Notify when a new offer comes in', icon: Mail, email: true, sms: true },
-		{ id: 'task_complete', label: 'Task Completed', description: 'Notify when team tasks are finished', icon: CheckCircle2, email: true, sms: false },
-		{ id: 'weekly_summary', label: 'Weekly Summary', description: 'Send a weekly activity digest', icon: BarChart3, email: true, sms: false }
-	]);
+	// Notification settings — initialize from saved data
+	const defaultNotifications: Record<string, { email: boolean; sms: boolean }> = {
+		phase_change: { email: true, sms: false },
+		new_document: { email: true, sms: true },
+		showing_scheduled: { email: true, sms: true },
+		offer_received: { email: true, sms: true },
+		task_complete: { email: true, sms: false },
+		weekly_summary: { email: true, sms: false }
+	};
+	const notifMeta = [
+		{ id: 'phase_change', label: 'Phase Changes', description: 'Notify when listing moves to a new phase', icon: RefreshCw },
+		{ id: 'new_document', label: 'New Documents', description: 'Notify when new documents are shared', icon: FileText },
+		{ id: 'showing_scheduled', label: 'Showing Scheduled', description: 'Notify when a new showing is booked', icon: Calendar },
+		{ id: 'offer_received', label: 'Offer Received', description: 'Notify when a new offer comes in', icon: Mail },
+		{ id: 'task_complete', label: 'Task Completed', description: 'Notify when team tasks are finished', icon: CheckCircle2 },
+		{ id: 'weekly_summary', label: 'Weekly Summary', description: 'Send a weekly activity digest', icon: BarChart3 }
+	];
 
-	function toggleNotification(id: string, channel: 'email' | 'sms') {
-		notificationSettings = notificationSettings.map((n) =>
-			n.id === id ? { ...n, [channel]: !n[channel] } : n
-		);
-	}
+	let notificationSettings = $state(
+		notifMeta.map((n) => ({
+			...n,
+			email: savedSettings.notifications?.[n.id]?.email ?? defaultNotifications[n.id].email,
+			sms: savedSettings.notifications?.[n.id]?.sms ?? defaultNotifications[n.id].sms
+		}))
+	);
+
+	// Build serializable payloads for form submissions
+	const sectionsPayload = $derived(
+		Object.fromEntries(portalSections.map((s) => [s.id, s.enabled]))
+	);
+	const docSharingPayload = $derived(
+		Object.fromEntries(documentSharing.map((d) => [d.id, d.shared]))
+	);
+	const notificationsPayload = $derived(
+		Object.fromEntries(notificationSettings.map((n) => [n.id, { email: n.email, sms: n.sms }]))
+	);
 
 	function toggleSection(id: string) {
 		portalSections = portalSections.map((s) =>
@@ -95,6 +139,27 @@
 		documentSharing = documentSharing.map((d) =>
 			d.id === id ? { ...d, shared: !d.shared } : d
 		);
+	}
+
+	function toggleNotification(id: string, channel: 'email' | 'sms') {
+		notificationSettings = notificationSettings.map((n) =>
+			n.id === id ? { ...n, [channel]: !n[channel] } : n
+		);
+	}
+
+	// Trigger hidden form submissions
+	let sectionFormEl: HTMLFormElement;
+	let docFormEl: HTMLFormElement;
+	let notifFormEl: HTMLFormElement;
+
+	function submitSections() {
+		sectionFormEl?.requestSubmit();
+	}
+	function submitDocSharing() {
+		docFormEl?.requestSubmit();
+	}
+	function submitNotifications() {
+		notifFormEl?.requestSubmit();
 	}
 
 	const portalBaseUrl = $derived(data.portalBaseUrl || (typeof window !== 'undefined' ? window.location.origin : ''));
@@ -112,6 +177,46 @@
 		}
 	}
 </script>
+
+<!-- Hidden forms for persisting settings -->
+<form bind:this={sectionFormEl} method="POST" action="?/savePortalSections" class="hidden" use:enhance={() => {
+	return async ({ result, update }) => {
+		if (result.type === 'success') {
+			toast.success('Portal sections saved');
+		} else {
+			toast.error('Failed to save portal sections');
+		}
+		await update({ reset: false });
+	};
+}}>
+	<input type="hidden" name="sections" value={JSON.stringify(sectionsPayload)} />
+</form>
+
+<form bind:this={docFormEl} method="POST" action="?/saveDocumentSharing" class="hidden" use:enhance={() => {
+	return async ({ result, update }) => {
+		if (result.type === 'success') {
+			toast.success('Document sharing saved');
+		} else {
+			toast.error('Failed to save document sharing');
+		}
+		await update({ reset: false });
+	};
+}}>
+	<input type="hidden" name="documentSharing" value={JSON.stringify(docSharingPayload)} />
+</form>
+
+<form bind:this={notifFormEl} method="POST" action="?/saveNotifications" class="hidden" use:enhance={() => {
+	return async ({ result, update }) => {
+		if (result.type === 'success') {
+			toast.success('Notification settings saved');
+		} else {
+			toast.error('Failed to save notification settings');
+		}
+		await update({ reset: false });
+	};
+}}>
+	<input type="hidden" name="notifications" value={JSON.stringify(notificationsPayload)} />
+</form>
 
 {#if listing}
 	<div class="space-y-6">
@@ -141,7 +246,12 @@
 		<div class="grid gap-6 lg:grid-cols-2">
 			<!-- Section Visibility Toggles -->
 			<Card>
-				<CardHeader><CardTitle class="font-serif text-base">Portal Sections</CardTitle><CardDescription>Toggle visibility of each section in the client portal</CardDescription></CardHeader>
+				<CardHeader>
+					<div class="flex items-center justify-between">
+						<div><CardTitle class="font-serif text-base">Portal Sections</CardTitle><CardDescription>Toggle visibility of each section in the client portal</CardDescription></div>
+						<Button variant="outline" size="sm" onclick={submitSections}>Save</Button>
+					</div>
+				</CardHeader>
 				<CardContent>
 					<div class="divide-y">
 						{#each portalSections as section}
@@ -158,7 +268,12 @@
 
 			<!-- Document Sharing Controls -->
 			<Card>
-				<CardHeader><CardTitle class="font-serif text-base">Document Sharing</CardTitle><CardDescription>Control which document categories clients can access</CardDescription></CardHeader>
+				<CardHeader>
+					<div class="flex items-center justify-between">
+						<div><CardTitle class="font-serif text-base">Document Sharing</CardTitle><CardDescription>Control which document categories clients can access</CardDescription></div>
+						<Button variant="outline" size="sm" onclick={submitDocSharing}>Save</Button>
+					</div>
+				</CardHeader>
 				<CardContent>
 					<div class="divide-y">
 						{#each documentSharing as doc}
@@ -180,15 +295,43 @@
 				<div class="divide-y">
 					{#each approvalQueue as item}
 						<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
-							<div class="rounded-full p-1.5 {item.status === 'pending' ? 'bg-amber-100' : 'bg-green-100'}">{#if item.status === 'pending'}<Clock class="size-4 text-amber-600" />{:else}<CheckCircle2 class="size-4 text-green-600" />{/if}</div>
+							<div class="rounded-full p-1.5 {item.status === 'pending' ? 'bg-amber-100' : item.status === 'approved' ? 'bg-green-100' : 'bg-red-100'}">{#if item.status === 'pending'}<Clock class="size-4 text-amber-600" />{:else if item.status === 'approved'}<CheckCircle2 class="size-4 text-green-600" />{:else}<X class="size-4 text-red-600" />{/if}</div>
 							<div class="flex-1 min-w-0"><p class="text-sm font-medium">{item.label}</p><p class="text-xs text-muted-foreground">Requested by {item.requestedBy} -- {item.date}</p></div>
 							{#if item.status === 'pending'}
 								<div class="flex gap-1.5">
-									<Button variant="outline" size="sm" class="h-7 text-xs text-green-700 border-green-300 hover:bg-green-50"><CheckCircle2 class="mr-1 size-3" />Approve</Button>
-									<Button variant="outline" size="sm" class="h-7 text-xs text-red-600 border-red-200 hover:bg-red-50"><X class="mr-1 size-3" />Deny</Button>
+									<form method="POST" action="?/approveRequest" use:enhance={() => {
+										return async ({ result, update }) => {
+											if (result.type === 'success') {
+												approvalQueue = approvalQueue.map((q) => q.id === item.id ? { ...q, status: 'approved' } : q);
+												toast.success('Request approved');
+											} else {
+												toast.error('Failed to approve request');
+											}
+											await update({ reset: false });
+										};
+									}}>
+										<input type="hidden" name="requestId" value={item.id} />
+										<Button type="submit" variant="outline" size="sm" class="h-7 text-xs text-green-700 border-green-300 hover:bg-green-50"><CheckCircle2 class="mr-1 size-3" />Approve</Button>
+									</form>
+									<form method="POST" action="?/denyRequest" use:enhance={() => {
+										return async ({ result, update }) => {
+											if (result.type === 'success') {
+												approvalQueue = approvalQueue.map((q) => q.id === item.id ? { ...q, status: 'denied' } : q);
+												toast.success('Request denied');
+											} else {
+												toast.error('Failed to deny request');
+											}
+											await update({ reset: false });
+										};
+									}}>
+										<input type="hidden" name="requestId" value={item.id} />
+										<Button type="submit" variant="outline" size="sm" class="h-7 text-xs text-red-600 border-red-200 hover:bg-red-50"><X class="mr-1 size-3" />Deny</Button>
+									</form>
 								</div>
-							{:else}
+							{:else if item.status === 'approved'}
 								<Badge variant="outline" class="text-[10px] bg-green-100 text-green-700 border-green-200">Approved</Badge>
+							{:else}
+								<Badge variant="outline" class="text-[10px] bg-red-100 text-red-600 border-red-200">Denied</Badge>
 							{/if}
 						</div>
 					{/each}
@@ -198,7 +341,12 @@
 
 		<!-- Notification Settings -->
 		<Card>
-			<CardHeader><CardTitle class="font-serif text-base">Client Notifications</CardTitle><CardDescription>Configure which alerts your client receives</CardDescription></CardHeader>
+			<CardHeader>
+				<div class="flex items-center justify-between">
+					<div><CardTitle class="font-serif text-base">Client Notifications</CardTitle><CardDescription>Configure which alerts your client receives</CardDescription></div>
+					<Button variant="outline" size="sm" onclick={submitNotifications}>Save</Button>
+				</div>
+			</CardHeader>
 			<CardContent>
 				<div class="overflow-x-auto -mx-6 px-6">
 					<table class="w-full text-sm">

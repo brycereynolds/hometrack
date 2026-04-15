@@ -10,6 +10,9 @@
 	import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
 	import { onMount, onDestroy } from 'svelte';
 	import CommandPalette from '$lib/components/shared/CommandPalette.svelte';
+	import VoiceMemoModal from '$lib/components/shared/VoiceMemoModal.svelte';
+	import QuickNoteModal from '$lib/components/shared/QuickNoteModal.svelte';
+	import FloatingVoiceButton from '$lib/components/shared/FloatingVoiceButton.svelte';
 	import {
 		LayoutDashboard,
 		Home,
@@ -52,6 +55,8 @@
 
 	// Command palette state
 	let commandOpen = $state(false);
+	let voiceMemoOpen = $state(false);
+	let quickNoteOpen = $state(false);
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -80,10 +85,10 @@
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }
 	]);
 
-	const quickActions = [
+	const quickActions: { label: string; icon: typeof Plus; href?: string; action?: () => void }[] = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
-		{ label: 'Voice Memo', icon: Mic, href: '/mobile/voice-memo' },
-		{ label: 'Quick Note', icon: FileText, href: '/mobile/field-notes' }
+		{ label: 'Voice Memo', icon: Mic, action: () => { voiceMemoOpen = true; } },
+		{ label: 'Quick Note', icon: FileText, action: () => { quickNoteOpen = true; } }
 	];
 
 	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed).slice(0, 2));
@@ -104,7 +109,14 @@
 </script>
 
 <svelte:window onkeydown={handleKeydown} />
-<CommandPalette bind:open={commandOpen} />
+<CommandPalette
+	bind:open={commandOpen}
+	onVoiceMemo={() => { voiceMemoOpen = true; }}
+	onQuickNote={() => { quickNoteOpen = true; }}
+/>
+<VoiceMemoModal bind:open={voiceMemoOpen} listings={listings} teamId={data.team?.id ?? ''} />
+<QuickNoteModal bind:open={quickNoteOpen} listings={listings} teamId={data.team?.id ?? ''} />
+<FloatingVoiceButton onclick={() => { voiceMemoOpen = true; }} />
 <Toaster richColors position="top-right" />
 
 <Sidebar.SidebarProvider>
@@ -157,14 +169,21 @@
 					<Sidebar.SidebarMenu>
 						{#each quickActions as action}
 							<Sidebar.SidebarMenuItem>
-								<Sidebar.SidebarMenuButton asChild>
-									{#snippet child({ props })}
-										<a href={action.href} {...props}>
-											<action.icon class="size-4" />
-											<span>{action.label}</span>
-										</a>
-									{/snippet}
-								</Sidebar.SidebarMenuButton>
+								{#if action.href}
+									<Sidebar.SidebarMenuButton asChild>
+										{#snippet child({ props })}
+											<a href={action.href} {...props}>
+												<action.icon class="size-4" />
+												<span>{action.label}</span>
+											</a>
+										{/snippet}
+									</Sidebar.SidebarMenuButton>
+								{:else if action.action}
+									<Sidebar.SidebarMenuButton onclick={action.action}>
+										<action.icon class="size-4" />
+										<span>{action.label}</span>
+									</Sidebar.SidebarMenuButton>
+								{/if}
 							</Sidebar.SidebarMenuItem>
 						{/each}
 					</Sidebar.SidebarMenu>

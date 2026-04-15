@@ -97,7 +97,8 @@
 		);
 	}
 
-	const portalUrl = $derived(listing ? `${typeof window !== 'undefined' ? window.location.origin : ''}/portal/${data.team?.slug ?? 'team'}` : '');
+	const portalBaseUrl = $derived(data.portalBaseUrl || (typeof window !== 'undefined' ? window.location.origin : ''));
+	const portalUrl = $derived(listing ? `${portalBaseUrl}/${data.team?.slug ?? 'team'}` : '');
 	let copyButtonText = $state('Copy Link');
 
 	async function copyPortalUrl() {

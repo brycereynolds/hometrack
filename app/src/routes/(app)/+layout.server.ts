@@ -4,6 +4,7 @@ import { teamMembers, listings as listingsTable, aiInsights as aiInsightsTable }
 import { eq, desc } from 'drizzle-orm';
 import { redirect } from '@sveltejs/kit';
 import { getSupabaseConfig } from '$lib/server/supabase.js';
+import { env } from '$env/dynamic/private';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
   if (!locals.user) {
@@ -33,7 +34,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
     });
 
     if (!result) {
-      return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [] };
+      return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [], supabaseUrl: '', supabaseAnonKey: '', portalBaseUrl: '' };
     }
 
     const { supabaseUrl, anonKey } = getSupabaseConfig();
@@ -46,9 +47,10 @@ export const load: LayoutServerLoad = async ({ locals }) => {
       aiInsights: result.aiInsights,
       supabaseUrl,
       supabaseAnonKey: anonKey,
+      portalBaseUrl: env.PORTAL_BASE_URL ?? '',
     };
   } catch (err) {
     console.error('Layout load error:', err);
-    return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [], supabaseUrl: '', supabaseAnonKey: '' };
+    return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [], supabaseUrl: '', supabaseAnonKey: '', portalBaseUrl: '' };
   }
 };

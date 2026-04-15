@@ -13,7 +13,15 @@
 	} from 'lucide-svelte';
 	import type { Component } from 'svelte';
 
-	let { open = $bindable(false) }: { open: boolean } = $props();
+	let {
+		open = $bindable(false),
+		onVoiceMemo,
+		onQuickNote
+	}: {
+		open: boolean;
+		onVoiceMemo?: () => void;
+		onQuickNote?: () => void;
+	} = $props();
 
 	let searchQuery = $state('');
 	let searchResults = $state<{
@@ -39,10 +47,24 @@
 		{ key: 'team', label: 'Team', icon: UserCircle }
 	];
 
-	const quickActions = [
+	const quickActions: { label: string; icon: Component; href?: string; action?: () => void }[] = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
-		{ label: 'Voice Memo', icon: Mic, href: '/mobile/voice-memo' },
-		{ label: 'Quick Note', icon: FileText, href: '/mobile/field-notes' }
+		{
+			label: 'Voice Memo',
+			icon: Mic,
+			action: () => {
+				open = false;
+				onVoiceMemo?.();
+			}
+		},
+		{
+			label: 'Quick Note',
+			icon: FileText,
+			action: () => {
+				open = false;
+				onQuickNote?.();
+			}
+		}
 	];
 
 	const totalResults = $derived(
@@ -135,7 +157,13 @@
 				{#each quickActions as action}
 					<Command.Item
 						value="quick-{action.label}"
-						onSelect={() => selectResult(action.href)}
+						onSelect={() => {
+							if (action.action) {
+								action.action();
+							} else if (action.href) {
+								selectResult(action.href);
+							}
+						}}
 						class="cursor-pointer"
 					>
 						<action.icon class="mr-2 size-4 text-muted-foreground" />

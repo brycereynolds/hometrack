@@ -145,7 +145,7 @@
 				'Priority email support'
 			],
 			highlighted: true,
-			cta: 'Start Free Trial'
+			cta: 'Start 14-Day Trial'
 		},
 		{
 			name: 'Professional',
@@ -164,7 +164,7 @@
 				'Priority chat + phone support'
 			],
 			highlighted: false,
-			cta: 'Start Free Trial'
+			cta: 'Start 14-Day Trial'
 		}
 	];
 </script>
@@ -224,11 +224,11 @@
 			alt="Luxury home exterior"
 			class="h-full w-full object-cover"
 		/>
-		<div class="absolute inset-0 bg-gradient-to-r from-stone-900/85 via-stone-900/60 to-stone-900/30"></div>
+		<div class="absolute inset-0 bg-gradient-to-r from-stone-900/80 via-stone-900/60 to-stone-900/40"></div>
 	</div>
 
 	<div class="relative mx-auto max-w-7xl px-6 py-24 md:py-32 lg:py-40">
-		<div class="max-w-2xl">
+		<div class="max-w-3xl mx-auto text-center">
 			<div>
 				<h1 class="font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
 					The Operating System for Modern Real Estate Teams
@@ -236,13 +236,13 @@
 			</div>
 
 			<div class="mt-8">
-				<p class="max-w-xl text-lg leading-relaxed text-white/80 sm:text-xl">
+				<p class="mx-auto max-w-2xl text-lg leading-relaxed text-white/80 sm:text-xl">
 					HomeTrack brings your listings, tasks, clients, and insights into one intelligent
 					platform — so you can close more deals with less chaos.
 				</p>
 			</div>
 
-			<div class="mt-10 flex flex-wrap gap-4">
+			<div class="mt-10 flex flex-wrap justify-center gap-4">
 				<a
 					href="/signup"
 					class="group inline-flex items-center gap-2 rounded-lg bg-primary px-7 py-3.5 text-base font-semibold text-primary-foreground transition-all hover:bg-primary-hover hover:shadow-lg"
@@ -258,7 +258,7 @@
 				</button>
 			</div>
 
-			<div class="mt-12 flex items-center gap-3">
+			<div class="mt-12 flex items-center justify-center gap-3">
 				<div class="flex -space-x-2">
 					{#each [1, 2, 3, 4, 5] as i}
 						<div class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white/20 bg-primary/80 text-xs font-semibold text-white">
@@ -383,7 +383,7 @@
 				Plans that grow with your team
 			</h2>
 			<p class="mt-5 text-lg text-foreground-secondary">
-				Start free for 14 days. No credit card required.
+				Free forever for solo agents. 14-day trial on paid plans. No credit card required.
 			</p>
 		</div>
 

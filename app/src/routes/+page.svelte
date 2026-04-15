@@ -115,47 +115,56 @@
 
 	const plans = [
 		{
-			name: 'Starter',
-			price: '$29',
-			period: '/month per user',
-			description: 'For solo agents getting organized',
+			name: 'Free',
+			price: '$0',
+			period: 'forever',
+			description: 'Try HomeTrack with zero commitment',
 			features: [
-				'Up to 25 active listings',
+				'Solo agent — 1 seat',
+				'Up to 4 active listings',
+				'AI field notes (5/month)',
 				'Basic analytics',
-				'File storage (5GB)',
+				'Voice memo capture',
 				'Email support'
 			],
-			highlighted: false
+			highlighted: false,
+			cta: 'Get Started Free'
+		},
+		{
+			name: 'Starter',
+			price: '$99',
+			period: '/user/month',
+			description: 'For teams ready to scale their listings',
+			features: [
+				'Team up to 5 users',
+				'25 active listings',
+				'Unlimited AI field notes',
+				'Video walkthrough processing',
+				'Standard analytics',
+				'Gmail & Calendar sync',
+				'Priority email support'
+			],
+			highlighted: true,
+			cta: 'Start Free Trial'
 		},
 		{
 			name: 'Professional',
-			price: '$79',
-			period: '/month per user',
-			description: 'For growing teams that want AI superpowers',
+			price: '$299',
+			period: '/user/month',
+			description: 'Full power for high-production teams',
 			features: [
+				'Unlimited team size',
 				'Unlimited listings',
-				'AI field notes processing',
-				'Client portal',
-				'Advanced analytics',
-				'Priority support',
-				'50GB storage'
+				'Client portal (white-label)',
+				'Advanced analytics & AI insights',
+				'Vendor & financial management',
+				'Open house digital check-in',
+				'All integrations',
+				'Onboarding & migration support',
+				'Priority chat + phone support'
 			],
-			highlighted: true
-		},
-		{
-			name: 'Enterprise',
-			price: 'Custom',
-			period: '',
-			description: 'For brokerages and large operations',
-			features: [
-				'Everything in Professional',
-				'Custom integrations',
-				'Dedicated account manager',
-				'SSO / SAML',
-				'Unlimited storage',
-				'SLA guarantee'
-			],
-			highlighted: false
+			highlighted: false,
+			cta: 'Start Free Trial'
 		}
 	];
 </script>
@@ -417,7 +426,7 @@
 							? 'bg-primary text-primary-foreground hover:bg-primary-hover hover:shadow-lg'
 							: 'bg-muted text-foreground hover:bg-primary hover:text-primary-foreground'}"
 					>
-						Get Started
+						{plan.cta ?? 'Get Started'}
 					</a>
 				</div>
 			{/each}

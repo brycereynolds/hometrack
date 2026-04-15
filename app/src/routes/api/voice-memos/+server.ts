@@ -85,7 +85,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			// Trigger Temporal workflow for transcription
 			const workflow = await startFieldMediaWorkflow({
 				mediaType: 'voice_memo',
-				storagePath,
+				storagePath: `${BUCKET}/${storagePath}`,
 				listingId,
 				teamId: member.teamId,
 				authorId: member.id,

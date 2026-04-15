@@ -76,8 +76,12 @@ export async function withRLS<T>(
     try {
       return await fn(tx as unknown as AppDatabase);
     } finally {
-      await tx.execute(sql`SELECT set_config('request.jwt.claim.sub', '', TRUE)`);
-      await tx.execute(sql`RESET ROLE`);
+      try {
+        await tx.execute(sql`SELECT set_config('request.jwt.claim.sub', '', TRUE)`);
+        await tx.execute(sql`RESET ROLE`);
+      } catch {
+        // Transaction already aborted — cleanup not needed, Postgres resets on rollback
+      }
     }
   });
 }

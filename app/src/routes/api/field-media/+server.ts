@@ -97,10 +97,10 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 				timestamp: new Date(),
 			});
 
-			// Trigger Temporal workflow for processing
-			const workflow = await startFieldMediaWorkflow({
-				mediaType: isVideo ? 'video' : 'text',
-				storagePath,
+			// Trigger Temporal workflow for video processing (photos don't need pipeline)
+			const workflow = isVideo ? await startFieldMediaWorkflow({
+				mediaType: 'video',
+				storagePath: `${BUCKET}/${storagePath}`,
 				listingId,
 				teamId: member.teamId,
 				authorId: member.id,
@@ -111,7 +111,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 					originalName: file.name,
 					fieldNoteId,
 				},
-			});
+			}) : null;
 
 			return { id: activityId, fieldNoteId, storagePath, workflowId: workflow?.workflowId ?? null };
 		});

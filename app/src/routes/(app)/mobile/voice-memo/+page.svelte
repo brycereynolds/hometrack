@@ -23,7 +23,6 @@
 	let isSaving = $state(false);
 	let recordingTime = $state(0);
 	let selectedListing = $state('');
-	$effect(() => { if (!selectedListing && listings[0]) selectedListing = listings[0].id; });
 	let timer: ReturnType<typeof setInterval> | null = null;
 
 	// MediaRecorder state
@@ -121,13 +120,13 @@
 	}
 
 	async function saveRecording() {
-		if (!audioBlob || !selectedListing) return;
+		if (!audioBlob) return;
 
 		isSaving = true;
 		try {
 			const formData = new FormData();
 			formData.append('audio', audioBlob, 'voice-memo.webm');
-			formData.append('listingId', selectedListing);
+			if (selectedListing) formData.append('listingId', selectedListing);
 			formData.append('duration', recordingTime.toString());
 
 			const response = await fetch('/api/voice-memos', {
@@ -167,7 +166,10 @@
 	<div class="mb-6">
 		<label for="listing-select" class="mb-1.5 block text-sm font-medium">Associate with listing</label>
 		<Autocomplete
-			items={listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+			items={[
+				{ value: '', label: 'General (no listing)' },
+				...listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))
+			]}
 			bind:value={selectedListing}
 			placeholder="Search listings..."
 		/>

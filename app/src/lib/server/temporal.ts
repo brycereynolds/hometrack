@@ -27,7 +27,7 @@ async function getTemporalClient(): Promise<Client | null> {
 export interface FieldMediaInput {
 	mediaType: 'video' | 'voice_memo' | 'text';
 	storagePath: string;
-	listingId: string;
+	listingId: string | null;
 	teamId: string;
 	authorId: string;
 	authorName: string;

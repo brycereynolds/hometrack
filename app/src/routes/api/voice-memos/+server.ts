@@ -18,8 +18,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 	const listingId = formData.get('listingId') as string | null;
 	const duration = parseInt(formData.get('duration') as string, 10) || 0;
 
-	if (!file || !listingId) {
-		return json({ error: 'Missing audio file or listingId' }, { status: 400 });
+	if (!file) {
+		return json({ error: 'Missing audio file' }, { status: 400 });
 	}
 
 	try {
@@ -31,7 +31,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
 			// Upload to Supabase Storage
 			const timestamp = Date.now();
-			const storagePath = `${member.teamId}/${listingId}/${timestamp}.webm`;
+			const storagePath = `${member.teamId}/${listingId ?? 'general'}/${timestamp}.webm`;
 			const arrayBuffer = await file.arrayBuffer();
 			const buffer = new Uint8Array(arrayBuffer);
 
@@ -50,7 +50,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			await db.insert(fieldNotes).values({
 				id: fieldNoteId,
 				teamId: member.teamId,
-				listingId,
+				listingId: listingId ?? null,
 				authorId: member.id,
 				mediaType: 'voice_memo',
 				status: 'pending',
@@ -65,7 +65,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			await db.insert(activityItems).values({
 				id: activityId,
 				teamId: member.teamId,
-				listingId,
+				listingId: listingId ?? null,
 				type: 'voice_memo',
 				authorId: member.id,
 				authorName: member.name,
@@ -86,7 +86,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			const workflow = await startFieldMediaWorkflow({
 				mediaType: 'voice_memo',
 				storagePath: `${BUCKET}/${storagePath}`,
-				listingId,
+				listingId: listingId ?? null,
 				teamId: member.teamId,
 				authorId: member.id,
 				authorName: member.name,

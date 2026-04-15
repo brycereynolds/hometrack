@@ -6,10 +6,10 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { invalidateAll } from '$app/navigation';
 	import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
 	import { onMount, onDestroy } from 'svelte';
-	import { browser } from '$app/environment';
+	import CommandPalette from '$lib/components/shared/CommandPalette.svelte';
 	import {
 		LayoutDashboard,
 		Home,
@@ -24,11 +24,7 @@
 		Plus,
 		Mic,
 		FileText,
-		Sparkles,
-		MapPin,
-		User,
-		CheckSquare,
-		UserCircle
+		Sparkles
 	} from 'lucide-svelte';
 	let { children, data } = $props();
 
@@ -54,87 +50,13 @@
 		realtimeChannel?.unsubscribe();
 	});
 
-	// Search state
-	let searchQuery = $state('');
-	let searchResults = $state<{ listings: any[]; contacts: any[]; tasks: any[]; vendors: any[]; team: any[] }>({ listings: [], contacts: [], tasks: [], vendors: [], team: [] });
-	let showSearchResults = $state(false);
-	let searchTimeout: ReturnType<typeof setTimeout> | null = null;
-	let searchInputEl = $state<HTMLInputElement | null>(null);
-	let selectedIndex = $state(-1);
+	// Command palette state
+	let commandOpen = $state(false);
 
-	const allResults = $derived([
-		...searchResults.listings,
-		...searchResults.contacts,
-		...searchResults.vendors,
-		...searchResults.tasks,
-		...searchResults.team,
-	]);
-
-	async function performSearch(query: string) {
-		if (query.length < 2) {
-			searchResults = { listings: [], contacts: [], tasks: [], vendors: [], team: [] };
-			showSearchResults = false;
-			return;
-		}
-		try {
-			const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-			if (res.ok) {
-				searchResults = await res.json();
-				showSearchResults = allResults.length > 0 || query.length >= 2;
-			}
-		} catch {
-			// silently fail
-		}
-	}
-
-	function onSearchInput() {
-		selectedIndex = -1;
-		if (searchTimeout) clearTimeout(searchTimeout);
-		searchTimeout = setTimeout(() => performSearch(searchQuery), 250);
-	}
-
-	function onSearchKeydown(e: KeyboardEvent) {
-		if (e.key === 'ArrowDown') {
+	function handleKeydown(e: KeyboardEvent) {
+		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
 			e.preventDefault();
-			selectedIndex = Math.min(selectedIndex + 1, allResults.length - 1);
-		} else if (e.key === 'ArrowUp') {
-			e.preventDefault();
-			selectedIndex = Math.max(selectedIndex - 1, -1);
-		} else if (e.key === 'Enter' && selectedIndex >= 0 && allResults[selectedIndex]) {
-			e.preventDefault();
-			navigateToResult(allResults[selectedIndex]);
-		} else if (e.key === 'Escape') {
-			showSearchResults = false;
-			searchInputEl?.blur();
-		}
-	}
-
-	function navigateToResult(result: any) {
-		showSearchResults = false;
-		searchQuery = '';
-		selectedIndex = -1;
-		goto(result.href);
-	}
-
-	function getResultIcon(type: string) {
-		switch (type) {
-			case 'listing': return MapPin;
-			case 'contact': return User;
-			case 'vendor': return Wrench;
-			case 'task': return CheckSquare;
-			case 'team': return UserCircle;
-			default: return Search;
-		}
-	}
-
-	function getResultLabel(type: string) {
-		switch (type) {
-			case 'listing': return 'Listing';
-			case 'contact': return 'Contact';
-			case 'vendor': return 'Vendor';
-			case 'task': return 'Task';
-			case 'team': return 'Team';
-			default: return type;
+			commandOpen = !commandOpen;
 		}
 	}
 
@@ -181,6 +103,8 @@
 	}
 </script>
 
+<svelte:window onkeydown={handleKeydown} />
+<CommandPalette bind:open={commandOpen} />
 <Toaster richColors position="top-right" />
 
 <Sidebar.SidebarProvider>
@@ -327,54 +251,14 @@
 			<Sidebar.SidebarTrigger class="-ml-1" />
 			<Separator orientation="vertical" class="mr-2 h-4" />
 			<div class="flex flex-1 items-center gap-2">
-				<div class="relative flex-1 max-w-sm">
-					<Search class="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-					<input
-						bind:this={searchInputEl}
-						bind:value={searchQuery}
-						oninput={onSearchInput}
-						onkeydown={onSearchKeydown}
-						onfocus={() => { if (allResults.length > 0) showSearchResults = true; }}
-						onblur={() => { setTimeout(() => showSearchResults = false, 200); }}
-						type="search"
-						placeholder="Search listings, contacts, vendors..."
-						class="h-8 w-full rounded-md border bg-transparent pl-8 pr-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-					/>
-					{#if showSearchResults}
-						{@const categories = [
-							{ key: 'listings', label: 'Listings', items: searchResults.listings },
-							{ key: 'contacts', label: 'Contacts', items: searchResults.contacts },
-							{ key: 'vendors', label: 'Vendors', items: searchResults.vendors },
-							{ key: 'tasks', label: 'Tasks', items: searchResults.tasks },
-							{ key: 'team', label: 'Team', items: searchResults.team },
-						]}
-						<div class="absolute top-full left-0 right-0 mt-1 rounded-md border bg-background shadow-lg z-50 max-h-80 overflow-y-auto">
-							{#each categories as category, catIdx}
-								{#if category.items.length > 0}
-									{@const offset = categories.slice(0, catIdx).reduce((sum, c) => sum + c.items.length, 0)}
-									<div class="px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground {offset > 0 ? 'border-t' : ''}">{category.label}</div>
-									{#each category.items as result, i}
-										{@const globalIdx = offset + i}
-										{@const Icon = getResultIcon(result.type)}
-										<button
-											class="flex w-full items-center gap-3 px-3 py-2 text-left text-sm hover:bg-muted transition-colors {selectedIndex === globalIdx ? 'bg-muted' : ''}"
-											onmousedown={() => navigateToResult(result)}
-										>
-											<Icon class="size-4 text-muted-foreground shrink-0" />
-											<div class="min-w-0 flex-1">
-												<p class="truncate font-medium">{result.title}</p>
-												<p class="truncate text-xs text-muted-foreground capitalize">{result.subtitle?.replace('_', ' ')}</p>
-											</div>
-										</button>
-									{/each}
-								{/if}
-							{/each}
-							{#if allResults.length === 0}
-								<div class="px-3 py-4 text-center text-sm text-muted-foreground">No results for '{searchQuery}'</div>
-							{/if}
-						</div>
-					{/if}
-				</div>
+				<button
+					onclick={() => commandOpen = true}
+					class="flex items-center gap-2 h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 text-sm text-muted-foreground hover:bg-accent/50 transition-colors"
+				>
+					<Search class="size-4" />
+					<span>Search listings, contacts, vendors...</span>
+					<kbd class="ml-auto text-xs bg-muted px-1.5 py-0.5 rounded font-mono">⌘K</kbd>
+				</button>
 			</div>
 			<Popover.Root>
 				<Popover.Trigger>

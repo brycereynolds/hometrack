@@ -34,7 +34,6 @@ export const actions: Actions = {
     const teamId = formData.get('teamId') as string;
 
     if (!content) return fail(400, { error: 'Note content is required' });
-    if (!listingId) return fail(400, { error: 'Listing is required' });
     if (!teamId) return fail(400, { error: 'Team context missing' });
     if (!tag || !['showing', 'vendor', 'client'].includes(tag)) {
       return fail(400, { error: 'Invalid tag' });
@@ -46,7 +45,7 @@ export const actions: Actions = {
         await db.insert(fieldNotes).values({
           id: noteId,
           teamId,
-          listingId,
+          listingId: listingId || null,
           tag: tag as 'showing' | 'vendor' | 'client',
           textContent: content,
           mediaType: 'text',
@@ -54,7 +53,7 @@ export const actions: Actions = {
           authorId: locals.user!.id,
         });
       });
-      return { success: true, noteId, listingId };
+      return { success: true, noteId, listingId: listingId || null };
     } catch (e) {
       console.error('Save field note error:', e);
       return fail(500, { error: 'Failed to save note' });

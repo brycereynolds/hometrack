@@ -11,7 +11,6 @@
 	const listings = $derived(data.listings);
 
 	let selectedListing = $state('');
-	$effect(() => { if (!selectedListing && listings[0]) selectedListing = listings[0].id; });
 	let noteText = $state('');
 	let selectedTag = $state<string>('showing');
 	let saving = $state(false);
@@ -68,7 +67,7 @@
 		try {
 			const formData = new FormData();
 			formData.append('file', att.file);
-			formData.append('listingId', selectedListing);
+			if (selectedListing) formData.append('listingId', selectedListing);
 
 			const res = await fetch('/api/field-media', { method: 'POST', body: formData });
 
@@ -157,7 +156,10 @@
 		<!-- Listing selector -->
 		<div class="mb-4">
 			<Autocomplete
-				items={listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+				items={[
+					{ value: '', label: 'General (no listing)' },
+					...listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))
+				]}
 				bind:value={selectedListing}
 				placeholder="Search listings..."
 				name="listingId"

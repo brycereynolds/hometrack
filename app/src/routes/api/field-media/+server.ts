@@ -26,8 +26,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 	const file = formData.get('file') as File | null;
 	const listingId = formData.get('listingId') as string | null;
 
-	if (!file || !listingId) {
-		return json({ error: 'Missing file or listingId' }, { status: 400 });
+	if (!file) {
+		return json({ error: 'Missing file' }, { status: 400 });
 	}
 
 	if (!ALLOWED_TYPES.has(file.type)) {
@@ -46,7 +46,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			// Upload to Supabase Storage
 			const timestamp = Date.now();
 			const ext = file.name.split('.').pop() ?? (isVideo ? 'mp4' : 'jpg');
-			const storagePath = `${member.teamId}/${listingId}/${timestamp}.${ext}`;
+			const storagePath = `${member.teamId}/${listingId ?? 'general'}/${timestamp}.${ext}`;
 			const arrayBuffer = await file.arrayBuffer();
 			const buffer = new Uint8Array(arrayBuffer);
 
@@ -65,7 +65,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			await db.insert(fieldNotes).values({
 				id: fieldNoteId,
 				teamId: member.teamId,
-				listingId,
+				listingId: listingId ?? null,
 				authorId: member.id,
 				mediaType: isVideo ? 'video' : 'photo',
 				status: 'pending',
@@ -80,7 +80,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			await db.insert(activityItems).values({
 				id: activityId,
 				teamId: member.teamId,
-				listingId,
+				listingId: listingId ?? null,
 				type,
 				authorId: member.id,
 				authorName: member.name,
@@ -101,7 +101,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			const workflow = isVideo ? await startFieldMediaWorkflow({
 				mediaType: 'video',
 				storagePath: `${BUCKET}/${storagePath}`,
-				listingId,
+				listingId: listingId ?? null,
 				teamId: member.teamId,
 				authorId: member.id,
 				authorName: member.name,

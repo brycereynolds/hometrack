@@ -238,7 +238,18 @@
 					<div class="rounded-lg bg-primary/10 p-2"><Globe class="size-5 text-primary" /></div>
 					<div class="flex-1 min-w-0"><p class="text-sm font-medium">Portal Link</p><p class="text-xs text-muted-foreground truncate">{portalUrl}</p></div>
 					<Button variant="outline" size="sm" onclick={copyPortalUrl}><Copy class="mr-1.5 size-3.5" />{copyButtonText}</Button>
-					<Button size="sm"><Send class="mr-1.5 size-3.5" />Send to Client</Button>
+					<form method="POST" action="?/sendToClient" class="inline" use:enhance={() => {
+						return async ({ result, update }) => {
+							if (result.type === 'success') {
+								toast.success('Portal invite sent to client');
+							} else {
+								toast.error('Failed to send portal invite');
+							}
+							await update({ reset: false });
+						};
+					}}>
+						<Button type="submit" size="sm"><Send class="mr-1.5 size-3.5" />Send to Client</Button>
+					</form>
 				</div>
 			</CardContent>
 		</Card>

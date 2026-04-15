@@ -1,8 +1,10 @@
 import type { PageServerLoad, Actions } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
-import { listings, teamMembers } from '$lib/server/db/schema/index.js';
+import { listings, teamMembers, teams } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
+import { sendPortalInvite } from '$lib/server/comms.js';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
@@ -192,5 +194,48 @@ export const actions: Actions = {
       return fail(500, { error: 'Failed to deny request' });
     }
     return { success: true, action: 'denyRequest' };
+  },
+
+  sendToClient: async ({ params, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+    const teamId = await getTeamId(locals.user.id);
+    if (!teamId) return fail(400, { error: 'No team found' });
+
+    try {
+      const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const listing = await db.query.listings.findFirst({
+          where: and(eq(listings.id, params.id), eq(listings.teamId, teamId)),
+          columns: { address: true, portalSettings: true },
+          with: { client: { columns: { name: true, email: true } } },
+        });
+        if (!listing) return fail(400, { error: 'Listing not found' });
+
+        const team = await db.query.teams.findFirst({
+          where: eq(teams.id, teamId),
+          columns: { name: true, slug: true },
+        });
+
+        const clientEmail = listing.client?.email;
+        const clientName = listing.client?.name ?? 'there';
+        if (!clientEmail) return fail(400, { error: 'No client email on this listing' });
+
+        const portalBaseUrl = env.PORTAL_BASE_URL ?? '';
+        const portalUrl = `${portalBaseUrl}/${team?.slug ?? 'team'}`;
+
+        await sendPortalInvite({
+          clientEmail,
+          clientName,
+          teamName: team?.name ?? 'Your agent',
+          portalUrl,
+          listingAddress: listing.address ?? 'your property',
+        });
+
+        return { success: true, action: 'sendToClient' };
+      });
+      return result;
+    } catch (err) {
+      console.error('Failed to send portal invite:', err);
+      return fail(500, { error: 'Failed to send portal invite' });
+    }
   },
 };

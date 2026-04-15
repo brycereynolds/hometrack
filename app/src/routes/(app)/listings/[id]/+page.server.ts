@@ -2,9 +2,11 @@ import type { PageServerLoad, Actions } from './$types';
 import { getTasksByListing } from '$lib/server/db/queries/tasks.js';
 import { getActivityByListing, getInsightsByListing } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { listings, teamMembers } from '$lib/server/db/schema/index.js';
+import { listings, teamMembers, teams } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
+import { sendPhaseChangeNotification } from '$lib/server/comms.js';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
@@ -61,6 +63,42 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(and(eq(listings.id, params.id), eq(listings.teamId, teamId)));
+
+        // Send phase change notification if configured
+        try {
+          const listing = await db.query.listings.findFirst({
+            where: and(eq(listings.id, params.id), eq(listings.teamId, teamId)),
+            columns: { address: true, portalSettings: true },
+            with: { client: { columns: { name: true, email: true, phone: true } } },
+          });
+
+          const notifSettings = (listing?.portalSettings as Record<string, any>)?.notifications
+            ?.phase_change;
+          const clientEmail = listing?.client?.email;
+
+          if (clientEmail && notifSettings) {
+            const team = await db.query.teams.findFirst({
+              where: eq(teams.id, teamId),
+              columns: { name: true, slug: true },
+            });
+            const portalBaseUrl = env.PORTAL_BASE_URL ?? '';
+            const portalUrl = `${portalBaseUrl}/${team?.slug ?? 'team'}`;
+
+            await sendPhaseChangeNotification({
+              recipientEmail: clientEmail,
+              recipientPhone: listing?.client?.phone ?? undefined,
+              emailEnabled: notifSettings.email ?? false,
+              smsEnabled: notifSettings.sms ?? false,
+              clientName: listing?.client?.name ?? 'there',
+              teamName: team?.name ?? 'Your agent',
+              listingAddress: listing?.address ?? 'your property',
+              newPhase: phase,
+              portalUrl,
+            });
+          }
+        } catch (notifErr) {
+          console.error('Phase change notification failed (non-blocking):', notifErr);
+        }
       });
     } catch (err) {
       console.error('Failed to change phase:', err);

@@ -19,7 +19,8 @@ Items that are UI-only and do not persist or function yet.
 - [x] Save Preferences — wired with form action, persists to `teams.settings.notifications` via RLS
 - [ ] Notification preferences initialize from hardcoded defaults, not loaded from DB on return visit
 - [ ] In-app notifications — no notification delivery system exists
-- [ ] Email notifications — no email sending infrastructure
+- [x] Email notifications — Postmark integration in `src/lib/server/comms.ts`
+- [x] SMS notifications — Twilio integration in `src/lib/server/comms.ts`
 - [ ] Push notifications — no push subscription or service worker
 
 ### Workflows (`settings/workflows/+page.svelte`)
@@ -65,5 +66,6 @@ Items that are UI-only and do not persist or function yet.
 ## Other
 - [ ] Auth system — using mock/bypass auth, no real login flow for team members
 - [ ] File uploads — Supabase storage configured but no upload UI is wired end-to-end
-- [ ] Email sending — no transactional email provider configured
+- [x] Email sending — Postmark transactional email configured in `src/lib/server/comms.ts`
+- [x] SMS sending — Twilio SMS configured in `src/lib/server/comms.ts`
 - [ ] Real-time notifications — no WebSocket or SSE infrastructure

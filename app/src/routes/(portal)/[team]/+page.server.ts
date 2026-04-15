@@ -29,10 +29,13 @@ export const load: PageServerLoad = async ({ parent }) => {
   // Use first listing as the client's property (portal shows a single listing context)
   const listing = allListings[0] ?? null;
 
+  const portalSettings = (listing?.portalSettings as Record<string, any>) ?? null;
+
   return {
     listing,
     listings: allListings,
     recentActivity: activity,
     showings: recentShowings,
+    portalSettings,
   };
 };

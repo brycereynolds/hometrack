@@ -23,6 +23,8 @@
 	let { data } = $props();
 
 	const listing = $derived(data.listing);
+	const sections = $derived(data.portalSettings?.sections ?? {});
+	const sectionEnabled = (key: string) => sections[key] !== false;
 	const allPhases = PHASE_LIST;
 	const currentPhaseOrder = $derived(listing ? PHASES[listing.phase].order : 0);
 
@@ -60,6 +62,7 @@
 	</div>
 
 	<!-- Property Hero Card -->
+	{#if sectionEnabled('overview')}
 	<Card class="overflow-hidden">
 		<div class="md:flex">
 			<div class="relative md:w-2/5">
@@ -89,8 +92,10 @@
 			</CardContent>
 		</div>
 	</Card>
+	{/if}
 
 	<!-- Visual Timeline -->
+	{#if sectionEnabled('timeline')}
 	<Card>
 		<CardHeader>
 			<CardTitle class="text-base">Listing Progress</CardTitle>
@@ -165,9 +170,11 @@
 			</Card>
 		{/each}
 	</div>
+	{/if}
 
 	<!-- Stats Row -->
 	<div class="grid gap-3 sm:grid-cols-3">
+		{#if sectionEnabled('showings')}
 		<Card>
 			<CardContent class="flex items-center gap-3 p-4">
 				<div class="flex size-10 items-center justify-center rounded-lg bg-blue-500/10">
@@ -179,6 +186,8 @@
 				</div>
 			</CardContent>
 		</Card>
+		{/if}
+		{#if sectionEnabled('analytics')}
 		<Card>
 			<CardContent class="flex items-center gap-3 p-4">
 				<div class="flex size-10 items-center justify-center rounded-lg bg-violet-500/10">
@@ -201,6 +210,7 @@
 				</div>
 			</CardContent>
 		</Card>
+		{/if}
 	</div>
 
 	<!-- Recent Updates -->

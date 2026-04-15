@@ -23,6 +23,7 @@
 		{ key: 'contracts', label: 'Contracts', icon: FileText },
 		{ key: 'disclosures', label: 'Disclosures', icon: Shield },
 		{ key: 'inspection', label: 'Inspection Reports', icon: ClipboardList },
+		{ key: 'title', label: 'Title Documents', icon: FileText },
 		{ key: 'marketing', label: 'Marketing Materials', icon: Camera },
 		{ key: 'photos', label: 'Photos & Media', icon: Camera }
 	] as const;

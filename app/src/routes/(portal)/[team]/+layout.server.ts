@@ -1,6 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { adminDb } from '$lib/server/db/index.js';
-import { teams } from '$lib/server/db/schema/index.js';
+import { teams, listings } from '$lib/server/db/schema/index.js';
 import { eq } from 'drizzle-orm';
 import { error } from '@sveltejs/kit';
 
@@ -18,5 +18,12 @@ export const load: LayoutServerLoad = async ({ params }) => {
     throw error(404, 'Team not found');
   }
 
-  return { team };
+  // Load first listing to get portal settings (placeholder until client auth scopes it)
+  const listing = await adminDb.query.listings.findFirst({
+    where: eq(listings.teamId, team.id),
+  });
+
+  const portalSettings = (listing?.portalSettings as Record<string, any>) ?? null;
+
+  return { team, portalSettings };
 };

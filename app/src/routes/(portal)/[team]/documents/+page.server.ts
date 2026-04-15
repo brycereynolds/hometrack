@@ -22,5 +22,14 @@ export const load: PageServerLoad = async ({ parent }) => {
     where: eq(documents.listingId, firstListing.id),
   });
 
-  return { documents: docs };
+  // Filter documents by portal sharing settings
+  const sharing = (firstListing.portalSettings as Record<string, any>)?.documentSharing;
+  const filteredDocs = sharing
+    ? docs.filter((doc) => {
+        const category = (doc as any).category;
+        return !category || sharing[category] !== false;
+      })
+    : docs;
+
+  return { documents: filteredDocs };
 };

@@ -7,13 +7,17 @@
 	let { children } = $props();
 	let mobileMenuOpen = $state(false);
 	const teamName = $derived($page.data?.team?.name ?? '');
+	const sections = $derived($page.data?.portalSettings?.sections ?? {});
+	const sectionEnabled = (key: string) => sections[key] !== false;
 
-	const portalNav = [
+	const allPortalNav = [
 		{ href: '', label: 'Dashboard', icon: Home },
 		{ href: '/approvals', label: 'Approvals', icon: CheckCircle, badge: '3' },
-		{ href: '/messages', label: 'Messages', icon: MessageSquare, badge: '1' },
-		{ href: '/documents', label: 'Documents', icon: FileText }
+		{ href: '/messages', label: 'Messages', icon: MessageSquare, badge: '1', section: 'messages' },
+		{ href: '/documents', label: 'Documents', icon: FileText, section: 'documents' }
 	];
+
+	const portalNav = $derived(allPortalNav.filter(item => !item.section || sectionEnabled(item.section)));
 </script>
 
 <div class="min-h-svh bg-background">

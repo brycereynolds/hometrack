@@ -523,16 +523,9 @@
 
 							<!-- Actions -->
 							<div class="mt-3 flex items-center gap-2">
-								<Button size="sm" class="h-8">
+								<Button size="sm" class="h-8 opacity-50" disabled>
 									<MessageSquare class="mr-1.5 size-3.5" />
-									Message {match.buyerNeed.agentName.split(' ')[0]}
-								</Button>
-								<Button variant="outline" size="sm" class="h-8">
-									<Eye class="mr-1.5 size-3.5" />
-									Schedule Showing
-								</Button>
-								<Button variant="ghost" size="sm" class="h-8 text-muted-foreground">
-									Dismiss
+									Coming Soon
 								</Button>
 							</div>
 						</div>

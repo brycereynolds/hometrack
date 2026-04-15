@@ -160,9 +160,9 @@
 							{pendingSig.map((d) => d.name).join(', ')}
 						</p>
 					</div>
-					<Button size="sm" class="shrink-0 gap-1.5 bg-amber-600 hover:bg-amber-700">
+					<Button size="sm" class="shrink-0 gap-1.5 opacity-50" disabled>
 						<PenTool class="size-3.5" />
-						Sign Now
+						Coming Soon
 					</Button>
 				</div>
 			</CardContent>
@@ -208,9 +208,9 @@
 								</Badge>
 								<div class="flex gap-1">
 									{#if doc.status === 'pending_signature'}
-										<Button size="sm" variant="default" class="gap-1 text-xs">
+										<Button size="sm" variant="default" class="gap-1 text-xs opacity-50" disabled>
 											<PenTool class="size-3" />
-											Sign
+											Coming Soon
 										</Button>
 									{:else}
 										<Button

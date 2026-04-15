@@ -52,9 +52,9 @@
 							</div>
 						</div>
 						<div class="space-y-2">
-							<Button variant="outline" size="sm" class="gap-1">
+							<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
 								<Upload class="size-3" />
-								Upload Logo
+								Coming Soon
 							</Button>
 							<p class="text-xs text-muted-foreground">PNG, SVG, or JPG. Max 2MB. Recommended 200x60px.</p>
 						</div>

@@ -64,9 +64,9 @@
 				<Sparkles class="mr-1.5 size-4" />
 				Intelligence Dashboard
 			</Button>
-			<Button>
+			<Button disabled class="opacity-50">
 				<MessageSquare class="mr-1.5 size-4" />
-				Log Interaction
+				Coming Soon
 			</Button>
 		</div>
 	</div>

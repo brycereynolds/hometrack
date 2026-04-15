@@ -109,8 +109,8 @@ async function main() {
   console.log('  Creating team...');
   await db.insert(teams).values({
     id: teamId,
-    name: 'Reynolds Realty',
-    slug: 'reynolds-realty',
+    name: 'XYZ Realty',
+    slug: 'xyz-realty',
   });
 
   // ─── 2. Team Members ──────────────────────────────────────────────────

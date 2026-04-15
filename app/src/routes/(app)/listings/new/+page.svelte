@@ -353,9 +353,9 @@
 
 						<Separator />
 
-						<Button type="button" variant="outline" class="w-full">
+						<Button type="button" variant="outline" class="w-full opacity-50" disabled>
 							<UserPlus class="mr-1.5 size-4" />
-							Create New Client
+							Coming Soon
 						</Button>
 					</div>
 

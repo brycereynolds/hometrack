@@ -153,7 +153,7 @@
 				</CardContent>
 			</Card>
 		{:else}
-			<Card><CardContent class="flex flex-col items-center justify-center py-12"><DollarSign class="size-10 text-muted-foreground/30 mb-3" /><p class="text-sm text-muted-foreground">No financial data available for this listing yet.</p><Button variant="outline" size="sm" class="mt-3">Set Up Budget</Button></CardContent></Card>
+			<Card><CardContent class="flex flex-col items-center justify-center py-12"><DollarSign class="size-10 text-muted-foreground/30 mb-3" /><p class="text-sm text-muted-foreground">No financial data available for this listing yet.</p><Button variant="outline" size="sm" class="mt-3 opacity-50" disabled>Coming Soon</Button></CardContent></Card>
 		{/if}
 
 		<!-- Quotes Section -->

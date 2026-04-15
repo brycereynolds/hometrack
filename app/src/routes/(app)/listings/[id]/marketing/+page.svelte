@@ -158,7 +158,7 @@
 		<Card>
 			<CardHeader class="flex-row items-center justify-between">
 				<CardTitle class="font-serif text-base">Social Media</CardTitle>
-				<Button size="sm" variant="outline"><Send class="mr-1.5 size-3.5" />New Post</Button>
+				<Button size="sm" variant="outline" disabled class="opacity-50"><Send class="mr-1.5 size-3.5" />Coming Soon</Button>
 			</CardHeader>
 			<CardContent>
 				{#if socialPosts.length > 0}

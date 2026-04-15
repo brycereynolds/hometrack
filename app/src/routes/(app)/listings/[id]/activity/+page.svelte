@@ -258,8 +258,8 @@
 
 							{#if isAI}
 								<div class="mt-2">
-									<Button variant="outline" size="sm" class="h-7 text-xs text-amber-700 border-amber-300 hover:bg-amber-50">
-										Take Action
+									<Button variant="outline" size="sm" class="h-7 text-xs text-amber-700 border-amber-300 hover:bg-amber-50 opacity-50" disabled>
+										Coming Soon
 									</Button>
 								</div>
 							{/if}

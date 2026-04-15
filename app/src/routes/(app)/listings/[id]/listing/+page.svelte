@@ -393,10 +393,11 @@
 						Comparable Properties Map
 					</CardTitle>
 					<div class="flex items-center gap-3">
-						<label class="text-xs text-muted-foreground whitespace-nowrap">
+						<label for="radius-slider" class="text-xs text-muted-foreground whitespace-nowrap">
 							Radius: {radiusValue} mi
 						</label>
 						<input
+							id="radius-slider"
 							type="range"
 							bind:value={radiusValue}
 							min="0.25"

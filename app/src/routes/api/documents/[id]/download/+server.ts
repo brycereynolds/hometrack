@@ -5,7 +5,11 @@ import { documents } from '$lib/server/db/schema/index.js';
 import { eq } from 'drizzle-orm';
 import { getSignedUrl } from '$lib/server/storage.js';
 
-export const GET: RequestHandler = async ({ params }) => {
+export const GET: RequestHandler = async ({ params, locals }) => {
+  if (!locals.user) {
+    throw error(401, 'Unauthorized');
+  }
+
   const doc = await adminDb.query.documents.findFirst({
     where: eq(documents.id, params.id),
   });

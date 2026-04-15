@@ -8,7 +8,7 @@
 	let loading = $state(false);
 
 	const hasPreviewAccess = browser && localStorage.getItem('hometrack_preview') === 'true';
-	const isComingSoon = data?.launchMode === 'coming_soon' && !hasPreviewAccess;
+	const isComingSoon = $derived(data?.launchMode === 'coming_soon' && !hasPreviewAccess);
 </script>
 
 {#if isComingSoon}

@@ -23,7 +23,7 @@
 	let { data } = $props();
 
 	const hasPreviewAccess = browser && localStorage.getItem('hometrack_preview') === 'true';
-	const isComingSoon = data.launchMode === 'coming_soon' && !hasPreviewAccess;
+	const isComingSoon = $derived(data.launchMode === 'coming_soon' && !hasPreviewAccess);
 
 	let waitlistEmail = $state('');
 	let waitlistSubmitted = $state(false);

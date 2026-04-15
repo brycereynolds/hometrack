@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { untrack } from 'svelte';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
@@ -32,7 +33,7 @@
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
-	const savedSettings = $derived((data.portalSettings ?? {}) as Record<string, any>);
+	const initialSettings = untrack(() => (data.portalSettings ?? {}) as Record<string, any>);
 
 	// Portal section visibility toggles — initialize from saved data
 	const defaultSections: Record<string, boolean> = {
@@ -53,7 +54,7 @@
 	let portalSections = $state(
 		sectionMeta.map((s) => ({
 			...s,
-			enabled: savedSettings.sections?.[s.id] ?? defaultSections[s.id]
+			enabled: initialSettings.sections?.[s.id] ?? defaultSections[s.id]
 		}))
 	);
 
@@ -73,7 +74,7 @@
 	let documentSharing = $state(
 		docMeta.map((d) => ({
 			...d,
-			shared: savedSettings.documentSharing?.[d.id] ?? defaultDocSharing[d.id]
+			shared: initialSettings.documentSharing?.[d.id] ?? defaultDocSharing[d.id]
 		}))
 	);
 
@@ -84,7 +85,7 @@
 		{ id: 'aq-3', type: 'document', label: 'Listing Agreement copy', requestedBy: 'Client', date: '2026-04-07', status: 'approved' }
 	];
 	let approvalQueue = $state(
-		(savedSettings.approvalQueue as typeof defaultApprovalQueue) ?? defaultApprovalQueue
+		(initialSettings.approvalQueue as typeof defaultApprovalQueue) ?? defaultApprovalQueue
 	);
 
 	// Client access
@@ -113,8 +114,8 @@
 	let notificationSettings = $state(
 		notifMeta.map((n) => ({
 			...n,
-			email: savedSettings.notifications?.[n.id]?.email ?? defaultNotifications[n.id].email,
-			sms: savedSettings.notifications?.[n.id]?.sms ?? defaultNotifications[n.id].sms
+			email: initialSettings.notifications?.[n.id]?.email ?? defaultNotifications[n.id].email,
+			sms: initialSettings.notifications?.[n.id]?.sms ?? defaultNotifications[n.id].sms
 		}))
 	);
 

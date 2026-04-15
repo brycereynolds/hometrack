@@ -65,8 +65,11 @@
 
 	const fieldNotesCount = $derived(data.fieldNotesCount ?? 0);
 
+	const listingPriceBadge = $derived(listing?.price ? formatCurrency(listing.price) : 'No Price');
+
 	const tabs = $derived([
 		{ href: '', label: 'Overview', count: 0 },
+		{ href: '/listing', label: 'Listing', count: 0, badge: listingPriceBadge },
 		{ href: '/activity', label: 'Activity', count: 0 },
 		{ href: '/tasks', label: 'Tasks', count: 0 },
 		{ href: '/field-notes', label: 'Field Notes', count: fieldNotesCount },
@@ -220,7 +223,11 @@
 							: 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'}"
 					>
 						{tab.label}
-						{#if tab.count > 0}
+						{#if tab.badge}
+							<span class="inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-semibold leading-none {tab.badge === 'No Price' ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'}">
+								{tab.badge}
+							</span>
+						{:else if tab.count > 0}
 							<span class="inline-flex items-center justify-center rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold leading-none {active ? 'bg-primary/10 text-primary' : 'text-muted-foreground'}">
 								{tab.count}
 							</span>

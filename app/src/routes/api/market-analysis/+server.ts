@@ -1,0 +1,108 @@
+import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
+import { withRLS } from '$lib/server/db/index.js';
+import { marketAnalyses, compListings, listings, teamMembers } from '$lib/server/db/schema/index.js';
+import { eq, and, desc } from 'drizzle-orm';
+import { startMarketAnalysisWorkflow } from '$lib/server/temporal.js';
+
+export const POST: RequestHandler = async ({ locals, request }) => {
+  if (!locals.user) {
+    return json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const body = await request.json();
+  const { listingId, searchParams } = body;
+
+  if (!listingId) {
+    return json({ error: 'Missing listingId' }, { status: 400 });
+  }
+
+  try {
+    const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
+      const member = await db.query.teamMembers.findFirst({
+        where: eq(teamMembers.userId, locals.user!.id),
+      });
+      if (!member) throw new Error('Team member not found');
+
+      const listing = await db.query.listings.findFirst({
+        where: and(eq(listings.id, listingId), eq(listings.teamId, member.teamId)),
+      });
+      if (!listing) throw new Error('Listing not found');
+
+      const analysisId = crypto.randomUUID();
+      await db.insert(marketAnalyses).values({
+        id: analysisId,
+        listingId,
+        status: 'pending',
+        searchParams: searchParams ?? null,
+      });
+
+      const workflow = await startMarketAnalysisWorkflow({
+        analysisId,
+        listingId,
+        teamId: member.teamId,
+        address: listing.address,
+        city: listing.city,
+        state: listing.state,
+        zip: listing.zip,
+        lat: listing.lat,
+        lng: listing.lng,
+        beds: listing.beds,
+        baths: listing.baths,
+        sqft: listing.sqft,
+        propertyType: listing.propertyType,
+        searchParams: searchParams ?? {},
+      });
+
+      if (workflow) {
+        await db
+          .update(marketAnalyses)
+          .set({ workflowId: workflow.workflowId, status: 'processing', updatedAt: new Date() })
+          .where(eq(marketAnalyses.id, analysisId));
+      }
+
+      return { id: analysisId, workflowId: workflow?.workflowId ?? null };
+    });
+
+    return json({ success: true, ...result });
+  } catch (err) {
+    console.error('Market analysis error:', err);
+    return json({ error: 'Failed to start market analysis' }, { status: 500 });
+  }
+};
+
+export const GET: RequestHandler = async ({ locals, url }) => {
+  if (!locals.user) {
+    return json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const listingId = url.searchParams.get('listingId');
+  if (!listingId) {
+    return json({ error: 'Missing listingId' }, { status: 400 });
+  }
+
+  try {
+    const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
+      const analyses = await db
+        .select()
+        .from(marketAnalyses)
+        .where(eq(marketAnalyses.listingId, listingId))
+        .orderBy(desc(marketAnalyses.createdAt));
+
+      let comps: (typeof compListings.$inferSelect)[] = [];
+      if (analyses.length > 0) {
+        comps = await db
+          .select()
+          .from(compListings)
+          .where(eq(compListings.marketAnalysisId, analyses[0].id));
+      }
+
+      return { analyses, comps };
+    });
+
+    return json(result);
+  } catch (err) {
+    console.error('Market analysis fetch error:', err);
+    return json({ error: 'Failed to fetch analyses' }, { status: 500 });
+  }
+};

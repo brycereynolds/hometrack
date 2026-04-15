@@ -40,6 +40,42 @@ export interface FieldMediaInput {
 	metadata?: Record<string, unknown>;
 }
 
+export interface MarketAnalysisInput {
+	analysisId: string;
+	listingId: string;
+	teamId: string;
+	address: string;
+	city: string;
+	state: string;
+	zip: string;
+	lat: number | null;
+	lng: number | null;
+	beds: number | null;
+	baths: number | null;
+	sqft: number | null;
+	propertyType: string | null;
+	searchParams: Record<string, unknown>;
+}
+
+export async function startMarketAnalysisWorkflow(input: MarketAnalysisInput) {
+	const client = await getTemporalClient();
+	if (!client) return null;
+
+	try {
+		const handle = await client.workflow.start('MarketAnalysis', {
+			taskQueue: 'field-media-processing',
+			workflowId: `market-analysis-${input.analysisId}`,
+			args: [input],
+		});
+
+		console.log(`Started market analysis workflow: ${handle.workflowId}`);
+		return { workflowId: handle.workflowId };
+	} catch (err) {
+		console.error('Failed to start market analysis workflow:', err);
+		return null;
+	}
+}
+
 export async function startFieldMediaWorkflow(input: FieldMediaInput) {
 	const client = await getTemporalClient();
 	if (!client) return null;

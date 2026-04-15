@@ -1,4 +1,9 @@
+<svelte:head>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</svelte:head>
+
 <script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -36,6 +41,36 @@
 	const teamMembers = $derived(data.teamMembers ?? []);
 
 	const tasksDoneCount = $derived(tasks.filter((t: any) => t.status === 'done').length);
+
+	// Overview map
+	let overviewMapContainer = $state<HTMLDivElement>(null!);
+	let overviewMap: any = null;
+
+	onMount(async () => {
+		if (!listing?.lat || !listing?.lng || !overviewMapContainer) return;
+
+		const L = (await import('leaflet')).default;
+		overviewMap = L.map(overviewMapContainer, { zoomControl: false, attributionControl: false }).setView([listing.lat, listing.lng], 15);
+
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			maxZoom: 18,
+		}).addTo(overviewMap);
+
+		const icon = L.divIcon({
+			className: 'overview-pin',
+			html: `<div style="background: #b45309; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">★</div>`,
+			iconSize: [28, 28],
+			iconAnchor: [14, 14],
+		});
+		L.marker([listing.lat, listing.lng], { icon }).addTo(overviewMap);
+	});
+
+	onDestroy(() => {
+		if (overviewMap) {
+			overviewMap.remove();
+			overviewMap = null;
+		}
+	});
 
 	function formatDate(d: any): string {
 		if (!d) return '';
@@ -270,6 +305,21 @@
 
 			<!-- Sidebar -->
 			<div class="space-y-6">
+				<!-- Location Map -->
+				{#if listing.lat && listing.lng}
+					<Card>
+						<CardHeader class="pb-2">
+							<CardTitle class="font-serif text-base flex items-center gap-2">
+								<MapPin class="size-4 text-muted-foreground" />
+								Location
+							</CardTitle>
+						</CardHeader>
+						<CardContent class="p-3 pt-0">
+							<div bind:this={overviewMapContainer} class="h-40 rounded-lg overflow-hidden border"></div>
+						</CardContent>
+					</Card>
+				{/if}
+
 				<!-- Open House Button -->
 				<Button variant="outline" class="w-full gap-2" href="/open-house/{listing.id}">
 					<Monitor class="size-4" />

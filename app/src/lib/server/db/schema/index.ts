@@ -21,3 +21,4 @@ export * from './field-note-transcript.js';
 export * from './field-note-frame.js';
 export * from './field-note-moment.js';
 export * from './field-note-action.js';
+export * from './market-analysis.js';

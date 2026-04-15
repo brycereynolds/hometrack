@@ -22,6 +22,10 @@ SUPABASE_SERVICE_ROLE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 
+# Realty API (RapidAPI)
+REALTY_API_KEY = os.getenv("REALTY_API_KEY", "")
+REALTY_API_HOST = os.getenv("REALTY_API_HOST", "realty-in-us.p.rapidapi.com")
+
 # Logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
 logging.basicConfig(level=getattr(logging, LOG_LEVEL), format="%(asctime)s %(name)s %(levelname)s %(message)s")

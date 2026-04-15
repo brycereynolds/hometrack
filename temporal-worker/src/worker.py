@@ -8,13 +8,17 @@ from temporalio.client import Client
 from temporalio.worker import Worker
 
 from src.activities.analyze_key_moments import analyze_key_moments
+from src.activities.analyze_market import analyze_market
 from src.activities.caption_frames import correlate_frames
 from src.activities.download_media import download_media
 from src.activities.extract_audio import extract_audio
 from src.activities.extract_frames import extract_frames
 from src.activities.extract_insights import extract_insights
+from src.activities.geocode_address import geocode_address
 from src.activities.generate_enriched_transcript import generate_enriched_transcript
+from src.activities.save_analysis_results import save_analysis_results
 from src.activities.save_results import save_results
+from src.activities.search_comps import search_comps
 from src.activities.transcribe import transcribe
 from src.config import (
     TASK_QUEUE,
@@ -24,6 +28,7 @@ from src.config import (
     logger,
 )
 from src.db import close_pool
+from src.workflows.market_analysis import MarketAnalysis
 from src.workflows.process_field_media import ProcessFieldMedia
 
 # Health check state
@@ -40,6 +45,11 @@ ACTIVITIES = [
     extract_insights,
     generate_enriched_transcript,
     save_results,
+    # Market analysis activities
+    geocode_address,
+    search_comps,
+    analyze_market,
+    save_analysis_results,
 ]
 
 
@@ -93,13 +103,13 @@ async def main() -> None:
     )
 
     logger.info("Connected to Temporal Cloud")
-    logger.info("Registering workflow: ProcessFieldMedia")
+    logger.info("Registering workflows: ProcessFieldMedia, MarketAnalysis")
     logger.info("Registering %d activities: %s", len(ACTIVITIES), ", ".join(a.__name__ for a in ACTIVITIES))
 
     worker = Worker(
         client,
         task_queue=TASK_QUEUE,
-        workflows=[ProcessFieldMedia],
+        workflows=[ProcessFieldMedia, MarketAnalysis],
         activities=ACTIVITIES,
     )
 

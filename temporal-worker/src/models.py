@@ -109,6 +109,53 @@ class FieldNoteInsights(BaseModel):
     summary: str = ""
 
 
+class MarketAnalysisInput(BaseModel):
+    listing_id: str
+    analysis_id: str
+    address: str
+    lat: float | None = None
+    lng: float | None = None
+    beds: int | None = None
+    baths: float | None = None
+    sqft: int | None = None
+    property_type: str = "single_family"
+    year_built: int | None = None
+    search_params: dict = Field(default_factory=dict)
+
+
+class CompListing(BaseModel):
+    external_id: str = ""
+    address: str = ""
+    city: str = ""
+    state: str = ""
+    zip: str = ""
+    price: float | None = None
+    price_per_sqft: float | None = None
+    beds: int | None = None
+    baths: float | None = None
+    sqft: int | None = None
+    lot_sqft: int | None = None
+    year_built: int | None = None
+    sold_date: str | None = None
+    days_on_market: int | None = None
+    status: str = ""
+    distance_miles: float | None = None
+    lat: float | None = None
+    lng: float | None = None
+    photo_url: str | None = None
+
+
+class MarketAnalysisResult(BaseModel):
+    suggested_low: float | None = None
+    suggested_high: float | None = None
+    confidence: float = 0.0
+    reasoning: str = ""
+    key_factors: dict = Field(default_factory=dict)
+    market_trend: str = "unknown"
+    strategy: str = "conservative"
+    price_per_sqft_analysis: str = ""
+
+
 class FieldMediaInput(BaseModel):
     media_type: str          # "video", "voice_memo", "text", "photo"
     storage_path: str        # Path in Supabase Storage

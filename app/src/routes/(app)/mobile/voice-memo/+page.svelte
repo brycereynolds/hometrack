@@ -139,8 +139,16 @@
 				throw new Error(err.error || 'Upload failed');
 			}
 
-			toast.success('Voice memo saved');
-			discardRecording();
+			const result = await response.json();
+			toast.success('Voice memo saved! Processing will begin shortly.');
+
+			// Navigate to field notes detail if we have a listing, otherwise stay and show success
+			if (result.fieldNoteId && selectedListing) {
+				const { goto } = await import('$app/navigation');
+				goto(`/listings/${selectedListing}/field-notes/${result.fieldNoteId}`);
+			} else {
+				discardRecording();
+			}
 		} catch (err: any) {
 			toast.error(err.message || 'Failed to save voice memo');
 			console.error('Save error:', err);
@@ -179,7 +187,7 @@
 	<div class="flex flex-1 flex-col items-center justify-center">
 		{#if !isRecording && !hasRecording}
 			<!-- Idle state -->
-			<div class="text-center">
+			<div class="flex flex-col items-center text-center">
 				<button
 					class="group relative mb-6 flex size-32 items-center justify-center rounded-full bg-primary shadow-lg transition-all active:scale-95"
 					onclick={startRecording}
@@ -286,6 +294,37 @@
 		</div>
 	{/if}
 </div>
+
+{#if data.recentMemos && data.recentMemos.length > 0}
+	<div class="mx-auto mt-8 max-w-lg px-4">
+		<h2 class="mb-3 font-serif text-base font-semibold">Recent Voice Memos</h2>
+		<div class="space-y-2">
+			{#each data.recentMemos as memo}
+				<a
+					href={memo.listingId ? `/listings/${memo.listingId}/field-notes/${memo.id}` : '#'}
+					class="flex items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50"
+				>
+					<div class="flex size-8 items-center justify-center rounded-full bg-primary/10">
+						<Mic class="size-4 text-primary" />
+					</div>
+					<div class="min-w-0 flex-1">
+						<p class="text-sm font-medium truncate">
+							{memo.duration ? formatTime(memo.duration) : 'Voice memo'}
+						</p>
+						<p class="text-xs text-muted-foreground">
+							{new Date(memo.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+							{#if memo.status === 'processing'}
+								<span class="ml-1 text-primary">· Processing...</span>
+							{:else if memo.status === 'completed'}
+								<span class="ml-1 text-green-600">· Processed</span>
+							{/if}
+						</p>
+					</div>
+				</a>
+			{/each}
+		</div>
+	</div>
+{/if}
 
 <style>
 	@keyframes pulse {

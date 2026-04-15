@@ -1,0 +1,5565 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/19748787_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 18691.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 3005200,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "126 University Ave",
+    "city": "Los Gatos",
+    "state": "CA",
+    "zipcode": "95030",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "126 University Ave"
+        },
+        {
+          "fullValue": "Los Gatos, CA 95030"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 3,
+      "bathroomsFull": 2,
+      "bathroomsThreeQuarter": 0,
+      "bathroomsHalf": 1,
+      "bathroomsOneQuarter": 0,
+      "bedrooms": 3,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": [
+        "L-Shaped"
+      ],
+      "buildingName": null,
+      "appliances": [
+        "Dishwasher",
+        "Dryer",
+        "Freezer",
+        "Garbage disposal",
+        "Microwave",
+        "Range / Oven",
+        "Refrigerator",
+        "Washer"
+      ],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "SingleFamily"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "1900"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "Forced air, Gas"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": "Central"
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "Garage - Detached, Off-street"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": "4,068 sqft"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": "Partially finished",
+      "bathroomsPartial": null,
+      "bathroomsFloat": 3,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": null,
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "Los Gatos",
+      "commonWalls": null,
+      "communityFeatures": [],
+      "compensationBasedOn": null,
+      "constructionMaterials": [
+        "wood frame"
+      ],
+      "contingency": null,
+      "cooling": [
+        "Central"
+      ],
+      "coveredParkingCapacity": null,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [
+        "Stone",
+        "Wood"
+      ],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": null,
+      "fireplaces": null,
+      "flooring": [
+        "Hardwood"
+      ],
+      "foundationArea": null,
+      "foundationDetails": [],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": null,
+      "gas": null,
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": null,
+      "hasAttachedProperty": false,
+      "hasCooling": true,
+      "hasCarport": null,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": false,
+      "hasHeating": true,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": true,
+      "hasWaterfrontView": null,
+      "heating": [
+        "Forced air",
+        "Gas"
+      ],
+      "highSchool": null,
+      "highSchoolDistrict": null,
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": null,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": null,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": [
+        "Inside",
+        "In Utility Room",
+        "Electricity Hookup (220V)"
+      ],
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": "4,068 sqft",
+      "lotSizeDimensions": null,
+      "livingArea": "1,582 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [],
+      "middleOrJuniorSchool": null,
+      "middleOrJuniorSchoolDistrict": null,
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": null,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [
+        {
+          "name": "Amenities Misc.",
+          "value": "High Ceiling, Bay Window, Walk-in Closet, Skylight"
+        },
+        {
+          "name": "Bathroom",
+          "value": "Shower over Tub - 1, Tile, Updated Bath, Primary - Stall Shower(s)"
+        },
+        {
+          "name": "Dining Room",
+          "value": "Formal Dining Room"
+        },
+        {
+          "name": "Family Room",
+          "value": "No Family Room"
+        },
+        {
+          "name": "Building Type",
+          "value": "Detached"
+        },
+        {
+          "name": "Listing Class",
+          "value": "Residential"
+        },
+        {
+          "name": "Foundation",
+          "value": "Concrete Perimeter"
+        },
+        {
+          "name": "Lot Size Area Maximum Units",
+          "value": "Square Feet"
+        },
+        {
+          "name": "Lot Size Area Minimum Units",
+          "value": "Square Feet"
+        },
+        {
+          "name": "Roof",
+          "value": "Composition"
+        },
+        {
+          "name": "Energy Features",
+          "value": "Double Pane Windows, Thermostat Controller, Skylight"
+        },
+        {
+          "name": "Kitchen",
+          "value": "Garbage Disposal, Microwave, Dishwasher, Oven Range, Pantry, Island, Hood Over Range, Refrigerator, Skylight, Countertop - Quartz"
+        },
+        {
+          "name": "Flooring",
+          "value": "Hardwood"
+        },
+        {
+          "name": "Water",
+          "value": "Public"
+        },
+        {
+          "name": "Garage Parking Features",
+          "value": "Off-Street Parking, Gate / Door Opener, Detached Garage"
+        },
+        {
+          "name": "Listing Type",
+          "value": "Exclusive Right to Sell"
+        },
+        {
+          "name": "Additional Rooms",
+          "value": "Utility Room, Storage, Attic"
+        },
+        {
+          "name": "Style",
+          "value": "Victorian"
+        },
+        {
+          "name": "Heating",
+          "value": "Central Forced Air"
+        },
+        {
+          "name": "Utilities",
+          "value": "Public Utilities"
+        },
+        {
+          "name": "Sewer Septic",
+          "value": "Sewer - Public"
+        },
+        {
+          "name": "Cooling",
+          "value": "Ceiling Fan, Central AC"
+        },
+        {
+          "name": "Structure SqFt Source",
+          "value": "Other"
+        },
+        {
+          "name": "HOA Exist Y/N",
+          "value": "0"
+        },
+        {
+          "name": "Additional Listing Info",
+          "value": "Not Applicable"
+        },
+        {
+          "name": "Bedrooms",
+          "value": "Walk-in Closet, Primary Suite / Retreat"
+        },
+        {
+          "name": "Laundry",
+          "value": "Inside, In Utility Room, Electricity Hookup (220V)"
+        }
+      ],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "52902016",
+      "parkingCapacity": 0,
+      "parkingFeatures": [
+        "Garage - Detached",
+        "Off-street"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": 1900,
+      "propertyCondition": null,
+      "propertySubType": null,
+      "roadSurfaceType": null,
+      "roofType": "Composition",
+      "rooms": [
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "WalkInCloset",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "DiningRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "FamilyRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "MasterBath",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Office",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Pantry",
+          "roomWidth": null
+        }
+      ],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": null,
+      "spaFeatures": null,
+      "specialListingConditions": null,
+      "stories": null,
+      "storiesDecimal": null,
+      "storiesTotal": null,
+      "structureType": "Queen Anne / Victorian",
+      "subdivisionName": null,
+      "taxAnnualAmount": 34064,
+      "taxAssessedValue": 2865261,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": [
+        "Public Utilities"
+      ],
+      "vegetation": null,
+      "view": [
+        "City"
+      ],
+      "virtualTour": null,
+      "waterSource": null,
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": "",
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 1900,
+      "yearBuiltEffective": null,
+      "zoning": null,
+      "zoningDescription": null,
+      "elementarySchool": null,
+      "elementarySchoolDistrict": null,
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": null,
+    "homeStatus": "OTHER",
+    "listingProvider": {
+      "logos": [],
+      "title": "Listing Provided by",
+      "disclaimerText": null,
+      "enhancedVideoURL": null,
+      "enhancedDescriptionText": null,
+      "showLogos": null,
+      "showNoContactInfoMessage": false,
+      "agentName": null,
+      "agentLicenseNumber": null,
+      "postingWebsiteURL": null,
+      "postingWebsiteLinkText": "See listing website",
+      "postingGroupName": null,
+      "sourceText": null,
+      "isZRMSourceText": null
+    },
+    "livingArea": 1582,
+    "livingAreaValue": 1582,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": null,
+      "mlsName": null,
+      "providerLogo": null,
+      "listingAgreement": null,
+      "agentEmail": null,
+      "agentLicenseNumber": null,
+      "agentName": null,
+      "agentPhoneNumber": null,
+      "attributionTitle": null,
+      "brokerName": null,
+      "brokerPhoneNumber": null,
+      "buyerAgentMemberStateLicense": null,
+      "buyerAgentName": null,
+      "buyerBrokerageName": null,
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": null,
+      "lastUpdated": null,
+      "listingOffices": [],
+      "listingAgents": [],
+      "mlsDisclaimer": null,
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": null,
+      "infoString5": null,
+      "infoString10": null,
+      "infoString16": null
+    },
+    "listingDataSource": "Legacy",
+    "zpid": 19748787,
+    "address": {
+      "streetAddress": "126 University Ave",
+      "city": "Los Gatos",
+      "state": "CA",
+      "zipcode": "95030",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "yearBuilt": 1900,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3206d5576a5756e92e99f625474b3ae8-p_c.jpg"
+                }
+              ],
+              "price": 3149000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1808,
+              "livingAreaValue": 1808,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7700,
+              "lotAreaValue": 7700,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "40 Pleasant St",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "40 Pleasant St"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.222385,
+              "longitude": -121.97369,
+              "zpid": 19749377,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/40-Pleasant-St-Los-Gatos-CA-95030/19749377_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039993",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Lucy Wedemeyer",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/f69634ade0e074ada450c7aa5eaf6aa7-p_c.jpg"
+                }
+              ],
+              "price": 2980000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1720,
+              "livingAreaValue": 1720,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6250,
+              "lotAreaValue": 6250,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "321 Johnson Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "321 Johnson Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.218506,
+              "longitude": -121.96957,
+              "zpid": 19750972,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/321-Johnson-Ave-Los-Gatos-CA-95030/19750972_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039554",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Serena Zhang",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ef8ad16854d7605d4c0b4babef506e3f-p_c.jpg"
+                }
+              ],
+              "price": 2899000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 2067,
+              "livingAreaValue": 2067,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7000,
+              "lotAreaValue": 7000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "136 Loma Alta Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "136 Loma Alta Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.220085,
+              "longitude": -121.97062,
+              "zpid": 19751051,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/136-Loma-Alta-Ave-Los-Gatos-CA-95030/19751051_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037857",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Nicolette Rodman Kelly",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2df9bb21ef2c11c480667b4417599e15-p_c.jpg"
+                }
+              ],
+              "price": 3249000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 4,
+              "livingArea": 2053,
+              "livingAreaValue": 2053,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 4056,
+              "lotAreaValue": 4056,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "174 Villa Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "174 Villa Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.219933,
+              "longitude": -121.97515,
+              "zpid": 19749554,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/174-Villa-Ave-Los-Gatos-CA-95030/19749554_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036932",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Amy McCafferty",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/dd3ec03bf95237a60286c68cc08d684d-p_c.jpg"
+                }
+              ],
+              "price": 3200000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2216,
+              "livingAreaValue": 2216,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 12480,
+              "lotAreaValue": 0.2865013774104683,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "25 Grove St",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "25 Grove St"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.21902,
+              "longitude": -121.97508,
+              "zpid": 19749574,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/25-Grove-St-Los-Gatos-CA-95030/19749574_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82027713",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Nevis and Ardizzone",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/278ad44f3a30a33739a87c5a275357a4-p_c.jpg"
+                }
+              ],
+              "price": 3778000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 2194,
+              "livingAreaValue": 2194,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9375,
+              "lotAreaValue": 9375,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "15781 Poppy Ln",
+                "city": "Monte Sereno",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "15781 Poppy Ln"
+                  },
+                  {
+                    "fullValue": "Monte Sereno, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.2393,
+              "longitude": -121.98235,
+              "zpid": 19668374,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/15781-Poppy-Ln-Monte-Sereno-CA-95030/19668374_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042660",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Amy McCafferty",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/cee18b0cafd7be6518ce923619ff9113-p_c.jpg"
+                }
+              ],
+              "price": 2849900,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2103,
+              "livingAreaValue": 2103,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6193,
+              "lotAreaValue": 6193,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "226 San Mateo Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "226 San Mateo Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.2353,
+              "longitude": -121.97897,
+              "zpid": 19668574,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/226-San-Mateo-Ave-Los-Gatos-CA-95030/19668574_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037137",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Chandani Group",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/34a6dcb47d79c690300c093898c4bbb2-p_c.jpg"
+                }
+              ],
+              "price": 2598000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 1156,
+              "livingAreaValue": 1156,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6500,
+              "lotAreaValue": 6500,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "15 Stacia St",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "15 Stacia St"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.222874,
+              "longitude": -121.97066,
+              "zpid": 19751425,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/15-Stacia-St-Los-Gatos-CA-95030/19751425_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040650",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Donald Knight",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/474c5ca5583a0d191d65e7ddbd147e58-p_c.jpg"
+                }
+              ],
+              "price": 3250000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2309,
+              "livingAreaValue": 2309,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10428,
+              "lotAreaValue": 10428,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "216 Montclair Rd",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "216 Montclair Rd"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.25482,
+              "longitude": -121.989525,
+              "zpid": 112094320,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/216-Montclair-Rd-Los-Gatos-CA-95032/112094320_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042880",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Lucy Wedemeyer",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/6472250aba85e4c083c443f594147349-p_c.jpg"
+                }
+              ],
+              "price": 2988000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1843,
+              "livingAreaValue": 1843,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10044,
+              "lotAreaValue": 10044,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "183 Belvue Dr",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "183 Belvue Dr"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.234467,
+              "longitude": -121.91831,
+              "zpid": 19747643,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/183-Belvue-Dr-Los-Gatos-CA-95032/19747643_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042268",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Denise Carr",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3285c11455fd32110da76ee93d4a687c-p_c.jpg"
+                }
+              ],
+              "price": 2680000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1409,
+              "livingAreaValue": 1409,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 560721,
+              "lotAreaValue": 12.8724,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "19375 Montevina Rd",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95033"
+              },
+              "parentRegion": {
+                "name": "95033"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "19375 Montevina Rd"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95033"
+                  }
+                ]
+              },
+              "latitude": 37.201855,
+              "longitude": -122.0099,
+              "zpid": 19751899,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/19375-Montevina-Rd-Los-Gatos-CA-95033/19751899_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82033907",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ashley Melikian",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/65e6179e66738f2eef1c57cdac44ae99-p_c.jpg"
+                }
+              ],
+              "price": 3498000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1933,
+              "livingAreaValue": 1933,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 90604,
+              "lotAreaValue": 2.08,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "19601 Canon Dr",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "19601 Canon Dr"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.235306,
+              "longitude": -122.0152,
+              "zpid": 61323198,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/19601-Canon-Dr-Los-Gatos-CA-95030/61323198_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036860",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Elaine Pitek",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/4a66e0380fb7236ac0ae81796eb134c6-p_c.jpg"
+                }
+              ],
+              "price": 2698000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1735,
+              "livingAreaValue": 1735,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8610,
+              "lotAreaValue": 8610,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "939 Cherrystone Dr",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "939 Cherrystone Dr"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.236046,
+              "longitude": -121.95516,
+              "zpid": 19745651,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/939-Cherrystone-Dr-Los-Gatos-CA-95032/19745651_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041009",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ducky Grabill",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/a7cbc4e119df8fa5b0f3624b1f794501-p_c.jpg"
+                }
+              ],
+              "price": 2599999,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1525,
+              "livingAreaValue": 1525,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8961,
+              "lotAreaValue": 8961,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "16737 Leroy Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "16737 Leroy Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.23779,
+              "longitude": -121.962746,
+              "zpid": 19749122,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/16737-Leroy-Ave-Los-Gatos-CA-95032/19749122_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041623",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Mark Thomas",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/01630d8b32c3f4cec43bed291b4bad4f-p_c.jpg"
+                }
+              ],
+              "price": 2398000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 1985,
+              "livingAreaValue": 1985,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8000,
+              "lotAreaValue": 8000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "124 & 126 Camellia Ter",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "124 & 126 Camellia Ter"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.2389,
+              "longitude": -121.96032,
+              "zpid": 349962654,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/124-126-Camellia-Ter-Los-Gatos-CA-95032/349962654_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041363",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Dani Wolter",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/c2c939cc5cf26a31172fba3923fd2e45-p_c.jpg"
+                }
+              ],
+              "price": 3298000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 2269,
+              "livingAreaValue": 2269,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9900,
+              "lotAreaValue": 9900,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "16839 Frank Ave",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "16839 Frank Ave"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.239777,
+              "longitude": -121.96433,
+              "zpid": 19749110,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/16839-Frank-Ave-Los-Gatos-CA-95032/19749110_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040764",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Shanne Carvalho",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/8119081c897e45949534668cbe41f27f-p_c.jpg"
+                }
+              ],
+              "price": 2598000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2335,
+              "livingAreaValue": 2335,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6500,
+              "lotAreaValue": 6500,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "15&15 1/2 Stacia St",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "15&15 1/2 Stacia St"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.220978,
+              "longitude": -121.96961,
+              "zpid": 461352939,
+              "homeStatus": "FOR_SALE",
+              "homeType": "MULTI_FAMILY",
+              "hdpUrl": "/homedetails/1515-1-2-Stacia-St-Los-Gatos-CA-95030/461352939_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Multi Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040657",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Donald Knight",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/8bae4b960cc7440d9e9393e90fc370c0-p_c.jpg"
+                }
+              ],
+              "price": 2000000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1380,
+              "livingAreaValue": 1380,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7776,
+              "lotAreaValue": 7776,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "8 Central Ct",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "8 Central Ct"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.218502,
+              "longitude": -121.975395,
+              "zpid": 19749594,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/8-Central-Ct-Los-Gatos-CA-95030/19749594_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82033814",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Joel Stieber",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/62cf7b8cbc124bc176df834528cb7d9e-p_c.jpg"
+                }
+              ],
+              "price": 3950000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2303,
+              "livingAreaValue": 2303,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9600,
+              "lotAreaValue": 9600,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "16344 Camellia Ter",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "16344 Camellia Ter"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.240158,
+              "longitude": -121.95542,
+              "zpid": 19745841,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/16344-Camellia-Ter-Los-Gatos-CA-95032/19745841_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042418",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Denise Carr",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/c351954a5e7d3da7cd0a5c2c054cecc5-p_c.jpg"
+                }
+              ],
+              "price": 1849000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1516,
+              "livingAreaValue": 1516,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 1157,
+              "lotAreaValue": 1157,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "95 Church St Unit 2301",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95030"
+              },
+              "parentRegion": {
+                "name": "95030"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "95 Church St Unit 2301"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95030"
+                  }
+                ]
+              },
+              "latitude": 37.222633,
+              "longitude": -121.97928,
+              "zpid": 19750109,
+              "homeStatus": "FOR_SALE",
+              "homeType": "CONDO",
+              "hdpUrl": "/homedetails/95-Church-St-UNIT-2301-Los-Gatos-CA-95030/19750109_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Condo",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039825",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Lindsay Hogan",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "24c493d80b524b9fe3e8f93ab1d17a6e"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/126-University-Ave-Los-Gatos-CA-95030/19748787_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-cruz-ca/"
+        },
+        "name": "Santa Cruz",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/watsonville-ca/"
+        },
+        "name": "Watsonville",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/los-gatos-ca-95030/"
+        },
+        "name": "95030",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/los-gatos-ca-95031/"
+        },
+        "name": "95031",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/los-gatos-ca-95032/"
+        },
+        "name": "95032",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/los-gatos-ca-95033/"
+        },
+        "name": "95033",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95120/"
+        },
+        "name": "95120",
+        "body": null
+      }
+    ],
+    "cityId": 19100,
+    "citySearchUrl": {
+      "text": "Homes in Los Gatos",
+      "path": "/los-gatos-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/los-gatos-ca-95030/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/los-gatos-ca-95030/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/los-gatos-ca-95030/rent-houses/"
+    },
+    "abbreviatedAddress": "126 University Ave",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": null,
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": null,
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "not_for_sale",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "price_band": "z3m",
+      "zestimate": "3005200",
+      "zestibuck": "3m-3_999m",
+      "price": "3005200",
+      "lot": "1",
+      "bd": "3",
+      "ba": "3",
+      "sqft": "1582",
+      "sqftrange": "1500-1999",
+      "yrblt": "1900-1919",
+      "aamgnrc1": "126 University Ave",
+      "city": "Los_Gatos",
+      "state": "CA",
+      "zip": "95030",
+      "pid": "19748787",
+      "premieragent": "no",
+      "tflag": "verizon",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "4e92983a-8011-4e90-be42-cf42f96db6f1"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 3005200,
+    "newConstructionType": null,
+    "zestimateLowPercent": "7",
+    "zestimateHighPercent": "8",
+    "rentZestimate": 5970,
+    "restimateLowPercent": "6",
+    "restimateHighPercent": "7",
+    "schools": [
+      {
+        "distance": 1.1,
+        "name": "Daves Avenue Elementary School",
+        "rating": 10,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/los-gatos/5526-Daves-Avenue-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.0,
+        "name": "Raymond J. Fisher Middle School",
+        "rating": 8,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/los-gatos/5527-Raymond-J.-Fisher-Middle-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.3,
+        "name": "Los Gatos High School",
+        "rating": 10,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/los-gatos/5523-Los-Gatos-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "95030",
+      "regionId": 97936
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 2069974169,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/c11475661ef5023ff9dd947b0984d93b-p_c.jpg"
+          }
+        ],
+        "price": 996700,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 1,
+        "livingArea": 1000,
+        "livingAreaValue": 1000,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "122 University Ave #A",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "122 University Ave #A"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.224358,
+        "longitude": -121.98106,
+        "homeStatus": "OTHER",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/122-University-Ave-A-Los-Gatos-CA-95030/2069974169_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19748786,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/d1de835d6e64e744051b702b5aba61a3-p_c.jpg"
+          }
+        ],
+        "price": 2012500,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 1,
+        "livingArea": 1000,
+        "livingAreaValue": 1000,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "122 University Ave",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "122 University Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.22436,
+        "longitude": -121.98107,
+        "homeStatus": "OTHER",
+        "homeType": "APARTMENT",
+        "hdpUrl": "/homedetails/122-University-Ave-Los-Gatos-CA-95030/19748786_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Apartment",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": "20mywfdqfjgab",
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19748788,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/622981131c6868dadb3234f671abfca3-p_c.jpg"
+          }
+        ],
+        "price": 2955000,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 4,
+        "livingArea": 2740,
+        "livingAreaValue": 2740,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6098,
+        "lotAreaValue": 6098,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "128 University Ave",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "128 University Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.22459,
+        "longitude": -121.98095,
+        "homeStatus": "SOLD",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/128-University-Ave-Los-Gatos-CA-95030/19748788_zpid/",
+        "hdpTypeDimension": "RecentlySold",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": "ML81961590",
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 153435783,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/1ac67b65a94a1e97f67b55002a4deef4-p_c.jpg"
+          }
+        ],
+        "price": 1125427,
+        "currency": "USD",
+        "bedrooms": 1,
+        "bathrooms": 1,
+        "livingArea": 650,
+        "livingAreaValue": 650,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 5280,
+        "lotAreaValue": 5280,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "116 University Ave",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "116 University Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.224236,
+        "longitude": -121.981125,
+        "homeStatus": "OTHER",
+        "homeType": "APARTMENT",
+        "hdpUrl": "/homedetails/116-University-Ave-Los-Gatos-CA-95030/153435783_zpid/",
+        "hdpTypeDimension": "NoZestimate",
+        "propertyTypeDimension": "Apartment",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 153435782,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=118+University+Ave%2C+Los+Gatos%2C+CA+95030&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=ye8n5k73pcBfJPreSeBgOLJ_J0w="
+          }
+        ],
+        "price": 2981000,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 5,
+        "livingArea": 2354,
+        "livingAreaValue": 2354,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 5227,
+        "lotAreaValue": 5227,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "118 University Ave",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "118 University Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.22424,
+        "longitude": -121.98114,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/118-University-Ave-Los-Gatos-CA-95030/153435782_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19748789,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/dd7223e3652f00f924b632ff261643a5-p_c.jpg"
+          }
+        ],
+        "price": 1914400,
+        "currency": "USD",
+        "bedrooms": 1,
+        "bathrooms": 1,
+        "livingArea": 978,
+        "livingAreaValue": 978,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 10454,
+        "lotAreaValue": 10454,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "129 Edelen Ave",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "129 Edelen Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.224422,
+        "longitude": -121.98062,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/129-Edelen-Ave-Los-Gatos-CA-95030/19748789_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19748790,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=121+Edelen+Ave%2C+Los+Gatos%2C+CA+95030&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=oayZs0WljP8DTN_L3FHC3HnVG5c="
+          }
+        ],
+        "price": 2326100,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2.5,
+        "livingArea": 2065,
+        "livingAreaValue": 2065,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 5280,
+        "lotAreaValue": 5280,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "121 Edelen Ave",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "121 Edelen Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.22424,
+        "longitude": -121.98072,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/121-Edelen-Ave-Los-Gatos-CA-95030/19748790_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19748791,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/9daf5e1a22d303e92a14074e77be54c6-p_c.jpg"
+          }
+        ],
+        "price": 4500000,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 5,
+        "livingArea": 3298,
+        "livingAreaValue": 3298,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 5280,
+        "lotAreaValue": 5280,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "117 Edelen Ave",
+          "city": "Los Gatos",
+          "state": "CA",
+          "zipcode": "95030"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "117 Edelen Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.224117,
+        "longitude": -121.98079,
+        "homeStatus": "FOR_SALE",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/117-Edelen-Ave-Los-Gatos-CA-95030/19748791_zpid/",
+        "hdpTypeDimension": "ForSale",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "For Sale by Agent",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": true
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": "ML82042839",
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "Stylishly remodeled Victorian-style home offers all the charms of downtown Los Gatos living just steps away from top restaurants and shopping. Inviting two front living spaces feature hardwood floors, crown molding and detailed door casings, large single hung windows, built-in speakers, and Lutron light controls throughout. The updated kitchen is perfect space for a break from downtown eating, featuring quartz counters and tile backsplash, skylight, island, and a large walk-in pantry. 2 large bedrooms on the main level share a full bath. Lower level bedroom suite showcases a luxuriously remodeled Carrara marble tile bathroom, walk-in closet and access to huge basement storage. Tranquil backyard features a paver patio and professional landscaping, while the multi-use detached garage can be easily arranged as an office or studio with large glass sliding doors and covered overhang. Enjoy downtown living in this stylish historic house filled with charming details and modern touches.",
+    "whatILove": null,
+    "timeOnZillow": "1506 days",
+    "pageViewCount": 18,
+    "favoriteCount": 0,
+    "daysOnZillow": 1506,
+    "latitude": 37.22447,
+    "longitude": -121.98101,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-p_h.jpg",
+    "brokerageName": null,
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [],
+    "homeInsights": [
+      {
+        "insights": [
+          {
+            "modelId": "v1-1",
+            "treatmentId": "model_0",
+            "phrases": [
+              "Detached garage",
+              "Updated kitchen",
+              "Walk-in closet",
+              "Large walk-in pantry"
+            ]
+          },
+          {
+            "modelId": "v2-1",
+            "treatmentId": "model_1",
+            "phrases": [
+              "Stylishly remodeled victorian-style home",
+              "Stylish historic house",
+              "Tranquil backyard",
+              "Charming details",
+              "Multi-use detached garage",
+              "Modern touches",
+              "Lutron light controls throughout"
+            ]
+          }
+        ]
+      }
+    ],
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776274234264
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776274234264
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776274234264
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-p_f.jpg",
+    "mlsid": null,
+    "ouid": null,
+    "palsId": "3fd903fc0bff0bc242999f124ab213e7",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I own this home and would like a professional estimate at 126 University Ave, Los Gatos, CA 95030.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 43,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": 4068,
+    "lotAreaValue": 4068,
+    "lotAreaUnits": "Square Feet",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [
+      {
+        "date": "2022-02-28",
+        "price": 2700000,
+        "time": 1646006400000,
+        "pricePerSquareFoot": 1707,
+        "priceChangeRate": 0.10204081632653061,
+        "event": "Sold",
+        "source": "MLSListings Inc",
+        "buyerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/Ryan-Nunnally/",
+          "name": "Ryan Nunnally"
+        },
+        "sellerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/DuckyGrabill/",
+          "name": "Ducky Grabill"
+        },
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81875318",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/5273d6e56ef4c68cf7b7b4dd452c58d5-zillow_web_logo_inf_11.jpg"
+        }
+      },
+      {
+        "date": "2022-01-28",
+        "price": 2450000,
+        "time": 1643328000000,
+        "pricePerSquareFoot": 1549,
+        "priceChangeRate": 0.13953488372093023,
+        "event": "Listed for sale",
+        "source": "MLSListings Inc",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81875318",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/5273d6e56ef4c68cf7b7b4dd452c58d5-zillow_web_logo_inf_11.jpg"
+        }
+      },
+      {
+        "date": "2019-06-07",
+        "price": 2150000,
+        "time": 1559865600000,
+        "pricePerSquareFoot": 1359,
+        "priceChangeRate": -0.022282855843565257,
+        "event": "Sold",
+        "source": "MLSListings Inc",
+        "buyerAgent": {
+          "photo": {
+            "url": "https://photos.zillowstatic.com/h_e/ISzrjdwq5dtlcx1000000000.jpg"
+          },
+          "profileUrl": "/profile/LosGatosSothebys/",
+          "name": "Shannon Ray"
+        },
+        "sellerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/MikeKenyon/",
+          "name": "Mike Kenyon"
+        },
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81735316",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/5273d6e56ef4c68cf7b7b4dd452c58d5-zillow_web_logo_inf_11.jpg"
+        }
+      },
+      {
+        "date": "2019-05-21",
+        "price": 2199000,
+        "time": 1558396800000,
+        "pricePerSquareFoot": 1390,
+        "priceChangeRate": 0,
+        "event": "Pending sale",
+        "source": "KW Bay Area Estates",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81735316",
+          "infoString2": "KW Bay Area Estates",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2019-04-29",
+        "price": 2199000,
+        "time": 1556496000000,
+        "pricePerSquareFoot": 1390,
+        "priceChangeRate": -0.02266666666666667,
+        "event": "Price change",
+        "source": "KW Bay Area Estates",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81735316",
+          "infoString2": "KW Bay Area Estates",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2019-04-15",
+        "price": 2250000,
+        "time": 1555286400000,
+        "pricePerSquareFoot": 1422,
+        "priceChangeRate": 0,
+        "event": "Listed for sale",
+        "source": "KW Bay Area Estates",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81735316",
+          "infoString2": "KW Bay Area Estates",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2019-04-07",
+        "price": 2250000,
+        "time": 1554595200000,
+        "pricePerSquareFoot": 1422,
+        "priceChangeRate": 0,
+        "event": "Pending sale",
+        "source": "KW Bay Area Estates",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81735316",
+          "infoString2": "KW Bay Area Estates",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2019-03-05",
+        "price": 2250000,
+        "time": 1551744000000,
+        "pricePerSquareFoot": 1422,
+        "priceChangeRate": -0.021313614615050023,
+        "event": "Price change",
+        "source": "Keller Williams Realty Los Gatos Estates",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81735316",
+          "infoString2": "Keller Williams Realty Los Gatos Estates",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2019-01-15",
+        "price": 2299000,
+        "time": 1547510400000,
+        "pricePerSquareFoot": 1453,
+        "priceChangeRate": 0.5998608211551845,
+        "event": "Listed for sale",
+        "source": "KW Bay Area Estates",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81735316",
+          "infoString2": "KW Bay Area Estates",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2013-08-15",
+        "price": 1437000,
+        "time": 1376524800000,
+        "pricePerSquareFoot": 908,
+        "priceChangeRate": 0.437,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2009-10-02",
+        "price": 1000000,
+        "time": 1254441600000,
+        "pricePerSquareFoot": 632,
+        "priceChangeRate": -0.1711562370493162,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2004-04-30",
+        "price": 1206500,
+        "time": 1083283200000,
+        "pricePerSquareFoot": 763,
+        "priceChangeRate": 0.4580060422960725,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2000-02-15",
+        "price": 827500,
+        "time": 950572800000,
+        "pricePerSquareFoot": 523,
+        "priceChangeRate": 2.1226415094339623,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "1994-01-27",
+        "price": 265000,
+        "time": 759628800000,
+        "pricePerSquareFoot": 168,
+        "priceChangeRate": 0,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      }
+    ],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=126+University+Ave%2C+Los+Gatos%2C+CA+95030&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=dwHuNz0-m6_5izlKMCgAixgPbrU=",
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": 2700000,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-p_a.jpg"
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-p_c.jpg"
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "Zestimate",
+    "listingTypeDimension": "Unknown Listed By",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Unknown Listed By",
+    "keystoneHomeStatus": "NotForSale",
+    "pageUrlFragment": "Zestimate",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c227618e8a8b33bc4ad0bf09f31af103-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eb58c00084594f8988f2b70ad69c3a8b-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/597da82aba2c960ea8e61a3c851cd216-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/1113eeb03e8beb2a376f2110ace45a61-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/16b65f5d2b0fd05d34b12b628faa2656-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/4995a49ca94ca920b296e7bae5d33d1e-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/da52e5f77d25f573d912a6d7fe5a151f-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/da52e5f77d25f573d912a6d7fe5a151f-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/da52e5f77d25f573d912a6d7fe5a151f-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/da52e5f77d25f573d912a6d7fe5a151f-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/da52e5f77d25f573d912a6d7fe5a151f-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/da52e5f77d25f573d912a6d7fe5a151f-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/da52e5f77d25f573d912a6d7fe5a151f-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/da52e5f77d25f573d912a6d7fe5a151f-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/43180cc989df868fc55e6fa18b53fb0a-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/43180cc989df868fc55e6fa18b53fb0a-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/43180cc989df868fc55e6fa18b53fb0a-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/43180cc989df868fc55e6fa18b53fb0a-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/43180cc989df868fc55e6fa18b53fb0a-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/43180cc989df868fc55e6fa18b53fb0a-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/43180cc989df868fc55e6fa18b53fb0a-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/43180cc989df868fc55e6fa18b53fb0a-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e25668b823001f6699e03b17ef1ef50-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e25668b823001f6699e03b17ef1ef50-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e25668b823001f6699e03b17ef1ef50-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e25668b823001f6699e03b17ef1ef50-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e25668b823001f6699e03b17ef1ef50-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e25668b823001f6699e03b17ef1ef50-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e25668b823001f6699e03b17ef1ef50-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e25668b823001f6699e03b17ef1ef50-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/190524e514aecdabbcb1670ff706390c-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/190524e514aecdabbcb1670ff706390c-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/190524e514aecdabbcb1670ff706390c-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/190524e514aecdabbcb1670ff706390c-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/190524e514aecdabbcb1670ff706390c-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/190524e514aecdabbcb1670ff706390c-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/190524e514aecdabbcb1670ff706390c-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/190524e514aecdabbcb1670ff706390c-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/9f63dd42c4c84630cae8c8518a4b7618-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/9f63dd42c4c84630cae8c8518a4b7618-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/9f63dd42c4c84630cae8c8518a4b7618-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/9f63dd42c4c84630cae8c8518a4b7618-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/9f63dd42c4c84630cae8c8518a4b7618-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/9f63dd42c4c84630cae8c8518a4b7618-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/9f63dd42c4c84630cae8c8518a4b7618-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/9f63dd42c4c84630cae8c8518a4b7618-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/68a5401b3f28671168d0975c035bcafc-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68a5401b3f28671168d0975c035bcafc-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68a5401b3f28671168d0975c035bcafc-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68a5401b3f28671168d0975c035bcafc-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/68a5401b3f28671168d0975c035bcafc-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68a5401b3f28671168d0975c035bcafc-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68a5401b3f28671168d0975c035bcafc-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/68a5401b3f28671168d0975c035bcafc-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/cdf8f4730ccbf471c52409e2cf78fb3f-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cdf8f4730ccbf471c52409e2cf78fb3f-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cdf8f4730ccbf471c52409e2cf78fb3f-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cdf8f4730ccbf471c52409e2cf78fb3f-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/cdf8f4730ccbf471c52409e2cf78fb3f-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cdf8f4730ccbf471c52409e2cf78fb3f-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cdf8f4730ccbf471c52409e2cf78fb3f-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/cdf8f4730ccbf471c52409e2cf78fb3f-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/698c6d9c6013efba07c91847186d0226-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/698c6d9c6013efba07c91847186d0226-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/698c6d9c6013efba07c91847186d0226-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/698c6d9c6013efba07c91847186d0226-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/698c6d9c6013efba07c91847186d0226-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/698c6d9c6013efba07c91847186d0226-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/698c6d9c6013efba07c91847186d0226-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/698c6d9c6013efba07c91847186d0226-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/d7c5c52086778338a8d6ee1b7871b8fd-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d7c5c52086778338a8d6ee1b7871b8fd-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d7c5c52086778338a8d6ee1b7871b8fd-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d7c5c52086778338a8d6ee1b7871b8fd-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/d7c5c52086778338a8d6ee1b7871b8fd-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d7c5c52086778338a8d6ee1b7871b8fd-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d7c5c52086778338a8d6ee1b7871b8fd-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/d7c5c52086778338a8d6ee1b7871b8fd-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/eff40011158b5a99117a87ff4397e576-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eff40011158b5a99117a87ff4397e576-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eff40011158b5a99117a87ff4397e576-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eff40011158b5a99117a87ff4397e576-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/eff40011158b5a99117a87ff4397e576-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eff40011158b5a99117a87ff4397e576-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eff40011158b5a99117a87ff4397e576-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/eff40011158b5a99117a87ff4397e576-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/f324acadb76929703bcc68a0fc963a8e-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f324acadb76929703bcc68a0fc963a8e-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f324acadb76929703bcc68a0fc963a8e-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f324acadb76929703bcc68a0fc963a8e-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/f324acadb76929703bcc68a0fc963a8e-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f324acadb76929703bcc68a0fc963a8e-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f324acadb76929703bcc68a0fc963a8e-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f324acadb76929703bcc68a0fc963a8e-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/625faa41b3becd0f709ef7ed3f027610-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/625faa41b3becd0f709ef7ed3f027610-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/625faa41b3becd0f709ef7ed3f027610-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/625faa41b3becd0f709ef7ed3f027610-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/625faa41b3becd0f709ef7ed3f027610-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/625faa41b3becd0f709ef7ed3f027610-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/625faa41b3becd0f709ef7ed3f027610-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/625faa41b3becd0f709ef7ed3f027610-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/27fd9f22289c4cf78cbde5393f29cea1-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/27fd9f22289c4cf78cbde5393f29cea1-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/27fd9f22289c4cf78cbde5393f29cea1-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/27fd9f22289c4cf78cbde5393f29cea1-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/27fd9f22289c4cf78cbde5393f29cea1-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/27fd9f22289c4cf78cbde5393f29cea1-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/27fd9f22289c4cf78cbde5393f29cea1-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/27fd9f22289c4cf78cbde5393f29cea1-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/988bed617f841e1b60cb9dc9b1ecef28-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/988bed617f841e1b60cb9dc9b1ecef28-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/988bed617f841e1b60cb9dc9b1ecef28-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/988bed617f841e1b60cb9dc9b1ecef28-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/988bed617f841e1b60cb9dc9b1ecef28-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/988bed617f841e1b60cb9dc9b1ecef28-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/988bed617f841e1b60cb9dc9b1ecef28-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/988bed617f841e1b60cb9dc9b1ecef28-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/f408d20bc3cf66223637dec985f80fd5-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f408d20bc3cf66223637dec985f80fd5-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f408d20bc3cf66223637dec985f80fd5-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f408d20bc3cf66223637dec985f80fd5-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/f408d20bc3cf66223637dec985f80fd5-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f408d20bc3cf66223637dec985f80fd5-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f408d20bc3cf66223637dec985f80fd5-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/f408d20bc3cf66223637dec985f80fd5-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/6b78de46d56af51cffd8169758373006-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/6b78de46d56af51cffd8169758373006-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/6b78de46d56af51cffd8169758373006-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/6b78de46d56af51cffd8169758373006-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/6b78de46d56af51cffd8169758373006-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/6b78de46d56af51cffd8169758373006-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/6b78de46d56af51cffd8169758373006-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/6b78de46d56af51cffd8169758373006-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/ab71903b681956485f5df965d84c1638-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ab71903b681956485f5df965d84c1638-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ab71903b681956485f5df965d84c1638-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ab71903b681956485f5df965d84c1638-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/ab71903b681956485f5df965d84c1638-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ab71903b681956485f5df965d84c1638-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ab71903b681956485f5df965d84c1638-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ab71903b681956485f5df965d84c1638-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/87e9879a4fb390b8870e5d0f8e50256c-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/87e9879a4fb390b8870e5d0f8e50256c-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/87e9879a4fb390b8870e5d0f8e50256c-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/87e9879a4fb390b8870e5d0f8e50256c-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/87e9879a4fb390b8870e5d0f8e50256c-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/87e9879a4fb390b8870e5d0f8e50256c-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/87e9879a4fb390b8870e5d0f8e50256c-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/87e9879a4fb390b8870e5d0f8e50256c-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/feb05f20f935281f8d32b060f1987ae5-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feb05f20f935281f8d32b060f1987ae5-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feb05f20f935281f8d32b060f1987ae5-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feb05f20f935281f8d32b060f1987ae5-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/feb05f20f935281f8d32b060f1987ae5-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feb05f20f935281f8d32b060f1987ae5-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feb05f20f935281f8d32b060f1987ae5-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/feb05f20f935281f8d32b060f1987ae5-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/61f6ca221ca747fa411a9e7d02d33944-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/61f6ca221ca747fa411a9e7d02d33944-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/61f6ca221ca747fa411a9e7d02d33944-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/61f6ca221ca747fa411a9e7d02d33944-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/61f6ca221ca747fa411a9e7d02d33944-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/61f6ca221ca747fa411a9e7d02d33944-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/61f6ca221ca747fa411a9e7d02d33944-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/61f6ca221ca747fa411a9e7d02d33944-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/b460133d945461ce71818103020b4fd2-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/b460133d945461ce71818103020b4fd2-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/b460133d945461ce71818103020b4fd2-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/b460133d945461ce71818103020b4fd2-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/b460133d945461ce71818103020b4fd2-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/b460133d945461ce71818103020b4fd2-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/b460133d945461ce71818103020b4fd2-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/b460133d945461ce71818103020b4fd2-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/a05ea9de1d3130b24f0e7aa72311e783-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/a05ea9de1d3130b24f0e7aa72311e783-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/a05ea9de1d3130b24f0e7aa72311e783-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/a05ea9de1d3130b24f0e7aa72311e783-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/a05ea9de1d3130b24f0e7aa72311e783-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/a05ea9de1d3130b24f0e7aa72311e783-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/a05ea9de1d3130b24f0e7aa72311e783-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/a05ea9de1d3130b24f0e7aa72311e783-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/fdb648f80d0a47e25e95a0afec131450-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/fdb648f80d0a47e25e95a0afec131450-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/fdb648f80d0a47e25e95a0afec131450-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/fdb648f80d0a47e25e95a0afec131450-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/fdb648f80d0a47e25e95a0afec131450-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/fdb648f80d0a47e25e95a0afec131450-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/fdb648f80d0a47e25e95a0afec131450-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/fdb648f80d0a47e25e95a0afec131450-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/07a874f1302f4cce7e2818a87cbd0461-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/07a874f1302f4cce7e2818a87cbd0461-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/07a874f1302f4cce7e2818a87cbd0461-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/07a874f1302f4cce7e2818a87cbd0461-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/07a874f1302f4cce7e2818a87cbd0461-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/07a874f1302f4cce7e2818a87cbd0461-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/07a874f1302f4cce7e2818a87cbd0461-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/07a874f1302f4cce7e2818a87cbd0461-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/c64b116a942c07c8cd1cb8fbcf51315a-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c64b116a942c07c8cd1cb8fbcf51315a-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c64b116a942c07c8cd1cb8fbcf51315a-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c64b116a942c07c8cd1cb8fbcf51315a-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/c64b116a942c07c8cd1cb8fbcf51315a-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c64b116a942c07c8cd1cb8fbcf51315a-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c64b116a942c07c8cd1cb8fbcf51315a-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/c64b116a942c07c8cd1cb8fbcf51315a-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/5e84af1ab3792b40a6ee7d3bf82db04f-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/5e84af1ab3792b40a6ee7d3bf82db04f-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/5e84af1ab3792b40a6ee7d3bf82db04f-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/5e84af1ab3792b40a6ee7d3bf82db04f-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/5e84af1ab3792b40a6ee7d3bf82db04f-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/5e84af1ab3792b40a6ee7d3bf82db04f-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/5e84af1ab3792b40a6ee7d3bf82db04f-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/5e84af1ab3792b40a6ee7d3bf82db04f-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/81fd381cad8f66067bf23bd48bd03395-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/81fd381cad8f66067bf23bd48bd03395-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/81fd381cad8f66067bf23bd48bd03395-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/81fd381cad8f66067bf23bd48bd03395-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/81fd381cad8f66067bf23bd48bd03395-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/81fd381cad8f66067bf23bd48bd03395-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/81fd381cad8f66067bf23bd48bd03395-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/81fd381cad8f66067bf23bd48bd03395-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e6cd3c03e4981b3aeb62bef507587a1-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e6cd3c03e4981b3aeb62bef507587a1-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e6cd3c03e4981b3aeb62bef507587a1-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e6cd3c03e4981b3aeb62bef507587a1-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e6cd3c03e4981b3aeb62bef507587a1-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e6cd3c03e4981b3aeb62bef507587a1-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e6cd3c03e4981b3aeb62bef507587a1-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/0e6cd3c03e4981b3aeb62bef507587a1-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/79eca6b625602701dd78b30bec596dcb-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/79eca6b625602701dd78b30bec596dcb-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/79eca6b625602701dd78b30bec596dcb-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/79eca6b625602701dd78b30bec596dcb-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/79eca6b625602701dd78b30bec596dcb-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/79eca6b625602701dd78b30bec596dcb-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/79eca6b625602701dd78b30bec596dcb-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/79eca6b625602701dd78b30bec596dcb-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/14bc7a6e4989c0bc2891b89ea9ae3021-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/14bc7a6e4989c0bc2891b89ea9ae3021-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/14bc7a6e4989c0bc2891b89ea9ae3021-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/14bc7a6e4989c0bc2891b89ea9ae3021-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/14bc7a6e4989c0bc2891b89ea9ae3021-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/14bc7a6e4989c0bc2891b89ea9ae3021-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/14bc7a6e4989c0bc2891b89ea9ae3021-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/14bc7a6e4989c0bc2891b89ea9ae3021-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee963d38e92631c0b37401f226925c11-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee963d38e92631c0b37401f226925c11-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee963d38e92631c0b37401f226925c11-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee963d38e92631c0b37401f226925c11-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee963d38e92631c0b37401f226925c11-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee963d38e92631c0b37401f226925c11-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee963d38e92631c0b37401f226925c11-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/ee963d38e92631c0b37401f226925c11-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/67a004d1851c76060c3e5131d92ea8c1-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/67a004d1851c76060c3e5131d92ea8c1-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/67a004d1851c76060c3e5131d92ea8c1-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/67a004d1851c76060c3e5131d92ea8c1-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/67a004d1851c76060c3e5131d92ea8c1-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/67a004d1851c76060c3e5131d92ea8c1-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/67a004d1851c76060c3e5131d92ea8c1-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/67a004d1851c76060c3e5131d92ea8c1-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      },
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/557eaf3c2dd00e06935f8f80d6c627cf-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/557eaf3c2dd00e06935f8f80d6c627cf-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/557eaf3c2dd00e06935f8f80d6c627cf-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/557eaf3c2dd00e06935f8f80d6c627cf-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/557eaf3c2dd00e06935f8f80d6c627cf-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/557eaf3c2dd00e06935f8f80d6c627cf-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/557eaf3c2dd00e06935f8f80d6c627cf-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/557eaf3c2dd00e06935f8f80d6c627cf-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": null,
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": "52902016",
+    "taxHistory": [
+      {
+        "time": 1744738234244,
+        "taxPaid": 34064.18,
+        "taxIncreaseRate": 0.037319414,
+        "value": 2865261,
+        "valueIncreaseRate": 0.019999787
+      },
+      {
+        "time": 1713202234244,
+        "taxPaid": 32838.66,
+        "taxIncreaseRate": 0.017248716,
+        "value": 2809080,
+        "valueIncreaseRate": 0.02
+      },
+      {
+        "time": 1681579834244,
+        "taxPaid": 32281.84,
+        "taxIncreaseRate": 0.0066300062,
+        "value": 2754000,
+        "valueIncreaseRate": 0.21856736
+      },
+      {
+        "time": 1650043834244,
+        "taxPaid": 32069.22,
+        "taxIncreaseRate": 0.2022634,
+        "value": 2260031,
+        "valueIncreaseRate": 0.019999387
+      },
+      {
+        "time": 1618507834244,
+        "taxPaid": 26674.04,
+        "taxIncreaseRate": 0.017822674,
+        "value": 2215718,
+        "valueIncreaseRate": 0.010359325
+      },
+      {
+        "time": 1586971834244,
+        "taxPaid": 26206.96,
+        "taxIncreaseRate": 0,
+        "value": 2193000,
+        "valueIncreaseRate": 0.3887297
+      },
+      {
+        "time": 1555349434244,
+        "taxPaid": 26206.96,
+        "taxIncreaseRate": 0.37894645,
+        "value": 1579141,
+        "valueIncreaseRate": 0.019998979
+      },
+      {
+        "time": 1523813434244,
+        "taxPaid": 19005.06,
+        "taxIncreaseRate": 0,
+        "value": 1548179,
+        "valueIncreaseRate": 0.019999698
+      },
+      {
+        "time": 1492277434244,
+        "taxPaid": 19005.06,
+        "taxIncreaseRate": 0.002451685,
+        "value": 1517823,
+        "valueIncreaseRate": 0.01999984
+      },
+      {
+        "time": 1460741434244,
+        "taxPaid": 18958.58,
+        "taxIncreaseRate": 0.03284544,
+        "value": 1488062,
+        "valueIncreaseRate": 0.015249254
+      },
+      {
+        "time": 1429119034244,
+        "taxPaid": 18355.68,
+        "taxIncreaseRate": 0.015336504,
+        "value": 1465711,
+        "valueIncreaseRate": 0.01997982
+      },
+      {
+        "time": 1397583034244,
+        "taxPaid": 18078.42,
+        "taxIncreaseRate": 0,
+        "value": 1437000,
+        "valueIncreaseRate": 0.44303188
+      },
+      {
+        "time": 1366047034244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 995820,
+        "valueIncreaseRate": 0.019999078
+      },
+      {
+        "time": 1334511034244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 976295,
+        "valueIncreaseRate": 0.019998893
+      },
+      {
+        "time": 1302888634244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 957153,
+        "valueIncreaseRate": 0.007529474
+      },
+      {
+        "time": 1271352634244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 950000,
+        "valueIncreaseRate": -0.28682426
+      },
+      {
+        "time": 1239816634244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1332070,
+        "valueIncreaseRate": 0.019999204
+      },
+      {
+        "time": 1208280634244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1305952,
+        "valueIncreaseRate": 0.01999928
+      },
+      {
+        "time": 1176658234244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1280346,
+        "valueIncreaseRate": 0.01999933
+      },
+      {
+        "time": 1145122234244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1255242,
+        "valueIncreaseRate": 0.030407159
+      },
+      {
+        "time": 1113586234244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1218200,
+        "valueIncreaseRate": 0.6081848
+      },
+      {
+        "time": 1082050234244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 757500,
+        "valueIncreaseRate": 0.01
+      },
+      {
+        "time": 1050427834244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 750000,
+        "valueIncreaseRate": 0.089166425
+      },
+      {
+        "time": 1018891834244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 688600,
+        "valueIncreaseRate": -0.18417156
+      },
+      {
+        "time": 987355834244,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 844050,
+        "valueIncreaseRate": 0
+      }
+    ],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/126-University-Ave_-Los%20Gatos-95030/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/95030/?bedrooms=3",
+    "neighborhoodId": null,
+    "zipcodeId": 97936,
+    "sellingSoon": [
+      {
+        "modelId": "v0",
+        "treatmentId": "model_0",
+        "percentile": 0.98
+      }
+    ]
+  }
+}

@@ -28,10 +28,9 @@ ROOT = Path(__file__).resolve().parent.parent
 CACHE_DIR = ROOT / "scripts" / "seed_property_data"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
-# ── Seed addresses — real Roxy Realty listings ───────────────────────────
-# Sold listings (from RealScout URLs with addresses)
-# Active listings (from roxyrealty.com listings page)
-# Test property (809 Midvale Lane)
+# ── Seed addresses — real properties from Roxy Realty coverage area ────────
+# Sold listings (from RealScout URLs with addresses + roxyrealty.com)
+# Active listings (from Zillow search in San Jose 95125 / Los Gatos 95030)
 ADDRESSES = [
     # Sold listings
     ("sold-1", "672 Willow St, San Jose, CA 95125"),
@@ -40,8 +39,12 @@ ADDRESSES = [
     ("sold-4", "256 Los Gatos Blvd, Los Gatos, CA 95030"),
     ("sold-5", "1664 Andalusia Way, San Jose, CA 95125"),
     ("sold-6", "2330 Maximilian Dr, Campbell, CA 95008"),
-    # Active listings (from roxyrealty.com coverage areas)
+    # Active listings
     ("active-1", "809 Midvale Lane, San Jose, CA 95120"),
+    ("active-2", "126 University Ave, Los Gatos, CA 95030"),
+    ("active-3", "1430 Callecita St, San Jose, CA 95125"),
+    ("active-4", "40 Pleasant St, Los Gatos, CA 95030"),
+    ("active-5", "841 Willis Ave, San Jose, CA 95125"),
 ]
 
 # Status map for each listing
@@ -53,6 +56,10 @@ LISTING_STATUS = {
     "sold-5": "sold",
     "sold-6": "sold",
     "active-1": "active",
+    "active-2": "active",
+    "active-3": "active",
+    "active-4": "active",
+    "active-5": "active",
 }
 
 API_URL = "https://zillow.realtyapi.io/pro/byaddress"

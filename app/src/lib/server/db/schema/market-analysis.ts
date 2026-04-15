@@ -1,6 +1,7 @@
 import { pgTable, pgEnum, text, timestamp, integer, real, jsonb, boolean, index } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { listings } from './listing.js';
+import { properties } from './property.js';
 
 export const marketAnalysisStatusEnum = pgEnum('market_analysis_status', [
   'pending',
@@ -48,10 +49,13 @@ export const compListings = pgTable(
     marketAnalysisId: text('market_analysis_id')
       .notNull()
       .references(() => marketAnalyses.id, { onDelete: 'cascade' }),
+    propertyId: text('property_id').references(() => properties.id, { onDelete: 'set null' }),
     source: text('source').notNull(),
     externalId: text('external_id'),
     address: text('address'),
     city: text('city'),
+    state: text('state'),
+    zip: text('zip'),
     price: real('price'),
     pricePerSqft: real('price_per_sqft'),
     beds: integer('beds'),
@@ -66,12 +70,15 @@ export const compListings = pgTable(
     lat: real('lat'),
     lng: real('lng'),
     photoUrl: text('photo_url'),
+    photos: jsonb('photos'),
     adjustments: jsonb('adjustments'),
     propertyType: text('property_type'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },
   (table) => [
     index('comp_listings_analysis_id_idx').on(table.marketAnalysisId),
+    index('comp_listings_property_id_idx').on(table.propertyId),
   ],
 );
 
@@ -79,6 +86,10 @@ export const compListingsRelations = relations(compListings, ({ one }) => ({
   marketAnalysis: one(marketAnalyses, {
     fields: [compListings.marketAnalysisId],
     references: [marketAnalyses.id],
+  }),
+  property: one(properties, {
+    fields: [compListings.propertyId],
+    references: [properties.id],
   }),
 }));
 

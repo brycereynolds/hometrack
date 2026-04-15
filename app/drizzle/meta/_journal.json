@@ -43,6 +43,13 @@
       "when": 1776271493106,
       "tag": "0005_green_lenny_balinger",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1776273102286,
+      "tag": "0006_loose_zarda",
+      "breakpoints": true
     }
   ]
 }

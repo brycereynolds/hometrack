@@ -35,7 +35,7 @@
 		prefs: NotificationPref[];
 	}
 
-	let categories = $state<NotificationCategory[]>([
+	const defaultCategories: NotificationCategory[] = [
 		{
 			label: 'Task Notifications',
 			icon: CheckSquare,
@@ -72,12 +72,49 @@
 				{ id: 'ai-recommendation', label: 'Recommendations', description: 'Pricing, timing, and strategy suggestions', channels: { inApp: true, email: false, push: false } }
 			]
 		}
-	]);
+	];
 
+	// Read saved notification settings from team data
+	const savedNotifications = $derived((data.team?.settings as Record<string, any>)?.notifications);
+
+	// Merge saved prefs into defaults: match by pref id to restore channel toggles
+	function buildCategories(saved: any): NotificationCategory[] {
+		if (!saved?.prefs) return structuredClone(defaultCategories);
+		const savedMap = new Map<string, Record<Channel, boolean>>();
+		for (const cat of saved.prefs) {
+			for (const p of cat.prefs) {
+				savedMap.set(p.id, p.channels);
+			}
+		}
+		return defaultCategories.map(cat => ({
+			...cat,
+			prefs: cat.prefs.map(p => ({
+				...p,
+				channels: savedMap.has(p.id) ? { ...savedMap.get(p.id)! } : { ...p.channels }
+			}))
+		}));
+	}
+
+	let categories = $state<NotificationCategory[]>(buildCategories(undefined));
 	let quietHoursEnabled = $state(true);
 	let quietStart = $state('22:00');
 	let quietEnd = $state('07:00');
 	let digestFrequency = $state('realtime');
+
+	// Initialize from saved settings when data loads
+	$effect(() => {
+		if (savedNotifications) {
+			categories = buildCategories(savedNotifications);
+			if (savedNotifications.quietHours) {
+				quietHoursEnabled = savedNotifications.quietHours.enabled ?? true;
+				quietStart = savedNotifications.quietHours.start ?? '22:00';
+				quietEnd = savedNotifications.quietHours.end ?? '07:00';
+			}
+			if (savedNotifications.digestFrequency) {
+				digestFrequency = savedNotifications.digestFrequency;
+			}
+		}
+	});
 
 	const channelIcons = {
 		inApp: Bell,

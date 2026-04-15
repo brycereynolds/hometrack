@@ -6,7 +6,7 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { invalidateAll } from '$app/navigation';
+	import { invalidateAll, goto } from '$app/navigation';
 	import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
 	import { onMount, onDestroy } from 'svelte';
 	import CommandPalette from '$lib/components/shared/CommandPalette.svelte';
@@ -266,7 +266,7 @@
 						<Button variant="ghost" size="icon" class="relative" {...props}>
 							<Bell class="size-4" />
 							{#if recentInsights.length > 0}
-								<span class="absolute right-1 top-1 size-2 rounded-full bg-destructive"></span>
+								<span class="absolute -right-0.5 -top-0.5 size-2.5 rounded-full bg-primary ring-2 ring-background"></span>
 							{/if}
 						</Button>
 					{/snippet}
@@ -300,9 +300,37 @@
 					{/if}
 				</Popover.Content>
 			</Popover.Root>
-			<Avatar class="size-8">
-				<AvatarFallback class="bg-primary text-primary-foreground text-xs font-medium">{userInitials}</AvatarFallback>
-			</Avatar>
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger>
+					{#snippet child({ props })}
+						<button {...props} class="rounded-full outline-none ring-ring focus-visible:ring-2">
+							<Avatar class="size-8 cursor-pointer">
+								<AvatarFallback class="bg-primary text-primary-foreground text-xs font-medium">{userInitials}</AvatarFallback>
+							</Avatar>
+						</button>
+					{/snippet}
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content align="end" class="w-48">
+					<div class="px-2 py-1.5">
+						<p class="text-sm font-medium">{userName}</p>
+						<p class="text-xs text-muted-foreground">{userRole}</p>
+					</div>
+					<DropdownMenu.Separator />
+					<DropdownMenu.Item onclick={() => goto('/settings')}>
+						<Settings class="mr-2 size-4" />
+						Settings
+					</DropdownMenu.Item>
+					<DropdownMenu.Separator />
+					<form method="POST" action="/logout">
+						<DropdownMenu.Item>
+							<button type="submit" class="flex w-full items-center">
+								<LogOut class="mr-2 size-4" />
+								Sign out
+							</button>
+						</DropdownMenu.Item>
+					</form>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
 		</header>
 
 		<main class="flex-1 p-4 md:p-6 lg:p-8">

@@ -131,9 +131,10 @@ class ProcessFieldMedia:
             heartbeat_timeout=timedelta(minutes=5),
         )
 
-        # 3. Analyze key moments
+        # 3. Analyze key moments (voice-only prompt, no visual references)
+        transcript_with_type = {**transcript_data, "media_type": "voice_memo"}
         moments_data: list[dict] = await workflow.execute_activity(
-            analyze_key_moments, transcript_data,
+            analyze_key_moments, transcript_with_type,
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=3),
         )

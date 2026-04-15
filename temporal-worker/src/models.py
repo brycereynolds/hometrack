@@ -59,6 +59,7 @@ class FrameCorrelation(BaseModel):
     scrub_window_end: float
     enriched_caption: str | None = None
     visual_description: str | None = None
+    best_frame_matches: bool = True
 
 
 class ActionItem(BaseModel):

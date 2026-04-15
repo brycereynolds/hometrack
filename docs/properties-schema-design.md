@@ -28,6 +28,9 @@ This design separates these concerns into a unified property registry (`properti
 
 The universal property record. One row per physical property, keyed by location (address components) with external service IDs.
 
+**Implementation:** `app/src/lib/server/db/schema/property.ts`
+**Migration:** `app/drizzle/0005_green_lenny_balinger.sql`
+
 ```sql
 CREATE TABLE properties (
   -- Primary key & identity
@@ -38,65 +41,109 @@ CREATE TABLE properties (
   city TEXT NOT NULL,
   state TEXT NOT NULL,
   zip TEXT NOT NULL,
+  county TEXT,
   lat REAL NOT NULL,
   lng REAL NOT NULL,
 
   -- Core structural data
   beds INTEGER,
   baths REAL,
-  sqft INTEGER,
-  lot_sqft INTEGER,
+  baths_full INTEGER,             -- Zillow: resoFacts.bathroomsFull
+  baths_half INTEGER,             -- Zillow: resoFacts.bathroomsHalf
+  sqft INTEGER,                   -- Zillow: livingArea
+  lot_sqft INTEGER,               -- Zillow: lotAreaValue
+  lot_size_acres REAL,            -- Computed from lot_sqft or parsed from lotSize string
   year_built INTEGER,
-  property_type TEXT,
-  stories INTEGER,
-  parking_spaces INTEGER,
+  property_type TEXT,             -- Zillow: homeType (SINGLE_FAMILY, CONDO, etc.)
+  stories INTEGER,                -- Zillow: resoFacts.stories
+  architectural_style TEXT,       -- Zillow: resoFacts.architecturalStyle
 
-  -- Features (boolean flags for quick filtering)
-  has_pool BOOLEAN DEFAULT false,
-  has_garage BOOLEAN DEFAULT false,
-  has_fireplace BOOLEAN DEFAULT false,
-  has_spa BOOLEAN DEFAULT false,
+  -- Construction & structure
+  construction_materials JSONB,   -- Zillow: resoFacts.constructionMaterials ["wood frame"]
+  roof TEXT,                      -- Zillow: resoFacts.roofType
+  foundation JSONB,               -- Zillow: resoFacts.foundationDetails
+  basement TEXT,                  -- Zillow: resoFacts.basement ("None", "Finished")
+  attic TEXT,                     -- Zillow: resoFacts.attic
 
-  -- Feature details (JSON for flexibility)
-  -- From Zillow: appliances, flooring, heating, cooling, construction_materials, etc.
+  -- Features — SINGLE JSONB blob (NO separate boolean flags)
+  -- Contains ALL property features for flexible filtering via GIN index:
+  -- {
+  --   pool: true, garage: true, fireplace: true, spa: false,
+  --   heating: ["Forced air", "Gas"], cooling: ["Central"],
+  --   appliances: ["Dishwasher", "Microwave", ...],
+  --   flooring: ["Hardwood", "Slate"],
+  --   interiorFeatures: [...], exteriorFeatures: [...],
+  --   buildingFeatures: [...], communityFeatures: [...],
+  --   securityFeatures: [...], fireplaceFeatures: [...],
+  --   poolFeatures: [...], spaFeatures: [...],
+  --   fencing: "...", greenFeatures: {...}
+  -- }
   features JSONB,
 
+  -- Parking
+  parking_spaces INTEGER,         -- Zillow: resoFacts.parkingCapacity
+  garage_spaces INTEGER,          -- Zillow: resoFacts.garageParkingCapacity
+  parking_features JSONB,         -- Zillow: resoFacts.parkingFeatures
+
+  -- Lot
+  lot_features JSONB,             -- Zillow: resoFacts.lotFeatures
+
+  -- Rooms
+  rooms_count INTEGER,
+  rooms JSONB,                    -- Zillow: resoFacts.rooms [{roomType, ...}]
+
   -- Tax data
-  tax_assessed_value REAL,
+  tax_assessed_value REAL,        -- From taxHistory most recent entry
   tax_annual_amount REAL,
   tax_year INTEGER,
-  parcel_number TEXT UNIQUE,
+  parcel_number TEXT UNIQUE,      -- Zillow: resoFacts.parcelNumber
+
+  -- HOA
+  hoa_fee REAL,                   -- Zillow: monthlyHoaFee or resoFacts.hoaFee
+  hoa_fee_frequency TEXT,         -- "monthly", "annual"
+
+  -- Utilities
+  sewer TEXT,                     -- Zillow: resoFacts.sewer
+  water_source TEXT,              -- Zillow: resoFacts.waterSource
+  electric TEXT,
+  gas TEXT,
+
+  -- Schools
+  nearby_schools JSONB,           -- Zillow: schools array [{name, type, level, distance, rating, grades}]
+  elementary_school TEXT,         -- Zillow: resoFacts.elementarySchool
+  elementary_school_district TEXT,
+  middle_school TEXT,             -- Zillow: resoFacts.middleOrJuniorSchool
+  middle_school_district TEXT,
+  high_school TEXT,               -- Zillow: resoFacts.highSchool
+  high_school_district TEXT,
+
+  -- Neighborhood / scores
+  neighborhood TEXT,              -- Zillow: neighborhoodRegion.name
+  walkability_score INTEGER,      -- Third-party (Walk Score API)
+  transit_score INTEGER,
+  bike_score INTEGER,
+
+  -- Photos (array of {url, source, caption} from Zillow/Redfin)
+  photos JSONB DEFAULT '[]'::JSONB,
+
+  -- Financial history
+  last_sold_price REAL,           -- Zillow: lastSoldPrice
+  last_sold_date TIMESTAMP,
+  zestimate REAL,                 -- Zillow: zestimate
+  rent_zestimate REAL,            -- Zillow: rentZestimate
+  price_history JSONB,            -- Zillow: priceHistory [{date, event, price, source}]
+  tax_history JSONB,              -- Zillow: taxHistory [{year, taxAmount, value}]
 
   -- External service IDs (unique for deduplication)
-  zillow_id BIGINT UNIQUE,
+  zillow_id BIGINT UNIQUE,        -- Zillow: zpid
   redfin_id TEXT UNIQUE,
   mls_id TEXT UNIQUE,
 
-  -- Zillow data (cached, enriched)
-  -- Includes: zestimate, rent_zestimate, price_per_sqft, description
-  zillow_data JSONB,
+  -- Source-specific raw data blobs (trimmed API responses for reference)
+  zillow_data JSONB,              -- Trimmed Zillow response (zestimate, description, engagement, etc.)
   zillow_url TEXT,
-  zillow_last_synced TIMESTAMP,
-
-  -- Redfin data (cached, enriched)
-  -- Includes: redfin_estimate, description
-  redfin_data JSONB,
+  redfin_data JSONB,              -- Raw Redfin data when we add it
   redfin_url TEXT,
-  redfin_last_synced TIMESTAMP,
-
-  -- Photos (array of URLs from Zillow/Redfin)
-  -- [{url, source, caption}]
-  photos JSONB DEFAULT '[]'::JSONB,
-
-  -- Neighborhood/schools
-  elementary_school TEXT,
-  elementary_school_district TEXT,
-  middle_school TEXT,
-  middle_school_district TEXT,
-  high_school TEXT,
-  high_school_district TEXT,
-  walkability_score INTEGER,
-  transit_score INTEGER,
 
   -- Computed metadata
   last_synced_at TIMESTAMP,
@@ -129,9 +176,11 @@ CREATE INDEX properties_mls_id_idx ON properties(mls_id);
 
 - **Deduplication**: `UNIQUE (address, city, state, zip)` prevents duplicate property records
 - **External IDs**: `zillow_id`, `redfin_id`, `mls_id` are individually unique, enabling lookup by any source
-- **JSON columns**: `features`, `zillow_data`, `redfin_data` store rich, variable-shape data without schema bloat
+- **Features as single JSONB**: All boolean features (pool, garage, fireplace, etc.) and array features (appliances, flooring, heating) are stored in ONE `features` JSONB column with a GIN index for fast filtering — NOT separate boolean flags. This is more flexible, avoids column sprawl, and supports arbitrary feature queries via `features @> '{"pool": true}'`
+- **Source-specific data blobs**: `zillow_data` and `redfin_data` store trimmed raw API responses for reference, while structured fields are extracted into proper columns
+- **Photos on BOTH property and listing**: `properties.photos` stores source photos from Zillow/Redfin; `listings.photos` stores agent-curated photos for the active listing
+- **Zillow field mapping**: All relevant Zillow fields from `resoFacts` are mapped — see `docs/zillow-data-mapping.md` for the complete field inventory
 - **Completeness score**: Tracks how much data has been backfilled (0–100)
-- **Boolean flags**: `has_pool`, `has_garage`, etc., are indexed for fast buyer matching
 - **Photos as JSONB**: Array of `{url, source, caption}` for gallery display
 
 ---

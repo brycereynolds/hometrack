@@ -22,3 +22,6 @@ export * from './field-note-frame.js';
 export * from './field-note-moment.js';
 export * from './field-note-action.js';
 export * from './market-analysis.js';
+export * from './property.js';
+export * from './external-listing.js';
+export * from './buyer-preference.js';

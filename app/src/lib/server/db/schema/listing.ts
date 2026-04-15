@@ -3,6 +3,7 @@ import { relations } from 'drizzle-orm';
 import { listingPhaseEnum } from './enums.js';
 import { teams, teamMembers } from './team.js';
 import { contacts } from './contact.js';
+import { properties } from './property.js';
 
 export const listings = pgTable(
   'listings',
@@ -11,6 +12,8 @@ export const listings = pgTable(
     teamId: text('team_id')
       .notNull()
       .references(() => teams.id, { onDelete: 'cascade' }),
+    // Link to property record (nullable — migration will backfill)
+    propertyId: text('property_id').references(() => properties.id, { onDelete: 'set null' }),
     address: text('address').notNull(),
     city: text('city').notNull(),
     state: text('state').notNull(),
@@ -58,6 +61,7 @@ export const listings = pgTable(
     index('listings_agent_id_idx').on(table.agentId),
     index('listings_client_id_idx').on(table.clientId),
     index('listings_mls_number_idx').on(table.mlsNumber),
+    index('listings_property_id_idx').on(table.propertyId),
   ],
 );
 
@@ -65,6 +69,10 @@ export const listingsRelations = relations(listings, ({ one }) => ({
   team: one(teams, {
     fields: [listings.teamId],
     references: [teams.id],
+  }),
+  property: one(properties, {
+    fields: [listings.propertyId],
+    references: [properties.id],
   }),
   agent: one(teamMembers, {
     fields: [listings.agentId],

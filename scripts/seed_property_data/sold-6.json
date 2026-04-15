@@ -1,0 +1,3473 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/447319303_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 13002.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 2169375,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "2330 Maximilian Dr",
+    "city": "Campbell",
+    "state": "CA",
+    "zipcode": "95008",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "2330 Maximilian Dr"
+        },
+        {
+          "fullValue": "Campbell, CA 95008"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 2,
+      "bathroomsFull": 2,
+      "bathroomsThreeQuarter": null,
+      "bathroomsHalf": null,
+      "bathroomsOneQuarter": null,
+      "bedrooms": 3,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": null,
+      "buildingName": null,
+      "appliances": [
+        "Dishwasher",
+        "Exhaust Fan",
+        "Disposal",
+        "Electric Oven",
+        "Self Cleaning Oven",
+        "Electric Oven/Range",
+        "Refrigerator",
+        "Washer/Dryer"
+      ],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "Single Family Residence, Residential"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "1962"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "Central Forced Air Gas, Solar"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": "Central Air"
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "2 Attached Garage spaces"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": "6,596 sqft"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": null,
+      "bathroomsPartial": null,
+      "bathroomsFloat": 2,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": "1,540",
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "Campbell",
+      "commonWalls": null,
+      "communityFeatures": null,
+      "compensationBasedOn": null,
+      "constructionMaterials": [],
+      "contingency": null,
+      "cooling": [
+        "Central Air"
+      ],
+      "coveredParkingCapacity": 2,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [
+        "Back Yard",
+        "Fenced",
+        "Storage Shed Structure"
+      ],
+      "feesAndDues": [],
+      "fencing": "Back Yard,Wood",
+      "fireplaceFeatures": [
+        "Gas"
+      ],
+      "fireplaces": 1,
+      "flooring": [
+        "Laminate",
+        "Tile",
+        "Wood"
+      ],
+      "foundationArea": null,
+      "foundationDetails": [
+        "Crawl Space"
+      ],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": 2,
+      "gas": [
+        "PublicUtilities"
+      ],
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": true,
+      "hasAttachedProperty": false,
+      "hasCooling": true,
+      "hasCarport": false,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": true,
+      "hasHeating": true,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [
+        "Central Forced Air Gas",
+        "Solar"
+      ],
+      "highSchool": "WestmontHigh",
+      "highSchoolDistrict": "CampbellUnionHigh",
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": false,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": false,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": [
+        "In Garage"
+      ],
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": "6,596 sqft",
+      "lotSizeDimensions": null,
+      "livingArea": "1,540 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [
+        {
+          "mediaCategory": "BrandedVirtualTour",
+          "mediaURL": null
+        },
+        {
+          "mediaCategory": "BrandedVirtualTour",
+          "mediaURL": null
+        },
+        {
+          "mediaCategory": "UnbrandedVirtualTour",
+          "mediaURL": null
+        },
+        {
+          "mediaCategory": "UnbrandedVirtualTour",
+          "mediaURL": null
+        }
+      ],
+      "middleOrJuniorSchool": "RollingHillsMiddle_1",
+      "middleOrJuniorSchoolDistrict": null,
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": 1770076800000,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "40420003",
+      "parkingCapacity": 2,
+      "parkingFeatures": [
+        "Attached"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": [
+        "Balcony/Patio"
+      ],
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": 1409,
+      "propertyCondition": null,
+      "propertySubType": [
+        "Single Family Residence",
+        "Residential"
+      ],
+      "roadSurfaceType": null,
+      "roofType": "Composition, Shingle",
+      "rooms": [
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "PrimarySuiteRetreat"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Bedroom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "PrimaryStallShowers",
+            " ShoweroverTub1",
+            " UpdatedBaths"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Bathroom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "DiningArea"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "DiningRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "NoFamilyRoom"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "FamilyRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": [
+            "ExhaustFan",
+            " Pantry"
+          ],
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Kitchen",
+          "roomWidth": null
+        }
+      ],
+      "roomTypes": [
+        "Bonus Room"
+      ],
+      "securityFeatures": null,
+      "sewer": [
+        "Public Sewer"
+      ],
+      "spaFeatures": null,
+      "specialListingConditions": "Standard",
+      "stories": 1,
+      "storiesDecimal": 1,
+      "storiesTotal": null,
+      "structureType": null,
+      "subdivisionName": null,
+      "taxAnnualAmount": null,
+      "taxAssessedValue": null,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": [
+        "Public Utilities",
+        "Water Public",
+        "Solar"
+      ],
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": [
+        "Public"
+      ],
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": null,
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 1962,
+      "yearBuiltEffective": null,
+      "zoning": "R1-8",
+      "zoningDescription": null,
+      "elementarySchool": "CapriElementary_1",
+      "elementarySchoolDistrict": "CampbellUnionElementary",
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": 18932,
+    "homeStatus": "RECENTLY_SOLD",
+    "listingProvider": null,
+    "livingArea": 1540,
+    "livingAreaValue": 1540,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": "ML82033555",
+      "mlsName": "MLSListings Inc",
+      "providerLogo": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_95_35.jpg",
+      "listingAgreement": "ExclusiveRightToSell",
+      "agentEmail": null,
+      "agentLicenseNumber": "02006177",
+      "agentName": "Roxy Laufer",
+      "agentPhoneNumber": "408-314-1290",
+      "attributionTitle": null,
+      "brokerName": "Christie's International Real Estate Sereno",
+      "brokerPhoneNumber": "408-335-1400",
+      "buyerAgentMemberStateLicense": "02117916",
+      "buyerAgentName": "Hira Bakhsh",
+      "buyerBrokerageName": "GoAmeri Realty",
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": "2026-04-15 09:54:16",
+      "lastUpdated": "2026-03-04 06:47:25",
+      "listingOffices": [
+        {
+          "associatedOfficeType": "listOffice",
+          "officeName": "Christie's International Real Estate Sereno"
+        },
+        {
+          "associatedOfficeType": "buyerOffice",
+          "officeName": "GoAmeri Realty"
+        }
+      ],
+      "listingAgents": [
+        {
+          "associatedAgentType": "listAgent",
+          "memberFullName": "Roxy Laufer",
+          "memberStateLicense": "02006177"
+        },
+        {
+          "associatedAgentType": "buyerAgent",
+          "memberFullName": "Hira Bakhsh",
+          "memberStateLicense": "02117916"
+        }
+      ],
+      "mlsDisclaimer": "Based on information from the MLSListings MLS as of 2026-04-15 09:54:16 PDT. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information.",
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_95_35.jpg",
+      "infoString5": "408-314-1290",
+      "infoString10": "Based on information from the MLSListings MLS as of 2026-04-15 09:54:16 PDT. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information.",
+      "infoString16": null
+    },
+    "listingDataSource": "Phoenix",
+    "zpid": 447319303,
+    "address": {
+      "streetAddress": "2330 Maximilian Dr",
+      "city": "Campbell",
+      "state": "CA",
+      "zipcode": "95008",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "yearBuilt": 1962,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/70e9b77a3ba34d7308d0bb83d3094110-p_c.jpg"
+                }
+              ],
+              "price": 1998888,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1924,
+              "livingAreaValue": 1924,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6400,
+              "lotAreaValue": 6400,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "3911 Via Milano",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "San Tomas Aquinos"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "3911 Via Milano"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.283607,
+              "longitude": -121.96963,
+              "zpid": 447648885,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/3911-Via-Milano-Campbell-CA-95008/447648885_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042896",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Michael Camarena",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/0cbe8a09ec37fa72ef6d6229c7a02acf-p_c.jpg"
+                }
+              ],
+              "price": 2100000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1526,
+              "livingAreaValue": 1526,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6390,
+              "lotAreaValue": 6390,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1375 Colleen Way",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "West Campbell"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1375 Colleen Way"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.288437,
+              "longitude": -121.973724,
+              "zpid": 19612925,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1375-Colleen-Way-Campbell-CA-95008/19612925_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038309",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Astha Mathur",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/0ae50d48ee23c204d23af2f5d6d41d5e-p_c.jpg"
+                }
+              ],
+              "price": 1788888,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1110,
+              "livingAreaValue": 1110,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6780,
+              "lotAreaValue": 6780,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1471 Inskip Dr",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "San Tomas"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1471 Inskip Dr"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.275574,
+              "longitude": -121.97603,
+              "zpid": 19659220,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1471-Inskip-Dr-Campbell-CA-95008/19659220_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041931",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Lauson Fargher",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/e8ddfa4fdfcf1c0cb426d8c5e66b6def-p_c.jpg"
+                }
+              ],
+              "price": 1799000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 2,
+              "livingArea": 1924,
+              "livingAreaValue": 1924,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6671,
+              "lotAreaValue": 6671,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "3908 W Campbell Ave",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "San Tomas Aquinos"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "3908 W Campbell Ave"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.286137,
+              "longitude": -121.96943,
+              "zpid": 19662488,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/3908-W-Campbell-Ave-Campbell-CA-95008/19662488_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042088",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jim Holt",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3b127c62d7354b3d0021208f44ba6885-p_c.jpg"
+                }
+              ],
+              "price": 2450000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 2078,
+              "livingAreaValue": 2078,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 18730,
+              "lotAreaValue": 0.4299816345270891,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "1500 W San Tomas Aquino Rd",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "San Tomas"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1500 W San Tomas Aquino Rd"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.277096,
+              "longitude": -121.97577,
+              "zpid": 19659284,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1500-W-San-Tomas-Aquino-Rd-Campbell-CA-95008/19659284_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "IV26030674",
+                "mlsName": "CRMLS",
+                "providerLogo": null,
+                "agentName": "JOHN MARTINDALE",
+                "agentPhoneNumber": null,
+                "brokerName": "GS STRATEGIES, INC.",
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/b888ff3faa7e25655cf6baa3e7d6e066-p_c.jpg"
+                }
+              ],
+              "price": 2300000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1247,
+              "livingAreaValue": 1247,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10332,
+              "lotAreaValue": 10332,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "18600 Montpere Way",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Fruitvale"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "18600 Montpere Way"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.26716,
+              "longitude": -121.99602,
+              "zpid": 19654909,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/18600-Montpere-Way-Saratoga-CA-95070/19654909_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042891",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Julie Wyss",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/29a26d472c2e9c40eddf4377c4546cc6-p_c.jpg"
+                }
+              ],
+              "price": 2148000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2260,
+              "livingAreaValue": 2260,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8802,
+              "lotAreaValue": 8802,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1061 Shamrock Dr",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "White Oak"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1061 Shamrock Dr"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.2716,
+              "longitude": -121.94489,
+              "zpid": 19670681,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1061-Shamrock-Dr-Campbell-CA-95008/19670681_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82031521",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Andy Tse",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/19d2fcd0d0a14c934f6cfb127f72ac4f-p_c.jpg"
+                }
+              ],
+              "price": 1998000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1965,
+              "livingAreaValue": 1965,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 3988,
+              "lotAreaValue": 3988,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "111 George Ct",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "Central Campbell"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "111 George Ct"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.28418,
+              "longitude": -121.944565,
+              "zpid": 89475628,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/111-George-Ct-Campbell-CA-95008/89475628_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039934",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Slater Thomson Team",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/eb39d8e31dec7aa01ea214deccb4d3fd-p_c.jpg"
+                }
+              ],
+              "price": 1790000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 1,
+              "livingArea": 1296,
+              "livingAreaValue": 1296,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9375,
+              "lotAreaValue": 9375,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "90 Victor Ave",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "West Campbell"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "90 Victor Ave"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.28811,
+              "longitude": -121.96665,
+              "zpid": 19613311,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/90-Victor-Ave-Campbell-CA-95008/19613311_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040583",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Axis Team",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/67480df334ed64956a78756946cec76f-p_c.jpg"
+                }
+              ],
+              "price": 1988888,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 1,
+              "livingArea": 1481,
+              "livingAreaValue": 1481,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6499,
+              "lotAreaValue": 6499.152,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "77 S 1st St",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "Central Campbell"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "77 S 1st St"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.28596,
+              "longitude": -121.9452,
+              "zpid": 19669373,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/77-S-1st-St-Campbell-CA-95008/19669373_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "226026245",
+                "mlsName": "MetroList Services of CA",
+                "providerLogo": null,
+                "agentName": "Brian Dombroski",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/bd77179720741d828ff690596b5eb4ab-p_c.jpg"
+                }
+              ],
+              "price": 2599000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1784,
+              "livingAreaValue": 1784,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10500,
+              "lotAreaValue": 10500,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "404 Shamrock Dr",
+                "city": "Campbell",
+                "state": "CA",
+                "zipcode": "95008"
+              },
+              "parentRegion": {
+                "name": "White Oak"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "404 Shamrock Dr"
+                  },
+                  {
+                    "fullValue": "Campbell, CA 95008"
+                  }
+                ]
+              },
+              "latitude": 37.269028,
+              "longitude": -121.942055,
+              "zpid": 19670826,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/404-Shamrock-Dr-Campbell-CA-95008/19670826_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037467",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jennifer Friess",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/054aef82b082409a852da18519df5ac5-p_c.jpg"
+                }
+              ],
+              "price": 2398000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1607,
+              "livingAreaValue": 1607,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1096 Del Cambre Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95129"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1096 Del Cambre Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95129"
+                  }
+                ]
+              },
+              "latitude": 37.306343,
+              "longitude": -121.988785,
+              "zpid": 19651031,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1096-Del-Cambre-Dr-San-Jose-CA-95129/19651031_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039481",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Faith Ebrahimi",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/5397c25ef0ae4770237781934eb82ae6-p_c.jpg"
+                }
+              ],
+              "price": 1898000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1407,
+              "livingAreaValue": 1407,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4456 Hilton Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95130"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4456 Hilton Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95130"
+                  }
+                ]
+              },
+              "latitude": 37.294308,
+              "longitude": -121.98092,
+              "zpid": 19610758,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4456-Hilton-Ave-San-Jose-CA-95130/19610758_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042416",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Tracy Hsu",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/90639e7dec1af0f3f9ce1d68d008bd73-p_c.jpg"
+                }
+              ],
+              "price": 2088000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 1557,
+              "livingAreaValue": 1557,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6540,
+              "lotAreaValue": 6540,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4599 Norwich Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95130"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4599 Norwich Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95130"
+                  }
+                ]
+              },
+              "latitude": 37.282944,
+              "longitude": -121.98316,
+              "zpid": 19658969,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4599-Norwich-Way-San-Jose-CA-95130/19658969_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040875",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Eric McCafferty",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/923117f921e7d586892cb7bec62fc1e7-p_c.jpg"
+                }
+              ],
+              "price": 1880000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1752,
+              "livingAreaValue": 1752,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10425,
+              "lotAreaValue": 10425,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4162 Piper Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95117"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4162 Piper Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95117"
+                  }
+                ]
+              },
+              "latitude": 37.305096,
+              "longitude": -121.97698,
+              "zpid": 19604296,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4162-Piper-Dr-San-Jose-CA-95117/19604296_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041941",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Anson Ip",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/8aa6a35f5a08cabe198eb9426688c953-p_c.jpg"
+                }
+              ],
+              "price": 2298000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1585,
+              "livingAreaValue": 1585,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7087,
+              "lotAreaValue": 7087,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1547 Crespi Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95129"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1547 Crespi Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95129"
+                  }
+                ]
+              },
+              "latitude": 37.294575,
+              "longitude": -121.99175,
+              "zpid": 19650124,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1547-Crespi-Dr-San-Jose-CA-95129/19650124_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041660",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Leah Liya Ye",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/560e0e774ddc5c436a7dbdef35881aea-p_c.jpg"
+                }
+              ],
+              "price": 2248000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1155,
+              "livingAreaValue": 1155,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8050,
+              "lotAreaValue": 8050,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "175 La Canada Ct",
+                "city": "Los Gatos",
+                "state": "CA",
+                "zipcode": "95032"
+              },
+              "parentRegion": {
+                "name": "95032"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "175 La Canada Ct"
+                  },
+                  {
+                    "fullValue": "Los Gatos, CA 95032"
+                  }
+                ]
+              },
+              "latitude": 37.250427,
+              "longitude": -121.96192,
+              "zpid": 19679339,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/175-La-Canada-Ct-Los-Gatos-CA-95032/19679339_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040985",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Barbara S. Werner",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/7248a748ed510172dd88a268854a82f5-p_c.jpg"
+                }
+              ],
+              "price": 1888888,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1671,
+              "livingAreaValue": 1671,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10350,
+              "lotAreaValue": 10350,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "972 Emerald Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95117"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "972 Emerald Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95117"
+                  }
+                ]
+              },
+              "latitude": 37.309494,
+              "longitude": -121.95305,
+              "zpid": 19605024,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/972-Emerald-Way-San-Jose-CA-95117/19605024_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039581",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ryan Nickell",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3d03e188088a7566796d538efff751d3-p_c.jpg"
+                }
+              ],
+              "price": 1799000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 2100,
+              "livingAreaValue": 2100,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10050,
+              "lotAreaValue": 10050,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4141 Will Rogers Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95117"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4141 Will Rogers Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95117"
+                  }
+                ]
+              },
+              "latitude": 37.307575,
+              "longitude": -121.975746,
+              "zpid": 19604357,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4141-Will-Rogers-Dr-San-Jose-CA-95117/19604357_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82032908",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Gerold Rodriguez",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/4113ed40ae76b5f5e2f27b6828eac0ea-p_c.jpg"
+                }
+              ],
+              "price": 1799888,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1274,
+              "livingAreaValue": 1274,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6262,
+              "lotAreaValue": 6262,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4743 Bannock Cir",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95130"
+              },
+              "parentRegion": {
+                "name": "West San Jose"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4743 Bannock Cir"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95130"
+                  }
+                ]
+              },
+              "latitude": 37.27545,
+              "longitude": -121.98461,
+              "zpid": 19661332,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4743-Bannock-Cir-San-Jose-CA-95130/19661332_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041300",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Brian Tanger",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "084e65ee81aa62593b8577459239b955"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/2330-Maximilian-Dr-Campbell-CA-95008/447319303_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca/"
+        },
+        "name": "Cupertino",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/morgan-hill-ca/"
+        },
+        "name": "Morgan Hill",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [
+      {
+        "regionUrl": {
+          "path": "/central-campbell-campbell-ca/"
+        },
+        "name": "Central Campbell",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/dell-campbell-ca/"
+        },
+        "name": "Dell",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/east-campbell-campbell-ca/"
+        },
+        "name": "East Campbell",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mcglincy-campbell-ca/"
+        },
+        "name": "McGlincy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/north-campbell-campbell-ca/"
+        },
+        "name": "North Campbell",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-tomas-campbell-ca/"
+        },
+        "name": "San Tomas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-tomas-aquinos-campbell-ca/"
+        },
+        "name": "San Tomas Aquinos",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/union-campbell-ca/"
+        },
+        "name": "Union",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/west-campbell-campbell-ca/"
+        },
+        "name": "West Campbell",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/white-oak-campbell-ca/"
+        },
+        "name": "White Oak",
+        "body": null
+      }
+    ],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/campbell-ca-95008/"
+        },
+        "name": "95008",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/campbell-ca-95009/"
+        },
+        "name": "95009",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/campbell-ca-95011/"
+        },
+        "name": "95011",
+        "body": null
+      }
+    ],
+    "cityId": 17272,
+    "citySearchUrl": {
+      "text": "Homes in Campbell",
+      "path": "/campbell-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/campbell-ca-95008/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/campbell-ca-95008/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/campbell-ca-95008/rent-houses/"
+    },
+    "abbreviatedAddress": "2330 Maximilian Dr",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": {
+      "name": "San Tomas Aquinos"
+    },
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": {
+      "path": "/san-tomas-aquinos-campbell-ca/"
+    },
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "buy_sold",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "hood": "San_Tomas_Aquinos",
+      "price_band": "z2m",
+      "zestimate": "2160500",
+      "zestibuck": "2-2_499m",
+      "price": "2169375",
+      "prange": "2-2_499m",
+      "lot": "2",
+      "bd": "3",
+      "ba": "2",
+      "sqft": "1540",
+      "sqftrange": "1500-1999",
+      "yrblt": "1960-1969",
+      "aamgnrc1": "2330 Maximilian Dr",
+      "city": "Campbell",
+      "state": "CA",
+      "zip": "95008",
+      "pid": "447319303",
+      "premieragent": "no",
+      "ssid": "18932",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "9793f741-d7bd-42bd-83b2-bcfb9f46b6fa"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 2160500,
+    "newConstructionType": null,
+    "zestimateLowPercent": "7",
+    "zestimateHighPercent": "8",
+    "rentZestimate": 4868,
+    "restimateLowPercent": "5",
+    "restimateHighPercent": "5",
+    "schools": [
+      {
+        "distance": 0.9,
+        "name": "Capri Elementary School",
+        "rating": 7,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/campbell/5412-Capri-Elementary-School/",
+        "type": "Charter",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.4,
+        "name": "Rolling Hills Middle School",
+        "rating": 8,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/los-gatos/5419-Rolling-Hills-Middle-School/",
+        "type": "Charter",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.2,
+        "name": "Westmont High School",
+        "rating": 9,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/campbell/5427-Westmont-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "San Tomas Aquinos",
+      "regionId": 799582
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 19663559,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/34c1b349572e67c5153fe8e98e461b24-p_c.jpg"
+          }
+        ],
+        "price": 2169500,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1540,
+        "livingAreaValue": 1540,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6364,
+        "lotAreaValue": 6364,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "2330 Maximilian Dr",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95130"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "2330 Maximilian Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.278877,
+        "longitude": -121.966995,
+        "homeStatus": "RECENTLY_SOLD",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/2330-Maximilian-Dr-San-Jose-CA-95130/19663559_zpid/",
+        "hdpTypeDimension": "RecentlySold",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19663560,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=2324+Maximilian+Dr%2C+San+Jose%2C+CA+95130&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=xaxrMX573sjgT834fO5ANZ9oaMo="
+          }
+        ],
+        "price": 2136300,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "livingArea": 1486,
+        "livingAreaValue": 1486,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 5662,
+        "lotAreaValue": 5662,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "2324 Maximilian Dr",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95130"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "2324 Maximilian Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.278927,
+        "longitude": -121.9668,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/2324-Maximilian-Dr-San-Jose-CA-95130/19663560_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19663558,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=2338+Maximilian+Dr%2C+San+Jose%2C+CA+95130&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=qfx50HTFgJbazjvYcYZOdVRT2tE="
+          }
+        ],
+        "price": 2205600,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "livingArea": 1486,
+        "livingAreaValue": 1486,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6098,
+        "lotAreaValue": 6098,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "2338 Maximilian Dr",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95130"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "2338 Maximilian Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.278847,
+        "longitude": -121.96721,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/2338-Maximilian-Dr-San-Jose-CA-95130/19663558_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19663595,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/576e64c732a06e7534ca757305775d58-p_c.jpg"
+          }
+        ],
+        "price": 1932800,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1244,
+        "livingAreaValue": 1244,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6006,
+        "lotAreaValue": 6006,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "3753 Century Dr",
+          "city": "Campbell",
+          "state": "CA",
+          "zipcode": "95008"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "3753 Century Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.278625,
+        "longitude": -121.96696,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/3753-Century-Dr-Campbell-CA-95008/19663595_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19663594,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=3749+Century+Dr%2C+San+Jose%2C+CA+95130&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=9ZIJem2XjMqQXKF_SAh1ZP7yekw="
+          }
+        ],
+        "price": 1850000,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1244,
+        "livingAreaValue": 1244,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6098,
+        "lotAreaValue": 6098,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "3749 Century Dr",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95130"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "3749 Century Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.278652,
+        "longitude": -121.96675,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/3749-Century-Dr-San-Jose-CA-95130/19663594_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19663596,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/b4e781c0e11a85875c1ba60a2e36885e-p_c.jpg"
+          }
+        ],
+        "price": 2177000,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1664,
+        "livingAreaValue": 1664,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6072,
+        "lotAreaValue": 6072,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "3759 Century Dr",
+          "city": "Campbell",
+          "state": "CA",
+          "zipcode": "95008"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "3759 Century Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.278614,
+        "longitude": -121.967224,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/3759-Century-Dr-Campbell-CA-95008/19663596_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19663561,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/314fb01a688f4269cffa037841c9003a-p_c.jpg"
+          }
+        ],
+        "price": 2294700,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1486,
+        "livingAreaValue": 1486,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6490,
+        "lotAreaValue": 6490,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "2318 Maximilian Dr",
+          "city": "Campbell",
+          "state": "CA",
+          "zipcode": "95008"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "2318 Maximilian Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.278984,
+        "longitude": -121.96659,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/2318-Maximilian-Dr-Campbell-CA-95008/19663561_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19663557,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=2344+Maximilian+Dr%2C+San+Jose%2C+CA+95130&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=W20XIKJyqHYSsDCXl55g1_Jdn4I="
+          }
+        ],
+        "price": 2535300,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 3,
+        "livingArea": 2196,
+        "livingAreaValue": 2196,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6534,
+        "lotAreaValue": 6534,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "2344 Maximilian Dr",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95130"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "2344 Maximilian Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.278805,
+        "longitude": -121.96742,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/2344-Maximilian-Dr-San-Jose-CA-95130/19663557_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "Tucked along a quiet, tree-lined street in a central Campbell location, this beautifully updated single-story home offers move-in-ready comfort with exciting future potential. Served by award-winning Capri Elementary, Rolling Hills Middle, and Westmont High, the home also features owned Tesla solar and approved permits for a 4th bedroom addition, delivering a rare blend of efficiency and flexibility. The remodeled kitchen is a standout with new cabinetry, quartz counters, tile backsplash, LVP flooring, and new appliances, creating a polished space for everyday living and entertaining. Gleaming hardwood floors run throughout, while remodeled bathrooms add a polished finish. A permitted sunroom expands the living space and features new flooring installed in 2026, offering a versatile area ideal for a home office, gym, playroom, or relaxed lounge with a natural connection to the backyard. Outside, enjoy a peaceful setting for lounging and gatherings, with an attached 2-car garage. Additional highlights include a roof replaced in 2013, 220V outlet for EV charging, designer light fixtures, recessed LED lighting, full interior and exterior paint, & refreshed landscaping. Minutes from Downtown Campbell (~1 mi), with easy access to Lawrence and San Tomas Expressways and Hwy 85/880/280.",
+    "whatILove": null,
+    "timeOnZillow": "41 days",
+    "pageViewCount": 98,
+    "favoriteCount": 1,
+    "daysOnZillow": 41,
+    "latitude": 37.278885,
+    "longitude": -121.966995,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-p_h.jpg",
+    "brokerageName": "Christie's International Real Estate Sereno",
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [
+      {
+        "id": "LISTING_AGENT",
+        "elements": [
+          {
+            "id": "NAME",
+            "text": "Roxy Laufer",
+            "action": null
+          },
+          {
+            "id": "LICENSE",
+            "text": "02006177",
+            "action": null
+          },
+          {
+            "id": "PHONE",
+            "text": "408-314-1290",
+            "action": null
+          }
+        ],
+        "textStyle": null
+      },
+      {
+        "id": "BROKER",
+        "elements": [
+          {
+            "id": "NAME",
+            "text": "Christie's International Real Estate Sereno",
+            "action": null
+          },
+          {
+            "id": "PHONE",
+            "text": "408-335-1400",
+            "action": null
+          }
+        ],
+        "textStyle": null
+      }
+    ],
+    "homeInsights": [
+      {
+        "insights": [
+          {
+            "modelId": "z-nrt-pdc-llm-tags",
+            "treatmentId": "model_0",
+            "phrases": [
+              "Beautifully updated single-story home",
+              "Move-in-ready comfort",
+              "Quiet tree-lined street",
+              "Quartz counters",
+              "Remodeled bathrooms",
+              "Gleaming hardwood floors",
+              "New appliances"
+            ]
+          },
+          {
+            "modelId": "z-nrt-pdc-llm-tags",
+            "treatmentId": "model_1",
+            "phrases": [
+              "Beautifully updated single-story home",
+              "Move-in-ready comfort",
+              "Quiet tree-lined street",
+              "Quartz counters",
+              "Remodeled bathrooms",
+              "Gleaming hardwood floors",
+              "New appliances"
+            ]
+          }
+        ]
+      }
+    ],
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273891128
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273891128
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273891128
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-p_f.jpg",
+    "mlsid": "ML82033555",
+    "ouid": "M00000101",
+    "palsId": "18932001_ML82033555",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I would like advice about selling a home similar to 2330 Maximilian Dr, Campbell, CA 95008.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 1,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": 6596,
+    "lotAreaValue": 6596,
+    "lotAreaUnits": "Square Feet",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [
+      {
+        "date": "2026-03-04",
+        "price": 2169375,
+        "time": 1772582400000,
+        "pricePerSquareFoot": 1409,
+        "priceChangeRate": 0.14237756714060032,
+        "event": "Sold",
+        "source": "MLSListings Inc",
+        "buyerAgent": null,
+        "sellerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/RoxyLaufer/",
+          "name": "Roxy Laufer"
+        },
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML82033555",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_logo_inf_11.jpg"
+        }
+      },
+      {
+        "date": "2026-02-12",
+        "price": 1899000,
+        "time": 1770854400000,
+        "pricePerSquareFoot": 1233,
+        "priceChangeRate": 0,
+        "event": "Pending sale",
+        "source": "MLSListings Inc",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML82033555",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_logo_inf_11.jpg"
+        }
+      },
+      {
+        "date": "2026-02-03",
+        "price": 1899000,
+        "time": 1770076800000,
+        "pricePerSquareFoot": 1233,
+        "priceChangeRate": 0,
+        "event": "Listed for sale",
+        "source": "MLSListings Inc",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML82033555",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/95a21b0e87c9ce1df684e9d25694b515-zillow_web_logo_inf_11.jpg"
+        }
+      }
+    ],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "2026-02-03",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=2330+Maximilian+Dr%2C+Campbell%2C+CA+95008&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=FU8uWHN4_f1N6ilmHJ4rO0pW-9w=",
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": 2169375,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-p_a.jpg"
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-p_c.jpg"
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "RecentlySold",
+    "listingTypeDimension": "Unknown Listed By",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Unknown Listed By",
+    "keystoneHomeStatus": "RecentlySold",
+    "pageUrlFragment": "RecentlySold",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-d_d.jpg",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-o_a.jpg",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-uncropped_scaled_within_1344_1008.jpg",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-uncropped_scaled_within_1536_1152.jpg",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-d_d.webp",
+              "width": 800
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-o_a.webp",
+              "width": 1024
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-uncropped_scaled_within_1344_1008.webp",
+              "width": 1344
+            },
+            {
+              "url": "https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-uncropped_scaled_within_1536_1152.webp",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": "X1-ZU10zjwtb37dpft_9tzap",
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": null,
+    "parcelId": "40420003",
+    "taxHistory": [],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/2330-Maximilian-Dr_-Campbell-95008/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/95008/?bedrooms=3",
+    "neighborhoodId": 799582,
+    "zipcodeId": 97920,
+    "sellingSoon": []
+  }
+}

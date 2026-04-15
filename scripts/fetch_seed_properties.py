@@ -28,18 +28,32 @@ ROOT = Path(__file__).resolve().parent.parent
 CACHE_DIR = ROOT / "scripts" / "seed_property_data"
 CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
-# ── Seed addresses (mockId → address) ──────────────────────────────────
+# ── Seed addresses — real Roxy Realty listings ───────────────────────────
+# Sold listings (from RealScout URLs with addresses)
+# Active listings (from roxyrealty.com listings page)
+# Test property (809 Midvale Lane)
 ADDRESSES = [
-    ("l-1", "123 Main Street, Los Gatos, CA"),
-    ("l-2", "456 Oak Avenue, Palo Alto, CA"),
-    ("l-3", "789 Elm Street, Cupertino, CA"),
-    ("l-4", "2200 Willow Glen Way, San Jose, CA"),
-    ("l-5", "1580 University Avenue, Mountain View, CA"),
-    ("l-6", "945 Cherry Blossom Lane, Saratoga, CA"),
-    ("l-7", "310 Waverly Street, Menlo Park, CA"),
-    ("l-8", "88 Sunnyvale Avenue, Sunnyvale, CA"),
-    ("l-9", "809 Midvale Lane, San Jose, CA"),
+    # Sold listings
+    ("sold-1", "672 Willow St, San Jose, CA 95125"),
+    ("sold-2", "377 Derby Ave, San Mateo, CA 94403"),
+    ("sold-3", "1597 Calle De Stuarda, San Jose, CA 95118"),
+    ("sold-4", "256 Los Gatos Blvd, Los Gatos, CA 95030"),
+    ("sold-5", "1664 Andalusia Way, San Jose, CA 95125"),
+    ("sold-6", "2330 Maximilian Dr, Campbell, CA 95008"),
+    # Active listings (from roxyrealty.com coverage areas)
+    ("active-1", "809 Midvale Lane, San Jose, CA 95120"),
 ]
+
+# Status map for each listing
+LISTING_STATUS = {
+    "sold-1": "sold",
+    "sold-2": "sold",
+    "sold-3": "sold",
+    "sold-4": "sold",
+    "sold-5": "sold",
+    "sold-6": "sold",
+    "active-1": "active",
+}
 
 API_URL = "https://zillow.realtyapi.io/pro/byaddress"
 DELAY_SECONDS = 0.3  # Rate limiting
@@ -62,8 +76,8 @@ def load_api_key() -> str:
     sys.exit(1)
 
 
-def cache_path(mock_id: str) -> Path:
-    return CACHE_DIR / f"{mock_id}.json"
+def cache_path(listing_id: str) -> Path:
+    return CACHE_DIR / f"{listing_id}.json"
 
 
 def fetch_property(address: str, api_key: str) -> dict | None:
@@ -597,94 +611,6 @@ def generate_ts_output(properties: list[dict]) -> str:
     )
 
 
-# ── Mapping from fictional listing IDs to best real API data source ──
-# Some seed addresses are fictional. Map each to the best available cache file.
-# The real API data provides realistic features, tax, schools, construction
-# details. We keep our fictional listing addresses but use real data for details.
-BEST_DATA_SOURCE = {
-    "l-1": "l-1",          # 123 E Main St, Los Gatos (partial — commercial)
-    "l-2": "l-2-alt",      # 636 Middlefield Rd, Palo Alto
-    "l-3": "l-3-alt",      # 10066 Judy Ave, Cupertino
-    "l-4": "l-4-alt2",     # 1190 Bird Ave, San Jose (Willow Glen area)
-    "l-5": None,            # No Mountain View data — use defaults
-    "l-6": None,            # No Saratoga data — use defaults
-    "l-7": "l-7",          # 310 Waverly Ln, Los Altos (close to Menlo Park)
-    "l-8": "l-8",          # 1180 Lochinvar Ave #88, Sunnyvale
-    "l-9": "l-9",          # 809 Midvale Ln, San Jose (exact match)
-}
-
-# Our seed listing details (address, city, beds, etc.) that override the API data
-LISTING_OVERRIDES = {
-    "l-1": {"address": "123 Main Street", "city": "Los Gatos", "state": "CA", "zip": "95030",
-            "lat": 37.2358, "lng": -121.9624, "beds": 4, "baths": 3, "sqft": 2850, "lotSqft": 8500, "yearBuilt": 1965,
-            "propertyType": "SINGLE_FAMILY"},
-    "l-2": {"address": "456 Oak Avenue", "city": "Palo Alto", "state": "CA", "zip": "94301",
-            "lat": 37.4419, "lng": -122.1430, "beds": 5, "baths": 4, "sqft": 3600, "lotSqft": 12000, "yearBuilt": 1952,
-            "propertyType": "SINGLE_FAMILY"},
-    "l-3": {"address": "789 Elm Street", "city": "Cupertino", "state": "CA", "zip": "95014",
-            "lat": 37.3230, "lng": -122.0322, "beds": 3, "baths": 2, "sqft": 1850, "lotSqft": 6200, "yearBuilt": 1978,
-            "propertyType": "SINGLE_FAMILY"},
-    "l-4": {"address": "2200 Willow Glen Way", "city": "San Jose", "state": "CA", "zip": "95125",
-            "lat": 37.2969, "lng": -121.9008, "beds": 3, "baths": 2, "sqft": 1620, "lotSqft": 5800, "yearBuilt": 1940,
-            "propertyType": "SINGLE_FAMILY"},
-    "l-5": {"address": "1580 University Avenue", "city": "Mountain View", "state": "CA", "zip": "94040",
-            "lat": 37.3861, "lng": -122.0839, "beds": 2, "baths": 2, "sqft": 1200, "lotSqft": 4500, "yearBuilt": 1955,
-            "propertyType": "TOWNHOME"},
-    "l-6": {"address": "945 Cherry Blossom Lane", "city": "Saratoga", "state": "CA", "zip": "95070",
-            "lat": 37.2638, "lng": -122.0230, "beds": 5, "baths": 3.5, "sqft": 3200, "lotSqft": 15000, "yearBuilt": 1988,
-            "propertyType": "SINGLE_FAMILY"},
-    "l-7": {"address": "310 Waverly Street", "city": "Menlo Park", "state": "CA", "zip": "94025",
-            "lat": 37.4530, "lng": -122.1817, "beds": 4, "baths": 3, "sqft": 2400, "lotSqft": 7200, "yearBuilt": 1948,
-            "propertyType": "SINGLE_FAMILY"},
-    "l-8": {"address": "88 Sunnyvale Avenue", "city": "Sunnyvale", "state": "CA", "zip": "94086",
-            "lat": 37.3688, "lng": -122.0363, "beds": 2, "baths": 1, "sqft": 980, "lotSqft": 3500, "yearBuilt": 1960,
-            "propertyType": "CONDO"},
-    "l-9": {"address": "809 Midvale Lane", "city": "San Jose", "state": "CA", "zip": "95120",
-            "lat": 37.2510, "lng": -121.8620, "beds": 4, "baths": 3, "sqft": 2200, "lotSqft": 7500, "yearBuilt": 1972,
-            "propertyType": "SINGLE_FAMILY"},
-}
-
-
-def merge_with_overrides(mock_id: str, api_prop: dict | None) -> dict:
-    """Merge API-sourced property data with our listing overrides."""
-    overrides = LISTING_OVERRIDES[mock_id]
-    if api_prop is None:
-        # No API data — return overrides only
-        return {"mockId": mock_id, **overrides}
-
-    # Start with API data, then override address/structural fields
-    merged = {**api_prop}
-    merged["mockId"] = mock_id
-    merged["address"] = overrides["address"]
-    merged["city"] = overrides["city"]
-    merged["state"] = overrides["state"]
-    merged["zip"] = overrides["zip"]
-    merged["lat"] = overrides["lat"]
-    merged["lng"] = overrides["lng"]
-    merged["beds"] = overrides["beds"]
-    merged["baths"] = overrides["baths"]
-    merged["sqft"] = overrides["sqft"]
-    merged["lotSqft"] = overrides["lotSqft"]
-    merged["yearBuilt"] = overrides["yearBuilt"]
-    merged["propertyType"] = overrides["propertyType"]
-
-    # Recalculate lot acres from our sqft
-    merged["lotSizeAcres"] = round(overrides["lotSqft"] / 43560, 2)
-
-    # Don't carry over the real property's Zillow IDs (unless it's l-9 which matches)
-    if mock_id != "l-9":
-        merged.pop("zillowId", None)
-        merged.pop("zillowUrl", None)
-        merged.pop("zestimate", None)
-        merged.pop("rentZestimate", None)
-        merged.pop("priceHistory", None)
-        merged.pop("taxHistory", None)
-        merged.pop("lastSoldPrice", None)
-        merged.pop("description", None)
-
-    return merged
-
-
 def main():
     api_key = load_api_key()
     print(f"Using API key: {api_key[:8]}...")
@@ -695,32 +621,26 @@ def main():
     print(f"\nFetched {len(results)} properties")
     print()
 
-    # Also load alternate cache files
-    for alt_file in CACHE_DIR.glob("*-alt*.json"):
-        alt_id = alt_file.stem
-        if alt_id not in results:
-            data = json.loads(alt_file.read_text())
-            results[alt_id] = data
-
-    # Extract and merge
+    # Extract property data directly from API responses (no overrides needed — all real addresses)
     properties = []
-    for mock_id, _ in ADDRESSES:
-        source_id = BEST_DATA_SOURCE.get(mock_id)
-        api_prop = None
+    for listing_id, address in ADDRESSES:
+        cp = cache_path(listing_id)
+        if not cp.exists():
+            print(f"  [{listing_id}] SKIPPED (no cached data): {address}")
+            continue
 
-        if source_id and source_id in results:
-            data = results[source_id]
-            msg = data.get("message", "")
-            pd = data.get("propertyDetails", {})
-            # Only use if we got meaningful data (has bedrooms)
-            if msg.startswith("200") and pd.get("bedrooms"):
-                api_prop = extract_property(mock_id, data)
+        data = json.loads(cp.read_text())
+        msg = data.get("message", "")
+        pd_data = data.get("propertyDetails", {})
 
-        merged = merge_with_overrides(mock_id, api_prop)
-        properties.append(merged)
-        source_label = f"API ({source_id})" if api_prop else "defaults"
-        addr = f"{merged['address']}, {merged['city']}"
-        print(f"  [{mock_id}] {addr} — {merged.get('beds', '?')}BR/{merged.get('baths', '?')}BA, {merged.get('sqft', '?')} sqft [{source_label}]")
+        if msg.startswith("200") and pd_data.get("bedrooms"):
+            prop = extract_property(listing_id, data)
+            prop["status"] = LISTING_STATUS.get(listing_id, "active")
+            properties.append(prop)
+            addr = f"{prop['address']}, {prop['city']}"
+            print(f"  [{listing_id}] {addr} — {prop.get('beds', '?')}BR/{prop.get('baths', '?')}BA, {prop.get('sqft', '?')} sqft [{prop['status']}]")
+        else:
+            print(f"  [{listing_id}] {address} — API returned no usable data (message: {msg})")
 
     # Generate TypeScript
     print("\nGenerating TypeScript...")
@@ -735,7 +655,7 @@ def main():
     json_path.write_text(json.dumps(properties, indent=2, default=str))
     print(f"Saved extracted JSON to {json_path}")
 
-    print("\nDone! Review the output, then update seed.ts with real data.")
+    print(f"\nDone! {len(properties)} properties extracted. Review the output, then update seed.ts with real data.")
 
 
 if __name__ == "__main__":

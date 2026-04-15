@@ -1,0 +1,3666 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/19703350_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 10310.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 1701400,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "809 Midvale Ln",
+    "city": "San Jose",
+    "state": "CA",
+    "zipcode": "95136",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "809 Midvale Ln"
+        },
+        {
+          "fullValue": "San Jose, CA 95136"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 3,
+      "bathroomsFull": 2,
+      "bathroomsThreeQuarter": 0,
+      "bathroomsHalf": 1,
+      "bathroomsOneQuarter": 0,
+      "bedrooms": 5,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": [
+        "L-Shaped"
+      ],
+      "buildingName": null,
+      "appliances": [
+        "Dishwasher",
+        "Dryer",
+        "Freezer",
+        "Garbage disposal",
+        "Microwave",
+        "Range / Oven",
+        "Refrigerator",
+        "Trash compactor",
+        "Washer"
+      ],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "SingleFamily"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "1965"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "Forced air, Gas"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": "Central"
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "Garage - Attached, Off-street, On-street"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": "6,969 sqft"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": "None",
+      "bathroomsPartial": null,
+      "bathroomsFloat": 3,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": null,
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "San Jose",
+      "commonWalls": null,
+      "communityFeatures": [],
+      "compensationBasedOn": null,
+      "constructionMaterials": [
+        "wood frame"
+      ],
+      "contingency": null,
+      "cooling": [
+        "Central"
+      ],
+      "coveredParkingCapacity": null,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [
+        "Stucco",
+        "Composition"
+      ],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": null,
+      "fireplaces": null,
+      "flooring": [
+        "Hardwood",
+        "Slate"
+      ],
+      "foundationArea": null,
+      "foundationDetails": [],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": null,
+      "gas": null,
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": null,
+      "hasAttachedProperty": false,
+      "hasCooling": true,
+      "hasCarport": null,
+      "hasElectricOnProperty": null,
+      "hasFireplace": true,
+      "hasGarage": false,
+      "hasHeating": true,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [
+        "Forced air",
+        "Gas"
+      ],
+      "highSchool": "Gunderson High",
+      "highSchoolDistrict": "San Jose Unified",
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": null,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": null,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": null,
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": "6,969 sqft",
+      "lotSizeDimensions": null,
+      "livingArea": "2,112 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [],
+      "middleOrJuniorSchool": "John Muir Middle",
+      "middleOrJuniorSchoolDistrict": "San Jose Unified",
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": null,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "45926006",
+      "parkingCapacity": 0,
+      "parkingFeatures": [
+        "Garage - Attached",
+        "Off-street",
+        "On-street"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": 806,
+      "propertyCondition": null,
+      "propertySubType": null,
+      "roadSurfaceType": null,
+      "roofType": null,
+      "rooms": [
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "BreakfastNook",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "DiningRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "FamilyRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "LaundryRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "MasterBath",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "MudRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Office",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Pantry",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "RecreationRoom",
+          "roomWidth": null
+        },
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "Workshop",
+          "roomWidth": null
+        }
+      ],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": null,
+      "spaFeatures": null,
+      "specialListingConditions": null,
+      "stories": null,
+      "storiesDecimal": null,
+      "storiesTotal": null,
+      "structureType": "Craftsman",
+      "subdivisionName": null,
+      "taxAnnualAmount": 13233,
+      "taxAssessedValue": 974886,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": null,
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": null,
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": "",
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 1965,
+      "yearBuiltEffective": null,
+      "zoning": null,
+      "zoningDescription": null,
+      "elementarySchool": "Terrell Elementary",
+      "elementarySchoolDistrict": "San Jose Unified",
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": null,
+    "homeStatus": "OTHER",
+    "listingProvider": {
+      "logos": [],
+      "title": "Listing Provided by",
+      "disclaimerText": null,
+      "enhancedVideoURL": null,
+      "enhancedDescriptionText": null,
+      "showLogos": null,
+      "showNoContactInfoMessage": false,
+      "agentName": null,
+      "agentLicenseNumber": null,
+      "postingWebsiteURL": null,
+      "postingWebsiteLinkText": "See listing website",
+      "postingGroupName": null,
+      "sourceText": null,
+      "isZRMSourceText": null
+    },
+    "livingArea": 2112,
+    "livingAreaValue": 2112,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": null,
+      "mlsName": null,
+      "providerLogo": null,
+      "listingAgreement": null,
+      "agentEmail": null,
+      "agentLicenseNumber": null,
+      "agentName": null,
+      "agentPhoneNumber": null,
+      "attributionTitle": null,
+      "brokerName": null,
+      "brokerPhoneNumber": null,
+      "buyerAgentMemberStateLicense": null,
+      "buyerAgentName": null,
+      "buyerBrokerageName": null,
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": null,
+      "lastUpdated": null,
+      "listingOffices": [],
+      "listingAgents": [],
+      "mlsDisclaimer": null,
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": null,
+      "infoString5": null,
+      "infoString10": null,
+      "infoString16": null
+    },
+    "listingDataSource": "Legacy",
+    "zpid": 19703350,
+    "address": {
+      "streetAddress": "809 Midvale Ln",
+      "city": "San Jose",
+      "state": "CA",
+      "zipcode": "95136",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 5,
+    "bathrooms": 3,
+    "yearBuilt": 1965,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/80c17188746bf0834ed23ad64a898f14-p_c.jpg"
+                }
+              ],
+              "price": 1748000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2609,
+              "livingAreaValue": 2609,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9375,
+              "lotAreaValue": 9375,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4292 Meg Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4292 Meg Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.27034,
+              "longitude": -121.85316,
+              "zpid": 19704021,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4292-Meg-Dr-San-Jose-CA-95136/19704021_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040229",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Michael Murphy",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/b57ac5640b4a32e820f4647247e17c1a-p_c.jpg"
+                }
+              ],
+              "price": 1488000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1715,
+              "livingAreaValue": 1715,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6969,
+              "lotAreaValue": 6969.6,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "603 Albion Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "603 Albion Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.272053,
+              "longitude": -121.85571,
+              "zpid": 19703955,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/603-Albion-Ct-San-Jose-CA-95136/19703955_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "41130781",
+                "mlsName": "Bay East AOR",
+                "providerLogo": null,
+                "agentName": "Chris Hotaki",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/312e6129aa0a337aa50a4dead26c9bc2-p_c.jpg"
+                }
+              ],
+              "price": 1698000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2533,
+              "livingAreaValue": 2533,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6969,
+              "lotAreaValue": 6969.6,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "518 Churchill Park Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "518 Churchill Park Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.25919,
+              "longitude": -121.84908,
+              "zpid": 19708439,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/518-Churchill-Park-Dr-San-Jose-CA-95136/19708439_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "41128624",
+                "mlsName": "bridgeMLS/CCAR/Bay East AOR",
+                "providerLogo": null,
+                "agentName": "Christos Soukoulis",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/f2c88dc5ee484f35bb2538ecba9e00b4-p_c.jpg"
+                }
+              ],
+              "price": 1699000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2354,
+              "livingAreaValue": 2354,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6042,
+              "lotAreaValue": 6042,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4841 Tonino Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4841 Tonino Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.26071,
+              "longitude": -121.870895,
+              "zpid": 19701185,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4841-Tonino-Dr-San-Jose-CA-95136/19701185_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039353",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Barbara Neu",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/d2be24959ef80f122e8ad3139aacbe0e-p_c.jpg"
+                }
+              ],
+              "price": 1598000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2256,
+              "livingAreaValue": 2256,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 2542,
+              "lotAreaValue": 2542,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "3072 Valley Of Hearts Delight Pl",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Fairgrounds"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "3072 Valley Of Hearts Delight Pl"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.28287,
+              "longitude": -121.84998,
+              "zpid": 242043389,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/3072-Valley-Of-Hearts-Delight-Pl-San-Jose-CA-95136/242043389_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042994",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Rod Hibner",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/40183d146788371dcdb4340845c540ff-p_c.jpg"
+                }
+              ],
+              "price": 1630000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2124,
+              "livingAreaValue": 2124,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "5191 Devon Park Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "5191 Devon Park Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.25829,
+              "longitude": -121.85102,
+              "zpid": 19708362,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/5191-Devon-Park-Ct-San-Jose-CA-95136/19708362_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041603",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ted La Scola",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/4c024d6fd6fa17b368a1eb40583c6c58-p_c.jpg"
+                }
+              ],
+              "price": 1550000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2128,
+              "livingAreaValue": 2128,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9095,
+              "lotAreaValue": 9095,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4395-4397 Wessex Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4395-4397 Wessex Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.266335,
+              "longitude": -121.86439,
+              "zpid": 461574330,
+              "homeStatus": "FOR_SALE",
+              "homeType": "MULTI_FAMILY",
+              "hdpUrl": "/homedetails/4395-4397-Wessex-Dr-San-Jose-CA-95136/461574330_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Multi Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042071",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ted La Scola",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/890b03cfef2dfc5fb2ff9d8007a8432c-p_c.jpg"
+                }
+              ],
+              "price": 1588888,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1954,
+              "livingAreaValue": 1954,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7250,
+              "lotAreaValue": 7250,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4530 Crocus Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4530 Crocus Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.26637,
+              "longitude": -121.8541,
+              "zpid": 19706184,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4530-Crocus-Dr-San-Jose-CA-95136/19706184_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039659",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Destiny Sharma",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/9c65e4d9f2ab37e11901a58400196cae-p_c.jpg"
+                }
+              ],
+              "price": 1888000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1843,
+              "livingAreaValue": 1843,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 18295,
+              "lotAreaValue": 0.41999540863177226,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "450 Stratford Park Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "450 Stratford Park Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.267967,
+              "longitude": -121.8514,
+              "zpid": 51074529,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/450-Stratford-Park-Ct-San-Jose-CA-95136/51074529_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82035437",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Serena Zhang",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/9b62abd0351333dcda7431b39b28785f-p_c.jpg"
+                }
+              ],
+              "price": 1595000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2124,
+              "livingAreaValue": 2124,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6240,
+              "lotAreaValue": 6240,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4669 Park Sutton Pl",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4669 Park Sutton Pl"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.267006,
+              "longitude": -121.82896,
+              "zpid": 19817929,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4669-Park-Sutton-Pl-San-Jose-CA-95136/19817929_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040366",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Rinat Kaufman",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ec685fe3bf7fc09461606086767461eb-p_c.jpg"
+                }
+              ],
+              "price": 1399888,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1652,
+              "livingAreaValue": 1652,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6018,
+              "lotAreaValue": 6018,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "571 Kings Cross Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "571 Kings Cross Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.25808,
+              "longitude": -121.849434,
+              "zpid": 19708453,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/571-Kings-Cross-Way-San-Jose-CA-95136/19708453_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042390",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Raquel Delaire",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/4c6a799ca6f26f917a2ac6fa408cf9fe-p_c.jpg"
+                }
+              ],
+              "price": 1688000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2130,
+              "livingAreaValue": 2130,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6534,
+              "lotAreaValue": 6534,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "402 Avenida Arboles",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95123"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "402 Avenida Arboles"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95123"
+                  }
+                ]
+              },
+              "latitude": 37.254982,
+              "longitude": -121.83795,
+              "zpid": 19707274,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/402-Avenida-Arboles-San-Jose-CA-95123/19707274_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "41129570",
+                "mlsName": "Bay East AOR",
+                "providerLogo": null,
+                "agentName": "Yigong Ma",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/69e1fa7da85e70dabe259a9757b7e573-p_c.jpg"
+                }
+              ],
+              "price": 1499000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2209,
+              "livingAreaValue": 2209,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6877,
+              "lotAreaValue": 6877,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "130 Juneberry Ct",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "130 Juneberry Ct"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.272118,
+              "longitude": -121.83555,
+              "zpid": 19706324,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/130-Juneberry-Ct-San-Jose-CA-95136/19706324_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040927",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Rusty Paap",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2858350faa326a3dec5155fd238adce7-p_c.jpg"
+                }
+              ],
+              "price": 1749000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1497,
+              "livingAreaValue": 1497,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6200,
+              "lotAreaValue": 6200,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1657 Glenhurst Dr",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95124"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1657 Glenhurst Dr"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95124"
+                  }
+                ]
+              },
+              "latitude": 37.264156,
+              "longitude": -121.90553,
+              "zpid": 19695382,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1657-Glenhurst-Dr-San-Jose-CA-95124/19695382_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042875",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Frank Quinn",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/0e5faf978b05b23792b3137af9df4298-p_c.jpg"
+                }
+              ],
+              "price": 1799000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 2448,
+              "livingAreaValue": 2448,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 12940,
+              "lotAreaValue": 0.2970615243342516,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "2991 Almaden Rd",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95125"
+              },
+              "parentRegion": {
+                "name": "Willow Glen"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2991 Almaden Rd"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95125"
+                  }
+                ]
+              },
+              "latitude": 37.27811,
+              "longitude": -121.88067,
+              "zpid": 19688203,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2991-Almaden-Rd-San-Jose-CA-95125/19688203_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039832",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Mahnaz Westerberg",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": true,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2bf5fb0f42f336676eb230a0d3337907-p_c.jpg"
+                }
+              ],
+              "price": 1499000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 2178,
+              "livingAreaValue": 2178,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 2426,
+              "lotAreaValue": 2426,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "176 Agustin Narvaez St",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Fairgrounds"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "176 Agustin Narvaez St"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.28558,
+              "longitude": -121.85289,
+              "zpid": 300481822,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/176-Agustin-Narvaez-St-San-Jose-CA-95136/300481822_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036686",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Lydia Wang",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/7fafe988dcd2b0b58985c188b284bccc-p_c.jpg"
+                }
+              ],
+              "price": 1649000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1908,
+              "livingAreaValue": 1908,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7140,
+              "lotAreaValue": 7140,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "5369 Entrada Cedros",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95123"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "5369 Entrada Cedros"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95123"
+                  }
+                ]
+              },
+              "latitude": 37.256073,
+              "longitude": -121.83637,
+              "zpid": 19707231,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/5369-Entrada-Cedros-San-Jose-CA-95123/19707231_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041755",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ranju Phelan",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/14bc68865a5d00f31ff0fae56de3253e-p_c.jpg"
+                }
+              ],
+              "price": 1888000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 1949,
+              "livingAreaValue": 1949,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7342,
+              "lotAreaValue": 7342,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4733 Jarvis Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4733 Jarvis Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.25794,
+              "longitude": -121.890175,
+              "zpid": 19758969,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4733-Jarvis-Ave-San-Jose-CA-95118/19758969_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042392",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Harry He",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/4d4617acf6d00f767818a6e5575160b9-p_c.jpg"
+                }
+              ],
+              "price": 1500000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1557,
+              "livingAreaValue": 1557,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7150,
+              "lotAreaValue": 7150,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "5228 Fell Ave",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95136"
+              },
+              "parentRegion": {
+                "name": "Blossom Valley"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "5228 Fell Ave"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95136"
+                  }
+                ]
+              },
+              "latitude": 37.257774,
+              "longitude": -121.86649,
+              "zpid": 19701738,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/5228-Fell-Ave-San-Jose-CA-95136/19701738_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037283",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Vito Scarnecchia",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/5dacfe94ce5c9cc9a0d005fcb31c2af8-p_c.jpg"
+                }
+              ],
+              "price": 1898000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1774,
+              "livingAreaValue": 1774,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6100,
+              "lotAreaValue": 6100,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1313 Lindsay Way",
+                "city": "San Jose",
+                "state": "CA",
+                "zipcode": "95118"
+              },
+              "parentRegion": {
+                "name": "Cambrian Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1313 Lindsay Way"
+                  },
+                  {
+                    "fullValue": "San Jose, CA 95118"
+                  }
+                ]
+              },
+              "latitude": 37.27042,
+              "longitude": -121.885155,
+              "zpid": 19697001,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1313-Lindsay-Way-San-Jose-CA-95118/19697001_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041974",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Nicki Banucci",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "c2abf8d592cced4feb3584d75e850987"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/809-Midvale-Ln-San-Jose-CA-95136/19703350_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca/"
+        },
+        "name": "Cupertino",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/morgan-hill-ca/"
+        },
+        "name": "Morgan Hill",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [
+      {
+        "regionUrl": {
+          "path": "/almaden-valley-san-jose-ca/"
+        },
+        "name": "Almaden Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/blossom-valley-san-jose-ca/"
+        },
+        "name": "Blossom Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/cambrian-park-san-jose-ca/"
+        },
+        "name": "Cambrian Park",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/downtown-san-jose-ca/"
+        },
+        "name": "Downtown",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/east-san-jose-san-jose-ca/"
+        },
+        "name": "East San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/evergreen-san-jose-ca/"
+        },
+        "name": "Evergreen",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/fairgrounds-san-jose-ca/"
+        },
+        "name": "Fairgrounds",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/north-valley-san-jose-ca/"
+        },
+        "name": "North Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/west-san-jose-san-jose-ca/"
+        },
+        "name": "West San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/willow-glen-san-jose-ca/"
+        },
+        "name": "Willow Glen",
+        "body": null
+      }
+    ],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95111/"
+        },
+        "name": "95111",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95112/"
+        },
+        "name": "95112",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95116/"
+        },
+        "name": "95116",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95122/"
+        },
+        "name": "95122",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95123/"
+        },
+        "name": "95123",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95124/"
+        },
+        "name": "95124",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95125/"
+        },
+        "name": "95125",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95127/"
+        },
+        "name": "95127",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95136/"
+        },
+        "name": "95136",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca-95148/"
+        },
+        "name": "95148",
+        "body": null
+      }
+    ],
+    "cityId": 33839,
+    "citySearchUrl": {
+      "text": "Homes in San Jose",
+      "path": "/san-jose-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/san-jose-ca-95136/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/san-jose-ca-95136/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/san-jose-ca-95136/rent-houses/"
+    },
+    "abbreviatedAddress": "809 Midvale Ln",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": {
+      "name": "Blossom Valley"
+    },
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": {
+      "path": "/blossom-valley-san-jose-ca/"
+    },
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "not_for_sale",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "hood": "Blossom_Valley",
+      "price_band": "z1m",
+      "zestimate": "1701400",
+      "zestibuck": "1_5-1_999m",
+      "price": "1701400",
+      "lot": "2",
+      "bd": "5",
+      "ba": "3",
+      "sqft": "2112",
+      "sqftrange": "2000-2499",
+      "yrblt": "1960-1969",
+      "aamgnrc1": "809 Midvale Ln",
+      "city": "San_Jose",
+      "state": "CA",
+      "zip": "95136",
+      "pid": "19703350",
+      "premieragent": "no",
+      "tflag": "verizon",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "9793f741-d7bd-42bd-83b2-bcfb9f46b6fa"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 1701400,
+    "newConstructionType": null,
+    "zestimateLowPercent": "5",
+    "zestimateHighPercent": "5",
+    "rentZestimate": 5554,
+    "restimateLowPercent": "6",
+    "restimateHighPercent": "7",
+    "schools": [
+      {
+        "distance": 0.2,
+        "name": "Terrell Elementary School",
+        "rating": 2,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/san-jose/5692-Terrell-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.2,
+        "name": "John Muir Middle School",
+        "rating": 5,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/san-jose/5679-John-Muir-Middle-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.2,
+        "name": "Gunderson High School",
+        "rating": 6,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/san-jose/5667-Gunderson-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "Blossom Valley",
+      "regionId": 276215
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 19703351,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=813+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=RPhpZ3l-Edt0F9bDNmlWbq4RNRY="
+          }
+        ],
+        "price": 1769700,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "livingArea": 1847,
+        "livingAreaValue": 1847,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6534,
+        "lotAreaValue": 6534,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "813 Midvale Ln",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95136"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "813 Midvale Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.272976,
+        "longitude": -121.86613,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/813-Midvale-Ln-San-Jose-CA-95136/19703351_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19703349,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=803+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=oglTt2guIW3Kq8JQZNjCaKYoRT4="
+          }
+        ],
+        "price": 1714300,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 2.5,
+        "livingArea": 1781,
+        "livingAreaValue": 1781,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6534,
+        "lotAreaValue": 6534,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "803 Midvale Ln",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95136"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "803 Midvale Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.27314,
+        "longitude": -121.86572,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/803-Midvale-Ln-San-Jose-CA-95136/19703349_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19703369,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/283abf7caeb1f52c074f2645b2d3dc62-p_c.jpg"
+          }
+        ],
+        "price": 1846900,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingArea": 2112,
+        "livingAreaValue": 2112,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 7100,
+        "lotAreaValue": 7100,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "810 Lewiston Dr",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95136"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "810 Lewiston Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.273327,
+        "longitude": -121.866035,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/810-Lewiston-Dr-San-Jose-CA-95136/19703369_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19703368,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=818+Lewiston+Dr%2C+San+Jose%2C+CA+95136&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=6xQcWSaYjpmM9Isv5Or9b_Za0aE="
+          }
+        ],
+        "price": 1811900,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 3,
+        "livingArea": 2204,
+        "livingAreaValue": 2204,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6969,
+        "lotAreaValue": 6969,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "818 Lewiston Dr",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95136"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "818 Lewiston Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.273254,
+        "longitude": -121.86626,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/818-Lewiston-Dr-San-Jose-CA-95136/19703368_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19703370,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/fb8fe4c29bcd2d54d99a0fadf9aea6f9-p_c.jpg"
+          }
+        ],
+        "price": 1818900,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingArea": 2112,
+        "livingAreaValue": 2112,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6869,
+        "lotAreaValue": 6869,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "804 Lewiston Dr",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95136"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "804 Lewiston Dr"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.2734,
+        "longitude": -121.86582,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/804-Lewiston-Dr-San-Jose-CA-95136/19703370_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19703352,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/55299f667ad0baeff4006a9da46278be-p_c.jpg"
+          }
+        ],
+        "price": 1545900,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1688,
+        "livingAreaValue": 1688,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6969,
+        "lotAreaValue": 6969,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "819 Midvale Ln",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95136"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "819 Midvale Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.272892,
+        "longitude": -121.86633,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/819-Midvale-Ln-San-Jose-CA-95136/19703352_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19703348,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/9e472bb829b16df1a00ca22de7af64c7-p_c.jpg"
+          }
+        ],
+        "price": 1289000,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1688,
+        "livingAreaValue": 1688,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6468,
+        "lotAreaValue": 6468,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "799 Midvale Ln",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95136"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "799 Midvale Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.273224,
+        "longitude": -121.86552,
+        "homeStatus": "SOLD",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/799-Midvale-Ln-San-Jose-CA-95136/19703348_zpid/",
+        "hdpTypeDimension": "RecentlySold",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19703323,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=812+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=286N5v1bhack1U5I80TV1jOGdPI="
+          }
+        ],
+        "price": 1676000,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2.5,
+        "livingArea": 1937,
+        "livingAreaValue": 1937,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6098,
+        "lotAreaValue": 6098,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "812 Midvale Ln",
+          "city": "San Jose",
+          "state": "CA",
+          "zipcode": "95136"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "812 Midvale Ln"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.27265,
+        "longitude": -121.8657,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/812-Midvale-Ln-San-Jose-CA-95136/19703323_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "5 Bedroom home located in sought after Pinehurst Neighborhood. Well maintained by second owner for almost 50 years. Popular floor plan with 4 spacious bedrooms upstairs and 1 ground floor bedroom.  Lovely open formal dining and living room combination.  Fireplace in living room.  Hardwood flooring in L/R & D/R and all bedrooms. Granite counter top in kitchen. Indoor laundry/mudroom with washer dryer and freezer. Spacious backyard with patio and mature landscape. Optional Cabana Club offering a wonderful community feel and competitive Piranha swim team. Easy access to major freeway and downtown San Jose.  This is a \"must see\" home!",
+    "whatILove": null,
+    "timeOnZillow": "3567 days",
+    "pageViewCount": 94,
+    "favoriteCount": 0,
+    "daysOnZillow": 3567,
+    "latitude": 37.273056,
+    "longitude": -121.86593,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=550x413&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=zUVO_bIykXgHt4DrqDFNoC3I05w=",
+    "brokerageName": null,
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [],
+    "homeInsights": [],
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776269856502
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776269856502
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776269856502
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1025x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=-9Op-AGby1uJpQGzbHE3clFrBsA=",
+    "mlsid": null,
+    "ouid": null,
+    "palsId": "534f11797be861df599a1fb9039cc40c",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I own this home and would like a professional estimate at 809 Midvale Ln, San Jose, CA 95136.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 1,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": 6969,
+    "lotAreaValue": 6969,
+    "lotAreaUnits": "Square Feet",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [
+      {
+        "date": "2016-07-08",
+        "price": 840000,
+        "time": 1467936000000,
+        "pricePerSquareFoot": 398,
+        "priceChangeRate": -0.03225806451612903,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2016-06-10",
+        "price": 868000,
+        "time": 1465516800000,
+        "pricePerSquareFoot": 411,
+        "priceChangeRate": 0,
+        "event": "Pending sale",
+        "source": "Better Homes and Gardens Real Estate Ventura Barnett Properties",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "81586475",
+          "infoString2": "Better Homes and Gardens Real Estate Ventura Barnett Properties",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2016-05-19",
+        "price": 868000,
+        "time": 1463616000000,
+        "pricePerSquareFoot": 411,
+        "priceChangeRate": 0,
+        "event": "Listed for sale",
+        "source": "Better Homes & Gardens Real EstateVentura Barnett",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81586475",
+          "infoString2": "Better Homes & Gardens Real EstateVentura Barnett",
+          "infoString3": null
+        }
+      }
+    ],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=IPEDg5fpKv981zpf3dGGVFuacNo=",
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": 840000,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=46x46&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=TZzul8DfhnjH_JrrpF8V5oRWXgQ="
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=Nw7RI12v5DAtJ9BzjfHRmADq6vE="
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "Zestimate",
+    "listingTypeDimension": "Unknown Listed By",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Unknown Listed By",
+    "keystoneHomeStatus": "NotForSale",
+    "pageUrlFragment": "Zestimate",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=fEiJ5RPRbxyUog-cDzVHuQB5C1A=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=x3kAH3f-QTkgpKRQ3C9uX7hOtUg=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=i26CkL1bf0euikGE2QzfYxZZII4=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=B4Qb3VtFrLQxvOHcNfHKXcAMTMs=",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=fEiJ5RPRbxyUog-cDzVHuQB5C1A=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=x3kAH3f-QTkgpKRQ3C9uX7hOtUg=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=i26CkL1bf0euikGE2QzfYxZZII4=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=B4Qb3VtFrLQxvOHcNfHKXcAMTMs=",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": null,
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": "45926006",
+    "taxHistory": [
+      {
+        "time": 1744737892150,
+        "taxPaid": 13233.48,
+        "taxIncreaseRate": 0.06084762,
+        "value": 974886,
+        "valueIncreaseRate": 0.01999956
+      },
+      {
+        "time": 1713201892150,
+        "taxPaid": 12474.44,
+        "taxIncreaseRate": 0.019503476,
+        "value": 955771,
+        "valueIncreaseRate": 0.019999338
+      },
+      {
+        "time": 1681579492150,
+        "taxPaid": 12235.8,
+        "taxIncreaseRate": 0.008745468,
+        "value": 937031,
+        "valueIncreaseRate": 0.019998716
+      },
+      {
+        "time": 1650043492150,
+        "taxPaid": 12129.72,
+        "taxIncreaseRate": 0.020992652,
+        "value": 918659,
+        "valueIncreaseRate": 0.019998956
+      },
+      {
+        "time": 1618507492150,
+        "taxPaid": 11880.32,
+        "taxIncreaseRate": 0.023138909,
+        "value": 900647,
+        "valueIncreaseRate": 0.010359968
+      },
+      {
+        "time": 1586971492150,
+        "taxPaid": 11611.64,
+        "taxIncreaseRate": 0,
+        "value": 891412,
+        "valueIncreaseRate": 0.019998055
+      },
+      {
+        "time": 1555349092150,
+        "taxPaid": 11611.64,
+        "taxIncreaseRate": 0.032145746,
+        "value": 873935,
+        "valueIncreaseRate": 0.019998834
+      },
+      {
+        "time": 1523813092150,
+        "taxPaid": 11250,
+        "taxIncreaseRate": 0,
+        "value": 856800,
+        "valueIncreaseRate": 0.02
+      },
+      {
+        "time": 1492277092150,
+        "taxPaid": 11250,
+        "taxIncreaseRate": 0.008176557,
+        "value": 840000,
+        "valueIncreaseRate": 8.945654
+      },
+      {
+        "time": 1460741092150,
+        "taxPaid": 11158.76,
+        "taxIncreaseRate": 4.638471,
+        "value": 84459,
+        "valueIncreaseRate": 0.015242034
+      },
+      {
+        "time": 1429118692150,
+        "taxPaid": 1979.04,
+        "taxIncreaseRate": 0.26456234,
+        "value": 83191,
+        "valueIncreaseRate": 0.019972537
+      },
+      {
+        "time": 1397582692150,
+        "taxPaid": 1565,
+        "taxIncreaseRate": 0,
+        "value": 81562,
+        "valueIncreaseRate": 0.0045323544
+      },
+      {
+        "time": 1366046692150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 81194,
+        "valueIncreaseRate": 0.019986684
+      },
+      {
+        "time": 1334510692150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 79603,
+        "valueIncreaseRate": 0.01998898
+      },
+      {
+        "time": 1302888292150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 78043,
+        "valueIncreaseRate": 0.0075134584
+      },
+      {
+        "time": 1271352292150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 77461,
+        "valueIncreaseRate": -0.0023826084
+      },
+      {
+        "time": 1239816292150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 77646,
+        "valueIncreaseRate": 0.019993694
+      },
+      {
+        "time": 1208280292150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 76124,
+        "valueIncreaseRate": 0.019991424
+      },
+      {
+        "time": 1176657892150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 74632,
+        "valueIncreaseRate": 0.019994806
+      },
+      {
+        "time": 1145121892150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 73169,
+        "valueIncreaseRate": 0.019990241
+      },
+      {
+        "time": 1113585892150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 71735,
+        "valueIncreaseRate": 0.01997725
+      },
+      {
+        "time": 1082049892150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 70330,
+        "valueIncreaseRate": 0.018655311
+      },
+      {
+        "time": 1050427492150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 69042,
+        "valueIncreaseRate": 0.019988477
+      },
+      {
+        "time": 1018891492150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 67689,
+        "valueIncreaseRate": 0.019981014
+      },
+      {
+        "time": 987355492150,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 66363,
+        "valueIncreaseRate": 0
+      }
+    ],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/809-Midvale-Ln_-San%20Jose-95136/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/95136/?bedrooms=5",
+    "neighborhoodId": 276215,
+    "zipcodeId": 98004,
+    "sellingSoon": []
+  }
+}

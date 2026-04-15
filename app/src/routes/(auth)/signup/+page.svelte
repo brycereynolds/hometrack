@@ -1,12 +1,30 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
 
-	let { form }: { form: ActionData } = $props();
+	let { form, data }: { form: ActionData; data: any } = $props();
 
 	let loading = $state(false);
+
+	const hasPreviewAccess = browser && localStorage.getItem('hometrack_preview') === 'true';
+	const isComingSoon = data?.launchMode === 'coming_soon' && !hasPreviewAccess;
 </script>
 
+{#if isComingSoon}
+<div class="space-y-6 text-center">
+	<h2 class="text-xl font-semibold">Signups are not yet available</h2>
+	<p class="text-sm text-muted-foreground">
+		HomeTrack is launching soon. Join the waitlist to be the first to know.
+	</p>
+	<a
+		href="/"
+		class="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-6 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary-hover"
+	>
+		Join the Waitlist
+	</a>
+</div>
+{:else}
 <div class="space-y-6">
 	<div class="text-center">
 		<h2 class="text-xl font-semibold">Create your account</h2>
@@ -96,3 +114,4 @@
 		<a href="/login" class="font-medium text-primary hover:underline">Sign in</a>
 	</div>
 </div>
+{/if}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 	import {
 		LayoutDashboard,
@@ -15,8 +16,24 @@
 		Sparkles,
 		Zap,
 		Menu,
-		X
+		X,
+		Mail
 	} from 'lucide-svelte';
+
+	let { data } = $props();
+
+	const hasPreviewAccess = browser && localStorage.getItem('hometrack_preview') === 'true';
+	const isComingSoon = data.launchMode === 'coming_soon' && !hasPreviewAccess;
+
+	let waitlistEmail = $state('');
+	let waitlistSubmitted = $state(false);
+
+	function handleWaitlistSubmit(e: Event) {
+		e.preventDefault();
+		if (waitlistEmail) {
+			waitlistSubmitted = true;
+		}
+	}
 
 	let mobileMenuOpen = $state(false);
 	let observerTargets: HTMLElement[] = [];
@@ -177,6 +194,66 @@
 	/>
 </svelte:head>
 
+{#if isComingSoon}
+<!-- Coming Soon Page -->
+<div class="relative flex min-h-screen items-center justify-center overflow-hidden">
+	<!-- Background -->
+	<div class="absolute inset-0">
+		<img
+			src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80"
+			alt="Luxury home exterior"
+			class="h-full w-full object-cover"
+		/>
+		<div class="absolute inset-0 bg-gradient-to-br from-stone-900/90 via-stone-900/80 to-stone-900/70 backdrop-blur-sm"></div>
+	</div>
+
+	<div class="relative z-10 mx-auto max-w-2xl px-6 text-center">
+		<!-- Logo -->
+		<div class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary shadow-lg">
+			<span class="text-xl font-bold text-primary-foreground">H</span>
+		</div>
+
+		<h1 class="font-serif text-2xl text-white/60">HomeTrack</h1>
+
+		<h2 class="mt-8 font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
+			Coming Soon
+		</h2>
+
+		<p class="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-white/70 sm:text-xl">
+			The AI-powered operating system for modern real estate teams.
+		</p>
+
+		<!-- Waitlist form -->
+		{#if waitlistSubmitted}
+			<div class="mt-10 rounded-xl border border-white/10 bg-white/5 px-8 py-6 backdrop-blur-md">
+				<p class="text-lg font-medium text-white">You're on the list.</p>
+				<p class="mt-2 text-sm text-white/60">We'll notify you as soon as HomeTrack is ready.</p>
+			</div>
+		{:else}
+			<form onsubmit={handleWaitlistSubmit} class="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:flex-row">
+				<div class="relative flex-1">
+					<Mail class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/30" />
+					<input
+						type="email"
+						required
+						bind:value={waitlistEmail}
+						placeholder="you@example.com"
+						class="h-12 w-full rounded-lg border border-white/15 bg-white/10 pl-10 pr-4 text-sm text-white placeholder:text-white/40 backdrop-blur-md focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
+					/>
+				</div>
+				<button
+					type="submit"
+					class="h-12 rounded-lg bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-hover"
+				>
+					Notify Me
+				</button>
+			</form>
+		{/if}
+
+		<p class="mt-12 text-xs text-white/30">&copy; 2026 HomeTrack. All rights reserved.</p>
+	</div>
+</div>
+{:else}
 <!-- Navigation -->
 <nav class="fixed top-0 right-0 left-0 z-50 border-b border-transparent bg-white/80 backdrop-blur-lg transition-all duration-300">
 	<div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
@@ -517,6 +594,7 @@
 		</div>
 	</div>
 </footer>
+{/if}
 
 <style>
 	/* Scroll animation */

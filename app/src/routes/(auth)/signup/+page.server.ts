@@ -1,7 +1,13 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { createClient } from '@supabase/supabase-js';
 import { env } from '$env/dynamic/private';
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async () => {
+	return {
+		launchMode: env.PUBLIC_LAUNCH_MODE ?? 'live'
+	};
+};
 
 export const actions: Actions = {
 	default: async ({ request, cookies }) => {

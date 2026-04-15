@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
-import { sql } from 'drizzle-orm';
+import { sql, eq } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 import * as schema from './schema/index.js';
 
@@ -52,6 +52,9 @@ const {
   marketAnalyses,
   compListings,
   analysisSchedules,
+  properties,
+  externalListings,
+  buyerPreferences,
 } = schema;
 
 async function main() {
@@ -74,11 +77,12 @@ async function main() {
   // Truncate all tables for a clean re-seed (cascade handles FK dependencies)
   console.log('  Clearing existing data...');
   await db.execute(sql`TRUNCATE TABLE
+    external_listings, buyer_preferences,
     analysis_schedules, comp_listings, market_analyses,
     files, team_performance, pipeline_metrics, analytics_showings, analytics_events,
     quote_line_items, quotes, financial_categories, financial_budgets,
     marketing_assets, documents, comp_sales, offers, showings,
-    ai_insights, activity_items, tasks, listings, contacts,
+    ai_insights, activity_items, tasks, listings, properties, contacts,
     vendors, integrations, workflow_templates, team_members, teams
     CASCADE`);
 
@@ -87,6 +91,7 @@ async function main() {
   const tmMap: Record<string, string> = {};
   const contactMap: Record<string, string> = {};
   const listingMap: Record<string, string> = {};
+  const propertyMap: Record<string, string> = {};
   const vendorMap: Record<string, string> = {};
   const budgetMap: Record<string, string> = {};
   const quoteMap: Record<string, string> = {};
@@ -171,7 +176,416 @@ async function main() {
     });
   }
 
-  // ─── 4. Listings ──────────────────────────────────────────────────────
+  // ─── 4a. Properties ─────────────────────────────────────────────────
+  console.log('  Inserting properties...');
+  const propertyData = [
+    {
+      mockId: 'l-1',
+      address: '123 Main Street', city: 'Los Gatos', state: 'CA', zip: '95030', county: 'Santa Clara',
+      lat: 37.2358, lng: -121.9624,
+      beds: 4, baths: 3, bathsFull: 2, bathsHalf: 1, sqft: 2850, lotSqft: 8500, lotSizeAcres: 0.20, yearBuilt: 1965,
+      propertyType: 'SINGLE_FAMILY', stories: 1, architecturalStyle: 'Ranch',
+      constructionMaterials: ['Wood frame', 'Stucco'],
+      roof: 'Composition shingle', foundation: ['Concrete perimeter'], basement: 'None',
+      features: {
+        pool: false, garage: true, fireplace: true, spa: false,
+        heating: ['Forced air', 'Gas'], cooling: ['Central AC'],
+        appliances: ['Dishwasher', 'Microwave', 'Double oven', 'Gas range', 'Refrigerator', 'Disposal'],
+        flooring: ['Hardwood', 'Tile'], laundry: ['In-unit', 'Washer', 'Dryer'],
+        interiorFeatures: ['Open floor plan', 'Recessed lighting', 'Quartz countertops', 'Smart home system'],
+        exteriorFeatures: ['Stucco', 'Private backyard', 'Mature landscaping'],
+        fencing: 'Wood privacy fence', view: 'Garden', waterfront: false,
+        patioAndPorch: ['Covered patio', 'Rear deck'],
+      },
+      parkingSpaces: 2, garageSpaces: 2, parkingFeatures: ['Garage - Attached', 'Driveway'],
+      lotFeatures: ['Back yard', 'Landscaped', 'Sprinklers'],
+      roomsCount: 9,
+      taxAssessedValue: 1650000, taxAnnualAmount: 19800, taxYear: 2025, parcelNumber: '424-12-034',
+      walkabilityScore: 72, transitScore: 42, bikeScore: 65,
+      neighborhood: 'Los Gatos Core',
+      elementarySchool: 'Daves Avenue Elementary', elementarySchoolDistrict: 'Los Gatos Union',
+      middleSchool: 'Raymond J. Fisher Middle', middleSchoolDistrict: 'Los Gatos Union',
+      highSchool: 'Los Gatos High', highSchoolDistrict: 'Los Gatos-Saratoga Joint Union',
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop', caption: 'Front exterior' },
+        { url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', caption: 'Living room' },
+        { url: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop', caption: 'Kitchen' },
+        { url: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop', caption: 'Backyard' },
+      ],
+      lastSoldPrice: 1420000, lastSoldDate: '2018-06-15',
+    },
+    {
+      mockId: 'l-2',
+      address: '456 Oak Avenue', city: 'Palo Alto', state: 'CA', zip: '94301', county: 'Santa Clara',
+      lat: 37.4419, lng: -122.1430,
+      beds: 5, baths: 4, bathsFull: 3, bathsHalf: 1, sqft: 3600, lotSqft: 12000, lotSizeAcres: 0.28, yearBuilt: 1952,
+      propertyType: 'SINGLE_FAMILY', stories: 2, architecturalStyle: 'Colonial',
+      constructionMaterials: ['Wood frame', 'Brick veneer'],
+      roof: 'Slate', foundation: ['Raised perimeter'], basement: 'Unfinished',
+      features: {
+        pool: true, garage: true, fireplace: true, spa: true,
+        heating: ['Forced air', 'Gas'], cooling: ['Central AC', 'Zoned'],
+        appliances: ['Sub-Zero refrigerator', 'Wolf range', 'Miele dishwasher', 'Wine fridge', 'Warming drawer', 'Disposal'],
+        flooring: ['Hardwood', 'Marble', 'Heated tile'], laundry: ['Laundry room', 'Washer', 'Dryer'],
+        interiorFeatures: ['Crown molding', 'Built-in bookshelves', 'Wine cellar', 'Home office', 'Wet bar'],
+        exteriorFeatures: ['Brick', 'Outdoor kitchen', 'Built-in BBQ', 'Fire pit'],
+        fencing: 'Wrought iron', view: 'Tree-lined street', waterfront: false,
+        patioAndPorch: ['Covered patio', 'Wraparound porch', 'Pergola'],
+      },
+      parkingSpaces: 3, garageSpaces: 2, parkingFeatures: ['Garage - Detached', 'Driveway - Circular'],
+      lotFeatures: ['Mature oaks', 'Flat', 'Sprinklers', 'Professional landscaping'],
+      roomsCount: 12,
+      taxAssessedValue: 2750000, taxAnnualAmount: 33000, taxYear: 2025, parcelNumber: '132-28-091',
+      walkabilityScore: 82, transitScore: 55, bikeScore: 88,
+      neighborhood: 'Old Palo Alto',
+      elementarySchool: 'Walter Hays Elementary', elementarySchoolDistrict: 'Palo Alto Unified',
+      middleSchool: 'Jordan Middle', middleSchoolDistrict: 'Palo Alto Unified',
+      highSchool: 'Palo Alto High', highSchoolDistrict: 'Palo Alto Unified',
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop', caption: 'Front exterior' },
+        { url: 'https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=800&h=600&fit=crop', caption: 'Living room' },
+        { url: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop', caption: 'Kitchen' },
+        { url: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&h=600&fit=crop', caption: 'Pool & patio' },
+      ],
+      lastSoldPrice: 2100000, lastSoldDate: '2015-09-22',
+    },
+    {
+      mockId: 'l-3',
+      address: '789 Elm Street', city: 'Cupertino', state: 'CA', zip: '95014', county: 'Santa Clara',
+      lat: 37.3230, lng: -122.0322,
+      beds: 3, baths: 2, bathsFull: 2, bathsHalf: 0, sqft: 1850, lotSqft: 6200, lotSizeAcres: 0.14, yearBuilt: 1978,
+      propertyType: 'SINGLE_FAMILY', stories: 1, architecturalStyle: 'Contemporary',
+      constructionMaterials: ['Wood frame', 'Stucco'],
+      roof: 'Composition shingle', foundation: ['Slab'], basement: 'None',
+      features: {
+        pool: false, garage: true, fireplace: false, spa: false,
+        heating: ['Forced air', 'Gas'], cooling: ['Central AC'],
+        appliances: ['Dishwasher', 'Electric range', 'Microwave', 'Refrigerator', 'Disposal'],
+        flooring: ['Laminate', 'Tile'], laundry: ['In garage', 'Washer hookup'],
+        interiorFeatures: ['Open floor plan', 'Vaulted ceilings', 'Dual-pane windows', 'Updated bathrooms'],
+        exteriorFeatures: ['Stucco', 'New roof 2024', 'Low-maintenance yard'],
+        fencing: 'Wood', view: 'Neighborhood', waterfront: false,
+        patioAndPorch: ['Concrete patio'],
+      },
+      parkingSpaces: 2, garageSpaces: 2, parkingFeatures: ['Garage - Attached', 'Driveway'],
+      lotFeatures: ['Level', 'Back yard'],
+      roomsCount: 7,
+      taxAssessedValue: 980000, taxAnnualAmount: 11760, taxYear: 2025, parcelNumber: '316-05-072',
+      walkabilityScore: 58, transitScore: 38, bikeScore: 70,
+      neighborhood: 'Monta Vista',
+      elementarySchool: 'Montclaire Elementary', elementarySchoolDistrict: 'Cupertino Union',
+      middleSchool: 'Kennedy Middle', middleSchoolDistrict: 'Cupertino Union',
+      highSchool: 'Monta Vista High', highSchoolDistrict: 'Fremont Union',
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&h=600&fit=crop', caption: 'Front exterior' },
+        { url: 'https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&h=600&fit=crop', caption: 'Living room' },
+        { url: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&h=600&fit=crop', caption: 'Kitchen' },
+      ],
+      lastSoldPrice: 875000, lastSoldDate: '2012-03-10',
+    },
+    {
+      mockId: 'l-4',
+      address: '2200 Willow Glen Way', city: 'San Jose', state: 'CA', zip: '95125', county: 'Santa Clara',
+      lat: 37.2969, lng: -121.9008,
+      beds: 3, baths: 2, bathsFull: 1, bathsHalf: 1, sqft: 1620, lotSqft: 5800, lotSizeAcres: 0.13, yearBuilt: 1940,
+      propertyType: 'SINGLE_FAMILY', stories: 1, architecturalStyle: 'Craftsman Bungalow',
+      constructionMaterials: ['Wood frame', 'Wood siding'],
+      roof: 'Composition shingle', foundation: ['Raised perimeter'], basement: 'None',
+      features: {
+        pool: false, garage: true, fireplace: true, spa: false,
+        heating: ['Wall furnace', 'Gas'], cooling: ['Window unit'],
+        appliances: ['Gas range', 'Refrigerator', 'Dishwasher', 'Disposal'],
+        flooring: ['Hardwood', 'Vintage tile'], laundry: ['In garage'],
+        interiorFeatures: ['Breakfast nook', 'Built-in cabinetry', 'Period details', 'Coved ceilings', 'Arched doorways'],
+        exteriorFeatures: ['Wood siding', 'Detached garage', 'Mature garden'],
+        fencing: 'Picket fence', view: 'Tree-lined street', waterfront: false,
+        patioAndPorch: ['Front porch', 'Rear patio'],
+      },
+      parkingSpaces: 1, garageSpaces: 1, parkingFeatures: ['Garage - Detached', 'Street parking'],
+      lotFeatures: ['Mature trees', 'Landscaped', 'Rose garden'],
+      roomsCount: 7,
+      taxAssessedValue: 720000, taxAnnualAmount: 8640, taxYear: 2025, parcelNumber: '264-31-118',
+      walkabilityScore: 85, transitScore: 45, bikeScore: 78,
+      neighborhood: 'Willow Glen',
+      elementarySchool: 'Willow Glen Elementary', elementarySchoolDistrict: 'San Jose Unified',
+      middleSchool: 'Willow Glen Middle', middleSchoolDistrict: 'San Jose Unified',
+      highSchool: 'Willow Glen High', highSchoolDistrict: 'San Jose Unified',
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&h=600&fit=crop', caption: 'Front exterior' },
+        { url: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800&h=600&fit=crop', caption: 'Living room' },
+        { url: 'https://images.unsplash.com/photo-1600573472572-8aba140b2c78?w=800&h=600&fit=crop', caption: 'Kitchen' },
+      ],
+      lastSoldPrice: 650000, lastSoldDate: '2010-11-05',
+    },
+    {
+      mockId: 'l-5',
+      address: '1580 University Avenue', city: 'Mountain View', state: 'CA', zip: '94040', county: 'Santa Clara',
+      lat: 37.3861, lng: -122.0839,
+      beds: 2, baths: 2, bathsFull: 2, bathsHalf: 0, sqft: 1200, lotSqft: 4500, lotSizeAcres: 0.10, yearBuilt: 1955,
+      propertyType: 'TOWNHOME', stories: 2, architecturalStyle: 'Contemporary',
+      constructionMaterials: ['Wood frame', 'Stucco'],
+      roof: 'Composition shingle', foundation: ['Slab'], basement: 'None',
+      features: {
+        pool: false, garage: false, fireplace: false, spa: false,
+        heating: ['Forced air', 'Electric'], cooling: ['Central AC'],
+        appliances: ['Dishwasher', 'Electric range', 'Microwave', 'Refrigerator', 'Disposal'],
+        flooring: ['Luxury vinyl plank', 'Tile'], laundry: ['In-unit', 'Stackable'],
+        interiorFeatures: ['Modern finishes', 'Quartz countertops', 'Recessed lighting', 'USB outlets'],
+        exteriorFeatures: ['Stucco', 'Private patio', 'EV charging station'],
+        fencing: 'Shared HOA', view: 'Courtyard', waterfront: false,
+        patioAndPorch: ['Private patio'],
+      },
+      parkingSpaces: 1, garageSpaces: 0, parkingFeatures: ['Assigned carport', 'Guest parking'],
+      lotFeatures: ['Common area', 'Near transit'],
+      roomsCount: 5,
+      taxAssessedValue: 780000, taxAnnualAmount: 9360, taxYear: 2025, parcelNumber: '158-44-020',
+      hoaFee: 485, hoaFeeFrequency: 'monthly',
+      walkabilityScore: 88, transitScore: 72, bikeScore: 90,
+      neighborhood: 'Downtown Mountain View',
+      elementarySchool: 'Bubb Elementary', elementarySchoolDistrict: 'Mountain View Whisman',
+      middleSchool: 'Graham Middle', middleSchoolDistrict: 'Mountain View Whisman',
+      highSchool: 'Los Altos High', highSchoolDistrict: 'Mountain View-Los Altos',
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop', caption: 'Front exterior' },
+        { url: 'https://images.unsplash.com/photo-1600566753376-12c8ab7c5a38?w=800&h=600&fit=crop', caption: 'Interior' },
+      ],
+      lastSoldPrice: 720000, lastSoldDate: '2016-08-20',
+    },
+    {
+      mockId: 'l-6',
+      address: '945 Cherry Blossom Lane', city: 'Saratoga', state: 'CA', zip: '95070', county: 'Santa Clara',
+      lat: 37.2638, lng: -122.0230,
+      beds: 5, baths: 3.5, bathsFull: 3, bathsHalf: 1, sqft: 3200, lotSqft: 15000, lotSizeAcres: 0.34, yearBuilt: 1988,
+      propertyType: 'SINGLE_FAMILY', stories: 2, architecturalStyle: 'Mediterranean',
+      constructionMaterials: ['Wood frame', 'Stucco'],
+      roof: 'Clay tile', foundation: ['Slab', 'Concrete'], basement: 'None',
+      features: {
+        pool: true, garage: true, fireplace: true, spa: true,
+        heating: ['Forced air', 'Gas', 'Radiant'], cooling: ['Central AC', 'Zoned'],
+        appliances: ['Viking range', 'Sub-Zero refrigerator', 'Bosch dishwasher', 'Built-in espresso machine', 'Wine fridge', 'Disposal'],
+        flooring: ['Hardwood', 'Travertine', 'Heated tile'], laundry: ['Laundry room', 'Washer', 'Dryer'],
+        interiorFeatures: ['Gourmet kitchen', 'Formal dining', 'Home theater', 'Outdoor fireplace', 'Built-in speakers'],
+        exteriorFeatures: ['Stucco', 'Pool', 'Spa', 'Outdoor kitchen', 'Built-in BBQ', 'Sport court'],
+        fencing: 'Block wall', view: 'Foothills', waterfront: false,
+        patioAndPorch: ['Covered patio', 'Loggia', 'Pool deck'],
+      },
+      parkingSpaces: 4, garageSpaces: 3, parkingFeatures: ['Garage - Attached', 'Driveway - Oversized'],
+      lotFeatures: ['Pool/Spa', 'Sport court', 'Flat', 'Sprinklers', 'Fruit trees'],
+      roomsCount: 13,
+      taxAssessedValue: 2200000, taxAnnualAmount: 26400, taxYear: 2025, parcelNumber: '389-07-055',
+      walkabilityScore: 35, transitScore: 18, bikeScore: 42,
+      neighborhood: 'Saratoga Hills',
+      elementarySchool: 'Argonaut Elementary', elementarySchoolDistrict: 'Saratoga Union',
+      middleSchool: 'Redwood Middle', middleSchoolDistrict: 'Saratoga Union',
+      highSchool: 'Saratoga High', highSchoolDistrict: 'Los Gatos-Saratoga Joint Union',
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&h=600&fit=crop', caption: 'Front exterior' },
+        { url: 'https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop', caption: 'Living room' },
+        { url: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop', caption: 'Pool' },
+        { url: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&h=600&fit=crop', caption: 'Kitchen' },
+      ],
+      lastSoldPrice: 1800000, lastSoldDate: '2014-04-12',
+    },
+    {
+      mockId: 'l-7',
+      address: '310 Waverly Street', city: 'Menlo Park', state: 'CA', zip: '94025', county: 'San Mateo',
+      lat: 37.4530, lng: -122.1817,
+      beds: 4, baths: 3, bathsFull: 2, bathsHalf: 1, sqft: 2400, lotSqft: 7200, lotSizeAcres: 0.17, yearBuilt: 1948,
+      propertyType: 'SINGLE_FAMILY', stories: 1, architecturalStyle: 'Mid-Century Modern',
+      constructionMaterials: ['Wood frame', 'Board and batten'],
+      roof: 'Flat/low-slope', foundation: ['Concrete perimeter'], basement: 'None',
+      features: {
+        pool: false, garage: true, fireplace: true, spa: false,
+        heating: ['Forced air', 'Gas'], cooling: ['Mini-split'],
+        appliances: ['Bosch dishwasher', 'Gas range', 'Refrigerator', 'Microwave', 'Disposal'],
+        flooring: ['Hardwood', 'Slate'], laundry: ['In-unit', 'Washer', 'Dryer'],
+        interiorFeatures: ['Designer kitchen', 'Post-and-beam ceilings', 'Clerestory windows', 'Heritage redwood paneling'],
+        exteriorFeatures: ['Board and batten', 'Japanese garden', 'Mature redwoods'],
+        fencing: 'Cedar', view: 'Garden', waterfront: false,
+        patioAndPorch: ['Rear deck', 'Courtyard entry'],
+      },
+      parkingSpaces: 2, garageSpaces: 1, parkingFeatures: ['Garage - Attached', 'Driveway'],
+      lotFeatures: ['Mature trees', 'Japanese garden', 'Level'],
+      roomsCount: 9,
+      taxAssessedValue: 1950000, taxAnnualAmount: 23400, taxYear: 2025, parcelNumber: '071-19-044',
+      walkabilityScore: 75, transitScore: 48, bikeScore: 80,
+      neighborhood: 'Central Menlo Park',
+      elementarySchool: 'Oak Knoll Elementary', elementarySchoolDistrict: 'Menlo Park City',
+      middleSchool: 'Hillview Middle', middleSchoolDistrict: 'Menlo Park City',
+      highSchool: 'Menlo-Atherton High', highSchoolDistrict: 'Sequoia Union',
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop', caption: 'Front exterior' },
+        { url: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop', caption: 'Living room' },
+        { url: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop', caption: 'Kitchen' },
+      ],
+      lastSoldPrice: 1650000, lastSoldDate: '2017-01-30',
+    },
+    {
+      mockId: 'l-8',
+      address: '88 Sunnyvale Avenue', city: 'Sunnyvale', state: 'CA', zip: '94086', county: 'Santa Clara',
+      lat: 37.3688, lng: -122.0363,
+      beds: 2, baths: 1, bathsFull: 1, bathsHalf: 0, sqft: 980, lotSqft: 3500, lotSizeAcres: 0.08, yearBuilt: 1960,
+      propertyType: 'CONDO', stories: 1, architecturalStyle: 'Garden-style',
+      constructionMaterials: ['Wood frame', 'Stucco'],
+      roof: 'Composition shingle', foundation: ['Slab'], basement: 'None',
+      features: {
+        pool: true, garage: false, fireplace: false, spa: false,
+        heating: ['Wall heater', 'Electric'], cooling: ['Window unit'],
+        appliances: ['Electric range', 'Refrigerator', 'Dishwasher', 'Disposal'],
+        flooring: ['Carpet', 'Vinyl'], laundry: ['In-unit', 'Stackable'],
+        interiorFeatures: ['Breakfast bar', 'Coat closet'],
+        exteriorFeatures: ['Stucco', 'Community pool', 'Gated entry'],
+        communityFeatures: ['Pool', 'Laundry facility', 'Gated access', 'Near Murphy Avenue shops'],
+        fencing: 'Complex perimeter', view: 'Courtyard', waterfront: false,
+        patioAndPorch: ['Small balcony'],
+      },
+      parkingSpaces: 1, garageSpaces: 0, parkingFeatures: ['Assigned carport'],
+      roomsCount: 4,
+      taxAssessedValue: 520000, taxAnnualAmount: 6240, taxYear: 2025, parcelNumber: '209-42-008',
+      hoaFee: 380, hoaFeeFrequency: 'monthly',
+      walkabilityScore: 90, transitScore: 62, bikeScore: 85,
+      neighborhood: 'Downtown Sunnyvale',
+      elementarySchool: 'Sunnyvale Middle', elementarySchoolDistrict: 'Sunnyvale',
+      middleSchool: 'Sunnyvale Middle', middleSchoolDistrict: 'Sunnyvale',
+      highSchool: 'Fremont High', highSchoolDistrict: 'Fremont Union',
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1600047509358-9dc75507daeb?w=800&h=600&fit=crop', caption: 'Exterior' },
+        { url: 'https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=800&h=600&fit=crop', caption: 'Living area' },
+      ],
+      lastSoldPrice: 480000, lastSoldDate: '2019-07-18',
+    },
+    {
+      mockId: 'l-9',
+      address: '809 Midvale Lane', city: 'San Jose', state: 'CA', zip: '95120', county: 'Santa Clara',
+      lat: 37.2510, lng: -121.8620,
+      beds: 4, baths: 3, bathsFull: 2, bathsHalf: 1, sqft: 2200, lotSqft: 7500, lotSizeAcres: 0.17, yearBuilt: 1972,
+      propertyType: 'SINGLE_FAMILY', stories: 1, architecturalStyle: 'Ranch',
+      constructionMaterials: ['Wood frame', 'Stucco'],
+      roof: 'Composition shingle', foundation: ['Slab', 'Concrete'], basement: 'None',
+      features: {
+        pool: true, garage: true, fireplace: true, spa: false,
+        heating: ['Forced air', 'Gas'], cooling: ['Central AC'],
+        appliances: ['Gas range', 'Refrigerator', 'Dishwasher', 'Microwave', 'Disposal', 'Trash compactor'],
+        flooring: ['Hardwood', 'Carpet', 'Tile'], laundry: ['In-unit', 'Washer', 'Dryer'],
+        interiorFeatures: ['Vaulted ceilings', 'Skylights', 'Wet bar', 'Recessed lighting', 'Dual-pane windows', 'Plantation shutters'],
+        exteriorFeatures: ['Stucco', 'In-ground pool', 'Built-in BBQ', 'Side yard access', 'RV parking potential'],
+        securityFeatures: ['Security system', 'Motion sensors'],
+        greenFeatures: { solarPanels: true, solarOwned: true, tanklessWaterHeater: true },
+        fencing: 'Block wall', view: 'Foothills', waterfront: false,
+        patioAndPorch: ['Covered patio', 'Pool deck', 'Side patio'],
+      },
+      parkingSpaces: 3, garageSpaces: 2, parkingFeatures: ['Garage - Attached', 'Driveway - Extended', 'RV potential'],
+      lotFeatures: ['Pool', 'Flat', 'Sprinklers', 'Fruit trees', 'Side yard'],
+      roomsCount: 10,
+      rooms: [
+        { roomType: 'Living Room', dimensions: '18x14', level: 'Main' },
+        { roomType: 'Family Room', dimensions: '16x12', level: 'Main' },
+        { roomType: 'Kitchen', dimensions: '14x12', level: 'Main' },
+        { roomType: 'Primary Bedroom', dimensions: '16x14', level: 'Main' },
+        { roomType: 'Bedroom 2', dimensions: '12x11', level: 'Main' },
+        { roomType: 'Bedroom 3', dimensions: '12x10', level: 'Main' },
+        { roomType: 'Bedroom 4', dimensions: '11x10', level: 'Main' },
+        { roomType: 'Office/Den', dimensions: '10x10', level: 'Main' },
+        { roomType: 'Dining Room', dimensions: '12x10', level: 'Main' },
+        { roomType: 'Laundry', dimensions: '8x6', level: 'Main' },
+      ],
+      taxAssessedValue: 1100000, taxAnnualAmount: 13200, taxYear: 2025, parcelNumber: '455-22-067',
+      sewer: 'Public sewer', waterSource: 'Public', electric: 'PG&E', gas: 'Natural gas',
+      walkabilityScore: 42, transitScore: 28, bikeScore: 50,
+      neighborhood: 'Almaden Valley',
+      elementarySchool: 'Graystone Elementary', elementarySchoolDistrict: 'San Jose Unified',
+      middleSchool: 'Bret Harte Middle', middleSchoolDistrict: 'San Jose Unified',
+      highSchool: 'Leland High', highSchoolDistrict: 'San Jose Unified',
+      nearbySchools: [
+        { name: 'Graystone Elementary', type: 'public', level: 'Elementary', distance: 0.4, rating: 8, grades: 'K-5', isAssigned: true },
+        { name: 'Bret Harte Middle', type: 'public', level: 'Middle', distance: 1.1, rating: 7, grades: '6-8', isAssigned: true },
+        { name: 'Leland High', type: 'public', level: 'High', distance: 1.8, rating: 8, grades: '9-12', isAssigned: true },
+      ],
+      photos: [
+        { url: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop', caption: 'Front exterior' },
+      ],
+      lastSoldPrice: 920000, lastSoldDate: '2013-10-08',
+      zillowUrl: 'https://www.zillow.com/homedetails/809-Midvale-Ln-San-Jose-CA-95120/',
+      priceHistory: [
+        { date: '2013-10-08', event: 'Sold', price: 920000, pricePerSqft: 418, source: 'MLS' },
+        { date: '2005-06-15', event: 'Sold', price: 685000, pricePerSqft: 311, source: 'Public records' },
+        { date: '1998-03-20', event: 'Sold', price: 385000, pricePerSqft: 175, source: 'Public records' },
+      ],
+      taxHistory: [
+        { year: 2025, taxAmount: 13200, value: 1100000 },
+        { year: 2024, taxAmount: 12800, value: 1070000 },
+        { year: 2023, taxAmount: 12400, value: 1040000 },
+      ],
+      dataCompletenessScore: 0.85,
+    },
+  ];
+
+  for (const p of propertyData) {
+    const id = randomUUID();
+    propertyMap[p.mockId] = id;
+    await db.insert(properties).values({
+      id,
+      address: p.address,
+      city: p.city,
+      state: p.state,
+      zip: p.zip,
+      county: p.county,
+      lat: p.lat,
+      lng: p.lng,
+      beds: p.beds,
+      baths: p.baths,
+      bathsFull: p.bathsFull,
+      bathsHalf: p.bathsHalf,
+      sqft: p.sqft,
+      lotSqft: p.lotSqft,
+      lotSizeAcres: p.lotSizeAcres,
+      yearBuilt: p.yearBuilt,
+      propertyType: p.propertyType,
+      stories: p.stories,
+      architecturalStyle: p.architecturalStyle,
+      constructionMaterials: p.constructionMaterials,
+      roof: p.roof,
+      foundation: p.foundation,
+      basement: p.basement,
+      features: p.features,
+      parkingSpaces: p.parkingSpaces,
+      garageSpaces: p.garageSpaces,
+      parkingFeatures: p.parkingFeatures,
+      lotFeatures: p.lotFeatures,
+      roomsCount: p.roomsCount,
+      rooms: 'rooms' in p ? p.rooms : undefined,
+      taxAssessedValue: p.taxAssessedValue,
+      taxAnnualAmount: p.taxAnnualAmount,
+      taxYear: p.taxYear,
+      parcelNumber: p.parcelNumber,
+      hoaFee: 'hoaFee' in p ? (p as any).hoaFee : undefined,
+      hoaFeeFrequency: 'hoaFeeFrequency' in p ? (p as any).hoaFeeFrequency : undefined,
+      sewer: 'sewer' in p ? (p as any).sewer : undefined,
+      waterSource: 'waterSource' in p ? (p as any).waterSource : undefined,
+      electric: 'electric' in p ? (p as any).electric : undefined,
+      gas: 'gas' in p ? (p as any).gas : undefined,
+      walkabilityScore: p.walkabilityScore,
+      transitScore: p.transitScore,
+      bikeScore: p.bikeScore,
+      neighborhood: p.neighborhood,
+      elementarySchool: p.elementarySchool,
+      elementarySchoolDistrict: p.elementarySchoolDistrict,
+      middleSchool: p.middleSchool,
+      middleSchoolDistrict: p.middleSchoolDistrict,
+      highSchool: p.highSchool,
+      highSchoolDistrict: p.highSchoolDistrict,
+      nearbySchools: 'nearbySchools' in p ? p.nearbySchools : undefined,
+      photos: p.photos,
+      lastSoldPrice: p.lastSoldPrice,
+      lastSoldDate: parseDate(p.lastSoldDate),
+      zillowUrl: 'zillowUrl' in p ? (p as any).zillowUrl : undefined,
+      priceHistory: 'priceHistory' in p ? p.priceHistory : undefined,
+      taxHistory: 'taxHistory' in p ? p.taxHistory : undefined,
+      dataCompletenessScore: 'dataCompletenessScore' in p ? (p as any).dataCompletenessScore : undefined,
+    });
+  }
+
+  // ─── 4b. Listings ──────────────────────────────────────────────────────
   console.log('  Inserting listings...');
   const listingData = [
     { mockId: 'l-1', address: '123 Main Street', city: 'Los Gatos', state: 'CA', zip: '95030', price: 2495000, beds: 4, baths: 3, sqft: 2850, lotSqft: 8500, yearBuilt: 1965, propertyType: 'Single Family', mlsNumber: 'ML81928374', phase: 'active' as const, underContract: false, daysInPhase: 5, daysOnMarket: 5, listDate: '2026-04-04', targetListDate: '2026-04-04', agentMock: 'tm-1', clientMock: 'c-1', photoUrl: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop', photos: ['https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop', 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop'], lat: 37.2358, lng: -121.9624, tasksDone: 18, tasksTotal: 26, documentsCount: 14, showingsCount: 8, offersCount: 2, zillowViews: 1243, zillowSaves: 67, description: 'Beautifully remodeled ranch-style home in the heart of Los Gatos.', features: ['Remodeled kitchen', 'Hardwood floors', 'Private backyard', 'Two-car garage', 'Central AC', 'Smart home'] },
@@ -226,6 +640,188 @@ async function main() {
       features: l.features,
     });
   }
+
+  // ─── 4c. Link listings → properties ─────────────────────────────────
+  console.log('  Linking listings to properties...');
+  for (const [mockId, propertyId] of Object.entries(propertyMap)) {
+    const listingId = listingMap[mockId];
+    if (listingId) {
+      await db.update(listings).set({ propertyId }).where(eq(listings.id, listingId));
+    }
+  }
+
+  // ─── 4d. Buyer Preferences ────────────────────────────────────────────
+  console.log('  Inserting buyer preferences...');
+  const buyerPreferenceData = [
+    {
+      contactMock: 'c-5', // Sarah Kim
+      lookingForType: 'buy',
+      preferredBedsMin: 4,
+      preferredBathsMin: 2.5,
+      preferredSqftMin: 2200,
+      preferredPriceMax: 2500000,
+      preferredAreas: ['Los Gatos', 'Saratoga'],
+      preferredPropertyTypes: ['single_family'],
+      preferredFeatures: [
+        { feature: 'good_schools', required: true },
+        { feature: 'garage', required: true },
+        { feature: 'backyard', required: false },
+      ],
+      notes: 'Relocating family with two school-age kids. Top priority is school district quality. Prefers Los Gatos schools.',
+    },
+    {
+      contactMock: 'c-6', // Brian Foster
+      lookingForType: 'buy',
+      preferredBedsMin: 2,
+      preferredBedsMax: 3,
+      preferredBathsMin: 2,
+      preferredSqftMin: 1600,
+      preferredSqftMax: 2800,
+      preferredPriceMax: 3000000,
+      preferredAreas: ['Los Altos', 'Mountain View', 'Palo Alto'],
+      preferredPropertyTypes: ['single_family'],
+      preferredFeatures: [
+        { feature: 'single_story', required: true },
+        { feature: 'low_maintenance_yard', required: false },
+        { feature: 'updated_kitchen', required: false },
+      ],
+      notes: 'Downsizer couple, retiring. Must be single story — mobility considerations. Prefer turnkey, minimal renovation.',
+    },
+    {
+      contactMock: 'c-7', // Diana Reyes
+      lookingForType: 'buy',
+      preferredBedsMin: 4,
+      preferredBathsMin: 2.5,
+      preferredSqftMin: 2400,
+      preferredPriceMin: 2000000,
+      preferredPriceMax: 3500000,
+      preferredAreas: ['Cupertino', 'Sunnyvale'],
+      preferredPropertyTypes: ['single_family'],
+      preferredFeatures: [
+        { feature: 'good_schools', required: true },
+        { feature: 'pool', required: false },
+        { feature: 'home_office', required: true },
+      ],
+      notes: 'Tech relocatee family moving from Seattle. Cupertino schools are the draw. Needs home office for remote work. Flexible on age of home but wants move-in ready.',
+    },
+  ];
+
+  for (const bp of buyerPreferenceData) {
+    await db.insert(buyerPreferences).values({
+      id: randomUUID(),
+      contactId: contactMap[bp.contactMock],
+      lookingForType: bp.lookingForType,
+      isActive: true,
+      preferredBedsMin: bp.preferredBedsMin,
+      preferredBedsMax: 'preferredBedsMax' in bp ? bp.preferredBedsMax : undefined,
+      preferredBathsMin: bp.preferredBathsMin,
+      preferredSqftMin: bp.preferredSqftMin,
+      preferredSqftMax: 'preferredSqftMax' in bp ? bp.preferredSqftMax : undefined,
+      preferredPriceMin: 'preferredPriceMin' in bp ? bp.preferredPriceMin : undefined,
+      preferredPriceMax: bp.preferredPriceMax,
+      preferredAreas: bp.preferredAreas,
+      preferredPropertyTypes: bp.preferredPropertyTypes,
+      preferredFeatures: bp.preferredFeatures,
+      notes: bp.notes,
+    });
+  }
+
+  // ─── 4e. External Listings ────────────────────────────────────────────
+  console.log('  Inserting external listings...');
+
+  // External property: Sarah Kim mentions a new listing she has in Los Gatos
+  const extProp1Id = randomUUID();
+  await db.insert(properties).values({
+    id: extProp1Id,
+    address: '1425 Bachman Drive',
+    city: 'Los Gatos',
+    state: 'CA',
+    zip: '95032',
+    county: 'Santa Clara',
+    lat: 37.2285,
+    lng: -121.9550,
+    beds: 4,
+    baths: 3,
+    sqft: 2650,
+    lotSqft: 9200,
+    yearBuilt: 1975,
+    propertyType: 'SINGLE_FAMILY',
+    stories: 2,
+    features: {
+      pool: false, garage: true, fireplace: true,
+      heating: ['Forced air', 'Gas'], cooling: ['Central AC'],
+      flooring: ['Hardwood', 'Carpet'],
+    },
+    walkabilityScore: 55,
+    transitScore: 30,
+    bikeScore: 48,
+    neighborhood: 'Blossom Hill',
+    photos: [],
+  });
+
+  await db.insert(externalListings).values({
+    id: randomUUID(),
+    propertyId: extProp1Id,
+    teamId,
+    source: 'agent_mention',
+    mentionedBy: 'Sarah Kim (Compass)',
+    listedPrice: 2295000,
+    listedDate: parseDate('2026-04-10'),
+    status: 'active',
+    listingAgentName: 'Sarah Kim',
+    listingAgentEmail: 'sarah.kim@compass.com',
+    listingAgentPhone: '(650) 555-2200',
+    listingAgentCompany: 'Compass',
+    relevanceTo: 'Buyers looking for 4BR in Los Gatos under $2.5M',
+    notes: 'Sarah mentioned this at the 123 Main open house. Just listed — 4BR/3BA on a quiet cul-de-sac. Updated kitchen. Could work for relocatee families targeting Los Gatos schools.',
+    isActive: true,
+  });
+
+  // External property: market scan find in Cupertino
+  const extProp2Id = randomUUID();
+  await db.insert(properties).values({
+    id: extProp2Id,
+    address: '10340 Ainsworth Drive',
+    city: 'Cupertino',
+    state: 'CA',
+    zip: '95014',
+    county: 'Santa Clara',
+    lat: 37.3180,
+    lng: -122.0410,
+    beds: 5,
+    baths: 3,
+    sqft: 2800,
+    lotSqft: 8800,
+    yearBuilt: 1968,
+    propertyType: 'SINGLE_FAMILY',
+    stories: 1,
+    features: {
+      pool: true, garage: true, fireplace: true,
+      heating: ['Forced air', 'Gas'], cooling: ['Central AC'],
+      flooring: ['Hardwood', 'Tile'],
+    },
+    walkabilityScore: 52,
+    transitScore: 35,
+    bikeScore: 62,
+    neighborhood: 'Rancho Rinconada',
+    photos: [],
+  });
+
+  await db.insert(externalListings).values({
+    id: randomUUID(),
+    propertyId: extProp2Id,
+    teamId,
+    source: 'market_scan',
+    sourceUrl: 'https://www.redfin.com/CA/Cupertino/10340-Ainsworth-Dr-95014',
+    listedPrice: 2850000,
+    listedDate: parseDate('2026-04-08'),
+    status: 'active',
+    listingAgentName: 'James Liu',
+    listingAgentCompany: 'Coldwell Banker',
+    relevanceTo: 'Diana Reyes buyer — 4BR+ Cupertino schools',
+    notes: 'Flagged in daily market scan. 5BR single-story in Cupertino with pool. In Monta Vista HS district. Worth sharing with Diana Reyes for her tech relocatee client.',
+    isActive: true,
+  });
 
   // ─── 5. Tasks ─────────────────────────────────────────────────────────
   console.log('  Inserting tasks...');

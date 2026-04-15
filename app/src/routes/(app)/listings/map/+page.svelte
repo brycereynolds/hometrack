@@ -73,7 +73,7 @@
 						<div style="font-weight: 600; font-size: 14px; margin-bottom: 2px;">${listing.address}</div>
 						<div style="font-size: 12px; color: #6b7280; margin-bottom: 6px;">${listing.city}, ${listing.state} ${listing.zip}</div>
 						<div style="display: flex; align-items: center; justify-content: space-between;">
-							<span style="font-weight: 700; font-size: 15px;">${listing.price ? formatCurrency(listing.price) : 'Unset'}</span>
+							<span style="font-weight: 700; font-size: 15px;">${listing.price ? formatCurrency(listing.price) : 'No Price'}</span>
 							<span style="font-size: 11px; padding: 2px 8px; border-radius: 9999px; color: white; background-color: ${phaseConfig.color};">${phaseConfig.label}</span>
 						</div>
 						<div style="font-size: 12px; color: #6b7280; margin-top: 4px;">${listing.beds ?? 0} bd &middot; ${listing.baths ?? 0} ba &middot; ${(listing.sqft ?? 0).toLocaleString()} sqft</div>
@@ -176,7 +176,7 @@
 								<p class="text-sm font-medium truncate">{listing.address}</p>
 								<p class="text-xs text-muted-foreground">{listing.city}</p>
 								<div class="mt-1 flex items-center justify-between">
-									{#if listing.price}<span class="text-sm font-semibold">{formatCurrency(listing.price)}</span>{:else}<span class="text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">Unset</span>{/if}
+									{#if listing.price}<span class="text-sm font-semibold">{formatCurrency(listing.price)}</span>{:else}<span class="text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">No Price</span>{/if}
 									<Badge
 										variant="outline"
 										class="text-[10px]"

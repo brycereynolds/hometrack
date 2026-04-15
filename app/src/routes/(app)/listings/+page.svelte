@@ -219,7 +219,7 @@
 										{formatCurrency(listing.price)}
 									</Badge>
 								{:else}
-									<Badge class="text-xs font-medium shadow-sm bg-muted/90 text-muted-foreground backdrop-blur-sm">Unset</Badge>
+									<Badge class="text-xs font-medium shadow-sm bg-muted/90 text-muted-foreground backdrop-blur-sm">No Price</Badge>
 								{/if}
 								{#if listing.phase === 'active' && listing.underContract}
 									<Badge class="text-xs font-semibold shadow-sm bg-amber-500/90 text-white backdrop-blur-sm">
@@ -350,7 +350,7 @@
 						{formatCurrency(listing.price)}
 					</Badge>
 				{:else}
-					<Badge class="text-xs font-medium shadow-sm bg-muted/90 text-muted-foreground backdrop-blur-sm">Unset</Badge>
+					<Badge class="text-xs font-medium shadow-sm bg-muted/90 text-muted-foreground backdrop-blur-sm">No Price</Badge>
 				{/if}
 			</div>
 			<div class="absolute top-2 right-2">

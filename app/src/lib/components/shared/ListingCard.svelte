@@ -64,7 +64,7 @@
       {#if priceFormatted}
         <p class="mt-1 font-serif text-lg font-bold text-foreground">{priceFormatted}</p>
       {:else}
-        <span class="mt-1 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">Unset</span>
+        <span class="mt-1 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">No Price</span>
       {/if}
 
       <!-- Stats row -->
@@ -148,7 +148,7 @@
         {#if priceFormatted}
         <p class="mt-0.5 font-serif text-lg font-bold text-foreground">{priceFormatted}</p>
       {:else}
-        <span class="mt-0.5 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">Unset</span>
+        <span class="mt-0.5 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">No Price</span>
       {/if}
         <div class="mt-1 flex items-center gap-3 text-xs text-foreground-muted">
           <span>{listing.beds}bd / {listing.baths}ba / {(listing.sqft ?? 0).toLocaleString()} sqft</span>

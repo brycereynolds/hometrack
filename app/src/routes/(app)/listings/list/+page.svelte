@@ -202,7 +202,7 @@
 								</td>
 								<!-- Price -->
 								<td class="px-4 py-3">
-									{#if listing.price}<span class="text-sm font-semibold tabular-nums">{formatCurrency(listing.price)}</span>{:else}<span class="text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">Unset</span>{/if}
+									{#if listing.price}<span class="text-sm font-semibold tabular-nums">{formatCurrency(listing.price)}</span>{:else}<span class="text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">No Price</span>{/if}
 								</td>
 								<!-- Phase -->
 								<td class="px-4 py-3">

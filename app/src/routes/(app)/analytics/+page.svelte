@@ -247,7 +247,7 @@
 											{PHASES[listing.phase].label}
 										</Badge>
 									</td>
-									<td class="px-4 py-2.5 text-right font-mono">{listing.price ? formatCurrency(listing.price) : 'Unset'}</td>
+									<td class="px-4 py-2.5 text-right font-mono">{listing.price ? formatCurrency(listing.price) : 'No Price'}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.daysOnMarket || '—'}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.zillowViews ? formatNumber(listing.zillowViews) : '—'}</td>
 									<td class="px-4 py-2.5 text-right font-mono">{listing.offersCount || '—'}</td>

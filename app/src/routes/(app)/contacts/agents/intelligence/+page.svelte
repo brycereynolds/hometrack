@@ -452,7 +452,7 @@
 											{match.listing.address}
 										</a>
 										<p class="text-xs text-muted-foreground">{match.listing.city}, {match.listing.state}</p>
-										<p class="mt-0.5 text-sm font-semibold text-primary">{match.listing.price ? formatCurrency(match.listing.price) : 'Unset'}</p>
+										<p class="mt-0.5 text-sm font-semibold text-primary">{match.listing.price ? formatCurrency(match.listing.price) : 'No Price'}</p>
 									</div>
 								</div>
 								<div class="mt-4 space-y-2 text-sm">
@@ -469,7 +469,7 @@
 									<div class="flex items-center gap-2">
 										<DollarSign class="size-3.5 text-muted-foreground" />
 										<span class="text-muted-foreground">Price:</span>
-										<span class="font-medium">{match.listing.price ? formatCurrency(match.listing.price) : 'Unset'}</span>
+										<span class="font-medium">{match.listing.price ? formatCurrency(match.listing.price) : 'No Price'}</span>
 									</div>
 									<div class="mt-2">
 										<span
@@ -675,7 +675,7 @@
 												<a href="/listings/{listing.id}" class="text-sm font-medium hover:text-primary">
 													{listing.address}
 												</a>
-												<p class="text-[11px] text-muted-foreground">{listing.city} | {listing.beds ?? 0}BR | {listing.price ? formatCurrency(listing.price) : 'Unset'}</p>
+												<p class="text-[11px] text-muted-foreground">{listing.city} | {listing.beds ?? 0}BR | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
 											</div>
 										</div>
 									</td>

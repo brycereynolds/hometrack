@@ -12,260 +12,207 @@ Listings Intelligence transforms HomeTrack's pricing and comp analysis capabilit
 
 ---
 
-## Part 1: Comp Data APIs Research & Recommendations
+## Part 1: Comp Data API — Realty API (RapidAPI)
 
-### 1.1 Available APIs Overview
+### 1.1 API Overview
 
-#### A. Zillow Group APIs (via RapidAPI)
-
-**Status:** Officially available via RapidAPI
-**Data Available:**
-- Property details (address, beds, baths, sqft, lot size, year built)
-- Sold price history
-- Active listing prices
-- Days on market
-- Price per sqft
-- Zestimate (Zillow valuation estimate)
-- Property photos
-- Nearby amenities
-
-**Pricing:**
-- RapidAPI pricing varies by endpoint and tier
-- Typically $50–$500/month for standard access
-- Enterprise pricing available
-
-**Rate Limits:**
-- Standard: 500–5,000 requests/month depending on plan
-- Enterprise plans support higher volumes
+**API:** Realty in US (by APIDoJo on RapidAPI)
+**Host:** `realty-in-us.p.rapidapi.com`
+**Status:** Active, well-maintained aggregator pulling from Realtor.com / Move Inc. data
+**Coverage:** Nationwide USA — active, pending, sold, and off-market properties
 
 **Authentication:**
-- RapidAPI key (X-RapidAPI-Key header)
-- Simple REST API calls
+```
+X-RapidAPI-Key: <your-rapidapi-key>
+X-RapidAPI-Host: realty-in-us.p.rapidapi.com
+```
 
-**Data Freshness:**
-- Updated daily to weekly depending on MLS data feeds
-- Varies by region
+**Pricing Tiers:**
 
-**Coverage:**
-- Nationwide USA coverage
-- Strong in major metros (Bay Area, LA, NYC, etc.)
+| Tier | Price | Requests/month | Rate Limit |
+|------|-------|----------------|------------|
+| Basic (Free) | $0 | 250 | 5 req/sec |
+| Pro | $10/mo | 5,000 | 10 req/sec |
+| Ultra | $30/mo | 20,000 | 10 req/sec |
+| Mega | $100/mo | 100,000 | 30 req/sec |
 
-**Endpoints:**
-- `property` — Get property details by ZPID
-- `search` — Search properties by location, criteria
-- `agent_search` — Find agents in area
-- `similar_properties` — Find comparable properties
-
-**Pros:**
-- Easiest to integrate (no licensing required)
-- Nationwide coverage
-- Rich data including Zestimate
-- Good documentation
-
-**Cons:**
-- No official API; relies on third-party RapidAPI
-- Rate limits for free/low tiers
-- Pricing adds up quickly at scale
+For our use case, the Pro tier ($10/mo, 5,000 requests) is sufficient for initial launch. A typical market analysis uses ~5–15 API calls (1 list search + detail calls per comp).
 
 ---
 
-#### B. Bridge Interactive / RESO Web API (Official MLS)
+### 1.2 Key Endpoints
 
-**Status:** Official MLS standard, MLS-specific access required
-**Data Available:**
-- Official MLS listing data (active, pending, sold)
-- Price history
-- Days on market
-- Property details (full IDX data)
-- Photos
-- Lot information
-- Building/subdivision info
+#### A. Property Search — `GET /properties/v3/list`
 
-**Pricing:**
-- No single price: varies by MLS
-- Typical regional MLS: $0–$500/month
-- Example: Miami Realtors MLS = $30–$100/month depending on tier
+Primary endpoint for finding comps. Supports searching by coordinates + radius, city, state, zip, or address.
 
-**Rate Limits:**
-- MLS-specific, typically very generous for authorized users
-- No per-call costs
+**Key Parameters:**
 
-**Authentication:**
-- OAuth 2.0
-- Credential required from MLS
-- Must have active MLS membership or broker affiliation
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `lat` | float | Latitude of center point |
+| `lng` | float | Longitude of center point |
+| `radius` | float | Search radius in miles (e.g., 0.5, 1, 2, 5) |
+| `status` | string | `for_sale`, `sold`, `ready_to_build`, `for_rent` |
+| `type` | string | `single_family`, `condo`, `townhome`, `multi_family`, `land`, `mobile`, `farm` |
+| `beds_min` / `beds_max` | int | Bedroom filter |
+| `baths_min` / `baths_max` | int | Bathroom filter |
+| `price_min` / `price_max` | int | Price range filter |
+| `sqft_min` / `sqft_max` | int | Square footage filter |
+| `lot_sqft_min` / `lot_sqft_max` | int | Lot size filter |
+| `sold_date_min` / `sold_date_max` | string | Sold date range (YYYY-MM-DD) — critical for comp dating |
+| `sort` | string | `sold_date`, `price_low`, `price_high`, `newest`, `relevant` |
+| `limit` | int | Results per page (max 200) |
+| `offset` | int | Pagination offset |
 
-**Data Freshness:**
-- Real-time to daily (varies by MLS)
-- Most accurate data available
+**Example — Search for sold comps within 0.5mi:**
 
-**Coverage:**
-- USA-wide but MLS-by-MLS
-- Regional availability depends on MLS adoption
+```bash
+curl -X GET "https://realty-in-us.p.rapidapi.com/properties/v3/list?\
+lat=37.7609&lng=-122.4240&radius=0.5&\
+status=sold&type=single_family&\
+beds_min=2&beds_max=4&\
+sold_date_min=2026-01-14&sold_date_max=2026-04-14&\
+sort=sold_date&limit=20" \
+  -H "X-RapidAPI-Key: YOUR_KEY" \
+  -H "X-RapidAPI-Host: realty-in-us.p.rapidapi.com"
+```
 
-**Key Advantage:**
-- Official data source, best for legal/compliance use cases
-- No rate limiting concerns
-- Most current and accurate
+**Response Fields (per property):**
 
-**Cons:**
-- Requires MLS membership (not accessible to all users)
-- Requires licensing agreement
-- Setup time and compliance requirements
-- Regional fragmentation (different APIs per MLS)
-
-**Application Process:**
-1. Contact your local MLS
-2. Request API access / RESO Web API credentials
-3. MLS approves (typically within days)
-4. Receive OAuth endpoints and credentials
-5. Start querying your MLS data
-
----
-
-#### C. ATTOM Data API
-
-**Status:** Enterprise property data provider
-**Data Available:**
-- 158M+ US property records
-- Tax/assessment data
-- Deed records
-- Valuations (ATTOM AVM)
-- Transaction history
-- Mortgage data
-- Foreclosure data
-
-**Pricing:**
-- Starts at $95/month
-- Custom pricing for higher volumes
-- Per-call pricing available
-- 30-day free trial
-
-**Rate Limits:**
-- Depends on plan (typically 1–10K calls/month on starter)
-- Enterprise plans unlimited
-
-**Authentication:**
-- API key (simple REST)
-
-**Data Freshness:**
-- Updated monthly to quarterly
-- Not real-time
-
-**Coverage:**
-- All 158M US properties
-- Nationwide
-
-**Pros:**
-- Comprehensive historical and tax data
-- AVMs for valuation estimates
-- Predictable pricing
-
-**Cons:**
-- Not MLS data (public records based)
-- Monthly/quarterly updates only
-- No photos
-- More expensive than Zillow for basic use
+```json
+{
+  "property_id": "R1234567890",
+  "listing_id": "2960012345",
+  "status": "sold",
+  "list_price": 1250000,
+  "sold_price": 1225000,
+  "price_per_sqft": 512,
+  "description": {
+    "beds": 3,
+    "baths": 2,
+    "baths_full": 2,
+    "sqft": 1200,
+    "lot_sqft": 2500,
+    "year_built": 1960,
+    "type": "single_family",
+    "stories": 2,
+    "garage": 1
+  },
+  "location": {
+    "address": {
+      "line": "789 Valencia Street",
+      "city": "San Francisco",
+      "state_code": "CA",
+      "postal_code": "94110"
+    },
+    "coordinate": {
+      "lat": 37.7609,
+      "lon": -122.4240
+    }
+  },
+  "photos": [
+    { "href": "https://photos.example.com/photo1.jpg" }
+  ],
+  "sold_date": "2026-03-15",
+  "list_date": "2026-02-01",
+  "days_on_market": 42,
+  "last_sold_price": 1225000,
+  "last_sold_date": "2026-03-15",
+  "tags": ["central_air", "garage_1_or_more", "fireplace"]
+}
+```
 
 ---
 
-#### D. RealtyAPI (Aggregated Data)
+#### B. Property Detail — `GET /properties/v3/detail`
 
-**Status:** Aggregator combining Zillow, Redfin, Realtor, Apartments.com
-**Data Available:**
-- Property details from multiple sources
-- Sales history
-- Rental comps
-- Photos
+Fetches full detail for a single property by `property_id`.
+
+**Parameters:**
+- `property_id` (string, required) — The property ID from search results
+
+**Example:**
+
+```bash
+curl -X GET "https://realty-in-us.p.rapidapi.com/properties/v3/detail?\
+property_id=R1234567890" \
+  -H "X-RapidAPI-Key: YOUR_KEY" \
+  -H "X-RapidAPI-Host: realty-in-us.p.rapidapi.com"
+```
+
+**Additional Fields (beyond list response):**
+- Full photo gallery (all photos with captions)
+- Tax history (annual assessments)
+- Price history (all price changes and sales)
+- Property history (sales, listings, delisted events)
+- Schools nearby
 - Neighborhood data
-
-**Pricing:**
-- Typically $100–$500/month depending on plan
-
-**Rate Limits:**
-- Varies by plan
-
-**Authentication:**
-- API key (REST)
-
-**Data Freshness:**
-- Aggregated, so varies by source
-
-**Pros:**
-- Single API for multiple data sources
-- Good for comparison shopping
-
-**Cons:**
-- Middleman (higher latency)
-- Not as accurate as direct source
+- Estimated mortgage
+- Open house schedule (if active)
 
 ---
 
-#### E. Redfin Data
+#### C. Property by Coordinates — `GET /properties/v3/list` (same endpoint)
 
-**Status:** No official API available
-**Access:**
-- No public API
-- Third-party scraper APIs available (legal gray area)
-- Redfin Scraper API available on RapidAPI (real-time scraping)
-
-**Recommendation:** Skip Redfin direct; use Zillow or RealtyAPI instead.
+For searching comps around a subject property, we use the list endpoint with `lat`, `lng`, and `radius` parameters. This is the primary method for our market analysis workflow.
 
 ---
 
-#### F. Realtor.com API
+#### D. Auto-Complete / Location Search — `GET /locations/v2/auto-complete`
 
-**Status:** Limited access, tightly controlled
-**Data Available:**
-- Official Realtor.com listings (Move Inc.)
-- MLS-sourced data
-- Rich property details
+Useful for geocoding when we only have an address string.
 
-**Access:**
-- Requires partnership/membership
-- No public API tier
+**Parameters:**
+- `input` (string) — Address or location text
 
-**Recommendation:** Use Bridge Interactive RESO API instead for direct MLS access (better legal standing).
+**Returns:** Matched locations with coordinates, used as fallback geocoding.
 
 ---
 
-#### G. homes.com API
+### 1.3 Rate Limiting Strategy
 
-**Status:** No dedicated data API found (2026 research)
-**Note:** homes.com does not appear to offer a public data API.
+**Request Budget Per Analysis:**
+- 1 call: Search sold comps (`/properties/v3/list?status=sold`)
+- 1 call: Search active listings (`/properties/v3/list?status=for_sale`)
+- 5–15 calls: Property detail for top comps (`/properties/v3/detail`)
+- **Total: ~7–17 calls per analysis**
 
----
+**Monthly Budget (Pro tier, 5,000 requests):**
+- ~290–700 analyses per month — sufficient for initial user base
+- Scale to Ultra ($30/mo, 20K requests) when needed
 
-### 1.2 Recommended API Strategy for HomeTrack
+**Caching Strategy:**
+- Cache property detail responses for 24 hours (property details don't change frequently)
+- Cache search results for 1 hour (new listings appear regularly)
+- Store all fetched comp data in `comp_listings` table for historical reference
+- Re-use cached comp data when user re-runs analysis with same parameters within cache window
 
-**Tiered Approach (Best for User Flexibility):**
-
-1. **Tier 1 (Primary): Bridge Interactive / RESO Web API**
-   - **When:** User has MLS access (any licensed agent/broker)
-   - **Why:** Official, most accurate, best for legal compliance
-   - **Usage:** Default for professionals with MLS credentials
-   - **Cost:** $0–$100/month per region (user's responsibility)
-
-2. **Tier 2 (Fallback): Zillow API via RapidAPI**
-   - **When:** No MLS access, or supplemental comp searching
-   - **Why:** Nationwide, no licensing required, easy to integrate
-   - **Usage:** Secondary for non-agents; supplemental for all users
-   - **Cost:** $50–$200/month (shared across team)
-
-3. **Tier 3 (Optional): ATTOM Data**
-   - **When:** Need historical transaction data, tax records, AVMs
-   - **Why:** Comprehensive public records data
-   - **Usage:** Valuation estimates, historical comps
-   - **Cost:** $95+/month (optional premium tier)
-
-**Implementation Approach:**
-- Start with Zillow API (easiest, no licensing)
-- Add RESO Web API support when users authenticate their MLS
-- Offer ATTOM as opt-in premium feature
+**Rate Limit Handling:**
+- Implement exponential backoff on 429 responses
+- Queue detail requests with 200ms delay between calls (stay under 5 req/sec on Basic)
+- Temporal activity retry policy: 3 retries with exponential backoff
 
 ---
 
-### 1.3 API Integration Architecture
+### 1.4 API Strategy
+
+**Primary (Now): Realty API via RapidAPI**
+- Immediate integration, no licensing required
+- Nationwide coverage with rich property data
+- Affordable for startup phase ($10/mo Pro tier)
+- Sufficient data fields for comp analysis: price, beds, baths, sqft, lot, year_built, sold_date, DOM, photos, coordinates
+
+**Future: Official MLS Access (Bridge Interactive / RESO Web API)**
+- Being pursued in parallel for better data quality and compliance
+- Official MLS data is more accurate and timely than aggregated sources
+- Required for IDX compliance if displaying listing data to end users
+- Will be added as a secondary data source when MLS credentials are obtained
+- See Appendix C for RESO Web API example requests
+
+---
+
+### 1.5 API Integration Architecture
 
 **Database Storage for Comp Data:**
 
@@ -274,8 +221,8 @@ Listings Intelligence transforms HomeTrack's pricing and comp analysis capabilit
 comp_listings (
   id (UUID)
   market_analysis_id (FK)
-  source ('zillow' | 'mls' | 'attom' | 'redfin_scraper')
-  external_id (string) -- ZPID, MLS#, etc.
+  source ('realty_api' | 'mls')
+  external_id (string) -- property_id from Realty API, MLS# from RESO
   address, city, state, zip
   price, price_per_sqft
   beds, baths, sqft, lot_sqft
@@ -293,21 +240,30 @@ comp_listings (
 api_usage_log (
   id (UUID)
   team_id (FK)
-  api_source ('zillow' | 'mls' | 'attom')
+  api_source ('realty_api' | 'mls')
+  endpoint (string) -- '/properties/v3/list', '/properties/v3/detail'
   calls_made
   timestamp
 )
 
--- Store user's API credentials
+-- Store user's API credentials (for future MLS integration)
 integrations (
   id (UUID)
   team_id (FK)
-  type ('reso_web_api' | 'zillow_rapidapi' | 'attom')
+  type ('reso_web_api')
   credentials (encrypted JSONB)
   status ('connected' | 'disconnected' | 'error')
   last_sync
   created_at, updated_at
 )
+```
+
+**Environment Variables:**
+
+```bash
+# Realty API (RapidAPI) — comp data
+REALTY_API_KEY=<rapidapi-key>
+REALTY_API_HOST=realty-in-us.p.rapidapi.com
 ```
 
 ---
@@ -437,7 +393,7 @@ Apr 10, 2026 — $1,275,000 (Initial price set)
 │ Status: [Sold ✓] [Active ✓] [Pending]        │
 │                                                │
 │ Data Source:                                   │
-│  ☑ Zillow  ☑ MLS (if connected)  ☐ ATTOM   │
+│  ☑ Realty API  ☑ MLS (if connected)          │
 │                                                │
 │                         [Run Analysis]        │
 │                                                │
@@ -555,7 +511,7 @@ Clicking a comp row expands:
 │ [View Results]                                 │
 │                                                │
 │ Mar 10, 2026 3:45pm                           │
-│ Analysis Failed: API Error (Zillow timeout)   │
+│ Analysis Failed: API Error (Realty API timeout) │
 │ [Retry]                                        │
 │                                                │
 └────────────────────────────────────────────────┘
@@ -609,44 +565,74 @@ Clicking a comp row expands:
    - address/lat/lng available
 
 2. Geocode Address (if needed)
-   - If lat/lng missing, use Nominatim or Google Geocoding
+   - If lat/lng missing, use Realty API auto-complete:
+     GET /locations/v2/auto-complete?input={address}
+   - Extract coordinates from response
+   - Fallback: Nominatim (free, no API key)
    - Store coordinates in listings table
 
-3. Search for Comps
-   - Query selected APIs (Zillow, MLS, ATTOM)
-   - Params: lat, lng, radius, date_range, property_type, beds, baths, status
-   - Collect: address, price, beds, baths, sqft, sold_date, days_on_market, lat, lng, photos
+3. Search for Sold Comps (Realty API)
+   GET /properties/v3/list
+   - lat, lng from step 2
+   - radius: user-selected (default 0.5 miles)
+   - status: "sold"
+   - sold_date_min: NOW - date_range_days (default 90 days)
+   - sold_date_max: NOW
+   - type: property_type filter (default: same as subject)
+   - beds_min/beds_max: subject beds ±1
+   - sort: "sold_date"
+   - limit: 20
+   → Collect property_ids for detail fetching
 
-4. Filter & Rank Comps
-   - Remove outliers (price, sqft)
-   - Score comps by relevance (similarity to subject)
+4. Search for Active Listings (Realty API)
+   GET /properties/v3/list
+   - Same lat/lng/radius as step 3
+   - status: "for_sale"
+   - Same property type and bed/bath filters
+   - sort: "relevant"
+   - limit: 10
+   → Provides market context (current competition)
+
+5. Get Property Details for Top Comps (Realty API)
+   GET /properties/v3/detail?property_id={id}
+   - Fetch full details for top 8–15 comps from steps 3 & 4
+   - Queue with 200ms delay between calls (rate limit safety)
+   - Extract: full photo gallery, price history, tax history
+   - Store external property_id for linking back to source
+
+6. Filter & Rank Comps
+   - Remove outliers (price, sqft >2x subject or <0.5x)
+   - Score comps by relevance (similarity to subject property)
+   - Weight factors: distance, sqft similarity, bed/bath match, recency
    - Keep top 8–15 comps
 
-5. Calculate Metrics
+7. Calculate Metrics
    - price_per_sqft for each comp
-   - distance from subject property
+   - distance from subject property (haversine)
    - days on market average
-   - price trend (rising/falling)
+   - price trend (rising/falling based on sold_date vs price)
 
-6. AI Analysis (Claude)
+8. AI Analysis (Claude)
    - Prompt: Subject property details + comp list + adjustments
    - Generate: suggested price range, confidence score, reasoning, market narrative
    - Use chain-of-thought reasoning
 
-7. Store Results
+9. Store Results
    - Create market_analyses record with status 'completed'
    - Insert comp_listings rows (one per comp)
+   - Store external_id (Realty API property_id) per comp for source linking
    - Store ai_narrative and suggested_price_range
 
-8. Notify User
-   - Update UI with results
-   - Fire activity_item for audit trail
-   - Optional: Send email notification
+10. Notify User
+    - Update UI with results
+    - Fire activity_item for audit trail
+    - Optional: Send email notification
 
-9. Handle Errors
-   - API quota exceeded → status 'partial' (use cached comps)
-   - API failure → status 'failed' with error message
-   - User can retry or use cached results
+11. Handle Errors
+    - API quota exceeded (429) → retry with exponential backoff, then status 'partial'
+    - API failure → status 'failed' with error message
+    - No comps found → auto-expand radius (0.5 → 1 → 2 miles) and retry step 3
+    - User can retry or use cached results
 ```
 
 ---
@@ -672,7 +658,7 @@ export const marketAnalysisWorkflow = defineWorkflow({
       min_beds?: number,
       min_baths?: number,
       status?: string[],          // 'sold', 'active', 'pending'
-      api_sources?: string[]      // 'zillow', 'mls', 'attom'
+      api_sources?: string[]      // 'realty_api', 'mls'
     }
   },
 
@@ -788,7 +774,7 @@ CREATE TABLE comp_listings (
   market_analysis_id TEXT NOT NULL REFERENCES market_analyses(id) ON DELETE CASCADE,
 
   -- Source info
-  source TEXT NOT NULL CHECK (source IN ('zillow', 'mls', 'attom', 'redfin_scraper')),
+  source TEXT NOT NULL CHECK (source IN ('realty_api', 'mls')),
   external_id TEXT, -- ZPID, MLS#, etc.
 
   -- Property details
@@ -1142,7 +1128,7 @@ export const actions = {
 - Everything in Starter
 - Auto-refresh: ✓
 - Custom search radius: ✓ (Starter limited to 0.5mi)
-- ATTOM data source: ✓ (Starter limited to Zillow/MLS)
+- Multiple data sources: ✓ (Starter limited to Realty API)
 
 **Implementation:**
 ```typescript
@@ -1151,8 +1137,8 @@ const userPlan = await getUserPlan(locals.user.id);
 const canAutoRefresh = userPlan === 'professional';
 const canCustomRadius = userPlan === 'professional';
 const allowedSources = userPlan === 'professional'
-  ? ['zillow', 'mls', 'attom']
-  : ['zillow', 'mls'];
+  ? ['realty_api', 'mls']
+  : ['realty_api'];
 ```
 
 ---
@@ -1198,7 +1184,7 @@ const allowedSources = userPlan === 'professional'
 - [ ] Build CompsTable component
 
 ### Phase 3: Integrations (Week 3–4)
-- [ ] Integrate Zillow API (RapidAPI)
+- [ ] Integrate Realty API (RapidAPI)
 - [ ] Implement comp search activity
 - [ ] Implement AI analysis activity (Claude prompt + chain-of-thought)
 
@@ -1251,7 +1237,7 @@ const allowedSources = userPlan === 'professional'
 5. **Mortgage Pre-Qualification:** Link comps to financing options
 6. **Market Trends:** Charts showing price/DOM trends over time
 7. **Comparative Market Analysis (CMA) PDF:** Export analysis to PDF
-8. **MLS Integration:** When user connects MLS, use official RESO Web API
+8. **MLS Integration:** When MLS credentials obtained, add Bridge Interactive / RESO Web API as primary data source
 9. **Appraisal Prep:** Generate appraisal support document with comps
 
 ---
@@ -1287,12 +1273,37 @@ Generate:
 5. REASONING: explain your price recommendation (chain of thought)
 ```
 
-### B. Zillow API Example Request
+### B. Realty API Example Requests
 
+**Search sold comps by coordinates:**
 ```bash
-curl -X GET "https://zillow56.p.rapidapi.com/search?location=San%20Francisco%2C%20CA&home_type=Houses&beds_min=2&beds_max=4&baths_min=1.5&status=all&sort=recent" \
-  -H "x-rapidapi-key: YOUR_KEY" \
-  -H "x-rapidapi-host: zillow56.p.rapidapi.com"
+curl -X GET "https://realty-in-us.p.rapidapi.com/properties/v3/list?\
+lat=37.7609&lng=-122.4240&radius=0.5&\
+status=sold&type=single_family&\
+beds_min=2&beds_max=4&baths_min=1&\
+sold_date_min=2026-01-14&sold_date_max=2026-04-14&\
+sort=sold_date&limit=20" \
+  -H "X-RapidAPI-Key: YOUR_KEY" \
+  -H "X-RapidAPI-Host: realty-in-us.p.rapidapi.com"
+```
+
+**Get property detail:**
+```bash
+curl -X GET "https://realty-in-us.p.rapidapi.com/properties/v3/detail?\
+property_id=R1234567890" \
+  -H "X-RapidAPI-Key: YOUR_KEY" \
+  -H "X-RapidAPI-Host: realty-in-us.p.rapidapi.com"
+```
+
+**Search active listings (market competition):**
+```bash
+curl -X GET "https://realty-in-us.p.rapidapi.com/properties/v3/list?\
+lat=37.7609&lng=-122.4240&radius=0.5&\
+status=for_sale&type=single_family&\
+beds_min=2&beds_max=4&\
+sort=relevant&limit=10" \
+  -H "X-RapidAPI-Key: YOUR_KEY" \
+  -H "X-RapidAPI-Host: realty-in-us.p.rapidapi.com"
 ```
 
 ### C. RESO Web API Example (for MLS integration)
@@ -1322,12 +1333,13 @@ Authorization: Bearer {token}
 | Date | Version | Changes |
 |------|---------|---------|
 | Apr 14, 2026 | 1.0 | Initial design spec, API research, full feature outline |
+| Apr 14, 2026 | 1.1 | Replace generic API research with Realty API (RapidAPI) specifics; update workflow, env vars, and data sources |
 
 ---
 
 **Next Steps:**
 1. Review design spec with product team
-2. Prioritize API integrations (Zillow first, MLS later)
+2. Prioritize API integrations (Realty API first, MLS later)
 3. Begin schema implementation and seed data updates
 4. Start UI component development in parallel
 5. Wire Temporal workflow activities

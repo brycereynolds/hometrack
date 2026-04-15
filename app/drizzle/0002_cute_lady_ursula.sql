@@ -114,4 +114,17 @@ CREATE INDEX "field_note_actions_field_note_id_idx" ON "field_note_actions" USIN
 CREATE INDEX "field_note_actions_status_idx" ON "field_note_actions" USING btree ("status");--> statement-breakpoint
 CREATE INDEX "field_note_actions_linked_task_id_idx" ON "field_note_actions" USING btree ("linked_task_id");--> statement-breakpoint
 ALTER TABLE "field_note_actions" ADD CONSTRAINT "field_note_actions_linked_task_id_tasks_id_fk" FOREIGN KEY ("linked_task_id") REFERENCES "public"."tasks"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "tasks" ADD CONSTRAINT "tasks_source_field_note_action_id_field_note_actions_id_fk" FOREIGN KEY ("source_field_note_action_id") REFERENCES "public"."field_note_actions"("id") ON DELETE set null ON UPDATE no action;
+ALTER TABLE "tasks" ADD CONSTRAINT "tasks_source_field_note_action_id_field_note_actions_id_fk" FOREIGN KEY ("source_field_note_action_id") REFERENCES "public"."field_note_actions"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
+-- RLS + permissions for field notes tables
+ALTER TABLE field_notes ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE field_note_transcripts ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE field_note_frames ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE field_note_moments ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+ALTER TABLE field_note_actions ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
+CREATE POLICY "team_member_access" ON field_notes FOR ALL USING (team_id IN (SELECT get_team_ids_for_user(auth.uid())));--> statement-breakpoint
+CREATE POLICY "team_member_access" ON field_note_transcripts FOR ALL USING (field_note_id IN (SELECT id FROM field_notes WHERE team_id IN (SELECT get_team_ids_for_user(auth.uid()))));--> statement-breakpoint
+CREATE POLICY "team_member_access" ON field_note_frames FOR ALL USING (field_note_id IN (SELECT id FROM field_notes WHERE team_id IN (SELECT get_team_ids_for_user(auth.uid()))));--> statement-breakpoint
+CREATE POLICY "team_member_access" ON field_note_moments FOR ALL USING (field_note_id IN (SELECT id FROM field_notes WHERE team_id IN (SELECT get_team_ids_for_user(auth.uid()))));--> statement-breakpoint
+CREATE POLICY "team_member_access" ON field_note_actions FOR ALL USING (field_note_id IN (SELECT id FROM field_notes WHERE team_id IN (SELECT get_team_ids_for_user(auth.uid()))));--> statement-breakpoint
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO authenticated;--> statement-breakpoint
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO authenticated;

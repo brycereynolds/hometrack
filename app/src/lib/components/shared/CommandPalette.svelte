@@ -7,7 +7,6 @@
 		Wrench,
 		CheckSquare,
 		UserCircle,
-		Search,
 		Plus,
 		Mic,
 		FileText
@@ -16,7 +15,7 @@
 
 	let { open = $bindable(false) }: { open: boolean } = $props();
 
-	let inputValue = $state('');
+	let searchQuery = $state('');
 	let searchResults = $state<{
 		listings: any[];
 		contacts: any[];
@@ -75,18 +74,14 @@
 	}
 
 	function onInputChange(value: string) {
+		searchQuery = value;
 		if (debounceTimer) clearTimeout(debounceTimer);
 		debounceTimer = setTimeout(() => performSearch(value), 250);
 	}
 
 	$effect(() => {
-		onInputChange(inputValue);
-	});
-
-	$effect(() => {
 		if (!open) {
-			// Reset state when dialog closes
-			inputValue = '';
+			searchQuery = '';
 			searchResults = { listings: [], contacts: [], tasks: [], vendors: [], team: [] };
 			hasSearched = false;
 			isLoading = false;
@@ -99,8 +94,8 @@
 	}
 </script>
 
-<Command.Dialog bind:open bind:value={inputValue} shouldFilter={false} title="Search" description="Search listings, contacts, vendors, and more">
-	<Command.Input placeholder="Search listings, contacts, vendors..." />
+<Command.Dialog bind:open shouldFilter={false} title="Search" description="Search listings, contacts, vendors, and more">
+	<Command.Input placeholder="Search listings, contacts, vendors..." oninput={(e) => onInputChange(e.currentTarget.value)} />
 	<Command.List class="max-h-80">
 		{#if isLoading}
 			<Command.Loading>
@@ -108,8 +103,8 @@
 			</Command.Loading>
 		{/if}
 
-		{#if hasSearched && totalResults === 0 && inputValue.length >= 2}
-			<Command.Empty>No results for '{inputValue}'</Command.Empty>
+		{#if hasSearched && totalResults === 0 && searchQuery.length >= 2}
+			<Command.Empty>No results for '{searchQuery}'</Command.Empty>
 		{/if}
 
 		{#each categoryConfig as category}
@@ -118,14 +113,15 @@
 				<Command.Group heading={category.label}>
 					{#each items as result}
 						<Command.Item
-							value="{result.type}-{result.id}"
+							value="{category.key}-{result.title}"
 							onSelect={() => selectResult(result.href)}
+							class="cursor-pointer"
 						>
-							<category.icon class="size-4 text-muted-foreground" />
+							<category.icon class="mr-2 size-4 text-muted-foreground" />
 							<div class="min-w-0 flex-1">
 								<span class="truncate">{result.title}</span>
 								{#if result.subtitle}
-									<span class="ml-2 text-xs text-muted-foreground capitalize">{result.subtitle?.replace('_', ' ')}</span>
+									<span class="ml-2 text-xs text-muted-foreground">{result.subtitle}</span>
 								{/if}
 							</div>
 						</Command.Item>
@@ -134,14 +130,15 @@
 			{/if}
 		{/each}
 
-		{#if !hasSearched || inputValue.length < 2}
+		{#if !hasSearched || searchQuery.length < 2}
 			<Command.Group heading="Quick Actions">
 				{#each quickActions as action}
 					<Command.Item
-						value="action-{action.label}"
+						value="quick-{action.label}"
 						onSelect={() => selectResult(action.href)}
+						class="cursor-pointer"
 					>
-						<action.icon class="size-4 text-muted-foreground" />
+						<action.icon class="mr-2 size-4 text-muted-foreground" />
 						<span>{action.label}</span>
 					</Command.Item>
 				{/each}

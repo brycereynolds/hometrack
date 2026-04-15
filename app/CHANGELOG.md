@@ -197,6 +197,86 @@ Using Drizzle + Supabase together (not one or the other):
 
 ---
 
+## 2026-04-14 — End-to-End Product Build
+
+### Core CRUD (Phase 1-2)
+- Create/edit listings, tasks, contacts, vendors, offers, showings
+- Task status toggle, subtask toggle, kanban drag-and-drop persistence
+- Document upload via Supabase Storage
+- Quote approve/decline flow
+- Activity note posting
+
+### Mobile & Field Capture
+- Voice memo recording with MediaRecorder API + Supabase Storage upload
+- Field notes with photo/video attachments
+- Showing feedback persistence
+- Open house digital check-in + tablet view with QR codes
+- Quick task status toggles on mobile
+
+### Intelligence Pipeline
+- Temporal worker (Python) with 9-stage video processing pipeline
+- Frame extraction, Whisper transcription, speaker diarization
+- Claude vision frame-moment correlation with scrub windows
+- AI insight extraction (action items, observations, decisions, quotes)
+- Media-type-aware processing (video vs voice vs text)
+
+### Field Notes System
+- 5 new database tables (field_notes, transcripts, frames, moments, actions)
+- Field notes tab in listing detail with list + detail views
+- Processing status polling with stage-aware labels
+- Action item lifecycle (suggested → accepted → task created)
+- Video player with frame gallery
+
+### UX Infrastructure
+- Toast notification system (svelte-sonner)
+- Custom error pages (404, 500)
+- Page transition loading indicator
+- Unified Command Palette (Cmd+K) with search + quick actions
+- Voice memo + quick note modals from any page
+- Floating voice button (FAB) on every page
+- Autocomplete/combobox component replacing native selects
+- Global search (listings, contacts, vendors, tasks, team members)
+- HTTPS local dev via mkcert
+
+### Communications
+- Twilio SMS integration
+- Postmark email integration
+- Portal invite emails with branded HTML template
+- Phase change notifications (email + SMS based on settings)
+
+### Client Portal
+- Portal settings persist to database (sections, document sharing, notifications)
+- Portal pages respect saved settings (hide/show sections, filter documents)
+- Branding preview shows single-property client view
+- Approval workflow (approve/decline offers + quotes)
+- Document viewer with signed URL downloads
+
+### Marketing Landing Page
+- Single-scroll marketing page at root route
+- Hero, features, how it works, pricing, testimonial, footer
+- Pricing: Free ($0) / Starter ($99) / Professional ($299)
+- Scroll animations, fully responsive
+
+### Settings
+- All settings persist: branding, notifications, workflows, portal
+- Team invite + remove member
+- Create custom workflow
+- Billing page aligned with landing pricing
+- "Coming Soon" badges on unbuilt features (Stripe, exports, API keys)
+
+### Auth & Security
+- GoTrue login/signup with token refresh (30-day sessions)
+- RLS on all 29 tables (24 original + 5 field notes)
+- withRLS() role whitelist + userId validation
+- Cookie security (environment-aware secure flag)
+
+### Infrastructure
+- Turbo workspace (npm run dev starts app + temporal worker)
+- db:wipe / db:reset / db:seed with production guards
+- Seed user auto-creation from env vars
+
+---
+
 ## What's Left
 
 ### Immediate Next Steps

@@ -157,10 +157,12 @@
 	}
 
 	// Clean up when dialog closes
+	let wasOpen = $state(false);
 	$effect(() => {
-		if (!open) {
+		if (wasOpen && !open) {
 			resetForm();
 		}
+		wasOpen = open;
 	});
 </script>
 

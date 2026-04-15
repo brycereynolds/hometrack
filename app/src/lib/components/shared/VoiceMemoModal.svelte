@@ -161,14 +161,7 @@
 		open = false;
 	}
 
-	// Clean up when dialog closes
-	$effect(() => {
-		if (!open && (isRecording || hasRecording)) {
-			if (isRecording) stopRecording();
-			discardRecording();
-			selectedListing = '';
-		}
-	});
+
 </script>
 
 <Dialog.Root bind:open onOpenChange={(v) => { if (!v) resetAndClose(); }}>

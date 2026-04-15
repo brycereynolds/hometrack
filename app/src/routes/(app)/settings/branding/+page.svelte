@@ -175,34 +175,61 @@
 
 					<!-- Portal body mock -->
 					<div class="p-4 space-y-3">
-						<h4 class="font-serif text-sm font-semibold">Welcome, David</h4>
+						<h4 class="font-serif text-sm font-semibold">Welcome back.</h4>
 						<p class="text-xs text-muted-foreground leading-relaxed">{welcomeMessage}</p>
 
 						<Separator />
 
-						<!-- Mock listing card -->
-						<div class="rounded-md border p-3">
-							<div class="flex items-center gap-3">
-								<div class="size-12 rounded bg-muted flex-shrink-0"></div>
-								<div>
-									<p class="text-xs font-medium">123 Main Street</p>
-									<p class="text-[10px] text-muted-foreground">Los Gatos, CA 95030</p>
-									<div class="mt-1 flex gap-1">
-										<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Active</div>
+						<!-- Property hero -->
+						<div class="rounded-md border overflow-hidden">
+							<div class="h-20 bg-muted flex items-center justify-center">
+								<div class="text-[10px] text-muted-foreground">Property Photo</div>
+							</div>
+							<div class="p-2.5">
+								<div class="flex items-start justify-between">
+									<div>
+										<p class="text-xs font-medium">123 Main Street</p>
+										<p class="text-[10px] text-muted-foreground">Los Gatos, CA 95030</p>
 									</div>
+									<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Active</div>
 								</div>
+								<p class="mt-1 text-xs font-semibold" style="color: {primaryColor}">$1,895,000</p>
 							</div>
 						</div>
 
-						<div class="rounded-md border p-3">
-							<div class="flex items-center gap-3">
-								<div class="size-12 rounded bg-muted flex-shrink-0"></div>
-								<div>
-									<p class="text-xs font-medium">456 Oak Avenue</p>
-									<p class="text-[10px] text-muted-foreground">Palo Alto, CA 94301</p>
-									<div class="mt-1 flex gap-1">
-										<div class="rounded px-1.5 py-0.5 text-[9px] font-medium text-white" style="background-color: {primaryColor}">Pre-Market</div>
+						<!-- Progress timeline -->
+						<div class="space-y-1.5">
+							<p class="text-[10px] font-medium text-muted-foreground">Listing Progress</p>
+							<div class="flex items-center gap-1">
+								{#each ['Pre-Market', 'Active', 'Closed'] as phase, i}
+									<div class="flex items-center gap-1 flex-1">
+										<div
+											class="size-4 rounded-full border flex items-center justify-center text-[7px]"
+											style={i < 2 ? `background-color: ${primaryColor}; border-color: ${primaryColor}; color: white` : ''}
+										>
+											{#if i < 1}&#10003;{/if}
+										</div>
+										<span class="text-[8px] {i === 1 ? 'font-semibold' : 'text-muted-foreground'}">{phase}</span>
 									</div>
+								{/each}
+							</div>
+						</div>
+
+						<!-- Recent activity -->
+						<div class="space-y-1.5">
+							<p class="text-[10px] font-medium text-muted-foreground">Recent Activity</p>
+							<div class="space-y-1">
+								<div class="flex items-center gap-2">
+									<div class="size-1.5 rounded-full" style="background-color: {primaryColor}"></div>
+									<p class="text-[10px]">Photography completed</p>
+								</div>
+								<div class="flex items-center gap-2">
+									<div class="size-1.5 rounded-full" style="background-color: {primaryColor}"></div>
+									<p class="text-[10px]">Listed on MLS</p>
+								</div>
+								<div class="flex items-center gap-2">
+									<div class="size-1.5 rounded-full bg-muted-foreground/30"></div>
+									<p class="text-[10px] text-muted-foreground">Open house scheduled</p>
 								</div>
 							</div>
 						</div>

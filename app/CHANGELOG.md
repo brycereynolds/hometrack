@@ -277,6 +277,40 @@ Using Drizzle + Supabase together (not one or the other):
 
 ---
 
+## 2026-04-15 — Real Property Data, Market Analysis, Listings Intelligence
+
+### Real Property Data
+- Integrated Zillow API data for all 13 properties (70-column `properties` schema)
+- Properties table: construction materials, heating/cooling, roof, parking, HOA, tax history, Zestimate
+- 11 listings linked to 13 properties with real addresses, photos, and coordinates
+- 2 external listings for buyer matching
+- 3 buyer preference profiles with search criteria
+
+### Market Analysis Pipeline
+- Temporal workflow `MarketAnalysis` with 4 activities: geocode, search comps, analyze market, save results
+- `market_analyses`, `comp_listings`, `analysis_schedules` tables
+- Listings Intelligence tab with interactive comp map (Leaflet)
+- Comp search by radius, property type, and date range
+
+### Communications
+- Twilio SMS integration for showing reminders and phase change notifications
+- Postmark email integration for portal invites and branded notifications
+- Phase change notification preferences (email + SMS per contact)
+
+### Security
+- RLS policies on all 35 tables (added 6 new-table policies in `0007_rls_new_tables.sql`)
+- Grants for `authenticated` role on properties, buyer_preferences, external_listings, market_analyses, analysis_schedules, comp_listings
+
+### Team
+- Renamed demo org to XYZ Realty
+- All dead buttons fixed or marked "Coming Soon"
+
+### Audit
+- 5 full audit loops completed (build, db:reset, dev server, Python syntax, RLS)
+- Launch gate checklist for production deployment
+
+---
+
 ## What's Left
 
 ### Immediate Next Steps

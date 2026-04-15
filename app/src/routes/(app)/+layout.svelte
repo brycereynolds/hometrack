@@ -263,11 +263,13 @@
 			<Popover.Root>
 				<Popover.Trigger>
 					{#snippet child({ props })}
-						<Button variant="ghost" size="icon" class="relative" {...props}>
-							<Bell class="size-4" />
-							{#if recentInsights.length > 0}
-								<span class="absolute -right-0.5 -top-0.5 size-2.5 rounded-full bg-primary ring-2 ring-background"></span>
-							{/if}
+						<Button variant="ghost" size="icon" {...props}>
+							<span class="relative inline-flex">
+								<Bell class="size-4" />
+								{#if recentInsights.length > 0}
+									<span class="absolute -right-1 -top-1 size-2 rounded-full bg-primary ring-2 ring-background"></span>
+								{/if}
+							</span>
 						</Button>
 					{/snippet}
 				</Popover.Trigger>

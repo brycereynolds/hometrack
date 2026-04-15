@@ -1,0 +1,3268 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/124745347_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 18144.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 2917230,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "636 Middlefield Rd",
+    "city": "Palo Alto",
+    "state": "CA",
+    "zipcode": "94301",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "636 Middlefield Rd"
+        },
+        {
+          "fullValue": "Palo Alto, CA 94301"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 2,
+      "bathroomsFull": null,
+      "bathroomsThreeQuarter": null,
+      "bathroomsHalf": null,
+      "bathroomsOneQuarter": null,
+      "bedrooms": 3,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": [
+        "L-Shaped"
+      ],
+      "buildingName": null,
+      "appliances": [],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "SingleFamily"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "1939"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "None"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": "None"
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "1 Parking space"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": "0.34 Acres"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": null,
+      "bathroomsPartial": null,
+      "bathroomsFloat": 2,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": null,
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "Palo Alto",
+      "commonWalls": null,
+      "communityFeatures": [],
+      "compensationBasedOn": null,
+      "constructionMaterials": [
+        "wood frame"
+      ],
+      "contingency": null,
+      "cooling": [
+        "None"
+      ],
+      "coveredParkingCapacity": null,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": null,
+      "fireplaces": null,
+      "flooring": [],
+      "foundationArea": null,
+      "foundationDetails": [],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": null,
+      "gas": null,
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": null,
+      "hasAttachedProperty": false,
+      "hasCooling": false,
+      "hasCarport": null,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": false,
+      "hasHeating": false,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [
+        "None"
+      ],
+      "highSchool": null,
+      "highSchoolDistrict": null,
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": null,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": null,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": null,
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": "0.34 Acres",
+      "lotSizeDimensions": null,
+      "livingArea": "1,464 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [],
+      "middleOrJuniorSchool": null,
+      "middleOrJuniorSchoolDistrict": null,
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": null,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "12004109",
+      "parkingCapacity": 1,
+      "parkingFeatures": [
+        "Garage - Attached"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": 1993,
+      "propertyCondition": null,
+      "propertySubType": null,
+      "roadSurfaceType": null,
+      "roofType": null,
+      "rooms": [
+        {
+          "area": null,
+          "description": null,
+          "dimensions": null,
+          "level": null,
+          "features": null,
+          "roomArea": null,
+          "roomAreaSource": null,
+          "roomAreaUnits": null,
+          "roomDescription": null,
+          "roomDimensions": null,
+          "roomFeatures": null,
+          "roomLength": null,
+          "roomLengthWidthSource": null,
+          "roomLengthWidthUnits": null,
+          "roomLevel": null,
+          "roomType": "FamilyRoom",
+          "roomWidth": null
+        }
+      ],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": null,
+      "spaFeatures": null,
+      "specialListingConditions": null,
+      "stories": null,
+      "storiesDecimal": null,
+      "storiesTotal": null,
+      "structureType": "Other",
+      "subdivisionName": null,
+      "taxAnnualAmount": null,
+      "taxAssessedValue": 2917230,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": null,
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": null,
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": "",
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 1939,
+      "yearBuiltEffective": null,
+      "zoning": null,
+      "zoningDescription": null,
+      "elementarySchool": null,
+      "elementarySchoolDistrict": null,
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": null,
+    "homeStatus": "OTHER",
+    "listingProvider": {
+      "logos": [],
+      "title": "Listing Provided by",
+      "disclaimerText": null,
+      "enhancedVideoURL": null,
+      "enhancedDescriptionText": null,
+      "showLogos": null,
+      "showNoContactInfoMessage": false,
+      "agentName": null,
+      "agentLicenseNumber": null,
+      "postingWebsiteURL": null,
+      "postingWebsiteLinkText": "See listing website",
+      "postingGroupName": null,
+      "sourceText": null,
+      "isZRMSourceText": null
+    },
+    "livingArea": 1464,
+    "livingAreaValue": 1464,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": null,
+      "mlsName": null,
+      "providerLogo": null,
+      "listingAgreement": null,
+      "agentEmail": null,
+      "agentLicenseNumber": null,
+      "agentName": null,
+      "agentPhoneNumber": null,
+      "attributionTitle": null,
+      "brokerName": null,
+      "brokerPhoneNumber": null,
+      "buyerAgentMemberStateLicense": null,
+      "buyerAgentName": null,
+      "buyerBrokerageName": null,
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": null,
+      "lastUpdated": null,
+      "listingOffices": [
+        {
+          "associatedOfficeType": "listOffice",
+          "officeName": null
+        }
+      ],
+      "listingAgents": [],
+      "mlsDisclaimer": null,
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": null,
+      "infoString5": null,
+      "infoString10": null,
+      "infoString16": null
+    },
+    "listingDataSource": "Legacy",
+    "zpid": 124745347,
+    "address": {
+      "streetAddress": "636 Middlefield Rd",
+      "city": "Palo Alto",
+      "state": "CA",
+      "zipcode": "94301",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "yearBuilt": 1939,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/d103994b58f1eb20991085c4aab86b3f-p_c.jpg"
+                }
+              ],
+              "price": 2695000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 1765,
+              "livingAreaValue": 1765,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 2178,
+              "lotAreaValue": 2178,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "206 Everett Ave",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94301"
+              },
+              "parentRegion": {
+                "name": "Downtown North"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "206 Everett Ave"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94301"
+                  }
+                ]
+              },
+              "latitude": 37.446327,
+              "longitude": -122.16497,
+              "zpid": 19495536,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/206-Everett-Ave-Palo-Alto-CA-94301/19495536_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041613",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Stacey Woods",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/cbc311c3e6aa1833464731928f307250-p_c.jpg"
+                }
+              ],
+              "price": 2750000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1107,
+              "livingAreaValue": 1107,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5600,
+              "lotAreaValue": 5600,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1111 Alma St",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94301"
+              },
+              "parentRegion": {
+                "name": "Professorville"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1111 Alma St"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94301"
+                  }
+                ]
+              },
+              "latitude": 37.44389,
+              "longitude": -122.150085,
+              "zpid": 19495675,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1111-Alma-St-Palo-Alto-CA-94301/19495675_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036330",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ryan Eltherington",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/26dd972b1a5e711ac1249df493f33aca-p_c.jpg"
+                }
+              ],
+              "price": 2998000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1580,
+              "livingAreaValue": 1580,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6175,
+              "lotAreaValue": 6175,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "3731 Lindero Dr",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94306"
+              },
+              "parentRegion": {
+                "name": "Fairmeadow"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "3731 Lindero Dr"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94306"
+                  }
+                ]
+              },
+              "latitude": 37.41676,
+              "longitude": -122.119896,
+              "zpid": 19503374,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/3731-Lindero-Dr-Palo-Alto-CA-94306/19503374_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82043000",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Darcy Gamble",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/5b17b616a4b0fefe18a6a1f46f5d4ccb-p_c.jpg"
+                }
+              ],
+              "price": 3998000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 2041,
+              "livingAreaValue": 2041,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7400,
+              "lotAreaValue": 7400,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "848 Boyce Ave",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94301"
+              },
+              "parentRegion": {
+                "name": "Crescent Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "848 Boyce Ave"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94301"
+                  }
+                ]
+              },
+              "latitude": 37.450317,
+              "longitude": -122.150024,
+              "zpid": 19467904,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/848-Boyce-Ave-Palo-Alto-CA-94301/19467904_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042219",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " The Dreyfus Group",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/31000fb88338a2bbabc7ed91be12eefe-p_c.jpg"
+                }
+              ],
+              "price": 2998000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1387,
+              "livingAreaValue": 1387,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6000,
+              "lotAreaValue": 6000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "559 Hilbar Ln",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94303"
+              },
+              "parentRegion": {
+                "name": "Duveneck - St. Francis"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "559 Hilbar Ln"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94303"
+                  }
+                ]
+              },
+              "latitude": 37.45001,
+              "longitude": -122.13095,
+              "zpid": 19467265,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/559-Hilbar-Ln-Palo-Alto-CA-94303/19467265_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041121",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " JJ Team:Jones/Cassel",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/11e6381aaef828fc189e611d18fbb655-p_c.jpg"
+                }
+              ],
+              "price": 2700000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 1840,
+              "livingAreaValue": 1840,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 2432,
+              "lotAreaValue": 2432,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "270 Everett Ave",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94301"
+              },
+              "parentRegion": {
+                "name": "Downtown North"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "270 Everett Ave"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94301"
+                  }
+                ]
+              },
+              "latitude": 37.44703,
+              "longitude": -122.16429,
+              "zpid": 19495498,
+              "homeStatus": "FOR_SALE",
+              "homeType": "MULTI_FAMILY",
+              "hdpUrl": "/homedetails/270-Everett-Ave-Palo-Alto-CA-94301/19495498_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Multi Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039336",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Kelly Griggs",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/09647f84217bdf4ae2a799b11b7f12e9-p_c.jpg"
+                }
+              ],
+              "price": 2988000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1832,
+              "livingAreaValue": 1832,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9800,
+              "lotAreaValue": 9800,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "226 Ely Pl",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94306"
+              },
+              "parentRegion": {
+                "name": "Greenmeadow"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "226 Ely Pl"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94306"
+                  }
+                ]
+              },
+              "latitude": 37.415344,
+              "longitude": -122.11619,
+              "zpid": 19508420,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/226-Ely-Pl-Palo-Alto-CA-94306/19508420_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042078",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " DeLeon Team",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/8211e41384b3439151f5931965e12bc7-p_c.jpg"
+                }
+              ],
+              "price": 2488000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 1650,
+              "livingAreaValue": 1650,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 4635,
+              "lotAreaValue": 4635,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "717 & 723 Ellsworth Pl",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94306"
+              },
+              "parentRegion": {
+                "name": "Midtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "717 & 723 Ellsworth Pl"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94306"
+                  }
+                ]
+              },
+              "latitude": 37.43212,
+              "longitude": -122.12573,
+              "zpid": 2066050213,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/717-723-Ellsworth-Pl-Palo-Alto-CA-94306/2066050213_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82034962",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Annie Watson",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/8972952faa485fc8dbe9a0d6d95d1ae3-p_c.jpg"
+                }
+              ],
+              "price": 2988000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1619,
+              "livingAreaValue": 1619,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6032,
+              "lotAreaValue": 6032,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "4134 Wilkie Way",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94306"
+              },
+              "parentRegion": {
+                "name": "Charleston Meadow"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "4134 Wilkie Way"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94306"
+                  }
+                ]
+              },
+              "latitude": 37.413574,
+              "longitude": -122.12276,
+              "zpid": 19503993,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/4134-Wilkie-Way-Palo-Alto-CA-94306/19503993_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040205",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Heather Green",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3b69471de539bc73e76dfd5a1d376ed9-p_c.jpg"
+                }
+              ],
+              "price": 3380000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1660,
+              "livingAreaValue": 1660,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6691,
+              "lotAreaValue": 6691,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1914 Channing Ave",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94303"
+              },
+              "parentRegion": {
+                "name": "Duveneck - St. Francis"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1914 Channing Ave"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94303"
+                  }
+                ]
+              },
+              "latitude": 37.448433,
+              "longitude": -122.12922,
+              "zpid": 19469012,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1914-Channing-Ave-Palo-Alto-CA-94303/19469012_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037395",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ying Wei",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/c539e83e5b22341e18e49d09e7d8e6c0-p_c.jpg"
+                }
+              ],
+              "price": 3295950,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1623,
+              "livingAreaValue": 1623,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5750,
+              "lotAreaValue": 5750,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "941 College Ave",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94306"
+              },
+              "parentRegion": {
+                "name": "College Terrace"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "941 College Ave"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94306"
+                  }
+                ]
+              },
+              "latitude": 37.422527,
+              "longitude": -122.15029,
+              "zpid": 19504725,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/941-College-Ave-Palo-Alto-CA-94306/19504725_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039548",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jim Tierney",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3bf5500225fd6009e9018a1635e3758d-p_c.jpg"
+                }
+              ],
+              "price": 2450000,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 2,
+              "livingArea": 1233,
+              "livingAreaValue": 1233,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6600,
+              "lotAreaValue": 6600,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "2620 Middlefield Rd",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94306"
+              },
+              "parentRegion": {
+                "name": "Midtown"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2620 Middlefield Rd"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94306"
+                  }
+                ]
+              },
+              "latitude": 37.433758,
+              "longitude": -122.13038,
+              "zpid": 19501515,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2620-Middlefield-Rd-Palo-Alto-CA-94306/19501515_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042119",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Joseph Martignetti",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/b48acf484703290d24832240563311d0-p_c.jpg"
+                }
+              ],
+              "price": 3895000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 1995,
+              "livingAreaValue": 1995,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6654,
+              "lotAreaValue": 6654,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "425 Concord Dr",
+                "city": "Menlo Park",
+                "state": "CA",
+                "zipcode": "94025"
+              },
+              "parentRegion": {
+                "name": "The Willows"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "425 Concord Dr"
+                  },
+                  {
+                    "fullValue": "Menlo Park, CA 94025"
+                  }
+                ]
+              },
+              "latitude": 37.45758,
+              "longitude": -122.157875,
+              "zpid": 15583764,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/425-Concord-Dr-Menlo-Park-CA-94025/15583764_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042728",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Rinat Kaufman",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/84212af1d7b2209f5896227f30655ca4-p_c.jpg"
+                }
+              ],
+              "price": 2399999,
+              "currency": "USD",
+              "bedrooms": 2,
+              "bathrooms": 1,
+              "livingArea": 876,
+              "livingAreaValue": 876,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 4500,
+              "lotAreaValue": 4500,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "112 Churchill Ave",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94301"
+              },
+              "parentRegion": {
+                "name": "Old Palo Alto"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "112 Churchill Ave"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94301"
+                  }
+                ]
+              },
+              "latitude": 37.435738,
+              "longitude": -122.1511,
+              "zpid": 19497033,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/112-Churchill-Ave-Palo-Alto-CA-94301/19497033_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82038465",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Nicholas Daher",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/1e38006d450a4f67376ce8bb1c6987d6-p_c.jpg"
+                }
+              ],
+              "price": 3598000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 1,
+              "livingArea": 1552,
+              "livingAreaValue": 1552,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10200,
+              "lotAreaValue": 10200,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "744 Mayview Ave",
+                "city": "Palo Alto",
+                "state": "CA",
+                "zipcode": "94303"
+              },
+              "parentRegion": {
+                "name": "Adobe Meadow - Meadow Park"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "744 Mayview Ave"
+                  },
+                  {
+                    "fullValue": "Palo Alto, CA 94303"
+                  }
+                ]
+              },
+              "latitude": 37.423283,
+              "longitude": -122.11123,
+              "zpid": 19500283,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/744-Mayview-Ave-Palo-Alto-CA-94303/19500283_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041086",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Ray Hogue",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/6d6eace67611c10d323bbafa0862d9cd-p_c.jpg"
+                }
+              ],
+              "price": 3398000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1619,
+              "livingAreaValue": 1619,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7795,
+              "lotAreaValue": 7795,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "277 Alta Vista Ave",
+                "city": "Los Altos",
+                "state": "CA",
+                "zipcode": "94022"
+              },
+              "parentRegion": {
+                "name": "94022"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "277 Alta Vista Ave"
+                  },
+                  {
+                    "fullValue": "Los Altos, CA 94022"
+                  }
+                ]
+              },
+              "latitude": 37.386444,
+              "longitude": -122.12244,
+              "zpid": 19523584,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/277-Alta-Vista-Ave-Los-Altos-CA-94022/19523584_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042102",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " The Troyer & Cabot Group",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/118280f4c91790afa4c6711536195d8f-p_c.jpg"
+                }
+              ],
+              "price": 3799000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 2175,
+              "livingAreaValue": 2175,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10316,
+              "lotAreaValue": 10316,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "25 Sharon Ct",
+                "city": "Menlo Park",
+                "state": "CA",
+                "zipcode": "94025"
+              },
+              "parentRegion": {
+                "name": "Sharon Heights"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "25 Sharon Ct"
+                  },
+                  {
+                    "fullValue": "Menlo Park, CA 94025"
+                  }
+                ]
+              },
+              "latitude": 37.429134,
+              "longitude": -122.19927,
+              "zpid": 15599067,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/25-Sharon-Ct-Menlo-Park-CA-94025/15599067_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042684",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Kavanaugh Group",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/9405aee992373ca58355f7707cd57d78-p_c.jpg"
+                }
+              ],
+              "price": 2680000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 3,
+              "livingArea": 1549,
+              "livingAreaValue": 1549,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6490,
+              "lotAreaValue": 6490,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "413 Del Medio Ave",
+                "city": "Mountain View",
+                "state": "CA",
+                "zipcode": "94040"
+              },
+              "parentRegion": {
+                "name": "94040"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "413 Del Medio Ave"
+                  },
+                  {
+                    "fullValue": "Mountain View, CA 94040"
+                  }
+                ]
+              },
+              "latitude": 37.406174,
+              "longitude": -122.113914,
+              "zpid": 19509411,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/413-Del-Medio-Ave-Mountain-View-CA-94040/19509411_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037866",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Stefanie Hu",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/235e23b2daa7ffa8f533403ff2d61055-p_c.jpg"
+                }
+              ],
+              "price": 3988000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 1810,
+              "livingAreaValue": 1810,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5775,
+              "lotAreaValue": 5775,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "224 Lexington Dr",
+                "city": "Menlo Park",
+                "state": "CA",
+                "zipcode": "94025"
+              },
+              "parentRegion": {
+                "name": "The Willows"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "224 Lexington Dr"
+                  },
+                  {
+                    "fullValue": "Menlo Park, CA 94025"
+                  }
+                ]
+              },
+              "latitude": 37.455914,
+              "longitude": -122.15932,
+              "zpid": 15583664,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/224-Lexington-Dr-Menlo-Park-CA-94025/15583664_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040329",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Neva Mills",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/aacbf98456303b9c9745b0461e8924d9-p_c.jpg"
+                }
+              ],
+              "price": 2749000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 1,
+              "livingArea": 1100,
+              "livingAreaValue": 1100,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5400,
+              "lotAreaValue": 5400,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "2036 Barney Ave",
+                "city": "Menlo Park",
+                "state": "CA",
+                "zipcode": "94025"
+              },
+              "parentRegion": {
+                "name": "University Heights"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "2036 Barney Ave"
+                  },
+                  {
+                    "fullValue": "Menlo Park, CA 94025"
+                  }
+                ]
+              },
+              "latitude": 37.435265,
+              "longitude": -122.205154,
+              "zpid": 15598297,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/2036-Barney-Ave-Menlo-Park-CA-94025/15598297_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036770",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Talia Citron",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "02aeaf06aa233da89f4097ecfa191fc1"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/636-Middlefield-Rd-Palo-Alto-CA-94301/124745347_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca/"
+        },
+        "name": "Cupertino",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/morgan-hill-ca/"
+        },
+        "name": "Morgan Hill",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [
+      {
+        "regionUrl": {
+          "path": "/barron-park-palo-alto-ca/"
+        },
+        "name": "Barron Park",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/crescent-park-palo-alto-ca/"
+        },
+        "name": "Crescent Park",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/downtown-north-palo-alto-ca/"
+        },
+        "name": "Downtown North",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/duveneck-st-francis-palo-alto-ca/"
+        },
+        "name": "Duveneck - St. Francis",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/greenmeadow-palo-alto-ca/"
+        },
+        "name": "Greenmeadow",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/midtown-palo-alto-ca/"
+        },
+        "name": "Midtown",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/old-palo-alto-palo-alto-ca/"
+        },
+        "name": "Old Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-verde-palo-alto-ca/"
+        },
+        "name": "Palo Verde",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/university-south-palo-alto-ca/"
+        },
+        "name": "University South",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/ventura-palo-alto-ca/"
+        },
+        "name": "Ventura",
+        "body": null
+      }
+    ],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca-94022/"
+        },
+        "name": "94022",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca-94028/"
+        },
+        "name": "94028",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca-94301/"
+        },
+        "name": "94301",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca-94302/"
+        },
+        "name": "94302",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca-94303/"
+        },
+        "name": "94303",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca-94304/"
+        },
+        "name": "94304",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca-94306/"
+        },
+        "name": "94306",
+        "body": null
+      }
+    ],
+    "cityId": 26374,
+    "citySearchUrl": {
+      "text": "Homes in Palo Alto",
+      "path": "/palo-alto-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/palo-alto-ca-94301/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/palo-alto-ca-94301/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/palo-alto-ca-94301/rent-houses/"
+    },
+    "abbreviatedAddress": "636 Middlefield Rd",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": {
+      "name": "University South"
+    },
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": {
+      "path": "/university-south-palo-alto-ca/"
+    },
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "not_for_sale",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "hood": "University_South",
+      "price": "2917230",
+      "lot": "3",
+      "bd": "3",
+      "ba": "2",
+      "sqft": "1464",
+      "sqftrange": "1000-1499",
+      "yrblt": "1920-1939",
+      "aamgnrc1": "636 Middlefield Rd",
+      "city": "Palo_Alto",
+      "state": "CA",
+      "zip": "94301",
+      "pid": "124745347",
+      "premieragent": "no",
+      "tflag": "verizon",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "df916380-3df3-4128-81d5-f39a42b361c9"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": null,
+    "newConstructionType": null,
+    "zestimateLowPercent": null,
+    "zestimateHighPercent": null,
+    "rentZestimate": 6801,
+    "restimateLowPercent": null,
+    "restimateHighPercent": null,
+    "schools": [
+      {
+        "distance": 0.3,
+        "name": "Addison Elementary School",
+        "rating": 8,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/palo-alto/5603-Addison-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 1.3,
+        "name": "Frank S. Greene Jr. Middle",
+        "rating": 9,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/palo-alto/5614-Frank-S.-Greene-Jr.-Middle/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.8,
+        "name": "Palo Alto High School",
+        "rating": 10,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/palo-alto/5617-Palo-Alto-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "University South",
+      "regionId": 343621
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 243211916,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.449275970458984,-122.15509033203125&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=3TGuGOeUJ9tCd4zLUJkkI9ftzmg="
+          }
+        ],
+        "price": 2792200,
+        "currency": "USD",
+        "bedrooms": null,
+        "bathrooms": null,
+        "livingArea": 1464,
+        "livingAreaValue": 1464,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 4356,
+        "lotAreaValue": 4356,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "636 Middlefield Rd",
+          "city": "Palo Alto",
+          "state": "CA",
+          "zipcode": "94301"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "636 Middlefield Rd"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.449276,
+        "longitude": -122.15509,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/636-Middlefield-Rd-Palo-Alto-CA-94301/243211916_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19494646,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=628+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=SaOa_Q0Hpcg_2KT6Uf1j5ea6x3c="
+          }
+        ],
+        "price": 4294800,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 1.5,
+        "livingArea": 1500,
+        "livingAreaValue": 1500,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 6969,
+        "lotAreaValue": 6969,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "628 Middlefield Rd",
+          "city": "Palo Alto",
+          "state": "CA",
+          "zipcode": "94301"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "628 Middlefield Rd"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.449368,
+        "longitude": -122.155205,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/628-Middlefield-Rd-Palo-Alto-CA-94301/19494646_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 243211452,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/35405202c5287da413db38bda05bc99b-p_c.jpg"
+          }
+        ],
+        "price": 3600000,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingArea": 2212,
+        "livingAreaValue": 2212,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 3831,
+        "lotAreaValue": 3831,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "642 Middlefield Rd",
+          "city": "Palo Alto",
+          "state": "CA",
+          "zipcode": "94301"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "642 Middlefield Rd"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.449245,
+        "longitude": -122.15491,
+        "homeStatus": "RECENTLY_SOLD",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/642-Middlefield-Rd-Palo-Alto-CA-94301/243211452_zpid/",
+        "hdpTypeDimension": "RecentlySold",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": "ML82000698",
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19494645,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.44940185546875,-122.15533447265625&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=4nbDcD-EJ6ySiM_U9bhiSz0eIOE="
+          }
+        ],
+        "price": 3431900,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 3,
+        "livingArea": 1757,
+        "livingAreaValue": 1757,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 4356,
+        "lotAreaValue": 4356,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "626 Middlefield Rd",
+          "city": "Palo Alto",
+          "state": "CA",
+          "zipcode": "94301"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "626 Middlefield Rd"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.4494,
+        "longitude": -122.155334,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/626-Middlefield-Rd-Palo-Alto-CA-94301/19494645_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19494685,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/7378bede044dbf6991992fd3c43d6e3e-p_c.jpg"
+          }
+        ],
+        "price": 1975000,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 3,
+        "livingArea": 1611,
+        "livingAreaValue": 1611,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "674 Hamilton Ave #A",
+          "city": "Palo Alto",
+          "state": "CA",
+          "zipcode": "94301"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "674 Hamilton Ave #A"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.44946,
+        "longitude": -122.15546,
+        "homeStatus": "SOLD",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/674-Hamilton-Ave-A-Palo-Alto-CA-94301/19494685_zpid/",
+        "hdpTypeDimension": "RecentlySold",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": "ML81952330",
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 2067788907,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/8f6abfbe63fad103c1144db112d1bd5e-p_c.jpg"
+          }
+        ],
+        "price": 1986200,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2.5,
+        "livingArea": 1611,
+        "livingAreaValue": 1611,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "674 Hamilton Ave",
+          "city": "Palo Alto",
+          "state": "CA",
+          "zipcode": "94301"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "674 Hamilton Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.44946,
+        "longitude": -122.15546,
+        "homeStatus": "OTHER",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/674-Hamilton-Ave-Palo-Alto-CA-94301/2067788907_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19494648,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/25e3b72fff7ee421300db0abc5973f18-p_c.jpg"
+          }
+        ],
+        "price": 1682300,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 2,
+        "livingArea": 1249,
+        "livingAreaValue": 1249,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 696,
+        "lotAreaValue": 696,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "649 Forest Ave",
+          "city": "Palo Alto",
+          "state": "CA",
+          "zipcode": "94301"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "649 Forest Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.448925,
+        "longitude": -122.15509,
+        "homeStatus": "OTHER",
+        "homeType": "TOWNHOUSE",
+        "hdpUrl": "/homedetails/649-Forest-Ave-Palo-Alto-CA-94301/19494648_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Townhouse",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19495833,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.44892501831055,-122.15509033203125&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=PyGC6QA3zayKagoSViDdvXmA7WI="
+          }
+        ],
+        "price": 1460400,
+        "currency": "USD",
+        "bedrooms": 2,
+        "bathrooms": 1.5,
+        "livingArea": 1200,
+        "livingAreaValue": 1200,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 435,
+        "lotAreaValue": 435,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "649 Forest Ave #15",
+          "city": "Palo Alto",
+          "state": "CA",
+          "zipcode": "94301"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "649 Forest Ave #15"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.448925,
+        "longitude": -122.15509,
+        "homeStatus": "OTHER",
+        "homeType": "CONDO",
+        "hdpUrl": "/homedetails/649-Forest-Ave-15-Palo-Alto-CA-94301/19495833_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Condo",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "This 1464 square foot single family home has 3 bedrooms and 2.0 bathrooms. This home is located at 636 Middlefield Rd, Palo Alto, CA 94301.",
+    "whatILove": null,
+    "timeOnZillow": "1481 days",
+    "pageViewCount": 1,
+    "favoriteCount": 0,
+    "daysOnZillow": 1481,
+    "latitude": 37.449276,
+    "longitude": -122.15509,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=550x413&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=9yTBy8Yiervdb0jh3rL3cKleCSU=",
+    "brokerageName": null,
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [],
+    "homeInsights": null,
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273003768
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273003768
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273003768
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=1025x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=AJqJBB4Ks1ZXugU2QCpt8oucDdQ=",
+    "mlsid": null,
+    "ouid": null,
+    "palsId": "1e380e6767baea17f9b739fcf512168f",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I own this home and would like a professional estimate at 636 Middlefield Rd, Palo Alto, CA 94301.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 1,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": 15000,
+    "lotAreaValue": 0.3443526170798898,
+    "lotAreaUnits": "Acres",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [
+      {
+        "date": "2022-03-25",
+        "price": 2350000,
+        "time": 1648166400000,
+        "pricePerSquareFoot": 1605,
+        "priceChangeRate": 0,
+        "event": "Sold",
+        "source": "MLSListings Inc",
+        "buyerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/Marc-Bryman/",
+          "name": "Marc Bryman"
+        },
+        "sellerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/derkb/",
+          "name": "Derk Brill"
+        },
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "ML81872579",
+          "infoString2": "MLSListings Inc",
+          "infoString3": "https://photos.zillowstatic.com/fp/5273d6e56ef4c68cf7b7b4dd452c58d5-zillow_web_logo_inf_11.jpg"
+        }
+      }
+    ],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=5dlCx5ejZlQDdJ3xyRBwm3OwxEM=",
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": 2350000,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=46x46&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=rbf0jEKzVNPFPfRK46Y3uNwGuzI="
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=gL7e4mjzD1rgTKy9pb5NWdTMAYE="
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": true,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "NoZestimate",
+    "listingTypeDimension": "Non Owner Occupied",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Non Owner Occupied",
+    "keystoneHomeStatus": "NotForSale",
+    "pageUrlFragment": "NoZestimate",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=2DKOl9f7T7zLWKouC4h3sfwaqQw=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=0CF7Tbd8HCJRRkNrvEOSTP_9OfM=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=-TXFjePtux3eudvTCsx4_BdPpaE=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=m4A-kJEbg6VVt2HWo4AkY8xLlxo=",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=2DKOl9f7T7zLWKouC4h3sfwaqQw=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=0CF7Tbd8HCJRRkNrvEOSTP_9OfM=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=-TXFjePtux3eudvTCsx4_BdPpaE=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=636+Middlefield+Rd%2C+Palo+Alto%2C+CA+94301&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=m4A-kJEbg6VVt2HWo4AkY8xLlxo=",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": null,
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": "12004109",
+    "taxHistory": [
+      {
+        "time": 1460740203756,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 2917230,
+        "valueIncreaseRate": 0.14404541
+      },
+      {
+        "time": 1429117803756,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 2549925,
+        "valueIncreaseRate": 0
+      }
+    ],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/636-Middlefield-Rd_-Palo%20Alto-94301/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/94301/?bedrooms=3",
+    "neighborhoodId": 343621,
+    "zipcodeId": 97691,
+    "sellingSoon": []
+  }
+}

@@ -1,0 +1,3420 @@
+{
+  "message": "200: Success",
+  "source": "9vrc_gh1_cch",
+  "zillowURL": "https://www.zillow.com/homedetails/19643734_zpid/",
+  "propertyDetails": {
+    "affordabilityEstimate": {
+      "totalMonthlyCost": 27437.0
+    },
+    "buyAbilityData": {
+      "isEligibleProperty": true,
+      "chipLabel": null,
+      "hub": {
+        "ctaButton": {
+          "enrollmentStatus": "NOT_ENROLLED"
+        }
+      }
+    },
+    "price": 4411400,
+    "priceChange": null,
+    "priceChangeDate": null,
+    "priceChangeDateString": null,
+    "isUndisclosedAddress": false,
+    "streetAddress": "10066 Judy Ave",
+    "city": "Cupertino",
+    "state": "CA",
+    "zipcode": "95014",
+    "formattedChip": {
+      "location": [
+        {
+          "fullValue": "10066 Judy Ave"
+        },
+        {
+          "fullValue": "Cupertino, CA 95014"
+        }
+      ]
+    },
+    "resoFacts": {
+      "bathrooms": 4,
+      "bathroomsFull": null,
+      "bathroomsThreeQuarter": null,
+      "bathroomsHalf": null,
+      "bathroomsOneQuarter": null,
+      "bedrooms": 6,
+      "aboveGradeFinishedArea": null,
+      "accessibilityFeatures": null,
+      "additionalFeeInfo": null,
+      "additionalParcelsDescription": null,
+      "architecturalStyle": null,
+      "associations": [],
+      "associationFee": null,
+      "associationAmenities": null,
+      "associationFee2": null,
+      "associationFeeIncludes": null,
+      "associationName": null,
+      "associationName2": null,
+      "associationPhone": null,
+      "associationPhone2": null,
+      "basementYN": null,
+      "buildingFeatures": [
+        "Slightly Irregular"
+      ],
+      "buildingName": null,
+      "appliances": [],
+      "atAGlanceFacts": [
+        {
+          "factLabel": "Type",
+          "factValue": "SingleFamily"
+        },
+        {
+          "factLabel": "Year Built",
+          "factValue": "2007"
+        },
+        {
+          "factLabel": "Heating",
+          "factValue": "Other"
+        },
+        {
+          "factLabel": "Cooling",
+          "factValue": null
+        },
+        {
+          "factLabel": "Parking",
+          "factValue": "Garage - Attached"
+        },
+        {
+          "factLabel": "Lot",
+          "factValue": "9,147 sqft"
+        },
+        {
+          "factLabel": "Offer Review Date",
+          "factValue": null
+        }
+      ],
+      "attic": null,
+      "availabilityDate": null,
+      "basement": null,
+      "bathroomsPartial": null,
+      "bathroomsFloat": 4.5,
+      "belowGradeFinishedArea": null,
+      "bodyType": null,
+      "builderModel": null,
+      "builderName": null,
+      "buildingArea": null,
+      "buildingAreaSource": null,
+      "canRaiseHorses": false,
+      "carportParkingCapacity": null,
+      "cityRegion": "Cupertino",
+      "commonWalls": null,
+      "communityFeatures": [],
+      "compensationBasedOn": null,
+      "constructionMaterials": [
+        "wood frame"
+      ],
+      "contingency": null,
+      "cooling": [],
+      "coveredParkingCapacity": null,
+      "cropsIncludedYN": null,
+      "cumulativeDaysOnMarket": null,
+      "developmentStatus": null,
+      "doorFeatures": null,
+      "electric": null,
+      "elevation": null,
+      "elevationUnits": null,
+      "entryLevel": null,
+      "entryLocation": null,
+      "exclusions": null,
+      "exteriorFeatures": [],
+      "feesAndDues": [],
+      "fencing": null,
+      "fireplaceFeatures": null,
+      "fireplaces": null,
+      "flooring": [],
+      "foundationArea": null,
+      "foundationDetails": [],
+      "frontageLength": null,
+      "frontageType": null,
+      "furnished": false,
+      "garageParkingCapacity": null,
+      "gas": null,
+      "greenBuildingVerificationType": null,
+      "greenEnergyEfficient": null,
+      "greenEnergyGeneration": null,
+      "greenIndoorAirQuality": null,
+      "greenSustainability": null,
+      "greenWaterConservation": null,
+      "hasAdditionalParcels": false,
+      "hasAssociation": null,
+      "hasAttachedGarage": null,
+      "hasAttachedProperty": false,
+      "hasCooling": false,
+      "hasCarport": null,
+      "hasElectricOnProperty": null,
+      "hasFireplace": null,
+      "hasGarage": false,
+      "hasHeating": true,
+      "hasHomeWarranty": false,
+      "hasLandLease": false,
+      "hasOpenParking": null,
+      "hasRentControl": null,
+      "hasSpa": false,
+      "hasPetsAllowed": null,
+      "hasPrivatePool": null,
+      "hasView": false,
+      "hasWaterfrontView": null,
+      "heating": [
+        "Other"
+      ],
+      "highSchool": null,
+      "highSchoolDistrict": null,
+      "hoaFee": null,
+      "hoaFeeTotal": null,
+      "homeType": "SingleFamily",
+      "horseAmenities": null,
+      "horseYN": null,
+      "inclusions": null,
+      "incomeIncludes": null,
+      "interiorFeatures": null,
+      "irrigationWaterRightsAcres": null,
+      "irrigationWaterRightsYN": null,
+      "isNewConstruction": null,
+      "isSeniorCommunity": null,
+      "landLeaseAmount": null,
+      "landLeaseExpirationDate": null,
+      "laundryFeatures": null,
+      "leaseTerm": null,
+      "levels": null,
+      "listingId": null,
+      "listingTerms": null,
+      "lotFeatures": null,
+      "lotSize": "9,147 sqft",
+      "lotSizeDimensions": null,
+      "livingArea": "3,589 sqft",
+      "livingAreaRange": null,
+      "livingAreaRangeUnits": null,
+      "livingQuarters": [],
+      "mainLevelBathrooms": null,
+      "mainLevelBedrooms": null,
+      "marketingType": null,
+      "media": [],
+      "middleOrJuniorSchool": null,
+      "middleOrJuniorSchoolDistrict": null,
+      "municipality": null,
+      "numberOfUnitsInCommunity": null,
+      "numberOfUnitsVacant": null,
+      "offerReviewDate": null,
+      "onMarketDate": null,
+      "openParkingCapacity": null,
+      "otherEquipment": null,
+      "otherFacts": [],
+      "otherParking": null,
+      "otherStructures": null,
+      "ownership": null,
+      "ownershipType": null,
+      "parcelNumber": "37511012",
+      "parkingCapacity": 0,
+      "parkingFeatures": [
+        "Garage - Attached"
+      ],
+      "parkName": null,
+      "patioAndPorchFeatures": null,
+      "petsMaxWeight": null,
+      "poolFeatures": null,
+      "pricePerSquareFoot": 1229,
+      "propertyCondition": null,
+      "propertySubType": null,
+      "roadSurfaceType": null,
+      "roofType": null,
+      "rooms": [],
+      "roomTypes": null,
+      "securityFeatures": null,
+      "sewer": null,
+      "spaFeatures": null,
+      "specialListingConditions": null,
+      "stories": null,
+      "storiesDecimal": null,
+      "storiesTotal": null,
+      "structureType": "Other",
+      "subdivisionName": null,
+      "taxAnnualAmount": 25111,
+      "taxAssessedValue": 2063623,
+      "tenantPays": null,
+      "topography": null,
+      "totalActualRent": null,
+      "utilities": null,
+      "vegetation": null,
+      "view": [],
+      "virtualTour": null,
+      "waterSource": null,
+      "waterBodyName": null,
+      "waterfrontFeatures": null,
+      "waterView": "",
+      "waterViewYN": null,
+      "windowFeatures": null,
+      "woodedArea": null,
+      "yearBuilt": 2007,
+      "yearBuiltEffective": null,
+      "zoning": null,
+      "zoningDescription": null,
+      "elementarySchool": null,
+      "elementarySchoolDistrict": null,
+      "listAOR": null
+    },
+    "currency": "USD",
+    "listingFeedID": null,
+    "ssid": null,
+    "homeStatus": "OTHER",
+    "listingProvider": {
+      "logos": [],
+      "title": "Listing Provided by",
+      "disclaimerText": null,
+      "enhancedVideoURL": null,
+      "enhancedDescriptionText": null,
+      "showLogos": null,
+      "showNoContactInfoMessage": false,
+      "agentName": null,
+      "agentLicenseNumber": null,
+      "postingWebsiteURL": null,
+      "postingWebsiteLinkText": "See listing website",
+      "postingGroupName": null,
+      "sourceText": null,
+      "isZRMSourceText": null
+    },
+    "livingArea": 3589,
+    "livingAreaValue": 3589,
+    "homeType": "SINGLE_FAMILY",
+    "contingentListingType": null,
+    "comingSoonOnMarketDate": null,
+    "isPreforeclosureAuction": false,
+    "attributionInfo": {
+      "trueStatus": null,
+      "mlsId": null,
+      "mlsName": null,
+      "providerLogo": null,
+      "listingAgreement": null,
+      "agentEmail": null,
+      "agentLicenseNumber": null,
+      "agentName": null,
+      "agentPhoneNumber": null,
+      "attributionTitle": null,
+      "brokerName": null,
+      "brokerPhoneNumber": null,
+      "buyerAgentMemberStateLicense": null,
+      "buyerAgentName": null,
+      "buyerBrokerageName": null,
+      "coAgentLicenseNumber": null,
+      "coAgentName": null,
+      "coAgentNumber": null,
+      "lastChecked": null,
+      "lastUpdated": null,
+      "listingOffices": [],
+      "listingAgents": [],
+      "mlsDisclaimer": null,
+      "listingAttributionContact": null,
+      "listingAgentAttributionContact": null,
+      "infoString3": null,
+      "infoString5": null,
+      "infoString10": null,
+      "infoString16": null
+    },
+    "listingDataSource": "Legacy",
+    "zpid": 19643734,
+    "address": {
+      "streetAddress": "10066 Judy Ave",
+      "city": "Cupertino",
+      "state": "CA",
+      "zipcode": "95014",
+      "neighborhood": null,
+      "community": null,
+      "subdivision": null
+    },
+    "isListingClaimedByCurrentSignedInUser": false,
+    "isCurrentSignedInAgentResponsible": false,
+    "bedrooms": 6,
+    "bathrooms": 4.5,
+    "yearBuilt": 2007,
+    "livingAreaUnitsShort": "sqft",
+    "isCurrentSignedInUserVerifiedOwner": false,
+    "propertyUpdatePageLink": null,
+    "moveHomeMapLocationLink": null,
+    "propertyEventLogLink": null,
+    "editPropertyHistorylink": null,
+    "collections": {
+      "modules": [
+        {
+          "name": "Similar homes",
+          "placement": "NEIGHBORHOOD",
+          "propertyDetails": [
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/a1d6cb32cf46e960cb49f3326b3d5240-p_c.jpg"
+                }
+              ],
+              "price": 4888888,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 3618,
+              "livingAreaValue": 3618,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 12196,
+              "lotAreaValue": 0.2799816345270891,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "22551 Ricardo Rd",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Monta Vista North"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "22551 Ricardo Rd"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.30872,
+              "longitude": -122.06943,
+              "zpid": 59683243,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/22551-Ricardo-Rd-Cupertino-CA-95014/59683243_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039106",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Donna Tam",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/2f747b58946a85e364350ebf850bb0df-p_c.jpg"
+                }
+              ],
+              "price": 4398000,
+              "currency": "USD",
+              "bedrooms": 6,
+              "bathrooms": 5,
+              "livingArea": 2611,
+              "livingAreaValue": 2611,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5241,
+              "lotAreaValue": 5241,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "10536 S Tantau Ave",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Rancho Rinconada"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "10536 S Tantau Ave"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.31507,
+              "longitude": -122.00725,
+              "zpid": 19644938,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/10536-S-Tantau-Ave-Cupertino-CA-95014/19644938_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037640",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Tracy Hsu",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/162dd13476f818f4e28a045bc7364d28-p_c.jpg"
+                }
+              ],
+              "price": 3888000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 4,
+              "livingArea": 2686,
+              "livingAreaValue": 2686,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 7380,
+              "lotAreaValue": 7380,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "10536 Davison Ave",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "South Blaney"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "10536 Davison Ave"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.315125,
+              "longitude": -122.01918,
+              "zpid": 19639735,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/10536-Davison-Ave-Cupertino-CA-95014/19639735_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82039127",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Cathy Rohrs",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/66d77c7a5ca4df1d02bbb2d557d02bfd-p_c.jpg"
+                }
+              ],
+              "price": 3988000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 3450,
+              "livingAreaValue": 3450,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 8814,
+              "lotAreaValue": 8814,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "1352 S Stelling Rd",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Monta Vista South"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "1352 S Stelling Rd"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.298637,
+              "longitude": -122.041046,
+              "zpid": 19637805,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/1352-S-Stelling-Rd-Cupertino-CA-95014/19637805_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041085",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Peter Pan",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/b36c3b3bcaa6e0fae9c7903e484013c7-p_c.jpg"
+                }
+              ],
+              "price": 4200000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2477,
+              "livingAreaValue": 2477,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": false
+              },
+              "lotSize": 7900,
+              "lotAreaValue": 7900,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "21570 Edward Way",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Monta Vista North"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "21570 Edward Way"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.30315,
+              "longitude": -122.06591,
+              "zpid": 19633191,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/21570-Edward-Way-Cupertino-CA-95014/19633191_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Owner",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": true,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "",
+                "mlsName": null,
+                "providerLogo": null,
+                "agentName": null,
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/9b386883d1c14bcd74f7d9bea0576f2d-p_c.jpg"
+                }
+              ],
+              "price": 2998888,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2248,
+              "livingAreaValue": 2248,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6400,
+              "lotAreaValue": 6400,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "19170 Tilson Ave",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Rancho Rinconada"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "19170 Tilson Ave"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.316574,
+              "longitude": -122.00787,
+              "zpid": 19645161,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/19170-Tilson-Ave-Cupertino-CA-95014/19645161_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040841",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Brad Bell",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/f8c3f8f0448bb098cf9c514cb1904e18-p_c.jpg"
+                }
+              ],
+              "price": 3680000,
+              "currency": "USD",
+              "bedrooms": 3,
+              "bathrooms": 2,
+              "livingArea": 2136,
+              "livingAreaValue": 2136,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9625,
+              "lotAreaValue": 9625,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "20730 Fargo Dr",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Garden Gate"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "20730 Fargo Dr"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.328495,
+              "longitude": -122.03655,
+              "zpid": 19626236,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/20730-Fargo-Dr-Cupertino-CA-95014/19626236_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042135",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Alex Kang",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": true,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/1d0002338a51d96e952a90b92c1ac92f-p_c.jpg"
+                }
+              ],
+              "price": 4980000,
+              "currency": "USD",
+              "bedrooms": 6,
+              "bathrooms": 6,
+              "livingArea": 4035,
+              "livingAreaValue": 4035,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10125,
+              "lotAreaValue": 10125,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "10291 Imperial Ave",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "95014"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "10291 Imperial Ave"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.318474,
+              "longitude": -122.053665,
+              "zpid": 19634423,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/10291-Imperial-Ave-Cupertino-CA-95014/19634423_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040900",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Anson Ip",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/b9fe54bb0c1e4d0e4c37a6956d46b34b-p_c.jpg"
+                }
+              ],
+              "price": 4480000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 2648,
+              "livingAreaValue": 2648,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5633,
+              "lotAreaValue": 5633,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "18980 Newsom Ave",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Rancho Rinconada"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "18980 Newsom Ave"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.310722,
+              "longitude": -122.00462,
+              "zpid": 19644835,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/18980-Newsom-Ave-Cupertino-CA-95014/19644835_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82037228",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Serena Zhang",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/27c9039ba32d917d978875d04111987c-p_c.jpg"
+                }
+              ],
+              "price": 3398000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 3000,
+              "livingAreaValue": 3000,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6600,
+              "lotAreaValue": 6600,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "22670 San Juan Rd",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Inspiration Heights"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "22670 San Juan Rd"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.311832,
+              "longitude": -122.07218,
+              "zpid": 19630708,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/22670-San-Juan-Rd-Cupertino-CA-95014/19630708_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042767",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Caroline Anderson",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/91f06503b6ce1181b81a4b532e4337fc-p_c.jpg"
+                }
+              ],
+              "price": 4250000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2039,
+              "livingAreaValue": 2039,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5000,
+              "lotAreaValue": 5000,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "20558 Kirwin Ln",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Jollyman"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "20558 Kirwin Ln"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.31336,
+              "longitude": -122.03332,
+              "zpid": 461626824,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/20558-Kirwin-Ln-Cupertino-CA-95014/461626824_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "New Construction",
+              "listing_sub_type": {
+                "is_newHome": true,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": false
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82042538",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Anson Ip",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": "BUILDER_SPEC"
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/cc52b09f1044859c7a46a0b2a9d2af77-p_c.jpg"
+                }
+              ],
+              "price": 3648000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 4,
+              "livingArea": 2408,
+              "livingAreaValue": 2408,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 4855,
+              "lotAreaValue": 4855,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "10200 Empire Ave",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "95014"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "10200 Empire Ave"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.325798,
+              "longitude": -122.051926,
+              "zpid": 19625882,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/10200-Empire-Ave-Cupertino-CA-95014/19625882_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041938",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Carol Jeans",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ab6fe62062c3d266b77486efc43c59ef-p_c.jpg"
+                }
+              ],
+              "price": 2999888,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2218,
+              "livingAreaValue": 2218,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 6600,
+              "lotAreaValue": 6600,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "721 Stendhal Ln",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Fair Grove"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "721 Stendhal Ln"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.31521,
+              "longitude": -122.011246,
+              "zpid": 19645224,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/721-Stendhal-Ln-Cupertino-CA-95014/19645224_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82035794",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jing Maa",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ff6b55b798255acedcc3a247cc8a1541-p_c.jpg"
+                }
+              ],
+              "price": 3998000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 3,
+              "livingArea": 2575,
+              "livingAreaValue": 2575,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 14606,
+              "lotAreaValue": 0.33530762167125805,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "13120 Via Madronas Dr",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Triangle South"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "13120 Via Madronas Dr"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.277752,
+              "longitude": -122.01186,
+              "zpid": 19656238,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/13120-Via-Madronas-Dr-Saratoga-CA-95070/19656238_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82041570",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Andy Tse",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/d6b911fcab8f5cb213ffde959b762cd5-p_c.jpg"
+                }
+              ],
+              "price": 4699000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 4371,
+              "livingAreaValue": 4371,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 10054,
+              "lotAreaValue": 10054,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "13324 Carrick Ave",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Quito"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "13324 Carrick Ave"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.27398,
+              "longitude": -121.997025,
+              "zpid": 19654602,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/13324-Carrick-Ave-Saratoga-CA-95070/19654602_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82031873",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Jaleh Taghipour",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/d3ed3b2954e7ea2da8c5fb2aa6a15bda-p_c.jpg"
+                }
+              ],
+              "price": 3700000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 2,
+              "livingArea": 2170,
+              "livingAreaValue": 2170,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 17000,
+              "lotAreaValue": 0.39026629935720847,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "10140 Hillcrest Rd",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Creston-Pharlap"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "10140 Hillcrest Rd"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.324936,
+              "longitude": -122.06494,
+              "zpid": 19625577,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/10140-Hillcrest-Rd-Cupertino-CA-95014/19625577_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036483",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": " Axis Team",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/3480b9f2355e1205ae3dc7d5c7f7cec4-p_c.jpg"
+                }
+              ],
+              "price": 3799000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2192,
+              "livingAreaValue": 2192,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 5994,
+              "lotAreaValue": 5994,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "7552 Tiptoe Ln",
+                "city": "Cupertino",
+                "state": "CA",
+                "zipcode": "95014"
+              },
+              "parentRegion": {
+                "name": "Jollyman"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "7552 Tiptoe Ln"
+                  },
+                  {
+                    "fullValue": "Cupertino, CA 95014"
+                  }
+                ]
+              },
+              "latitude": 37.30718,
+              "longitude": -122.03757,
+              "zpid": 19635778,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/7552-Tiptoe-Ln-Cupertino-CA-95014/19635778_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82032872",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Donald Jessup",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/6dfe494ebd614c5d99ec621f903dd63b-p_c.jpg"
+                }
+              ],
+              "price": 4650000,
+              "currency": "USD",
+              "bedrooms": 5,
+              "bathrooms": 5,
+              "livingArea": 3070,
+              "livingAreaValue": 3070,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 9006,
+              "lotAreaValue": 9006,
+              "lotAreaUnits": "Square Feet",
+              "address": {
+                "streetAddress": "19110 Dagmar Dr",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Fruitvale"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "19110 Dagmar Dr"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.27436,
+              "longitude": -122.00671,
+              "zpid": 19655288,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/19110-Dagmar-Dr-Saratoga-CA-95070/19655288_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82036230",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Andy Tse",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/ef5ba4f8b5221e2ff5089bc01b648afe-p_c.jpg"
+                }
+              ],
+              "price": 4998000,
+              "currency": "USD",
+              "bedrooms": 8,
+              "bathrooms": 6,
+              "livingArea": 3572,
+              "livingAreaValue": 3572,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 15149,
+              "lotAreaValue": 0.3477731864095501,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "13090 Heath St",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Quito"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "13090 Heath St"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.277462,
+              "longitude": -122.001076,
+              "zpid": 19654479,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/13090-Heath-St-Saratoga-CA-95070/19654479_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040675",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Andy Tse",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            },
+            {
+              "isSavedByCurrentSignedInUser": false,
+              "miniCardPhotos": [
+                {
+                  "url": "https://photos.zillowstatic.com/fp/5652c722974c023a81bc8172378efac8-p_c.jpg"
+                }
+              ],
+              "price": 4500000,
+              "currency": "USD",
+              "bedrooms": 4,
+              "bathrooms": 3,
+              "livingArea": 2222,
+              "livingAreaValue": 2222,
+              "livingAreaUnits": "Square Feet",
+              "livingAreaUnitsShort": "sqft",
+              "listingMetadata": {
+                "comminglingCategoryIsRulesApplicable": true
+              },
+              "lotSize": 42550,
+              "lotAreaValue": 0.9768135904499541,
+              "lotAreaUnits": "Acres",
+              "address": {
+                "streetAddress": "14176 Quail Acres",
+                "city": "Saratoga",
+                "state": "CA",
+                "zipcode": "95070"
+              },
+              "parentRegion": {
+                "name": "Fruitvale West"
+              },
+              "formattedChip": {
+                "location": [
+                  {
+                    "fullValue": "14176 Quail Acres"
+                  },
+                  {
+                    "fullValue": "Saratoga, CA 95070"
+                  }
+                ]
+              },
+              "latitude": 37.262424,
+              "longitude": -122.02023,
+              "zpid": 19657781,
+              "homeStatus": "FOR_SALE",
+              "homeType": "SINGLE_FAMILY",
+              "hdpUrl": "/homedetails/14176-Quail-Acres-Saratoga-CA-95070/19657781_zpid/",
+              "hdpTypeDimension": "ForSale",
+              "propertyTypeDimension": "Single Family",
+              "listingTypeDimension": "For Sale by Agent",
+              "listing_sub_type": {
+                "is_newHome": false,
+                "is_forAuction": false,
+                "is_bankOwned": false,
+                "is_foreclosure": false,
+                "is_FSBO": false,
+                "is_comingSoon": false,
+                "is_FSBA": true
+              },
+              "providerListingID": null,
+              "attributionInfo": {
+                "mlsId": "ML82040914",
+                "mlsName": "MLSListings Inc",
+                "providerLogo": null,
+                "agentName": "Brenda Miller",
+                "agentPhoneNumber": null,
+                "brokerName": null,
+                "brokerPhoneNumber": null,
+                "trueStatus": null
+              },
+              "isShowcaseListing": false,
+              "isPremierBuilder": false,
+              "state": "CA",
+              "newConstructionType": null
+            }
+          ]
+        }
+      ],
+      "trackingTags": [
+        {
+          "value": "3231a587b320ac337493fe356adf07cf"
+        }
+      ]
+    },
+    "providerListingID": null,
+    "isRentalListingOffMarket": false,
+    "hdpUrl": "/homedetails/10066-Judy-Ave-Cupertino-CA-95014/19643734_zpid/",
+    "nearbyCities": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca/"
+        },
+        "name": "Cupertino",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/gilroy-ca/"
+        },
+        "name": "Gilroy",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/livermore-ca/"
+        },
+        "name": "Livermore",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/milpitas-ca/"
+        },
+        "name": "Milpitas",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/morgan-hill-ca/"
+        },
+        "name": "Morgan Hill",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/mountain-view-ca/"
+        },
+        "name": "Mountain View",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/palo-alto-ca/"
+        },
+        "name": "Palo Alto",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/san-jose-ca/"
+        },
+        "name": "San Jose",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/santa-clara-ca/"
+        },
+        "name": "Santa Clara",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/sunnyvale-ca/"
+        },
+        "name": "Sunnyvale",
+        "body": null
+      }
+    ],
+    "nearbyNeighborhoods": [
+      {
+        "regionUrl": {
+          "path": "/creston-pharlap-cupertino-ca/"
+        },
+        "name": "Creston-Pharlap",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/garden-gate-cupertino-ca/"
+        },
+        "name": "Garden Gate",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/inspiration-heights-cupertino-ca/"
+        },
+        "name": "Inspiration Heights",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/jollyman-cupertino-ca/"
+        },
+        "name": "Jollyman",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/monta-vista-north-cupertino-ca/"
+        },
+        "name": "Monta Vista North",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/monta-vista-south-cupertino-ca/"
+        },
+        "name": "Monta Vista South",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/north-blaney-cupertino-ca/"
+        },
+        "name": "North Blaney",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/oak-valley-cupertino-ca/"
+        },
+        "name": "Oak Valley",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/rancho-rinconada-cupertino-ca/"
+        },
+        "name": "Rancho Rinconada",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/south-blaney-cupertino-ca/"
+        },
+        "name": "South Blaney",
+        "body": null
+      }
+    ],
+    "country": "USA",
+    "nearbyZipcodes": [
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca-95014/"
+        },
+        "name": "95014",
+        "body": null
+      },
+      {
+        "regionUrl": {
+          "path": "/cupertino-ca-95015/"
+        },
+        "name": "95015",
+        "body": null
+      }
+    ],
+    "cityId": 4281,
+    "citySearchUrl": {
+      "text": "Homes in Cupertino",
+      "path": "/cupertino-ca/"
+    },
+    "zipcodeSearchUrl": {
+      "path": "/cupertino-ca-95014/"
+    },
+    "apartmentsForRentInZipcodeSearchUrl": {
+      "path": "/cupertino-ca-95014/apartments/"
+    },
+    "housesForRentInZipcodeSearchUrl": {
+      "path": "/cupertino-ca-95014/rent-houses/"
+    },
+    "abbreviatedAddress": "10066 Judy Ave",
+    "county": "Santa Clara County",
+    "neighborhoodRegion": {
+      "name": "Rancho Rinconada"
+    },
+    "building": null,
+    "boroughId": null,
+    "neighborhoodSearchUrl": {
+      "path": "/rancho-rinconada-cupertino-ca/"
+    },
+    "stateSearchUrl": {
+      "path": "/ca/"
+    },
+    "countySearchUrl": {
+      "text": "Homes in Santa Clara County",
+      "path": "/santa-clara-county-ca/"
+    },
+    "boroughSearchUrl": null,
+    "communityUrl": null,
+    "isShowcaseListing": false,
+    "isPremierBuilder": false,
+    "adTargets": {
+      "listtp": "not_for_sale",
+      "proptp": "sfh",
+      "dma": "37",
+      "cnty": "Santa_Clara",
+      "hood": "Rancho_Rinconada",
+      "price_band": "z3m",
+      "zestimate": "4411400",
+      "zestibuck": "4m-4_999m",
+      "price": "4411400",
+      "lot": "2",
+      "bd": "6",
+      "ba": "4.5",
+      "sqft": "3589",
+      "sqftrange": "3500-3999",
+      "yrblt": "2000-2009",
+      "aamgnrc1": "10066 Judy Ave",
+      "city": "Cupertino",
+      "state": "CA",
+      "zip": "95014",
+      "pid": "19643734",
+      "premieragent": "no",
+      "tflag": "verizon",
+      "service_version": "6a990ea3",
+      "env": "prod",
+      "guid": "df916380-3df3-4128-81d5-f39a42b361c9"
+    },
+    "interactiveFloorPlanUrl": "",
+    "lotPremium": null,
+    "listPriceLow": null,
+    "monthlyHoaFee": null,
+    "zestimate": 4411400,
+    "newConstructionType": null,
+    "zestimateLowPercent": "8",
+    "zestimateHighPercent": "9",
+    "rentZestimate": 7538,
+    "restimateLowPercent": "7",
+    "restimateHighPercent": "7",
+    "schools": [
+      {
+        "distance": 0.5,
+        "name": "D. J. Sedgwick Elementary School",
+        "rating": 9,
+        "level": "Elementary",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "K-5",
+        "link": "https://www.greatschools.org/california/cupertino/5448-D.-J.-Sedgwick-Elementary-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.8,
+        "name": "Warren E. Hyde Middle School",
+        "rating": 10,
+        "level": "Middle",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "6-8",
+        "link": "https://www.greatschools.org/california/cupertino/5437-Warren-E.-Hyde-Middle-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      },
+      {
+        "distance": 0.3,
+        "name": "Cupertino High School",
+        "rating": 10,
+        "level": "High",
+        "studentsPerTeacher": null,
+        "assigned": null,
+        "grades": "9-12",
+        "link": "https://www.greatschools.org/california/cupertino/5496-Cupertino-High-School/",
+        "type": "Public",
+        "size": null,
+        "totalCount": null,
+        "isAssigned": null
+      }
+    ],
+    "homeValues": null,
+    "parentRegion": {
+      "name": "Rancho Rinconada",
+      "regionId": 117559
+    },
+    "nearbyHomes": [
+      {
+        "zpid": 19643733,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/5379bed5a2aee36ef58889b99b510a35-p_c.jpg"
+          }
+        ],
+        "price": 5550000,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 5,
+        "livingArea": 3779,
+        "livingAreaValue": 3779,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 9375,
+        "lotAreaValue": 9375,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "10080 Judy Ave",
+          "city": "Cupertino",
+          "state": "CA",
+          "zipcode": "95014"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "10080 Judy Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.321735,
+        "longitude": -122.00511,
+        "homeStatus": "RECENTLY_SOLD",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/10080-Judy-Ave-Cupertino-CA-95014/19643733_zpid/",
+        "hdpTypeDimension": "RecentlySold",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": "ML82008229",
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19643735,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/01e18846a3d4c94d9e6c42c13bfd3f8c-p_c.jpg"
+          }
+        ],
+        "price": 2935400,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "livingArea": 1323,
+        "livingAreaValue": 1323,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 9147,
+        "lotAreaValue": 9147,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "10052 Judy Ave",
+          "city": "Cupertino",
+          "state": "CA",
+          "zipcode": "95014"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "10052 Judy Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.32215,
+        "longitude": -122.00511,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/10052-Judy-Ave-Cupertino-CA-95014/19643735_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19643739,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=10065+Bret+Ave%2C+Cupertino%2C+CA+95014&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=PIv3No0npbSYfhIsLJFGJvexnjA="
+          }
+        ],
+        "price": 4383200,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3,
+        "livingArea": 2978,
+        "livingAreaValue": 2978,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 9147,
+        "lotAreaValue": 9147,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "10065 Bret Ave",
+          "city": "Cupertino",
+          "state": "CA",
+          "zipcode": "95014"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "10065 Bret Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.321945,
+        "longitude": -122.004684,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/10065-Bret-Ave-Cupertino-CA-95014/19643739_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19643740,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=10081+Bret+Ave%2C+Cupertino%2C+CA+95014&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=_MGon_ds8zjDXdvyRg5i1C1LLCw="
+          }
+        ],
+        "price": 4454300,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 3.5,
+        "livingArea": 3160,
+        "livingAreaValue": 3160,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 9147,
+        "lotAreaValue": 9147,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "10081 Bret Ave",
+          "city": "Cupertino",
+          "state": "CA",
+          "zipcode": "95014"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "10081 Bret Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.321735,
+        "longitude": -122.004684,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/10081-Bret-Ave-Cupertino-CA-95014/19643740_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19643738,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=10053+Bret+Ave%2C+Cupertino%2C+CA+95014&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=JHcqGvQlzzdO9ip1IGFrxRTJndo="
+          }
+        ],
+        "price": 4573800,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 3.5,
+        "livingArea": 3418,
+        "livingAreaValue": 3418,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 9147,
+        "lotAreaValue": 9147,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "10053 Bret Ave",
+          "city": "Cupertino",
+          "state": "CA",
+          "zipcode": "95014"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "10053 Bret Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.32215,
+        "longitude": -122.004684,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/10053-Bret-Ave-Cupertino-CA-95014/19643738_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19643732,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/staticmap?mobile=false&sensor=true&maptype=satellite&size=316x234&zoom=17&center=37.321529388427734,-122.00511169433594&key=AIzaSyBWYJWCA8FNMQvSe_k3LKfDGJaEgdKwsco&&signature=EQmeLEEfnDjjyy5wnDR6-bQa7xU="
+          }
+        ],
+        "price": 4305800,
+        "currency": "USD",
+        "bedrooms": 5,
+        "bathrooms": 4,
+        "livingArea": 3583,
+        "livingAreaValue": 3583,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 9300,
+        "lotAreaValue": 9300,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "10094 Judy Ave",
+          "city": "Cupertino",
+          "state": "CA",
+          "zipcode": "95014"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "10094 Judy Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.32153,
+        "longitude": -122.00511,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/10094-Judy-Ave-Cupertino-CA-95014/19643732_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19643736,
+        "miniCardPhotos": [
+          {
+            "url": "https://maps.googleapis.com/maps/api/streetview?location=10038+Judy+Ave%2C+Cupertino%2C+CA+95014&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=UDI7AZBztw_xT6NbrB-WqEvbZ58="
+          }
+        ],
+        "price": 2525000,
+        "currency": "USD",
+        "bedrooms": 3,
+        "bathrooms": 1,
+        "livingArea": 1544,
+        "livingAreaValue": 1544,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": 9583,
+        "lotAreaValue": 9583,
+        "lotAreaUnits": "Square Feet",
+        "address": {
+          "streetAddress": "10038 Judy Ave",
+          "city": "Cupertino",
+          "state": "CA",
+          "zipcode": "95014"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "10038 Judy Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.322357,
+        "longitude": -122.00512,
+        "homeStatus": "OTHER",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/10038-Judy-Ave-Cupertino-CA-95014/19643736_zpid/",
+        "hdpTypeDimension": "Zestimate",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "Unknown Listed By",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": null,
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      },
+      {
+        "zpid": 19643548,
+        "miniCardPhotos": [
+          {
+            "url": "https://photos.zillowstatic.com/fp/b71770cdcb3732f94fb9d09e2fa8f20e-p_c.jpg"
+          }
+        ],
+        "price": 5500,
+        "currency": "USD",
+        "bedrooms": 4,
+        "bathrooms": 2,
+        "livingArea": 1600,
+        "livingAreaValue": 1600,
+        "livingAreaUnits": "Square Feet",
+        "livingAreaUnitsShort": "sqft",
+        "listingMetadata": {
+          "comminglingCategoryIsRulesApplicable": false
+        },
+        "resoFacts": {
+          "bathroomsOneQuarter": null,
+          "bathroomsHalf": null,
+          "bathroomsThreeQuarter": null,
+          "bathroomsFull": null
+        },
+        "lotSize": null,
+        "lotAreaValue": null,
+        "lotAreaUnits": "sqft",
+        "address": {
+          "streetAddress": "10067 Judy Ave",
+          "city": "Cupertino",
+          "state": "CA",
+          "zipcode": "95014"
+        },
+        "parentRegion": null,
+        "formattedChip": {
+          "location": [
+            {
+              "fullValue": "10067 Judy Ave"
+            },
+            {
+              "fullValue": null
+            }
+          ]
+        },
+        "latitude": 37.321938,
+        "longitude": -122.005745,
+        "homeStatus": "FOR_RENT",
+        "homeType": "SINGLE_FAMILY",
+        "hdpUrl": "/homedetails/10067-Judy-Ave-Cupertino-CA-95014/19643548_zpid/",
+        "hdpTypeDimension": "ForRent",
+        "propertyTypeDimension": "Single Family",
+        "listingTypeDimension": "For Rent",
+        "listing_sub_type": {
+          "is_newHome": false,
+          "is_forAuction": false,
+          "is_bankOwned": false,
+          "is_foreclosure": false,
+          "is_FSBO": false,
+          "is_comingSoon": false,
+          "is_FSBA": false
+        },
+        "providerListingID": "38xkw9nxes92m",
+        "attributionInfo": {
+          "mlsId": null,
+          "mlsName": null,
+          "providerLogo": null,
+          "agentName": null,
+          "agentPhoneNumber": null,
+          "brokerName": null,
+          "brokerPhoneNumber": null,
+          "trueStatus": null
+        },
+        "isShowcaseListing": false,
+        "isPremierBuilder": false,
+        "state": "CA",
+        "newConstructionType": null
+      }
+    ],
+    "description": "WOW! This home is one of a kind! Elegant 3,135-square-foot 5 Bed/3.5 Bath executive estate sits on a 9,375-square foot lot. Separate In-Law unit with full kitchen, bed & bath (+454 SF)--perfect for parents or a rental! This property shouts quality with marble, cherry & maple hardwood floors; granite counters & cherry cabinets; high-end appliances & luxury features throughout. A Must See! 3-car garage plus a huge rear yard with covered patio. Quiet neighborhood in award-winning school district: Sedgwick Elementary, Hyde Middle School, Cupertino High School.",
+    "whatILove": null,
+    "timeOnZillow": "6173 days",
+    "pageViewCount": 5,
+    "favoriteCount": 0,
+    "daysOnZillow": 6173,
+    "latitude": 37.32194,
+    "longitude": -122.00511,
+    "openHouseSchedule": [],
+    "desktopWebHdpImageLink": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=550x413&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=0PBUBZSXqYeBp3BnUwrM7Qg9B6U=",
+    "brokerageName": null,
+    "timeZone": "America/Los_Angeles",
+    "pals": [],
+    "listedBy": [],
+    "homeInsights": null,
+    "isIncomeRestricted": null,
+    "brokerId": null,
+    "mortgageZHLRates": {
+      "fifteenYearFixedBucket": {
+        "rate": 6.388,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273004783
+      },
+      "thirtyYearFixedBucket": {
+        "rate": 6.441,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273004783
+      },
+      "arm5Bucket": {
+        "rate": 5.866,
+        "rateSource": "ZGMI",
+        "lastUpdated": 1776273004783
+      }
+    },
+    "propertyTaxRate": 1.19,
+    "hiResImageLink": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=1025x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=ie6aWfTe3SXBvZc8pwKFrUuNgc4=",
+    "mlsid": null,
+    "ouid": null,
+    "palsId": "02e34a18f98cfa3da85cdd0c0b39e5d8",
+    "propertyTypeDimension": "Single Family",
+    "tourEligibility": {
+      "isPropertyTourEligible": false,
+      "propertyTourOptions": {
+        "isFinal": true,
+        "tourAvailability": [],
+        "tourType": "NONE"
+      }
+    },
+    "tourAppointmentsForCurrentLoggedInUser": null,
+    "submitFlow": [
+      {
+        "__typename": "PropertyLeadSubmitForm",
+        "title": "Contact a buyer's agent",
+        "heading": null,
+        "subheading": null,
+        "headingIcon": null,
+        "upsellBanner": null,
+        "disclosure": "Connect with a local buyer\u2019s agent.",
+        "inputFields": [
+          {
+            "label": "Name",
+            "placeholder": null,
+            "validationRegex": null,
+            "isRequired": true,
+            "inputType": "NAME",
+            "clientSideValidationErrorMessage": "Enter your name",
+            "inputName": "name",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Phone",
+            "placeholder": null,
+            "validationRegex": "/^(?:\\+?1[\\s-]?)?\\(?([2-9][0-8][0-9])\\)?[\\-. ]?([2-9][0-9]{2})[\\-. ]?([0-9]{4})(?: x(\\d{1,4}))?$/",
+            "isRequired": true,
+            "inputType": "PHONE_NUMBER",
+            "clientSideValidationErrorMessage": "Enter a valid US or Canadian phone number",
+            "inputName": "phoneNumber",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Email",
+            "placeholder": null,
+            "validationRegex": "/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-zA-Z]{2,63}$/i",
+            "isRequired": true,
+            "inputType": "EMAIL",
+            "clientSideValidationErrorMessage": "Enter a valid email address",
+            "inputName": "emailAddress",
+            "isUserInputDisabled": false,
+            "value": null,
+            "defaultSubmitValue": null,
+            "maxCharacters": 320,
+            "numberOfLines": 1,
+            "helperText": null,
+            "error": null
+          },
+          {
+            "label": "Message",
+            "placeholder": "Add details or questions about what you\u2019re looking for",
+            "validationRegex": null,
+            "isRequired": false,
+            "inputType": "MESSAGE",
+            "clientSideValidationErrorMessage": null,
+            "inputName": "message",
+            "isUserInputDisabled": false,
+            "value": "I own this home and would like a professional estimate at 10066 Judy Ave, Cupertino, CA 95014.",
+            "defaultSubmitValue": null,
+            "maxCharacters": null,
+            "numberOfLines": 2,
+            "helperText": null,
+            "error": null
+          }
+        ],
+        "componentPositionOrder": [
+          "InputFields",
+          "CTA",
+          "Checkboxes",
+          "TCPADisclosure"
+        ],
+        "cta": {
+          "label": "Next",
+          "action": null,
+          "clickstreamMetadata": {
+            "onClick": {
+              "envelope": {
+                "event_type_id": "6152",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_agent_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_start",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onError": {
+              "envelope": {
+                "event_type_id": "6466",
+                "event_type_version_id": "4",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "contact_request_error",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            },
+            "onSuccess": {
+              "envelope": {
+                "event_type_id": "397",
+                "event_type_version_id": "8",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "interaction",
+                "trigger_source_nm": "button_to_complete_contact_form"
+              },
+              "semantic": {
+                "semantic_event_nm": "request_contact_complete",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          },
+          "isSticky": false,
+          "helpText": null
+        },
+        "checkboxes": [
+          {
+            "__typename": "FinancingCheckbox",
+            "initialClickstreamMetadata": {
+              "onPageView": {
+                "envelope": {
+                  "event_type_id": "5860",
+                  "event_type_version_id": "8",
+                  "event_template_id": "374",
+                  "event_template_version_id": "1"
+                },
+                "clickstream_trigger": {
+                  "trigger_type_nm": "impression",
+                  "trigger_source_nm": "contact_form_with_zgmi",
+                  "trigger_object_nm": "contact_form_lightbox"
+                },
+                "semantic": {
+                  "semantic_event_nm": "view_content",
+                  "topic_tag_txt": []
+                }
+              }
+            },
+            "isCheckedInitialState": true,
+            "leadFieldName": "wantsFinancing",
+            "label": "I want financing information",
+            "financingType": "ZGMI"
+          }
+        ],
+        "tcpa": {
+          "telephoneConsumerProtectionActDisclaimer": {
+            "text": "By pressing Next, you are contacting a buyer's agent, you agree that Zillow Group and its affiliates, and real estate professionals may call/text you about your inquiry, which may involve use of automated means and prerecorded/artificial voices. You don\u2019t need to consent as a condition of buying any property, goods or services. Message/data rates may apply. You also agree to our Terms of Use. Zillow does not endorse any real estate professionals. We may share information about your recent and future site activity with your agent to help them understand what you\u2019re looking for in a home.",
+            "textAttributes": [
+              {
+                "__typename": "TourViewModuleTextTooltipAttribute",
+                "tokenEndIndex": 131,
+                "tokenStartIndex": 106,
+                "tooltipText": "\u201cReal estate professionals\u201d includes the real estate agents and brokers, mortgage lenders and loan officers, property managers, and other professionals you interact with through Zillow. Zillow Premier Agent is an advertising program that helps connect customers to local real estate professionals. Zillow Premier Agent partners are paid advertisers and are not affiliated with Zillow, Inc. brokerage or any of its affiliates."
+              },
+              {
+                "__typename": "TourViewModuleTextLinkAttribute",
+                "tokenEndIndex": 394,
+                "tokenStartIndex": 382,
+                "url": "https://www.zillow.com/z/corp/terms/"
+              }
+            ]
+          },
+          "clickstreamMetadata": {
+            "onPageView": {
+              "envelope": {
+                "event_type_id": "6465",
+                "event_type_version_id": "5",
+                "event_template_id": "68",
+                "event_template_version_id": "1"
+              },
+              "clickstream_trigger": {
+                "trigger_type_nm": "impression",
+                "trigger_source_nm": "scroll_contact_screen_disclaimer"
+              },
+              "semantic": {
+                "semantic_event_nm": "view_content",
+                "topic_tag_txt": [
+                  "contact_request"
+                ]
+              }
+            }
+          }
+        },
+        "error": null,
+        "clickstreamMetadata": {
+          "onPageView": null
+        }
+      },
+      {
+        "__typename": "AuthOTP",
+        "isInZIBSMarket": false
+      },
+      {
+        "__typename": "FormQuestionnaire"
+      }
+    ],
+    "buildingId": null,
+    "photoCount": 1,
+    "livingAreaUnits": "Square Feet",
+    "lotSize": 9147,
+    "lotAreaValue": 9147,
+    "lotAreaUnits": "Square Feet",
+    "postingProductType": "Standard",
+    "marketingName": null,
+    "priceHistory": [
+      {
+        "date": "2009-05-20",
+        "price": 1602500,
+        "time": 1242777600000,
+        "pricePerSquareFoot": 447,
+        "priceChangeRate": -0.05390246782382808,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": {
+          "photo": null,
+          "profileUrl": "/profile/WRES/",
+          "name": "Steven Larson"
+        },
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2009-02-11",
+        "price": 1693800,
+        "time": 1234310400000,
+        "pricePerSquareFoot": 472,
+        "priceChangeRate": 1.11725,
+        "event": "Listed for sale",
+        "source": "Westside Real Estate Services",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": "80905824",
+          "infoString2": "Westside Real Estate Services",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2005-05-17",
+        "price": 800000,
+        "time": 1116288000000,
+        "pricePerSquareFoot": 223,
+        "priceChangeRate": 0.391304347826087,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      },
+      {
+        "date": "2004-04-15",
+        "price": 575000,
+        "time": 1081987200000,
+        "pricePerSquareFoot": 160,
+        "priceChangeRate": 0,
+        "event": "Sold",
+        "source": "Public Record",
+        "buyerAgent": null,
+        "sellerAgent": null,
+        "showCountyLink": false,
+        "postingIsRental": false,
+        "attributeSource": {
+          "infoString1": null,
+          "infoString2": "Public Record",
+          "infoString3": null
+        }
+      }
+    ],
+    "downPaymentAssistance": {
+      "eligibility": {
+        "dpa": false
+      }
+    },
+    "foreclosureDefaultFilingDate": null,
+    "foreclosureAuctionFilingDate": null,
+    "foreclosureLoanDate": null,
+    "foreclosureLoanOriginator": null,
+    "foreclosureLoanAmount": null,
+    "foreclosurePriorSaleDate": null,
+    "foreclosurePriorSaleAmount": null,
+    "foreclosureBalanceReportingDate": null,
+    "foreclosureDefaultDescription": null,
+    "foreclosurePastDueBalance": null,
+    "foreclosureUnpaidBalance": null,
+    "foreclosureAuctionTime": null,
+    "foreclosureAuctionDescription": null,
+    "foreclosureAuctionCity": null,
+    "foreclosureAuctionLocation": null,
+    "foreclosureDate": null,
+    "foreclosureAmount": null,
+    "foreclosingBank": null,
+    "foreclosureJudicialType": "Non-Judicial",
+    "datePostedString": "",
+    "foreclosureTypes": {
+      "isBankOwned": false,
+      "isForeclosedNFS": false,
+      "isPreforeclosure": false,
+      "isAnyForeclosure": false,
+      "wasNonRetailAuction": false,
+      "wasForeclosed": false,
+      "wasREO": null,
+      "wasDefault": null
+    },
+    "foreclosureMoreInfo": null,
+    "hasBadGeocode": false,
+    "streetViewImageUrl": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=512x234&key=AIzaSyDY6ZJXL8FxBWwingKLmFPJdNF4VzD3vg4&source=outdoor&signature=FzJpVhu68nzjS8zQZBRmiBcsGtE=",
+    "postingUrl": null,
+    "isZillowOwned": false,
+    "hasPublicVideo": false,
+    "primaryPublicVideo": null,
+    "richMediaVideos": null,
+    "richMedia": null,
+    "lastSoldPrice": 1602500,
+    "thirdPartyVirtualTour": {
+      "lightboxUrl": null,
+      "approved": false,
+      "providerKey": null,
+      "externalUrl": null,
+      "staticUrl": null
+    },
+    "hasApprovedThirdPartyVirtualTourUrl": false,
+    "isHousingConnector": false,
+    "thumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=46x46&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=UkrLJUkNwpv_wU6_gB5GvlMU3oU="
+      }
+    ],
+    "neighborhoodMapThumb": [
+      {
+        "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=316x234&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=DfQX5rEzMfu4bFtzTvBl9dg_iFo="
+      }
+    ],
+    "isRecentStatusChange": false,
+    "isNonOwnerOccupied": false,
+    "isFeatured": false,
+    "rentalApplicationsAcceptedType": "REQUEST_TO_APPLY",
+    "hdpTypeDimension": "Zestimate",
+    "listingTypeDimension": "Unknown Listed By",
+    "featuredListingTypeDimension": "organic",
+    "brokerIdDimension": "Unknown Listed By",
+    "keystoneHomeStatus": "NotForSale",
+    "pageUrlFragment": "Zestimate",
+    "isRentalsLeadCapMet": false,
+    "isPaidMultiFamilyBrokerId": false,
+    "virtualTourUrl": null,
+    "originalPhotos": [
+      {
+        "caption": "",
+        "mixedSources": {
+          "jpeg": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=8PKw3HxRHIiIi-LhW5Xdf1DozHM=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=pa5DG3xj9TkzEBD2xSAZBdrHARQ=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=e6cbI5flIhG7d7cOs-dgAZteahk=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=1XiHV7gfO_gIrkASxEe_0r3mzbs=",
+              "width": 1536
+            }
+          ],
+          "webp": [
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=800x600&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=8PKw3HxRHIiIi-LhW5Xdf1DozHM=",
+              "width": 800
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=1024x768&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=pa5DG3xj9TkzEBD2xSAZBdrHARQ=",
+              "width": 1024
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=1344x1008&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=e6cbI5flIhG7d7cOs-dgAZteahk=",
+              "width": 1344
+            },
+            {
+              "url": "https://maps.googleapis.com/maps/api/streetview?location=10066+Judy+Ave%2C+Cupertino%2C+CA+95014&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=1XiHV7gfO_gIrkASxEe_0r3mzbs=",
+              "width": 1536
+            }
+          ]
+        }
+      }
+    ],
+    "listingSubType": {
+      "isFSBA": false,
+      "isFSBO": false,
+      "isPending": false,
+      "isNewHome": false,
+      "isForeclosure": false,
+      "isBankOwned": false,
+      "isForAuction": false,
+      "isOpenHouse": false,
+      "isComingSoon": false
+    },
+    "listingAccountUserId": null,
+    "tourViewCount": 0,
+    "listingAccount": null,
+    "stateId": 9,
+    "countyId": 3136,
+    "countyFIPS": "06085",
+    "parcelId": "37511012",
+    "taxHistory": [
+      {
+        "time": 1744737004775,
+        "taxPaid": 25111.26,
+        "taxIncreaseRate": 0.02904711,
+        "value": 2063623,
+        "valueIncreaseRate": 0.019999396
+      },
+      {
+        "time": 1713201004775,
+        "taxPaid": 24402.44,
+        "taxIncreaseRate": 0.010029765,
+        "value": 2023161,
+        "valueIncreaseRate": 0.019999577
+      },
+      {
+        "time": 1681578604775,
+        "taxPaid": 24160.12,
+        "taxIncreaseRate": 0.012850032,
+        "value": 1983492,
+        "valueIncreaseRate": 0.019999476
+      },
+      {
+        "time": 1650042604775,
+        "taxPaid": 23853.6,
+        "taxIncreaseRate": 0.010172993,
+        "value": 1944601,
+        "valueIncreaseRate": 0.019999234
+      },
+      {
+        "time": 1618506604775,
+        "taxPaid": 23613.38,
+        "taxIncreaseRate": 0.012237727,
+        "value": 1906473,
+        "valueIncreaseRate": 0.010359176
+      },
+      {
+        "time": 1586970604775,
+        "taxPaid": 23327.9,
+        "taxIncreaseRate": 0,
+        "value": 1886926,
+        "valueIncreaseRate": 0.019999146
+      },
+      {
+        "time": 1555348204775,
+        "taxPaid": 23327.9,
+        "taxIncreaseRate": 0.05019698,
+        "value": 1849929,
+        "valueIncreaseRate": 0.019999372
+      },
+      {
+        "time": 1523812204775,
+        "taxPaid": 22212.88,
+        "taxIncreaseRate": 0,
+        "value": 1813657,
+        "valueIncreaseRate": 0.019999482
+      },
+      {
+        "time": 1492276204775,
+        "taxPaid": 22212.88,
+        "taxIncreaseRate": 0.0050377394,
+        "value": 1778096,
+        "valueIncreaseRate": 0.019999048
+      },
+      {
+        "time": 1460740204775,
+        "taxPaid": 22101.54,
+        "taxIncreaseRate": 0.040860057,
+        "value": 1743233,
+        "valueIncreaseRate": 0.015249419
+      },
+      {
+        "time": 1429117804775,
+        "taxPaid": 21233.92,
+        "taxIncreaseRate": 0.027107159,
+        "value": 1717049,
+        "valueIncreaseRate": 0.019979019
+      },
+      {
+        "time": 1397581804775,
+        "taxPaid": 20673.52,
+        "taxIncreaseRate": 0,
+        "value": 1683416,
+        "valueIncreaseRate": 0.0045393
+      },
+      {
+        "time": 1366045804775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1675809,
+        "valueIncreaseRate": 0.31849647
+      },
+      {
+        "time": 1334509804775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1271000,
+        "valueIncreaseRate": -0.18889599
+      },
+      {
+        "time": 1302887404775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1567000,
+        "valueIncreaseRate": 0.21850699
+      },
+      {
+        "time": 1271351404775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1286000,
+        "valueIncreaseRate": -0.18994065
+      },
+      {
+        "time": 1239815404775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1587538,
+        "valueIncreaseRate": 0.019999871
+      },
+      {
+        "time": 1208279404775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1556410,
+        "valueIncreaseRate": 0.27714658
+      },
+      {
+        "time": 1176657004775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 1218662,
+        "valueIncreaseRate": 0.6060385
+      },
+      {
+        "time": 1145121004775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 758800,
+        "valueIncreaseRate": 0.2943394
+      },
+      {
+        "time": 1113585004775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 586245,
+        "valueIncreaseRate": 11.114502
+      },
+      {
+        "time": 1082049004775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 48392,
+        "valueIncreaseRate": 0.018650277
+      },
+      {
+        "time": 1050426604775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 47506,
+        "valueIncreaseRate": 0.019967366
+      },
+      {
+        "time": 1018890604775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 46576,
+        "valueIncreaseRate": 0.019971969
+      },
+      {
+        "time": 987354604775,
+        "taxPaid": null,
+        "taxIncreaseRate": 0,
+        "value": 45664,
+        "valueIncreaseRate": 0
+      }
+    ],
+    "rentZestimateURL": "https://www.zillow.com/rental-manager/price-my-rental/results/10066-Judy-Ave_-Cupertino-95014/",
+    "marketTrendsURL": "https://www.zillow.com/rental-manager/market-trends/95014/?bedrooms=6",
+    "neighborhoodId": 117559,
+    "zipcodeId": 97926,
+    "sellingSoon": []
+  }
+}

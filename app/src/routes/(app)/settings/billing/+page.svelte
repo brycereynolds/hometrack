@@ -15,53 +15,53 @@
 	} from 'lucide-svelte';
 
 	const currentPlan = {
-		name: 'Pro',
-		price: 49,
+		name: 'Starter',
+		price: 99,
 		interval: 'user/mo',
-		users: 5,
+		users: 3,
 		billingDate: 'May 1, 2026',
-		totalMonthly: 245
+		totalMonthly: 297
 	};
 
 	const plans = [
 		{
-			name: 'Starter',
-			price: 29,
-			interval: 'user/mo',
-			features: ['Up to 10 active listings', '3 team members', 'Basic analytics', 'Email integration', '5 GB storage'],
+			name: 'Free',
+			price: 0,
+			interval: 'forever',
+			features: ['Solo agent — 1 seat', 'Up to 4 active listings', 'AI field notes (5/month)', 'Basic analytics', 'Voice memo capture', 'Email support'],
 			current: false,
 			recommended: false
 		},
 		{
-			name: 'Pro',
-			price: 49,
+			name: 'Starter',
+			price: 99,
 			interval: 'user/mo',
-			features: ['Unlimited active listings', '10 team members', 'Advanced analytics + Insights', 'All integrations', '50 GB storage', 'Client portal', 'Custom workflows'],
+			features: ['Team up to 5 users', '25 active listings', 'Unlimited AI field notes', 'Video walkthrough processing', 'Standard analytics', 'Gmail & Calendar sync', 'Priority email support'],
 			current: true,
 			recommended: true
 		},
 		{
-			name: 'Enterprise',
-			price: 89,
+			name: 'Professional',
+			price: 299,
 			interval: 'user/mo',
-			features: ['Everything in Pro', 'Unlimited team members', 'Custom branding', 'API access', 'Unlimited storage', 'Dedicated support', 'SSO / SAML', 'Custom integrations'],
+			features: ['Unlimited team size', 'Unlimited listings', 'Client portal (white-label)', 'Advanced analytics & AI insights', 'Vendor & financial management', 'Open house digital check-in', 'All integrations', 'Onboarding & migration support', 'Priority chat + phone support'],
 			current: false,
 			recommended: false
 		}
 	];
 
 	const usage = [
-		{ label: 'Active Listings', value: 8, max: null, icon: Home, unit: 'unlimited' },
-		{ label: 'Team Members', value: 5, max: 10, icon: Users, unit: 'of 10' },
-		{ label: 'Storage Used', value: 2.4, max: 50, icon: HardDrive, unit: 'GB of 50 GB' }
+		{ label: 'Active Listings', value: 8, max: 25, icon: Home, unit: 'of 25' },
+		{ label: 'Team Members', value: 3, max: 5, icon: Users, unit: 'of 5' },
+		{ label: 'AI Field Notes', value: 47, max: null, icon: HardDrive, unit: 'unlimited' }
 	];
 
 	const invoices = [
-		{ id: 'INV-2026-04', date: 'Apr 1, 2026', amount: '$245.00', status: 'Paid' },
-		{ id: 'INV-2026-03', date: 'Mar 1, 2026', amount: '$245.00', status: 'Paid' },
-		{ id: 'INV-2026-02', date: 'Feb 1, 2026', amount: '$245.00', status: 'Paid' },
-		{ id: 'INV-2026-01', date: 'Jan 1, 2026', amount: '$196.00', status: 'Paid' },
-		{ id: 'INV-2025-12', date: 'Dec 1, 2025', amount: '$196.00', status: 'Paid' }
+		{ id: 'INV-2026-04', date: 'Apr 1, 2026', amount: '$297.00', status: 'Paid' },
+		{ id: 'INV-2026-03', date: 'Mar 1, 2026', amount: '$297.00', status: 'Paid' },
+		{ id: 'INV-2026-02', date: 'Feb 1, 2026', amount: '$297.00', status: 'Paid' },
+		{ id: 'INV-2026-01', date: 'Jan 1, 2026', amount: '$198.00', status: 'Paid' },
+		{ id: 'INV-2025-12', date: 'Dec 1, 2025', amount: '$198.00', status: 'Paid' }
 	];
 </script>
 

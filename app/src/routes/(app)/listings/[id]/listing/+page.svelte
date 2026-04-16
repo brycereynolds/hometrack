@@ -45,6 +45,12 @@
 	let analysisLoading = $state(false);
 	let pollInterval: ReturnType<typeof setInterval> | null = null;
 
+	// True when analysis is in progress (either locally triggered or server-side pending/processing)
+	const isAnalyzing = $derived(
+		analysisLoading ||
+		(latestAnalysis?.status === 'pending' || latestAnalysis?.status === 'processing')
+	);
+
 	// Comp table sort
 	let sortField = $state<string>('distanceMiles');
 	let sortDir = $state<'asc' | 'desc'>('asc');
@@ -77,7 +83,7 @@
 	}
 
 	async function runAnalysis() {
-		if (!listing) return;
+		if (!listing || isAnalyzing) return;
 		analysisLoading = true;
 
 		try {
@@ -95,7 +101,12 @@
 
 			if (!res.ok) throw new Error('Failed to start analysis');
 
-			toast.success('Market analysis started');
+			const result = await res.json();
+			if (result.alreadyRunning) {
+				toast.success('Analysis already in progress');
+			} else {
+				toast.success('Market analysis started');
+			}
 			startPolling();
 		} catch {
 			toast.error('Failed to start market analysis');
@@ -141,6 +152,13 @@
 			default: return 'bg-muted text-muted-foreground';
 		}
 	}
+
+	// Resume polling if there's already an in-progress analysis
+	onMount(() => {
+		if (latestAnalysis?.status === 'pending' || latestAnalysis?.status === 'processing') {
+			startPolling();
+		}
+	});
 
 	// Map initialization
 	onMount(async () => {
@@ -317,8 +335,8 @@
 									class="flex h-10 w-full rounded-md border border-input bg-background pl-7 pr-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
 								/>
 							</div>
-							<Button onclick={runAnalysis} disabled={analysisLoading}>
-								{#if analysisLoading}
+							<Button onclick={runAnalysis} disabled={isAnalyzing}>
+								{#if isAnalyzing}
 									<Loader2 class="mr-1.5 size-4 animate-spin" />
 								{:else}
 									<BarChart3 class="mr-1.5 size-4" />
@@ -339,8 +357,8 @@
 					Market Analysis
 				</CardTitle>
 				{#if listing.price}
-					<Button size="sm" onclick={runAnalysis} disabled={analysisLoading}>
-						{#if analysisLoading}
+					<Button size="sm" onclick={runAnalysis} disabled={isAnalyzing}>
+						{#if isAnalyzing}
 							<Loader2 class="mr-1.5 size-4 animate-spin" />
 							Analyzing...
 						{:else}
@@ -351,7 +369,7 @@
 				{/if}
 			</CardHeader>
 			<CardContent>
-				{#if analysisLoading || (latestAnalysis && (latestAnalysis.status === 'pending' || latestAnalysis.status === 'processing'))}
+				{#if isAnalyzing}
 					<div class="flex items-center gap-3 py-4">
 						<Loader2 class="size-5 animate-spin text-primary" />
 						<div>

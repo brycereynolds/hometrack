@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
 import { marketAnalyses, compListings, listings, teamMembers } from '$lib/server/db/schema/index.js';
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, and, desc, inArray } from 'drizzle-orm';
 import { startMarketAnalysisWorkflow } from '$lib/server/temporal.js';
 
 export const POST: RequestHandler = async ({ locals, request }) => {
@@ -28,6 +28,17 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         where: and(eq(listings.id, listingId), eq(listings.teamId, member.teamId)),
       });
       if (!listing) throw new Error('Listing not found');
+
+      // Check for an existing pending/processing analysis — prevent duplicates
+      const existing = await db.query.marketAnalyses.findFirst({
+        where: and(
+          eq(marketAnalyses.listingId, listingId),
+          inArray(marketAnalyses.status, ['pending', 'processing']),
+        ),
+      });
+      if (existing) {
+        return { id: existing.id, workflowId: existing.workflowId, alreadyRunning: true };
+      }
 
       const analysisId = crypto.randomUUID();
       await db.insert(marketAnalyses).values({

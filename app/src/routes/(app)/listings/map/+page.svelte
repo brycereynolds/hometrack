@@ -35,8 +35,8 @@
 		searchQuery
 			? listings.filter(
 					(l: ListingWithRelations) =>
-						l.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
-						l.city.toLowerCase().includes(searchQuery.toLowerCase())
+						l.property.address.toLowerCase().includes(searchQuery.toLowerCase()) ||
+						l.property.city?.toLowerCase().includes(searchQuery.toLowerCase())
 				)
 			: listings
 	);

@@ -111,10 +111,6 @@
 	}
 
 	function getCompPhoto(comp: any): string | null {
-		if (comp.photoUrl) return comp.photoUrl;
-		if (comp.photos && Array.isArray(comp.photos) && comp.photos.length > 0) {
-			return typeof comp.photos[0] === 'string' ? comp.photos[0] : comp.photos[0]?.url ?? null;
-		}
 		if (comp.property?.photos && Array.isArray(comp.property.photos) && comp.property.photos.length > 0) {
 			const p = comp.property.photos[0];
 			return typeof p === 'string' ? p : p?.url ?? null;

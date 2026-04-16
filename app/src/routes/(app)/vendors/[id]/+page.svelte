@@ -325,7 +325,7 @@
 												<Home class="size-4 text-muted-foreground" />
 												<div>
 													<a href="/listings/{quote.listingId}" class="text-sm font-medium hover:text-primary">
-														{quote.listing?.address ?? 'Unknown listing'}
+														{quote.listing?.property?.address ?? 'Unknown listing'}
 													</a>
 													<p class="text-xs text-muted-foreground">{quote.scope}</p>
 												</div>
@@ -430,7 +430,7 @@
 						<label for="quote-listing" class="text-sm font-medium">Listing</label>
 						<div class="mt-1">
 							<Autocomplete
-								items={listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+								items={listings.map((l) => ({ value: l.id, label: l.property.address, subtitle: l.property.city }))}
 								bind:value={quoteListingId}
 								placeholder="Search listings..."
 								name="listingId"

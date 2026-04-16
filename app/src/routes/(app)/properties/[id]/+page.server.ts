@@ -31,13 +31,14 @@ export const load: PageServerLoad = async ({ params, locals }) => {
           createdAt: compListings.createdAt,
           analysisStatus: marketAnalyses.status,
           listingId: marketAnalyses.listingId,
-          listingAddress: listings.address,
-          listingCity: listings.city,
-          listingState: listings.state,
+          listingAddress: properties.address,
+          listingCity: properties.city,
+          listingState: properties.state,
         })
         .from(compListings)
         .innerJoin(marketAnalyses, eq(compListings.marketAnalysisId, marketAnalyses.id))
         .innerJoin(listings, eq(marketAnalyses.listingId, listings.id))
+        .innerJoin(properties, eq(listings.propertyId, properties.id))
         .where(eq(compListings.propertyId, params.id))
         .orderBy(desc(compListings.createdAt));
 
@@ -45,13 +46,14 @@ export const load: PageServerLoad = async ({ params, locals }) => {
       const linkedListings = await db
         .select({
           id: listings.id,
-          address: listings.address,
-          city: listings.city,
-          state: listings.state,
+          address: properties.address,
+          city: properties.city,
+          state: properties.state,
           price: listings.price,
           phase: listings.phase,
         })
         .from(listings)
+        .innerJoin(properties, eq(listings.propertyId, properties.id))
         .where(eq(listings.propertyId, params.id));
 
       return {

@@ -174,7 +174,7 @@
 		<Autocomplete
 			items={[
 				{ value: '', label: 'General (no listing)' },
-				...listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))
+				...listings.map((l) => ({ value: l.id, label: l.property.address, subtitle: l.property.city }))
 			]}
 			bind:value={selectedListing}
 			placeholder="Search listings..."

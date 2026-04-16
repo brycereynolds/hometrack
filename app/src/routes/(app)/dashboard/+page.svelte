@@ -364,7 +364,7 @@
 										<Badge variant={getPriorityVariant(task.priority)} class="text-[10px] px-1.5 py-0">
 											{task.priority}
 										</Badge>
-										<span class="text-xs text-muted-foreground">{task.listing?.address ?? ''}</span>
+										<span class="text-xs text-muted-foreground">{task.listing?.property?.address ?? ''}</span>
 									</div>
 									<p class="text-xs text-muted-foreground mt-0.5">Due {task.dueDate}</p>
 								</div>

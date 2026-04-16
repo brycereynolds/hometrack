@@ -300,8 +300,8 @@
 			{/snippet}
 			{#snippet row(item, _index)}
 				<tr class="hover:bg-muted/50 transition-colors">
-					<td class="px-4 py-3 text-sm font-medium">{item.address}</td>
-					<td class="px-4 py-3 text-sm text-muted-foreground">{item.city}</td>
+					<td class="px-4 py-3 text-sm font-medium">{item.property?.address ?? item.address}</td>
+					<td class="px-4 py-3 text-sm text-muted-foreground">{item.property?.city ?? item.city}</td>
 					<td class="px-4 py-3 text-right text-sm font-serif font-semibold">{"$" + (item.price / 1000000).toFixed(1) + "M"}</td>
 					<td class="px-4 py-3"><PhaseBadge phase={item.phase} size="sm" /></td>
 					<td class="px-4 py-3 text-sm text-muted-foreground">{item.agent.name}</td>

@@ -81,7 +81,7 @@
 		<!-- Listing & showing selector -->
 		<div class="mb-6 space-y-3">
 			<Autocomplete
-				items={listings.filter((l) => (l.showingsCount ?? 0) > 0).map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+				items={listings.filter((l) => (l.showingsCount ?? 0) > 0).map((l) => ({ value: l.id, label: l.property.address, subtitle: l.property.city }))}
 				bind:value={selectedListing}
 				placeholder="Search listings..."
 			/>

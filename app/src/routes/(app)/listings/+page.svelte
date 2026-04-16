@@ -65,8 +65,8 @@
 					const q = searchQuery.toLowerCase();
 					phaseListings = phaseListings.filter(
 						(l) =>
-							l.address.toLowerCase().includes(q) ||
-							l.city.toLowerCase().includes(q) ||
+							l.property.address.toLowerCase().includes(q) ||
+							l.property.city?.toLowerCase().includes(q) ||
 							l.client?.name?.toLowerCase().includes(q)
 					);
 				}

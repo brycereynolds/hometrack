@@ -10,7 +10,7 @@ export async function getDashboardData(teamId: string, db: AppDatabase = adminDb
     }),
     db.query.tasks.findMany({
       where: eq(tasks.teamId, teamId),
-      with: { assignee: true, listing: true },
+      with: { assignee: true, listing: { with: { property: true } } },
     }),
     db.query.activityItems.findMany({
       where: eq(activityItems.teamId, teamId),

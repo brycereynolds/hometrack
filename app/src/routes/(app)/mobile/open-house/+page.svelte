@@ -88,15 +88,15 @@
 			Open House Active
 		</Badge>
 		{#if currentListing}
-			<h1 class="font-serif text-xl font-bold">{currentListing.address}</h1>
-			<p class="text-sm text-muted-foreground">{currentListing.city}, {currentListing.state} {currentListing.zip}</p>
+			<h1 class="font-serif text-xl font-bold">{currentListing.property.address}</h1>
+			<p class="text-sm text-muted-foreground">{currentListing.property.city}, {currentListing.property.state} {currentListing.property.zip}</p>
 		{/if}
 	</div>
 
 	<!-- Select open house -->
 	<div class="mb-4">
 		<Autocomplete
-			items={listings.map((l) => ({ value: l.id, label: l.address, subtitle: l.city }))}
+			items={listings.map((l) => ({ value: l.id, label: l.property.address, subtitle: l.property.city }))}
 			bind:value={selectedListing}
 			placeholder="Search listings..."
 		/>

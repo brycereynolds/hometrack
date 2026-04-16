@@ -49,8 +49,8 @@
 				const q = searchQuery.toLowerCase();
 				result = result.filter(
 					(l) =>
-						l.address.toLowerCase().includes(q) ||
-						l.city.toLowerCase().includes(q) ||
+						l.property.address.toLowerCase().includes(q) ||
+						l.property.city?.toLowerCase().includes(q) ||
 						l.client?.name?.toLowerCase().includes(q) ||
 						l.mlsNumber?.toLowerCase().includes(q)
 				);
@@ -65,7 +65,7 @@
 			result.sort((a, b) => {
 				let cmp = 0;
 				switch (sortKey) {
-					case 'address': cmp = a.address.localeCompare(b.address); break;
+					case 'address': cmp = (a.property?.address ?? '').localeCompare(b.property?.address ?? ''); break;
 					case 'price': cmp = (a.price ?? 0) - (b.price ?? 0); break;
 					case 'phase': cmp = PHASES[a.phase].order - PHASES[b.phase].order; break;
 					case 'agent': cmp = (a.agent?.name ?? '').localeCompare(b.agent?.name ?? ''); break;

@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
-import { listings, contacts, tasks, teamMembers, vendors } from '$lib/server/db/schema/index.js';
+import { listings, properties, contacts, tasks, teamMembers, vendors } from '$lib/server/db/schema/index.js';
 import { eq, and, ilike, or } from 'drizzle-orm';
 
 export const GET: RequestHandler = async ({ url, locals }) => {
@@ -27,15 +27,17 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 
       const [matchedListings, matchedContacts, matchedTasks, matchedVendors, matchedTeam] = await Promise.all([
         db.query.listings.findMany({
-          where: and(
-            eq(listings.teamId, teamId),
-            or(
-              ilike(listings.address, pattern),
-              ilike(listings.city, pattern),
-            ),
-          ),
-          limit: 5,
-        }),
+          where: eq(listings.teamId, teamId),
+          with: { property: true },
+          limit: 50,
+        }).then((rows) =>
+          rows
+            .filter((l) =>
+              l.property.address?.toLowerCase().includes(q!.toLowerCase()) ||
+              l.property.city?.toLowerCase().includes(q!.toLowerCase()),
+            )
+            .slice(0, 5),
+        ),
         db.query.contacts.findMany({
           where: and(
             eq(contacts.teamId, teamId),
@@ -78,8 +80,8 @@ export const GET: RequestHandler = async ({ url, locals }) => {
       return {
         listings: matchedListings.map((l) => ({
           id: l.id,
-          title: l.address,
-          subtitle: `${l.city}, ${l.state}`,
+          title: l.property.address,
+          subtitle: `${l.property.city}, ${l.property.state}`,
           href: `/listings/${l.id}`,
           type: 'listing' as const,
         })).sort(sortByTitle),

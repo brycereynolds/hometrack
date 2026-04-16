@@ -250,7 +250,7 @@ def _upsert_property(data: dict) -> str:
             if row:
                 property_id = row[0]
 
-        now = datetime.now(timezone.utc)
+        now = datetime.utcnow()
 
         def to_json(val):
             return json.dumps(val) if val is not None else None

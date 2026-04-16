@@ -25,7 +25,7 @@ async def save_analysis_results(params: dict) -> dict:
     comps = params.get("comps", [])
     analysis = params.get("analysis", {})
 
-    now = datetime.now(timezone.utc)
+    now = datetime.utcnow()
     pool = await get_pool()
 
     async with pool.acquire() as conn:

@@ -30,7 +30,7 @@ async def save_results(
     """Save full pipeline output to Supabase Storage and Postgres."""
     activity.heartbeat("saving results")
 
-    now = datetime.now(timezone.utc)
+    now = datetime.utcnow()
     result = ProcessingResult(
         field_note_id=field_note_id,
         listing_id=listing_id,

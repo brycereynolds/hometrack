@@ -133,7 +133,7 @@ async def _upsert_property_from_comp(conn, comp: dict) -> str | None:
     if not address or not city or not state or not zip_code:
         return None
 
-    now = datetime.now(timezone.utc)
+    now = datetime.utcnow()
 
     # Check if property already exists by address
     row = await conn.fetchrow(

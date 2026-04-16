@@ -237,6 +237,20 @@
 		return comp.status ?? 'Unknown';
 	}
 
+	function matchClass(compValue: number | null, subjectValue: number | null, exactRange: number, closeRange: number): string {
+		if (!compValue || !subjectValue) return '';
+		const diff = Math.abs(compValue - subjectValue);
+		if (diff <= exactRange) return 'bg-green-100';
+		if (diff <= closeRange) return 'bg-amber-50';
+		return '';
+	}
+
+	function formatLot(lotSqft: number | null | undefined): string {
+		if (!lotSqft) return '?';
+		if (lotSqft > 43560) return (lotSqft / 43560).toFixed(1) + ' ac';
+		return lotSqft.toLocaleString() + ' sqft';
+	}
+
 	function priceDeltaPerSqft(comp: any): number | null {
 		if (!comp.pricePerSqft || !listing?.price || !listing?.sqft) return null;
 		const subjectPpSqft = listing.price / listing.sqft;
@@ -696,6 +710,9 @@
 								{#if listing.price && listing.sqft}
 									<span class="ml-1">| Subject: {formatCurrency(Math.round(listing.price / listing.sqft))}/sqft</span>
 								{/if}
+								{#if listing.beds || listing.baths || listing.sqft || listing.lotSqft}
+									<span class="ml-1">| {listing.beds ?? '?'} bd / {listing.baths ?? '?'} ba / {listing.sqft?.toLocaleString() ?? '?'} sqft / {formatLot(listing.lotSqft)} lot</span>
+								{/if}
 							</p>
 						</div>
 						{#if confirmedCount > 0}
@@ -724,7 +741,26 @@
 											$/sqft <ArrowUpDown class="size-3" />
 										</span>
 									</Table.Head>
-									<Table.Head>Details</Table.Head>
+									<Table.Head class="cursor-pointer" onclick={() => toggleSort('beds')}>
+										<span class="flex items-center gap-1">
+											Beds <ArrowUpDown class="size-3" />
+										</span>
+									</Table.Head>
+									<Table.Head class="cursor-pointer" onclick={() => toggleSort('baths')}>
+										<span class="flex items-center gap-1">
+											Baths <ArrowUpDown class="size-3" />
+										</span>
+									</Table.Head>
+									<Table.Head class="cursor-pointer" onclick={() => toggleSort('sqft')}>
+										<span class="flex items-center gap-1">
+											Sqft <ArrowUpDown class="size-3" />
+										</span>
+									</Table.Head>
+									<Table.Head class="cursor-pointer" onclick={() => toggleSort('lotSqft')}>
+										<span class="flex items-center gap-1">
+											Lot <ArrowUpDown class="size-3" />
+										</span>
+									</Table.Head>
 									<Table.Head class="cursor-pointer" onclick={() => toggleSort('soldDate')}>
 										<span class="flex items-center gap-1">
 											Status <ArrowUpDown class="size-3" />
@@ -810,12 +846,21 @@
 												</p>
 											{/if}
 										</Table.Cell>
-										<!-- Beds/Baths/Sqft -->
-										<Table.Cell>
-											<p class="text-sm">
-												{comp.beds ?? '?'} bd / {comp.baths ?? '?'} ba
-											</p>
-											<p class="text-xs text-muted-foreground">{comp.sqft?.toLocaleString() ?? '?'} sqft</p>
+										<!-- Beds -->
+										<Table.Cell class="{matchClass(comp.beds, listing.beds, 0, 1)}">
+											<p class="text-sm">{comp.beds ?? '?'}</p>
+										</Table.Cell>
+										<!-- Baths -->
+										<Table.Cell class="{matchClass(comp.baths, listing.baths, 0, 0.5)}">
+											<p class="text-sm">{comp.baths ?? '?'}</p>
+										</Table.Cell>
+										<!-- Sqft -->
+										<Table.Cell class="{matchClass(comp.sqft, listing.sqft, 100, 300)}">
+											<p class="text-sm">{comp.sqft?.toLocaleString() ?? '?'}</p>
+										</Table.Cell>
+										<!-- Lot -->
+										<Table.Cell class="{matchClass(comp.lotSqft, listing.lotSqft, 500, 2000)}">
+											<p class="text-sm">{formatLot(comp.lotSqft)}</p>
 										</Table.Cell>
 										<!-- Status badge with recency -->
 										<Table.Cell>
@@ -843,7 +888,7 @@
 									</Table.Row>
 									{#if expandedCompId === comp.id}
 										<Table.Row>
-											<Table.Cell colspan={8} class="bg-muted/30 p-4">
+											<Table.Cell colspan={11} class="bg-muted/30 p-4">
 												<div class="flex gap-4">
 													{#if comp.photoUrl}
 														<img src={comp.photoUrl} alt={comp.address ?? ''} class="w-40 h-32 object-cover rounded-lg shadow-sm" />

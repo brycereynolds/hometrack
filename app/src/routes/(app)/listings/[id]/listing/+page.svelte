@@ -341,10 +341,12 @@
 			if (!cp?.lat || !cp?.lng) return;
 
 			const dotColor = comp.status === 'sold' ? '#16a34a' : comp.status === 'for_sale' ? '#2563eb' : '#f59e0b';
+			const bgTint = comp.status === 'sold' ? 'rgba(22,163,74,0.12)' : comp.status === 'for_sale' ? 'rgba(37,99,235,0.12)' : 'rgba(245,158,11,0.12)';
+			const borderTint = comp.status === 'sold' ? 'rgba(22,163,74,0.3)' : comp.status === 'for_sale' ? 'rgba(37,99,235,0.3)' : 'rgba(245,158,11,0.3)';
 			const priceLabel = comp.price ? formatMapPrice(comp.price) : '?';
 			const icon = L.divIcon({
 				className: 'comp-marker',
-				html: `<div style="display:flex;align-items:center;gap:3px;"><div style="width:8px;height:8px;border-radius:50%;background:${dotColor};border:1.5px solid white;box-shadow:0 1px 2px rgba(0,0,0,0.3);flex-shrink:0;"></div><div style="background:rgba(255,255,255,0.95);border:1px solid #d6d3d1;border-radius:4px;padding:1px 5px;font-size:10px;font-weight:600;color:#292524;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.1);line-height:1.4;">${priceLabel}</div></div>`,
+				html: `<div style="display:flex;align-items:center;gap:3px;"><div style="width:8px;height:8px;border-radius:50%;background:${dotColor};border:1.5px solid white;box-shadow:0 1px 2px rgba(0,0,0,0.3);flex-shrink:0;"></div><div style="background:${bgTint};border:1px solid ${borderTint};border-radius:4px;padding:1px 5px;font-size:10px;font-weight:600;color:#292524;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.08);line-height:1.4;">${priceLabel}</div></div>`,
 				iconSize: [70, 20],
 				iconAnchor: [4, 10],
 			});

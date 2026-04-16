@@ -3,7 +3,7 @@ import { getDocumentsByListing } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
 import { documents, teamMembers } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
-import { fail, json } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import { buildStoragePath, uploadFile, getSignedUrl, deleteFile } from '$lib/server/storage.js';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {

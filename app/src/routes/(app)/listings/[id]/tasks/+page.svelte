@@ -19,13 +19,15 @@
 		Filter,
 		Calendar,
 		User,
-		Pencil
+		Pencil,
+		Trash2
 	} from 'lucide-svelte';
 	import { Autocomplete } from '$lib/components/shared';
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
 	const listingTasks = $derived(data.tasks ?? []);
+	const allTeamMembers = $derived(data.teamMembers ?? []);
 
 	let filterAssignee = $state('all');
 	let filterStatus = $state('all');
@@ -39,6 +41,7 @@
 	let editStatus = $state('todo');
 	let editPriority = $state('medium');
 	let editDueDate = $state('');
+	let editAssigneeId = $state('');
 
 	// Add task modal state
 	let showAddModal = $state(false);
@@ -46,6 +49,11 @@
 	let newPriority = $state('medium');
 	let newPhase = $state('');
 	let newDueDate = $state('');
+	let newAssigneeId = $state('');
+
+	// Delete confirmation
+	let showDeleteModal = $state(false);
+	let deletingTask = $state<any | null>(null);
 
 	function formatDate(d: any): string {
 		if (!d) return '';
@@ -102,7 +110,13 @@
 		editStatus = task.status;
 		editPriority = task.priority;
 		editDueDate = formatDateForInput(task.dueDate);
+		editAssigneeId = task.assignee?.id ?? task.assigneeId ?? '';
 		showTaskModal = true;
+	}
+
+	function openDeleteModal(task: any) {
+		deletingTask = task;
+		showDeleteModal = true;
 	}
 
 	function getNextStatus(status: string): string {
@@ -142,6 +156,11 @@
 			default: return 'text-muted-foreground';
 		}
 	}
+
+	function getInitials(name: string): string {
+		if (!name) return '?';
+		return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
+	}
 </script>
 
 {#if listing}
@@ -154,7 +173,7 @@
 					{listingTasks.filter((t: any) => t.status === 'done').length} of {listingTasks.length} completed
 				</p>
 			</div>
-			<Button size="sm" onclick={() => { newTitle = ''; newPriority = 'medium'; newPhase = ''; newDueDate = ''; showAddModal = true; }}>
+			<Button size="sm" onclick={() => { newTitle = ''; newPriority = 'medium'; newPhase = ''; newDueDate = ''; newAssigneeId = ''; showAddModal = true; }}>
 				<Plus class="mr-1.5 size-4" />
 				Add Task
 			</Button>
@@ -314,7 +333,7 @@
 												{formatDate(task.dueDate)}
 											</div>
 											<Avatar class="size-6">
-												<AvatarFallback class="text-[9px] bg-muted">{task.assignee?.initials ?? '?'}</AvatarFallback>
+												<AvatarFallback class="text-[9px] bg-muted">{task.assignee?.initials ?? getInitials(task.assignee?.name ?? '')}</AvatarFallback>
 											</Avatar>
 											<button
 												class="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-muted"
@@ -322,6 +341,13 @@
 												title="Edit task"
 											>
 												<Pencil class="size-3.5 text-muted-foreground" />
+											</button>
+											<button
+												class="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-red-50"
+												onclick={() => openDeleteModal(task)}
+												title="Delete task"
+											>
+												<Trash2 class="size-3.5 text-muted-foreground hover:text-red-600" />
 											</button>
 										</div>
 									</div>
@@ -406,15 +432,31 @@
 						</select>
 					</div>
 				</div>
-				<div>
-					<label for="new-task-due" class="text-sm font-medium">Due Date</label>
-					<input
-						id="new-task-due"
-						name="dueDate"
-						type="date"
-						bind:value={newDueDate}
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					/>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="new-task-due" class="text-sm font-medium">Due Date</label>
+						<input
+							id="new-task-due"
+							name="dueDate"
+							type="date"
+							bind:value={newDueDate}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="new-task-assignee" class="text-sm font-medium">Assignee</label>
+						<select
+							id="new-task-assignee"
+							name="assigneeId"
+							bind:value={newAssigneeId}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="">Unassigned</option>
+							{#each allTeamMembers as member}
+								<option value={member.id}>{member.name ?? member.email ?? 'Team member'}</option>
+							{/each}
+						</select>
+					</div>
 				</div>
 			</div>
 			<Dialog.Footer>
@@ -489,20 +531,71 @@
 						</select>
 					</div>
 				</div>
-				<div>
-					<label for="task-due" class="text-sm font-medium">Due Date</label>
-					<input
-						id="task-due"
-						name="dueDate"
-						type="date"
-						bind:value={editDueDate}
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					/>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="task-due" class="text-sm font-medium">Due Date</label>
+						<input
+							id="task-due"
+							name="dueDate"
+							type="date"
+							bind:value={editDueDate}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="task-assignee" class="text-sm font-medium">Assignee</label>
+						<select
+							id="task-assignee"
+							name="assigneeId"
+							bind:value={editAssigneeId}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="">Unassigned</option>
+							{#each allTeamMembers as member}
+								<option value={member.id}>{member.name ?? member.email ?? 'Team member'}</option>
+							{/each}
+						</select>
+					</div>
 				</div>
 			</div>
 			<Dialog.Footer>
 				<Button variant="outline" type="button" onclick={() => showTaskModal = false}>Cancel</Button>
 				<Button type="submit">Save Changes</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Delete Task Confirmation -->
+<Dialog.Root bind:open={showDeleteModal}>
+	<Dialog.Content class="sm:max-w-sm">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Delete Task</Dialog.Title>
+			<Dialog.Description>
+				{#if deletingTask}
+					Are you sure you want to delete "{deletingTask.title}"? This action cannot be undone.
+				{/if}
+			</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/deleteTask"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Task deleted');
+						showDeleteModal = false;
+						await update();
+					} else {
+						toast.error('Failed to delete task');
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="taskId" value={deletingTask?.id ?? ''} />
+			<Dialog.Footer class="mt-4">
+				<Button variant="outline" type="button" onclick={() => showDeleteModal = false}>Cancel</Button>
+				<Button variant="destructive" type="submit">Delete</Button>
 			</Dialog.Footer>
 		</form>
 	</Dialog.Content>

@@ -173,7 +173,7 @@
 
 		<!-- Phase Progress Bar -->
 		<div class="border-b bg-muted/30 px-4 py-2 -mx-4 md:-mx-6 lg:-mx-8 md:px-6 lg:px-8">
-			<div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto py-1">
+			<div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto py-1.5 px-1">
 				{#each PHASE_LIST as phase, i}
 					{@const isComplete = phase.order < currentPhaseOrder}
 					{@const isCurrent = phase.order === currentPhaseOrder}

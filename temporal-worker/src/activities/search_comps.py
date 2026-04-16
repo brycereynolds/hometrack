@@ -24,116 +24,84 @@ def _haversine_miles(lat1: float, lng1: float, lat2: float, lng2: float) -> floa
 
 
 def _parse_search_result(prop: dict, subject_lat: float, subject_lng: float) -> dict | None:
-    """Extract comp fields from a search/bycoordinates result.
+    """Parse a single search result from the Realty API.
 
-    The search endpoint returns a different (flatter) structure than pro/byaddress.
-    We handle both formats defensively.
+    Field mapping matches the real search/bycoordinates response structure:
+    - address: nested dict with streetAddress, city, state, zipcode
+    - location: nested dict with latitude, longitude
+    - price: nested dict with value, pricePerSquareFoot
+    - lotSizeWithUnit: nested dict with lotSize, lotSizeUnit
+    - listing: nested dict with listingStatus
+    - media: nested dict with propertyPhotoLinks
+    - estimates: nested dict with zestimate
     """
-    # The result might be a flat search result or a nested propertyDetails object
-    pd = prop.get("propertyDetails", prop)
+    # --- Address (nested) ---
+    addr = prop.get("address", {})
+    street = addr.get("streetAddress", "")
+    city = addr.get("city", "")
+    state = addr.get("state", "")
+    zipcode = addr.get("zipcode", "")
 
-    # --- Coordinates ---
-    lat = pd.get("latitude") or prop.get("latitude")
-    lng = pd.get("longitude") or prop.get("longitude")
+    if not street:
+        return None
+
+    # --- Location (nested) ---
+    location = prop.get("location", {})
+    lat = location.get("latitude")
+    lng = location.get("longitude")
     if lat is None or lng is None:
         return None
 
     lat = float(lat)
     lng = float(lng)
 
-    # --- Address fields ---
-    addr = pd.get("address", {})
-    street = (
-        addr.get("streetAddress")
-        or pd.get("streetAddress")
-        or prop.get("streetAddress")
-        or prop.get("address", "")
-    )
-    # If address is a dict from the outer prop, just use street
-    if isinstance(street, dict):
-        street = street.get("streetAddress", "")
-    city = addr.get("city") or pd.get("city") or prop.get("city", "")
-    state = addr.get("state") or pd.get("state") or prop.get("state", "")
-    zipcode = addr.get("zipcode") or pd.get("zipcode") or prop.get("zipcode", "")
+    # --- Price (nested dict with value) ---
+    price_data = prop.get("price", {})
+    price = price_data.get("value") if isinstance(price_data, dict) else price_data
+    price_per_sqft = price_data.get("pricePerSquareFoot") if isinstance(price_data, dict) else None
 
-    # --- Photos ---
-    photos_raw = pd.get("originalPhotos") or pd.get("photos") or prop.get("imgSrc") or []
-    photo_url = None
-    if isinstance(photos_raw, str):
-        photo_url = photos_raw
-    elif isinstance(photos_raw, list) and photos_raw:
-        first = photos_raw[0]
-        if isinstance(first, str):
-            photo_url = first
-        elif isinstance(first, dict):
-            jpegs = first.get("mixedSources", {}).get("jpeg", [])
-            if jpegs:
-                photo_url = jpegs[0].get("url")
-            elif first.get("url"):
-                photo_url = first["url"]
+    # --- Property details (flat fields) ---
+    beds = prop.get("bedrooms")
+    baths = prop.get("bathrooms")
+    sqft = prop.get("livingArea")
+    year_built = prop.get("yearBuilt")
+    property_type = prop.get("propertyType") or prop.get("homeType")
 
-    # If imgSrc is on the top-level prop
-    if not photo_url:
-        img = prop.get("imgSrc") or pd.get("imgSrc")
-        if isinstance(img, str):
-            photo_url = img
+    # --- Lot size (nested with unit) ---
+    lot_data = prop.get("lotSizeWithUnit", {})
+    lot_sqft = lot_data.get("lotSize")
+    if lot_data.get("lotSizeUnit") == "acres" and lot_sqft:
+        lot_sqft = int(lot_sqft * 43560)  # Convert acres to sqft
+    elif lot_sqft:
+        lot_sqft = int(lot_sqft)
 
-    # --- Price ---
-    price = (
-        pd.get("lastSoldPrice")
-        or pd.get("price")
-        or prop.get("price")
-        or prop.get("lastSoldPrice")
-        or pd.get("zestimate")
-    )
+    # --- Status (nested under listing) ---
+    listing = prop.get("listing", {})
+    status = listing.get("listingStatus", "unknown")
 
-    # --- Size ---
-    sqft = pd.get("livingArea") or pd.get("livingAreaValue") or prop.get("livingArea") or prop.get("area")
-    price_per_sqft = round(price / sqft) if price and sqft else None
+    # --- Days on market ---
+    dom = prop.get("daysOnZillow")
 
-    # --- Sold date from price history ---
-    sold_date = None
-    price_history = pd.get("priceHistory") or prop.get("priceHistory") or []
-    for ph in price_history:
-        if ph.get("event") in ("Sold", "sold"):
-            sold_date = ph.get("date")
-            if not price:
-                price = ph.get("price")
-            break
+    # --- Photos (nested under media) ---
+    media = prop.get("media", {})
+    photo_links = media.get("propertyPhotoLinks", {})
+    photo_url = photo_links.get("mediumSizeLink") or photo_links.get("highResolutionLink")
 
-    # --- Status ---
-    status_text = (
-        pd.get("homeStatus")
-        or pd.get("status")
-        or prop.get("homeStatus")
-        or prop.get("statusType")
-        or prop.get("status")
-        or ""
-    )
-    if isinstance(status_text, str):
-        status_lower = status_text.lower().replace("_", " ")
-        if "sold" in status_lower or "recently" in status_lower:
-            status = "sold"
-        elif "sale" in status_lower or "active" in status_lower:
-            status = "for_sale"
-        elif "pending" in status_lower:
-            status = "pending"
-        else:
-            status = status_lower
-    else:
-        status = ""
-
-    # --- Beds / Baths ---
-    beds = pd.get("bedrooms") or prop.get("bedrooms") or prop.get("beds")
-    baths = pd.get("bathrooms") or prop.get("bathrooms") or prop.get("baths")
-    rf = pd.get("resoFacts", {})
+    # --- Estimates (nested) ---
+    estimates = prop.get("estimates", {})
+    zestimate = estimates.get("zestimate") if isinstance(estimates.get("zestimate"), (int, float)) else None
 
     # --- External ID ---
-    zpid = pd.get("zpid") or prop.get("zpid") or prop.get("id") or ""
+    zpid = prop.get("zpid")
+
+    # Compute price_per_sqft if not provided by API
+    if not price_per_sqft and price and sqft:
+        price_per_sqft = round(price / sqft)
 
     return {
-        "external_id": str(zpid),
-        "address": street if isinstance(street, str) else "",
+        "external_id": str(zpid) if zpid else None,
+        "source": "realty_api",
+        "address": f"{street}, {city}, {state} {zipcode}".strip(),
         "city": city,
         "state": state,
         "zip": zipcode,
@@ -142,15 +110,16 @@ def _parse_search_result(prop: dict, subject_lat: float, subject_lng: float) -> 
         "beds": beds,
         "baths": baths,
         "sqft": sqft,
-        "lot_sqft": pd.get("lotAreaValue") or pd.get("lotSize") or prop.get("lotAreaValue"),
-        "year_built": pd.get("yearBuilt") or rf.get("yearBuilt") or prop.get("yearBuilt"),
-        "sold_date": sold_date,
-        "days_on_market": pd.get("daysOnZillow") or rf.get("daysOnZillow") or prop.get("daysOnZillow"),
+        "lot_sqft": lot_sqft,
+        "year_built": year_built,
+        "property_type": property_type,
         "status": status,
+        "days_on_market": dom,
         "distance_miles": round(_haversine_miles(subject_lat, subject_lng, lat, lng), 2),
         "lat": lat,
         "lng": lng,
         "photo_url": photo_url,
+        "zestimate": zestimate,
     }
 
 
@@ -232,12 +201,9 @@ def _build_search_params(
         "daysOnZillow": "Any",
     }
 
-    if status == "sold":
-        params["listingStatus"] = "Recently_Sold"
-        params["soldInLast"] = "6_Months"
-    else:
-        params["listingStatus"] = "For_Sale"
-        params["soldInLast"] = "Any"
+    # Only For_Sale is supported on our API tier (Recently_Sold returns 0 results)
+    params["listingStatus"] = "For_Sale"
+    params["soldInLast"] = "Any"
 
     return params
 

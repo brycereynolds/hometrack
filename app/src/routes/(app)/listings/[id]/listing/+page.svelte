@@ -571,8 +571,14 @@
 				</button>
 				{#if analysisSummaryOpen}
 					<div class="px-4 pb-4">
-						<div class="rounded-lg border border-amber-200 bg-amber-50/30 p-4">
-							<p class="text-sm leading-relaxed">{latestAnalysis.aiNarrative}</p>
+						<div class="mx-auto max-w-3xl rounded-lg border border-amber-200 bg-amber-50/30 p-6">
+							<div class="space-y-4 text-base leading-7 text-stone-700">
+								{#each (latestAnalysis.aiNarrative ?? '').split('\n\n') as paragraph}
+									{#if paragraph.trim()}
+										<p>{paragraph.trim()}</p>
+									{/if}
+								{/each}
+							</div>
 						</div>
 					</div>
 				{/if}

@@ -300,7 +300,7 @@ Return ONLY valid JSON (no markdown fences, no commentary outside the JSON):
     "clustering": "<adjustment> (<reason>)",
     "distance": "<adjustment> (<reason>)"
   }},
-  "reasoning": "<detailed multi-paragraph reasoning that covers: (1) distribution analysis and key comps, (2) subject property strengths and weaknesses relative to comps, (3) market context. MUST end with a concluding paragraph that explicitly states the suggested range and explains WHY the low end is where it is (what factors would push toward that price) and WHY the high end is where it is (what would justify that premium). Example ending: 'We suggest a listing range of $X to $Y. The lower end of $X reflects [reasons], while the upper end of $Y is supported by [reasons].'>",
+  "reasoning": "<Write 3-4 distinct paragraphs separated by \\n\\n. Paragraph 1: Price distribution analysis — describe the spread, clustering, outliers and what distinguishes high vs low comps. Paragraph 2: Subject property analysis — how does this property compare? What are its strengths and weaknesses relative to the comps? Paragraph 3: Market context — current market velocity, active listing competition, DOM trends. Paragraph 4 (conclusion): State the suggested range explicitly and explain WHY the low end is where it is and WHY the high end is justified. Format: 'We suggest a listing range of $X to $Y. The lower end of $X reflects [specific reasons]. The upper end of $Y is supported by [specific reasons].' Use \\n\\n between paragraphs. Do NOT write a single run-on paragraph.>",
   "stats": {{
     "median_price": <number>,
     "mean_price": <number>,

@@ -330,9 +330,27 @@ async def search_comps(params: dict) -> list[dict]:
                     list(first.keys())[:25],
                 )
 
+        # --- Unwrap nested property data ---
+        # The search/bycoordinates endpoint returns items like:
+        #   {"property": {actual data...}, "resultType": "..."}
+        # We need to unwrap that nesting before parsing.
+        unwrapped = []
+        for item in properties:
+            if isinstance(item, dict) and "property" in item and isinstance(item["property"], dict):
+                inner = item["property"]
+                # Log keys of the first unwrapped property for debugging
+                if not unwrapped:
+                    logger.info(
+                        "Unwrapped property keys: %s",
+                        list(inner.keys())[:30],
+                    )
+                unwrapped.append(inner)
+            else:
+                unwrapped.append(item)
+
         # --- Parse and filter ---
         comps = []
-        for prop in properties:
+        for prop in unwrapped:
             parsed = _parse_search_result(prop, lat, lng)
             if parsed:
                 # Filter by radius (API may return wider results)

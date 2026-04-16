@@ -1,4 +1,4 @@
-import { pgTable, pgEnum, text, timestamp, integer, real, jsonb, boolean, index } from 'drizzle-orm/pg-core';
+import { pgTable, pgEnum, text, timestamp, integer, real, jsonb, boolean, index, uniqueIndex } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { listings } from './listing.js';
 import { properties } from './property.js';
@@ -73,6 +73,7 @@ export const compListings = pgTable(
     photos: jsonb('photos'),
     adjustments: jsonb('adjustments'),
     propertyType: text('property_type'),
+    isConfirmedComp: boolean('is_confirmed_comp').default(false).notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

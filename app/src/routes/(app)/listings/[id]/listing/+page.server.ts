@@ -1,7 +1,8 @@
-import type { PageServerLoad } from './$types';
+import type { PageServerLoad, Actions } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
 import { marketAnalyses, compListings, analysisSchedules, listings } from '$lib/server/db/schema/index.js';
-import { eq, desc, and } from 'drizzle-orm';
+import { eq, desc, sql } from 'drizzle-orm';
+import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team, listing } = await parent();
@@ -39,4 +40,54 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
   } catch {
     return { analyses: [], comps: [], schedule: null };
   }
+};
+
+export const actions: Actions = {
+  setPrice: async ({ params, locals, request }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const formData = await request.formData();
+    const priceStr = formData.get('price') as string;
+
+    if (!priceStr) return fail(400, { error: 'Price is required' });
+
+    const price = parseFloat(priceStr.replace(/[,$]/g, ''));
+    if (isNaN(price) || price <= 0) return fail(400, { error: 'Invalid price' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db
+          .update(listings)
+          .set({ price, updatedAt: new Date() })
+          .where(eq(listings.id, params.id));
+      });
+      return { success: true };
+    } catch {
+      return fail(500, { error: 'Failed to update price' });
+    }
+  },
+
+  toggleConfirmedComp: async ({ locals, request }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const formData = await request.formData();
+    const compId = formData.get('compId') as string;
+
+    if (!compId) return fail(400, { error: 'Comp ID is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db
+          .update(compListings)
+          .set({
+            isConfirmedComp: sql`NOT is_confirmed_comp`,
+            updatedAt: new Date(),
+          })
+          .where(eq(compListings.id, compId));
+      });
+      return { success: true };
+    } catch {
+      return fail(500, { error: 'Failed to toggle comp' });
+    }
+  },
 };

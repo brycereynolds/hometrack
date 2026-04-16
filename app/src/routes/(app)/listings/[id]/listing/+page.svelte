@@ -4,7 +4,8 @@
 
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import { invalidateAll } from '$app/navigation';
+	import { invalidateAll, goto } from '$app/navigation';
+	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
@@ -29,6 +30,9 @@
 		Calendar,
 		ToggleRight,
 		ToggleLeft,
+		ExternalLink,
+		Home,
+		Star,
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -42,6 +46,8 @@
 	let priceInput = $state('');
 	let radiusValue = $state(1);
 	let analysisPrompt = $state('');
+	let setPriceInput = $state('');
+	let setPriceSubmitting = $state(false);
 
 	// Analysis trigger state
 	let analysisLoading = $state(false);
@@ -64,6 +70,23 @@
 
 	const analysisStageLabel = $derived(analysisStages[analysisStage] ?? analysisStages[0]);
 
+	// Suggested midpoint for price setting
+	const suggestedMidpoint = $derived(
+		latestAnalysis?.suggestedPriceLow && latestAnalysis?.suggestedPriceHigh
+			? Math.round((latestAnalysis.suggestedPriceLow + latestAnalysis.suggestedPriceHigh) / 2)
+			: null
+	);
+
+	// Auto-fill price input from suggestion
+	$effect(() => {
+		if (suggestedMidpoint && !listing?.price && !setPriceInput) {
+			setPriceInput = suggestedMidpoint.toString();
+		}
+	});
+
+	// Confirmed comps count
+	const confirmedCount = $derived(comps.filter((c: any) => c.isConfirmedComp).length);
+
 	// Comp table sort
 	let sortField = $state<string>('distanceMiles');
 	let sortDir = $state<'asc' | 'desc'>('asc');
@@ -79,8 +102,14 @@
 	const sortedComps = $derived(() => {
 		const sorted = [...comps];
 		sorted.sort((a: any, b: any) => {
-			const aVal = a[sortField] ?? 0;
-			const bVal = b[sortField] ?? 0;
+			let aVal: any, bVal: any;
+			if (sortField === 'soldDate') {
+				aVal = a.soldDate ? new Date(a.soldDate).getTime() : 0;
+				bVal = b.soldDate ? new Date(b.soldDate).getTime() : 0;
+			} else {
+				aVal = a[sortField] ?? 0;
+				bVal = b[sortField] ?? 0;
+			}
 			return sortDir === 'asc' ? aVal - bVal : bVal - aVal;
 		});
 		return sorted;
@@ -91,7 +120,7 @@
 			sortDir = sortDir === 'asc' ? 'desc' : 'asc';
 		} else {
 			sortField = field;
-			sortDir = 'asc';
+			sortDir = field === 'soldDate' ? 'desc' : 'asc';
 		}
 	}
 
@@ -133,7 +162,6 @@
 		if (pollInterval) return;
 		pollInterval = setInterval(async () => {
 			await invalidateAll();
-			// Advance the stage label to give a sense of progress
 			if (analysisStage < analysisStages.length - 1) {
 				analysisStage++;
 			}
@@ -170,6 +198,51 @@
 		return `$${Math.round(price / 1000)}K`;
 	}
 
+	function daysAgo(d: any): number {
+		if (!d) return Infinity;
+		const date = d instanceof Date ? d : new Date(d);
+		return Math.floor((Date.now() - date.getTime()) / (1000 * 60 * 60 * 24));
+	}
+
+	function recencyLabel(d: any): string {
+		const days = daysAgo(d);
+		if (days === Infinity) return '';
+		if (days === 0) return 'Today';
+		if (days === 1) return 'Yesterday';
+		if (days < 30) return `${days}d ago`;
+		if (days < 90) return `${Math.floor(days / 30)}mo ago`;
+		return `${Math.floor(days / 30)}mo ago`;
+	}
+
+	function recencyColor(d: any): string {
+		const days = daysAgo(d);
+		if (days < 30) return 'bg-green-100 text-green-800 border-green-200';
+		if (days < 90) return 'bg-amber-100 text-amber-800 border-amber-200';
+		return 'bg-stone-100 text-stone-600 border-stone-200';
+	}
+
+	function statusBadgeClass(status: string): string {
+		switch (status) {
+			case 'sold': return 'bg-green-100 text-green-800 border-green-200';
+			case 'for_sale': return 'bg-blue-100 text-blue-800 border-blue-200';
+			case 'pending': return 'bg-amber-100 text-amber-800 border-amber-200';
+			default: return 'bg-stone-100 text-stone-600 border-stone-200';
+		}
+	}
+
+	function statusLabel(comp: any): string {
+		if (comp.status === 'sold') return `Sold ${recencyLabel(comp.soldDate)}`;
+		if (comp.status === 'for_sale') return `Active${comp.daysOnMarket ? ' - ' + comp.daysOnMarket + ' DOM' : ''}`;
+		if (comp.status === 'pending') return 'Pending';
+		return comp.status ?? 'Unknown';
+	}
+
+	function priceDeltaPerSqft(comp: any): number | null {
+		if (!comp.pricePerSqft || !listing?.price || !listing?.sqft) return null;
+		const subjectPpSqft = listing.price / listing.sqft;
+		return Math.round(comp.pricePerSqft - subjectPpSqft);
+	}
+
 	function statusColor(status: string) {
 		switch (status) {
 			case 'completed': return 'bg-green-100 text-green-800';
@@ -202,7 +275,7 @@
 		// Property marker
 		const propertyIcon = L.divIcon({
 			className: 'property-marker',
-			html: `<div style="background: #b45309; color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">★</div>`,
+			html: `<div style="background: #b45309; color: white; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">&#9733;</div>`,
 			iconSize: [32, 32],
 			iconAnchor: [16, 16],
 		});
@@ -216,7 +289,6 @@
 	function updateMapComps() {
 		if (!map || !L) return;
 
-		// Clear existing comp markers
 		compMarkers.forEach(m => map.removeLayer(m));
 		compMarkers = [];
 
@@ -233,16 +305,29 @@
 			});
 
 			const marker = L.marker([comp.lat, comp.lng], { icon }).addTo(map);
+
+			// Popup with photo
+			const photoHtml = comp.photoUrl
+				? `<img src="${comp.photoUrl}" alt="" style="width:100%;height:100px;object-fit:cover;border-radius:6px;margin-bottom:8px;" />`
+				: '';
+
 			marker.bindPopup(`
-				<strong>${comp.address ?? 'Unknown'}</strong><br/>
-				${comp.city ?? ''}<br/>
-				<strong>${comp.price ? '$' + comp.price.toLocaleString() : 'N/A'}</strong>
-				${comp.beds ? ' · ' + comp.beds + ' bd' : ''}
-				${comp.baths ? ' · ' + comp.baths + ' ba' : ''}
-				${comp.sqft ? ' · ' + comp.sqft.toLocaleString() + ' sqft' : ''}<br/>
-				${comp.soldDate ? 'Sold: ' + formatDate(comp.soldDate) : comp.status ?? ''}
-				${comp.distanceMiles ? ' · ' + comp.distanceMiles.toFixed(2) + ' mi' : ''}
-			`);
+				<div style="min-width:180px;max-width:220px;">
+					${photoHtml}
+					<strong style="font-size:12px;">${comp.address ?? 'Unknown'}</strong><br/>
+					<span style="font-size:11px;color:#78716c;">${comp.city ?? ''}, ${comp.state ?? ''}</span><br/>
+					<strong style="font-size:13px;">${comp.price ? '$' + comp.price.toLocaleString() : 'N/A'}</strong>
+					<span style="font-size:11px;color:#78716c;">
+						${comp.beds ? ' · ' + comp.beds + ' bd' : ''}
+						${comp.baths ? ' · ' + comp.baths + ' ba' : ''}
+						${comp.sqft ? ' · ' + comp.sqft.toLocaleString() + ' sqft' : ''}
+					</span><br/>
+					<span style="font-size:10px;color:#a8a29e;">
+						${comp.soldDate ? 'Sold: ' + formatDate(comp.soldDate) : comp.status ?? ''}
+						${comp.distanceMiles ? ' · ' + comp.distanceMiles.toFixed(2) + ' mi' : ''}
+					</span>
+				</div>
+			`, { maxWidth: 240 });
 			compMarkers.push(marker);
 		});
 	}
@@ -262,12 +347,10 @@
 	}
 
 	$effect(() => {
-		// React to comps changes
 		if (comps) updateMapComps();
 	});
 
 	$effect(() => {
-		// React to radius changes
 		if (radiusValue) updateRadiusCircle();
 	});
 
@@ -308,7 +391,7 @@
 							<div class="text-right">
 								<p class="text-sm text-muted-foreground">Suggested Range</p>
 								<p class="text-lg font-semibold {inRange ? 'text-green-600' : 'text-amber-600'}">
-									{formatCurrency(low)} – {formatCurrency(high)}
+									{formatCurrency(low)} - {formatCurrency(high)}
 								</p>
 								{#if latestAnalysis.confidence}
 									<p class="text-xs text-muted-foreground">{Math.round(latestAnalysis.confidence * 100)}% confidence</p>
@@ -318,7 +401,6 @@
 					</div>
 
 					{#if latestAnalysis?.status === 'completed' && latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
-						<!-- Price position bar -->
 						{@const low = latestAnalysis.suggestedPriceLow}
 						{@const high = latestAnalysis.suggestedPriceHigh}
 						{@const range = high - low}
@@ -345,7 +427,102 @@
 								<span>{formatCurrency(high)}</span>
 							</div>
 						</div>
+
+						<!-- Update Price -->
+						<Separator class="my-4" />
+						<form
+							method="POST"
+							action="?/setPrice"
+							use:enhance={() => {
+								setPriceSubmitting = true;
+								return async ({ result, update }) => {
+									setPriceSubmitting = false;
+									if (result.type === 'success') {
+										toast.success('Listing price updated');
+										await update();
+									} else {
+										toast.error('Failed to update price');
+									}
+								};
+							}}
+						>
+							<p class="text-xs text-muted-foreground mb-2">Update listing price</p>
+							<div class="flex gap-2">
+								<input
+									name="price"
+									type="text"
+									bind:value={setPriceInput}
+									placeholder="Enter price"
+									class="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+								/>
+								<Button type="submit" size="sm" disabled={setPriceSubmitting}>
+									{#if setPriceSubmitting}
+										<Loader2 class="size-4 animate-spin" />
+									{:else}
+										Update Price
+									{/if}
+								</Button>
+							</div>
+							<div class="flex gap-2 mt-2">
+								<button type="button" onclick={() => setPriceInput = String(low)} class="text-xs text-amber-700 hover:underline">{formatCurrency(low)}</button>
+								<button type="button" onclick={() => setPriceInput = String(Math.round((low + high) / 2))} class="text-xs text-amber-700 hover:underline">{formatCurrency(Math.round((low + high) / 2))}</button>
+								<button type="button" onclick={() => setPriceInput = String(high)} class="text-xs text-amber-700 hover:underline">{formatCurrency(high)}</button>
+							</div>
+						</form>
 					{/if}
+				{:else if latestAnalysis?.status === 'completed' && latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
+					{@const low = latestAnalysis.suggestedPriceLow}
+					{@const high = latestAnalysis.suggestedPriceHigh}
+					{@const mid = Math.round((low + high) / 2)}
+					<!-- No price set, but analysis has suggestions -->
+					<div class="text-center py-4">
+						<p class="text-sm text-muted-foreground mb-2">Suggested Price Range</p>
+						<p class="text-2xl font-bold font-serif">{formatCurrency(low)} - {formatCurrency(high)}</p>
+						{#if latestAnalysis.confidence}
+							<p class="text-xs text-muted-foreground mt-1">{Math.round(latestAnalysis.confidence * 100)}% confidence</p>
+						{/if}
+					</div>
+					<Separator class="my-4" />
+					<form
+						method="POST"
+						action="?/setPrice"
+						use:enhance={() => {
+							setPriceSubmitting = true;
+							return async ({ result, update }) => {
+								setPriceSubmitting = false;
+								if (result.type === 'success') {
+									toast.success('Listing price set');
+									await update();
+								} else {
+									toast.error('Failed to set price');
+								}
+							};
+						}}
+					>
+						<div class="max-w-sm mx-auto">
+							<input
+								name="price"
+								type="text"
+								bind:value={setPriceInput}
+								placeholder={formatCurrency(mid)}
+								class="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-lg text-center font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+							/>
+							<Button type="submit" class="w-full mt-3" disabled={setPriceSubmitting}>
+								{#if setPriceSubmitting}
+									<Loader2 class="mr-1.5 size-4 animate-spin" />
+									Setting...
+								{:else}
+									Set as Listing Price
+								{/if}
+							</Button>
+							<div class="flex justify-center gap-3 mt-3">
+								<span class="text-xs text-muted-foreground">Quick set:</span>
+								<button type="button" onclick={() => setPriceInput = String(low)} class="text-xs font-medium text-amber-700 hover:underline">{formatCurrency(low)}</button>
+								<button type="button" onclick={() => setPriceInput = String(mid)} class="text-xs font-medium text-amber-700 hover:underline">{formatCurrency(mid)}</button>
+								<button type="button" onclick={() => setPriceInput = String(high)} class="text-xs font-medium text-amber-700 hover:underline">{formatCurrency(high)}</button>
+							</div>
+						</div>
+					</form>
 				{:else}
 					<div class="text-center py-6">
 						<DollarSign class="size-10 text-muted-foreground/40 mx-auto mb-3" />
@@ -358,7 +535,7 @@
 			</CardContent>
 		</Card>
 
-		<!-- Market Analysis Section — single card with three states -->
+		<!-- Market Analysis Section -->
 		<Card>
 			<CardHeader>
 				<CardTitle class="flex items-center gap-2 font-serif">
@@ -368,7 +545,6 @@
 			</CardHeader>
 			<CardContent>
 				{#if isAnalyzing}
-					<!-- STATE: Processing -->
 					<div class="flex flex-col items-center justify-center py-10 text-center">
 						<div class="relative mb-6">
 							<div class="size-16 rounded-full border-4 border-amber-200 border-t-amber-600 animate-spin"></div>
@@ -385,14 +561,13 @@
 						</div>
 					</div>
 				{:else if latestAnalysis?.status === 'completed'}
-					<!-- STATE: Completed -->
 					<div class="space-y-4">
 						{#if latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
 							<div class="flex items-center justify-between rounded-lg border bg-muted/30 p-4">
 								<div>
 									<p class="text-xs text-muted-foreground uppercase tracking-wide mb-1">Suggested Price Range</p>
 									<p class="text-xl font-bold font-serif">
-										{formatCurrency(latestAnalysis.suggestedPriceLow)} – {formatCurrency(latestAnalysis.suggestedPriceHigh)}
+										{formatCurrency(latestAnalysis.suggestedPriceLow)} - {formatCurrency(latestAnalysis.suggestedPriceHigh)}
 									</p>
 								</div>
 								{#if latestAnalysis.confidence}
@@ -411,7 +586,7 @@
 						<div class="mt-2">
 							<textarea
 								bind:value={analysisPrompt}
-								placeholder="Optional: Add context for re-analysis (e.g., 'Property has been recently renovated', 'Focus on single-family homes only')"
+								placeholder="Optional: Add context for re-analysis (e.g., 'Property has been recently renovated')"
 								class="w-full rounded-lg border p-3 text-sm"
 								rows="2"
 							></textarea>
@@ -429,7 +604,6 @@
 						</div>
 					</div>
 				{:else if latestAnalysis?.status === 'failed'}
-					<!-- STATE: Failed -->
 					<div class="flex flex-col items-center justify-center py-8 text-center">
 						<AlertCircle class="size-10 text-red-400 mb-3" />
 						<p class="text-lg font-medium mb-1">Analysis Failed</p>
@@ -440,7 +614,6 @@
 						</Button>
 					</div>
 				{:else}
-					<!-- STATE: No analysis yet -->
 					<div class="flex flex-col items-center justify-center py-8 text-center">
 						<BarChart3 class="size-10 text-muted-foreground/40 mb-3" />
 						<p class="text-lg font-medium mb-1">No market analysis yet</p>
@@ -450,7 +623,7 @@
 						<div class="w-full max-w-lg text-left mb-4">
 							<textarea
 								bind:value={analysisPrompt}
-								placeholder="Optional: Add context for the analysis (e.g., 'Property has been recently renovated', 'Focus on single-family homes only', 'Consider the school district premium')"
+								placeholder="Optional: Add context for the analysis (e.g., 'Property has been recently renovated', 'Focus on single-family homes only')"
 								class="w-full rounded-lg border p-3 text-sm"
 								rows="2"
 							></textarea>
@@ -511,18 +684,36 @@
 			</Card>
 		{/if}
 
-		<!-- Comp Table -->
+		<!-- Comp Table (CMA) -->
 		{#if comps.length > 0}
 			<Card>
 				<CardHeader>
-					<CardTitle class="font-serif">Comparable Sales</CardTitle>
+					<div class="flex items-center justify-between">
+						<div>
+							<CardTitle class="font-serif">Comparable Sales</CardTitle>
+							<p class="text-sm text-muted-foreground mt-1">
+								{comps.length} comparable {comps.length === 1 ? 'property' : 'properties'} found
+								{#if listing.price && listing.sqft}
+									<span class="ml-1">| Subject: {formatCurrency(Math.round(listing.price / listing.sqft))}/sqft</span>
+								{/if}
+							</p>
+						</div>
+						{#if confirmedCount > 0}
+							<Badge variant="secondary" class="text-xs gap-1">
+								<Star class="size-3 fill-amber-500 text-amber-500" />
+								{confirmedCount} of {comps.length} confirmed
+							</Badge>
+						{/if}
+					</div>
 				</CardHeader>
 				<CardContent class="p-0">
 					<div class="overflow-x-auto">
 						<Table.Root>
 							<Table.Header>
-								<Table.Row>
-									<Table.Head class="min-w-[180px]">Address</Table.Head>
+								<Table.Row class="bg-muted/30">
+									<Table.Head class="w-[36px] px-1"></Table.Head>
+									<Table.Head class="w-[60px]"></Table.Head>
+									<Table.Head class="min-w-[160px]">Property</Table.Head>
 									<Table.Head class="cursor-pointer" onclick={() => toggleSort('price')}>
 										<span class="flex items-center gap-1">
 											Price <ArrowUpDown class="size-3" />
@@ -533,17 +724,10 @@
 											$/sqft <ArrowUpDown class="size-3" />
 										</span>
 									</Table.Head>
-									<Table.Head>Beds</Table.Head>
-									<Table.Head>Baths</Table.Head>
-									<Table.Head class="cursor-pointer" onclick={() => toggleSort('sqft')}>
+									<Table.Head>Details</Table.Head>
+									<Table.Head class="cursor-pointer" onclick={() => toggleSort('soldDate')}>
 										<span class="flex items-center gap-1">
-											Sqft <ArrowUpDown class="size-3" />
-										</span>
-									</Table.Head>
-									<Table.Head>Sold Date</Table.Head>
-									<Table.Head class="cursor-pointer" onclick={() => toggleSort('daysOnMarket')}>
-										<span class="flex items-center gap-1">
-											DOM <ArrowUpDown class="size-3" />
+											Status <ArrowUpDown class="size-3" />
 										</span>
 									</Table.Head>
 									<Table.Head class="cursor-pointer" onclick={() => toggleSort('distanceMiles')}>
@@ -551,34 +735,121 @@
 											Distance <ArrowUpDown class="size-3" />
 										</span>
 									</Table.Head>
-									<Table.Head>Source</Table.Head>
 								</Table.Row>
 							</Table.Header>
 							<Table.Body>
 								{#each sortedComps() as comp (comp.id)}
+									{@const delta = priceDeltaPerSqft(comp)}
 									<Table.Row
-										class="cursor-pointer hover:bg-muted/50"
+										class="cursor-pointer hover:bg-muted/50 group {comp.isConfirmedComp ? 'border-l-2 border-l-amber-400 bg-amber-50/20' : ''}"
 										onclick={() => expandedCompId = expandedCompId === comp.id ? null : comp.id}
 									>
-										<Table.Cell class="font-medium">{comp.address ?? 'Unknown'}</Table.Cell>
-										<Table.Cell>{comp.price ? formatCurrency(comp.price) : '—'}</Table.Cell>
-										<Table.Cell>{comp.pricePerSqft ? '$' + Math.round(comp.pricePerSqft) : '—'}</Table.Cell>
-										<Table.Cell>{comp.beds ?? '—'}</Table.Cell>
-										<Table.Cell>{comp.baths ?? '—'}</Table.Cell>
-										<Table.Cell>{comp.sqft?.toLocaleString() ?? '—'}</Table.Cell>
-										<Table.Cell>{comp.soldDate ? formatDate(comp.soldDate) : '—'}</Table.Cell>
-										<Table.Cell>{comp.daysOnMarket ?? '—'}</Table.Cell>
-										<Table.Cell>{comp.distanceMiles ? comp.distanceMiles.toFixed(2) + ' mi' : '—'}</Table.Cell>
+										<!-- Confirm star -->
+										<Table.Cell class="px-1 py-2">
+											<form
+												method="POST"
+												action="?/toggleConfirmedComp"
+												use:enhance={() => {
+													return async ({ update }) => {
+														await update({ reset: false });
+													};
+												}}
+											>
+												<input type="hidden" name="compId" value={comp.id} />
+												<button
+													type="submit"
+													class="p-1 rounded hover:bg-muted transition-colors"
+													onclick={(e) => e.stopPropagation()}
+													title={comp.isConfirmedComp ? 'Remove from confirmed comps' : 'Mark as confirmed comp'}
+												>
+													<Star class="size-4 {comp.isConfirmedComp ? 'fill-amber-500 text-amber-500' : 'text-muted-foreground/30 group-hover:text-muted-foreground/60'}" />
+												</button>
+											</form>
+										</Table.Cell>
+										<!-- Photo thumbnail -->
+										<Table.Cell class="p-2">
+											{#if comp.photoUrl}
+												<img
+													src={comp.photoUrl}
+													alt=""
+													class="w-14 h-10 object-cover rounded"
+												/>
+											{:else}
+												<div class="w-14 h-10 rounded bg-muted flex items-center justify-center">
+													<Home class="size-4 text-muted-foreground/40" />
+												</div>
+											{/if}
+										</Table.Cell>
+										<!-- Address -->
 										<Table.Cell>
-											<Badge variant="outline" class="text-[10px]">{comp.source}</Badge>
+											{#if comp.propertyId}
+												<a
+													href="/properties/{comp.propertyId}"
+													class="text-sm font-medium leading-tight text-amber-800 hover:underline"
+													onclick={(e) => e.stopPropagation()}
+												>
+													{comp.address ?? 'Unknown'}
+												</a>
+											{:else}
+												<p class="text-sm font-medium leading-tight">{comp.address ?? 'Unknown'}</p>
+											{/if}
+											<p class="text-xs text-muted-foreground">{comp.city ?? ''}, {comp.state ?? ''}</p>
+										</Table.Cell>
+										<!-- Price -->
+										<Table.Cell>
+											<p class="text-sm font-semibold">{comp.price ? formatCurrency(comp.price) : '--'}</p>
+										</Table.Cell>
+										<!-- $/sqft with delta -->
+										<Table.Cell>
+											<p class="text-sm">{comp.pricePerSqft ? '$' + Math.round(comp.pricePerSqft) : '--'}</p>
+											{#if delta !== null}
+												<p class="text-[10px] font-medium {delta > 0 ? 'text-red-600' : delta < 0 ? 'text-green-600' : 'text-muted-foreground'}">
+													{delta > 0 ? '+' : ''}{delta === 0 ? '--' : '$' + Math.abs(delta)}
+													{delta !== 0 ? (delta > 0 ? ' above' : ' below') : ''}
+												</p>
+											{/if}
+										</Table.Cell>
+										<!-- Beds/Baths/Sqft -->
+										<Table.Cell>
+											<p class="text-sm">
+												{comp.beds ?? '?'} bd / {comp.baths ?? '?'} ba
+											</p>
+											<p class="text-xs text-muted-foreground">{comp.sqft?.toLocaleString() ?? '?'} sqft</p>
+										</Table.Cell>
+										<!-- Status badge with recency -->
+										<Table.Cell>
+											<Badge variant="outline" class="text-[10px] {statusBadgeClass(comp.status ?? '')}">
+												{statusLabel(comp)}
+											</Badge>
+											{#if comp.soldDate}
+												<div class="mt-1">
+													<span class="text-[10px] px-1.5 py-0.5 rounded {recencyColor(comp.soldDate)}">
+														{recencyLabel(comp.soldDate)}
+													</span>
+												</div>
+											{/if}
+										</Table.Cell>
+										<!-- Distance -->
+										<Table.Cell>
+											{#if comp.distanceMiles}
+												<Badge variant="outline" class="text-[10px]">
+													{comp.distanceMiles.toFixed(2)} mi
+												</Badge>
+											{:else}
+												<span class="text-muted-foreground">--</span>
+											{/if}
 										</Table.Cell>
 									</Table.Row>
 									{#if expandedCompId === comp.id}
 										<Table.Row>
-											<Table.Cell colspan={10} class="bg-muted/30 p-4">
+											<Table.Cell colspan={8} class="bg-muted/30 p-4">
 												<div class="flex gap-4">
 													{#if comp.photoUrl}
-														<img src={comp.photoUrl} alt={comp.address ?? ''} class="w-36 h-28 object-cover rounded-lg" />
+														<img src={comp.photoUrl} alt={comp.address ?? ''} class="w-40 h-32 object-cover rounded-lg shadow-sm" />
+													{:else}
+														<div class="w-40 h-32 rounded-lg bg-muted flex items-center justify-center">
+															<Home class="size-8 text-muted-foreground/30" />
+														</div>
 													{/if}
 													<div class="grid grid-cols-2 gap-x-8 gap-y-1 text-sm flex-1">
 														<p><span class="text-muted-foreground">Full Address:</span> {comp.address ?? 'N/A'}, {comp.city ?? ''}, {comp.state ?? ''} {comp.zip ?? ''}</p>
@@ -588,29 +859,27 @@
 														<p><span class="text-muted-foreground">Lot Size:</span> {comp.lotSqft ? comp.lotSqft.toLocaleString() + ' sqft' : 'N/A'}</p>
 														<p><span class="text-muted-foreground">Year Built:</span> {comp.yearBuilt ?? 'N/A'}</p>
 														<p><span class="text-muted-foreground">Days on Market:</span> {comp.daysOnMarket ?? 'N/A'}</p>
-														<p><span class="text-muted-foreground">Status:</span>
-															<Badge variant="outline" class="text-[10px] ml-1">
-																{comp.status === 'sold' ? 'Sold' : comp.status === 'for_sale' ? 'For Sale' : comp.status ?? 'N/A'}
-															</Badge>
-															{#if comp.soldDate}
-																<span class="text-muted-foreground ml-1">({formatDate(comp.soldDate)})</span>
-															{/if}
-														</p>
 														<p><span class="text-muted-foreground">Type:</span> {comp.propertyType ?? 'N/A'}</p>
-														<p><span class="text-muted-foreground">Distance:</span> {comp.distanceMiles ? comp.distanceMiles.toFixed(2) + ' mi' : 'N/A'}</p>
-														{#if comp.externalId && comp.source === 'zillow'}
-															<p>
-																<a
-																	href="https://www.zillow.com/homedetails/{comp.externalId}_zpid/"
-																	target="_blank"
-																	rel="noopener noreferrer"
-																	class="text-blue-600 hover:underline text-sm"
-																>
-																	View on Zillow &rarr;
-																</a>
-															</p>
-														{/if}
 													</div>
+												</div>
+												<div class="flex items-center gap-3 mt-3 pt-3 border-t">
+													{#if comp.propertyId}
+														<Button variant="outline" size="sm" href="/properties/{comp.propertyId}">
+															<Home class="mr-1.5 size-3.5" />
+															View Property
+														</Button>
+													{/if}
+													{#if comp.externalId && comp.source === 'zillow'}
+														<a
+															href="https://www.zillow.com/homedetails/{comp.externalId}_zpid/"
+															target="_blank"
+															rel="noopener noreferrer"
+															class="inline-flex items-center gap-1.5 text-sm text-blue-600 hover:underline"
+														>
+															<ExternalLink class="size-3.5" />
+															View on Zillow
+														</a>
+													{/if}
 												</div>
 											</Table.Cell>
 										</Table.Row>
@@ -648,7 +917,7 @@
 										<p class="text-sm font-medium">{formatDate(analysis.createdAt)}</p>
 										{#if analysis.suggestedPriceLow && analysis.suggestedPriceHigh}
 											<p class="text-xs text-muted-foreground">
-												{formatCurrency(analysis.suggestedPriceLow)} – {formatCurrency(analysis.suggestedPriceHigh)}
+												{formatCurrency(analysis.suggestedPriceLow)} - {formatCurrency(analysis.suggestedPriceHigh)}
 											</p>
 										{/if}
 									</div>
@@ -674,7 +943,7 @@
 					<div>
 						<p class="text-sm font-medium">Automatic market analysis</p>
 						<p class="text-xs text-muted-foreground">
-							{schedule?.enabled ? `Runs ${schedule.frequency} — next: ${schedule.nextRun ? formatDate(schedule.nextRun) : 'TBD'}` : 'Disabled — available on Professional plan'}
+							{schedule?.enabled ? `Runs ${schedule.frequency} -- next: ${schedule.nextRun ? formatDate(schedule.nextRun) : 'TBD'}` : 'Disabled -- available on Professional plan'}
 						</p>
 					</div>
 					<button

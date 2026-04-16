@@ -87,6 +87,17 @@ def _parse_search_result(prop: dict, subject_lat: float, subject_lng: float) -> 
     photo_links = media.get("propertyPhotoLinks", {})
     photo_url = photo_links.get("mediumSizeLink") or photo_links.get("highResolutionLink")
 
+    # --- All photos (for property record) ---
+    all_photos_raw = media.get("allPropertyPhotos", {})
+    all_photo_urls: list[str] = []
+    if isinstance(all_photos_raw, dict):
+        # Try medium first, fall back to small
+        medium_photos = all_photos_raw.get("medium", [])
+        if isinstance(medium_photos, list):
+            all_photo_urls = [url for url in medium_photos if isinstance(url, str)]
+    elif isinstance(all_photos_raw, list):
+        all_photo_urls = [url for url in all_photos_raw if isinstance(url, str)]
+
     # --- Estimates (nested) ---
     estimates = prop.get("estimates", {})
     zestimate = estimates.get("zestimate") if isinstance(estimates.get("zestimate"), (int, float)) else None
@@ -119,6 +130,7 @@ def _parse_search_result(prop: dict, subject_lat: float, subject_lng: float) -> 
         "lat": lat,
         "lng": lng,
         "photo_url": photo_url,
+        "all_photo_urls": all_photo_urls,
         "zestimate": zestimate,
     }
 
@@ -141,17 +153,33 @@ async def _upsert_property_from_comp(conn, comp: dict) -> str | None:
         address, city, state, zip_code,
     )
 
+    # Build photos array from all available photo URLs
+    photos: list[dict] = []
+    all_photo_urls = comp.get("all_photo_urls", [])
+    if all_photo_urls:
+        for url in all_photo_urls:
+            photos.append({"url": url, "source": "realty_api"})
+    elif comp.get("photo_url"):
+        photos.append({"url": comp["photo_url"], "source": "realty_api"})
+
+    photos_json = json.dumps(photos) if photos else "[]"
+
     if row:
-        # Update last_synced
-        await conn.execute(
-            "UPDATE properties SET last_synced = $1, updated_at = $1 WHERE id = $2",
-            now, row["id"],
-        )
+        # Update last_synced and photos if we have new ones
+        if photos:
+            await conn.execute(
+                "UPDATE properties SET photos = $1::jsonb, last_synced = $2, updated_at = $2 WHERE id = $3",
+                photos_json, now, row["id"],
+            )
+        else:
+            await conn.execute(
+                "UPDATE properties SET last_synced = $1, updated_at = $1 WHERE id = $2",
+                now, row["id"],
+            )
         return row["id"]
 
     # Insert new property with available comp data
     property_id = f"prop_{uuid.uuid4().hex[:12]}"
-    photos_json = json.dumps([{"url": comp["photo_url"], "source": "realty_api"}]) if comp.get("photo_url") else "[]"
 
     await conn.execute(
         """INSERT INTO properties (

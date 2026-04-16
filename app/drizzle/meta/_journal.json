@@ -57,6 +57,13 @@
       "when": 1776451200000,
       "tag": "0007_rls_new_tables",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1776325292178,
+      "tag": "0008_lively_guardian",
+      "breakpoints": true
     }
   ]
 }

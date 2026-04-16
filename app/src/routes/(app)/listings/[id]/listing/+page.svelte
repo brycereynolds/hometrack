@@ -509,7 +509,7 @@
 
 		<!-- Map — hero of the page -->
 		{#if prop?.lat && prop?.lng}
-			<div class="relative rounded-lg border bg-card shadow-sm overflow-hidden">
+			<div class="relative z-0 rounded-lg border bg-card shadow-sm overflow-hidden">
 				<div bind:this={mapContainer} class="h-[60vh] min-h-[500px]"></div>
 
 				<!-- Radius control overlay -->

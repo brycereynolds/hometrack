@@ -102,12 +102,12 @@ export const GET: RequestHandler = async ({ locals, url }) => {
         .where(eq(marketAnalyses.listingId, listingId))
         .orderBy(desc(marketAnalyses.createdAt));
 
-      let comps: (typeof compListings.$inferSelect)[] = [];
+      let comps: any[] = [];
       if (analyses.length > 0) {
-        comps = await db
-          .select()
-          .from(compListings)
-          .where(eq(compListings.marketAnalysisId, analyses[0].id));
+        comps = await db.query.compListings.findMany({
+          where: eq(compListings.marketAnalysisId, analyses[0].id),
+          with: { property: true },
+        });
       }
 
       return { analyses, comps };

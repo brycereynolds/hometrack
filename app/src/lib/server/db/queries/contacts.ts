@@ -29,7 +29,7 @@ export async function getContactListings(teamId: string, contactId: string, db: 
       eq(listings.teamId, teamId),
       or(eq(listings.clientId, contactId), eq(listings.agentId, contactId)),
     ),
-    with: { agent: true, client: true },
+    with: { property: true, agent: true, client: true },
   });
 }
 

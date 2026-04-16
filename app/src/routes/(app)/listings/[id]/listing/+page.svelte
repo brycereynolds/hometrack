@@ -12,6 +12,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Table from '$lib/components/ui/table/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { formatCurrency } from '$lib/utils.js';
 	import {
 		DollarSign,
@@ -33,6 +34,8 @@
 		ExternalLink,
 		Home,
 		Star,
+		Pencil,
+		Settings,
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -49,6 +52,11 @@
 	let analysisPrompt = $state('');
 	let setPriceInput = $state('');
 	let setPriceSubmitting = $state(false);
+
+	// Modal state
+	let showAnalysisModal = $state(false);
+	let showPriceModal = $state(false);
+	let analysisSummaryOpen = $state(true);
 
 	// Analysis trigger state
 	let analysisLoading = $state(false);
@@ -84,6 +92,18 @@
 			setPriceInput = suggestedMidpoint.toString();
 		}
 	});
+
+	// Compact price display
+	function formatCompactCurrency(value: number): string {
+		if (value >= 1_000_000) {
+			const m = value / 1_000_000;
+			return `$${m % 1 === 0 ? m.toFixed(0) : m.toFixed(1)}M`;
+		}
+		if (value >= 1_000) {
+			return `$${Math.round(value / 1000)}K`;
+		}
+		return formatCurrency(value);
+	}
 
 	// Confirmed comps count
 	const confirmedCount = $derived(comps.filter((c: any) => c.isConfirmedComp).length);
@@ -158,6 +178,7 @@
 			} else {
 				toast.success('Market analysis started');
 			}
+			showAnalysisModal = false;
 			startPolling();
 		} catch {
 			toast.error('Failed to start market analysis');
@@ -388,324 +409,174 @@
 </script>
 
 {#if listing}
-	<div class="space-y-6">
-		<!-- Pricing Section -->
-		<Card>
-			<CardHeader>
-				<CardTitle class="flex items-center gap-2 font-serif">
-					<DollarSign class="size-5 text-amber-600" />
-					Listing Price
-				</CardTitle>
-			</CardHeader>
-			<CardContent>
-				{#if listing.price}
-					<div class="flex items-center justify-between">
-						<div>
-							<p class="text-3xl font-bold font-serif">{formatCurrency(listing.price)}</p>
+	<div class="space-y-4">
+		<!-- Compact Top Bar -->
+		<div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+			<div class="flex flex-wrap items-center divide-x divide-border">
+				<!-- Section 1: Price -->
+				<div class="flex items-center gap-3 px-5 py-3 min-w-0">
+					<DollarSign class="size-4 text-amber-600 flex-shrink-0" />
+					{#if listing.price}
+						<div class="flex items-center gap-2">
+							<span class="text-sm font-semibold font-serif">{formatCurrency(listing.price)}</span>
 							{#if prop?.sqft}
-								<p class="text-sm text-muted-foreground mt-1">
-									{formatCurrency(Math.round(listing.price / prop.sqft))}/sqft
-								</p>
+								<span class="text-xs text-muted-foreground">({formatCurrency(Math.round(listing.price / prop.sqft))}/sqft)</span>
 							{/if}
-						</div>
-						{#if latestAnalysis?.status === 'completed' && latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
-							{@const low = latestAnalysis.suggestedPriceLow}
-							{@const high = latestAnalysis.suggestedPriceHigh}
-							{@const inRange = listing.price >= low && listing.price <= high}
-							<div class="text-right">
-								<p class="text-sm text-muted-foreground">Suggested Range</p>
-								<p class="text-lg font-semibold {inRange ? 'text-green-600' : 'text-amber-600'}">
-									{formatCurrency(low)} - {formatCurrency(high)}
-								</p>
-								{#if latestAnalysis.confidence}
-									<p class="text-xs text-muted-foreground">{Math.round(latestAnalysis.confidence * 100)}% confidence</p>
-								{/if}
-							</div>
-						{/if}
-					</div>
-
-					{#if latestAnalysis?.status === 'completed' && latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
-						{@const low = latestAnalysis.suggestedPriceLow}
-						{@const high = latestAnalysis.suggestedPriceHigh}
-						{@const range = high - low}
-						{@const padding = range * 0.2}
-						{@const barMin = low - padding}
-						{@const barMax = high + padding}
-						{@const barRange = barMax - barMin}
-						{@const pricePos = Math.min(100, Math.max(0, ((listing.price - barMin) / barRange) * 100))}
-						{@const lowPos = ((low - barMin) / barRange) * 100}
-						{@const highPos = ((high - barMin) / barRange) * 100}
-						<div class="mt-4">
-							<div class="relative h-3 rounded-full bg-muted">
-								<div
-									class="absolute top-0 h-3 rounded-full bg-green-200"
-									style="left: {lowPos}%; width: {highPos - lowPos}%"
-								></div>
-								<div
-									class="absolute top-[-2px] w-4 h-4 rounded-full bg-amber-600 border-2 border-white shadow"
-									style="left: calc({pricePos}% - 8px)"
-								></div>
-							</div>
-							<div class="flex justify-between mt-1 text-xs text-muted-foreground">
-								<span>{formatCurrency(low)}</span>
-								<span>{formatCurrency(high)}</span>
-							</div>
-						</div>
-
-						<!-- Update Price -->
-						<Separator class="my-4" />
-						<form
-							method="POST"
-							action="?/setPrice"
-							use:enhance={() => {
-								setPriceSubmitting = true;
-								return async ({ result, update }) => {
-									setPriceSubmitting = false;
-									if (result.type === 'success') {
-										toast.success('Listing price updated');
-										await update();
-									} else {
-										toast.error('Failed to update price');
-									}
-								};
-							}}
-						>
-							<p class="text-xs text-muted-foreground mb-2">Update listing price</p>
-							<div class="flex gap-2">
-								<input
-									name="price"
-									type="text"
-									bind:value={setPriceInput}
-									placeholder="Enter price"
-									class="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-1 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-								/>
-								<Button type="submit" size="sm" disabled={setPriceSubmitting}>
-									{#if setPriceSubmitting}
-										<Loader2 class="size-4 animate-spin" />
-									{:else}
-										Update Price
-									{/if}
-								</Button>
-							</div>
-							<div class="flex gap-2 mt-2">
-								<button type="button" onclick={() => setPriceInput = String(low)} class="text-xs text-amber-700 hover:underline">{formatCurrency(low)}</button>
-								<button type="button" onclick={() => setPriceInput = String(Math.round((low + high) / 2))} class="text-xs text-amber-700 hover:underline">{formatCurrency(Math.round((low + high) / 2))}</button>
-								<button type="button" onclick={() => setPriceInput = String(high)} class="text-xs text-amber-700 hover:underline">{formatCurrency(high)}</button>
-							</div>
-						</form>
-					{/if}
-				{:else if latestAnalysis?.status === 'completed' && latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
-					{@const low = latestAnalysis.suggestedPriceLow}
-					{@const high = latestAnalysis.suggestedPriceHigh}
-					{@const mid = Math.round((low + high) / 2)}
-					<!-- No price set, but analysis has suggestions -->
-					<div class="text-center py-4">
-						<p class="text-sm text-muted-foreground mb-2">Suggested Price Range</p>
-						<p class="text-2xl font-bold font-serif">{formatCurrency(low)} - {formatCurrency(high)}</p>
-						{#if latestAnalysis.confidence}
-							<p class="text-xs text-muted-foreground mt-1">{Math.round(latestAnalysis.confidence * 100)}% confidence</p>
-						{/if}
-					</div>
-					<Separator class="my-4" />
-					<form
-						method="POST"
-						action="?/setPrice"
-						use:enhance={() => {
-							setPriceSubmitting = true;
-							return async ({ result, update }) => {
-								setPriceSubmitting = false;
-								if (result.type === 'success') {
-									toast.success('Listing price set');
-									await update();
-								} else {
-									toast.error('Failed to set price');
-								}
-							};
-						}}
-					>
-						<div class="max-w-sm mx-auto">
-							<input
-								name="price"
-								type="text"
-								bind:value={setPriceInput}
-								placeholder={formatCurrency(mid)}
-								class="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-lg text-center font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-							/>
-							<Button type="submit" class="w-full mt-3" disabled={setPriceSubmitting}>
-								{#if setPriceSubmitting}
-									<Loader2 class="mr-1.5 size-4 animate-spin" />
-									Setting...
-								{:else}
-									Set as Listing Price
-								{/if}
-							</Button>
-							<div class="flex justify-center gap-3 mt-3">
-								<span class="text-xs text-muted-foreground">Quick set:</span>
-								<button type="button" onclick={() => setPriceInput = String(low)} class="text-xs font-medium text-amber-700 hover:underline">{formatCurrency(low)}</button>
-								<button type="button" onclick={() => setPriceInput = String(mid)} class="text-xs font-medium text-amber-700 hover:underline">{formatCurrency(mid)}</button>
-								<button type="button" onclick={() => setPriceInput = String(high)} class="text-xs font-medium text-amber-700 hover:underline">{formatCurrency(high)}</button>
-							</div>
-						</div>
-					</form>
-				{:else}
-					<div class="text-center py-6">
-						<DollarSign class="size-10 text-muted-foreground/40 mx-auto mb-3" />
-						<p class="text-lg font-medium mb-1">No listing price set</p>
-						<p class="text-sm text-muted-foreground">
-							Run a market analysis below to get pricing suggestions.
-						</p>
-					</div>
-				{/if}
-			</CardContent>
-		</Card>
-
-		<!-- Market Analysis Section -->
-		<Card>
-			<CardHeader>
-				<CardTitle class="flex items-center gap-2 font-serif">
-					<TrendingUp class="size-5 text-amber-600" />
-					Market Analysis
-				</CardTitle>
-			</CardHeader>
-			<CardContent>
-				{#if isAnalyzing}
-					<div class="flex flex-col items-center justify-center py-10 text-center">
-						<div class="relative mb-6">
-							<div class="size-16 rounded-full border-4 border-amber-200 border-t-amber-600 animate-spin"></div>
-							<TrendingUp class="size-6 text-amber-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-						</div>
-						<p class="text-lg font-semibold font-serif mb-1">Analyzing Market</p>
-						<p class="text-sm text-muted-foreground mb-4">{analysisStageLabel}</p>
-						<div class="flex gap-1.5">
-							{#each analysisStages as _, i}
-								<div
-									class="h-1.5 w-8 rounded-full transition-colors duration-300 {i <= analysisStage ? 'bg-amber-500' : 'bg-muted'}"
-								></div>
-							{/each}
-						</div>
-					</div>
-				{:else if latestAnalysis?.status === 'completed'}
-					<div class="space-y-4">
-						{#if latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
-							<div class="flex items-center justify-between rounded-lg border bg-muted/30 p-4">
-								<div>
-									<p class="text-xs text-muted-foreground uppercase tracking-wide mb-1">Suggested Price Range</p>
-									<p class="text-xl font-bold font-serif">
-										{formatCurrency(latestAnalysis.suggestedPriceLow)} - {formatCurrency(latestAnalysis.suggestedPriceHigh)}
-									</p>
-								</div>
-								{#if latestAnalysis.confidence}
-									<div class="text-right">
-										<p class="text-xs text-muted-foreground uppercase tracking-wide mb-1">Confidence</p>
-										<p class="text-xl font-bold font-serif">{Math.round(latestAnalysis.confidence * 100)}%</p>
-									</div>
-								{/if}
-							</div>
-						{/if}
-						{#if latestAnalysis.aiNarrative}
-							<div class="rounded-lg border border-amber-200 bg-amber-50/30 p-4">
-								<p class="text-sm leading-relaxed">{latestAnalysis.aiNarrative}</p>
-							</div>
-						{/if}
-						<div class="mt-2">
-							<textarea
-								bind:value={analysisPrompt}
-								placeholder="Optional: Add context for re-analysis (e.g., 'Property has been recently renovated')"
-								class="w-full rounded-lg border p-3 text-sm"
-								rows="2"
-							></textarea>
-						</div>
-						<div class="flex items-center justify-between">
-							<div class="flex items-center gap-4 text-sm text-muted-foreground">
-								<span>{latestAnalysis.compCount ?? comps.length} comps analyzed</span>
-								<span>|</span>
-								<span>{formatDate(latestAnalysis.createdAt)}</span>
-							</div>
-							<Button size="sm" variant="outline" onclick={runAnalysis}>
-								<RefreshCw class="mr-1.5 size-4" />
-								Re-run Analysis
+							<Button variant="ghost" size="sm" class="h-6 px-2 text-xs" onclick={() => showPriceModal = true}>
+								<Pencil class="size-3 mr-1" />
+								Edit
 							</Button>
 						</div>
-					</div>
-				{:else if latestAnalysis?.status === 'failed'}
-					<div class="flex flex-col items-center justify-center py-8 text-center">
-						<AlertCircle class="size-10 text-red-400 mb-3" />
-						<p class="text-lg font-medium mb-1">Analysis Failed</p>
-						<p class="text-sm text-muted-foreground mb-4">Something went wrong. Please try again.</p>
-						<Button onclick={runAnalysis}>
-							<RefreshCw class="mr-1.5 size-4" />
-							Retry Analysis
+					{:else}
+						<span class="text-sm text-muted-foreground">No listing price</span>
+						<Button variant="outline" size="sm" class="h-7 text-xs" onclick={() => showPriceModal = true}>
+							Set Price
 						</Button>
-					</div>
-				{:else}
-					<div class="flex flex-col items-center justify-center py-8 text-center">
-						<BarChart3 class="size-10 text-muted-foreground/40 mb-3" />
-						<p class="text-lg font-medium mb-1">No market analysis yet</p>
-						<p class="text-sm text-muted-foreground mb-4">
-							Find comparable properties and get AI-powered pricing suggestions.
-						</p>
-						<div class="w-full max-w-lg text-left mb-4">
-							<textarea
-								bind:value={analysisPrompt}
-								placeholder="Optional: Add context for the analysis (e.g., 'Property has been recently renovated', 'Focus on single-family homes only')"
-								class="w-full rounded-lg border p-3 text-sm"
-								rows="2"
-							></textarea>
+					{/if}
+				</div>
+
+				<!-- Section 2: Market Analysis -->
+				<div class="flex items-center gap-3 px-5 py-3 min-w-0">
+					<TrendingUp class="size-4 text-amber-600 flex-shrink-0" />
+					{#if isAnalyzing}
+						<div class="flex items-center gap-2">
+							<Loader2 class="size-3.5 animate-spin text-amber-600" />
+							<span class="text-sm text-muted-foreground">{analysisStageLabel}</span>
 						</div>
-						<Button onclick={runAnalysis}>
-							<Play class="mr-1.5 size-4" />
+					{:else if latestAnalysis?.status === 'completed' && latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
+						<div class="flex items-center gap-2">
+							<span class="text-sm font-medium">
+								Suggested: {formatCompactCurrency(latestAnalysis.suggestedPriceLow)} &ndash; {formatCompactCurrency(latestAnalysis.suggestedPriceHigh)}
+							</span>
+							{#if latestAnalysis.confidence}
+								<Badge variant="secondary" class="text-[10px] h-5">
+									{Math.round(latestAnalysis.confidence * 100)}%
+								</Badge>
+							{/if}
+							<Button variant="ghost" size="sm" class="h-6 w-6 p-0" onclick={() => showAnalysisModal = true} title="Re-run analysis">
+								<RefreshCw class="size-3.5" />
+							</Button>
+						</div>
+					{:else if latestAnalysis?.status === 'failed'}
+						<div class="flex items-center gap-2">
+							<AlertCircle class="size-3.5 text-red-500" />
+							<span class="text-sm text-muted-foreground">Analysis failed</span>
+							<Button variant="outline" size="sm" class="h-7 text-xs" onclick={() => showAnalysisModal = true}>
+								Retry
+							</Button>
+						</div>
+					{:else}
+						<Button variant="outline" size="sm" class="h-7 text-xs" onclick={() => showAnalysisModal = true}>
+							<Play class="size-3 mr-1" />
 							Run Analysis
 						</Button>
+					{/if}
+				</div>
+
+				<!-- Section 3: Schedule -->
+				<div class="flex items-center gap-3 px-5 py-3 min-w-0">
+					<Calendar class="size-4 text-amber-600 flex-shrink-0" />
+					{#if schedule?.enabled}
+						<span class="text-sm font-medium">
+							{schedule.frequency}
+						</span>
+						<button
+							class="text-muted-foreground hover:text-foreground transition-colors cursor-not-allowed opacity-50"
+							disabled
+							title="Available on Professional plan"
+						>
+							<Settings class="size-3.5" />
+						</button>
+					{:else}
+						<span class="text-sm text-muted-foreground">Schedule: Off</span>
+					{/if}
+				</div>
+			</div>
+
+			<!-- Analysis progress bar (when analyzing) -->
+			{#if isAnalyzing}
+				<div class="px-5 pb-3">
+					<div class="flex gap-1">
+						{#each analysisStages as _, i}
+							<div
+								class="h-1 flex-1 rounded-full transition-colors duration-300 {i <= analysisStage ? 'bg-amber-500' : 'bg-muted'}"
+							></div>
+						{/each}
+					</div>
+				</div>
+			{/if}
+		</div>
+
+		<!-- Map — hero of the page -->
+		{#if prop?.lat && prop?.lng}
+			<div class="relative rounded-lg border bg-card shadow-sm overflow-hidden">
+				<div bind:this={mapContainer} class="h-[60vh] min-h-[500px]"></div>
+
+				<!-- Radius control overlay -->
+				<div class="absolute top-3 right-3 z-[1000] bg-white/95 backdrop-blur-sm rounded-lg border shadow-md px-3 py-2">
+					<label for="radius-slider" class="text-xs text-muted-foreground whitespace-nowrap flex items-center gap-2">
+						<MapPin class="size-3" />
+						Radius: <span class="w-10 inline-block text-right tabular-nums font-medium text-foreground">{radiusValue.toFixed(1)} mi</span>
+					</label>
+					<input
+						id="radius-slider"
+						type="range"
+						bind:value={radiusValue}
+						min="0.25"
+						max="5"
+						step="0.25"
+						class="w-32 accent-amber-600 mt-1"
+					/>
+				</div>
+
+				<!-- Map legend -->
+				{#if comps.length > 0}
+					<div class="absolute bottom-3 left-3 z-[1000] bg-white/95 backdrop-blur-sm rounded-lg border shadow-md px-3 py-2 flex gap-3 text-xs text-muted-foreground">
+						<span class="flex items-center gap-1.5">
+							<span class="inline-block w-2.5 h-2.5 rounded-full bg-green-600"></span> Sold
+						</span>
+						<span class="flex items-center gap-1.5">
+							<span class="inline-block w-2.5 h-2.5 rounded-full bg-blue-600"></span> For Sale
+						</span>
+						<span class="flex items-center gap-1.5">
+							<span class="inline-block w-2.5 h-2.5 rounded-full bg-amber-500"></span> Pending
+						</span>
+						<span class="flex items-center gap-1.5">
+							<span class="inline-block w-3 h-3 rounded-full bg-amber-700 border-2 border-white"></span> Subject
+						</span>
 					</div>
 				{/if}
-			</CardContent>
-		</Card>
+			</div>
+		{/if}
 
-		<!-- Comp Map -->
-		{#if prop?.lat && prop?.lng}
-			<Card>
-				<CardHeader class="flex-row items-center justify-between">
-					<CardTitle class="flex items-center gap-2 font-serif">
-						<MapPin class="size-5 text-amber-600" />
-						Comparable Properties Map
-					</CardTitle>
-					<div class="flex items-center gap-3">
-						<label for="radius-slider" class="text-xs text-muted-foreground whitespace-nowrap">
-							Radius: <span class="w-12 inline-block text-right tabular-nums">{radiusValue.toFixed(1)} mi</span>
-						</label>
-						<div class="w-48">
-							<input
-								id="radius-slider"
-								type="range"
-								bind:value={radiusValue}
-								min="0.25"
-								max="5"
-								step="0.25"
-								class="w-full accent-amber-600"
-							/>
+		<!-- Analysis Summary (collapsible, between map and comps table) -->
+		{#if latestAnalysis?.status === 'completed' && latestAnalysis.aiNarrative}
+			<div class="rounded-lg border bg-card shadow-sm">
+				<button
+					class="flex items-center justify-between w-full px-4 py-3 text-left hover:bg-muted/30 transition-colors"
+					onclick={() => analysisSummaryOpen = !analysisSummaryOpen}
+				>
+					<div class="flex items-center gap-2">
+						<BarChart3 class="size-4 text-amber-600" />
+						<span class="text-sm font-semibold font-serif">Analysis Summary</span>
+						<span class="text-xs text-muted-foreground ml-2">
+							{latestAnalysis.compCount ?? comps.length} comps &middot; {formatDate(latestAnalysis.createdAt)}
+						</span>
+					</div>
+					{#if analysisSummaryOpen}
+						<ChevronUp class="size-4 text-muted-foreground" />
+					{:else}
+						<ChevronDown class="size-4 text-muted-foreground" />
+					{/if}
+				</button>
+				{#if analysisSummaryOpen}
+					<div class="px-4 pb-4">
+						<div class="rounded-lg border border-amber-200 bg-amber-50/30 p-4">
+							<p class="text-sm leading-relaxed">{latestAnalysis.aiNarrative}</p>
 						</div>
 					</div>
-				</CardHeader>
-				<CardContent>
-					<div bind:this={mapContainer} class="h-80 rounded-lg overflow-hidden border"></div>
-					{#if comps.length > 0}
-						<div class="flex gap-4 mt-3 text-xs text-muted-foreground">
-							<span class="flex items-center gap-1.5">
-								<span class="inline-block w-3 h-3 rounded-sm bg-green-600"></span> Sold
-							</span>
-							<span class="flex items-center gap-1.5">
-								<span class="inline-block w-3 h-3 rounded-sm bg-blue-600"></span> For Sale
-							</span>
-							<span class="flex items-center gap-1.5">
-								<span class="inline-block w-3 h-3 rounded-sm bg-amber-500"></span> Pending
-							</span>
-							<span class="flex items-center gap-1.5">
-								<span class="inline-block w-3 h-3 rounded-full bg-amber-700 border-2 border-white"></span> Subject Property
-							</span>
-						</div>
-					{/if}
-				</CardContent>
-			</Card>
+				{/if}
+			</div>
 		{/if}
 
 		<!-- Comp Table (CMA) -->
@@ -987,41 +858,168 @@
 				</CardContent>
 			</Card>
 		{/if}
+	</div>
 
-		<!-- Schedule Section -->
-		<Card>
-			<CardHeader>
-				<CardTitle class="flex items-center gap-2 font-serif">
-					<Calendar class="size-5 text-amber-600" />
-					Auto-Refresh Schedule
-				</CardTitle>
-			</CardHeader>
-			<CardContent>
-				<div class="flex items-center justify-between">
-					<div>
-						<p class="text-sm font-medium">Automatic market analysis</p>
-						<p class="text-xs text-muted-foreground">
-							{schedule?.enabled ? `Runs ${schedule.frequency} -- next: ${schedule.nextRun ? formatDate(schedule.nextRun) : 'TBD'}` : 'Disabled -- available on Professional plan'}
-						</p>
+	<!-- Run Analysis Modal -->
+	<Dialog.Root bind:open={showAnalysisModal}>
+		<Dialog.Content class="sm:max-w-md">
+			<Dialog.Header>
+				<Dialog.Title class="font-serif">Run Market Analysis</Dialog.Title>
+				<Dialog.Description>
+					Search for comparable properties and get AI-powered pricing suggestions based on recent sales and active listings.
+				</Dialog.Description>
+			</Dialog.Header>
+
+			{#if isAnalyzing}
+				<div class="flex flex-col items-center justify-center py-8 text-center">
+					<div class="relative mb-4">
+						<div class="size-14 rounded-full border-4 border-amber-200 border-t-amber-600 animate-spin"></div>
+						<TrendingUp class="size-5 text-amber-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 					</div>
+					<p class="text-sm font-semibold mb-1">Analyzing Market</p>
+					<p class="text-xs text-muted-foreground mb-3">{analysisStageLabel}</p>
+					<div class="flex gap-1">
+						{#each analysisStages as _, i}
+							<div
+								class="h-1 w-6 rounded-full transition-colors duration-300 {i <= analysisStage ? 'bg-amber-500' : 'bg-muted'}"
+							></div>
+						{/each}
+					</div>
+				</div>
+			{:else}
+				<div class="space-y-4">
+					<div>
+						<label for="modal-radius" class="text-sm font-medium mb-1.5 block">
+							Search Radius: {radiusValue.toFixed(1)} miles
+						</label>
+						<input
+							id="modal-radius"
+							type="range"
+							bind:value={radiusValue}
+							min="0.25"
+							max="5"
+							step="0.25"
+							class="w-full accent-amber-600"
+						/>
+						<div class="flex justify-between text-xs text-muted-foreground mt-1">
+							<span>0.25 mi</span>
+							<span>5 mi</span>
+						</div>
+					</div>
+					<div>
+						<label for="modal-prompt" class="text-sm font-medium mb-1.5 block">
+							Additional context <span class="text-muted-foreground font-normal">(optional)</span>
+						</label>
+						<textarea
+							id="modal-prompt"
+							bind:value={analysisPrompt}
+							placeholder="e.g., 'Property has been recently renovated', 'Focus on single-family homes only'"
+							class="w-full rounded-lg border border-input bg-background p-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+							rows="3"
+						></textarea>
+					</div>
+				</div>
+				<Dialog.Footer>
+					<Button variant="outline" onclick={() => showAnalysisModal = false}>Cancel</Button>
+					<Button onclick={runAnalysis}>
+						<Play class="size-3.5 mr-1.5" />
+						Start Analysis
+					</Button>
+				</Dialog.Footer>
+			{/if}
+		</Dialog.Content>
+	</Dialog.Root>
+
+	<!-- Set Price Modal -->
+	<Dialog.Root bind:open={showPriceModal}>
+		<Dialog.Content class="sm:max-w-sm">
+			<Dialog.Header>
+				<Dialog.Title class="font-serif">
+					{listing.price ? 'Update Listing Price' : 'Set Listing Price'}
+				</Dialog.Title>
+				<Dialog.Description>
+					{#if latestAnalysis?.status === 'completed' && latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
+						Based on market analysis, the suggested range is {formatCurrency(latestAnalysis.suggestedPriceLow)} &ndash; {formatCurrency(latestAnalysis.suggestedPriceHigh)}.
+					{:else}
+						Enter the listing price for this property.
+					{/if}
+				</Dialog.Description>
+			</Dialog.Header>
+
+			{#if latestAnalysis?.status === 'completed' && latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
+				{@const low = latestAnalysis.suggestedPriceLow}
+				{@const high = latestAnalysis.suggestedPriceHigh}
+				{@const mid = Math.round((low + high) / 2)}
+				<div class="flex gap-2">
 					<button
-						class="text-muted-foreground hover:text-foreground transition-colors cursor-not-allowed opacity-50"
-						disabled
-						title="Available on Professional plan"
+						type="button"
+						class="flex-1 rounded-lg border px-3 py-2 text-center hover:bg-muted/50 transition-colors {setPriceInput === String(low) ? 'border-amber-500 bg-amber-50' : ''}"
+						onclick={() => setPriceInput = String(low)}
 					>
-						{#if schedule?.enabled}
-							<ToggleRight class="size-8 text-green-500" />
-						{:else}
-							<ToggleLeft class="size-8" />
-						{/if}
+						<p class="text-xs text-muted-foreground">Low</p>
+						<p class="text-sm font-semibold">{formatCompactCurrency(low)}</p>
+					</button>
+					<button
+						type="button"
+						class="flex-1 rounded-lg border px-3 py-2 text-center hover:bg-muted/50 transition-colors {setPriceInput === String(mid) ? 'border-amber-500 bg-amber-50' : ''}"
+						onclick={() => setPriceInput = String(mid)}
+					>
+						<p class="text-xs text-muted-foreground">Mid</p>
+						<p class="text-sm font-semibold">{formatCompactCurrency(mid)}</p>
+					</button>
+					<button
+						type="button"
+						class="flex-1 rounded-lg border px-3 py-2 text-center hover:bg-muted/50 transition-colors {setPriceInput === String(high) ? 'border-amber-500 bg-amber-50' : ''}"
+						onclick={() => setPriceInput = String(high)}
+					>
+						<p class="text-xs text-muted-foreground">High</p>
+						<p class="text-sm font-semibold">{formatCompactCurrency(high)}</p>
 					</button>
 				</div>
-				{#if schedule?.lastRun}
-					<p class="text-xs text-muted-foreground mt-2">
-						Last run: {formatDate(schedule.lastRun)}
-					</p>
-				{/if}
-			</CardContent>
-		</Card>
-	</div>
+			{/if}
+
+			<form
+				method="POST"
+				action="?/setPrice"
+				use:enhance={() => {
+					setPriceSubmitting = true;
+					return async ({ result, update }) => {
+						setPriceSubmitting = false;
+						if (result.type === 'success') {
+							toast.success(listing.price ? 'Listing price updated' : 'Listing price set');
+							showPriceModal = false;
+							await update();
+						} else {
+							toast.error('Failed to update price');
+						}
+					};
+				}}
+			>
+				<div class="space-y-3">
+					<div>
+						<label for="price-input" class="text-sm font-medium mb-1.5 block">Price</label>
+						<input
+							id="price-input"
+							name="price"
+							type="text"
+							bind:value={setPriceInput}
+							placeholder={listing.price ? formatCurrency(listing.price) : 'Enter price'}
+							class="flex h-11 w-full rounded-md border border-input bg-background px-3 py-2 text-lg text-center font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+						/>
+					</div>
+					<Dialog.Footer>
+						<Button variant="outline" type="button" onclick={() => showPriceModal = false}>Cancel</Button>
+						<Button type="submit" disabled={setPriceSubmitting}>
+							{#if setPriceSubmitting}
+								<Loader2 class="size-4 animate-spin mr-1.5" />
+								Saving...
+							{:else}
+								Set Listing Price
+							{/if}
+						</Button>
+					</Dialog.Footer>
+				</div>
+			</form>
+		</Dialog.Content>
+	</Dialog.Root>
 {/if}

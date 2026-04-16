@@ -21,6 +21,7 @@
 		CheckCircle2,
 		AlertCircle,
 		Play,
+		RefreshCw,
 		Clock,
 		ChevronDown,
 		ChevronUp,
@@ -44,12 +45,23 @@
 	// Analysis trigger state
 	let analysisLoading = $state(false);
 	let pollInterval: ReturnType<typeof setInterval> | null = null;
+	let analysisStage = $state(0);
 
 	// True when analysis is in progress (either locally triggered or server-side pending/processing)
 	const isAnalyzing = $derived(
 		analysisLoading ||
 		(latestAnalysis?.status === 'pending' || latestAnalysis?.status === 'processing')
 	);
+
+	const analysisStages = [
+		'Starting analysis...',
+		'Searching for comparable sales...',
+		'Searching active listings...',
+		'Analyzing market data with AI...',
+		'Saving results...',
+	];
+
+	const analysisStageLabel = $derived(analysisStages[analysisStage] ?? analysisStages[0]);
 
 	// Comp table sort
 	let sortField = $state<string>('distanceMiles');
@@ -85,6 +97,7 @@
 	async function runAnalysis() {
 		if (!listing || isAnalyzing) return;
 		analysisLoading = true;
+		analysisStage = 0;
 
 		try {
 			const res = await fetch('/api/market-analysis', {
@@ -118,9 +131,14 @@
 		if (pollInterval) return;
 		pollInterval = setInterval(async () => {
 			await invalidateAll();
+			// Advance the stage label to give a sense of progress
+			if (analysisStage < analysisStages.length - 1) {
+				analysisStage++;
+			}
 			if (latestAnalysis && (latestAnalysis.status === 'completed' || latestAnalysis.status === 'failed')) {
 				stopPolling();
 				analysisLoading = false;
+				analysisStage = 0;
 				if (latestAnalysis.status === 'completed') {
 					toast.success('Market analysis complete');
 				} else {
@@ -322,83 +340,100 @@
 					<div class="text-center py-6">
 						<DollarSign class="size-10 text-muted-foreground/40 mx-auto mb-3" />
 						<p class="text-lg font-medium mb-1">No listing price set</p>
-						<p class="text-sm text-muted-foreground mb-4">
-							Set a price or run a market analysis to get pricing suggestions.
+						<p class="text-sm text-muted-foreground">
+							Run a market analysis below to get pricing suggestions.
 						</p>
-						<div class="flex items-center justify-center gap-3 max-w-sm mx-auto">
-							<div class="relative flex-1">
-								<span class="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
-								<input
-									type="text"
-									bind:value={priceInput}
-									placeholder="Enter price"
-									class="flex h-10 w-full rounded-md border border-input bg-background pl-7 pr-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-								/>
-							</div>
-							<Button onclick={runAnalysis} disabled={isAnalyzing}>
-								{#if isAnalyzing}
-									<Loader2 class="mr-1.5 size-4 animate-spin" />
-								{:else}
-									<BarChart3 class="mr-1.5 size-4" />
-								{/if}
-								Run Analysis
-							</Button>
-						</div>
 					</div>
 				{/if}
 			</CardContent>
 		</Card>
 
-		<!-- Market Analysis Section -->
+		<!-- Market Analysis Section — single card with three states -->
 		<Card>
-			<CardHeader class="flex-row items-center justify-between">
+			<CardHeader>
 				<CardTitle class="flex items-center gap-2 font-serif">
 					<TrendingUp class="size-5 text-amber-600" />
 					Market Analysis
 				</CardTitle>
-				{#if listing.price}
-					<Button size="sm" onclick={runAnalysis} disabled={isAnalyzing}>
-						{#if isAnalyzing}
-							<Loader2 class="mr-1.5 size-4 animate-spin" />
-							Analyzing...
-						{:else}
-							<Play class="mr-1.5 size-4" />
-							Run Analysis
-						{/if}
-					</Button>
-				{/if}
 			</CardHeader>
 			<CardContent>
 				{#if isAnalyzing}
-					<div class="flex items-center gap-3 py-4">
-						<Loader2 class="size-5 animate-spin text-primary" />
-						<div>
-							<p class="text-sm font-medium">Running market analysis...</p>
-							<p class="text-xs text-muted-foreground">Searching for comparable properties and analyzing pricing data</p>
+					<!-- STATE: Processing -->
+					<div class="flex flex-col items-center justify-center py-10 text-center">
+						<div class="relative mb-6">
+							<div class="size-16 rounded-full border-4 border-amber-200 border-t-amber-600 animate-spin"></div>
+							<TrendingUp class="size-6 text-amber-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+						</div>
+						<p class="text-lg font-semibold font-serif mb-1">Analyzing Market</p>
+						<p class="text-sm text-muted-foreground mb-4">{analysisStageLabel}</p>
+						<div class="flex gap-1.5">
+							{#each analysisStages as _, i}
+								<div
+									class="h-1.5 w-8 rounded-full transition-colors duration-300 {i <= analysisStage ? 'bg-amber-500' : 'bg-muted'}"
+								></div>
+							{/each}
 						</div>
 					</div>
 				{:else if latestAnalysis?.status === 'completed'}
+					<!-- STATE: Completed -->
 					<div class="space-y-4">
+						{#if latestAnalysis.suggestedPriceLow && latestAnalysis.suggestedPriceHigh}
+							<div class="flex items-center justify-between rounded-lg border bg-muted/30 p-4">
+								<div>
+									<p class="text-xs text-muted-foreground uppercase tracking-wide mb-1">Suggested Price Range</p>
+									<p class="text-xl font-bold font-serif">
+										{formatCurrency(latestAnalysis.suggestedPriceLow)} – {formatCurrency(latestAnalysis.suggestedPriceHigh)}
+									</p>
+								</div>
+								{#if latestAnalysis.confidence}
+									<div class="text-right">
+										<p class="text-xs text-muted-foreground uppercase tracking-wide mb-1">Confidence</p>
+										<p class="text-xl font-bold font-serif">{Math.round(latestAnalysis.confidence * 100)}%</p>
+									</div>
+								{/if}
+							</div>
+						{/if}
 						{#if latestAnalysis.aiNarrative}
 							<div class="rounded-lg border border-amber-200 bg-amber-50/30 p-4">
 								<p class="text-sm leading-relaxed">{latestAnalysis.aiNarrative}</p>
 							</div>
 						{/if}
-						<div class="flex items-center gap-4 text-sm text-muted-foreground">
-							<span>{latestAnalysis.compCount ?? comps.length} comps analyzed</span>
-							<span>|</span>
-							<span>{formatDate(latestAnalysis.createdAt)}</span>
+						<div class="flex items-center justify-between">
+							<div class="flex items-center gap-4 text-sm text-muted-foreground">
+								<span>{latestAnalysis.compCount ?? comps.length} comps analyzed</span>
+								<span>|</span>
+								<span>{formatDate(latestAnalysis.createdAt)}</span>
+							</div>
+							<Button size="sm" variant="outline" onclick={runAnalysis}>
+								<RefreshCw class="mr-1.5 size-4" />
+								Re-run Analysis
+							</Button>
 						</div>
 					</div>
 				{:else if latestAnalysis?.status === 'failed'}
-					<div class="flex items-center gap-2 py-4 text-red-600">
-						<AlertCircle class="size-5" />
-						<p class="text-sm">Analysis failed. Please try again.</p>
+					<!-- STATE: Failed -->
+					<div class="flex flex-col items-center justify-center py-8 text-center">
+						<AlertCircle class="size-10 text-red-400 mb-3" />
+						<p class="text-lg font-medium mb-1">Analysis Failed</p>
+						<p class="text-sm text-muted-foreground mb-4">Something went wrong. Please try again.</p>
+						<Button onclick={runAnalysis}>
+							<RefreshCw class="mr-1.5 size-4" />
+							Retry Analysis
+						</Button>
 					</div>
 				{:else}
-					<p class="text-sm text-muted-foreground py-4">
-						No market analysis has been run yet. Click "Run Analysis" to find comparable properties and get pricing suggestions.
-					</p>
+					<!-- STATE: No analysis yet -->
+					<div class="flex flex-col items-center justify-center py-8 text-center">
+						<BarChart3 class="size-10 text-muted-foreground/40 mb-3" />
+						<p class="text-lg font-medium mb-1">No market analysis yet</p>
+						<p class="text-sm text-muted-foreground mb-4">
+							Find comparable properties and get AI-powered pricing suggestions.
+						</p>
+						<Button onclick={runAnalysis}>
+							<Play class="mr-1.5 size-4" />
+							Run Analysis
+						</Button>
+					</div>
 				{/if}
 			</CardContent>
 		</Card>

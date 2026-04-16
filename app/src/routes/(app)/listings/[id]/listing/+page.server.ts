@@ -4,6 +4,37 @@ import { marketAnalyses, compListings, analysisSchedules, listings } from '$lib/
 import { eq, desc, sql } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 
+/**
+ * Scan narrative text for comp addresses and replace them with markdown links
+ * to the property detail page.
+ */
+function linkPropertiesInNarrative(narrative: string, comps: any[]): string {
+  if (!narrative || !comps?.length) return narrative;
+
+  let result = narrative;
+
+  // Sort by address length descending to match longer addresses first
+  const sortedComps = [...comps]
+    .filter((c) => c.property?.address && c.propertyId)
+    .sort((a, b) => b.property.address.length - a.property.address.length);
+
+  for (const comp of sortedComps) {
+    const address = comp.property.address;
+    // Extract just the street part (before city)
+    const streetParts = address.split(',')[0].trim();
+
+    if (streetParts.length < 5) continue; // Skip very short matches
+
+    // Replace in narrative — but only if not already inside a markdown link
+    const escaped = streetParts.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(?<!\\[)\\b(${escaped})\\b(?![^\\[]*\\])`, 'gi');
+
+    result = result.replace(regex, `[$1](/properties/${comp.propertyId})`);
+  }
+
+  return result;
+}
+
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team, listing } = await parent();
 
@@ -25,6 +56,14 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
           where: eq(compListings.marketAnalysisId, analyses[0].id),
           with: { property: true },
         });
+      }
+
+      // Link property addresses in the latest analysis narrative
+      if (analyses.length > 0 && analyses[0].aiNarrative && comps.length) {
+        analyses[0] = {
+          ...analyses[0],
+          aiNarrative: linkPropertiesInNarrative(analyses[0].aiNarrative, comps),
+        };
       }
 
       const schedule = await db.query.analysisSchedules.findFirst({

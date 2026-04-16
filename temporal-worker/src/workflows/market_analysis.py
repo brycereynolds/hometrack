@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from temporalio import workflow
+from temporalio.common import RetryPolicy
 
 with workflow.unsafe.imports_passed_through():
     from src.activities.analyze_market import analyze_market
@@ -31,7 +32,7 @@ class MarketAnalysis:
                 geocode_address,
                 input_data["address"],
                 start_to_close_timeout=timedelta(seconds=30),
-                retry_policy=workflow.RetryPolicy(maximum_attempts=3),
+                retry_policy=RetryPolicy(maximum_attempts=3),
             )
             lat = coords["lat"]
             lng = coords["lng"]
@@ -52,7 +53,7 @@ class MarketAnalysis:
             },
             start_to_close_timeout=timedelta(seconds=60),
             heartbeat_timeout=timedelta(seconds=30),
-            retry_policy=workflow.RetryPolicy(maximum_attempts=3),
+            retry_policy=RetryPolicy(maximum_attempts=3),
         )
 
         # 3. Search active listings
@@ -71,7 +72,7 @@ class MarketAnalysis:
             },
             start_to_close_timeout=timedelta(seconds=60),
             heartbeat_timeout=timedelta(seconds=30),
-            retry_policy=workflow.RetryPolicy(maximum_attempts=3),
+            retry_policy=RetryPolicy(maximum_attempts=3),
         )
 
         # 4. AI analysis
@@ -91,7 +92,7 @@ class MarketAnalysis:
             },
             start_to_close_timeout=timedelta(minutes=3),
             heartbeat_timeout=timedelta(minutes=2),
-            retry_policy=workflow.RetryPolicy(maximum_attempts=2),
+            retry_policy=RetryPolicy(maximum_attempts=2),
         )
 
         # 5. Save results
@@ -105,7 +106,7 @@ class MarketAnalysis:
             },
             start_to_close_timeout=timedelta(minutes=2),
             heartbeat_timeout=timedelta(minutes=1),
-            retry_policy=workflow.RetryPolicy(maximum_attempts=3),
+            retry_policy=RetryPolicy(maximum_attempts=3),
         )
 
         return analysis

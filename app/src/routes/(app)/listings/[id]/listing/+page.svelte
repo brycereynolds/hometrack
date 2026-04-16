@@ -207,10 +207,11 @@
 		if (radiusCircle) map.removeLayer(radiusCircle);
 		radiusCircle = L.circle([listing.lat, listing.lng], {
 			radius: radiusValue * 1609.34,
-			color: '#b4530940',
-			fillColor: '#b4530915',
-			fillOpacity: 0.2,
-			weight: 1,
+			color: '#b45309',
+			opacity: 0.6,
+			fillColor: '#b45309',
+			fillOpacity: 0.15,
+			weight: 3,
 		}).addTo(map);
 	}
 
@@ -394,17 +395,19 @@
 					</CardTitle>
 					<div class="flex items-center gap-3">
 						<label for="radius-slider" class="text-xs text-muted-foreground whitespace-nowrap">
-							Radius: {radiusValue} mi
+							Radius: <span class="w-12 inline-block text-right tabular-nums">{radiusValue.toFixed(1)} mi</span>
 						</label>
-						<input
-							id="radius-slider"
-							type="range"
-							bind:value={radiusValue}
-							min="0.25"
-							max="5"
-							step="0.25"
-							class="w-24 accent-amber-600"
-						/>
+						<div class="w-48">
+							<input
+								id="radius-slider"
+								type="range"
+								bind:value={radiusValue}
+								min="0.25"
+								max="5"
+								step="0.25"
+								class="w-full accent-amber-600"
+							/>
+						</div>
 					</div>
 				</CardHeader>
 				<CardContent>

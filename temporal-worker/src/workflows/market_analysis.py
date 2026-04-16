@@ -14,17 +14,17 @@ with workflow.unsafe.imports_passed_through():
 class MarketAnalysis:
     """Workflow for running a market analysis on a listing.
 
-    Input dict:
-        listing_id, analysis_id, address, lat, lng,
-        beds, baths, sqft, property_type, year_built,
-        search_params (optional): {radius, limit, ...}
+    Input dict (camelCase keys from TypeScript):
+        listingId, analysisId, teamId, address, city, state, zip,
+        lat, lng, beds, baths, sqft, propertyType, yearBuilt,
+        searchParams (optional): {radius, limit, ...}
     """
 
     @workflow.run
     async def run(self, input_data: dict) -> dict:
         lat = input_data.get("lat")
         lng = input_data.get("lng")
-        search_params = input_data.get("search_params", {})
+        search_params = input_data.get("searchParams", {})
 
         # 1. Geocode if no lat/lng provided
         if not lat or not lng:
@@ -43,9 +43,12 @@ class MarketAnalysis:
             {
                 "lat": lat,
                 "lng": lng,
+                "city": input_data.get("city", ""),
+                "state": input_data.get("state", ""),
+                "zip": input_data.get("zip", ""),
                 "radius_miles": search_params.get("radius", 1.0),
                 "status": "sold",
-                "property_type": input_data.get("property_type", "single_family"),
+                "property_type": input_data.get("propertyType", "single_family"),
                 "beds": input_data.get("beds"),
                 "baths": input_data.get("baths"),
                 "sqft": input_data.get("sqft"),
@@ -62,9 +65,12 @@ class MarketAnalysis:
             {
                 "lat": lat,
                 "lng": lng,
+                "city": input_data.get("city", ""),
+                "state": input_data.get("state", ""),
+                "zip": input_data.get("zip", ""),
                 "radius_miles": search_params.get("radius", 1.0),
                 "status": "for_sale",
-                "property_type": input_data.get("property_type", "single_family"),
+                "property_type": input_data.get("propertyType", "single_family"),
                 "beds": input_data.get("beds"),
                 "baths": input_data.get("baths"),
                 "sqft": input_data.get("sqft"),
@@ -84,8 +90,8 @@ class MarketAnalysis:
                     "beds": input_data.get("beds"),
                     "baths": input_data.get("baths"),
                     "sqft": input_data.get("sqft"),
-                    "property_type": input_data.get("property_type"),
-                    "year_built": input_data.get("year_built"),
+                    "property_type": input_data.get("propertyType"),
+                    "year_built": input_data.get("yearBuilt"),
                 },
                 "sold_comps": sold_comps,
                 "active_listings": active_listings,
@@ -99,8 +105,8 @@ class MarketAnalysis:
         await workflow.execute_activity(
             save_analysis_results,
             {
-                "listing_id": input_data["listing_id"],
-                "analysis_id": input_data["analysis_id"],
+                "listing_id": input_data["listingId"],
+                "analysis_id": input_data["analysisId"],
                 "comps": sold_comps + active_listings,
                 "analysis": analysis,
             },

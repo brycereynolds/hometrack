@@ -7,6 +7,7 @@
 	import { invalidateAll, goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
+	import Markdown from '$lib/components/shared/Markdown.svelte';
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -572,13 +573,7 @@
 				{#if analysisSummaryOpen}
 					<div class="px-4 pb-4">
 						<div class="rounded-lg border border-amber-200 bg-amber-50/30 p-6">
-							<div class="space-y-4 text-base leading-7 text-stone-700">
-								{#each (latestAnalysis.aiNarrative ?? '').split('\n\n') as paragraph}
-									{#if paragraph.trim()}
-										<p>{paragraph.trim()}</p>
-									{/if}
-								{/each}
-							</div>
+							<Markdown content={latestAnalysis.aiNarrative ?? ''} class="text-base leading-7 text-stone-700" />
 						</div>
 					</div>
 				{/if}
@@ -1029,3 +1024,4 @@
 		</Dialog.Content>
 	</Dialog.Root>
 {/if}
+

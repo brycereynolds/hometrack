@@ -300,7 +300,7 @@ Return ONLY valid JSON (no markdown fences, no commentary outside the JSON):
     "clustering": "<adjustment> (<reason>)",
     "distance": "<adjustment> (<reason>)"
   }},
-  "reasoning": "<Write 3-4 distinct paragraphs separated by \\n\\n. Paragraph 1: Price distribution analysis — describe the spread, clustering, outliers and what distinguishes high vs low comps. Paragraph 2: Subject property analysis — how does this property compare? What are its strengths and weaknesses relative to the comps? Paragraph 3: Market context — current market velocity, active listing competition, DOM trends. Paragraph 4 (conclusion): State the suggested range explicitly and explain WHY the low end is where it is and WHY the high end is justified. Format: 'We suggest a listing range of $X to $Y. The lower end of $X reflects [specific reasons]. The upper end of $Y is supported by [specific reasons].' Use \\n\\n between paragraphs. Do NOT write a single run-on paragraph.>",
+  "reasoning": "<Write in markdown format. Use **bold** for key numbers and property names. Use bullet lists where appropriate. Structure as 3-4 sections separated by \\n\\n:\\n\\n**Price Distribution**: Describe spread, clustering, outliers. Use bold for key prices. What distinguishes high vs low comps?\\n\\n**Subject Property**: Strengths and weaknesses relative to comps. Bold the key comparisons.\\n\\n**Market Context**: Velocity, competition, DOM trends.\\n\\n**Recommended Range**: State the range explicitly: 'We suggest a listing range of **$X to $Y**.' Explain why the low end is where it is and why the high end is justified. This is the most important paragraph.>",
   "stats": {{
     "median_price": <number>,
     "mean_price": <number>,

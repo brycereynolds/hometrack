@@ -32,3 +32,4 @@ export { default as QuickNoteModal } from './QuickNoteModal.svelte';
 export * from '$lib/config';
 export * from '$lib/utils';
 export * from '$lib/types';
+export { default as Markdown } from './Markdown.svelte';

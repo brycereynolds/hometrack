@@ -4,8 +4,11 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Chart, registerables } from 'chart.js';
 	import { formatCurrency } from '$lib/utils.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import {
 		DollarSign,
 		TrendingUp,
@@ -18,7 +21,10 @@
 		AlertCircle,
 		ArrowUpRight,
 		ArrowDownRight,
-		Minus
+		Minus,
+		Plus,
+		Pencil,
+		Trash2
 	} from 'lucide-svelte';
 
 	Chart.register(...registerables);
@@ -33,30 +39,48 @@
 	let budgetChart: Chart | null = null;
 	let breakdownChart: Chart | null = null;
 
+	// Create Budget modal state
+	let showCreateBudget = $state(false);
+	let newBudgetTotal = $state('');
+
+	// Add Category modal state
+	let showAddCategory = $state(false);
+	let newCategoryName = $state('');
+	let newCategoryBudgeted = $state('');
+
+	// Edit category inline state
+	let editingCategoryId = $state<string | null>(null);
+	let editingActual = $state('');
+
+	// Delete confirmation
+	let deletingCategoryId = $state<string | null>(null);
+
 	onMount(() => {
 		if (financial) {
 			const categories = financial.categories ?? [];
 
-			breakdownChart = new Chart(breakdownCanvas, {
-				type: 'doughnut',
-				data: {
-					labels: categories.map((c: any) => c.name),
-					datasets: [{ data: categories.map((c: any) => c.actual), backgroundColor: ['#C4704B', '#7B8B6F', '#D4956B', '#5B8BA5', '#C49A3C'], borderWidth: 0, hoverOffset: 8 }]
-				},
-				options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true, pointStyleWidth: 8, font: { size: 11 } } }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: ${formatCurrency(ctx.parsed)}` } } } }
-			});
+			if (categories.length > 0) {
+				breakdownChart = new Chart(breakdownCanvas, {
+					type: 'doughnut',
+					data: {
+						labels: categories.map((c: any) => c.name),
+						datasets: [{ data: categories.map((c: any) => c.actual), backgroundColor: ['#C4704B', '#7B8BA6F', '#D4956B', '#5B8BA5', '#C49A3C'], borderWidth: 0, hoverOffset: 8 }]
+					},
+					options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true, pointStyleWidth: 8, font: { size: 11 } } }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: ${formatCurrency(ctx.parsed)}` } } } }
+				});
 
-			budgetChart = new Chart(budgetCanvas, {
-				type: 'bar',
-				data: {
-					labels: categories.map((c: any) => c.name),
-					datasets: [
-						{ label: 'Budgeted', data: categories.map((c: any) => c.budgeted), backgroundColor: '#C4704B40', borderColor: '#C4704B', borderWidth: 1, borderRadius: 4 },
-						{ label: 'Actual', data: categories.map((c: any) => c.actual), backgroundColor: '#C4704B', borderColor: '#C4704B', borderWidth: 0, borderRadius: 4 }
-					]
-				},
-				options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { callback: (value) => formatCurrency(Number(value)), font: { size: 10 } }, grid: { color: '#f1f1f1' } }, x: { ticks: { font: { size: 10 } }, grid: { display: false } } }, plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyleWidth: 8, font: { size: 11 }, padding: 16 } }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y)}` } } } }
-			});
+				budgetChart = new Chart(budgetCanvas, {
+					type: 'bar',
+					data: {
+						labels: categories.map((c: any) => c.name),
+						datasets: [
+							{ label: 'Budgeted', data: categories.map((c: any) => c.budgeted), backgroundColor: '#C4704B40', borderColor: '#C4704B', borderWidth: 1, borderRadius: 4 },
+							{ label: 'Actual', data: categories.map((c: any) => c.actual), backgroundColor: '#C4704B', borderColor: '#C4704B', borderWidth: 0, borderRadius: 4 }
+						]
+					},
+					options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { callback: (value) => formatCurrency(Number(value)), font: { size: 10 } }, grid: { color: '#f1f1f1' } }, x: { ticks: { font: { size: 10 } }, grid: { display: false } } }, plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyleWidth: 8, font: { size: 11 }, padding: 16 } }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y)}` } } } }
+				});
+			}
 		}
 
 		return () => {
@@ -78,7 +102,14 @@
 
 {#if listing}
 	<div class="space-y-6">
-		<h2 class="font-serif text-lg font-semibold">Financials</h2>
+		<div class="flex items-center justify-between">
+			<h2 class="font-serif text-lg font-semibold">Financials</h2>
+			{#if financial}
+				<Button size="sm" onclick={() => { newCategoryName = ''; newCategoryBudgeted = ''; showAddCategory = true; }}>
+					<Plus class="mr-1.5 size-4" />Add Category
+				</Button>
+			{/if}
+		</div>
 
 		{#if financial}
 			<!-- Summary Cards -->
@@ -90,10 +121,12 @@
 			</div>
 
 			<!-- Charts Row -->
-			<div class="grid gap-6 lg:grid-cols-2">
-				<Card><CardHeader><CardTitle class="font-serif text-base">Spending Breakdown</CardTitle></CardHeader><CardContent><div class="h-64"><canvas bind:this={breakdownCanvas}></canvas></div></CardContent></Card>
-				<Card><CardHeader><CardTitle class="font-serif text-base">Budget vs. Actual</CardTitle></CardHeader><CardContent><div class="h-64"><canvas bind:this={budgetCanvas}></canvas></div></CardContent></Card>
-			</div>
+			{#if (financial.categories ?? []).length > 0}
+				<div class="grid gap-6 lg:grid-cols-2">
+					<Card><CardHeader><CardTitle class="font-serif text-base">Spending Breakdown</CardTitle></CardHeader><CardContent><div class="h-64"><canvas bind:this={breakdownCanvas}></canvas></div></CardContent></Card>
+					<Card><CardHeader><CardTitle class="font-serif text-base">Budget vs. Actual</CardTitle></CardHeader><CardContent><div class="h-64"><canvas bind:this={budgetCanvas}></canvas></div></CardContent></Card>
+				</div>
+			{/if}
 
 			<!-- Budget Table -->
 			<Card>
@@ -101,7 +134,7 @@
 				<CardContent>
 					<div class="overflow-x-auto">
 						<table class="w-full text-sm">
-							<thead><tr class="border-b text-left"><th class="pb-3 font-medium text-muted-foreground">Category</th><th class="pb-3 text-right font-medium text-muted-foreground">Budgeted</th><th class="pb-3 text-right font-medium text-muted-foreground">Actual</th><th class="pb-3 text-right font-medium text-muted-foreground">Variance</th><th class="pb-3 text-right font-medium text-muted-foreground">Utilization</th></tr></thead>
+							<thead><tr class="border-b text-left"><th class="pb-3 font-medium text-muted-foreground">Category</th><th class="pb-3 text-right font-medium text-muted-foreground">Budgeted</th><th class="pb-3 text-right font-medium text-muted-foreground">Actual</th><th class="pb-3 text-right font-medium text-muted-foreground">Variance</th><th class="pb-3 text-right font-medium text-muted-foreground">Utilization</th><th class="pb-3 text-right font-medium text-muted-foreground">Actions</th></tr></thead>
 							<tbody class="divide-y">
 								{#each financial.categories ?? [] as cat}
 									{@const utilization = (cat.budgeted ?? 0) > 0 ? ((cat.actual ?? 0) / (cat.budgeted ?? 1)) * 100 : 0}
@@ -109,7 +142,40 @@
 									<tr>
 										<td class="py-3 font-medium">{cat.name}</td>
 										<td class="py-3 text-right text-muted-foreground">{formatCurrency(cat.budgeted ?? 0)}</td>
-										<td class="py-3 text-right font-medium">{formatCurrency(cat.actual ?? 0)}</td>
+										<td class="py-3 text-right font-medium">
+											{#if editingCategoryId === cat.id}
+												<form
+													method="POST"
+													action="?/updateCategory"
+													use:enhance={() => {
+														return async ({ result, update }) => {
+															if (result.type === 'success') {
+																toast.success('Category updated');
+																editingCategoryId = null;
+																await update();
+															} else {
+																toast.error('Failed to update category');
+															}
+														};
+													}}
+													class="inline-flex items-center gap-1"
+												>
+													<input type="hidden" name="categoryId" value={cat.id} />
+													<input
+														name="actual"
+														type="number"
+														step="0.01"
+														min="0"
+														bind:value={editingActual}
+														class="h-8 w-24 rounded-md border border-input bg-background px-2 text-sm text-right outline-none ring-ring focus:ring-2"
+													/>
+													<Button type="submit" size="sm" variant="ghost" class="size-8 p-0"><CheckCircle2 class="size-4 text-green-600" /></Button>
+													<Button type="button" size="sm" variant="ghost" class="size-8 p-0" onclick={() => editingCategoryId = null}><XCircle class="size-4 text-muted-foreground" /></Button>
+												</form>
+											{:else}
+												{formatCurrency(cat.actual ?? 0)}
+											{/if}
+										</td>
 										<td class="py-3 text-right">
 											<span class="inline-flex items-center gap-1 {isOver ? 'text-red-600' : 'text-green-600'}">
 												{#if isOver}<ArrowUpRight class="size-3" />{:else if (cat.variance ?? 0) > 0}<ArrowDownRight class="size-3" />{:else}<Minus class="size-3" />{/if}
@@ -122,6 +188,41 @@
 												<span class="text-xs text-muted-foreground w-10 text-right">{Math.round(utilization)}%</span>
 											</div>
 										</td>
+										<td class="py-3 text-right">
+											<div class="flex items-center justify-end gap-1">
+												{#if editingCategoryId !== cat.id}
+													<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => { editingCategoryId = cat.id; editingActual = String(cat.actual ?? 0); }}>
+														<Pencil class="size-3.5 text-muted-foreground" />
+													</Button>
+												{/if}
+												{#if deletingCategoryId === cat.id}
+													<form
+														method="POST"
+														action="?/deleteCategory"
+														use:enhance={() => {
+															return async ({ result, update }) => {
+																if (result.type === 'success') {
+																	toast.success('Category deleted');
+																	deletingCategoryId = null;
+																	await update();
+																} else {
+																	toast.error('Failed to delete category');
+																}
+															};
+														}}
+														class="inline-flex items-center gap-1"
+													>
+														<input type="hidden" name="categoryId" value={cat.id} />
+														<Button type="submit" size="sm" variant="destructive" class="h-7 text-xs px-2">Confirm</Button>
+														<Button type="button" size="sm" variant="ghost" class="h-7 text-xs px-2" onclick={() => deletingCategoryId = null}>No</Button>
+													</form>
+												{:else}
+													<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => deletingCategoryId = cat.id}>
+														<Trash2 class="size-3.5 text-muted-foreground" />
+													</Button>
+												{/if}
+											</div>
+										</td>
 									</tr>
 								{/each}
 							</tbody>
@@ -132,6 +233,7 @@
 									<td class="pt-3 text-right font-semibold">{formatCurrency(financial.spent ?? 0)}</td>
 									<td class="pt-3 text-right font-semibold text-green-600">{formatCurrency(financial.remaining ?? 0)}</td>
 									<td class="pt-3 text-right text-sm text-muted-foreground">{(financial.totalBudget ?? 0) > 0 ? Math.round(((financial.spent ?? 0) / (financial.totalBudget ?? 1)) * 100) : 0}%</td>
+									<td></td>
 								</tr>
 							</tfoot>
 						</table>
@@ -153,7 +255,16 @@
 				</CardContent>
 			</Card>
 		{:else}
-			<Card><CardContent class="flex flex-col items-center justify-center py-12"><DollarSign class="size-10 text-muted-foreground/30 mb-3" /><p class="text-sm text-muted-foreground">No financial data available for this listing yet.</p><Button variant="outline" size="sm" class="mt-3 opacity-50" disabled>Coming Soon</Button></CardContent></Card>
+			<!-- No budget CTA -->
+			<Card>
+				<CardContent class="flex flex-col items-center justify-center py-12">
+					<DollarSign class="size-10 text-muted-foreground/30 mb-3" />
+					<p class="text-sm text-muted-foreground mb-4">No financial data available for this listing yet.</p>
+					<Button size="sm" onclick={() => { newBudgetTotal = ''; showCreateBudget = true; }}>
+						<Plus class="mr-1.5 size-4" />Create Budget
+					</Button>
+				</CardContent>
+			</Card>
 		{/if}
 
 		<!-- Quotes Section -->
@@ -201,4 +312,111 @@
 			</Card>
 		{/if}
 	</div>
+{/if}
+
+<!-- Create Budget Modal -->
+<Dialog.Root bind:open={showCreateBudget}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Create Budget</Dialog.Title>
+			<Dialog.Description>Set the total budget for this listing.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/createBudget"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Budget created');
+						showCreateBudget = false;
+						await update();
+					} else {
+						toast.error('Failed to create budget');
+					}
+				};
+			}}
+		>
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="budget-total" class="text-sm font-medium">Total Budget</label>
+					<input
+						id="budget-total"
+						name="totalBudget"
+						type="number"
+						step="0.01"
+						min="0"
+						bind:value={newBudgetTotal}
+						required
+						placeholder="e.g. 15000"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showCreateBudget = false}>Cancel</Button>
+				<Button type="submit">Create Budget</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Add Category Modal -->
+{#if financial}
+	<Dialog.Root bind:open={showAddCategory}>
+		<Dialog.Content class="sm:max-w-md">
+			<Dialog.Header>
+				<Dialog.Title class="font-serif">Add Category</Dialog.Title>
+				<Dialog.Description>Add a new budget category.</Dialog.Description>
+			</Dialog.Header>
+			<form
+				method="POST"
+				action="?/addCategory"
+				use:enhance={() => {
+					return async ({ result, update }) => {
+						if (result.type === 'success') {
+							toast.success('Category added');
+							showAddCategory = false;
+							await update();
+						} else {
+							toast.error('Failed to add category');
+						}
+					};
+				}}
+			>
+				<input type="hidden" name="budgetId" value={financial.id} />
+				<div class="space-y-4 py-4">
+					<div>
+						<label for="category-name" class="text-sm font-medium">Category Name</label>
+						<input
+							id="category-name"
+							name="name"
+							type="text"
+							bind:value={newCategoryName}
+							required
+							placeholder="e.g. Staging"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="category-budgeted" class="text-sm font-medium">Budgeted Amount</label>
+						<input
+							id="category-budgeted"
+							name="budgeted"
+							type="number"
+							step="0.01"
+							min="0"
+							bind:value={newCategoryBudgeted}
+							required
+							placeholder="e.g. 3000"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+				<Dialog.Footer>
+					<Button variant="outline" type="button" onclick={() => showAddCategory = false}>Cancel</Button>
+					<Button type="submit">Add Category</Button>
+				</Dialog.Footer>
+			</form>
+		</Dialog.Content>
+	</Dialog.Root>
 {/if}

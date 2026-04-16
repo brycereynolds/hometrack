@@ -24,7 +24,11 @@
 		User,
 		Banknote,
 		ShieldCheck,
-		Plus
+		Plus,
+		Pencil,
+		Trash2,
+		ArrowLeftRight,
+		ChevronDown
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -40,6 +44,32 @@
 	let offerCloseDate = $state('');
 	let offerNotes = $state('');
 
+	// Edit modal state
+	let showEditModal = $state(false);
+	let editingOffer = $state<any | null>(null);
+	let editBuyerName = $state('');
+	let editBuyerAgent = $state('');
+	let editPrice = $state('');
+	let editEarnest = $state('');
+	let editFinancing = $state('');
+	let editContingencies = $state('');
+	let editCloseDate = $state('');
+	let editNotes = $state('');
+
+	// Counter modal state
+	let showCounterModal = $state(false);
+	let counteringOffer = $state<any | null>(null);
+	let counterPrice = $state('');
+	let counterEarnest = $state('');
+	let counterFinancing = $state('');
+	let counterContingencies = $state('');
+	let counterCloseDate = $state('');
+	let counterNotes = $state('');
+
+	// Delete confirmation
+	let showDeleteModal = $state(false);
+	let deletingOffer = $state<any | null>(null);
+
 	function resetOfferForm() {
 		offerBuyerName = '';
 		offerBuyerAgent = '';
@@ -50,6 +80,36 @@
 		offerCloseDate = '';
 		offerNotes = '';
 	}
+
+	function openEditModal(offer: any) {
+		editingOffer = offer;
+		editBuyerName = offer.buyerName ?? '';
+		editBuyerAgent = offer.buyerAgent ?? '';
+		editPrice = String(offer.price ?? '');
+		editEarnest = String(offer.earnestDeposit ?? '');
+		editFinancing = offer.financingType ?? '';
+		editContingencies = ((offer.contingencies ?? []) as string[]).join(', ');
+		editCloseDate = offer.closeDate ? formatDateForInput(offer.closeDate) : '';
+		editNotes = offer.notes ?? '';
+		showEditModal = true;
+	}
+
+	function openCounterModal(offer: any) {
+		counteringOffer = offer;
+		counterPrice = String(offer.price ?? '');
+		counterEarnest = String(offer.earnestDeposit ?? '');
+		counterFinancing = offer.financingType ?? '';
+		counterContingencies = ((offer.contingencies ?? []) as string[]).join(', ');
+		counterCloseDate = offer.closeDate ? formatDateForInput(offer.closeDate) : '';
+		counterNotes = '';
+		showCounterModal = true;
+	}
+
+	function openDeleteModal(offer: any) {
+		deletingOffer = offer;
+		showDeleteModal = true;
+	}
+
 	const listing = $derived(data.listing);
 	const listingOffers = $derived(data.offers ?? []);
 
@@ -57,6 +117,12 @@
 		if (!d) return '';
 		const date = d instanceof Date ? d : new Date(d);
 		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+	}
+
+	function formatDateForInput(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		return date.toISOString().split('T')[0];
 	}
 
 	const highestPrice = $derived(
@@ -76,6 +142,7 @@
 	);
 
 	const pipelineStages = ['received', 'reviewed', 'countered', 'accepted'] as const;
+	const allStatuses = ['received', 'reviewed', 'countered', 'accepted', 'declined'] as const;
 
 	function getStageLabel(stage: string) {
 		switch (stage) {
@@ -108,6 +175,13 @@
 		if (match) { const pct = parseInt(match[1]); return `${pct}% (${formatCurrency((offer.price ?? 0) * pct / 100)})`; }
 		if ((offer.financingType ?? '').toLowerCase().includes('cash')) return '100% (All Cash)';
 		return offer.financingType ?? 'N/A';
+	}
+
+	// Status dropdown state per offer
+	let openStatusDropdown = $state<string | null>(null);
+
+	function toggleStatusDropdown(offerId: string) {
+		openStatusDropdown = openStatusDropdown === offerId ? null : offerId;
 	}
 </script>
 
@@ -161,7 +235,53 @@
 						<CardContent class="p-4 pt-5">
 							<div class="flex items-start justify-between">
 								<div><p class="font-medium text-sm">{offer.buyerName}</p><p class="text-xs text-muted-foreground">{offer.buyerAgent}</p></div>
-								<Badge variant="outline" class="text-[10px] {getStatusBadge(offer.status)}">{getStageLabel(offer.status)}</Badge>
+								<!-- Status dropdown -->
+								<div class="relative">
+									<button
+										onclick={() => toggleStatusDropdown(offer.id)}
+										class="flex items-center gap-1"
+									>
+										<Badge variant="outline" class="text-[10px] cursor-pointer hover:opacity-80 {getStatusBadge(offer.status)}">
+											{getStageLabel(offer.status)}
+											<ChevronDown class="ml-0.5 size-2.5" />
+										</Badge>
+									</button>
+									{#if openStatusDropdown === offer.id}
+										<!-- svelte-ignore a11y_no_static_element_interactions -->
+										<div
+											class="absolute right-0 top-full z-20 mt-1 w-36 rounded-md border bg-background shadow-lg py-1"
+											onmouseleave={() => openStatusDropdown = null}
+										>
+											{#each allStatuses as status}
+												<form
+													method="POST"
+													action="?/updateStatus"
+													use:enhance={() => {
+														openStatusDropdown = null;
+														return async ({ result, update }) => {
+															if (result.type === 'success') {
+																toast.success(`Status changed to ${getStageLabel(status)}`);
+																await update();
+															} else {
+																toast.error('Failed to update status');
+															}
+														};
+													}}
+												>
+													<input type="hidden" name="offerId" value={offer.id} />
+													<input type="hidden" name="newStatus" value={status} />
+													<button
+														type="submit"
+														class="flex w-full items-center gap-2 px-3 py-1.5 text-xs hover:bg-muted transition-colors {offer.status === status ? 'font-semibold bg-muted/50' : ''}"
+													>
+														<div class="size-2 rounded-full {getStageColor(status)}"></div>
+														{getStageLabel(status)}
+													</button>
+												</form>
+											{/each}
+										</div>
+									{/if}
+								</div>
 							</div>
 							{#if aiBadges.length > 0}
 								<div class="mt-2 flex flex-wrap gap-1.5">
@@ -184,6 +304,19 @@
 								<span>Submitted: {formatDate(offer.submittedDate)}</span>
 								<span>|</span>
 								<span>Expires: {formatDate(offer.expirationDate)}</span>
+							</div>
+							<!-- Action buttons -->
+							<Separator class="my-3" />
+							<div class="flex items-center gap-2">
+								<Button variant="outline" size="sm" class="h-7 text-xs" onclick={() => openEditModal(offer)}>
+									<Pencil class="mr-1 size-3" />Edit
+								</Button>
+								<Button variant="outline" size="sm" class="h-7 text-xs" onclick={() => openCounterModal(offer)}>
+									<ArrowLeftRight class="mr-1 size-3" />Counter
+								</Button>
+								<Button variant="outline" size="sm" class="h-7 text-xs text-red-600 hover:text-red-700 hover:bg-red-50" onclick={() => openDeleteModal(offer)}>
+									<Trash2 class="mr-1 size-3" />Delete
+								</Button>
 							</div>
 						</CardContent>
 					</Card>
@@ -311,6 +444,195 @@
 			<Dialog.Footer>
 				<Button variant="outline" type="button" onclick={() => showOfferModal = false}>Cancel</Button>
 				<Button type="submit">Log Offer</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Edit Offer Modal -->
+<Dialog.Root bind:open={showEditModal}>
+	<Dialog.Content class="sm:max-w-lg">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Offer</Dialog.Title>
+			<Dialog.Description>Update the details for this offer.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/editOffer"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Offer updated');
+						showEditModal = false;
+						await update();
+					} else {
+						toast.error('Failed to update offer');
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="offerId" value={editingOffer?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-buyer" class="text-sm font-medium">Buyer Name</label>
+						<input id="edit-buyer" name="buyerName" type="text" bind:value={editBuyerName} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="edit-agent" class="text-sm font-medium">Buyer's Agent</label>
+						<input id="edit-agent" name="buyerAgent" type="text" bind:value={editBuyerAgent} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-price" class="text-sm font-medium">Offer Price</label>
+						<input id="edit-price" name="price" type="number" step="1000" bind:value={editPrice} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="edit-earnest" class="text-sm font-medium">Earnest Deposit</label>
+						<input id="edit-earnest" name="earnestDeposit" type="number" step="100" bind:value={editEarnest} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-financing" class="text-sm font-medium">Financing Type</label>
+						<select id="edit-financing" name="financingType" bind:value={editFinancing} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2">
+							<option value="">Select...</option>
+							<option value="Cash">Cash</option>
+							<option value="Conventional 20%">Conventional 20%</option>
+							<option value="Conventional 10%">Conventional 10%</option>
+							<option value="FHA">FHA</option>
+							<option value="VA">VA</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+					<div>
+						<label for="edit-close" class="text-sm font-medium">Close Date</label>
+						<input id="edit-close" name="closeDate" type="date" bind:value={editCloseDate} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div>
+					<label for="edit-contingencies" class="text-sm font-medium">Contingencies</label>
+					<input id="edit-contingencies" name="contingencies" type="text" bind:value={editContingencies} placeholder="Inspection, Appraisal, Financing" class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					<p class="mt-1 text-xs text-muted-foreground">Comma-separated</p>
+				</div>
+				<div>
+					<label for="edit-notes" class="text-sm font-medium">Notes</label>
+					<textarea id="edit-notes" name="notes" bind:value={editNotes} rows="2" class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showEditModal = false}>Cancel</Button>
+				<Button type="submit">Save Changes</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Counter Offer Modal -->
+<Dialog.Root bind:open={showCounterModal}>
+	<Dialog.Content class="sm:max-w-lg">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Counter Offer</Dialog.Title>
+			<Dialog.Description>
+				{#if counteringOffer}
+					Submit a counter to {counteringOffer.buyerName}'s offer of {formatCurrency(counteringOffer.price ?? 0)}.
+				{/if}
+			</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/counterOffer"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Counter offer created');
+						showCounterModal = false;
+						await update();
+					} else {
+						toast.error('Failed to create counter offer');
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="originalOfferId" value={counteringOffer?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="counter-price" class="text-sm font-medium">Counter Price</label>
+						<input id="counter-price" name="price" type="number" step="1000" bind:value={counterPrice} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="counter-earnest" class="text-sm font-medium">Earnest Deposit</label>
+						<input id="counter-earnest" name="earnestDeposit" type="number" step="100" bind:value={counterEarnest} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="counter-financing" class="text-sm font-medium">Financing Type</label>
+						<select id="counter-financing" name="financingType" bind:value={counterFinancing} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2">
+							<option value="">Select...</option>
+							<option value="Cash">Cash</option>
+							<option value="Conventional 20%">Conventional 20%</option>
+							<option value="Conventional 10%">Conventional 10%</option>
+							<option value="FHA">FHA</option>
+							<option value="VA">VA</option>
+							<option value="Other">Other</option>
+						</select>
+					</div>
+					<div>
+						<label for="counter-close" class="text-sm font-medium">Close Date</label>
+						<input id="counter-close" name="closeDate" type="date" bind:value={counterCloseDate} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div>
+					<label for="counter-contingencies" class="text-sm font-medium">Contingencies</label>
+					<input id="counter-contingencies" name="contingencies" type="text" bind:value={counterContingencies} placeholder="Inspection, Appraisal, Financing" class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					<p class="mt-1 text-xs text-muted-foreground">Comma-separated</p>
+				</div>
+				<div>
+					<label for="counter-notes" class="text-sm font-medium">Notes</label>
+					<textarea id="counter-notes" name="notes" bind:value={counterNotes} rows="2" class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showCounterModal = false}>Cancel</Button>
+				<Button type="submit">Submit Counter</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Delete Offer Confirmation -->
+<Dialog.Root bind:open={showDeleteModal}>
+	<Dialog.Content class="sm:max-w-sm">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Delete Offer</Dialog.Title>
+			<Dialog.Description>
+				{#if deletingOffer}
+					Are you sure you want to delete the offer from {deletingOffer.buyerName} for {formatCurrency(deletingOffer.price ?? 0)}? This action cannot be undone.
+				{/if}
+			</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/deleteOffer"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Offer deleted');
+						showDeleteModal = false;
+						await update();
+					} else {
+						toast.error('Failed to delete offer');
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="offerId" value={deletingOffer?.id ?? ''} />
+			<Dialog.Footer class="mt-4">
+				<Button variant="outline" type="button" onclick={() => showDeleteModal = false}>Cancel</Button>
+				<Button variant="destructive" type="submit">Delete</Button>
 			</Dialog.Footer>
 		</form>
 	</Dialog.Content>

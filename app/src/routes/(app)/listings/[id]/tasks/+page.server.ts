@@ -45,6 +45,7 @@ export const actions: Actions = {
     const priority = (form.get('priority') as string) || 'medium';
     const phase = (form.get('phase') as string) || null;
     const dueDate = form.get('dueDate') as string;
+    const assigneeId = (form.get('assigneeId') as string) || null;
 
     if (!title?.trim()) {
       return fail(400, { error: 'Title is required' });
@@ -61,6 +62,7 @@ export const actions: Actions = {
           priority: priority as any,
           phase: phase as any,
           dueDate: dueDate ? new Date(dueDate) : null,
+          assigneeId: assigneeId || null,
         });
       });
       return { success: true, action: 'createTask' };
@@ -110,6 +112,7 @@ export const actions: Actions = {
     const status = form.get('status') as string;
     const priority = form.get('priority') as string;
     const dueDate = form.get('dueDate') as string;
+    const assigneeId = (form.get('assigneeId') as string) || null;
 
     if (!taskId) return fail(400, { error: 'Task ID is required' });
     if (!title?.trim()) return fail(400, { error: 'Title is required' });
@@ -123,6 +126,7 @@ export const actions: Actions = {
             status: status as any,
             priority: priority as any,
             dueDate: dueDate ? new Date(dueDate) : null,
+            assigneeId: assigneeId || null,
             updatedAt: new Date(),
           })
           .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
@@ -131,6 +135,30 @@ export const actions: Actions = {
     } catch (err) {
       console.error('editTask error:', err);
       return fail(500, { error: 'Failed to update task' });
+    }
+  },
+
+  deleteTask: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const teamId = await getTeamId(locals.user.id);
+    if (!teamId) return fail(401, { error: 'No team found' });
+
+    const form = await request.formData();
+    const taskId = form.get('taskId') as string;
+
+    if (!taskId) return fail(400, { error: 'Task ID is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db
+          .delete(tasks)
+          .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
+      });
+      return { success: true, action: 'deleteTask' };
+    } catch (err) {
+      console.error('deleteTask error:', err);
+      return fail(500, { error: 'Failed to delete task' });
     }
   },
 

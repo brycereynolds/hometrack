@@ -17,16 +17,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON analysis_schedules TO authenticated;--> 
 GRANT SELECT, INSERT, UPDATE, DELETE ON comp_listings TO authenticated;--> statement-breakpoint
 
 -- --------------------------------------------------------
--- RLS: properties (accessed via listings.property_id)
+-- RLS: properties (public data from Zillow/Redfin — all authenticated users can view)
 -- --------------------------------------------------------
 ALTER TABLE properties ENABLE ROW LEVEL SECURITY;--> statement-breakpoint
-CREATE POLICY "team_member_access" ON properties
-  FOR ALL USING (
-    id IN (
-      SELECT l.property_id FROM listings l
-      WHERE l.team_id IN (SELECT get_team_ids_for_user(auth.uid()))
-    )
-  );--> statement-breakpoint
+CREATE POLICY "authenticated_access" ON properties
+  FOR ALL TO authenticated USING (true);--> statement-breakpoint
 
 -- --------------------------------------------------------
 -- RLS: buyer_preferences (accessed via contacts.contact_id)

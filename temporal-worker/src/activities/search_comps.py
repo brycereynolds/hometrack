@@ -179,7 +179,7 @@ async def _upsert_property_from_comp(conn, comp: dict) -> str | None:
         return row["id"]
 
     # Insert new property with available comp data
-    property_id = f"prop_{uuid.uuid4().hex[:12]}"
+    property_id = str(uuid.uuid4())
 
     await conn.execute(
         """INSERT INTO properties (

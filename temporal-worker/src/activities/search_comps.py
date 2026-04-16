@@ -75,9 +75,21 @@ def _parse_search_result(prop: dict, subject_lat: float, subject_lng: float) -> 
     elif lot_sqft:
         lot_sqft = int(lot_sqft)
 
-    # --- Status (nested under listing) ---
+    # --- Status (nested under listing) — normalize to our standard values ---
     listing = prop.get("listing", {})
-    status = listing.get("listingStatus", "unknown")
+    raw_status = listing.get("listingStatus", "unknown")
+    status_map = {
+        "forSale": "for_sale",
+        "for_sale": "for_sale",
+        "For_Sale": "for_sale",
+        "recentlySold": "sold",
+        "recently_sold": "sold",
+        "Sold": "sold",
+        "sold": "sold",
+        "pending": "pending",
+        "Pending": "pending",
+    }
+    status = status_map.get(raw_status, raw_status)
 
     # --- Days on market ---
     dom = prop.get("daysOnZillow")

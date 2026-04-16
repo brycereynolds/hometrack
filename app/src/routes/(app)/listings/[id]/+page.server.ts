@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { getTasksByListing } from '$lib/server/db/queries/tasks.js';
-import { getActivityByListing, getInsightsByListing } from '$lib/server/db/queries/listings.js';
+import { getActivityByListing, getInsightsByListing, getConfirmedComps } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
 import { listings, teamMembers, teams } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
@@ -12,20 +12,21 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
 
   if (!team || !locals.user) {
-    return { tasks: [], activityItems: [], aiInsights: [] };
+    return { tasks: [], activityItems: [], aiInsights: [], confirmedComps: null };
   }
 
   try {
     return await withRLS(locals.user.id, 'authenticated', async (db) => {
-      const [tasks, activityItems, aiInsights] = await Promise.all([
+      const [tasks, activityItems, aiInsights, confirmedCompsData] = await Promise.all([
         getTasksByListing(team.id, params.id, db),
         getActivityByListing(team.id, params.id, db),
         getInsightsByListing(team.id, params.id, db),
+        getConfirmedComps(params.id, db),
       ]);
-      return { tasks, activityItems, aiInsights };
+      return { tasks, activityItems, aiInsights, confirmedComps: confirmedCompsData };
     });
   } catch {
-    return { tasks: [], activityItems: [], aiInsights: [] };
+    return { tasks: [], activityItems: [], aiInsights: [], confirmedComps: null };
   }
 };
 

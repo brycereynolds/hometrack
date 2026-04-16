@@ -30,7 +30,9 @@
 		Mail,
 		Phone,
 		Globe,
-		Monitor
+		Monitor,
+		TrendingUp,
+		Search
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -39,6 +41,8 @@
 	const activityItems = $derived((data.activityItems ?? []).slice(0, 5));
 	const aiInsights = $derived((data.aiInsights ?? []).filter((a: any) => !a.dismissed).slice(0, 2));
 	const teamMembers = $derived(data.teamMembers ?? []);
+
+	const confirmedComps = $derived(data.confirmedComps);
 
 	const tasksDoneCount = $derived(tasks.filter((t: any) => t.status === 'done').length);
 
@@ -89,6 +93,32 @@
 		if (hours < 24) return `${hours}h ago`;
 		const days = Math.floor(hours / 24);
 		return `${days}d ago`;
+	}
+
+	function soldAgo(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		const now = new Date();
+		const diff = now.getTime() - date.getTime();
+		const days = Math.floor(diff / 86400000);
+		if (days < 1) return 'Today';
+		if (days < 30) return `${days}d ago`;
+		const months = Math.floor(days / 30);
+		if (months < 12) return `${months}mo ago`;
+		const years = Math.floor(months / 12);
+		return `${years}y ago`;
+	}
+
+	function getCompPhoto(comp: any): string | null {
+		if (comp.photoUrl) return comp.photoUrl;
+		if (comp.photos && Array.isArray(comp.photos) && comp.photos.length > 0) {
+			return typeof comp.photos[0] === 'string' ? comp.photos[0] : comp.photos[0]?.url ?? null;
+		}
+		if (comp.property?.photos && Array.isArray(comp.property.photos) && comp.property.photos.length > 0) {
+			const p = comp.property.photos[0];
+			return typeof p === 'string' ? p : p?.url ?? null;
+		}
+		return null;
 	}
 
 	function getActivityColor(type: string) {
@@ -267,7 +297,93 @@
 					</CardContent>
 				</Card>
 
-				<!-- Recent Activity Mini-Feed -->
+				<!-- Confirmed Comparables -->
+				<Card>
+					<CardHeader class="flex-row items-center justify-between">
+						<div class="flex items-center gap-2">
+							<CardTitle class="font-serif">Confirmed Comparables</CardTitle>
+							{#if confirmedComps?.comps?.length}
+								<Badge variant="secondary" class="text-xs">{confirmedComps.comps.length}</Badge>
+							{/if}
+						</div>
+						{#if confirmedComps?.comps?.length}
+							<Button variant="ghost" size="sm" href="/listings/{listing.id}/listing">
+								View all comps
+								<ArrowRight class="ml-1 size-3.5" />
+							</Button>
+						{/if}
+					</CardHeader>
+					<CardContent>
+						{#if confirmedComps?.comps?.length}
+							<div class="divide-y">
+								{#each confirmedComps.comps as comp}
+									{@const photo = getCompPhoto(comp)}
+									<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+										{#if photo}
+											<img
+												src={photo}
+												alt={comp.address ?? 'Comp'}
+												class="size-12 shrink-0 rounded-md object-cover"
+											/>
+										{:else}
+											<div class="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted">
+												<Home class="size-5 text-muted-foreground" />
+											</div>
+										{/if}
+										<div class="min-w-0 flex-1">
+											<div class="flex items-center justify-between gap-2">
+												{#if comp.property?.id}
+													<a href="/properties/{comp.property.id}" class="text-sm font-medium truncate hover:underline">{comp.address ?? 'Unknown'}</a>
+												{:else}
+													<span class="text-sm font-medium truncate">{comp.address ?? 'Unknown'}</span>
+												{/if}
+												<span class="shrink-0 text-sm font-semibold">{comp.price ? formatCurrency(comp.price) : 'N/A'}</span>
+											</div>
+											<div class="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
+												{#if comp.beds != null}<span>{comp.beds}bd</span>{/if}
+												{#if comp.baths != null}<span>/ {comp.baths}ba</span>{/if}
+												{#if comp.sqft != null}<span class="before:content-['·'] before:mx-1">{comp.sqft.toLocaleString()} sqft</span>{/if}
+												{#if comp.soldDate}
+													<span class="before:content-['·'] before:mx-1">{comp.status === 'sold' || comp.status === 'Sold' ? 'Sold' : comp.status ?? 'Sold'} {soldAgo(comp.soldDate)}</span>
+												{:else if comp.status}
+													<span class="before:content-['·'] before:mx-1">{comp.status}</span>
+												{/if}
+											</div>
+										</div>
+									</div>
+								{/each}
+							</div>
+							{#if confirmedComps.analysis?.suggestedPriceLow && confirmedComps.analysis?.suggestedPriceHigh}
+								<Separator class="my-3" />
+								<div class="flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2">
+									<TrendingUp class="size-4 text-emerald-600 shrink-0" />
+									<div class="text-sm">
+										<span class="font-medium text-emerald-800">Suggested Range:</span>
+										<span class="text-emerald-700">
+											{formatCurrency(confirmedComps.analysis.suggestedPriceLow)} – {formatCurrency(confirmedComps.analysis.suggestedPriceHigh)}
+										</span>
+										{#if confirmedComps.analysis.confidence}
+											<span class="text-emerald-600/70">({Math.round(confirmedComps.analysis.confidence * 100)}% confidence)</span>
+										{/if}
+									</div>
+								</div>
+							{/if}
+						{:else}
+							<div class="flex flex-col items-center gap-2 py-4 text-center">
+								<div class="rounded-full bg-muted p-2.5">
+									<Search class="size-5 text-muted-foreground" />
+								</div>
+								<p class="text-sm text-muted-foreground">No confirmed comps yet</p>
+								<Button variant="ghost" size="sm" class="text-xs" href="/listings/{listing.id}/listing">
+									Run market analysis to find comparables
+									<ArrowRight class="ml-1 size-3" />
+								</Button>
+							</div>
+						{/if}
+					</CardContent>
+				</Card>
+
+			<!-- Recent Activity Mini-Feed -->
 				<Card>
 					<CardHeader class="flex-row items-center justify-between">
 						<CardTitle class="font-serif">Recent Activity</CardTitle>

@@ -11,6 +11,8 @@ import {
   quotes,
   marketingAssets,
   compSales,
+  marketAnalyses,
+  compListings,
 } from '../schema/index.js';
 
 export async function getListings(teamId: string, db: AppDatabase = adminDb) {
@@ -109,4 +111,49 @@ export async function getCompSales(teamId: string, db: AppDatabase = adminDb) {
   return db.query.compSales.findMany({
     where: eq(compSales.teamId, teamId),
   });
+}
+
+export async function getConfirmedComps(listingId: string, db: AppDatabase = adminDb) {
+  // Find the most recent completed market analysis for this listing
+  const analysis = await db.query.marketAnalyses.findFirst({
+    where: and(
+      eq(marketAnalyses.listingId, listingId),
+      eq(marketAnalyses.status, 'completed'),
+    ),
+    orderBy: desc(marketAnalyses.createdAt),
+    columns: {
+      id: true,
+      suggestedPriceLow: true,
+      suggestedPriceHigh: true,
+      confidence: true,
+    },
+  });
+
+  if (!analysis) return null;
+
+  // Get confirmed comps for that analysis, joined to properties for photos
+  const comps = await db.query.compListings.findMany({
+    where: and(
+      eq(compListings.marketAnalysisId, analysis.id),
+      eq(compListings.isConfirmedComp, true),
+    ),
+    with: {
+      property: {
+        columns: {
+          id: true,
+          photos: true,
+        },
+      },
+    },
+    orderBy: desc(compListings.price),
+  });
+
+  return {
+    analysis: {
+      suggestedPriceLow: analysis.suggestedPriceLow,
+      suggestedPriceHigh: analysis.suggestedPriceHigh,
+      confidence: analysis.confidence,
+    },
+    comps,
+  };
 }

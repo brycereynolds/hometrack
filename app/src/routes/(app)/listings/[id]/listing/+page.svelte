@@ -341,8 +341,8 @@
 			if (!cp?.lat || !cp?.lng) return;
 
 			const dotColor = comp.status === 'sold' ? '#16a34a' : comp.status === 'for_sale' ? '#2563eb' : '#f59e0b';
-			const bgTint = comp.status === 'sold' ? 'rgba(22,163,74,0.12)' : comp.status === 'for_sale' ? 'rgba(37,99,235,0.12)' : 'rgba(245,158,11,0.12)';
-			const borderTint = comp.status === 'sold' ? 'rgba(22,163,74,0.3)' : comp.status === 'for_sale' ? 'rgba(37,99,235,0.3)' : 'rgba(245,158,11,0.3)';
+			const bgTint = comp.status === 'sold' ? '#dcfce7' : comp.status === 'for_sale' ? '#dbeafe' : '#fef3c7';
+			const borderTint = comp.status === 'sold' ? '#86efac' : comp.status === 'for_sale' ? '#93c5fd' : '#fcd34d';
 			const priceLabel = comp.price ? formatMapPrice(comp.price) : '?';
 			const icon = L.divIcon({
 				className: 'comp-marker',

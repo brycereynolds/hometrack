@@ -22,6 +22,7 @@ export const GET: RequestHandler = async ({ params, locals }) => {
           sqft: true,
           yearBuilt: true,
           lastSoldPrice: true,
+          lastSoldDate: true,
           zestimate: true,
           photos: true,
         },
@@ -45,6 +46,7 @@ export const GET: RequestHandler = async ({ params, locals }) => {
       sqft: result.sqft,
       yearBuilt: result.yearBuilt,
       price: result.lastSoldPrice,
+      lastSoldDate: result.lastSoldDate,
       zestimate: result.zestimate,
       photoUrl,
     });

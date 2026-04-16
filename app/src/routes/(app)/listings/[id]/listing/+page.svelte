@@ -8,6 +8,7 @@
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import Markdown from '$lib/components/shared/Markdown.svelte';
+	import PropertyLink from '$lib/components/shared/PropertyLink.svelte';
 	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -703,14 +704,12 @@
 										</Table.Cell>
 										<!-- Address -->
 										<Table.Cell>
-											<a
-												href="/properties/{comp.propertyId}"
-												class="text-sm font-medium leading-tight text-amber-800 hover:underline"
-												onclick={(e) => e.stopPropagation()}
+											<PropertyLink
+												propertyId={comp.propertyId}
+												class="text-sm font-medium leading-tight"
 											>
-												{cp?.address ?? 'Unknown'}
-											</a>
-											<p class="text-xs text-muted-foreground">{cp?.city ?? ''}, {cp?.state ?? ''}</p>
+												{cp?.address ?? 'Unknown'}, {cp?.city ?? ''}
+											</PropertyLink>
 										</Table.Cell>
 										<!-- Price -->
 										<Table.Cell>

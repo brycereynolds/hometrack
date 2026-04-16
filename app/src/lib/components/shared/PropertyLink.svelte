@@ -1,13 +1,18 @@
 <script lang="ts">
-	import { marked } from 'marked';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
-		content: string;
+		propertyId: string;
+		href?: string;
 		class?: string;
+		children?: Snippet;
 	}
 
-	let { content, class: className = '' }: Props = $props();
-	let containerEl: HTMLDivElement | undefined = $state();
+	let { propertyId, href, class: className = '', children }: Props = $props();
+
+	const resolvedHref = $derived(href ?? `/properties/${propertyId}`);
+
+	let linkEl: HTMLAnchorElement | undefined = $state();
 	let popover: {
 		visible: boolean;
 		x: number;
@@ -26,21 +31,16 @@
 			zestimate: number | null;
 			photoUrl: string | null;
 		} | null;
-		href: string;
-	} = $state({ visible: false, x: 0, y: 0, above: true, data: null, href: '' });
+	} = $state({ visible: false, x: 0, y: 0, above: true, data: null });
 
 	let hoverTimeout: ReturnType<typeof setTimeout> | undefined;
 	let hideTimeout: ReturnType<typeof setTimeout> | undefined;
+
+	// Module-level cache shared across all PropertyLink instances
 	const previewCache = new Map<string, any>();
 
-	const html = $derived(() => {
-		if (!content) return '';
-		marked.setOptions({ breaks: true, gfm: true });
-		return marked.parse(content) as string;
-	});
-
 	function formatPrice(n: number | null): string {
-		if (n == null) return '—';
+		if (n == null) return '\u2014';
 		return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
 	}
 
@@ -58,23 +58,22 @@
 		return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 	}
 
-	async function fetchPreview(propertyId: string) {
-		if (previewCache.has(propertyId)) return previewCache.get(propertyId);
+	async function fetchPreview(id: string) {
+		if (previewCache.has(id)) return previewCache.get(id);
 		try {
-			const res = await fetch(`/api/properties/${propertyId}/preview`);
+			const res = await fetch(`/api/properties/${id}/preview`);
 			if (!res.ok) return null;
 			const data = await res.json();
-			previewCache.set(propertyId, data);
+			previewCache.set(id, data);
 			return data;
 		} catch {
 			return null;
 		}
 	}
 
-	function showPopover(e: MouseEvent, href: string) {
+	function showPopover(e: MouseEvent) {
 		clearTimeout(hideTimeout);
-		const propertyId = href.replace('/properties/', '');
-		const target = e.target as HTMLElement;
+		const target = e.currentTarget as HTMLElement;
 		const rect = target.getBoundingClientRect();
 
 		hoverTimeout = setTimeout(async () => {
@@ -83,10 +82,12 @@
 
 			const spaceAbove = rect.top;
 			const spaceBelow = window.innerHeight - rect.bottom;
+			// Popover is roughly 260px tall (photo 140 + details ~120)
 			const popoverHeight = 260;
 			const above = spaceAbove >= popoverHeight || spaceAbove > spaceBelow;
 
 			let x = rect.left + rect.width / 2;
+			// Clamp horizontally so popover (280px wide) stays on screen
 			const halfWidth = 140;
 			if (x - halfWidth < 8) x = halfWidth + 8;
 			if (x + halfWidth > window.innerWidth - 8) x = window.innerWidth - halfWidth - 8;
@@ -97,7 +98,6 @@
 				y: above ? rect.top : rect.bottom,
 				above,
 				data,
-				href,
 			};
 		}, 300);
 	}
@@ -105,45 +105,29 @@
 	function hidePopover() {
 		clearTimeout(hoverTimeout);
 		hideTimeout = setTimeout(() => {
-			popover = { visible: false, x: 0, y: 0, above: true, data: null, href: '' };
+			popover = { visible: false, x: 0, y: 0, above: true, data: null };
 		}, 200);
 	}
 
 	function keepPopoverOpen() {
 		clearTimeout(hideTimeout);
 	}
-
-	$effect(() => {
-		// Re-run when html changes
-		html();
-
-		if (!containerEl) return;
-
-		const links = containerEl.querySelectorAll<HTMLAnchorElement>('a[href^="/properties/"]');
-
-		const handlers = new Map<HTMLAnchorElement, { enter: (e: MouseEvent) => void; leave: () => void }>();
-
-		for (const link of links) {
-			const href = link.getAttribute('href')!;
-			const enter = (e: MouseEvent) => showPopover(e, href);
-			const leave = () => hidePopover();
-			link.addEventListener('mouseenter', enter);
-			link.addEventListener('mouseleave', leave);
-			handlers.set(link, { enter, leave });
-		}
-
-		return () => {
-			for (const [link, { enter, leave }] of handlers) {
-				link.removeEventListener('mouseenter', enter);
-				link.removeEventListener('mouseleave', leave);
-			}
-		};
-	});
 </script>
 
-<div class="markdown-content {className}" bind:this={containerEl}>
-	{@html html()}
-</div>
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<a
+	bind:this={linkEl}
+	href={resolvedHref}
+	class="property-link {className}"
+	onmouseenter={showPopover}
+	onmouseleave={hidePopover}
+>
+	{#if children}
+		{@render children()}
+	{:else}
+		{propertyId}
+	{/if}
+</a>
 
 {#if popover.visible && popover.data}
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -154,7 +138,7 @@
 		onmouseenter={keepPopoverOpen}
 		onmouseleave={hidePopover}
 	>
-		<a href={popover.href} class="popover-inner">
+		<a href={resolvedHref} class="popover-inner">
 			{#if popover.data.photoUrl}
 				<img
 					src={popover.data.photoUrl}
@@ -174,7 +158,7 @@
 				{#if popover.data.price || popover.data.zestimate}
 					<div class="popover-prices">
 						{#if popover.data.price}
-							<span class="popover-price">Sold {formatPrice(popover.data.price)}{#if popover.data.lastSoldDate} &middot; {formatSoldTime(popover.data.lastSoldDate)}{/if}</span>
+							<span class="popover-price">Sold {formatPrice(popover.data.price)}{#if popover.data.lastSoldDate}{' '}&middot; {formatSoldTime(popover.data.lastSoldDate)}{/if}</span>
 						{/if}
 						{#if popover.data.zestimate}
 							<span class="popover-zestimate">Zestimate {formatPrice(popover.data.zestimate)}</span>
@@ -187,97 +171,16 @@
 {/if}
 
 <style>
-	:global(.markdown-content p) {
-		margin-bottom: 1rem;
-	}
-	:global(.markdown-content p:last-child) {
-		margin-bottom: 0;
-	}
-	:global(.markdown-content h1),
-	:global(.markdown-content h2),
-	:global(.markdown-content h3),
-	:global(.markdown-content h4) {
-		font-family: 'DM Serif Display', serif;
-		color: var(--color-stone-900, #1c1917);
-		font-weight: 600;
-	}
-	:global(.markdown-content h1) { font-size: 1.5rem; margin: 1.5rem 0 0.75rem; }
-	:global(.markdown-content h2) { font-size: 1.25rem; margin: 1.25rem 0 0.5rem; }
-	:global(.markdown-content h3) { font-size: 1.1rem; margin: 1rem 0 0.5rem; }
-	:global(.markdown-content h4) { font-size: 1rem; margin: 0.75rem 0 0.5rem; }
-	:global(.markdown-content strong) {
-		color: var(--color-stone-900, #1c1917);
-		font-weight: 600;
-	}
-	:global(.markdown-content em) {
-		font-style: italic;
-	}
-	:global(.markdown-content ul),
-	:global(.markdown-content ol) {
-		padding-left: 1.5rem;
-		margin-bottom: 1rem;
-	}
-	:global(.markdown-content ul) { list-style-type: disc; }
-	:global(.markdown-content ol) { list-style-type: decimal; }
-	:global(.markdown-content li) {
-		margin-bottom: 0.25rem;
-		line-height: 1.75;
-	}
-	:global(.markdown-content blockquote) {
-		border-left: 3px solid var(--color-stone-300, #d6d3d1);
-		padding-left: 1rem;
-		margin: 1rem 0;
-		color: var(--color-stone-600, #57534e);
-		font-style: italic;
-	}
-	:global(.markdown-content code) {
-		background: var(--color-stone-100, #f5f5f4);
-		padding: 0.125rem 0.375rem;
-		border-radius: 0.25rem;
-		font-size: 0.875em;
-	}
-	:global(.markdown-content pre) {
-		background: var(--color-stone-100, #f5f5f4);
-		padding: 1rem;
-		border-radius: 0.5rem;
-		overflow-x: auto;
-		margin: 1rem 0;
-	}
-	:global(.markdown-content pre code) {
-		background: none;
-		padding: 0;
-	}
-	:global(.markdown-content hr) {
-		border: none;
-		border-top: 1px solid var(--color-stone-200, #e7e5e4);
-		margin: 1.5rem 0;
-	}
-	:global(.markdown-content a) {
+	.property-link {
 		color: var(--color-primary, #C4704B);
 		text-decoration: underline;
-		cursor: pointer;
-	}
-	:global(.markdown-content a[href^="/properties/"]) {
 		text-decoration-style: dotted;
 		text-underline-offset: 2px;
+		cursor: pointer;
 	}
-	:global(.markdown-content a[href^="/properties/"]:hover) {
+
+	.property-link:hover {
 		text-decoration-style: solid;
-	}
-	:global(.markdown-content table) {
-		width: 100%;
-		border-collapse: collapse;
-		margin: 1rem 0;
-	}
-	:global(.markdown-content th),
-	:global(.markdown-content td) {
-		border: 1px solid var(--color-stone-200, #e7e5e4);
-		padding: 0.5rem 0.75rem;
-		text-align: left;
-	}
-	:global(.markdown-content th) {
-		background: var(--color-stone-50, #fafaf9);
-		font-weight: 600;
 	}
 
 	/* Property popover — above the link (default) */

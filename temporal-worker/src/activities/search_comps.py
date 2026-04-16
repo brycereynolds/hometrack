@@ -105,8 +105,8 @@ def _parse_search_result(prop: dict, subject_lat: float, subject_lng: float) -> 
     # --- External ID ---
     zpid = prop.get("zpid")
 
-    # Compute price_per_sqft if not provided by API
-    if not price_per_sqft and price and sqft:
+    # Always compute price_per_sqft from price/sqft (API values can be wrong)
+    if price and sqft and sqft > 0:
         price_per_sqft = round(price / sqft)
 
     return {

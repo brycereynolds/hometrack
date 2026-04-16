@@ -801,7 +801,8 @@
 										</Table.Cell>
 										<!-- $/sqft with delta -->
 										<Table.Cell>
-											<p class="text-sm">{comp.pricePerSqft ? '$' + Math.round(comp.pricePerSqft) : '--'}</p>
+											{@const ppsf = comp.price && comp.sqft && comp.sqft > 0 ? Math.round(comp.price / comp.sqft) : (comp.pricePerSqft ? Math.round(comp.pricePerSqft) : null)}
+										<p class="text-sm">{ppsf ? '$' + ppsf : '--'}</p>
 											{#if delta !== null}
 												<p class="text-[10px] font-medium {delta > 0 ? 'text-red-600' : delta < 0 ? 'text-green-600' : 'text-muted-foreground'}">
 													{delta > 0 ? '+' : ''}{delta === 0 ? '--' : '$' + Math.abs(delta)}

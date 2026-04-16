@@ -3,7 +3,10 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { formatNumber } from '$lib/utils.js';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	import {
 		Camera,
 		Video,
@@ -22,7 +25,10 @@
 		Briefcase,
 		ExternalLink,
 		ImageIcon,
-		Play
+		Play,
+		Plus,
+		Pencil,
+		Trash2
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -31,6 +37,42 @@
 
 	const socialPosts = $derived(assets.filter((a: any) => a.type === 'social_post'));
 	const productionAssets = $derived(assets.filter((a: any) => a.type !== 'social_post'));
+
+	// Add Asset modal state
+	let showAddAsset = $state(false);
+	let newAssetType = $state('photo');
+	let newAssetName = $state('');
+	let newAssetStatus = $state('scheduled');
+	let newAssetUrl = $state('');
+	let newAssetPlatform = $state('');
+
+	// Edit Asset modal state
+	let showEditAsset = $state(false);
+	let editAssetId = $state('');
+	let editAssetType = $state('photo');
+	let editAssetName = $state('');
+	let editAssetUrl = $state('');
+	let editAssetPlatform = $state('');
+
+	// Delete confirmation
+	let deletingAssetId = $state<string | null>(null);
+
+	function resetAddForm() {
+		newAssetType = 'photo';
+		newAssetName = '';
+		newAssetStatus = 'scheduled';
+		newAssetUrl = '';
+		newAssetPlatform = '';
+	}
+
+	function openEditAsset(asset: any) {
+		editAssetId = asset.id;
+		editAssetType = asset.type;
+		editAssetName = asset.name;
+		editAssetUrl = asset.url ?? '';
+		editAssetPlatform = asset.platform ?? '';
+		showEditAsset = true;
+	}
 
 	function formatDate(d: any): string {
 		if (!d) return '';
@@ -80,7 +122,12 @@
 
 {#if listing}
 	<div class="space-y-6">
-		<h2 class="font-serif text-lg font-semibold">Marketing</h2>
+		<div class="flex items-center justify-between">
+			<h2 class="font-serif text-lg font-semibold">Marketing</h2>
+			<Button size="sm" onclick={() => { resetAddForm(); showAddAsset = true; }}>
+				<Plus class="mr-1.5 size-4" />Add Asset
+			</Button>
+		</div>
 
 		<!-- Photo Gallery -->
 		{#if listing.photos && (listing.photos as string[]).length > 0}
@@ -146,9 +193,69 @@
 									<p class="text-sm font-medium truncate">{asset.name}</p>
 									<p class="text-xs text-muted-foreground">{formatDate(asset.date)}</p>
 								</div>
-								<Badge variant="outline" class="text-[10px] shrink-0 {status.color}">{status.label}</Badge>
+								<!-- Status dropdown -->
+								<form
+									method="POST"
+									action="?/updateStatus"
+									use:enhance={() => {
+										return async ({ result, update }) => {
+											if (result.type === 'success') {
+												toast.success('Status updated');
+												await update();
+											} else {
+												toast.error('Failed to update status');
+											}
+										};
+									}}
+									class="shrink-0"
+								>
+									<input type="hidden" name="assetId" value={asset.id} />
+									<select
+										name="status"
+										value={asset.status}
+										onchange={(e) => e.currentTarget.form?.requestSubmit()}
+										class="h-7 rounded-md border border-input bg-background px-2 text-[10px] font-medium outline-none ring-ring focus:ring-2"
+									>
+										<option value="scheduled">Scheduled</option>
+										<option value="in_production">In Production</option>
+										<option value="complete">Complete</option>
+										<option value="published">Published</option>
+									</select>
+								</form>
+								<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => openEditAsset(asset)}>
+									<Pencil class="size-3.5 text-muted-foreground" />
+								</Button>
+								{#if deletingAssetId === asset.id}
+									<form
+										method="POST"
+										action="?/deleteAsset"
+										use:enhance={() => {
+											return async ({ result, update }) => {
+												if (result.type === 'success') {
+													toast.success('Asset deleted');
+													deletingAssetId = null;
+													await update();
+												} else {
+													toast.error('Failed to delete asset');
+												}
+											};
+										}}
+										class="inline-flex items-center gap-1"
+									>
+										<input type="hidden" name="assetId" value={asset.id} />
+										<Button type="submit" size="sm" variant="destructive" class="h-7 text-xs px-2">Delete</Button>
+										<Button type="button" size="sm" variant="ghost" class="h-7 text-xs px-2" onclick={() => deletingAssetId = null}>No</Button>
+									</form>
+								{:else}
+									<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => deletingAssetId = asset.id}>
+										<Trash2 class="size-3.5 text-muted-foreground" />
+									</Button>
+								{/if}
 							</div>
 						{/each}
+						{#if productionAssets.length === 0}
+							<p class="text-sm text-muted-foreground text-center py-6">No production assets yet.</p>
+						{/if}
 					</div>
 				</CardContent>
 			</Card>
@@ -158,7 +265,6 @@
 		<Card>
 			<CardHeader class="flex-row items-center justify-between">
 				<CardTitle class="font-serif text-base">Social Media</CardTitle>
-				<Button size="sm" variant="outline" disabled class="opacity-50"><Send class="mr-1.5 size-3.5" />Coming Soon</Button>
 			</CardHeader>
 			<CardContent>
 				{#if socialPosts.length > 0}
@@ -184,6 +290,37 @@
 										</div>
 									{/if}
 								</div>
+								<div class="flex items-center gap-1 shrink-0">
+									<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => openEditAsset(post)}>
+										<Pencil class="size-3.5 text-muted-foreground" />
+									</Button>
+									{#if deletingAssetId === post.id}
+										<form
+											method="POST"
+											action="?/deleteAsset"
+											use:enhance={() => {
+												return async ({ result, update }) => {
+													if (result.type === 'success') {
+														toast.success('Post deleted');
+														deletingAssetId = null;
+														await update();
+													} else {
+														toast.error('Failed to delete post');
+													}
+												};
+											}}
+											class="inline-flex items-center gap-1"
+										>
+											<input type="hidden" name="assetId" value={post.id} />
+											<Button type="submit" size="sm" variant="destructive" class="h-7 text-xs px-2">Delete</Button>
+											<Button type="button" size="sm" variant="ghost" class="h-7 text-xs px-2" onclick={() => deletingAssetId = null}>No</Button>
+										</form>
+									{:else}
+										<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => deletingAssetId = post.id}>
+											<Trash2 class="size-3.5 text-muted-foreground" />
+										</Button>
+									{/if}
+								</div>
 							</div>
 						{/each}
 					</div>
@@ -194,3 +331,191 @@
 		</Card>
 	</div>
 {/if}
+
+<!-- Add Asset Modal -->
+<Dialog.Root bind:open={showAddAsset}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Add Marketing Asset</Dialog.Title>
+			<Dialog.Description>Add a new marketing asset for this listing.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/createAsset"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Asset added');
+						showAddAsset = false;
+						await update();
+					} else {
+						toast.error('Failed to add asset');
+					}
+				};
+			}}
+		>
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="asset-type" class="text-sm font-medium">Type</label>
+					<select
+						id="asset-type"
+						name="type"
+						bind:value={newAssetType}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						<option value="photo">Photography</option>
+						<option value="video">Video</option>
+						<option value="floorplan">Floor Plan</option>
+						<option value="brochure">Brochure</option>
+						<option value="social_post">Social Post</option>
+						<option value="virtual_tour">Virtual Tour</option>
+					</select>
+				</div>
+				<div>
+					<label for="asset-name" class="text-sm font-medium">Name</label>
+					<input
+						id="asset-name"
+						name="name"
+						type="text"
+						bind:value={newAssetName}
+						required
+						placeholder="e.g. Interior Photography"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="asset-status" class="text-sm font-medium">Status</label>
+					<select
+						id="asset-status"
+						name="status"
+						bind:value={newAssetStatus}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						<option value="scheduled">Scheduled</option>
+						<option value="in_production">In Production</option>
+						<option value="complete">Complete</option>
+						<option value="published">Published</option>
+					</select>
+				</div>
+				<div>
+					<label for="asset-url" class="text-sm font-medium">URL</label>
+					<input
+						id="asset-url"
+						name="url"
+						type="url"
+						bind:value={newAssetUrl}
+						placeholder="https://..."
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				{#if newAssetType === 'social_post'}
+					<div>
+						<label for="asset-platform" class="text-sm font-medium">Platform</label>
+						<select
+							id="asset-platform"
+							name="platform"
+							bind:value={newAssetPlatform}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="">Select...</option>
+							<option value="Instagram">Instagram</option>
+							<option value="Facebook">Facebook</option>
+							<option value="LinkedIn">LinkedIn</option>
+						</select>
+					</div>
+				{/if}
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showAddAsset = false}>Cancel</Button>
+				<Button type="submit">Add Asset</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Edit Asset Modal -->
+<Dialog.Root bind:open={showEditAsset}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Asset</Dialog.Title>
+			<Dialog.Description>Update this marketing asset.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/editAsset"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Asset updated');
+						showEditAsset = false;
+						await update();
+					} else {
+						toast.error('Failed to update asset');
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="assetId" value={editAssetId} />
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="edit-asset-type" class="text-sm font-medium">Type</label>
+					<select
+						id="edit-asset-type"
+						name="type"
+						bind:value={editAssetType}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					>
+						<option value="photo">Photography</option>
+						<option value="video">Video</option>
+						<option value="floorplan">Floor Plan</option>
+						<option value="brochure">Brochure</option>
+						<option value="social_post">Social Post</option>
+						<option value="virtual_tour">Virtual Tour</option>
+					</select>
+				</div>
+				<div>
+					<label for="edit-asset-name" class="text-sm font-medium">Name</label>
+					<input
+						id="edit-asset-name"
+						name="name"
+						type="text"
+						bind:value={editAssetName}
+						required
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="edit-asset-url" class="text-sm font-medium">URL</label>
+					<input
+						id="edit-asset-url"
+						name="url"
+						type="url"
+						bind:value={editAssetUrl}
+						placeholder="https://..."
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				{#if editAssetType === 'social_post'}
+					<div>
+						<label for="edit-asset-platform" class="text-sm font-medium">Platform</label>
+						<select
+							id="edit-asset-platform"
+							name="platform"
+							bind:value={editAssetPlatform}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="">Select...</option>
+							<option value="Instagram">Instagram</option>
+							<option value="Facebook">Facebook</option>
+							<option value="LinkedIn">LinkedIn</option>
+						</select>
+					</div>
+				{/if}
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showEditAsset = false}>Cancel</Button>
+				<Button type="submit">Save Changes</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>

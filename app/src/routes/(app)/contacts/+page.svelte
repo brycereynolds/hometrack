@@ -5,9 +5,8 @@
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import type { ContactType } from '$lib/config.js';
-	import { Plus, Search, Mail, Phone, Users, Star, ArrowUpDown } from 'lucide-svelte';
+	import { Plus, Search, Mail, Phone, Users, Star, ArrowUpDown, Pencil, Trash2 } from 'lucide-svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import { Button as Btn } from '$lib/components/ui/button/index.js';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 
@@ -28,6 +27,31 @@
 	let newContactType = $state<ContactType>('client');
 	let newContactCompany = $state('');
 	let submittingContact = $state(false);
+
+	// Edit Contact modal state
+	let showEditContact = $state(false);
+	let editContactId = $state('');
+	let editContactName = $state('');
+	let editContactEmail = $state('');
+	let editContactPhone = $state('');
+	let editContactType = $state<ContactType>('client');
+	let editContactCompany = $state('');
+	let editContactNotes = $state('');
+	let submittingEdit = $state(false);
+
+	// Delete confirmation
+	let deletingContactId = $state<string | null>(null);
+
+	function openEditContact(contact: any) {
+		editContactId = contact.id;
+		editContactName = contact.name;
+		editContactEmail = contact.email ?? '';
+		editContactPhone = contact.phone ?? '';
+		editContactType = contact.type;
+		editContactCompany = contact.company ?? '';
+		editContactNotes = contact.notes ?? '';
+		showEditContact = true;
+	}
 
 	const filters: { label: string; value: FilterType }[] = [
 		{ label: 'All', value: 'all' },
@@ -149,9 +173,9 @@
 	<!-- Contact List -->
 	<div class="space-y-2">
 		{#each filtered() as contact (contact.id)}
-			<a href="/contacts/{contact.id}" class="block">
-				<Card class="transition-all hover:bg-muted/50 hover:shadow-sm">
-					<CardContent class="flex items-center gap-4 p-4">
+			<Card class="transition-all hover:bg-muted/50 hover:shadow-sm">
+				<CardContent class="flex items-center gap-4 p-4">
+					<a href="/contacts/{contact.id}" class="flex items-center gap-4 flex-1 min-w-0">
 						<Avatar class="size-10">
 							<AvatarFallback class="bg-primary/10 text-sm font-semibold text-primary"
 								>{contact.initials ?? contact.name.split(' ').map((n: string) => n[0]).join('').slice(0, 2)}</AvatarFallback
@@ -176,34 +200,61 @@
 								<span class="truncate">{contact.lastInteraction ?? ''}</span>
 							</div>
 						</div>
+					</a>
 
-						<!-- Listing count placeholder -->
-
-						<!-- Agent relationship strength -->
-						{#if contact.type === 'agent' && contact.relationshipStrength}
-							<div class="hidden items-center gap-0.5 sm:flex">
-								{#each Array(5) as _, i}
-									<Star
-										class="size-3.5 {i < (contact.relationshipStrength ?? 0)
-											? 'fill-amber-400 text-amber-400'
-											: 'text-muted-foreground/30'}"
-									/>
-								{/each}
-							</div>
-						{/if}
-
-						<!-- Actions -->
-						<div class="hidden items-center gap-1 sm:flex">
-							<Button variant="ghost" size="icon" class="size-8" href="mailto:{contact.email ?? ''}">
-								<Mail class="size-3.5" />
-							</Button>
-							<Button variant="ghost" size="icon" class="size-8" href="tel:{contact.phone ?? ''}">
-								<Phone class="size-3.5" />
-							</Button>
+					<!-- Agent relationship strength -->
+					{#if contact.type === 'agent' && contact.relationshipStrength}
+						<div class="hidden items-center gap-0.5 sm:flex">
+							{#each Array(5) as _, i}
+								<Star
+									class="size-3.5 {i < (contact.relationshipStrength ?? 0)
+										? 'fill-amber-400 text-amber-400'
+										: 'text-muted-foreground/30'}"
+								/>
+							{/each}
 						</div>
-					</CardContent>
-				</Card>
-			</a>
+					{/if}
+
+					<!-- Actions -->
+					<div class="hidden items-center gap-1 sm:flex">
+						<Button variant="ghost" size="icon" class="size-8" href="mailto:{contact.email ?? ''}">
+							<Mail class="size-3.5" />
+						</Button>
+						<Button variant="ghost" size="icon" class="size-8" href="tel:{contact.phone ?? ''}">
+							<Phone class="size-3.5" />
+						</Button>
+						<Button variant="ghost" size="icon" class="size-8" onclick={(e) => { e.preventDefault(); e.stopPropagation(); openEditContact(contact); }}>
+							<Pencil class="size-3.5" />
+						</Button>
+						{#if deletingContactId === contact.id}
+							<form
+								method="POST"
+								action="?/deleteContact"
+								use:enhance={() => {
+									return async ({ result, update }) => {
+										if (result.type === 'success') {
+											toast.success('Contact deleted');
+											deletingContactId = null;
+											await update();
+										} else {
+											toast.error('Failed to delete contact');
+										}
+									};
+								}}
+								class="inline-flex items-center gap-1"
+							>
+								<input type="hidden" name="contactId" value={contact.id} />
+								<Button type="submit" size="sm" variant="destructive" class="h-7 text-xs px-2">Delete</Button>
+								<Button type="button" size="sm" variant="ghost" class="h-7 text-xs px-2" onclick={(e) => { e.preventDefault(); e.stopPropagation(); deletingContactId = null; }}>No</Button>
+							</form>
+						{:else}
+							<Button variant="ghost" size="icon" class="size-8" onclick={(e) => { e.preventDefault(); e.stopPropagation(); deletingContactId = contact.id; }}>
+								<Trash2 class="size-3.5 text-muted-foreground" />
+							</Button>
+						{/if}
+					</div>
+				</CardContent>
+			</Card>
 		{:else}
 			<div class="py-12 text-center">
 				<Users class="mx-auto size-10 text-muted-foreground/40" />
@@ -304,10 +355,116 @@
 				</div>
 			</div>
 			<Dialog.Footer>
-				<Btn variant="outline" type="button" onclick={() => showAddContact = false}>Cancel</Btn>
-				<Btn type="submit" disabled={submittingContact || !newContactName.trim()}>
+				<Button variant="outline" type="button" onclick={() => showAddContact = false}>Cancel</Button>
+				<Button type="submit" disabled={submittingContact || !newContactName.trim()}>
 					{submittingContact ? 'Adding...' : 'Add Contact'}
-				</Btn>
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Edit Contact Modal -->
+<Dialog.Root bind:open={showEditContact}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Contact</Dialog.Title>
+			<Dialog.Description>Update contact details.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/editContact"
+			use:enhance={() => {
+				submittingEdit = true;
+				return async ({ result, update }) => {
+					submittingEdit = false;
+					if (result.type === 'success') {
+						showEditContact = false;
+						toast.success('Contact updated');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to update contact'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="contactId" value={editContactId} />
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="edit-contact-name" class="text-sm font-medium">Full Name</label>
+					<input
+						id="edit-contact-name"
+						name="name"
+						type="text"
+						bind:value={editContactName}
+						required
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="edit-contact-email" class="text-sm font-medium">Email</label>
+					<input
+						id="edit-contact-email"
+						name="email"
+						type="email"
+						bind:value={editContactEmail}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="edit-contact-phone" class="text-sm font-medium">Phone</label>
+					<input
+						id="edit-contact-phone"
+						name="phone"
+						type="tel"
+						bind:value={editContactPhone}
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-contact-type" class="text-sm font-medium">Type</label>
+						<select
+							id="edit-contact-type"
+							name="type"
+							bind:value={editContactType}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="client">Client</option>
+							<option value="agent">Agent</option>
+							<option value="vendor">Vendor</option>
+							<option value="lender">Lender</option>
+							<option value="inspector">Inspector</option>
+						</select>
+					</div>
+					<div>
+						<label for="edit-contact-company" class="text-sm font-medium">Company</label>
+						<input
+							id="edit-contact-company"
+							name="company"
+							type="text"
+							bind:value={editContactCompany}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+				<div>
+					<label for="edit-contact-notes" class="text-sm font-medium">Notes</label>
+					<textarea
+						id="edit-contact-notes"
+						name="notes"
+						bind:value={editContactNotes}
+						rows="3"
+						placeholder="Notes about this contact..."
+						class="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+					></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showEditContact = false}>Cancel</Button>
+				<Button type="submit" disabled={submittingEdit || !editContactName.trim()}>
+					{submittingEdit ? 'Saving...' : 'Save Changes'}
+				</Button>
 			</Dialog.Footer>
 		</form>
 	</Dialog.Content>

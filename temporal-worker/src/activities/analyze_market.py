@@ -56,6 +56,7 @@ async def analyze_market(params: dict) -> dict:
     prop = params["property"]
     sold_comps = params.get("sold_comps", [])
     active_listings = params.get("active_listings", [])
+    user_prompt = params.get("prompt", "")
 
     sold_stats = _compute_stats(sold_comps)
     active_stats = _compute_stats(active_listings)
@@ -86,6 +87,14 @@ Summary Statistics (Active Listings):
 
     has_data = sold_stats["median_price"] or active_stats["median_price"]
 
+    user_guidance_section = ""
+    if user_prompt:
+        user_guidance_section = f"""
+
+Additional Context from User:
+{user_prompt}
+Please take this guidance into account in your analysis."""
+
     prompt = f"""You are a real estate market analyst. Given the subject property and comparable market data,
 provide a pricing recommendation.
 
@@ -102,7 +111,7 @@ Active Listings ({len(active_listings)} currently for sale):
 {active_table}
 {sold_stats_section}
 {active_stats_section}
-
+{user_guidance_section}
 Analyze:
 1. Suggested listing price range (low and high)
 2. Confidence level (0-1) based on comp quality and quantity

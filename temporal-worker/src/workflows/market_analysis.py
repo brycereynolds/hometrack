@@ -78,20 +78,24 @@ class MarketAnalysis:
         )
 
         # 4. AI analysis
+        analyze_params: dict = {
+            "property": {
+                "address": input_data.get("address"),
+                "beds": input_data.get("beds"),
+                "baths": input_data.get("baths"),
+                "sqft": input_data.get("sqft"),
+                "property_type": input_data.get("propertyType"),
+                "year_built": input_data.get("yearBuilt"),
+            },
+            "sold_comps": sold_comps,
+            "active_listings": active_listings,
+        }
+        if input_data.get("prompt"):
+            analyze_params["prompt"] = input_data["prompt"]
+
         analysis: dict = await workflow.execute_activity(
             analyze_market,
-            {
-                "property": {
-                    "address": input_data.get("address"),
-                    "beds": input_data.get("beds"),
-                    "baths": input_data.get("baths"),
-                    "sqft": input_data.get("sqft"),
-                    "property_type": input_data.get("propertyType"),
-                    "year_built": input_data.get("yearBuilt"),
-                },
-                "sold_comps": sold_comps,
-                "active_listings": active_listings,
-            },
+            analyze_params,
             start_to_close_timeout=timedelta(minutes=3),
             heartbeat_timeout=timedelta(minutes=2),
             retry_policy=RetryPolicy(maximum_attempts=2),

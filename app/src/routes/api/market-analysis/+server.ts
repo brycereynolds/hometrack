@@ -11,7 +11,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
   }
 
   const body = await request.json();
-  const { listingId, searchParams } = body;
+  const { listingId, searchParams, prompt } = body;
 
   if (!listingId) {
     return json({ error: 'Missing listingId' }, { status: 400 });
@@ -63,6 +63,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         sqft: listing.sqft,
         propertyType: listing.propertyType,
         searchParams: searchParams ?? {},
+        prompt: prompt || undefined,
       });
 
       if (workflow) {

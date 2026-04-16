@@ -41,6 +41,7 @@
 	// Price input state
 	let priceInput = $state('');
 	let radiusValue = $state(1);
+	let analysisPrompt = $state('');
 
 	// Analysis trigger state
 	let analysisLoading = $state(false);
@@ -109,6 +110,7 @@
 						radius: radiusValue,
 						priceInput: priceInput || undefined,
 					},
+					prompt: analysisPrompt || undefined,
 				}),
 			});
 
@@ -159,6 +161,13 @@
 		if (!d) return '';
 		const date = d instanceof Date ? d : new Date(d);
 		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+	}
+
+	function formatMapPrice(price: number): string {
+		if (price >= 1_000_000) {
+			return `$${(price / 1_000_000).toFixed(2)}M`;
+		}
+		return `$${Math.round(price / 1000)}K`;
 	}
 
 	function statusColor(status: string) {
@@ -214,12 +223,13 @@
 		comps.forEach((comp: any) => {
 			if (!comp.lat || !comp.lng) return;
 
-			const statusColor = comp.status === 'sold' ? '#16a34a' : comp.status === 'for_sale' ? '#2563eb' : '#f59e0b';
+			const dotColor = comp.status === 'sold' ? '#16a34a' : comp.status === 'for_sale' ? '#2563eb' : '#f59e0b';
+			const priceLabel = comp.price ? formatMapPrice(comp.price) : '?';
 			const icon = L.divIcon({
 				className: 'comp-marker',
-				html: `<div style="background: ${statusColor}; color: white; border-radius: 6px; padding: 2px 6px; font-size: 11px; font-weight: 600; white-space: nowrap; border: 2px solid white; box-shadow: 0 1px 4px rgba(0,0,0,0.3);">$${comp.price ? (comp.price / 1000).toFixed(0) + 'K' : '?'}</div>`,
-				iconSize: [60, 24],
-				iconAnchor: [30, 12],
+				html: `<div style="display:flex;align-items:center;gap:3px;"><div style="width:8px;height:8px;border-radius:50%;background:${dotColor};border:1.5px solid white;box-shadow:0 1px 2px rgba(0,0,0,0.3);flex-shrink:0;"></div><div style="background:rgba(255,255,255,0.95);border:1px solid #d6d3d1;border-radius:4px;padding:1px 5px;font-size:10px;font-weight:600;color:#292524;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,0.1);line-height:1.4;">${priceLabel}</div></div>`,
+				iconSize: [70, 20],
+				iconAnchor: [4, 10],
 			});
 
 			const marker = L.marker([comp.lat, comp.lng], { icon }).addTo(map);
@@ -398,6 +408,14 @@
 								<p class="text-sm leading-relaxed">{latestAnalysis.aiNarrative}</p>
 							</div>
 						{/if}
+						<div class="mt-2">
+							<textarea
+								bind:value={analysisPrompt}
+								placeholder="Optional: Add context for re-analysis (e.g., 'Property has been recently renovated', 'Focus on single-family homes only')"
+								class="w-full rounded-lg border p-3 text-sm"
+								rows="2"
+							></textarea>
+						</div>
 						<div class="flex items-center justify-between">
 							<div class="flex items-center gap-4 text-sm text-muted-foreground">
 								<span>{latestAnalysis.compCount ?? comps.length} comps analyzed</span>
@@ -429,6 +447,14 @@
 						<p class="text-sm text-muted-foreground mb-4">
 							Find comparable properties and get AI-powered pricing suggestions.
 						</p>
+						<div class="w-full max-w-lg text-left mb-4">
+							<textarea
+								bind:value={analysisPrompt}
+								placeholder="Optional: Add context for the analysis (e.g., 'Property has been recently renovated', 'Focus on single-family homes only', 'Consider the school district premium')"
+								class="w-full rounded-lg border p-3 text-sm"
+								rows="2"
+							></textarea>
+						</div>
 						<Button onclick={runAnalysis}>
 							<Play class="mr-1.5 size-4" />
 							Run Analysis
@@ -552,14 +578,38 @@
 											<Table.Cell colspan={10} class="bg-muted/30 p-4">
 												<div class="flex gap-4">
 													{#if comp.photoUrl}
-														<img src={comp.photoUrl} alt={comp.address ?? ''} class="w-32 h-24 object-cover rounded-lg" />
+														<img src={comp.photoUrl} alt={comp.address ?? ''} class="w-36 h-28 object-cover rounded-lg" />
 													{/if}
-													<div class="space-y-1 text-sm">
-														<p><span class="text-muted-foreground">City:</span> {comp.city ?? 'N/A'}</p>
-														<p><span class="text-muted-foreground">Lot:</span> {comp.lotSqft ? comp.lotSqft.toLocaleString() + ' sqft' : 'N/A'}</p>
+													<div class="grid grid-cols-2 gap-x-8 gap-y-1 text-sm flex-1">
+														<p><span class="text-muted-foreground">Full Address:</span> {comp.address ?? 'N/A'}, {comp.city ?? ''}, {comp.state ?? ''} {comp.zip ?? ''}</p>
+														<p><span class="text-muted-foreground">Price:</span> {comp.price ? formatCurrency(comp.price) : 'N/A'} {comp.pricePerSqft ? `(${formatCurrency(Math.round(comp.pricePerSqft))}/sqft)` : ''}</p>
+														<p><span class="text-muted-foreground">Beds/Baths:</span> {comp.beds ?? 'N/A'} bd / {comp.baths ?? 'N/A'} ba</p>
+														<p><span class="text-muted-foreground">Sqft:</span> {comp.sqft?.toLocaleString() ?? 'N/A'}</p>
+														<p><span class="text-muted-foreground">Lot Size:</span> {comp.lotSqft ? comp.lotSqft.toLocaleString() + ' sqft' : 'N/A'}</p>
 														<p><span class="text-muted-foreground">Year Built:</span> {comp.yearBuilt ?? 'N/A'}</p>
+														<p><span class="text-muted-foreground">Days on Market:</span> {comp.daysOnMarket ?? 'N/A'}</p>
+														<p><span class="text-muted-foreground">Status:</span>
+															<Badge variant="outline" class="text-[10px] ml-1">
+																{comp.status === 'sold' ? 'Sold' : comp.status === 'for_sale' ? 'For Sale' : comp.status ?? 'N/A'}
+															</Badge>
+															{#if comp.soldDate}
+																<span class="text-muted-foreground ml-1">({formatDate(comp.soldDate)})</span>
+															{/if}
+														</p>
 														<p><span class="text-muted-foreground">Type:</span> {comp.propertyType ?? 'N/A'}</p>
-														<p><span class="text-muted-foreground">Status:</span> {comp.status ?? 'N/A'}</p>
+														<p><span class="text-muted-foreground">Distance:</span> {comp.distanceMiles ? comp.distanceMiles.toFixed(2) + ' mi' : 'N/A'}</p>
+														{#if comp.externalId && comp.source === 'zillow'}
+															<p>
+																<a
+																	href="https://www.zillow.com/homedetails/{comp.externalId}_zpid/"
+																	target="_blank"
+																	rel="noopener noreferrer"
+																	class="text-blue-600 hover:underline text-sm"
+																>
+																	View on Zillow &rarr;
+																</a>
+															</p>
+														{/if}
 													</div>
 												</div>
 											</Table.Cell>

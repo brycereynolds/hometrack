@@ -116,7 +116,7 @@
 />
 <VoiceMemoModal bind:open={voiceMemoOpen} listings={listings} teamId={data.team?.id ?? ''} />
 <QuickNoteModal bind:open={quickNoteOpen} listings={listings} teamId={data.team?.id ?? ''} />
-<FloatingVoiceButton onclick={() => { voiceMemoOpen = true; }} />
+<!-- FloatingVoiceButton hidden — use Cmd+K or sidebar instead -->
 <Toaster richColors position="top-right" />
 
 <Sidebar.SidebarProvider>

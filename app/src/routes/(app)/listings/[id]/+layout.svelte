@@ -45,19 +45,21 @@
 	let editDescription = $state('');
 	let editMlsNumber = $state('');
 
+	const prop = $derived(listing?.property);
+
 	function openEditDialog() {
 		if (!listing) return;
-		editAddress = listing.address;
-		editCity = listing.city;
-		editState = listing.state;
-		editZip = listing.zip;
+		editAddress = prop?.address ?? '';
+		editCity = prop?.city ?? '';
+		editState = prop?.state ?? '';
+		editZip = prop?.zip ?? '';
 		editPrice = listing.price?.toString() ?? '';
-		editBeds = listing.beds ?? 0;
-		editBaths = listing.baths ?? 0;
-		editSqft = listing.sqft ?? 0;
-		editLotSqft = listing.lotSqft ?? 0;
-		editYearBuilt = listing.yearBuilt ?? 0;
-		editPropertyType = listing.propertyType ?? 'single_family';
+		editBeds = prop?.beds ?? 0;
+		editBaths = prop?.baths ?? 0;
+		editSqft = prop?.sqft ?? 0;
+		editLotSqft = prop?.lotSqft ?? 0;
+		editYearBuilt = prop?.yearBuilt ?? 0;
+		editPropertyType = prop?.propertyType ?? 'single_family';
 		editDescription = listing.description ?? '';
 		editMlsNumber = listing.mlsNumber ?? '';
 		editDialogOpen = true;
@@ -106,8 +108,8 @@
 		<div class="relative -mx-4 -mt-4 md:-mx-6 md:-mt-6 lg:-mx-8 lg:-mt-8">
 			<div class="relative h-56 overflow-hidden sm:h-64 md:h-72">
 				<img
-					src={listing.photoUrl}
-					alt={listing.address}
+					src={(prop?.photos as { url: string }[] | null)?.[0]?.url ?? ''}
+					alt={prop?.address ?? ''}
 					class="h-full w-full object-cover"
 				/>
 				<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
@@ -141,10 +143,10 @@
 					<div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 						<div>
 							<h1 class="font-serif text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
-								{listing.address}
+								{prop?.address ?? ''}
 							</h1>
 							<p class="mt-1 text-sm text-white/80 sm:text-base">
-								{listing.city}, {listing.state} {listing.zip}
+								{prop?.city ?? ''}, {prop?.state ?? ''} {prop?.zip ?? ''}
 							</p>
 						</div>
 						<div class="flex items-center gap-3 sm:gap-4">

@@ -8,6 +8,7 @@ import { env } from '$env/dynamic/private';
 export const load: PageServerLoad = async ({ params, url }) => {
   const listing = await adminDb.query.listings.findFirst({
     where: eq(listings.id, params.listingId),
+    with: { property: true },
   });
 
   if (!listing) {
@@ -37,15 +38,15 @@ export const load: PageServerLoad = async ({ params, url }) => {
   return {
     listing: {
       id: listing.id,
-      address: listing.address,
-      city: listing.city,
-      state: listing.state,
-      zip: listing.zip,
+      address: listing.property.address,
+      city: listing.property.city,
+      state: listing.property.state,
+      zip: listing.property.zip,
       price: listing.price,
-      beds: listing.beds,
-      baths: listing.baths,
-      sqft: listing.sqft,
-      photoUrl: listing.photoUrl,
+      beds: listing.property.beds,
+      baths: listing.property.baths,
+      sqft: listing.property.sqft,
+      photoUrl: (listing.property.photos as { url: string }[])?.[0]?.url ?? null,
     },
     visitorCount: checkIns.length,
     registerUrl,

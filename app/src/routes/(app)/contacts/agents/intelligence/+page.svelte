@@ -221,14 +221,14 @@
 		if (filterLocation !== 'all') {
 			results = results.filter(
 				(m) =>
-					m.listing.city === filterLocation ||
+					m.listing.property?.city === filterLocation ||
 					(m.buyerNeed.location && m.buyerNeed.location.includes(filterLocation))
 			);
 		}
 		if (filterBeds !== 'all') {
 			results = results.filter((m) => {
-				if (filterBeds === '4+') return (m.listing.beds ?? 0) >= 4;
-				return (m.listing.beds ?? 0) === parseInt(filterBeds);
+				if (filterBeds === '4+') return (m.listing.property?.beds ?? 0) >= 4;
+				return (m.listing.property?.beds ?? 0) === parseInt(filterBeds);
 			});
 		}
 		return results.sort((a, b) => b.matchScore - a.matchScore);
@@ -445,13 +445,13 @@
 								<p class="mb-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">Your Listing</p>
 								<div class="flex items-start gap-3">
 									<div class="size-10 shrink-0 overflow-hidden rounded-md">
-										<img src={match.listing.photoUrl} alt={match.listing.address} class="size-full object-cover" />
+										<img src={(match.listing.property?.photos as any)?.[0]?.url ?? ''} alt={match.listing.property?.address ?? ''} class="size-full object-cover" />
 									</div>
 									<div>
 										<a href="/listings/{match.listing.id}" class="font-semibold hover:text-primary">
-											{match.listing.address}
+											{match.listing.property?.address ?? ''}
 										</a>
-										<p class="text-xs text-muted-foreground">{match.listing.city}, {match.listing.state}</p>
+										<p class="text-xs text-muted-foreground">{match.listing.property?.city ?? ''}, {match.listing.property?.state ?? ''}</p>
 										<p class="mt-0.5 text-sm font-semibold text-primary">{match.listing.price ? formatCurrency(match.listing.price) : 'No Price'}</p>
 									</div>
 								</div>
@@ -459,12 +459,12 @@
 									<div class="flex items-center gap-2">
 										<BedDouble class="size-3.5 text-muted-foreground" />
 										<span class="text-muted-foreground">Beds:</span>
-										<span class="font-medium">{match.listing.beds ?? 0}</span>
+										<span class="font-medium">{match.listing.property?.beds ?? 0}</span>
 									</div>
 									<div class="flex items-center gap-2">
 										<MapPin class="size-3.5 text-muted-foreground" />
 										<span class="text-muted-foreground">Location:</span>
-										<span class="font-medium">{match.listing.city}</span>
+										<span class="font-medium">{match.listing.property?.city ?? ''}</span>
 									</div>
 									<div class="flex items-center gap-2">
 										<DollarSign class="size-3.5 text-muted-foreground" />
@@ -662,13 +662,13 @@
 									<td class="sticky left-0 bg-card py-3 pr-4">
 										<div class="flex items-center gap-2">
 											<div class="size-8 shrink-0 overflow-hidden rounded">
-												<img src={listing.photoUrl} alt={listing.address} class="size-full object-cover" />
+												<img src={(listing.property?.photos as any)?.[0]?.url ?? ''} alt={listing.property?.address ?? ''} class="size-full object-cover" />
 											</div>
 											<div>
 												<a href="/listings/{listing.id}" class="text-sm font-medium hover:text-primary">
-													{listing.address}
+													{listing.property?.address ?? ''}
 												</a>
-												<p class="text-[11px] text-muted-foreground">{listing.city} | {listing.beds ?? 0}BR | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
+												<p class="text-[11px] text-muted-foreground">{listing.property?.city ?? ''} | {listing.property?.beds ?? 0}BR | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
 											</div>
 										</div>
 									</td>

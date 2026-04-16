@@ -1,1 +1,0 @@
-ALTER TABLE "comp_listings" ADD COLUMN "is_confirmed_comp" boolean DEFAULT false NOT NULL;

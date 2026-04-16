@@ -205,8 +205,11 @@ export const actions: Actions = {
       const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
         const listing = await db.query.listings.findFirst({
           where: and(eq(listings.id, params.id), eq(listings.teamId, teamId)),
-          columns: { address: true, portalSettings: true },
-          with: { client: { columns: { name: true, email: true } } },
+          columns: { portalSettings: true, propertyId: true },
+          with: {
+            property: { columns: { address: true } },
+            client: { columns: { name: true, email: true } },
+          },
         });
         if (!listing) return fail(400, { error: 'Listing not found' });
 
@@ -227,7 +230,7 @@ export const actions: Actions = {
           clientName,
           teamName: team?.name ?? 'Your agent',
           portalUrl,
-          listingAddress: listing.address ?? 'your property',
+          listingAddress: listing.property?.address ?? 'your property',
         });
 
         return { success: true, action: 'sendToClient' };

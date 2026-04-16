@@ -303,7 +303,7 @@
 							{#if count > 0}
 								<div class="mt-1 flex flex-wrap gap-1">
 									{#each phaseListings as listing}
-										<span class="text-xs text-muted-foreground">{listing.address.split(' ').slice(0, 2).join(' ')}{phaseListings.indexOf(listing) < phaseListings.length - 1 ? ',' : ''}</span>
+										<span class="text-xs text-muted-foreground">{(listing.property?.address ?? '').split(' ').slice(0, 2).join(' ')}{phaseListings.indexOf(listing) < phaseListings.length - 1 ? ',' : ''}</span>
 									{/each}
 								</div>
 							{/if}

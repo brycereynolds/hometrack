@@ -12,7 +12,7 @@ export const load: PageServerLoad = async ({ parent }) => {
   const [allListings, activity, recentShowings] = await Promise.all([
     adminDb.query.listings.findMany({
       where: eq(listings.teamId, team.id),
-      with: { agent: true, client: true },
+      with: { property: true, agent: true, client: true },
     }),
     adminDb.query.activityItems.findMany({
       where: eq(activityItems.teamId, team.id),

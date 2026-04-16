@@ -26,6 +26,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
       const listing = await db.query.listings.findFirst({
         where: and(eq(listings.id, listingId), eq(listings.teamId, member.teamId)),
+        with: { property: true },
       });
       if (!listing) throw new Error('Listing not found');
 
@@ -52,16 +53,16 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         analysisId,
         listingId,
         teamId: member.teamId,
-        address: listing.address,
-        city: listing.city,
-        state: listing.state,
-        zip: listing.zip,
-        lat: listing.lat,
-        lng: listing.lng,
-        beds: listing.beds,
-        baths: listing.baths,
-        sqft: listing.sqft,
-        propertyType: listing.propertyType,
+        address: listing.property.address,
+        city: listing.property.city,
+        state: listing.property.state,
+        zip: listing.property.zip,
+        lat: listing.property.lat,
+        lng: listing.property.lng,
+        beds: listing.property.beds,
+        baths: listing.property.baths,
+        sqft: listing.property.sqft,
+        propertyType: listing.property.propertyType,
         searchParams: searchParams ?? {},
         prompt: prompt || undefined,
       });

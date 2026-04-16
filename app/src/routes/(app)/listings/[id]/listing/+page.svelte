@@ -37,6 +37,7 @@
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
+	const prop = $derived(listing?.property);
 	const analyses = $derived(data.analyses ?? []);
 	const comps = $derived(data.comps ?? []);
 	const schedule = $derived(data.schedule);
@@ -99,6 +100,9 @@
 	let radiusCircle: any = null;
 	let L: any = null;
 
+	// Fields that live on the property join rather than comp_listings
+	const propertyFields = new Set(['beds', 'baths', 'sqft', 'lotSqft']);
+
 	const sortedComps = $derived(() => {
 		const sorted = [...comps];
 		sorted.sort((a: any, b: any) => {
@@ -106,6 +110,9 @@
 			if (sortField === 'soldDate') {
 				aVal = a.soldDate ? new Date(a.soldDate).getTime() : 0;
 				bVal = b.soldDate ? new Date(b.soldDate).getTime() : 0;
+			} else if (propertyFields.has(sortField)) {
+				aVal = a.property?.[sortField] ?? 0;
+				bVal = b.property?.[sortField] ?? 0;
 			} else {
 				aVal = a[sortField] ?? 0;
 				bVal = b[sortField] ?? 0;
@@ -252,8 +259,8 @@
 	}
 
 	function priceDeltaPerSqft(comp: any): number | null {
-		if (!comp.pricePerSqft || !listing?.price || !listing?.sqft) return null;
-		const subjectPpSqft = listing.price / listing.sqft;
+		if (!comp.pricePerSqft || !listing?.price || !prop?.sqft) return null;
+		const subjectPpSqft = listing.price / prop.sqft;
 		return Math.round(comp.pricePerSqft - subjectPpSqft);
 	}
 
@@ -276,10 +283,10 @@
 
 	// Map initialization
 	onMount(async () => {
-		if (!listing?.lat || !listing?.lng) return;
+		if (!prop?.lat || !prop?.lng) return;
 
 		L = (await import('leaflet')).default;
-		map = L.map(mapContainer).setView([listing.lat, listing.lng], 14);
+		map = L.map(mapContainer).setView([prop.lat, prop.lng], 14);
 
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -293,8 +300,8 @@
 			iconSize: [32, 32],
 			iconAnchor: [16, 16],
 		});
-		L.marker([listing.lat, listing.lng], { icon: propertyIcon }).addTo(map)
-			.bindPopup(`<strong>${listing.address}</strong><br/>${listing.city}, ${listing.state}`);
+		L.marker([prop.lat, prop.lng], { icon: propertyIcon }).addTo(map)
+			.bindPopup(`<strong>${prop.address}</strong><br/>${prop.city}, ${prop.state}`);
 
 		updateMapComps();
 		updateRadiusCircle();
@@ -307,7 +314,8 @@
 		compMarkers = [];
 
 		comps.forEach((comp: any) => {
-			if (!comp.lat || !comp.lng) return;
+			const cp = comp.property;
+			if (!cp?.lat || !cp?.lng) return;
 
 			const dotColor = comp.status === 'sold' ? '#16a34a' : comp.status === 'for_sale' ? '#2563eb' : '#f59e0b';
 			const priceLabel = comp.price ? formatMapPrice(comp.price) : '?';
@@ -318,23 +326,25 @@
 				iconAnchor: [4, 10],
 			});
 
-			const marker = L.marker([comp.lat, comp.lng], { icon }).addTo(map);
+			const marker = L.marker([cp.lat, cp.lng], { icon }).addTo(map);
 
 			// Popup with photo
-			const photoHtml = comp.photoUrl
-				? `<img src="${comp.photoUrl}" alt="" style="width:100%;height:100px;object-fit:cover;border-radius:6px;margin-bottom:8px;" />`
+			const photos = cp.photos as { url: string }[] | null;
+			const photoUrl = photos?.[0]?.url ?? null;
+			const photoHtml = photoUrl
+				? `<img src="${photoUrl}" alt="" style="width:100%;height:100px;object-fit:cover;border-radius:6px;margin-bottom:8px;" />`
 				: '';
 
 			marker.bindPopup(`
 				<div style="min-width:180px;max-width:220px;">
 					${photoHtml}
-					<strong style="font-size:12px;">${comp.address ?? 'Unknown'}</strong><br/>
-					<span style="font-size:11px;color:#78716c;">${comp.city ?? ''}, ${comp.state ?? ''}</span><br/>
+					<strong style="font-size:12px;">${cp.address ?? 'Unknown'}</strong><br/>
+					<span style="font-size:11px;color:#78716c;">${cp.city ?? ''}, ${cp.state ?? ''}</span><br/>
 					<strong style="font-size:13px;">${comp.price ? '$' + comp.price.toLocaleString() : 'N/A'}</strong>
 					<span style="font-size:11px;color:#78716c;">
-						${comp.beds ? ' · ' + comp.beds + ' bd' : ''}
-						${comp.baths ? ' · ' + comp.baths + ' ba' : ''}
-						${comp.sqft ? ' · ' + comp.sqft.toLocaleString() + ' sqft' : ''}
+						${cp.beds ? ' · ' + cp.beds + ' bd' : ''}
+						${cp.baths ? ' · ' + cp.baths + ' ba' : ''}
+						${cp.sqft ? ' · ' + cp.sqft.toLocaleString() + ' sqft' : ''}
 					</span><br/>
 					<span style="font-size:10px;color:#a8a29e;">
 						${comp.soldDate ? 'Sold: ' + formatDate(comp.soldDate) : comp.status ?? ''}
@@ -347,10 +357,10 @@
 	}
 
 	function updateRadiusCircle() {
-		if (!map || !L || !listing?.lat || !listing?.lng) return;
+		if (!map || !L || !prop?.lat || !prop?.lng) return;
 
 		if (radiusCircle) map.removeLayer(radiusCircle);
-		radiusCircle = L.circle([listing.lat, listing.lng], {
+		radiusCircle = L.circle([prop.lat, prop.lng], {
 			radius: radiusValue * 1609.34,
 			color: '#b45309',
 			opacity: 0.6,
@@ -392,9 +402,9 @@
 					<div class="flex items-center justify-between">
 						<div>
 							<p class="text-3xl font-bold font-serif">{formatCurrency(listing.price)}</p>
-							{#if listing.sqft}
+							{#if prop?.sqft}
 								<p class="text-sm text-muted-foreground mt-1">
-									{formatCurrency(Math.round(listing.price / listing.sqft))}/sqft
+									{formatCurrency(Math.round(listing.price / prop.sqft))}/sqft
 								</p>
 							{/if}
 						</div>
@@ -652,7 +662,7 @@
 		</Card>
 
 		<!-- Comp Map -->
-		{#if listing.lat && listing.lng}
+		{#if prop?.lat && prop?.lng}
 			<Card>
 				<CardHeader class="flex-row items-center justify-between">
 					<CardTitle class="flex items-center gap-2 font-serif">
@@ -707,11 +717,11 @@
 							<CardTitle class="font-serif">Comparable Sales</CardTitle>
 							<p class="text-sm text-muted-foreground mt-1">
 								{comps.length} comparable {comps.length === 1 ? 'property' : 'properties'} found
-								{#if listing.price && listing.sqft}
-									<span class="ml-1">| Subject: {formatCurrency(Math.round(listing.price / listing.sqft))}/sqft</span>
+								{#if listing.price && prop?.sqft}
+									<span class="ml-1">| Subject: {formatCurrency(Math.round(listing.price / prop.sqft))}/sqft</span>
 								{/if}
-								{#if listing.beds || listing.baths || listing.sqft || listing.lotSqft}
-									<span class="ml-1">| {listing.beds ?? '?'} bd / {listing.baths ?? '?'} ba / {listing.sqft?.toLocaleString() ?? '?'} sqft / {formatLot(listing.lotSqft)} lot</span>
+								{#if prop?.beds || prop?.baths || prop?.sqft || prop?.lotSqft}
+									<span class="ml-1">| {prop?.beds ?? '?'} bd / {prop?.baths ?? '?'} ba / {prop?.sqft?.toLocaleString() ?? '?'} sqft / {formatLot(prop?.lotSqft)} lot</span>
 								{/if}
 							</p>
 						</div>
@@ -802,11 +812,14 @@
 												</button>
 											</form>
 										</Table.Cell>
-										<!-- Photo thumbnail -->
+										{@const cp = comp.property}
+									{@const cpPhotos = cp?.photos as { url: string }[] | null}
+									{@const cpPhotoUrl = cpPhotos?.[0]?.url ?? null}
+									<!-- Photo thumbnail -->
 										<Table.Cell class="p-2">
-											{#if comp.photoUrl}
+											{#if cpPhotoUrl}
 												<img
-													src={comp.photoUrl}
+													src={cpPhotoUrl}
 													alt=""
 													class="w-14 h-10 object-cover rounded"
 												/>
@@ -818,18 +831,14 @@
 										</Table.Cell>
 										<!-- Address -->
 										<Table.Cell>
-											{#if comp.propertyId}
-												<a
-													href="/properties/{comp.propertyId}"
-													class="text-sm font-medium leading-tight text-amber-800 hover:underline"
-													onclick={(e) => e.stopPropagation()}
-												>
-													{comp.address ?? 'Unknown'}
-												</a>
-											{:else}
-												<p class="text-sm font-medium leading-tight">{comp.address ?? 'Unknown'}</p>
-											{/if}
-											<p class="text-xs text-muted-foreground">{comp.city ?? ''}, {comp.state ?? ''}</p>
+											<a
+												href="/properties/{comp.propertyId}"
+												class="text-sm font-medium leading-tight text-amber-800 hover:underline"
+												onclick={(e) => e.stopPropagation()}
+											>
+												{cp?.address ?? 'Unknown'}
+											</a>
+											<p class="text-xs text-muted-foreground">{cp?.city ?? ''}, {cp?.state ?? ''}</p>
 										</Table.Cell>
 										<!-- Price -->
 										<Table.Cell>
@@ -837,7 +846,7 @@
 										</Table.Cell>
 										<!-- $/sqft with delta -->
 										<Table.Cell>
-											{@const ppsf = comp.price && comp.sqft && comp.sqft > 0 ? Math.round(comp.price / comp.sqft) : (comp.pricePerSqft ? Math.round(comp.pricePerSqft) : null)}
+											{@const ppsf = comp.price && cp?.sqft && cp.sqft > 0 ? Math.round(comp.price / cp.sqft) : (comp.pricePerSqft ? Math.round(comp.pricePerSqft) : null)}
 										<p class="text-sm">{ppsf ? '$' + ppsf : '--'}</p>
 											{#if delta !== null}
 												<p class="text-[10px] font-medium {delta > 0 ? 'text-red-600' : delta < 0 ? 'text-green-600' : 'text-muted-foreground'}">
@@ -847,20 +856,20 @@
 											{/if}
 										</Table.Cell>
 										<!-- Beds -->
-										<Table.Cell class="{matchClass(comp.beds, listing.beds, 0, 1)}">
-											<p class="text-sm">{comp.beds ?? '?'}</p>
+										<Table.Cell class="{matchClass(cp?.beds ?? null, prop?.beds ?? null, 0, 1)}">
+											<p class="text-sm">{cp?.beds ?? '?'}</p>
 										</Table.Cell>
 										<!-- Baths -->
-										<Table.Cell class="{matchClass(comp.baths, listing.baths, 0, 0.5)}">
-											<p class="text-sm">{comp.baths ?? '?'}</p>
+										<Table.Cell class="{matchClass(cp?.baths ?? null, prop?.baths ?? null, 0, 0.5)}">
+											<p class="text-sm">{cp?.baths ?? '?'}</p>
 										</Table.Cell>
 										<!-- Sqft -->
-										<Table.Cell class="{matchClass(comp.sqft, listing.sqft, 100, 300)}">
-											<p class="text-sm">{comp.sqft?.toLocaleString() ?? '?'}</p>
+										<Table.Cell class="{matchClass(cp?.sqft ?? null, prop?.sqft ?? null, 100, 300)}">
+											<p class="text-sm">{cp?.sqft?.toLocaleString() ?? '?'}</p>
 										</Table.Cell>
 										<!-- Lot -->
-										<Table.Cell class="{matchClass(comp.lotSqft, listing.lotSqft, 500, 2000)}">
-											<p class="text-sm">{formatLot(comp.lotSqft)}</p>
+										<Table.Cell class="{matchClass(cp?.lotSqft ?? null, prop?.lotSqft ?? null, 500, 2000)}">
+											<p class="text-sm">{formatLot(cp?.lotSqft)}</p>
 										</Table.Cell>
 										<!-- Status badge with recency -->
 										<Table.Cell>
@@ -889,23 +898,26 @@
 									{#if expandedCompId === comp.id}
 										<Table.Row>
 											<Table.Cell colspan={11} class="bg-muted/30 p-4">
+												{@const xcp = comp.property}
+												{@const xcpPhotos = xcp?.photos as { url: string }[] | null}
+												{@const xcpPhotoUrl = xcpPhotos?.[0]?.url ?? null}
 												<div class="flex gap-4">
-													{#if comp.photoUrl}
-														<img src={comp.photoUrl} alt={comp.address ?? ''} class="w-40 h-32 object-cover rounded-lg shadow-sm" />
+													{#if xcpPhotoUrl}
+														<img src={xcpPhotoUrl} alt={xcp?.address ?? ''} class="w-40 h-32 object-cover rounded-lg shadow-sm" />
 													{:else}
 														<div class="w-40 h-32 rounded-lg bg-muted flex items-center justify-center">
 															<Home class="size-8 text-muted-foreground/30" />
 														</div>
 													{/if}
 													<div class="grid grid-cols-2 gap-x-8 gap-y-1 text-sm flex-1">
-														<p><span class="text-muted-foreground">Full Address:</span> {comp.address ?? 'N/A'}, {comp.city ?? ''}, {comp.state ?? ''} {comp.zip ?? ''}</p>
+														<p><span class="text-muted-foreground">Full Address:</span> {xcp?.address ?? 'N/A'}, {xcp?.city ?? ''}, {xcp?.state ?? ''} {xcp?.zip ?? ''}</p>
 														<p><span class="text-muted-foreground">Price:</span> {comp.price ? formatCurrency(comp.price) : 'N/A'} {comp.pricePerSqft ? `(${formatCurrency(Math.round(comp.pricePerSqft))}/sqft)` : ''}</p>
-														<p><span class="text-muted-foreground">Beds/Baths:</span> {comp.beds ?? 'N/A'} bd / {comp.baths ?? 'N/A'} ba</p>
-														<p><span class="text-muted-foreground">Sqft:</span> {comp.sqft?.toLocaleString() ?? 'N/A'}</p>
-														<p><span class="text-muted-foreground">Lot Size:</span> {comp.lotSqft ? comp.lotSqft.toLocaleString() + ' sqft' : 'N/A'}</p>
-														<p><span class="text-muted-foreground">Year Built:</span> {comp.yearBuilt ?? 'N/A'}</p>
+														<p><span class="text-muted-foreground">Beds/Baths:</span> {xcp?.beds ?? 'N/A'} bd / {xcp?.baths ?? 'N/A'} ba</p>
+														<p><span class="text-muted-foreground">Sqft:</span> {xcp?.sqft?.toLocaleString() ?? 'N/A'}</p>
+														<p><span class="text-muted-foreground">Lot Size:</span> {xcp?.lotSqft ? xcp.lotSqft.toLocaleString() + ' sqft' : 'N/A'}</p>
+														<p><span class="text-muted-foreground">Year Built:</span> {xcp?.yearBuilt ?? 'N/A'}</p>
 														<p><span class="text-muted-foreground">Days on Market:</span> {comp.daysOnMarket ?? 'N/A'}</p>
-														<p><span class="text-muted-foreground">Type:</span> {comp.propertyType ?? 'N/A'}</p>
+														<p><span class="text-muted-foreground">Type:</span> {xcp?.propertyType ?? 'N/A'}</p>
 													</div>
 												</div>
 												<div class="flex items-center gap-3 mt-3 pt-3 border-t">

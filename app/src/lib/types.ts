@@ -21,11 +21,13 @@ import type {
   integrations,
   workflowTemplates,
   teamMembers,
+  properties,
 } from '$lib/server/db/schema/index.js';
 
 // ─── Base DB types ──────────────────────────────────────────────────────────
 
 export type Listing = InferSelectModel<typeof listings>;
+export type Property = InferSelectModel<typeof properties>;
 export type Contact = InferSelectModel<typeof contacts>;
 export type Task = InferSelectModel<typeof tasks>;
 export type ActivityItem = InferSelectModel<typeof activityItems>;
@@ -47,6 +49,7 @@ export type TeamMember = InferSelectModel<typeof teamMembers>;
 // ─── Types with joined relations (what load functions return) ───────────────
 
 export type ListingWithRelations = Listing & {
+  property: Property;
   agent: TeamMember | null;
   client: Contact | null;
 };

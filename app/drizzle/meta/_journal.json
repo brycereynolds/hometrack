@@ -5,64 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1776110023134,
-      "tag": "0000_common_riptide",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1776110023135,
-      "tag": "0001_rls_policies",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1776153819886,
-      "tag": "0002_cute_lady_ursula",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1776224828980,
-      "tag": "0003_rich_spiral",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1776231099163,
-      "tag": "0004_modern_diamondback",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1776271493106,
-      "tag": "0005_green_lenny_balinger",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1776273102286,
-      "tag": "0006_loose_zarda",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1776451200000,
-      "tag": "0007_rls_new_tables",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1776325292178,
-      "tag": "0008_lively_guardian",
+      "when": 1776327785615,
+      "tag": "0000_glossy_master_chief",
       "breakpoints": true
     }
   ]

@@ -268,7 +268,7 @@
 						<div class="flex items-center justify-between px-4 py-2.5">
 							<div class="flex items-center gap-2.5">
 								<span class="text-xs font-mono text-muted-foreground w-4">{i + 1}</span>
-								<a href="/listings/{listing.id}" class="text-sm hover:underline">{listing.address}</a>
+								<a href="/listings/{listing.id}" class="text-sm hover:underline">{listing.property?.address ?? ''}</a>
 							</div>
 							<span class="font-mono text-sm font-medium">{listing.zillowViews ? formatNumber(listing.zillowViews) : '—'}</span>
 						</div>
@@ -289,7 +289,7 @@
 						<div class="flex items-center justify-between px-4 py-2.5">
 							<div class="flex items-center gap-2.5">
 								<span class="text-xs font-mono text-muted-foreground w-4">{i + 1}</span>
-								<a href="/listings/{listing.id}" class="text-sm hover:underline">{listing.address}</a>
+								<a href="/listings/{listing.id}" class="text-sm hover:underline">{listing.property?.address ?? ''}</a>
 							</div>
 							<span class="font-mono text-sm font-medium">{listing.zillowSaves || '—'}</span>
 						</div>
@@ -310,7 +310,7 @@
 						<div class="flex items-center justify-between px-4 py-2.5">
 							<div class="flex items-center gap-2.5">
 								<span class="text-xs font-mono text-muted-foreground w-4">{i + 1}</span>
-								<a href="/listings/{listing.id}" class="text-sm hover:underline">{listing.address}</a>
+								<a href="/listings/{listing.id}" class="text-sm hover:underline">{listing.property?.address ?? ''}</a>
 							</div>
 							<span class="font-mono text-sm font-medium">{listing.showingsCount || '—'}</span>
 						</div>
@@ -347,8 +347,8 @@
 							{@const viewRate = listing.zillowViews > 500 ? 'up' : listing.zillowViews > 0 ? 'flat' : 'na'}
 							<tr class="hover:bg-muted/30 transition-colors">
 								<td class="px-4 py-2.5 font-medium">
-									<a href="/listings/{listing.id}" class="hover:underline">{listing.address}</a>
-									<p class="text-xs text-muted-foreground">{listing.city}</p>
+									<a href="/listings/{listing.id}" class="hover:underline">{listing.property?.address ?? ''}</a>
+									<p class="text-xs text-muted-foreground">{listing.property?.city ?? ''}</p>
 								</td>
 								<td class="px-4 py-2.5">
 									<Badge

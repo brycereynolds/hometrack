@@ -208,8 +208,8 @@
 						<!-- Photo -->
 						<div class="aspect-[16/10] relative overflow-hidden bg-muted">
 							<img
-								src={listing.photoUrl}
-								alt={listing.address}
+								src={(listing.property?.photos as any)?.[0]?.url}
+								alt={listing.property?.address ?? ''}
 								class="object-cover w-full h-full transition-transform group-hover:scale-105"
 								loading="lazy"
 							/>
@@ -236,8 +236,8 @@
 						</div>
 						<CardContent class="p-3">
 							<!-- Address -->
-							<h3 class="text-sm font-medium truncate group-hover:text-primary transition-colors">{listing.address}</h3>
-							<p class="text-xs text-muted-foreground">{listing.city}, {listing.state}</p>
+							<h3 class="text-sm font-medium truncate group-hover:text-primary transition-colors">{listing.property?.address ?? ''}</h3>
+							<p class="text-xs text-muted-foreground">{listing.property?.city ?? ''}, {listing.property?.state ?? ''}</p>
 
 							<!-- Agent + Task Progress -->
 							<div class="mt-2.5 flex items-center justify-between">
@@ -339,8 +339,8 @@
 		<!-- Photo -->
 		<div class="aspect-[16/10] relative overflow-hidden bg-muted">
 			<img
-				src={listing.photoUrl}
-				alt={listing.address}
+				src={(listing.property?.photos as any)?.[0]?.url}
+				alt={listing.property?.address ?? ''}
 				class="object-cover w-full h-full transition-transform group-hover:scale-105"
 				loading="lazy"
 			/>
@@ -369,8 +369,8 @@
 		</div>
 		<CardContent class="p-3">
 			<!-- Address -->
-			<h3 class="text-sm font-medium truncate group-hover:text-primary transition-colors">{listing.address}</h3>
-			<p class="text-xs text-muted-foreground">{listing.city}, {listing.state}</p>
+			<h3 class="text-sm font-medium truncate group-hover:text-primary transition-colors">{listing.property?.address ?? ''}</h3>
+			<p class="text-xs text-muted-foreground">{listing.property?.city ?? ''}, {listing.property?.state ?? ''}</p>
 
 			<!-- Agent + Days in Phase -->
 			<div class="mt-2.5 flex items-center justify-between">

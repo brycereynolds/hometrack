@@ -21,6 +21,7 @@ export const load: LayoutServerLoad = async ({ params }) => {
   // Load first listing to get portal settings (placeholder until client auth scopes it)
   const listing = await adminDb.query.listings.findFirst({
     where: eq(listings.teamId, team.id),
+    with: { property: true },
   });
 
   const portalSettings = (listing?.portalSettings as Record<string, any>) ?? null;

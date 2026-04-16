@@ -33,6 +33,8 @@
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
+	const prop = $derived(listing?.property);
+	const propPhotos = $derived((prop?.photos ?? []) as { url: string }[]);
 	const assets = $derived(data.marketingAssets ?? []);
 
 	const socialPosts = $derived(assets.filter((a: any) => a.type === 'social_post'));
@@ -130,17 +132,17 @@
 		</div>
 
 		<!-- Photo Gallery -->
-		{#if listing.photos && (listing.photos as string[]).length > 0}
+		{#if propPhotos.length > 0}
 			<Card>
 				<CardHeader class="flex-row items-center justify-between">
 					<CardTitle class="font-serif text-base">Photo Gallery</CardTitle>
-					<Badge variant="secondary">{(listing.photos as string[]).length} Photos</Badge>
+					<Badge variant="secondary">{propPhotos.length} Photos</Badge>
 				</CardHeader>
 				<CardContent>
 					<div class="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
-						{#each listing.photos as photo, i}
+						{#each propPhotos as photo, i}
 							<div class="group relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer">
-								<img src={photo} alt="Property photo {i + 1}" class="h-full w-full object-cover transition-transform group-hover:scale-105" />
+								<img src={photo.url} alt="Property photo {i + 1}" class="h-full w-full object-cover transition-transform group-hover:scale-105" />
 								<div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
 									<div class="opacity-0 group-hover:opacity-100 transition-opacity"><div class="rounded-full bg-white/90 p-2"><ImageIcon class="size-4 text-gray-700" /></div></div>
 								</div>

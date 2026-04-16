@@ -271,11 +271,11 @@
 										class="flex items-center gap-3 py-2.5 transition-colors hover:text-primary first:pt-0 last:pb-0"
 									>
 										<div class="size-10 shrink-0 overflow-hidden rounded">
-											<img src={listing.photoUrl} alt={listing.address} class="size-full object-cover" />
+											<img src={(listing.property?.photos as any)?.[0]?.url ?? ''} alt={listing.property?.address ?? ''} class="size-full object-cover" />
 										</div>
 										<div class="min-w-0 flex-1">
-											<p class="truncate text-sm font-medium">{listing.address}</p>
-											<p class="text-xs text-muted-foreground">{listing.city} | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
+											<p class="truncate text-sm font-medium">{listing.property?.address ?? ''}</p>
+											<p class="text-xs text-muted-foreground">{listing.property?.city ?? ''} | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
 										</div>
 										<span
 											class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium"

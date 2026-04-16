@@ -181,13 +181,14 @@
 					<tbody class="divide-y">
 						{#each filteredListings as listing}
 							{@const phaseConfig = PHASES[listing.phase]}
+							{@const lp = listing.property}
 							<tr class="group transition-colors hover:bg-muted/30">
 								<!-- Photo -->
 								<td class="px-4 py-3">
 									<div class="size-10 rounded-md overflow-hidden bg-muted shrink-0">
 										<img
-											src={listing.photoUrl}
-											alt={listing.address}
+											src={(lp?.photos as any)?.[0]?.url ?? ''}
+											alt={lp?.address ?? ''}
 											class="object-cover w-full h-full"
 											loading="lazy"
 										/>
@@ -196,8 +197,8 @@
 								<!-- Address -->
 								<td class="px-4 py-3">
 									<a href="/listings/{listing.id}" class="block group-hover:text-primary transition-colors">
-										<p class="text-sm font-medium">{listing.address}</p>
-										<p class="text-xs text-muted-foreground">{listing.city}, {listing.state} {listing.zip}</p>
+										<p class="text-sm font-medium">{lp?.address ?? ''}</p>
+										<p class="text-xs text-muted-foreground">{lp?.city ?? ''}, {lp?.state ?? ''} {lp?.zip ?? ''}</p>
 									</a>
 								</td>
 								<!-- Price -->

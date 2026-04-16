@@ -52,11 +52,13 @@
 		}).addTo(map);
 
 		// Add markers for each listing
-		const markersWithCoords = listings.filter((l: ListingWithRelations) => l.lat && l.lng);
+		const markersWithCoords = listings.filter((l: ListingWithRelations) => l.property?.lat && l.property?.lng);
 		markersWithCoords.forEach((listing: ListingWithRelations) => {
+			const p = listing.property;
 			const phaseConfig = PHASES[listing.phase];
+			const photoUrl = (p?.photos as { url: string }[] | null)?.[0]?.url ?? '';
 
-			const marker = L.circleMarker([listing.lat!, listing.lng!], {
+			const marker = L.circleMarker([p.lat!, p.lng!], {
 				radius: 10,
 				fillColor: phaseConfig.color,
 				color: '#fff',
@@ -68,15 +70,15 @@
 			// Popup content
 			const popupContent = `
 				<div style="min-width: 220px; font-family: inherit;">
-					<img src="${listing.photoUrl}" alt="${listing.address}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px 6px 0 0; margin: -12px -1px 8px -1px; width: calc(100% + 2px);" />
+					<img src="${photoUrl}" alt="${p.address}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 6px 6px 0 0; margin: -12px -1px 8px -1px; width: calc(100% + 2px);" />
 					<div style="padding: 0 4px 4px;">
-						<div style="font-weight: 600; font-size: 14px; margin-bottom: 2px;">${listing.address}</div>
-						<div style="font-size: 12px; color: #6b7280; margin-bottom: 6px;">${listing.city}, ${listing.state} ${listing.zip}</div>
+						<div style="font-weight: 600; font-size: 14px; margin-bottom: 2px;">${p.address}</div>
+						<div style="font-size: 12px; color: #6b7280; margin-bottom: 6px;">${p.city}, ${p.state} ${p.zip}</div>
 						<div style="display: flex; align-items: center; justify-content: space-between;">
 							<span style="font-weight: 700; font-size: 15px;">${listing.price ? formatCurrency(listing.price) : 'No Price'}</span>
 							<span style="font-size: 11px; padding: 2px 8px; border-radius: 9999px; color: white; background-color: ${phaseConfig.color};">${phaseConfig.label}</span>
 						</div>
-						<div style="font-size: 12px; color: #6b7280; margin-top: 4px;">${listing.beds ?? 0} bd &middot; ${listing.baths ?? 0} ba &middot; ${(listing.sqft ?? 0).toLocaleString()} sqft</div>
+						<div style="font-size: 12px; color: #6b7280; margin-top: 4px;">${p.beds ?? 0} bd &middot; ${p.baths ?? 0} ba &middot; ${(p.sqft ?? 0).toLocaleString()} sqft</div>
 						<a href="/listings/${listing.id}" style="display: inline-block; margin-top: 8px; font-size: 12px; color: #C4704B; text-decoration: none; font-weight: 500;">View details &rarr;</a>
 					</div>
 				</div>
@@ -92,7 +94,7 @@
 		// Fit bounds to markers
 		if (markersWithCoords.length > 0) {
 			const group = L.featureGroup(
-				markersWithCoords.map((l: ListingWithRelations) => L.circleMarker([l.lat!, l.lng!]))
+				markersWithCoords.map((l: ListingWithRelations) => L.circleMarker([l.property.lat!, l.property.lng!]))
 			);
 			map.fitBounds(group.getBounds().pad(0.15));
 		}
@@ -103,8 +105,8 @@
 	});
 
 	function panToListing(listing: ListingWithRelations) {
-		if (map && listing.lat && listing.lng) {
-			map.setView([listing.lat, listing.lng], 14);
+		if (map && listing.property?.lat && listing.property?.lng) {
+			map.setView([listing.property.lat, listing.property.lng], 14);
 			selectedListing = listing;
 		}
 	}
@@ -168,13 +170,13 @@
 						class="w-full text-left px-4 py-3 transition-colors hover:bg-muted/50 {selectedListing?.id === listing.id ? 'bg-muted/70 border-l-2' : ''}"
 						style={selectedListing?.id === listing.id ? `border-left-color: ${phaseConfig.color}` : ''}
 					>
-						<div class="flex gap-3">
+							<div class="flex gap-3">
 							<div class="size-14 shrink-0 rounded-md overflow-hidden bg-muted">
-								<img src={listing.photoUrl} alt={listing.address} class="object-cover w-full h-full" loading="lazy" />
+								<img src={(listing.property?.photos as any)?.[0]?.url ?? ''} alt={listing.property?.address ?? ''} class="object-cover w-full h-full" loading="lazy" />
 							</div>
 							<div class="min-w-0 flex-1">
-								<p class="text-sm font-medium truncate">{listing.address}</p>
-								<p class="text-xs text-muted-foreground">{listing.city}</p>
+								<p class="text-sm font-medium truncate">{listing.property?.address ?? ''}</p>
+								<p class="text-xs text-muted-foreground">{listing.property?.city ?? ''}</p>
 								<div class="mt-1 flex items-center justify-between">
 									{#if listing.price}<span class="text-sm font-semibold">{formatCurrency(listing.price)}</span>{:else}<span class="text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">No Price</span>{/if}
 									<Badge
@@ -186,7 +188,7 @@
 									</Badge>
 								</div>
 								<p class="text-xs text-muted-foreground mt-1">
-									{listing.beds ?? 0} bd &middot; {listing.baths ?? 0} ba &middot; {(listing.sqft ?? 0).toLocaleString()} sqft
+									{listing.property?.beds ?? 0} bd &middot; {listing.property?.baths ?? 0} ba &middot; {(listing.property?.sqft ?? 0).toLocaleString()} sqft
 								</p>
 							</div>
 						</div>

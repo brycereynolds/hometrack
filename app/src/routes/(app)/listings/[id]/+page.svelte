@@ -37,6 +37,7 @@
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
+	const prop = $derived(listing?.property);
 	const tasks = $derived(data.tasks ?? []);
 	const activityItems = $derived((data.activityItems ?? []).slice(0, 5));
 	const aiInsights = $derived((data.aiInsights ?? []).filter((a: any) => !a.dismissed).slice(0, 2));
@@ -51,10 +52,10 @@
 	let overviewMap: any = null;
 
 	onMount(async () => {
-		if (!listing?.lat || !listing?.lng || !overviewMapContainer) return;
+		if (!prop?.lat || !prop?.lng || !overviewMapContainer) return;
 
 		const L = (await import('leaflet')).default;
-		overviewMap = L.map(overviewMapContainer, { zoomControl: false, attributionControl: false }).setView([listing.lat, listing.lng], 15);
+		overviewMap = L.map(overviewMapContainer, { zoomControl: false, attributionControl: false }).setView([prop.lat, prop.lng], 15);
 
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 18,
@@ -66,7 +67,7 @@
 			iconSize: [28, 28],
 			iconAnchor: [14, 14],
 		});
-		L.marker([listing.lat, listing.lng], { icon }).addTo(overviewMap);
+		L.marker([prop.lat, prop.lng], { icon }).addTo(overviewMap);
 	});
 
 	onDestroy(() => {
@@ -219,30 +220,30 @@
 						<div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
 							<div class="flex items-center gap-2.5">
 								<div class="rounded-md bg-muted p-1.5"><Bed class="size-4 text-muted-foreground" /></div>
-								<div><p class="text-sm font-semibold">{listing.beds ?? 0}</p><p class="text-xs text-muted-foreground">Beds</p></div>
+								<div><p class="text-sm font-semibold">{prop?.beds ?? 0}</p><p class="text-xs text-muted-foreground">Beds</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
 								<div class="rounded-md bg-muted p-1.5"><Bath class="size-4 text-muted-foreground" /></div>
-								<div><p class="text-sm font-semibold">{listing.baths ?? 0}</p><p class="text-xs text-muted-foreground">Baths</p></div>
+								<div><p class="text-sm font-semibold">{prop?.baths ?? 0}</p><p class="text-xs text-muted-foreground">Baths</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
 								<div class="rounded-md bg-muted p-1.5"><Ruler class="size-4 text-muted-foreground" /></div>
-								<div><p class="text-sm font-semibold">{(listing.sqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Sq Ft</p></div>
+								<div><p class="text-sm font-semibold">{(prop?.sqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Sq Ft</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
 								<div class="rounded-md bg-muted p-1.5"><MapPin class="size-4 text-muted-foreground" /></div>
-								<div><p class="text-sm font-semibold">{(listing.lotSqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Lot Sq Ft</p></div>
+								<div><p class="text-sm font-semibold">{(prop?.lotSqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Lot Sq Ft</p></div>
 							</div>
 						</div>
 						<Separator class="my-4" />
 						<div class="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
 							<div>
 								<p class="text-muted-foreground">Property Type</p>
-								<p class="font-medium">{listing.propertyType ?? 'N/A'}</p>
+								<p class="font-medium">{prop?.propertyType ?? 'N/A'}</p>
 							</div>
 							<div>
 								<p class="text-muted-foreground">Year Built</p>
-								<p class="font-medium">{listing.yearBuilt ?? 'N/A'}</p>
+								<p class="font-medium">{prop?.yearBuilt ?? 'N/A'}</p>
 							</div>
 							<div>
 								<p class="text-muted-foreground">MLS Number</p>
@@ -253,10 +254,10 @@
 							<Separator class="my-4" />
 							<p class="text-sm leading-relaxed text-muted-foreground">{listing.description}</p>
 						{/if}
-						{#if listing.features && (listing.features as string[]).length > 0}
+						{#if prop?.features && typeof prop.features === 'object'}
 							<div class="mt-4 flex flex-wrap gap-2">
-								{#each listing.features as feature}
-									<Badge variant="secondary" class="font-normal">{feature}</Badge>
+								{#each Object.entries(prop.features as Record<string, unknown>).filter(([, v]) => v === true) as [key]}
+									<Badge variant="secondary" class="font-normal">{key}</Badge>
 								{/each}
 							</div>
 						{/if}
@@ -318,11 +319,12 @@
 							<div class="divide-y">
 								{#each confirmedComps.comps as comp}
 									{@const photo = getCompPhoto(comp)}
+									{@const cp = comp.property}
 									<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
 										{#if photo}
 											<img
 												src={photo}
-												alt={comp.address ?? 'Comp'}
+												alt={cp?.address ?? 'Comp'}
 												class="size-12 shrink-0 rounded-md object-cover"
 											/>
 										{:else}
@@ -332,17 +334,17 @@
 										{/if}
 										<div class="min-w-0 flex-1">
 											<div class="flex items-center justify-between gap-2">
-												{#if comp.property?.id}
-													<a href="/properties/{comp.property.id}" class="text-sm font-medium truncate hover:underline">{comp.address ?? 'Unknown'}</a>
+												{#if cp?.id}
+													<a href="/properties/{cp.id}" class="text-sm font-medium truncate hover:underline">{cp.address ?? 'Unknown'}</a>
 												{:else}
-													<span class="text-sm font-medium truncate">{comp.address ?? 'Unknown'}</span>
+													<span class="text-sm font-medium truncate">Unknown</span>
 												{/if}
 												<span class="shrink-0 text-sm font-semibold">{comp.price ? formatCurrency(comp.price) : 'N/A'}</span>
 											</div>
 											<div class="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
-												{#if comp.beds != null}<span>{comp.beds}bd</span>{/if}
-												{#if comp.baths != null}<span>/ {comp.baths}ba</span>{/if}
-												{#if comp.sqft != null}<span class="before:content-['·'] before:mx-1">{comp.sqft.toLocaleString()} sqft</span>{/if}
+												{#if cp?.beds != null}<span>{cp.beds}bd</span>{/if}
+												{#if cp?.baths != null}<span>/ {cp.baths}ba</span>{/if}
+												{#if cp?.sqft != null}<span class="before:content-['·'] before:mx-1">{cp.sqft.toLocaleString()} sqft</span>{/if}
 												{#if comp.soldDate}
 													<span class="before:content-['·'] before:mx-1">{comp.status === 'sold' || comp.status === 'Sold' ? 'Sold' : comp.status ?? 'Sold'} {soldAgo(comp.soldDate)}</span>
 												{:else if comp.status}
@@ -422,7 +424,7 @@
 			<!-- Sidebar -->
 			<div class="space-y-6">
 				<!-- Location Map -->
-				{#if listing.lat && listing.lng}
+				{#if prop?.lat && prop?.lng}
 					<Card>
 						<CardHeader class="pb-2">
 							<CardTitle class="font-serif text-base flex items-center gap-2">

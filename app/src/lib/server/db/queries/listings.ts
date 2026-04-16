@@ -19,6 +19,7 @@ export async function getListings(teamId: string, db: AppDatabase = adminDb) {
   return db.query.listings.findMany({
     where: eq(listings.teamId, teamId),
     with: {
+      property: true,
       agent: true,
       client: true,
     },
@@ -29,6 +30,7 @@ export async function getListingById(teamId: string, id: string, db: AppDatabase
   return db.query.listings.findFirst({
     where: and(eq(listings.teamId, teamId), eq(listings.id, id)),
     with: {
+      property: true,
       agent: true,
       client: true,
     },
@@ -110,6 +112,9 @@ export async function getMarketingByListing(teamId: string, listingId: string, d
 export async function getCompSales(teamId: string, db: AppDatabase = adminDb) {
   return db.query.compSales.findMany({
     where: eq(compSales.teamId, teamId),
+    with: {
+      property: true,
+    },
   });
 }
 
@@ -131,19 +136,14 @@ export async function getConfirmedComps(listingId: string, db: AppDatabase = adm
 
   if (!analysis) return null;
 
-  // Get confirmed comps for that analysis, joined to properties for photos
+  // Get confirmed comps for that analysis, joined to properties for all data
   const comps = await db.query.compListings.findMany({
     where: and(
       eq(compListings.marketAnalysisId, analysis.id),
       eq(compListings.isConfirmedComp, true),
     ),
     with: {
-      property: {
-        columns: {
-          id: true,
-          photos: true,
-        },
-      },
+      property: true,
     },
     orderBy: desc(compListings.price),
   });

@@ -152,12 +152,12 @@ async def _upsert_property_from_comp(conn, comp: dict) -> str | None:
 async def search_comps(params: dict) -> list[dict]:
     """Search for comparable properties via Realty API (zillow.realtyapi.io).
 
-    Always performs a fresh API search. Persists all returned properties
-    into the properties table so we build up rich property pages over time.
+    Uses search/bycoordinates for area search, with client-side filtering.
+    Persists all returned properties into the properties table.
 
     params:
-        lat, lng: center point (for distance calculation and filtering)
-        city, state, zip: location for API search
+        lat, lng: center point for coordinate search
+        address: subject property address (for comparable_homes fallback)
         radius_miles: search radius for post-filtering
         status: 'sold' or 'for_sale'
         property_type: e.g. 'single_family'
@@ -174,23 +174,10 @@ async def search_comps(params: dict) -> list[dict]:
     baths = params.get("baths")
     sqft = params.get("sqft")
     limit = params.get("limit", 50)
-    city = params.get("city", "")
-    state = params.get("state", "")
-    zip_code = params.get("zip", "")
+    address = params.get("address", "")
 
-    # Build query — search by zip code if available, otherwise by city
-    query: dict = {}
-    if zip_code:
-        query["zipcode"] = zip_code
-    elif city and state:
-        query["city"] = city
-        query["state"] = state
-
-    # Status filter
-    if status == "sold":
-        query["status"] = "recentlySold"
-    elif status == "for_sale":
-        query["status"] = "forSale"
+    # Status mapping for Zillow API
+    status_filter = "recentlySold" if status == "sold" else "forSale"
 
     try:
         async with httpx.AsyncClient(timeout=30) as client:
@@ -198,8 +185,12 @@ async def search_comps(params: dict) -> list[dict]:
             await asyncio.sleep(0.3)
 
             resp = await client.get(
-                f"https://{REALTY_API_HOST}/pro/byarea",
-                params=query,
+                f"https://{REALTY_API_HOST}/search/bycoordinates",
+                params={
+                    "lat": lat,
+                    "lng": lng,
+                    "status": status_filter,
+                },
                 headers={
                     "x-realtyapi-key": REALTY_API_KEY,
                 },
@@ -209,12 +200,16 @@ async def search_comps(params: dict) -> list[dict]:
 
         activity.heartbeat("parsing comp results")
 
-        # The API may return results in various structures
+        # Handle various response structures
         properties = []
         if isinstance(data, list):
             properties = data
         elif isinstance(data, dict):
-            properties = data.get("results", []) or data.get("properties", [])
+            properties = (
+                data.get("results", [])
+                or data.get("properties", [])
+                or data.get("searchResults", [])
+            )
             if not properties and data.get("propertyDetails"):
                 properties = [data]
 

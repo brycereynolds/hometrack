@@ -43,9 +43,7 @@ class MarketAnalysis:
             {
                 "lat": lat,
                 "lng": lng,
-                "city": input_data.get("city", ""),
-                "state": input_data.get("state", ""),
-                "zip": input_data.get("zip", ""),
+                "address": input_data.get("address", ""),
                 "radius_miles": search_params.get("radius", 1.0),
                 "status": "sold",
                 "property_type": input_data.get("propertyType", "single_family"),
@@ -65,9 +63,7 @@ class MarketAnalysis:
             {
                 "lat": lat,
                 "lng": lng,
-                "city": input_data.get("city", ""),
-                "state": input_data.get("state", ""),
-                "zip": input_data.get("zip", ""),
+                "address": input_data.get("address", ""),
                 "radius_miles": search_params.get("radius", 1.0),
                 "status": "for_sale",
                 "property_type": input_data.get("propertyType", "single_family"),

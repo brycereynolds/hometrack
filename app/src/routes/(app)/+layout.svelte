@@ -124,14 +124,18 @@
 		<Sidebar.SidebarHeader>
 			<Sidebar.SidebarMenu>
 				<Sidebar.SidebarMenuItem>
-					<Sidebar.SidebarMenuButton size="lg" class="data-[state=open]:bg-sidebar-accent">
-						<div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg text-sm font-bold">
-							H
-						</div>
-						<div class="grid flex-1 text-left text-sm leading-tight">
-							<span class="truncate font-semibold">HomeTrack</span>
-							<span class="truncate text-xs text-muted-foreground">{teamName}</span>
-						</div>
+					<Sidebar.SidebarMenuButton size="lg" class="data-[state=open]:bg-sidebar-accent" asChild>
+						{#snippet child({ props })}
+							<a href="/dashboard" {...props} class="{props.class} no-underline">
+								<div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg text-sm font-bold">
+									H
+								</div>
+								<div class="grid flex-1 text-left text-sm leading-tight">
+									<span class="truncate font-semibold">HomeTrack</span>
+									<span class="truncate text-xs text-muted-foreground">{teamName}</span>
+								</div>
+							</a>
+						{/snippet}
 					</Sidebar.SidebarMenuButton>
 				</Sidebar.SidebarMenuItem>
 			</Sidebar.SidebarMenu>

@@ -181,16 +181,27 @@ def _build_search_params(
     radius: float,
     status: str,
     beds: int | None,
+    sqft: int | None = None,
 ) -> dict:
-    """Build query params for the Realty API search/bycoordinates endpoint."""
+    """Build query params for the Realty API search/bycoordinates endpoint.
+
+    Uses server-side filters where possible (beds, sqft range) to reduce
+    the number of results that need client-side filtering.
+    """
+    # Bed range: ±1 from subject, clamped to valid enum values (1-5)
+    bed_min = "No_Min"
+    bed_max = "No_Max"
+    if beds:
+        bed_min = str(max(1, beds - 1))
+        bed_max = str(min(5, beds + 1))
+
     params = {
         "latitude": str(lat),
         "longitude": str(lng),
         "radius": str(radius),
         "page": "1",
-        "sortOrder": "Homes_for_you",
-        "bed_min": str(beds - 1) if beds else "No_Min",
-        "bed_max": str(beds + 1) if beds else "No_Max",
+        "bed_min": bed_min,
+        "bed_max": bed_max,
         "bathrooms": "Any",
         "homeType": "Houses, Townhomes, Multi-family, Condos/Co-ops",
         "maxHOA": "Any",
@@ -201,9 +212,22 @@ def _build_search_params(
         "daysOnZillow": "Any",
     }
 
-    # Only For_Sale is supported on our API tier (Recently_Sold returns 0 results)
-    params["listingStatus"] = "For_Sale"
-    params["soldInLast"] = "Any"
+    # Server-side sqft filter: ±30% of subject
+    if sqft:
+        sqft_min = int(sqft * 0.7)
+        sqft_max = int(sqft * 1.3)
+        params["squareFeetRange"] = f"min:{sqft_min}, max:{sqft_max}"
+
+    if status == "sold":
+        # NOTE: The correct value is "Sold" (capital S), NOT "Recently_Sold"
+        # which returns 0 results.
+        params["listingStatus"] = "Sold"
+        params["soldInLast"] = "6_months"
+        params["sortOrder"] = "Newest"
+    else:
+        params["listingStatus"] = "For_Sale"
+        params["soldInLast"] = "Any"
+        params["sortOrder"] = "Homes_for_you"
 
     return params
 
@@ -235,7 +259,7 @@ async def search_comps(params: dict) -> list[dict]:
     sqft = params.get("sqft")
     limit = params.get("limit", 50)
 
-    search_params = _build_search_params(lat, lng, radius, status, beds)
+    search_params = _build_search_params(lat, lng, radius, status, beds, sqft)
 
     all_results: list[dict] = []
 

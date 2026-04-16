@@ -37,9 +37,27 @@ class MarketAnalysis:
             lat = coords["lat"]
             lng = coords["lng"]
 
-        # 2. Search active listings (For_Sale only — Recently_Sold is not
-        #    available on our API tier, so we use active listings as market
-        #    comparables for pricing analysis.)
+        # 2. Search sold comps (uses listingStatus=Sold, not Recently_Sold)
+        sold_comps: list[dict] = await workflow.execute_activity(
+            search_comps,
+            {
+                "lat": lat,
+                "lng": lng,
+                "address": input_data.get("address", ""),
+                "radius_miles": search_params.get("radius", 1.0),
+                "status": "sold",
+                "property_type": input_data.get("propertyType", "single_family"),
+                "beds": input_data.get("beds"),
+                "baths": input_data.get("baths"),
+                "sqft": input_data.get("sqft"),
+                "limit": search_params.get("limit", 50),
+            },
+            start_to_close_timeout=timedelta(seconds=60),
+            heartbeat_timeout=timedelta(seconds=30),
+            retry_policy=RetryPolicy(maximum_attempts=3),
+        )
+
+        # 3. Search active listings
         active_listings: list[dict] = await workflow.execute_activity(
             search_comps,
             {
@@ -59,7 +77,7 @@ class MarketAnalysis:
             retry_policy=RetryPolicy(maximum_attempts=3),
         )
 
-        # 3. AI analysis
+        # 4. AI analysis
         analysis: dict = await workflow.execute_activity(
             analyze_market,
             {
@@ -71,6 +89,7 @@ class MarketAnalysis:
                     "property_type": input_data.get("propertyType"),
                     "year_built": input_data.get("yearBuilt"),
                 },
+                "sold_comps": sold_comps,
                 "active_listings": active_listings,
             },
             start_to_close_timeout=timedelta(minutes=3),
@@ -78,13 +97,13 @@ class MarketAnalysis:
             retry_policy=RetryPolicy(maximum_attempts=2),
         )
 
-        # 4. Save results
+        # 5. Save results
         await workflow.execute_activity(
             save_analysis_results,
             {
                 "listing_id": input_data["listingId"],
                 "analysis_id": input_data["analysisId"],
-                "comps": active_listings,
+                "comps": sold_comps + active_listings,
                 "analysis": analysis,
             },
             start_to_close_timeout=timedelta(minutes=2),

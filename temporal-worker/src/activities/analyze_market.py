@@ -44,31 +44,50 @@ def _compute_stats(comps: list[dict]) -> dict:
 
 @activity.defn
 async def analyze_market(params: dict) -> dict:
-    """AI-powered market analysis using active listings in the area.
+    """AI-powered market analysis using sold comps and active listings.
 
     params:
         property: subject property dict (address, beds, baths, sqft, property_type, year_built)
-        active_listings: list of active listing dicts from For_Sale search
-
-    Note: Recently_Sold data is not available on our API tier, so we base
-    the analysis on currently active listings as market comparables.
+        sold_comps: list of sold comp dicts
+        active_listings: list of active listing dicts
     """
     activity.heartbeat("analyzing market data")
 
     prop = params["property"]
+    sold_comps = params.get("sold_comps", [])
     active_listings = params.get("active_listings", [])
 
+    sold_stats = _compute_stats(sold_comps)
     active_stats = _compute_stats(active_listings)
 
+    sold_table = _build_comp_table(sold_comps)
     active_table = _build_comp_table(active_listings)
 
-    prompt = f"""You are a real estate market analyst. Given the subject property and active listings
-in the area, provide a pricing recommendation.
+    # Build the stats sections, handling None values gracefully
+    sold_stats_section = ""
+    if sold_stats["median_price"]:
+        sold_stats_section = f"""
+Summary Statistics (Sold Comps):
+- Median Sale Price: ${sold_stats['median_price']:,.0f} | Avg: ${sold_stats['avg_price']:,.0f}
+- Median $/sqft: ${sold_stats['median_ppsf']:,.0f}
+- Avg Days on Market: {sold_stats['avg_dom']:.0f}
+- Price Range: ${sold_stats['price_range'][0]:,.0f} – ${sold_stats['price_range'][1]:,.0f}
+- Count: {sold_stats['count']}"""
 
-IMPORTANT: The data below shows currently ACTIVE listings (for sale), not recently sold properties.
-Use these as market comparables to infer a fair listing price. Active listings reflect current
-seller expectations and market positioning. Actual sale prices are typically 1-5% below list price
-depending on market conditions — factor this into your recommendation.
+    active_stats_section = ""
+    if active_stats["median_price"]:
+        active_stats_section = f"""
+Summary Statistics (Active Listings):
+- Median List Price: ${active_stats['median_price']:,.0f} | Avg: ${active_stats['avg_price']:,.0f}
+- Median $/sqft: ${active_stats['median_ppsf']:,.0f}
+- Avg Days on Market: {active_stats['avg_dom']:.0f}
+- Price Range: ${active_stats['price_range'][0]:,.0f} – ${active_stats['price_range'][1]:,.0f}
+- Count: {active_stats['count']}"""
+
+    has_data = sold_stats["median_price"] or active_stats["median_price"]
+
+    prompt = f"""You are a real estate market analyst. Given the subject property and comparable market data,
+provide a pricing recommendation.
 
 Subject Property:
 - Address: {prop.get('address', 'Unknown')}
@@ -76,51 +95,48 @@ Subject Property:
 - Property Type: {prop.get('property_type', 'N/A')}
 - Year Built: {prop.get('year_built', 'N/A')}
 
-Active Listings in the Area ({len(active_listings)} properties currently for sale):
-{active_table}
+Comparable Sales ({len(sold_comps)} sold):
+{sold_table}
 
-Summary Statistics (Active Listings):
-- Median List Price: ${active_stats['median_price']:,.0f}
-- Avg List Price: ${active_stats['avg_price']:,.0f}
-- Median $/sqft: ${active_stats['median_ppsf']:,.0f}
-- Avg Days on Market: {active_stats['avg_dom']:.0f}
-- Price Range: ${active_stats['price_range'][0]:,.0f} – ${active_stats['price_range'][1]:,.0f}
-- Count: {active_stats['count']}
+Active Listings ({len(active_listings)} currently for sale):
+{active_table}
+{sold_stats_section}
+{active_stats_section}
 
 Analyze:
 1. Suggested listing price range (low and high)
-2. Confidence level (0-1) — note confidence should be moderate since we're using active listings, not sold comps
+2. Confidence level (0-1) based on comp quality and quantity
 3. Detailed reasoning explaining the price recommendation
 4. Key factors affecting value (positive and negative)
-5. Market trend assessment (rising, stable, declining) based on days on market and listing density
+5. Market trend assessment (rising, stable, declining)
 6. Recommended pricing strategy (aggressive, market, conservative)
 
 Return ONLY valid JSON (no markdown fences):
 {{
   "suggested_low": 2100000,
   "suggested_high": 2350000,
-  "confidence": 0.65,
+  "confidence": 0.82,
   "reasoning": "...",
   "key_factors": {{"positive": ["..."], "negative": ["..."]}},
   "market_trend": "stable",
   "strategy": "market",
   "price_per_sqft_analysis": "..."
-}}""" if active_stats["median_price"] else f"""You are a real estate market analyst. Insufficient market data is available.
+}}""" if has_data else f"""You are a real estate market analyst. Insufficient market data is available.
 
 Subject Property:
 - Address: {prop.get('address', 'Unknown')}
 - Beds: {prop.get('beds', 'N/A')}, Baths: {prop.get('baths', 'N/A')}, Sqft: {prop.get('sqft', 'N/A')}
 - Property Type: {prop.get('property_type', 'N/A')}
 
-No active listings were found in the search area for comparison.
+No comparable sales or active listings were found in the search area.
 
 Provide your best estimate with low confidence. Return ONLY valid JSON:
 {{
   "suggested_low": null,
   "suggested_high": null,
   "confidence": 0.1,
-  "reasoning": "Insufficient market data — no active listings found in the area for comparison.",
-  "key_factors": {{"positive": [], "negative": ["No comparable listings found in search area"]}},
+  "reasoning": "Insufficient market data — no comps or listings found in the area.",
+  "key_factors": {{"positive": [], "negative": ["No comparable data found in search area"]}},
   "market_trend": "unknown",
   "strategy": "conservative",
   "price_per_sqft_analysis": "Unable to determine without sufficient data."
@@ -147,6 +163,7 @@ Provide your best estimate with low confidence. Return ONLY valid JSON:
 
         # Attach computed stats
         analysis["stats"] = {
+            "sold": sold_stats,
             "active": active_stats,
         }
 

@@ -23,33 +23,77 @@ def _haversine_miles(lat1: float, lng1: float, lat2: float, lng2: float) -> floa
     return R * 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
 
-def _parse_realty_property(prop: dict, subject_lat: float, subject_lng: float) -> dict | None:
-    """Extract comp fields from a Realty API (Zillow-style) property result."""
+def _parse_search_result(prop: dict, subject_lat: float, subject_lng: float) -> dict | None:
+    """Extract comp fields from a search/bycoordinates result.
+
+    The search endpoint returns a different (flatter) structure than pro/byaddress.
+    We handle both formats defensively.
+    """
+    # The result might be a flat search result or a nested propertyDetails object
     pd = prop.get("propertyDetails", prop)
 
-    addr = pd.get("address", {})
-    lat = pd.get("latitude")
-    lng = pd.get("longitude")
+    # --- Coordinates ---
+    lat = pd.get("latitude") or prop.get("latitude")
+    lng = pd.get("longitude") or prop.get("longitude")
     if lat is None or lng is None:
         return None
 
-    # Photos
-    photos_raw = pd.get("originalPhotos") or pd.get("photos") or []
-    photo_url = None
-    if photos_raw:
-        first = photos_raw[0]
-        jpegs = first.get("mixedSources", {}).get("jpeg", [])
-        if jpegs:
-            photo_url = jpegs[0].get("url")
-        elif first.get("url"):
-            photo_url = first["url"]
+    lat = float(lat)
+    lng = float(lng)
 
-    price = pd.get("lastSoldPrice") or pd.get("price") or pd.get("zestimate")
-    sqft = pd.get("livingArea") or pd.get("livingAreaValue")
+    # --- Address fields ---
+    addr = pd.get("address", {})
+    street = (
+        addr.get("streetAddress")
+        or pd.get("streetAddress")
+        or prop.get("streetAddress")
+        or prop.get("address", "")
+    )
+    # If address is a dict from the outer prop, just use street
+    if isinstance(street, dict):
+        street = street.get("streetAddress", "")
+    city = addr.get("city") or pd.get("city") or prop.get("city", "")
+    state = addr.get("state") or pd.get("state") or prop.get("state", "")
+    zipcode = addr.get("zipcode") or pd.get("zipcode") or prop.get("zipcode", "")
+
+    # --- Photos ---
+    photos_raw = pd.get("originalPhotos") or pd.get("photos") or prop.get("imgSrc") or []
+    photo_url = None
+    if isinstance(photos_raw, str):
+        photo_url = photos_raw
+    elif isinstance(photos_raw, list) and photos_raw:
+        first = photos_raw[0]
+        if isinstance(first, str):
+            photo_url = first
+        elif isinstance(first, dict):
+            jpegs = first.get("mixedSources", {}).get("jpeg", [])
+            if jpegs:
+                photo_url = jpegs[0].get("url")
+            elif first.get("url"):
+                photo_url = first["url"]
+
+    # If imgSrc is on the top-level prop
+    if not photo_url:
+        img = prop.get("imgSrc") or pd.get("imgSrc")
+        if isinstance(img, str):
+            photo_url = img
+
+    # --- Price ---
+    price = (
+        pd.get("lastSoldPrice")
+        or pd.get("price")
+        or prop.get("price")
+        or prop.get("lastSoldPrice")
+        or pd.get("zestimate")
+    )
+
+    # --- Size ---
+    sqft = pd.get("livingArea") or pd.get("livingAreaValue") or prop.get("livingArea") or prop.get("area")
     price_per_sqft = round(price / sqft) if price and sqft else None
 
+    # --- Sold date from price history ---
     sold_date = None
-    price_history = pd.get("priceHistory") or []
+    price_history = pd.get("priceHistory") or prop.get("priceHistory") or []
     for ph in price_history:
         if ph.get("event") in ("Sold", "sold"):
             sold_date = ph.get("date")
@@ -57,7 +101,15 @@ def _parse_realty_property(prop: dict, subject_lat: float, subject_lng: float) -
                 price = ph.get("price")
             break
 
-    status_text = pd.get("homeStatus", pd.get("status", ""))
+    # --- Status ---
+    status_text = (
+        pd.get("homeStatus")
+        or pd.get("status")
+        or prop.get("homeStatus")
+        or prop.get("statusType")
+        or prop.get("status")
+        or ""
+    )
     if isinstance(status_text, str):
         status_lower = status_text.lower().replace("_", " ")
         if "sold" in status_lower or "recently" in status_lower:
@@ -71,23 +123,29 @@ def _parse_realty_property(prop: dict, subject_lat: float, subject_lng: float) -
     else:
         status = ""
 
+    # --- Beds / Baths ---
+    beds = pd.get("bedrooms") or prop.get("bedrooms") or prop.get("beds")
+    baths = pd.get("bathrooms") or prop.get("bathrooms") or prop.get("baths")
     rf = pd.get("resoFacts", {})
 
+    # --- External ID ---
+    zpid = pd.get("zpid") or prop.get("zpid") or prop.get("id") or ""
+
     return {
-        "external_id": str(pd.get("zpid", "")),
-        "address": addr.get("streetAddress", pd.get("streetAddress", "")),
-        "city": addr.get("city", pd.get("city", "")),
-        "state": addr.get("state", pd.get("state", "")),
-        "zip": addr.get("zipcode", pd.get("zipcode", "")),
+        "external_id": str(zpid),
+        "address": street if isinstance(street, str) else "",
+        "city": city,
+        "state": state,
+        "zip": zipcode,
         "price": price,
         "price_per_sqft": price_per_sqft,
-        "beds": pd.get("bedrooms"),
-        "baths": pd.get("bathrooms"),
+        "beds": beds,
+        "baths": baths,
         "sqft": sqft,
-        "lot_sqft": pd.get("lotAreaValue") or pd.get("lotSize"),
-        "year_built": pd.get("yearBuilt") or rf.get("yearBuilt"),
+        "lot_sqft": pd.get("lotAreaValue") or pd.get("lotSize") or prop.get("lotAreaValue"),
+        "year_built": pd.get("yearBuilt") or rf.get("yearBuilt") or prop.get("yearBuilt"),
         "sold_date": sold_date,
-        "days_on_market": pd.get("daysOnZillow") or rf.get("daysOnZillow"),
+        "days_on_market": pd.get("daysOnZillow") or rf.get("daysOnZillow") or prop.get("daysOnZillow"),
         "status": status,
         "distance_miles": round(_haversine_miles(subject_lat, subject_lng, lat, lng), 2),
         "lat": lat,
@@ -148,17 +206,53 @@ async def _upsert_property_from_comp(conn, comp: dict) -> str | None:
     return property_id
 
 
+def _build_search_params(
+    lat: float,
+    lng: float,
+    radius: float,
+    status: str,
+    beds: int | None,
+) -> dict:
+    """Build query params for the Realty API search/bycoordinates endpoint."""
+    params = {
+        "latitude": str(lat),
+        "longitude": str(lng),
+        "radius": str(radius),
+        "page": "1",
+        "sortOrder": "Homes_for_you",
+        "bed_min": str(beds - 1) if beds else "No_Min",
+        "bed_max": str(beds + 1) if beds else "No_Max",
+        "bathrooms": "Any",
+        "homeType": "Houses, Townhomes, Multi-family, Condos/Co-ops",
+        "maxHOA": "Any",
+        "listingType": "By_Agent",
+        "listingTypeOptions": "Agent listed,New Construction,Fore-closures,Auctions",
+        "parkingSpots": "Any",
+        "mustHaveBasement": "No",
+        "daysOnZillow": "Any",
+    }
+
+    if status == "sold":
+        params["listingStatus"] = "Recently_Sold"
+        params["soldInLast"] = "6_Months"
+    else:
+        params["listingStatus"] = "For_Sale"
+        params["soldInLast"] = "Any"
+
+    return params
+
+
 @activity.defn
 async def search_comps(params: dict) -> list[dict]:
     """Search for comparable properties via Realty API (zillow.realtyapi.io).
 
-    Uses search/bycoordinates for area search, with client-side filtering.
+    Uses GET /search/bycoordinates with the exact Realty API spec.
     Persists all returned properties into the properties table.
 
     params:
         lat, lng: center point for coordinate search
-        address: subject property address (for comparable_homes fallback)
-        radius_miles: search radius for post-filtering
+        address: subject property address (for logging)
+        radius_miles: search radius (miles)
         status: 'sold' or 'for_sale'
         property_type: e.g. 'single_family'
         beds, baths, sqft: subject property values for filtering
@@ -174,59 +268,83 @@ async def search_comps(params: dict) -> list[dict]:
     baths = params.get("baths")
     sqft = params.get("sqft")
     limit = params.get("limit", 50)
-    address = params.get("address", "")
 
-    # Status mapping for Zillow API
-    status_filter = "recentlySold" if status == "sold" else "forSale"
+    search_params = _build_search_params(lat, lng, radius, status, beds)
+
+    all_results: list[dict] = []
 
     try:
         async with httpx.AsyncClient(timeout=30) as client:
-            # Rate limit
+            # Fetch page 1
             await asyncio.sleep(0.3)
 
-            resp = await client.get(
-                f"https://{REALTY_API_HOST}/search/bycoordinates",
-                params={
-                    "lat": lat,
-                    "lng": lng,
-                    "status": status_filter,
-                },
-                headers={
-                    "x-realtyapi-key": REALTY_API_KEY,
-                },
-            )
+            url = f"https://{REALTY_API_HOST}/search/bycoordinates"
+            headers = {"x-realtyapi-key": REALTY_API_KEY}
+
+            resp = await client.get(url, params=search_params, headers=headers)
             resp.raise_for_status()
             data = resp.json()
 
         activity.heartbeat("parsing comp results")
 
-        # Handle various response structures
-        properties = []
+        # Log top-level keys on first call so we can see the response shape
+        if isinstance(data, dict):
+            logger.info(
+                "search/bycoordinates response keys: %s",
+                list(data.keys())[:20],
+            )
+
+        # --- Extract property list from response ---
+        properties: list[dict] = []
         if isinstance(data, list):
             properties = data
         elif isinstance(data, dict):
-            properties = (
-                data.get("results", [])
-                or data.get("properties", [])
-                or data.get("searchResults", [])
-            )
+            # Try known response wrapper keys
+            for key in ("results", "properties", "searchResults", "props", "data", "listings"):
+                candidate = data.get(key)
+                if isinstance(candidate, list) and candidate:
+                    properties = candidate
+                    break
+            # Maybe nested one more level: data -> searchResults -> listResults -> ...
+            if not properties:
+                sr = data.get("searchResults", data.get("cat1", {}))
+                if isinstance(sr, dict):
+                    lr = sr.get("listResults") or sr.get("searchResults")
+                    if isinstance(lr, list):
+                        properties = lr
+            # Single property detail wrapped
             if not properties and data.get("propertyDetails"):
                 properties = [data]
 
+        logger.info(
+            "Raw result count from search/bycoordinates: %d (status=%s)",
+            len(properties), status,
+        )
+
+        # If we got results, log the keys of the first one for debugging
+        if properties:
+            first = properties[0]
+            if isinstance(first, dict):
+                logger.info(
+                    "First search result keys: %s",
+                    list(first.keys())[:25],
+                )
+
+        # --- Parse and filter ---
         comps = []
         for prop in properties:
-            parsed = _parse_realty_property(prop, lat, lng)
+            parsed = _parse_search_result(prop, lat, lng)
             if parsed:
-                # Filter by radius
+                # Filter by radius (API may return wider results)
                 if parsed["distance_miles"] > radius:
                     continue
-                # Filter beds ±1
+                # Filter beds +/- 1
                 if beds and parsed.get("beds") and abs(parsed["beds"] - beds) > 1:
                     continue
-                # Filter baths ±1
+                # Filter baths +/- 1
                 if baths and parsed.get("baths") and abs(parsed["baths"] - baths) > 1:
                     continue
-                # Filter sqft ±30%
+                # Filter sqft +/- 30%
                 if sqft and parsed.get("sqft") and (
                     parsed["sqft"] < sqft * 0.7 or parsed["sqft"] > sqft * 1.3
                 ):

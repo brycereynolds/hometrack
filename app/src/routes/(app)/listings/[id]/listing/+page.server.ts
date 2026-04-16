@@ -21,10 +21,20 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
 
       let comps: (typeof compListings.$inferSelect)[] = [];
       if (analyses.length > 0) {
-        comps = await db
-          .select()
-          .from(compListings)
-          .where(eq(compListings.marketAnalysisId, analyses[0].id));
+        const rawComps = await db.query.compListings.findMany({
+          where: eq(compListings.marketAnalysisId, analyses[0].id),
+          with: { property: true },
+        });
+
+        comps = rawComps.map((comp) => {
+          if (!comp.photoUrl && comp.property) {
+            const photos = comp.property.photos as { url: string }[] | null;
+            if (photos && photos.length > 0 && photos[0].url) {
+              return { ...comp, photoUrl: photos[0].url };
+            }
+          }
+          return comp;
+        });
       }
 
       const schedule = await db.query.analysisSchedules.findFirst({

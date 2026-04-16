@@ -312,7 +312,7 @@
 											<input type="hidden" name="showingId" value={showing.id} />
 											<div class="space-y-3">
 												<div>
-													<label class="text-sm font-medium">Rating</label>
+													<label for="feedback-rating" class="text-sm font-medium">Rating</label>
 													<div class="flex items-center gap-1 mt-1">
 														{#each [1, 2, 3, 4, 5] as star}
 															<button type="button" onclick={() => feedbackRating = star}>
@@ -320,7 +320,7 @@
 															</button>
 														{/each}
 													</div>
-													<input type="hidden" name="rating" value={feedbackRating} />
+													<input type="hidden" id="feedback-rating" name="rating" value={feedbackRating} />
 												</div>
 												<div>
 													<label for="feedback-level" class="text-sm font-medium">Interest Level</label>

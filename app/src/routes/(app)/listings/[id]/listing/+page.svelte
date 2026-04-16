@@ -856,19 +856,19 @@
 											{/if}
 										</Table.Cell>
 										<!-- Beds -->
-										<Table.Cell class="{matchClass(cp?.beds ?? null, prop?.beds ?? null, 0, 1)}">
+										<Table.Cell class={matchClass(cp?.beds ?? null, prop?.beds ?? null, 0, 1)}>
 											<p class="text-sm">{cp?.beds ?? '?'}</p>
 										</Table.Cell>
 										<!-- Baths -->
-										<Table.Cell class="{matchClass(cp?.baths ?? null, prop?.baths ?? null, 0, 0.5)}">
+										<Table.Cell class={matchClass(cp?.baths ?? null, prop?.baths ?? null, 0, 0.5)}>
 											<p class="text-sm">{cp?.baths ?? '?'}</p>
 										</Table.Cell>
 										<!-- Sqft -->
-										<Table.Cell class="{matchClass(cp?.sqft ?? null, prop?.sqft ?? null, 100, 300)}">
+										<Table.Cell class={matchClass(cp?.sqft ?? null, prop?.sqft ?? null, 100, 300)}>
 											<p class="text-sm">{cp?.sqft?.toLocaleString() ?? '?'}</p>
 										</Table.Cell>
 										<!-- Lot -->
-										<Table.Cell class="{matchClass(cp?.lotSqft ?? null, prop?.lotSqft ?? null, 500, 2000)}">
+										<Table.Cell class={matchClass(cp?.lotSqft ?? null, prop?.lotSqft ?? null, 500, 2000)}>
 											<p class="text-sm">{formatLot(cp?.lotSqft)}</p>
 										</Table.Cell>
 										<!-- Status badge with recency -->

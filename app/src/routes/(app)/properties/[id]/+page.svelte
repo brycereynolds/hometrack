@@ -147,6 +147,7 @@
 							{#each photos as _, i}
 								<button
 									onclick={() => currentPhotoIndex = i}
+									aria-label="View photo {i + 1}"
 									class="size-2.5 rounded-full transition-all {i === currentPhotoIndex ? 'bg-white scale-125' : 'bg-white/50'}"
 								></button>
 							{/each}

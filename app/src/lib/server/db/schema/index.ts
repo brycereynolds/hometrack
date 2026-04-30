@@ -28,3 +28,4 @@ export * from './market-analysis.js';
 export * from './property.js';
 export * from './external-listing.js';
 export * from './buyer-preference.js';
+export * from './chat.js';

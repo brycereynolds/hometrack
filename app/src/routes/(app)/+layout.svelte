@@ -28,7 +28,8 @@
 		Plus,
 		Mic,
 		Sparkles,
-		CheckCircle2
+		CheckCircle2,
+		MessageSquare
 	} from 'lucide-svelte';
 	let { children, data } = $props();
 
@@ -81,6 +82,7 @@
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 		{ href: '/listings', label: 'Listings', icon: Home, badge: String(listings.length) },
 		{ href: '/notes', label: 'Notes', icon: FileText },
+		{ href: '/chat', label: 'AI Agent', icon: MessageSquare },
 		{ href: '/contacts', label: 'Contacts', icon: Users },
 		{ href: '/vendors', label: 'Vendors', icon: Wrench },
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }

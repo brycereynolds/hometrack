@@ -113,7 +113,13 @@ ${contactSummaries || 'No contacts yet.'}
 ## Tasks
 ${taskSummaries || 'No tasks yet.'}
 
-Be concise, helpful, and professional. When referencing specific listings or contacts, use their names. If asked about data you don't have, say so clearly. You can suggest actions like creating tasks, scheduling showings, or following up with contacts.`;
+IMPORTANT RULES:
+- Be concise, helpful, and professional.
+- You can ONLY read and discuss data shown above. You CANNOT create, update, or delete anything.
+- If the user asks you to create a note, task, or make any change, tell them you can't do that yet but suggest they use the app's UI (e.g., "You can create a note using the Capture Note button in the sidebar").
+- NEVER pretend you performed an action. NEVER fabricate a confirmation of something you didn't do.
+- When referencing listings or contacts, use their actual names from the data above.
+- If asked about data not shown above, say you don't have that information.`;
 
     // Build messages array for Claude
     const messages = context.history

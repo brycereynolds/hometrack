@@ -124,7 +124,7 @@ Be concise, helpful, and professional. When referencing specific listings or con
     const client = getAnthropicClient(locals.user.id, context.convId);
 
     const stream = client.messages.stream({
-      model: 'claude-sonnet-4-6-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 4096,
       system: systemPrompt,
       messages,
@@ -161,7 +161,7 @@ Be concise, helpful, and professional. When referencing specific listings or con
                   content: fullContent,
                   thinking: thinkingContent || null,
                   metadata: {
-                    model: 'claude-sonnet-4-6-20250514',
+                    model: 'claude-sonnet-4-6',
                   },
                 });
               });

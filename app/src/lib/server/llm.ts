@@ -11,8 +11,8 @@ export function getAnthropicClient(userId?: string, sessionId?: string) {
   // TODO: Ensure Token Tap proxy client has Anthropic key configured
   const apiKey = tokentapUrl && tokentapKey ? tokentapKey : anthropicKey;
 
-  // Debug: log which path we're taking
-  console.log(`[LLM] ${tokentapUrl ? 'Token Tap' : 'Direct Anthropic'}, baseURL: ${tokentapUrl ? tokentapUrl + '/anthropic/v1' : 'default'}`);
+  const baseURL = tokentapUrl ? `${tokentapUrl}/anthropic` : undefined;
+  console.log(`[LLM] ${tokentapUrl ? 'Token Tap' : 'Direct Anthropic'}, baseURL: ${baseURL ?? 'default'}, apiKey: ${apiKey.slice(0, 8)}...`);
 
   const headers: Record<string, string> = {};
   if (userId) headers['X-TokenTap-User'] = userId;
@@ -20,7 +20,7 @@ export function getAnthropicClient(userId?: string, sessionId?: string) {
 
   return new Anthropic({
     apiKey,
-    ...(tokentapUrl ? { baseURL: `${tokentapUrl}/anthropic` } : {}),
+    ...(baseURL ? { baseURL } : {}),
     defaultHeaders: Object.keys(headers).length > 0 ? headers : undefined,
   });
 }

@@ -223,11 +223,7 @@
 
 	// ── Attachment functions ──
 
-	function handleFileSelect(event: Event) {
-		const input = event.target as HTMLInputElement;
-		const files = input.files;
-		if (!files) return;
-
+	function addFiles(files: FileList | File[]) {
 		for (const file of files) {
 			const isVideo = file.type.startsWith('video/');
 			const previewUrl = isVideo ? null : URL.createObjectURL(file);
@@ -236,7 +232,29 @@
 				{ file, previewUrl, isVideo, uploading: false, uploaded: false, progress: 0, storagePath: null, error: null }
 			];
 		}
+	}
+
+	function handleFileSelect(event: Event) {
+		const input = event.target as HTMLInputElement;
+		if (input.files) addFiles(input.files);
 		input.value = '';
+	}
+
+	let isDragOver = $state(false);
+
+	function handleDrop(event: DragEvent) {
+		event.preventDefault();
+		isDragOver = false;
+		if (event.dataTransfer?.files) addFiles(event.dataTransfer.files);
+	}
+
+	function handleDragOver(event: DragEvent) {
+		event.preventDefault();
+		isDragOver = true;
+	}
+
+	function handleDragLeave() {
+		isDragOver = false;
 	}
 
 	function removeAttachment(index: number) {
@@ -284,6 +302,7 @@
 				};
 
 				xhr.onload = async () => {
+					console.log(`[Upload] Status: ${xhr.status}, Response: ${xhr.responseText}`);
 					if (xhr.status >= 200 && xhr.status < 300) {
 						att.progress = 100;
 
@@ -572,13 +591,24 @@
 			</div>
 		{:else}
 
-			<!-- Note text area -->
-			<div>
+			<!-- Note text area + drop zone -->
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				class="relative rounded-lg border transition-colors {isDragOver ? 'border-primary bg-primary/5 border-dashed' : ''}"
+				ondrop={handleDrop}
+				ondragover={handleDragOver}
+				ondragleave={handleDragLeave}
+			>
 				<textarea
 					bind:value={noteText}
-					placeholder="Type or paste your note here..."
-					class="min-h-[120px] w-full resize-none rounded-lg border bg-transparent p-3 text-sm leading-relaxed placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+					placeholder="Type or paste your note here... (or drag files)"
+					class="min-h-[120px] w-full resize-none rounded-lg bg-transparent p-3 text-sm leading-relaxed placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring border-0"
 				></textarea>
+				{#if isDragOver}
+					<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-primary/5 pointer-events-none">
+						<p class="text-sm font-medium text-primary">Drop files here</p>
+					</div>
+				{/if}
 			</div>
 
 			<!-- Action buttons: Record + Attach -->

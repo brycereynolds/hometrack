@@ -70,11 +70,9 @@
 
 	const fieldNotesCount = $derived(data.fieldNotesCount ?? 0);
 
-	const listingPriceBadge = $derived(listing?.price ? formatCurrency(listing.price) : 'No Price');
-
 	const tabs = $derived([
 		{ href: '', label: 'Overview', count: 0 },
-		{ href: '/listing', label: 'Listing', count: 0, badge: listingPriceBadge },
+		{ href: '/listing', label: 'Listing', count: 0 },
 		{ href: '/activity', label: 'Activity', count: 0 },
 		{ href: '/tasks', label: 'Tasks', count: 0 },
 		{ href: '/field-notes', label: 'Field Notes', count: fieldNotesCount },
@@ -180,33 +178,23 @@
 
 				<!-- Hero content -->
 				<div class="absolute bottom-0 left-0 right-0 p-4 text-white sm:p-6">
-					<div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-						<div>
-							<h1 class="font-serif text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
-								{prop?.address ?? ''}
-							</h1>
-							<p class="mt-1 text-sm text-white/80 sm:text-base">
-								{prop?.city ?? ''}, {prop?.state ?? ''} {prop?.zip ?? ''}
-							</p>
-						</div>
-						<div class="flex items-center gap-3 sm:gap-4">
-							<Badge
-								variant="outline"
-								class="border-white/40 bg-white/10 text-white backdrop-blur-sm text-xs sm:text-sm"
-								style="border-color: {PHASES[listing.phase].color}; background-color: {PHASES[listing.phase].color}20"
-							>
-								{PHASES[listing.phase].label}
-							</Badge>
-							{#if listing.price}<span class="font-serif text-2xl font-bold sm:text-3xl">{formatCurrency(listing.price)}</span>{:else}<span class="text-sm font-semibold text-amber-100 bg-amber-900/60 backdrop-blur-sm px-3 py-1 rounded-md border border-amber-400/30">No Price</span>{/if}
-						</div>
+					<div>
+						<h1 class="font-serif text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
+							{prop?.address ?? ''}
+						</h1>
+						<p class="mt-1 text-sm text-white/80 sm:text-base">
+							{prop?.city ?? ''}, {prop?.state ?? ''} {prop?.zip ?? ''}
+						</p>
 					</div>
-					<div class="mt-2 flex items-center gap-4 text-xs text-white/70 sm:text-sm">
+					<div class="mt-2 flex flex-wrap items-center gap-x-2 text-xs text-white/60 sm:text-sm">
 						<span>MLS {listing.mlsNumber ?? 'N/A'}</span>
 						<span>|</span>
-						{#if (listing.daysOnMarket ?? 0) > 0}
-							<span>{listing.daysOnMarket} DOM</span>
+						<span>{PHASES[listing.phase].label}</span>
+						<span>|</span>
+						{#if listing.price}
+							<span>{formatCurrency(listing.price)}</span>
 						{:else}
-							<span>Pre-market</span>
+							<a href="/listings/{listing.id}/listing" class="text-amber-300 hover:text-amber-200 transition-colors">No price yet</a>
 						{/if}
 					</div>
 				</div>
@@ -275,11 +263,7 @@
 							: 'border-transparent text-muted-foreground hover:border-border hover:text-foreground'}"
 					>
 						{tab.label}
-						{#if tab.badge}
-							<span class="inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-semibold leading-none {tab.badge === 'No Price' ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'}">
-								{tab.badge}
-							</span>
-						{:else if tab.count > 0}
+						{#if tab.count > 0}
 							<span class="inline-flex items-center justify-center rounded-full bg-muted px-1.5 py-0.5 text-[10px] font-semibold leading-none {active ? 'bg-primary/10 text-primary' : 'text-muted-foreground'}">
 								{tab.count}
 							</span>

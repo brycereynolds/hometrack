@@ -1,15 +1,10 @@
 import type { LayoutServerLoad } from './$types';
 import { adminDb } from '$lib/server/db/index.js';
-import { teams, listings } from '$lib/server/db/schema/index.js';
-import { eq } from 'drizzle-orm';
+import { teams, listings, contacts } from '$lib/server/db/schema/index.js';
+import { eq, and } from 'drizzle-orm';
 import { error } from '@sveltejs/kit';
 
-// Portal auth model: Clients access this route group without standard user auth.
-// Portal-specific authentication (e.g., magic links, access tokens) will be
-// implemented separately. For now, queries are scoped strictly to the team
-// identified by the URL slug to prevent cross-team data leakage.
-
-export const load: LayoutServerLoad = async ({ params }) => {
+export const load: LayoutServerLoad = async ({ params, cookies }) => {
   const team = await adminDb.query.teams.findFirst({
     where: eq(teams.slug, params.team),
   });
@@ -17,6 +12,10 @@ export const load: LayoutServerLoad = async ({ params }) => {
   if (!team) {
     throw error(404, 'Team not found');
   }
+
+  // Check portal_token cookie for access
+  const portalToken = cookies.get('portal_token');
+  const portalAuthenticated = !!portalToken;
 
   // Load first listing to get portal settings (placeholder until client auth scopes it)
   const listing = await adminDb.query.listings.findFirst({
@@ -26,5 +25,5 @@ export const load: LayoutServerLoad = async ({ params }) => {
 
   const portalSettings = (listing?.portalSettings as Record<string, any>) ?? null;
 
-  return { team, portalSettings };
+  return { team, portalSettings, portalAuthenticated };
 };

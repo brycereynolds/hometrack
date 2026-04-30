@@ -271,6 +271,10 @@
 
 		return new Promise(async (resolve) => {
 			try {
+				if (att.file.size > 500 * 1024 * 1024) {
+					console.warn(`[Upload] Large file: ${att.file.name} (${(att.file.size / 1024 / 1024).toFixed(0)} MB) — may take a while`);
+				}
+
 				// Step 1: Get signed upload URL
 				const signedRes = await fetch('/api/field-media/signed-url', {
 					method: 'POST',
@@ -302,7 +306,7 @@
 				};
 
 				xhr.onload = async () => {
-					console.log(`[Upload] Status: ${xhr.status}, Response: ${xhr.responseText}`);
+					console.log(`[Upload] ${att.file.name}: status=${xhr.status}, response=${xhr.responseText.slice(0, 200)}`);
 					if (xhr.status >= 200 && xhr.status < 300) {
 						att.progress = 100;
 
@@ -343,6 +347,7 @@
 				};
 
 				xhr.onerror = () => {
+					console.error(`[Upload] ${att.file.name}: network error`);
 					att.error = 'Network error during upload';
 					att.uploading = false;
 					resolve(false);
@@ -498,7 +503,19 @@
 
 <svelte:window onbeforeunload={(e) => { if (isUploading) { e.preventDefault(); return ''; } }} />
 <Dialog.Root bind:open onOpenChange={(v) => { if (!v && !isUploading) resetAndClose(); }}>
-	<Dialog.Content class="max-h-[90svh] w-[calc(100%-1rem)] sm:w-full sm:max-w-lg overflow-y-auto" onOpenAutoFocus={(e: Event) => e.preventDefault()}>
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<Dialog.Content
+		class="max-h-[90svh] w-[calc(100%-1rem)] sm:w-full sm:max-w-lg overflow-y-auto relative {isDragOver ? 'border-primary border-dashed' : ''}"
+		onOpenAutoFocus={(e: Event) => e.preventDefault()}
+		ondrop={handleDrop}
+		ondragover={handleDragOver}
+		ondragleave={handleDragLeave}
+	>
+		{#if isDragOver}
+			<div class="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-primary/5 pointer-events-none border-2 border-dashed border-primary">
+				<p class="text-sm font-medium text-primary">Drop files here</p>
+			</div>
+		{/if}
 
 		{#if step === 1}
 			<!-- ═══════════════════════════════════ -->
@@ -591,24 +608,13 @@
 			</div>
 		{:else}
 
-			<!-- Note text area + drop zone -->
-			<!-- svelte-ignore a11y_no_static_element_interactions -->
-			<div
-				class="relative rounded-lg border transition-colors {isDragOver ? 'border-primary bg-primary/5 border-dashed' : ''}"
-				ondrop={handleDrop}
-				ondragover={handleDragOver}
-				ondragleave={handleDragLeave}
-			>
+			<!-- Note text area -->
+			<div class="relative rounded-lg border">
 				<textarea
 					bind:value={noteText}
 					placeholder="Type or paste your note here... (or drag files)"
 					class="min-h-[120px] w-full resize-none rounded-lg bg-transparent p-3 text-sm leading-relaxed placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring border-0"
 				></textarea>
-				{#if isDragOver}
-					<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-primary/5 pointer-events-none">
-						<p class="text-sm font-medium text-primary">Drop files here</p>
-					</div>
-				{/if}
 			</div>
 
 			<!-- Action buttons: Record + Attach -->

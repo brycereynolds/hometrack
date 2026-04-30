@@ -1,55 +1,89 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
+	import { beforeNavigate } from '$app/navigation';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { Camera, Save, X, Tag, Video, Loader2 } from 'lucide-svelte';
 	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
+	import { Save, Paperclip, X, Video, Loader2, MapPin } from 'lucide-svelte';
 	let { data } = $props();
 
 	const listings = $derived(data.listings);
+	const teamId = $derived(data.team?.id ?? '');
 
 	let selectedListing = $state('');
 	let noteText = $state('');
-	let selectedTag = $state<string>('showing');
 	let saving = $state(false);
 
+	// Attachments
 	interface Attachment {
 		file: File;
 		previewUrl: string | null;
 		isVideo: boolean;
 		uploading: boolean;
 		uploaded: boolean;
+		progress: number;
 		storagePath: string | null;
 		error: string | null;
 	}
 
 	let attachments = $state<Attachment[]>([]);
-	let fileInput: HTMLInputElement;
+	let fileInput = $state<HTMLInputElement>(null!);
+	let isDragOver = $state(false);
+	let lastSavedNoteId = $state<string | null>(null);
 
-	const tags = [
-		{ id: 'showing', label: 'Showing Note', color: 'bg-blue-500/10 text-blue-700' },
-		{ id: 'vendor', label: 'Vendor Note', color: 'bg-amber-500/10 text-amber-700' },
-		{ id: 'client', label: 'Client Note', color: 'bg-emerald-500/10 text-emerald-700' }
-	];
+	// Prevent accidental navigation during upload/save
+	const isUploading = $derived(saving || attachments.some((a) => a.uploading));
+	const canSave = $derived(noteText.trim() || attachments.length > 0);
 
-	function handleFileSelect(event: Event) {
-		const input = event.target as HTMLInputElement;
-		const files = input.files;
-		if (!files) return;
+	beforeNavigate(({ cancel }) => {
+		if (isUploading) {
+			if (!confirm('Upload in progress. Leaving will cancel it. Are you sure?')) {
+				cancel();
+			}
+		}
+	});
 
+	// Recent listings (first 4 active listings)
+	const recentListings = $derived(
+		listings.slice(0, 4).map((l: any) => ({
+			id: l.id,
+			name: l.property.address,
+			city: l.property.city
+		}))
+	);
+
+	// ── File handling ──
+
+	function addFiles(files: FileList | File[]) {
 		for (const file of files) {
 			const isVideo = file.type.startsWith('video/');
 			const previewUrl = isVideo ? null : URL.createObjectURL(file);
-
 			attachments = [
 				...attachments,
-				{ file, previewUrl, isVideo, uploading: false, uploaded: false, storagePath: null, error: null }
+				{ file, previewUrl, isVideo, uploading: false, uploaded: false, progress: 0, storagePath: null, error: null }
 			];
 		}
+	}
 
+	function handleFileSelect(event: Event) {
+		const input = event.target as HTMLInputElement;
+		if (input.files) addFiles(input.files);
 		input.value = '';
+	}
+
+	function handleDrop(event: DragEvent) {
+		event.preventDefault();
+		isDragOver = false;
+		if (event.dataTransfer?.files) addFiles(event.dataTransfer.files);
+	}
+
+	function handleDragOver(event: DragEvent) {
+		event.preventDefault();
+		isDragOver = true;
+	}
+
+	function handleDragLeave() {
+		isDragOver = false;
 	}
 
 	function removeAttachment(index: number) {
@@ -58,34 +92,105 @@
 		attachments = attachments.filter((_, i) => i !== index);
 	}
 
-	async function uploadAttachment(att: Attachment): Promise<boolean> {
-		if (att.uploaded) return true;
+	// ── Upload functions (signed URL flow) ──
 
+	function uploadAttachment(att: Attachment): Promise<boolean> {
+		if (att.uploaded) return Promise.resolve(true);
 		att.uploading = true;
+		att.progress = 0;
 		att.error = null;
 
-		try {
-			const formData = new FormData();
-			formData.append('file', att.file);
-			if (selectedListing) formData.append('listingId', selectedListing);
+		return new Promise(async (resolve) => {
+			try {
+				if (att.file.size > 500 * 1024 * 1024) {
+					console.warn(`[Upload] Large file: ${att.file.name} (${(att.file.size / 1024 / 1024).toFixed(0)} MB) — may take a while`);
+				}
 
-			const res = await fetch('/api/field-media', { method: 'POST', body: formData });
+				// Step 1: Get signed upload URL
+				const signedRes = await fetch('/api/field-media/signed-url', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						fileName: att.file.name,
+						listingId: selectedListing || null,
+						contentType: att.file.type,
+						noteId: lastSavedNoteId
+					})
+				});
 
-			if (!res.ok) {
-				const body = await res.json().catch(() => ({ error: 'Upload failed' }));
-				throw new Error(body.error ?? 'Upload failed');
+				if (!signedRes.ok) {
+					const err = await signedRes.json();
+					throw new Error(err.error ?? 'Failed to get upload URL');
+				}
+
+				const { signedUrl, storagePath, teamId: uploadTeamId, memberId, memberName, memberInitials } = await signedRes.json();
+
+				// Step 2: Upload directly to Supabase Storage with progress
+				const xhr = new XMLHttpRequest();
+				xhr.open('PUT', signedUrl);
+				xhr.setRequestHeader('Content-Type', att.file.type);
+
+				xhr.upload.onprogress = (e) => {
+					if (e.lengthComputable) {
+						att.progress = Math.round((e.loaded / e.total) * 100);
+					}
+				};
+
+				xhr.onload = async () => {
+					console.log(`[Upload] ${att.file.name}: status=${xhr.status}, response=${xhr.responseText.slice(0, 200)}`);
+					if (xhr.status >= 200 && xhr.status < 300) {
+						att.progress = 100;
+
+						// Step 3: Insert attachment record + trigger workflow
+						try {
+							const completeRes = await fetch('/api/field-media/complete', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({
+									noteId: lastSavedNoteId,
+									storagePath,
+									listingId: selectedListing || null,
+									fileName: att.file.name,
+									fileSize: att.file.size,
+									contentType: att.file.type,
+									teamId: uploadTeamId,
+									memberId,
+									memberName,
+									memberInitials
+								})
+							});
+
+							if (!completeRes.ok) throw new Error('Failed to finalize');
+							att.uploaded = true;
+							att.storagePath = storagePath;
+							att.uploading = false;
+							resolve(true);
+						} catch (err) {
+							att.error = 'Upload succeeded but failed to save record';
+							att.uploading = false;
+							resolve(false);
+						}
+					} else {
+						att.error = `Upload failed (${xhr.status})`;
+						att.uploading = false;
+						resolve(false);
+					}
+				};
+
+				xhr.onerror = () => {
+					console.error(`[Upload] ${att.file.name}: network error`);
+					att.error = 'Network error during upload';
+					att.uploading = false;
+					resolve(false);
+				};
+
+				xhr.send(att.file);
+			} catch (err) {
+				att.error = err instanceof Error ? err.message : 'Upload failed';
+				att.uploading = false;
+				resolve(false);
 			}
-
-			const result = await res.json();
-			att.uploaded = true;
-			att.storagePath = result.storagePath;
-			return true;
-		} catch (err) {
-			att.error = err instanceof Error ? err.message : 'Upload failed';
-			return false;
-		} finally {
-			att.uploading = false;
-		}
+		});
 	}
 
 	async function uploadAllAttachments(): Promise<number> {
@@ -96,182 +201,198 @@
 		return successCount;
 	}
 
-	function truncateName(name: string, max = 14): string {
-		if (name.length <= max) return name;
-		const ext = name.includes('.') ? '.' + name.split('.').pop() : '';
-		return name.slice(0, max - ext.length - 1) + '...' + ext;
+	// ── Save logic ──
+
+	async function save() {
+		if (!canSave) return;
+		saving = true;
+
+		try {
+			// Create note first via /api/notes
+			const createRes = await fetch('/api/notes', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					textContent: noteText.trim() || null,
+					listingId: selectedListing || null,
+					teamId
+				})
+			});
+
+			if (!createRes.ok) {
+				const err = await createRes.json();
+				throw new Error(err.error || 'Failed to create note');
+			}
+
+			const noteResult = await createRes.json();
+			lastSavedNoteId = noteResult.noteId;
+
+			// Upload attachments to the same note
+			if (attachments.length > 0) {
+				const uploaded = await uploadAllAttachments();
+				const failed = attachments.length - uploaded;
+				if (failed > 0) {
+					toast.error(`Note saved but ${failed} file(s) failed to upload`);
+				} else {
+					toast.success(
+						noteText.trim()
+							? `Note saved with ${uploaded} file(s)`
+							: `${uploaded} file(s) uploaded`
+					);
+				}
+			} else {
+				toast.success('Note saved');
+			}
+
+			// Clean up and navigate to the note detail
+			attachments.forEach((a) => {
+				if (a.previewUrl) URL.revokeObjectURL(a.previewUrl);
+			});
+			attachments = [];
+			noteText = '';
+
+			if (lastSavedNoteId) {
+				goto(`/notes/${lastSavedNoteId}`);
+			}
+		} catch (err: any) {
+			toast.error(err.message || 'Failed to save');
+			console.error('Save error:', err);
+		} finally {
+			saving = false;
+		}
 	}
 </script>
 
-<div class="mx-auto flex min-h-[calc(100svh-8rem)] max-w-lg flex-col px-4 py-6">
+<svelte:window onbeforeunload={(e) => { if (isUploading) { e.preventDefault(); return ''; } }} />
+
+<!-- svelte-ignore a11y_no_static_element_interactions -->
+<div
+	class="relative mx-auto flex min-h-[calc(100svh-8rem)] w-full max-w-2xl flex-col px-4 py-6"
+	ondrop={handleDrop}
+	ondragover={handleDragOver}
+	ondragleave={handleDragLeave}
+>
+	<!-- Drag overlay -->
+	{#if isDragOver}
+		<div class="pointer-events-none absolute inset-0 z-10 flex items-center justify-center rounded-xl border-2 border-dashed border-primary bg-primary/5">
+			<p class="text-sm font-medium text-primary">Drop files here</p>
+		</div>
+	{/if}
+
 	<!-- Header -->
-	<div class="mb-4">
+	<div class="mb-6">
 		<h1 class="font-serif text-xl font-bold">Field Notes</h1>
 		<p class="text-sm text-muted-foreground">Quick capture while you're on-site</p>
 	</div>
 
-	<form
-		method="POST"
-		action="?/save"
-		use:enhance={() => {
-			saving = true;
-			return async ({ result, update }) => {
-				if (result.type === 'success') {
-					if (attachments.length > 0) {
-						const uploaded = await uploadAllAttachments();
-						const failed = attachments.length - uploaded;
-						if (failed > 0) {
-							toast.error(`Note saved but ${failed} file(s) failed to upload`);
-						} else {
-							toast.success(`Note saved with ${uploaded} attachment(s)`);
-						}
-					} else {
-						toast.success('Note saved');
-					}
+	<!-- Listing selector -->
+	<div class="mb-4">
+		<Autocomplete
+			items={[
+				{ value: '', label: 'General (no listing)' },
+				...listings.map((l: any) => ({ value: l.id, label: l.property.address, subtitle: l.property.city }))
+			]}
+			bind:value={selectedListing}
+			placeholder="Search listings..."
+			name="listingId"
+		/>
+	</div>
 
-					// Redirect to the field note detail view
-					const noteId = (result.data as any)?.noteId;
-					const listingId = (result.data as any)?.listingId;
-					if (noteId && listingId) {
-						attachments.forEach((a) => { if (a.previewUrl) URL.revokeObjectURL(a.previewUrl); });
-						attachments = [];
-						goto(`/listings/${listingId}/field-notes/${noteId}`);
-						return;
-					}
+	<!-- Note text area -->
+	<div class="mb-4 flex-1">
+		<textarea
+			bind:value={noteText}
+			placeholder="Type or paste your note here... (or drag files)"
+			class="h-full min-h-[200px] w-full resize-none rounded-xl border bg-transparent p-4 text-base leading-relaxed placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+		></textarea>
+	</div>
 
-					noteText = '';
-					attachments.forEach((a) => { if (a.previewUrl) URL.revokeObjectURL(a.previewUrl); });
-					attachments = [];
-					await update();
-				} else if (result.type === 'failure') {
-					toast.error(String(result.data?.error ?? 'Failed to save note'));
-				}
-				saving = false;
-			};
-		}}
-	>
-		<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
-		<input type="hidden" name="tag" value={selectedTag} />
+	<!-- Attach button -->
+	<div class="mb-4 flex items-center gap-2">
+		<Button variant="outline" size="sm" class="gap-1.5" onclick={() => fileInput.click()}>
+			<Paperclip class="size-4" />
+			Attach
+		</Button>
+		<input
+			bind:this={fileInput}
+			type="file"
+			accept="image/jpeg,image/png,image/heic,image/webp,video/mp4,video/quicktime,video/webm,application/pdf"
+			multiple
+			class="hidden"
+			onchange={handleFileSelect}
+		/>
+	</div>
 
-		<!-- Listing selector -->
-		<div class="mb-4">
-			<Autocomplete
-				items={[
-					{ value: '', label: 'General (no listing)' },
-					...listings.map((l) => ({ value: l.id, label: l.property.address, subtitle: l.property.city }))
-				]}
-				bind:value={selectedListing}
-				placeholder="Search listings..."
-				name="listingId"
-			/>
-		</div>
-
-		<!-- Tag selector -->
-		<div class="mb-4 flex gap-2">
-			{#each tags as tag}
-				<button
-					type="button"
-					class="inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors
-						{selectedTag === tag.id ? tag.color + ' border-current' : 'bg-transparent text-muted-foreground hover:bg-muted'}"
-					onclick={() => { selectedTag = tag.id; }}
-				>
-					<Tag class="size-3" />
-					{tag.label}
-				</button>
+	<!-- Attachments list (card style) -->
+	{#if attachments.length > 0}
+		<div class="mb-4 space-y-2">
+			{#each attachments as att, i}
+				<div class="relative group flex items-center gap-3 rounded-lg border bg-muted/30 p-2.5">
+					{#if att.isVideo}
+						<div class="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+							{#if att.uploading}
+								<Loader2 class="size-5 animate-spin" />
+							{:else}
+								<Video class="size-5" />
+							{/if}
+						</div>
+					{:else if att.previewUrl}
+						<div class="relative shrink-0">
+							<img src={att.previewUrl} alt="Attachment {i + 1}" class="size-12 rounded-md object-cover" />
+							{#if att.uploading}
+								<div class="absolute inset-0 flex items-center justify-center rounded-md bg-black/40">
+									<Loader2 class="size-4 animate-spin text-white" />
+								</div>
+							{/if}
+						</div>
+					{:else}
+						<div class="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+							{#if att.uploading}
+								<Loader2 class="size-5 animate-spin" />
+							{:else}
+								<Paperclip class="size-5" />
+							{/if}
+						</div>
+					{/if}
+					<div class="min-w-0 flex-1">
+						<p class="text-sm font-medium truncate">{att.file.name}</p>
+						<p class="text-xs text-muted-foreground">
+							{#if att.error}
+								<span class="text-destructive">{att.error}</span>
+							{:else if att.uploading}
+								Uploading... {att.progress}%
+							{:else if att.uploaded}
+								Uploaded · {(att.file.size / (1024 * 1024)).toFixed(1)} MB
+							{:else}
+								{(att.file.size / (1024 * 1024)).toFixed(1)} MB · {att.isVideo ? 'Video' : 'Image'}
+							{/if}
+						</p>
+						{#if att.uploading}
+							<div class="mt-1.5 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+								<div
+									class="h-full rounded-full bg-primary transition-all duration-300"
+									style="width: {att.progress}%"
+								></div>
+							</div>
+						{/if}
+					</div>
+					<button
+						type="button"
+						class="shrink-0 flex size-6 items-center justify-center rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
+						onclick={() => removeAttachment(i)}
+					>
+						<X class="size-3.5" />
+					</button>
+				</div>
 			{/each}
 		</div>
+	{/if}
 
-		<!-- Note text area -->
-		<div class="mb-4 flex-1">
-			<textarea
-				name="content"
-				bind:value={noteText}
-				placeholder="Type your note here..."
-				class="h-full min-h-[200px] w-full resize-none rounded-xl border bg-transparent p-4 text-base leading-relaxed placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-			></textarea>
-		</div>
-
-		<!-- Attachments section -->
-		<div class="mb-4">
-			<div class="flex items-center gap-2 mb-3">
-				<span class="text-sm font-medium">Attachments</span>
-				{#if attachments.length > 0}
-					<Badge variant="outline" class="text-xs">{attachments.length}</Badge>
-				{/if}
-			</div>
-			<div class="flex gap-2 flex-wrap">
-				{#each attachments as att, i}
-					<div class="relative group">
-						{#if att.isVideo}
-							<div class="flex size-20 flex-col items-center justify-center gap-1 rounded-lg bg-muted text-muted-foreground">
-								{#if att.uploading}
-									<Loader2 class="size-5 animate-spin" />
-								{:else}
-									<Video class="size-5" />
-								{/if}
-								<span class="text-[9px] text-center px-1 leading-tight">{truncateName(att.file.name)}</span>
-							</div>
-						{:else if att.previewUrl}
-							<div class="relative">
-								<img
-									src={att.previewUrl}
-									alt="Attachment {i + 1}"
-									class="size-20 rounded-lg object-cover"
-								/>
-								{#if att.uploading}
-									<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40">
-										<Loader2 class="size-5 animate-spin text-white" />
-									</div>
-								{/if}
-							</div>
-						{/if}
-						{#if att.error}
-							<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-destructive/20 p-1">
-								<span class="text-[9px] text-destructive font-medium text-center">Failed</span>
-							</div>
-						{/if}
-						{#if att.uploaded}
-							<div class="absolute bottom-1 right-1 size-4 rounded-full bg-emerald-500 flex items-center justify-center">
-								<svg class="size-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-									<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-								</svg>
-							</div>
-						{/if}
-						<button
-							type="button"
-							class="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity"
-							onclick={() => removeAttachment(i)}
-						>
-							<X class="size-3" />
-						</button>
-					</div>
-				{/each}
-				<!-- Add photo/video button -->
-				<button
-					type="button"
-					class="flex size-20 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-muted-foreground/30 text-muted-foreground transition-colors hover:border-primary hover:text-primary active:scale-95"
-					onclick={() => fileInput.click()}
-				>
-					<Camera class="size-5" />
-					<span class="text-[10px]">Add</span>
-				</button>
-			</div>
-			<input
-				bind:this={fileInput}
-				type="file"
-				accept="image/jpeg,image/png,image/heic,image/webp,video/mp4,video/quicktime,video/webm"
-				multiple
-				class="hidden"
-				onchange={handleFileSelect}
-			/>
-		</div>
-
-		<!-- Save button -->
-		<div class="pt-2">
-			<Button type="submit" class="h-12 w-full gap-2 rounded-xl text-base" disabled={!noteText.trim() || saving}>
-				<Save class="size-5" />
-				{saving ? 'Saving...' : 'Save Note'}
-			</Button>
-		</div>
-	</form>
+	<!-- Save button -->
+	<div class="pt-2">
+		<Button class="h-12 w-full gap-2 rounded-xl text-base" disabled={!canSave || saving} onclick={save}>
+			<Save class="size-5" />
+			{saving ? 'Saving...' : 'Save Note'}
+		</Button>
+	</div>
 </div>

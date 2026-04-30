@@ -18,7 +18,7 @@
 	} from 'lucide-svelte';
 	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
-	import { invalidateAll, goto } from '$app/navigation';
+	import { invalidateAll, goto, beforeNavigate } from '$app/navigation';
 
 	interface Props {
 		open: boolean;
@@ -37,6 +37,17 @@
 	let selectedTag = $state<string>('showing');
 	let noteText = $state('');
 	let saving = $state(false);
+
+	// Prevent accidental navigation during upload/save
+	const isUploading = $derived(saving || attachments.some(a => a.uploading));
+
+	beforeNavigate(({ cancel }) => {
+		if (isUploading) {
+			if (!confirm('Upload in progress. Leaving will cancel it. Are you sure?')) {
+				cancel();
+			}
+		}
+	});
 
 	// Recording state
 	let isRecording = $state(false);
@@ -59,6 +70,7 @@
 		isVideo: boolean;
 		uploading: boolean;
 		uploaded: boolean;
+		progress: number; // 0-100
 		storagePath: string | null;
 		error: string | null;
 	}
@@ -220,7 +232,7 @@
 			const previewUrl = isVideo ? null : URL.createObjectURL(file);
 			attachments = [
 				...attachments,
-				{ file, previewUrl, isVideo, uploading: false, uploaded: false, storagePath: null, error: null }
+				{ file, previewUrl, isVideo, uploading: false, uploaded: false, progress: 0, storagePath: null, error: null }
 			];
 		}
 		input.value = '';
@@ -232,32 +244,58 @@
 		attachments = attachments.filter((_, i) => i !== index);
 	}
 
-	async function uploadAttachment(att: Attachment): Promise<boolean> {
-		if (att.uploaded) return true;
+	function uploadAttachment(att: Attachment): Promise<boolean> {
+		if (att.uploaded) return Promise.resolve(true);
 		att.uploading = true;
+		att.progress = 0;
 		att.error = null;
 
-		try {
+		return new Promise((resolve) => {
 			const formData = new FormData();
 			formData.append('file', att.file);
 			if (selectedListing) formData.append('listingId', selectedListing);
 
-			const res = await fetch('/api/field-media', { method: 'POST', body: formData });
-			if (!res.ok) {
-				const body = await res.json().catch(() => ({ error: 'Upload failed' }));
-				throw new Error(body.error ?? 'Upload failed');
-			}
+			const xhr = new XMLHttpRequest();
+			xhr.open('POST', '/api/field-media');
 
-			const result = await res.json();
-			att.uploaded = true;
-			att.storagePath = result.storagePath;
-			return true;
-		} catch (err) {
-			att.error = err instanceof Error ? err.message : 'Upload failed';
-			return false;
-		} finally {
-			att.uploading = false;
-		}
+			xhr.upload.onprogress = (e) => {
+				if (e.lengthComputable) {
+					att.progress = Math.round((e.loaded / e.total) * 100);
+				}
+			};
+
+			xhr.onload = () => {
+				att.uploading = false;
+				if (xhr.status >= 200 && xhr.status < 300) {
+					try {
+						const result = JSON.parse(xhr.responseText);
+						att.uploaded = true;
+						att.progress = 100;
+						att.storagePath = result.storagePath;
+						resolve(true);
+					} catch {
+						att.error = 'Invalid response';
+						resolve(false);
+					}
+				} else {
+					try {
+						const body = JSON.parse(xhr.responseText);
+						att.error = body.error ?? 'Upload failed';
+					} catch {
+						att.error = `Upload failed (${xhr.status})`;
+					}
+					resolve(false);
+				}
+			};
+
+			xhr.onerror = () => {
+				att.uploading = false;
+				att.error = 'Network error';
+				resolve(false);
+			};
+
+			xhr.send(formData);
+		});
 	}
 
 	async function uploadAllAttachments(): Promise<number> {
@@ -404,7 +442,10 @@
 	});
 </script>
 
-<Dialog.Root bind:open onOpenChange={(v) => { if (!v) resetAndClose(); }}>
+{#if isUploading}
+<svelte:window onbeforeunload={(e) => { e.preventDefault(); return ''; }} />
+{/if}
+<Dialog.Root bind:open onOpenChange={(v) => { if (!v && !isUploading) resetAndClose(); }}>
 	<Dialog.Content class="max-h-[90svh] w-[calc(100%-1rem)] sm:w-full sm:max-w-lg overflow-y-auto" onOpenAutoFocus={(e: Event) => e.preventDefault()}>
 
 		{#if step === 1}
@@ -576,13 +617,23 @@
 								<p class="text-sm font-medium truncate">{att.file.name}</p>
 								<p class="text-xs text-muted-foreground">
 									{#if att.error}
-										<span class="text-destructive">Upload failed</span>
+										<span class="text-destructive">{att.error}</span>
 									{:else if att.uploading}
-										Uploading...
+										Uploading... {att.progress}%
+									{:else if att.uploaded}
+										Uploaded · {(att.file.size / (1024 * 1024)).toFixed(1)} MB
 									{:else}
 										{(att.file.size / (1024 * 1024)).toFixed(1)} MB · {att.isVideo ? 'Video' : 'Image'}
 									{/if}
 								</p>
+								{#if att.uploading}
+									<div class="mt-1.5 h-1.5 w-full rounded-full bg-muted overflow-hidden">
+										<div
+											class="h-full rounded-full bg-primary transition-all duration-300"
+											style="width: {att.progress}%"
+										></div>
+									</div>
+								{/if}
 							</div>
 							<button
 								type="button"

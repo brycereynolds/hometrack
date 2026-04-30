@@ -18,5 +18,7 @@
 	});
 
 	// Expose the close function to the parent via callback
-	onReady?.(closeMobileSidebar);
+	$effect(() => {
+		onReady?.(closeMobileSidebar);
+	});
 </script>

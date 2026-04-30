@@ -64,7 +64,7 @@
 	}
 
 	let attachments = $state<Attachment[]>([]);
-	let fileInput: HTMLInputElement;
+	let fileInput = $state<HTMLInputElement>(null!);
 
 	const tags = [
 		{ id: 'showing', label: 'Showing', color: 'bg-blue-500/10 text-blue-700' },

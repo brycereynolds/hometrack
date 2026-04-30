@@ -3,6 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import CommentThread from '$lib/components/shared/CommentThread.svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { onMount, onDestroy } from 'svelte';
 	import type { MomentWithFrame, ActionWithSourceMoment } from '$lib/types.js';
@@ -545,6 +546,16 @@
 				</CardContent>
 			</Card>
 		{/if}
+
+		<!-- Comments -->
+		<Card>
+			<CardHeader class="pb-3">
+				<CardTitle class="font-serif text-base">Discussion</CardTitle>
+			</CardHeader>
+			<CardContent>
+				<CommentThread noteId={note.id} teamMembers={data.teamMembers ?? []} />
+			</CardContent>
+		</Card>
 	</div>
 {:else}
 	<div class="flex flex-col items-center justify-center py-12">

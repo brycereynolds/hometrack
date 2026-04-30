@@ -1,9 +1,9 @@
 import type { PageServerLoad, Actions } from './$types';
 import { getTasksByListing } from '$lib/server/db/queries/tasks.js';
-import { getActivityByListing, getInsightsByListing } from '$lib/server/db/queries/listings.js';
+import { getActivityByListing, getInsightsByListing, getConfirmedComps } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { listings, teamMembers, teams } from '$lib/server/db/schema/index.js';
-import { eq, and } from 'drizzle-orm';
+import { listings, properties, teamMembers, teams, aiInsights as aiInsightsTable } from '$lib/server/db/schema/index.js';
+import { eq, and, desc } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 import { sendPhaseChangeNotification } from '$lib/server/comms.js';
@@ -12,20 +12,28 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
 
   if (!team || !locals.user) {
-    return { tasks: [], activityItems: [], aiInsights: [] };
+    return { tasks: [], activityItems: [], aiInsights: [], confirmedComps: null, pendingAlerts: [] };
   }
 
   try {
     return await withRLS(locals.user.id, 'authenticated', async (db) => {
-      const [tasks, activityItems, aiInsights] = await Promise.all([
+      const [tasks, activityItems, aiInsights, confirmedCompsData, pendingAlerts] = await Promise.all([
         getTasksByListing(team.id, params.id, db),
         getActivityByListing(team.id, params.id, db),
         getInsightsByListing(team.id, params.id, db),
+        getConfirmedComps(params.id, db),
+        db.query.aiInsights.findMany({
+          where: and(
+            eq(aiInsightsTable.listingId, params.id),
+            eq(aiInsightsTable.dismissed, false)
+          ),
+          orderBy: desc(aiInsightsTable.timestamp),
+        }),
       ]);
-      return { tasks, activityItems, aiInsights };
+      return { tasks, activityItems, aiInsights, confirmedComps: confirmedCompsData, pendingAlerts };
     });
   } catch {
-    return { tasks: [], activityItems: [], aiInsights: [] };
+    return { tasks: [], activityItems: [], aiInsights: [], confirmedComps: null, pendingAlerts: [] };
   }
 };
 
@@ -68,8 +76,11 @@ export const actions: Actions = {
         try {
           const listing = await db.query.listings.findFirst({
             where: and(eq(listings.id, params.id), eq(listings.teamId, teamId)),
-            columns: { address: true, portalSettings: true },
-            with: { client: { columns: { name: true, email: true, phone: true } } },
+            columns: { portalSettings: true, propertyId: true },
+            with: {
+              property: { columns: { address: true } },
+              client: { columns: { name: true, email: true, phone: true } },
+            },
           });
 
           const notifSettings = (listing?.portalSettings as Record<string, any>)?.notifications
@@ -91,7 +102,7 @@ export const actions: Actions = {
               smsEnabled: notifSettings.sms ?? false,
               clientName: listing?.client?.name ?? 'there',
               teamName: team?.name ?? 'Your agent',
-              listingAddress: listing?.address ?? 'your property',
+              listingAddress: listing?.property?.address ?? 'your property',
               newPhase: phase,
               portalUrl,
             });
@@ -138,20 +149,36 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        // Get the listing to find the propertyId
+        const listing = await db.query.listings.findFirst({
+          where: and(eq(listings.id, params.id), eq(listings.teamId, teamId)),
+          columns: { propertyId: true },
+        });
+        if (!listing) throw new Error('Listing not found');
+
+        // Update property fields on the properties table
         await db
-          .update(listings)
+          .update(properties)
           .set({
             address,
             city,
             state,
             zip,
-            price,
             beds,
             baths,
             sqft,
             lotSqft,
             yearBuilt,
             propertyType,
+            updatedAt: new Date(),
+          })
+          .where(eq(properties.id, listing.propertyId));
+
+        // Update listing-specific fields on the listings table
+        await db
+          .update(listings)
+          .set({
+            price,
             description,
             mlsNumber,
             updatedAt: new Date(),

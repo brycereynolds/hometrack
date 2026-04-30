@@ -1,7 +1,8 @@
 import type { PageServerLoad, Actions } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
 import { getListings } from '$lib/server/db/queries/listings.js';
-import { fieldNotes } from '$lib/server/db/schema/index.js';
+import { fieldNotes, teamMembers } from '$lib/server/db/schema/index.js';
+import { eq } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
 
@@ -35,22 +36,27 @@ export const actions: Actions = {
 
     if (!content) return fail(400, { error: 'Note content is required' });
     if (!teamId) return fail(400, { error: 'Team context missing' });
-    if (!tag || !['showing', 'vendor', 'client'].includes(tag)) {
+    if (!tag || !['showing', 'vendor', 'client', 'general'].includes(tag)) {
       return fail(400, { error: 'Invalid tag' });
     }
 
     try {
       const noteId = nanoid();
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const member = await db.query.teamMembers.findFirst({
+          where: eq(teamMembers.userId, locals.user!.id),
+        });
+        if (!member) throw new Error('Team member not found');
+
         await db.insert(fieldNotes).values({
           id: noteId,
-          teamId,
+          teamId: member.teamId,
           listingId: listingId || null,
-          tag: tag as 'showing' | 'vendor' | 'client',
+          tag: tag as 'showing' | 'vendor' | 'client' | 'general',
           textContent: content,
           mediaType: 'text',
           status: 'completed',
-          authorId: locals.user!.id,
+          authorId: member.id,
         });
       });
       return { success: true, noteId, listingId: listingId || null };

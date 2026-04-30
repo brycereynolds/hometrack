@@ -1,4 +1,4 @@
-import { pgTable, pgEnum, text, timestamp, integer, real, jsonb, boolean, index } from 'drizzle-orm/pg-core';
+import { pgTable, pgEnum, text, timestamp, integer, real, jsonb, boolean, index, uniqueIndex } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { listings } from './listing.js';
 import { properties } from './property.js';
@@ -49,30 +49,19 @@ export const compListings = pgTable(
     marketAnalysisId: text('market_analysis_id')
       .notNull()
       .references(() => marketAnalyses.id, { onDelete: 'cascade' }),
-    propertyId: text('property_id').references(() => properties.id, { onDelete: 'set null' }),
+    propertyId: text('property_id')
+      .notNull()
+      .references(() => properties.id, { onDelete: 'cascade' }),
     source: text('source').notNull(),
     externalId: text('external_id'),
-    address: text('address'),
-    city: text('city'),
-    state: text('state'),
-    zip: text('zip'),
     price: real('price'),
     pricePerSqft: real('price_per_sqft'),
-    beds: integer('beds'),
-    baths: real('baths'),
-    sqft: integer('sqft'),
-    lotSqft: integer('lot_sqft'),
-    yearBuilt: integer('year_built'),
     soldDate: timestamp('sold_date'),
     daysOnMarket: integer('days_on_market'),
     status: text('status'),
     distanceMiles: real('distance_miles'),
-    lat: real('lat'),
-    lng: real('lng'),
-    photoUrl: text('photo_url'),
-    photos: jsonb('photos'),
     adjustments: jsonb('adjustments'),
-    propertyType: text('property_type'),
+    isConfirmedComp: boolean('is_confirmed_comp').default(false).notNull(),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

@@ -10,6 +10,9 @@ import {
   uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
+import { listings } from './listing.js';
+import { compListings } from './market-analysis.js';
+import { compSales } from './comp-sale.js';
 
 export const properties = pgTable(
   'properties',
@@ -150,4 +153,10 @@ export const properties = pgTable(
   ],
 );
 
-export const propertiesRelations = relations(properties, () => ({}));
+// Inverse relations are imported lazily to avoid circular deps.
+// Drizzle relations are metadata-only so this is safe.
+export const propertiesRelations = relations(properties, ({ many }) => ({
+  listings: many(listings),
+  compListings: many(compListings),
+  compSales: many(compSales),
+}));

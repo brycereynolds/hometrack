@@ -1,4 +1,3 @@
-import json
 import uuid
 from datetime import datetime, timezone
 
@@ -25,7 +24,7 @@ async def save_analysis_results(params: dict) -> dict:
     comps = params.get("comps", [])
     analysis = params.get("analysis", {})
 
-    now = datetime.now(timezone.utc)
+    now = datetime.utcnow()
     pool = await get_pool()
 
     async with pool.acquire() as conn:
@@ -42,28 +41,13 @@ async def save_analysis_results(params: dict) -> dict:
                     suggested_price_high = $2,
                     confidence = $3,
                     ai_narrative = $4,
-                    market_trend = $5,
-                    strategy = $6,
-                    key_factors = $7::jsonb,
-                    price_per_sqft_analysis = $8,
-                    median_price = $9,
-                    median_ppsf = $10,
-                    avg_dom = $11,
-                    comp_count = $12,
-                    completed_at = $13,
-                    updated_at = $13
-                WHERE id = $14""",
+                    comp_count = $5,
+                    updated_at = $6
+                WHERE id = $7""",
                 analysis.get("suggested_low"),
                 analysis.get("suggested_high"),
                 analysis.get("confidence"),
                 analysis.get("reasoning"),
-                analysis.get("market_trend"),
-                analysis.get("strategy"),
-                json.dumps(analysis.get("key_factors", {})),
-                analysis.get("price_per_sqft_analysis"),
-                sold_stats.get("median_price"),
-                sold_stats.get("median_ppsf"),
-                sold_stats.get("avg_dom"),
                 len(comps),
                 now,
                 analysis_id,
@@ -71,50 +55,37 @@ async def save_analysis_results(params: dict) -> dict:
             activity.heartbeat("updated market_analyses record")
 
             # 2. Insert comp_listings records
+            # Schema: id, market_analysis_id, property_id, source, external_id,
+            #         price, price_per_sqft, sold_date, days_on_market, status,
+            #         distance_miles, adjustments, is_confirmed_comp,
+            #         created_at, updated_at
+            # Property details (address, beds, baths, sqft, etc.) live on the
+            # linked properties row, NOT on comp_listings.
             for comp in comps:
                 comp_id = str(uuid.uuid4())
-                photos_json = json.dumps([comp["photo_url"]] if comp.get("photo_url") else [])
 
                 await conn.execute(
                     """INSERT INTO comp_listings
                        (id, market_analysis_id, property_id, source, external_id,
-                        address, city, state, zip,
                         price, price_per_sqft,
-                        beds, baths, sqft, lot_sqft,
-                        year_built, sold_date, days_on_market, status,
-                        distance_miles, lat, lng,
-                        photos,
+                        sold_date, days_on_market, status,
+                        distance_miles,
                         created_at, updated_at)
                        VALUES ($1, $2, $3, 'realty_api', $4,
-                               $5, $6, $7, $8,
-                               $9, $10,
-                               $11, $12, $13, $14,
-                               $15, $16, $17, $18,
-                               $19, $20, $21,
-                               $22::jsonb,
-                               $23, $23)""",
+                               $5, $6,
+                               $7, $8, $9,
+                               $10,
+                               $11, $11)""",
                     comp_id,
                     analysis_id,
                     comp.get("property_id"),
                     comp.get("external_id", ""),
-                    comp.get("address", ""),
-                    comp.get("city", ""),
-                    comp.get("state", ""),
-                    comp.get("zip", ""),
                     comp.get("price"),
                     comp.get("price_per_sqft"),
-                    comp.get("beds"),
-                    comp.get("baths"),
-                    comp.get("sqft"),
-                    comp.get("lot_sqft"),
-                    comp.get("year_built"),
                     comp.get("sold_date"),
                     comp.get("days_on_market"),
                     comp.get("status", ""),
                     comp.get("distance_miles"),
-                    comp.get("lat"),
-                    comp.get("lng"),
-                    photos_json,
                     now,
                 )
 

@@ -62,6 +62,6 @@ export async function listFiles(prefix: string): Promise<{ name: string; size: n
 	return (data ?? []).map((file) => ({
 		name: `${folder}/${file.name}`,
 		size: file.metadata?.size ?? 0,
-		createdAt: file.created_at,
+		createdAt: file.created_at ?? '',
 	}));
 }

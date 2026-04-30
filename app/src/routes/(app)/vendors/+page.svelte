@@ -12,6 +12,8 @@
 		Award,
 		DollarSign,
 		Users,
+		Pencil,
+		Trash2,
 	} from 'lucide-svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { enhance } from '$app/forms';
@@ -35,7 +37,32 @@
 	let newVendorSpecialties = $state('');
 	let submittingVendor = $state(false);
 
+	// Edit Vendor modal state
+	let showEditVendor = $state(false);
+	let editVendorId = $state('');
+	let editVendorName = $state('');
+	let editVendorCompany = $state('');
+	let editVendorEmail = $state('');
+	let editVendorPhone = $state('');
+	let editVendorCategory = $state('contractor');
+	let editVendorRating = $state('');
+	let submittingEdit = $state(false);
+
+	// Delete confirmation
+	let deletingVendorId = $state<string | null>(null);
+
 	const vendors = $derived(data.vendors);
+
+	function openEditVendor(vendor: typeof vendors[number]) {
+		editVendorId = vendor.id;
+		editVendorName = vendor.name;
+		editVendorCompany = vendor.company ?? '';
+		editVendorEmail = vendor.email ?? '';
+		editVendorPhone = vendor.phone ?? '';
+		editVendorCategory = vendor.category ?? 'contractor';
+		editVendorRating = String(vendor.rating ?? '');
+		showEditVendor = true;
+	}
 
 	function categoryLabel(cat: string | null) {
 		if (!cat) return '';
@@ -161,9 +188,42 @@
 	<!-- Vendor Cards Grid -->
 	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 		{#each filtered() as vendor (vendor.id)}
-			<a href="/vendors/{vendor.id}" class="group block">
-				<Card class="h-full transition-all group-hover:shadow-md">
-					<CardContent class="p-5">
+			<Card class="h-full transition-all hover:shadow-md group relative">
+				<CardContent class="p-5">
+					<!-- Edit/Delete buttons -->
+					<div class="absolute top-3 right-3 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+						<Button size="sm" variant="ghost" class="size-7 p-0" onclick={() => openEditVendor(vendor)}>
+							<Pencil class="size-3.5 text-muted-foreground" />
+						</Button>
+						{#if deletingVendorId === vendor.id}
+							<form
+								method="POST"
+								action="?/deleteVendor"
+								use:enhance={() => {
+									return async ({ result, update }) => {
+										if (result.type === 'success') {
+											toast.success('Vendor deleted');
+											deletingVendorId = null;
+											await update();
+										} else {
+											toast.error('Failed to delete vendor');
+										}
+									};
+								}}
+								class="inline-flex items-center gap-1"
+							>
+								<input type="hidden" name="vendorId" value={vendor.id} />
+								<Button type="submit" size="sm" variant="destructive" class="h-7 text-xs px-2">Delete</Button>
+								<Button type="button" size="sm" variant="ghost" class="h-7 text-xs px-2" onclick={() => deletingVendorId = null}>No</Button>
+							</form>
+						{:else}
+							<Button size="sm" variant="ghost" class="size-7 p-0" onclick={() => deletingVendorId = vendor.id}>
+								<Trash2 class="size-3.5 text-muted-foreground" />
+							</Button>
+						{/if}
+					</div>
+
+					<a href="/vendors/{vendor.id}" class="block">
 						<!-- Header -->
 						<div class="flex items-start gap-3">
 							<Avatar class="size-11">
@@ -236,9 +296,9 @@
 								Preferred Vendor
 							</div>
 						{/if}
-					</CardContent>
-				</Card>
-			</a>
+					</a>
+				</CardContent>
+			</Card>
 		{:else}
 			<div class="col-span-full py-12 text-center">
 				<Users class="mx-auto size-10 text-muted-foreground/40" />
@@ -357,6 +417,120 @@
 				<Button variant="outline" type="button" onclick={() => showAddVendor = false}>Cancel</Button>
 				<Button type="submit" disabled={submittingVendor || !newVendorName.trim()}>
 					{submittingVendor ? 'Adding...' : 'Add Vendor'}
+				</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Edit Vendor Modal -->
+<Dialog.Root bind:open={showEditVendor}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Vendor</Dialog.Title>
+			<Dialog.Description>Update vendor details.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/editVendor"
+			use:enhance={() => {
+				submittingEdit = true;
+				return async ({ result, update }) => {
+					submittingEdit = false;
+					if (result.type === 'success') {
+						showEditVendor = false;
+						toast.success('Vendor updated');
+						await update();
+					} else if (result.type === 'failure') {
+						toast.error(String(result.data?.error ?? 'Failed to update vendor'));
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="vendorId" value={editVendorId} />
+			<div class="space-y-4 py-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-vendor-name" class="text-sm font-medium">Contact Name</label>
+						<input
+							id="edit-vendor-name"
+							name="name"
+							type="text"
+							bind:value={editVendorName}
+							required
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="edit-vendor-company" class="text-sm font-medium">Company</label>
+						<input
+							id="edit-vendor-company"
+							name="company"
+							type="text"
+							bind:value={editVendorCompany}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-vendor-email" class="text-sm font-medium">Email</label>
+						<input
+							id="edit-vendor-email"
+							name="email"
+							type="email"
+							bind:value={editVendorEmail}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="edit-vendor-phone" class="text-sm font-medium">Phone</label>
+						<input
+							id="edit-vendor-phone"
+							name="phone"
+							type="tel"
+							bind:value={editVendorPhone}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-vendor-category" class="text-sm font-medium">Category</label>
+						<select
+							id="edit-vendor-category"
+							name="category"
+							bind:value={editVendorCategory}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="contractor">Contractor</option>
+							<option value="stager">Stager</option>
+							<option value="photographer">Photographer</option>
+							<option value="inspector">Inspector</option>
+							<option value="landscaper">Landscaper</option>
+							<option value="painter">Painter</option>
+						</select>
+					</div>
+					<div>
+						<label for="edit-vendor-rating" class="text-sm font-medium">Rating</label>
+						<input
+							id="edit-vendor-rating"
+							name="rating"
+							type="number"
+							step="0.1"
+							min="0"
+							max="5"
+							bind:value={editVendorRating}
+							placeholder="0-5"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showEditVendor = false}>Cancel</Button>
+				<Button type="submit" disabled={submittingEdit || !editVendorName.trim()}>
+					{submittingEdit ? 'Saving...' : 'Save Changes'}
 				</Button>
 			</Dialog.Footer>
 		</form>

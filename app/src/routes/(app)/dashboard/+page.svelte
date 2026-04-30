@@ -7,6 +7,8 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config';
 	import { formatCurrency } from '$lib/utils';
+	import { invalidateAll } from '$app/navigation';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 
@@ -102,6 +104,75 @@
 
 	// Reminder dropdown state
 	let reminderOpenForTask = $state<string | null>(null);
+
+	/** Generate an .ics calendar file and trigger download */
+	function downloadICS(task: any) {
+		const start = task.dueDate ? new Date(task.dueDate).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z' : '';
+		const uid = `task-${task.id}@hometrack`;
+		const ics = [
+			'BEGIN:VCALENDAR',
+			'VERSION:2.0',
+			'PRODID:-//HomeTrack//Tasks//EN',
+			'BEGIN:VEVENT',
+			`UID:${uid}`,
+			`DTSTART:${start}`,
+			`SUMMARY:${(task.title ?? '').replace(/[,;\\]/g, ' ')}`,
+			`DESCRIPTION:${(task.listing?.property?.address ?? '').replace(/[,;\\]/g, ' ')}`,
+			'END:VEVENT',
+			'END:VCALENDAR'
+		].join('\r\n');
+		const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `${(task.title ?? 'task').replace(/\s+/g, '-').toLowerCase()}.ics`;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+		toast.success('Calendar event downloaded');
+	}
+
+	/** Handle reminder selection — placeholder until push notifications */
+	function setReminder(task: any, option: string) {
+		reminderOpenForTask = null;
+		toast.success(`Reminder set for ${option}`);
+	}
+
+	// Task toggle
+	let togglingTasks = $state<Set<string>>(new Set());
+
+	async function toggleTask(task: any) {
+		const taskId = task.id;
+		const listingId = task.listingId ?? task.listing?.id;
+		if (!taskId || !listingId || togglingTasks.has(taskId)) return;
+
+		togglingTasks = new Set([...togglingTasks, taskId]);
+		const newStatus = task.status === 'done' ? 'todo' : 'done';
+
+		try {
+			const formData = new FormData();
+			formData.set('taskId', taskId);
+			formData.set('status', newStatus);
+
+			const res = await fetch(`/listings/${listingId}/tasks?/toggleStatus`, {
+				method: 'POST',
+				body: formData,
+			});
+			if (res.ok) {
+				toast.success(newStatus === 'done' ? 'Task completed' : 'Task reopened');
+				await invalidateAll();
+			} else {
+				toast.error('Failed to update task');
+			}
+		} catch {
+			toast.error('Failed to update task');
+		} finally {
+			const next = new Set(togglingTasks);
+			next.delete(taskId);
+			togglingTasks = next;
+		}
+	}
 
 	let filteredTasks = $derived(
 		(() => {
@@ -266,6 +337,41 @@
 		{/each}
 	</div>
 
+	<!-- Upcoming Showings -->
+	<Card>
+		<CardHeader>
+			<div class="flex items-center justify-between">
+				<div class="flex items-center gap-2">
+					<Calendar class="size-4 text-muted-foreground" />
+					<CardTitle>Upcoming Showings</CardTitle>
+				</div>
+				<a href="/listings" class="text-xs text-primary hover:underline">View calendar</a>
+			</div>
+		</CardHeader>
+		<CardContent>
+			{#if todayShowings.length === 0}
+				<p class="text-sm text-muted-foreground py-4 text-center">No upcoming showings scheduled</p>
+			{:else}
+				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{#each todayShowings as showing}
+						<a href="/listings/{showing.listingId}" class="group flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
+							<div class="text-center shrink-0">
+								<div class="text-lg font-bold leading-tight">{new Date(showing.date).getDate()}</div>
+								<div class="text-xs text-muted-foreground">Apr</div>
+							</div>
+							<div class="min-w-0 flex-1">
+								<p class="text-sm font-medium group-hover:text-primary transition-colors">Showing</p>
+								<p class="text-xs text-muted-foreground">{showing.time} &middot; {showing.agentName}</p>
+								<p class="text-xs text-muted-foreground">{showing.agentCompany} &middot; {showing.buyerType}</p>
+							</div>
+							<ChevronRight class="size-4 text-muted-foreground shrink-0 mt-1" />
+						</a>
+					{/each}
+				</div>
+			{/if}
+		</CardContent>
+	</Card>
+
 	<!-- Middle Row: Pipeline Summary + Team Workload -->
 	<div class="grid gap-6 lg:grid-cols-2">
 		<!-- Pipeline Summary -->
@@ -303,7 +409,7 @@
 							{#if count > 0}
 								<div class="mt-1 flex flex-wrap gap-1">
 									{#each phaseListings as listing}
-										<span class="text-xs text-muted-foreground">{listing.address.split(' ').slice(0, 2).join(' ')}{phaseListings.indexOf(listing) < phaseListings.length - 1 ? ',' : ''}</span>
+										<span class="text-xs text-muted-foreground">{(listing.property?.address ?? '').split(' ').slice(0, 2).join(' ')}{phaseListings.indexOf(listing) < phaseListings.length - 1 ? ',' : ''}</span>
 									{/each}
 								</div>
 							{/if}
@@ -357,14 +463,20 @@
 					<div class="divide-y">
 						{#each filteredTasks.slice(0, 6) as task}
 							<div class="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
-								<input type="checkbox" class="mt-1 size-4 rounded border-border accent-primary cursor-pointer" />
+								<input
+								type="checkbox"
+								checked={task.status === 'done'}
+								disabled={togglingTasks.has(task.id)}
+								onchange={() => toggleTask(task)}
+								class="mt-1 size-4 rounded border-border accent-primary cursor-pointer disabled:opacity-50"
+							/>
 								<div class="min-w-0 flex-1">
 									<p class="text-sm font-medium leading-snug">{task.title}</p>
 									<div class="mt-1 flex items-center gap-2">
 										<Badge variant={getPriorityVariant(task.priority)} class="text-[10px] px-1.5 py-0">
 											{task.priority}
 										</Badge>
-										<span class="text-xs text-muted-foreground">{task.listing?.address ?? ''}</span>
+										<span class="text-xs text-muted-foreground">{task.listing?.property?.address ?? ''}</span>
 									</div>
 									<p class="text-xs text-muted-foreground mt-0.5">Due {task.dueDate}</p>
 								</div>
@@ -374,6 +486,7 @@
 									{/if}
 									<button
 										title="Add to calendar"
+onclick={() => downloadICS(task)}
 										class="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
 									>
 										<CalendarPlus class="size-3.5" />
@@ -390,7 +503,7 @@
 											<div class="absolute right-0 top-full z-10 mt-1 w-40 rounded-md border bg-popover p-1 shadow-md">
 												{#each ['1 hour before', '1 day before', 'Morning of', 'Custom'] as option}
 													<button
-														onclick={() => reminderOpenForTask = null}
+														onclick={() => setReminder(task, option)}
 														class="w-full rounded-sm px-2 py-1.5 text-left text-xs hover:bg-muted transition-colors"
 													>
 														{option}
@@ -490,39 +603,4 @@
 			</CardContent>
 		</Card>
 	</div>
-
-	<!-- Calendar / Upcoming Showings -->
-	<Card>
-		<CardHeader>
-			<div class="flex items-center justify-between">
-				<div class="flex items-center gap-2">
-					<Calendar class="size-4 text-muted-foreground" />
-					<CardTitle>Upcoming Showings</CardTitle>
-				</div>
-				<a href="/listings" class="text-xs text-primary hover:underline">View calendar</a>
-			</div>
-		</CardHeader>
-		<CardContent>
-			{#if todayShowings.length === 0}
-				<p class="text-sm text-muted-foreground py-4 text-center">No upcoming showings scheduled</p>
-			{:else}
-				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{#each todayShowings as showing}
-						<a href="/listings/{showing.listingId}" class="group flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
-							<div class="text-center shrink-0">
-								<div class="text-lg font-bold leading-tight">{new Date(showing.date).getDate()}</div>
-								<div class="text-xs text-muted-foreground">Apr</div>
-							</div>
-							<div class="min-w-0 flex-1">
-								<p class="text-sm font-medium group-hover:text-primary transition-colors">Showing</p>
-								<p class="text-xs text-muted-foreground">{showing.time} &middot; {showing.agentName}</p>
-								<p class="text-xs text-muted-foreground">{showing.agentCompany} &middot; {showing.buyerType}</p>
-							</div>
-							<ChevronRight class="size-4 text-muted-foreground shrink-0 mt-1" />
-						</a>
-					{/each}
-				</div>
-			{/if}
-		</CardContent>
-	</Card>
 </div>

@@ -30,15 +30,37 @@
 		Mail,
 		Phone,
 		Globe,
-		Monitor
+		Monitor,
+		TrendingUp,
+		Search,
+		AlertTriangle
 	} from 'lucide-svelte';
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
+	const prop = $derived(listing?.property);
 	const tasks = $derived(data.tasks ?? []);
 	const activityItems = $derived((data.activityItems ?? []).slice(0, 5));
 	const aiInsights = $derived((data.aiInsights ?? []).filter((a: any) => !a.dismissed).slice(0, 2));
 	const teamMembers = $derived(data.teamMembers ?? []);
+
+	const confirmedComps = $derived(data.confirmedComps);
+
+	let acknowledgedIds = $state<Set<string>>(new Set());
+	const pendingAlerts = $derived(
+		(data.pendingAlerts ?? []).filter((a: any) => !acknowledgedIds.has(a.id))
+	);
+
+	async function acknowledgeInsight(id: string) {
+		try {
+			const res = await fetch(`/api/insights/${id}/acknowledge`, { method: 'POST' });
+			if (res.ok) {
+				acknowledgedIds = new Set([...acknowledgedIds, id]);
+			}
+		} catch (err) {
+			console.error('Failed to acknowledge insight:', err);
+		}
+	}
 
 	const tasksDoneCount = $derived(tasks.filter((t: any) => t.status === 'done').length);
 
@@ -47,10 +69,10 @@
 	let overviewMap: any = null;
 
 	onMount(async () => {
-		if (!listing?.lat || !listing?.lng || !overviewMapContainer) return;
+		if (!prop?.lat || !prop?.lng || !overviewMapContainer) return;
 
 		const L = (await import('leaflet')).default;
-		overviewMap = L.map(overviewMapContainer, { zoomControl: false, attributionControl: false }).setView([listing.lat, listing.lng], 15);
+		overviewMap = L.map(overviewMapContainer, { zoomControl: false, attributionControl: false }).setView([prop.lat, prop.lng], 15);
 
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 18,
@@ -62,7 +84,7 @@
 			iconSize: [28, 28],
 			iconAnchor: [14, 14],
 		});
-		L.marker([listing.lat, listing.lng], { icon }).addTo(overviewMap);
+		L.marker([prop.lat, prop.lng], { icon }).addTo(overviewMap);
 	});
 
 	onDestroy(() => {
@@ -91,6 +113,28 @@
 		return `${days}d ago`;
 	}
 
+	function soldAgo(d: any): string {
+		if (!d) return '';
+		const date = d instanceof Date ? d : new Date(d);
+		const now = new Date();
+		const diff = now.getTime() - date.getTime();
+		const days = Math.floor(diff / 86400000);
+		if (days < 1) return 'Today';
+		if (days < 30) return `${days}d ago`;
+		const months = Math.floor(days / 30);
+		if (months < 12) return `${months}mo ago`;
+		const years = Math.floor(months / 12);
+		return `${years}y ago`;
+	}
+
+	function getCompPhoto(comp: any): string | null {
+		if (comp.property?.photos && Array.isArray(comp.property.photos) && comp.property.photos.length > 0) {
+			const p = comp.property.photos[0];
+			return typeof p === 'string' ? p : p?.url ?? null;
+		}
+		return null;
+	}
+
 	function getActivityColor(type: string) {
 		switch (type) {
 			case 'message': return 'text-blue-500';
@@ -107,6 +151,51 @@
 
 {#if listing}
 	<div class="space-y-6">
+		<!-- Action Required: Pending Alerts -->
+		{#if pendingAlerts.length > 0}
+			<Card class="border-amber-300 bg-amber-50/50">
+				<CardHeader class="pb-3">
+					<CardTitle class="flex items-center gap-2 text-base font-serif">
+						<AlertTriangle class="size-4 text-amber-600" />
+						Action Required
+						<Badge variant="outline" class="ml-1 border-amber-300 text-amber-700 text-xs">{pendingAlerts.length}</Badge>
+					</CardTitle>
+				</CardHeader>
+				<CardContent class="pt-0">
+					<div class="space-y-2">
+						{#each pendingAlerts as alert}
+							<div class="flex items-start gap-3 rounded-lg border border-amber-200/70 bg-white p-3">
+								<div class="shrink-0 rounded-full bg-amber-100 p-1.5 mt-0.5">
+									<Sparkles class="size-3.5 text-amber-600" />
+								</div>
+								<div class="min-w-0 flex-1">
+									<p class="text-sm font-medium">{alert.title}</p>
+									<p class="mt-0.5 text-xs text-muted-foreground line-clamp-2">{alert.description}</p>
+									<div class="mt-2 flex items-center gap-2">
+										{#if alert.actionUrl}
+											<Button variant="outline" size="sm" class="h-7 text-xs border-amber-300 text-amber-700 hover:bg-amber-50" href={alert.actionUrl}>
+												{alert.actionLabel ?? 'View'}
+												<ExternalLink class="ml-1 size-3" />
+											</Button>
+										{/if}
+										<Button
+											variant="ghost"
+											size="sm"
+											class="h-7 text-xs text-muted-foreground hover:text-emerald-600"
+											onclick={() => acknowledgeInsight(alert.id)}
+										>
+											<CheckCircle2 class="mr-1 size-3" />
+											Acknowledge
+										</Button>
+									</div>
+								</div>
+							</div>
+						{/each}
+					</div>
+				</CardContent>
+			</Card>
+		{/if}
+
 		<!-- Quick Stats Row -->
 		<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 			<a href="/listings/{listing.id}/tasks" class="group">
@@ -189,30 +278,30 @@
 						<div class="grid grid-cols-2 gap-4 sm:grid-cols-4">
 							<div class="flex items-center gap-2.5">
 								<div class="rounded-md bg-muted p-1.5"><Bed class="size-4 text-muted-foreground" /></div>
-								<div><p class="text-sm font-semibold">{listing.beds ?? 0}</p><p class="text-xs text-muted-foreground">Beds</p></div>
+								<div><p class="text-sm font-semibold">{prop?.beds ?? 0}</p><p class="text-xs text-muted-foreground">Beds</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
 								<div class="rounded-md bg-muted p-1.5"><Bath class="size-4 text-muted-foreground" /></div>
-								<div><p class="text-sm font-semibold">{listing.baths ?? 0}</p><p class="text-xs text-muted-foreground">Baths</p></div>
+								<div><p class="text-sm font-semibold">{prop?.baths ?? 0}</p><p class="text-xs text-muted-foreground">Baths</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
 								<div class="rounded-md bg-muted p-1.5"><Ruler class="size-4 text-muted-foreground" /></div>
-								<div><p class="text-sm font-semibold">{(listing.sqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Sq Ft</p></div>
+								<div><p class="text-sm font-semibold">{(prop?.sqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Sq Ft</p></div>
 							</div>
 							<div class="flex items-center gap-2.5">
 								<div class="rounded-md bg-muted p-1.5"><MapPin class="size-4 text-muted-foreground" /></div>
-								<div><p class="text-sm font-semibold">{(listing.lotSqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Lot Sq Ft</p></div>
+								<div><p class="text-sm font-semibold">{(prop?.lotSqft ?? 0).toLocaleString()}</p><p class="text-xs text-muted-foreground">Lot Sq Ft</p></div>
 							</div>
 						</div>
 						<Separator class="my-4" />
 						<div class="grid grid-cols-2 gap-4 text-sm sm:grid-cols-3">
 							<div>
 								<p class="text-muted-foreground">Property Type</p>
-								<p class="font-medium">{listing.propertyType ?? 'N/A'}</p>
+								<p class="font-medium">{prop?.propertyType ?? 'N/A'}</p>
 							</div>
 							<div>
 								<p class="text-muted-foreground">Year Built</p>
-								<p class="font-medium">{listing.yearBuilt ?? 'N/A'}</p>
+								<p class="font-medium">{prop?.yearBuilt ?? 'N/A'}</p>
 							</div>
 							<div>
 								<p class="text-muted-foreground">MLS Number</p>
@@ -223,10 +312,10 @@
 							<Separator class="my-4" />
 							<p class="text-sm leading-relaxed text-muted-foreground">{listing.description}</p>
 						{/if}
-						{#if listing.features && (listing.features as string[]).length > 0}
+						{#if prop?.features && typeof prop.features === 'object'}
 							<div class="mt-4 flex flex-wrap gap-2">
-								{#each listing.features as feature}
-									<Badge variant="secondary" class="font-normal">{feature}</Badge>
+								{#each Object.entries(prop.features as Record<string, unknown>).filter(([, v]) => v === true) as [key]}
+									<Badge variant="secondary" class="font-normal">{key}</Badge>
 								{/each}
 							</div>
 						{/if}
@@ -267,7 +356,94 @@
 					</CardContent>
 				</Card>
 
-				<!-- Recent Activity Mini-Feed -->
+				<!-- Confirmed Comparables -->
+				<Card>
+					<CardHeader class="flex-row items-center justify-between">
+						<div class="flex items-center gap-2">
+							<CardTitle class="font-serif">Confirmed Comparables</CardTitle>
+							{#if confirmedComps?.comps?.length}
+								<Badge variant="secondary" class="text-xs">{confirmedComps.comps.length}</Badge>
+							{/if}
+						</div>
+						{#if confirmedComps?.comps?.length}
+							<Button variant="ghost" size="sm" href="/listings/{listing.id}/listing">
+								View all comps
+								<ArrowRight class="ml-1 size-3.5" />
+							</Button>
+						{/if}
+					</CardHeader>
+					<CardContent>
+						{#if confirmedComps?.comps?.length}
+							<div class="divide-y">
+								{#each confirmedComps.comps as comp}
+									{@const photo = getCompPhoto(comp)}
+									{@const cp = comp.property}
+									<div class="flex items-center gap-3 py-3 first:pt-0 last:pb-0">
+										{#if photo}
+											<img
+												src={photo}
+												alt={cp?.address ?? 'Comp'}
+												class="size-12 shrink-0 rounded-md object-cover"
+											/>
+										{:else}
+											<div class="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted">
+												<Home class="size-5 text-muted-foreground" />
+											</div>
+										{/if}
+										<div class="min-w-0 flex-1">
+											<div class="flex items-center justify-between gap-2">
+												{#if cp?.id}
+													<a href="/properties/{cp.id}" class="text-sm font-medium truncate hover:underline">{cp.address ?? 'Unknown'}</a>
+												{:else}
+													<span class="text-sm font-medium truncate">Unknown</span>
+												{/if}
+												<span class="shrink-0 text-sm font-semibold">{comp.price ? formatCurrency(comp.price) : 'N/A'}</span>
+											</div>
+											<div class="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
+												{#if cp?.beds != null}<span>{cp.beds}bd</span>{/if}
+												{#if cp?.baths != null}<span>/ {cp.baths}ba</span>{/if}
+												{#if cp?.sqft != null}<span class="before:content-['·'] before:mx-1">{cp.sqft.toLocaleString()} sqft</span>{/if}
+												{#if comp.soldDate}
+													<span class="before:content-['·'] before:mx-1">{comp.status === 'sold' || comp.status === 'Sold' ? 'Sold' : comp.status ?? 'Sold'} {soldAgo(comp.soldDate)}</span>
+												{:else if comp.status}
+													<span class="before:content-['·'] before:mx-1">{comp.status}</span>
+												{/if}
+											</div>
+										</div>
+									</div>
+								{/each}
+							</div>
+							{#if confirmedComps.analysis?.suggestedPriceLow && confirmedComps.analysis?.suggestedPriceHigh}
+								<Separator class="my-3" />
+								<div class="flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-2">
+									<TrendingUp class="size-4 text-emerald-600 shrink-0" />
+									<div class="text-sm">
+										<span class="font-medium text-emerald-800">Suggested Range:</span>
+										<span class="text-emerald-700">
+											{formatCurrency(confirmedComps.analysis.suggestedPriceLow)} – {formatCurrency(confirmedComps.analysis.suggestedPriceHigh)}
+										</span>
+										{#if confirmedComps.analysis.confidence}
+											<span class="text-emerald-600/70">({Math.round(confirmedComps.analysis.confidence * 100)}% confidence)</span>
+										{/if}
+									</div>
+								</div>
+							{/if}
+						{:else}
+							<div class="flex flex-col items-center gap-2 py-4 text-center">
+								<div class="rounded-full bg-muted p-2.5">
+									<Search class="size-5 text-muted-foreground" />
+								</div>
+								<p class="text-sm text-muted-foreground">No confirmed comps yet</p>
+								<Button variant="ghost" size="sm" class="text-xs" href="/listings/{listing.id}/listing">
+									Run market analysis to find comparables
+									<ArrowRight class="ml-1 size-3" />
+								</Button>
+							</div>
+						{/if}
+					</CardContent>
+				</Card>
+
+			<!-- Recent Activity Mini-Feed -->
 				<Card>
 					<CardHeader class="flex-row items-center justify-between">
 						<CardTitle class="font-serif">Recent Activity</CardTitle>
@@ -306,7 +482,7 @@
 			<!-- Sidebar -->
 			<div class="space-y-6">
 				<!-- Location Map -->
-				{#if listing.lat && listing.lng}
+				{#if prop?.lat && prop?.lng}
 					<Card>
 						<CardHeader class="pb-2">
 							<CardTitle class="font-serif text-base flex items-center gap-2">

@@ -7,13 +7,13 @@
   import * as Dialog from '$lib/components/ui/dialog/index.js';
   import { Button } from '$lib/components/ui/button/index.js';
   import Autocomplete from './Autocomplete.svelte';
-  import type { Listing, AIInsight } from '$lib/types';
+  import type { ListingWithProperty, AIInsight } from '$lib/types';
 
   interface Props {
     collapsed?: boolean;
     onToggle?: () => void;
     activePath?: string;
-    listings?: Listing[];
+    listings?: ListingWithProperty[];
     aiInsights?: AIInsight[];
     teamName?: string;
     userName?: string;
@@ -346,7 +346,7 @@
         <label for="memo-listing" class="text-sm font-medium">Link to Listing (optional)</label>
         <div class="mt-1">
           <Autocomplete
-            items={[{ value: '', label: 'None' }, ...listings.map((l) => ({ value: l.id, label: l.address }))]}
+            items={[{ value: '', label: 'None' }, ...listings.map((l) => ({ value: l.id, label: l.property?.address ?? '' }))]}
             bind:value={memoListingId}
             placeholder="Search listings..."
           />
@@ -392,7 +392,7 @@
         <label for="note-listing" class="text-sm font-medium">Link to Listing (optional)</label>
         <div class="mt-1">
           <Autocomplete
-            items={[{ value: '', label: 'None' }, ...listings.map((l) => ({ value: l.id, label: l.address }))]}
+            items={[{ value: '', label: 'None' }, ...listings.map((l) => ({ value: l.id, label: l.property?.address ?? '' }))]}
             bind:value={noteListingId}
             placeholder="Search listings..."
           />

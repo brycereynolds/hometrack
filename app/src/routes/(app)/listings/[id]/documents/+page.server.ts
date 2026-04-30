@@ -2,9 +2,9 @@ import type { PageServerLoad, Actions } from './$types';
 import { getDocumentsByListing } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
 import { documents, teamMembers } from '$lib/server/db/schema/index.js';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
-import { buildStoragePath, uploadFile } from '$lib/server/storage.js';
+import { buildStoragePath, uploadFile, getSignedUrl, deleteFile } from '$lib/server/storage.js';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
@@ -103,5 +103,107 @@ export const actions: Actions = {
     }
 
     return { success: true };
+  },
+
+  updateStatus: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+
+    const member = await getTeamMember(locals.user.id);
+    if (!member) return fail(400, { error: 'No team membership found' });
+
+    const form = await request.formData();
+    const documentId = form.get('documentId') as string;
+    const newStatus = form.get('newStatus') as string;
+
+    if (!documentId || !newStatus) {
+      return fail(400, { error: 'Document ID and status are required' });
+    }
+
+    const validStatuses = ['draft', 'pending_signature', 'signed', 'complete', 'expired'];
+    if (!validStatuses.includes(newStatus)) {
+      return fail(400, { error: 'Invalid status' });
+    }
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db
+          .update(documents)
+          .set({ status: newStatus as any, updatedAt: new Date() })
+          .where(and(eq(documents.id, documentId), eq(documents.teamId, member.teamId)));
+      });
+      return { success: true, action: 'updateStatus' };
+    } catch (err) {
+      console.error('updateStatus error:', err);
+      return fail(500, { error: 'Failed to update document status' });
+    }
+  },
+
+  deleteDocument: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+
+    const member = await getTeamMember(locals.user.id);
+    if (!member) return fail(400, { error: 'No team membership found' });
+
+    const form = await request.formData();
+    const documentId = form.get('documentId') as string;
+
+    if (!documentId) return fail(400, { error: 'Document ID is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        // Get the document to find storage path
+        const doc = await db.query.documents.findFirst({
+          where: and(eq(documents.id, documentId), eq(documents.teamId, member.teamId)),
+        });
+
+        if (!doc) throw new Error('Document not found');
+
+        // Delete from storage if file URL exists
+        if (doc.fileUrl) {
+          try {
+            await deleteFile(doc.fileUrl);
+          } catch (storageErr) {
+            console.error('Storage delete failed (continuing with DB delete):', storageErr);
+          }
+        }
+
+        // Delete DB record
+        await db
+          .delete(documents)
+          .where(and(eq(documents.id, documentId), eq(documents.teamId, member.teamId)));
+      });
+      return { success: true, action: 'deleteDocument' };
+    } catch (err) {
+      console.error('deleteDocument error:', err);
+      return fail(500, { error: 'Failed to delete document' });
+    }
+  },
+
+  downloadDocument: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+
+    const member = await getTeamMember(locals.user.id);
+    if (!member) return fail(400, { error: 'No team membership found' });
+
+    const form = await request.formData();
+    const documentId = form.get('documentId') as string;
+
+    if (!documentId) return fail(400, { error: 'Document ID is required' });
+
+    try {
+      const signedUrl = await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const doc = await db.query.documents.findFirst({
+          where: and(eq(documents.id, documentId), eq(documents.teamId, member.teamId)),
+        });
+        if (!doc) throw new Error('Document not found');
+        if (!doc.fileUrl) throw new Error('No file associated with this document');
+
+        return getSignedUrl(doc.fileUrl);
+      });
+      return { success: true, action: 'downloadDocument', signedUrl };
+    } catch (err) {
+      console.error('downloadDocument error:', err);
+      return fail(500, { error: 'Failed to generate download URL' });
+    }
   },
 };

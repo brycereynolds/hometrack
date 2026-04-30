@@ -47,13 +47,10 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			const timestamp = Date.now();
 			const ext = file.name.split('.').pop() ?? (isVideo ? 'mp4' : 'jpg');
 			const storagePath = `${member.teamId}/${listingId ?? 'general'}/${timestamp}.${ext}`;
-			const arrayBuffer = await file.arrayBuffer();
-			const buffer = new Uint8Array(arrayBuffer);
-
 			const supabase = getSupabaseAdmin();
 			const { error: uploadError } = await supabase.storage
 				.from(BUCKET)
-				.upload(storagePath, buffer, {
+				.upload(storagePath, file, {
 					contentType: file.type,
 					upsert: false,
 				});
@@ -69,14 +66,14 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 				authorId: member.id,
 				mediaType: isVideo ? 'video' : 'photo',
 				status: 'pending',
-				contentHash: `${file.name}-${buffer.byteLength}-${timestamp}`,
+				contentHash: `${file.name}-${file.size}-${timestamp}`,
 				tag: 'general',
 				mediaStoragePath: storagePath,
 			});
 
 			// Insert activity item
 			const activityId = crypto.randomUUID();
-			const type = isVideo ? 'video' : 'photo';
+			const type = 'note' as const;
 			await db.insert(activityItems).values({
 				id: activityId,
 				teamId: member.teamId,
@@ -90,7 +87,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 					storagePath,
 					bucket: BUCKET,
 					mimeType: file.type,
-					fileSize: buffer.byteLength,
+					fileSize: file.size,
 					originalName: file.name,
 					fieldNoteId,
 				},
@@ -107,7 +104,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 				authorName: member.name,
 				metadata: {
 					mimeType: file.type,
-					fileSize: buffer.byteLength,
+					fileSize: file.size,
 					originalName: file.name,
 					fieldNoteId,
 				},

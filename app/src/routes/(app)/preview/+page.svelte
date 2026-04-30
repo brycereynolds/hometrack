@@ -67,7 +67,7 @@
 	<!-- PAGE HEADER -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="PageHeader" />
+		{@render SectionTitle({ title: 'PageHeader' })}
 		<div class="rounded-lg border bg-card p-6">
 			<PageHeader title="Listings" subtitle="Manage your active listing pipeline">
 				{#snippet actions()}
@@ -84,7 +84,7 @@
 	<!-- BREADCRUMBS -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="Breadcrumbs" />
+		{@render SectionTitle({ title: 'Breadcrumbs' })}
 		<div class="rounded-lg border bg-card p-6 space-y-4">
 			<Breadcrumbs items={[
 				{ label: 'Dashboard', href: '/dashboard' },
@@ -105,7 +105,7 @@
 	<!-- METRIC CARDS -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="MetricCard" />
+		{@render SectionTitle({ title: 'MetricCard' })}
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
 			<MetricCard label="Active Listings" value="8" trend="+3 this month" trendDirection="up" />
 			<MetricCard label="Pipeline Value" value="$18.5M" trend="+12% MoM" trendDirection="up" />
@@ -118,7 +118,7 @@
 	<!-- PHASE BADGES -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="PhaseBadge" />
+		{@render SectionTitle({ title: 'PhaseBadge' })}
 		<div class="rounded-lg border bg-card p-6">
 			<div class="flex flex-wrap gap-2">
 				{#each PHASE_LIST as phase}
@@ -138,7 +138,7 @@
 	<!-- STATUS BADGES -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="StatusBadge" />
+		{@render SectionTitle({ title: 'StatusBadge' })}
 		<div class="rounded-lg border bg-card p-6">
 			<div class="flex flex-wrap gap-2">
 				<StatusBadge status="Completed" variant="success" />
@@ -168,7 +168,7 @@
 	<!-- LISTING CARDS — Pipeline Variant -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="ListingCard — Pipeline Variant" />
+		{@render SectionTitle({ title: 'ListingCard — Pipeline Variant' })}
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 			{#each listings.slice(0, 4) as listing}
 				<ListingCard {listing} variant="pipeline" />
@@ -180,7 +180,7 @@
 	<!-- LISTING CARDS — List Variant -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="ListingCard — List Variant" />
+		{@render SectionTitle({ title: 'ListingCard — List Variant' })}
 		<div class="space-y-3">
 			{#each listings.slice(0, 3) as listing}
 				<ListingCard {listing} variant="list" />
@@ -192,7 +192,7 @@
 	<!-- CONTACT CARDS — Card Variant -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="ContactCard — Card Variant" />
+		{@render SectionTitle({ title: 'ContactCard — Card Variant' })}
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
 			{#each contacts.slice(0, 3) as contact}
 				<ContactCard {contact} variant="card" />
@@ -212,7 +212,7 @@
 	<!-- CONTACT CARDS — Row Variant -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="ContactCard — Row Variant" />
+		{@render SectionTitle({ title: 'ContactCard — Row Variant' })}
 		<div class="rounded-lg border bg-card divide-y">
 			{#each contacts.slice(0, 5) as contact}
 				<ContactCard {contact} variant="row" />
@@ -224,7 +224,7 @@
 	<!-- ACTIVITY FEED ITEMS -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="ActivityFeedItem — All Types" />
+		{@render SectionTitle({ title: 'ActivityFeedItem — All Types' })}
 		<div class="rounded-lg border bg-card p-4 divide-y divide-border/50">
 			{#each activityItems as item}
 				<ActivityFeedItem {item} showListing />
@@ -236,7 +236,7 @@
 	<!-- AI INSIGHT CARDS -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="AIInsightCard — All Types" />
+		{@render SectionTitle({ title: 'AIInsightCard — All Types' })}
 		<div class="space-y-3">
 			{#each aiInsights.slice(0, 4) as insight}
 				<AIInsightCard {insight} />
@@ -255,7 +255,7 @@
 	<!-- LISTING DETAIL TABS -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="ListingDetailTabs" />
+		{@render SectionTitle({ title: 'ListingDetailTabs' })}
 		<div class="rounded-lg border bg-card">
 			<ListingDetailTabs listingId="l-1" activeTab="overview" />
 			<div class="p-6">
@@ -274,7 +274,7 @@
 	<!-- DATA TABLE -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="DataTable" />
+		{@render SectionTitle({ title: 'DataTable' })}
 		<DataTable
 			columns={[
 				{ key: 'address', label: 'Address', sortable: true },
@@ -300,8 +300,8 @@
 			{/snippet}
 			{#snippet row(item, _index)}
 				<tr class="hover:bg-muted/50 transition-colors">
-					<td class="px-4 py-3 text-sm font-medium">{item.address}</td>
-					<td class="px-4 py-3 text-sm text-muted-foreground">{item.city}</td>
+					<td class="px-4 py-3 text-sm font-medium">{item.property?.address ?? item.address}</td>
+					<td class="px-4 py-3 text-sm text-muted-foreground">{item.property?.city ?? item.city}</td>
 					<td class="px-4 py-3 text-right text-sm font-serif font-semibold">{"$" + (item.price / 1000000).toFixed(1) + "M"}</td>
 					<td class="px-4 py-3"><PhaseBadge phase={item.phase} size="sm" /></td>
 					<td class="px-4 py-3 text-sm text-muted-foreground">{item.agent.name}</td>
@@ -314,7 +314,7 @@
 	<!-- EMPTY STATE -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="EmptyState" />
+		{@render SectionTitle({ title: 'EmptyState' })}
 		<div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
 			<div class="rounded-lg border bg-card">
 				<EmptyState
@@ -339,7 +339,7 @@
 	<!-- TYPOGRAPHY -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="Typography" />
+		{@render SectionTitle({ title: 'Typography' })}
 		<div class="rounded-lg border bg-card p-6 space-y-4">
 			<h1 class="font-serif text-4xl font-bold">DM Serif Display — Page Title (4xl)</h1>
 			<h2 class="font-serif text-3xl font-bold">DM Serif Display — Section Title (3xl)</h2>
@@ -357,30 +357,30 @@
 	<!-- COLORS -->
 	<!-- ═══════════════════════════════════════════════════════════════════ -->
 	<section>
-		<SectionTitle title="Color Palette" />
+		{@render SectionTitle({ title: 'Color Palette' })}
 		<div class="rounded-lg border bg-card p-6">
 			<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-				<ColorSwatch name="Primary" class_="bg-primary" textClass="text-primary-foreground" />
-				<ColorSwatch name="Secondary" class_="bg-secondary" textClass="text-secondary-foreground" />
-				<ColorSwatch name="Accent" class_="bg-accent" textClass="text-accent-foreground" />
-				<ColorSwatch name="Destructive" class_="bg-destructive" textClass="text-destructive-foreground" />
-				<ColorSwatch name="Muted" class_="bg-muted" textClass="text-foreground" />
+				{@render ColorSwatch({ name: 'Primary', class_: 'bg-primary', textClass: 'text-primary-foreground' })}
+				{@render ColorSwatch({ name: 'Secondary', class_: 'bg-secondary', textClass: 'text-secondary-foreground' })}
+				{@render ColorSwatch({ name: 'Accent', class_: 'bg-accent', textClass: 'text-accent-foreground' })}
+				{@render ColorSwatch({ name: 'Destructive', class_: 'bg-destructive', textClass: 'text-destructive-foreground' })}
+				{@render ColorSwatch({ name: 'Muted', class_: 'bg-muted', textClass: 'text-foreground' })}
 			</div>
 			<Separator class="my-4" />
 			<p class="mb-3 text-sm font-medium text-muted-foreground">Status Colors:</p>
 			<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-				<ColorSwatch name="Success" class_="bg-success" textClass="text-success-foreground" />
-				<ColorSwatch name="Warning" class_="bg-warning" textClass="text-warning-foreground" />
-				<ColorSwatch name="Error" class_="bg-error" textClass="text-error-foreground" />
-				<ColorSwatch name="Info" class_="bg-info" textClass="text-info-foreground" />
+				{@render ColorSwatch({ name: 'Success', class_: 'bg-success', textClass: 'text-success-foreground' })}
+				{@render ColorSwatch({ name: 'Warning', class_: 'bg-warning', textClass: 'text-warning-foreground' })}
+				{@render ColorSwatch({ name: 'Error', class_: 'bg-error', textClass: 'text-error-foreground' })}
+				{@render ColorSwatch({ name: 'Info', class_: 'bg-info', textClass: 'text-info-foreground' })}
 			</div>
 			<Separator class="my-4" />
 			<p class="mb-3 text-sm font-medium text-muted-foreground">Backgrounds:</p>
 			<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-				<ColorSwatch name="Background" class_="bg-background border border-border" textClass="text-foreground" />
-				<ColorSwatch name="Card" class_="bg-card border border-border" textClass="text-foreground" />
-				<ColorSwatch name="Bg Secondary" class_="bg-background-secondary border border-border" textClass="text-foreground" />
-				<ColorSwatch name="Bg Tertiary" class_="bg-background-tertiary border border-border" textClass="text-foreground" />
+				{@render ColorSwatch({ name: 'Background', class_: 'bg-background border border-border', textClass: 'text-foreground' })}
+				{@render ColorSwatch({ name: 'Card', class_: 'bg-card border border-border', textClass: 'text-foreground' })}
+				{@render ColorSwatch({ name: 'Bg Secondary', class_: 'bg-background-secondary border border-border', textClass: 'text-foreground' })}
+				{@render ColorSwatch({ name: 'Bg Tertiary', class_: 'bg-background-tertiary border border-border', textClass: 'text-foreground' })}
 			</div>
 			<Separator class="my-4" />
 			<p class="mb-3 text-sm font-medium text-muted-foreground">Phase Pipeline Colors:</p>

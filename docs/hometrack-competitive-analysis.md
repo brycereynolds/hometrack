@@ -164,7 +164,7 @@ A typical 6-person Bay Area boutique listing team's current monthly tech spend:
 
 Plus hidden costs: 5–10 hours/week of coordination overhead, consulting fees for custom workflows, and the occasional vendor invoice that falls through the cracks.
 
-**HomeTrack at $50/seat Starter × 6 seats = $300/mo** replaces SkySlope/Dotloop, spreadsheets, and Airtable — and adds listing project management, client portal, vendor management, and AI features that none of the replaced tools provided.
+**HomeTrack at $99/seat Starter × 5 seats = $495/mo** replaces SkySlope/Dotloop, spreadsheets, and Airtable — and adds listing project management, vendor management, and AI features that none of the replaced tools provided. (Starter supports teams up to 5 users with 15 active listings.)
 
 **HomeTrack at $300/seat Professional × 6 seats = $1,800/mo** replaces the entire stack except FUB and Google (which integrate), adds the full client portal, and eliminates the coordination overhead. At $1,800/mo this is more than the fragmented stack, but it includes capabilities (client portal with approvals, per-listing P&L, AI document extraction, voice/video capture) that teams currently either pay consultants for or simply don't have.
 

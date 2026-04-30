@@ -12,26 +12,12 @@ export const listings = pgTable(
     teamId: text('team_id')
       .notNull()
       .references(() => teams.id, { onDelete: 'cascade' }),
-    // Link to property record (nullable — migration will backfill)
-    propertyId: text('property_id').references(() => properties.id, { onDelete: 'set null' }),
-    address: text('address').notNull(),
-    city: text('city').notNull(),
-    state: text('state').notNull(),
-    zip: text('zip').notNull(),
+    propertyId: text('property_id')
+      .notNull()
+      .references(() => properties.id, { onDelete: 'cascade' }),
     price: real('price'),
-    beds: integer('beds'),
-    baths: real('baths'),
-    sqft: integer('sqft'),
-    lotSqft: integer('lot_sqft'),
-    yearBuilt: integer('year_built'),
-    propertyType: text('property_type'),
     mlsNumber: text('mls_number'),
     description: text('description'),
-    features: jsonb('features'),
-    photoUrl: text('photo_url'),
-    photos: jsonb('photos'),
-    lat: real('lat'),
-    lng: real('lng'),
     phase: listingPhaseEnum('phase').default('pre_market').notNull(),
     underContract: boolean('under_contract').default(false).notNull(),
     daysInPhase: integer('days_in_phase').default(0),
@@ -52,6 +38,7 @@ export const listings = pgTable(
     zillowViews: integer('zillow_views').default(0),
     zillowSaves: integer('zillow_saves').default(0),
     portalSettings: jsonb('portal_settings'),
+    searchArea: jsonb('search_area'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

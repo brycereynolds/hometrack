@@ -29,7 +29,7 @@
 			name: 'Free',
 			price: 0,
 			interval: 'forever',
-			features: ['Solo agent — 1 seat', 'Up to 4 active listings', 'AI field notes (5/month)', 'Basic analytics', 'Voice memo capture', 'Email support'],
+			features: ['Solo agent — 1 seat', 'Up to 4 active listings', '4 video/voice walkthroughs per month', 'Basic analytics', 'Email support'],
 			current: false,
 			recommended: false
 		},
@@ -37,24 +37,24 @@
 			name: 'Starter',
 			price: 99,
 			interval: 'user/mo',
-			features: ['Team up to 5 users', '25 active listings', 'Unlimited AI field notes', 'Video walkthrough processing', 'Standard analytics', 'Gmail & Calendar sync', 'Priority email support'],
+			features: ['Team up to 5 users', '15 active listings', '15 video/voice walkthroughs per month', 'Standard analytics', 'Gmail & Calendar sync', 'Priority email support'],
 			current: true,
 			recommended: true
 		},
 		{
 			name: 'Professional',
-			price: 299,
+			price: 300,
 			interval: 'user/mo',
-			features: ['Unlimited team size', 'Unlimited listings', 'Client portal (white-label)', 'Advanced analytics & AI insights', 'Vendor & financial management', 'Open house digital check-in', 'All integrations', 'Onboarding & migration support', 'Priority chat + phone support'],
+			features: ['Unlimited team size', 'Unlimited listings', 'Unlimited video/voice walkthroughs', 'Client portal (white-label)', 'Advanced analytics & AI insights', 'Vendor & financial management', 'Open house digital check-in', 'All integrations (DocuSign, MLS, etc.)', 'Onboarding & migration support', 'Priority chat + phone support'],
 			current: false,
 			recommended: false
 		}
 	];
 
 	const usage = [
-		{ label: 'Active Listings', value: 8, max: 25, icon: Home, unit: 'of 25' },
+		{ label: 'Active Listings', value: 8, max: 15, icon: Home, unit: 'of 15' },
 		{ label: 'Team Members', value: 3, max: 5, icon: Users, unit: 'of 5' },
-		{ label: 'AI Field Notes', value: 47, max: null, icon: HardDrive, unit: 'unlimited' }
+		{ label: 'Video/Voice Walkthroughs', value: 9, max: 15, icon: HardDrive, unit: 'of 15 this month' }
 	];
 
 	const invoices = [

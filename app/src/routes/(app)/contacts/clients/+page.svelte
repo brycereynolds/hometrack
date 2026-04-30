@@ -112,7 +112,7 @@
 											class="flex items-center gap-2 rounded-md bg-muted/50 px-2.5 py-1.5 text-sm"
 										>
 											<Home class="size-3.5 text-primary" />
-											<span class="flex-1 truncate">{listing.address}</span>
+											<span class="flex-1 truncate">{listing.property?.address ?? ''}</span>
 											<span
 												class="rounded-full px-2 py-0.5 text-[10px] font-medium"
 												style="background-color: {PHASES[listing.phase].color}20; color: {PHASES[listing.phase].color}"

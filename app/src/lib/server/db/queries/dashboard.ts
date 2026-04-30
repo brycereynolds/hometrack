@@ -6,11 +6,11 @@ export async function getDashboardData(teamId: string, db: AppDatabase = adminDb
   const [allListings, allTasks, recentActivity, insights, recentShowings] = await Promise.all([
     db.query.listings.findMany({
       where: eq(listings.teamId, teamId),
-      with: { agent: true, client: true },
+      with: { property: true, agent: true, client: true },
     }),
     db.query.tasks.findMany({
       where: eq(tasks.teamId, teamId),
-      with: { assignee: true, listing: true },
+      with: { assignee: true, listing: { with: { property: true } } },
     }),
     db.query.activityItems.findMany({
       where: eq(activityItems.teamId, teamId),

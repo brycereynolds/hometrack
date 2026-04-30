@@ -55,6 +55,7 @@ export interface MarketAnalysisInput {
 	sqft: number | null;
 	propertyType: string | null;
 	searchParams: Record<string, unknown>;
+	prompt?: string;
 }
 
 export async function startMarketAnalysisWorkflow(input: MarketAnalysisInput) {

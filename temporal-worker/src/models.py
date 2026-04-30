@@ -149,11 +149,14 @@ class MarketAnalysisResult(BaseModel):
     suggested_low: float | None = None
     suggested_high: float | None = None
     confidence: float = 0.0
+    confidence_factors: dict = Field(default_factory=dict)
     reasoning: str = ""
+    stats: dict = Field(default_factory=dict)
+    strategy: dict = Field(default_factory=dict)
     key_factors: dict = Field(default_factory=dict)
     market_trend: str = "unknown"
-    strategy: str = "conservative"
-    price_per_sqft_analysis: str = ""
+    outliers: list[str] = Field(default_factory=list)
+    computed_stats: dict = Field(default_factory=dict)
 
 
 class FieldMediaInput(BaseModel):

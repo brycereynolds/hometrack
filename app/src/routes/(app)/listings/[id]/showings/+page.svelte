@@ -21,7 +21,10 @@
 		Plus,
 		TrendingUp,
 		ArrowRight,
-		Building2
+		Building2,
+		Pencil,
+		Trash2,
+		XCircle
 	} from 'lucide-svelte';
 
 	Chart.register(...registerables);
@@ -36,6 +39,24 @@
 	let showingAgentCompany = $state('');
 	let showingBuyerType = $state('');
 
+	// Edit Showing modal state
+	let showEditModal = $state(false);
+	let editShowingId = $state('');
+	let editDate = $state('');
+	let editTime = $state('');
+	let editAgentName = $state('');
+	let editAgentCompany = $state('');
+	let editBuyerType = $state('');
+
+	// Feedback state
+	let feedbackShowingId = $state<string | null>(null);
+	let feedbackRating = $state(0);
+	let feedbackLevel = $state('');
+	let feedbackNotes = $state('');
+
+	// Cancel confirmation
+	let cancelingShowingId = $state<string | null>(null);
+
 	function resetShowingForm() {
 		showingDate = '';
 		showingTime = '';
@@ -43,6 +64,25 @@
 		showingAgentCompany = '';
 		showingBuyerType = '';
 	}
+
+	function openEditShowing(showing: any) {
+		editShowingId = showing.id;
+		const d = showing.date instanceof Date ? showing.date : new Date(showing.date);
+		editDate = d.toISOString().split('T')[0];
+		editTime = showing.time ?? '';
+		editAgentName = showing.agentName ?? '';
+		editAgentCompany = showing.agentCompany ?? '';
+		editBuyerType = showing.buyerType ?? '';
+		showEditModal = true;
+	}
+
+	function openFeedback(showing: any) {
+		feedbackShowingId = showing.id;
+		feedbackRating = showing.rating ?? 0;
+		feedbackLevel = showing.interestedLevel ?? '';
+		feedbackNotes = showing.feedback ?? '';
+	}
+
 	const listing = $derived(data.listing);
 	const listingShowings = $derived(data.showings ?? []);
 	const showingsTimeSeries = $derived(data.showingsTimeSeries ?? { labels: [] as string[], showings: [] as number[], openHouseAttendees: [] as number[] });
@@ -142,6 +182,37 @@
 										<span class="flex items-center gap-1"><Users class="size-3" />{showing.buyerType}</span>
 									</div>
 								</div>
+								<div class="flex items-center gap-1 shrink-0">
+									<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => openEditShowing(showing)}>
+										<Pencil class="size-3.5 text-muted-foreground" />
+									</Button>
+									{#if cancelingShowingId === showing.id}
+										<form
+											method="POST"
+											action="?/cancelShowing"
+											use:enhance={() => {
+												return async ({ result, update }) => {
+													if (result.type === 'success') {
+														toast.success('Showing canceled');
+														cancelingShowingId = null;
+														await update();
+													} else {
+														toast.error('Failed to cancel showing');
+													}
+												};
+											}}
+											class="inline-flex items-center gap-1"
+										>
+											<input type="hidden" name="showingId" value={showing.id} />
+											<Button type="submit" size="sm" variant="destructive" class="h-7 text-xs px-2">Confirm</Button>
+											<Button type="button" size="sm" variant="ghost" class="h-7 text-xs px-2" onclick={() => cancelingShowingId = null}>No</Button>
+										</form>
+									{:else}
+										<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => cancelingShowingId = showing.id}>
+											<XCircle class="size-3.5 text-muted-foreground" />
+										</Button>
+									{/if}
+								</div>
 							</div>
 						{/each}
 					</div>
@@ -174,7 +245,41 @@
 											</div>
 										</div>
 									</div>
-									<Badge variant="outline" class="text-[10px] shrink-0 {interest.color}"><InterestIcon class="mr-1 size-3" />{interest.label}</Badge>
+									<div class="flex items-center gap-2 shrink-0">
+										<Badge variant="outline" class="text-[10px] {interest.color}"><InterestIcon class="mr-1 size-3" />{interest.label}</Badge>
+										<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => openEditShowing(showing)}>
+											<Pencil class="size-3.5 text-muted-foreground" />
+										</Button>
+										<Button size="sm" variant="outline" class="h-7 text-xs" onclick={() => openFeedback(showing)}>
+											<MessageSquare class="mr-1 size-3" />Feedback
+										</Button>
+										{#if cancelingShowingId === showing.id}
+											<form
+												method="POST"
+												action="?/cancelShowing"
+												use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Showing canceled');
+															cancelingShowingId = null;
+															await update();
+														} else {
+															toast.error('Failed to cancel showing');
+														}
+													};
+												}}
+												class="inline-flex items-center gap-1"
+											>
+												<input type="hidden" name="showingId" value={showing.id} />
+												<Button type="submit" size="sm" variant="destructive" class="h-7 text-xs px-2">Confirm</Button>
+												<Button type="button" size="sm" variant="ghost" class="h-7 text-xs px-2" onclick={() => cancelingShowingId = null}>No</Button>
+											</form>
+										{:else}
+											<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => cancelingShowingId = showing.id}>
+												<Trash2 class="size-3.5 text-muted-foreground" />
+											</Button>
+										{/if}
+									</div>
 								</div>
 								{#if showing.rating}
 									<div class="mt-2 ml-12 flex items-center gap-1">
@@ -184,6 +289,71 @@
 								{/if}
 								{#if showing.feedback}
 									<div class="mt-2 ml-12 rounded-md bg-muted/50 p-3"><div class="flex items-start gap-2"><MessageSquare class="size-3.5 text-muted-foreground mt-0.5 shrink-0" /><p class="text-sm text-muted-foreground">{showing.feedback}</p></div></div>
+								{/if}
+
+								<!-- Inline Feedback Form -->
+								{#if feedbackShowingId === showing.id}
+									<div class="mt-3 ml-12 rounded-md border p-4">
+										<form
+											method="POST"
+											action="?/saveFeedback"
+											use:enhance={() => {
+												return async ({ result, update }) => {
+													if (result.type === 'success') {
+														toast.success('Feedback saved');
+														feedbackShowingId = null;
+														await update();
+													} else {
+														toast.error('Failed to save feedback');
+													}
+												};
+											}}
+										>
+											<input type="hidden" name="showingId" value={showing.id} />
+											<div class="space-y-3">
+												<div>
+													<label for="feedback-rating" class="text-sm font-medium">Rating</label>
+													<div class="flex items-center gap-1 mt-1">
+														{#each [1, 2, 3, 4, 5] as star}
+															<button type="button" onclick={() => feedbackRating = star}>
+																<Star class="size-5 {star <= feedbackRating ? 'fill-amber-400 text-amber-400' : 'text-gray-300'} cursor-pointer hover:text-amber-400" />
+															</button>
+														{/each}
+													</div>
+													<input type="hidden" id="feedback-rating" name="rating" value={feedbackRating} />
+												</div>
+												<div>
+													<label for="feedback-level" class="text-sm font-medium">Interest Level</label>
+													<select
+														id="feedback-level"
+														name="interestedLevel"
+														bind:value={feedbackLevel}
+														class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+													>
+														<option value="">Select...</option>
+														<option value="very">Very Interested</option>
+														<option value="somewhat">Somewhat Interested</option>
+														<option value="not">Not Interested</option>
+													</select>
+												</div>
+												<div>
+													<label for="feedback-notes" class="text-sm font-medium">Notes</label>
+													<textarea
+														id="feedback-notes"
+														name="feedback"
+														bind:value={feedbackNotes}
+														rows="3"
+														placeholder="Agent feedback notes..."
+														class="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+													></textarea>
+												</div>
+												<div class="flex items-center gap-2 justify-end">
+													<Button type="button" variant="ghost" size="sm" onclick={() => feedbackShowingId = null}>Cancel</Button>
+													<Button type="submit" size="sm">Save Feedback</Button>
+												</div>
+											</div>
+										</form>
+									</div>
 								{/if}
 							</div>
 						{/each}
@@ -257,6 +427,71 @@
 			<Dialog.Footer>
 				<Button variant="outline" type="button" onclick={() => showShowingModal = false}>Cancel</Button>
 				<Button type="submit">Schedule Showing</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Edit Showing Modal -->
+<Dialog.Root bind:open={showEditModal}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Showing</Dialog.Title>
+			<Dialog.Description>Update showing details.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/editShowing"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Showing updated');
+						showEditModal = false;
+						await update();
+					} else {
+						toast.error('Failed to update showing');
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="showingId" value={editShowingId} />
+			<div class="space-y-4 py-4">
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-date" class="text-sm font-medium">Date</label>
+						<input id="edit-date" name="date" type="date" bind:value={editDate} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="edit-time" class="text-sm font-medium">Time</label>
+						<input id="edit-time" name="time" type="time" bind:value={editTime} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="edit-agent" class="text-sm font-medium">Agent Name</label>
+						<input id="edit-agent" name="agentName" type="text" bind:value={editAgentName} required class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+					<div>
+						<label for="edit-company" class="text-sm font-medium">Company</label>
+						<input id="edit-company" name="agentCompany" type="text" bind:value={editAgentCompany} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+					</div>
+				</div>
+				<div>
+					<label for="edit-buyer-type" class="text-sm font-medium">Buyer Type</label>
+					<select id="edit-buyer-type" name="buyerType" bind:value={editBuyerType} class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2">
+						<option value="">Select...</option>
+						<option value="First-time buyer">First-time buyer</option>
+						<option value="Move-up buyer">Move-up buyer</option>
+						<option value="Investor">Investor</option>
+						<option value="Relocating">Relocating</option>
+						<option value="Downsizing">Downsizing</option>
+						<option value="Other">Other</option>
+					</select>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showEditModal = false}>Cancel</Button>
+				<Button type="submit">Save Changes</Button>
 			</Dialog.Footer>
 		</form>
 	</Dialog.Content>

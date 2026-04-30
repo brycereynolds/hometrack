@@ -32,13 +32,10 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			// Upload to Supabase Storage
 			const timestamp = Date.now();
 			const storagePath = `${member.teamId}/${listingId ?? 'general'}/${timestamp}.webm`;
-			const arrayBuffer = await file.arrayBuffer();
-			const buffer = new Uint8Array(arrayBuffer);
-
 			const supabase = getSupabaseAdmin();
 			const { error: uploadError } = await supabase.storage
 				.from(BUCKET)
-				.upload(storagePath, buffer, {
+				.upload(storagePath, file, {
 					contentType: 'audio/webm',
 					upsert: false,
 				});
@@ -54,7 +51,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 				authorId: member.id,
 				mediaType: 'voice_memo',
 				status: 'pending',
-				contentHash: `voice-${timestamp}-${buffer.byteLength}`,
+				contentHash: `voice-${timestamp}-${file.size}`,
 				tag: 'general',
 				mediaStoragePath: storagePath,
 				duration,
@@ -76,7 +73,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 					bucket: BUCKET,
 					duration,
 					mimeType: 'audio/webm',
-					fileSize: buffer.byteLength,
+					fileSize: file.size,
 					fieldNoteId,
 				},
 				timestamp: new Date(),
@@ -93,7 +90,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 				metadata: {
 					duration,
 					mimeType: 'audio/webm',
-					fileSize: buffer.byteLength,
+					fileSize: file.size,
 					fieldNoteId,
 				},
 			});

@@ -49,8 +49,8 @@
 				const q = searchQuery.toLowerCase();
 				result = result.filter(
 					(l) =>
-						l.address.toLowerCase().includes(q) ||
-						l.city.toLowerCase().includes(q) ||
+						l.property.address.toLowerCase().includes(q) ||
+						l.property.city?.toLowerCase().includes(q) ||
 						l.client?.name?.toLowerCase().includes(q) ||
 						l.mlsNumber?.toLowerCase().includes(q)
 				);
@@ -65,7 +65,7 @@
 			result.sort((a, b) => {
 				let cmp = 0;
 				switch (sortKey) {
-					case 'address': cmp = a.address.localeCompare(b.address); break;
+					case 'address': cmp = (a.property?.address ?? '').localeCompare(b.property?.address ?? ''); break;
 					case 'price': cmp = (a.price ?? 0) - (b.price ?? 0); break;
 					case 'phase': cmp = PHASES[a.phase].order - PHASES[b.phase].order; break;
 					case 'agent': cmp = (a.agent?.name ?? '').localeCompare(b.agent?.name ?? ''); break;
@@ -181,13 +181,14 @@
 					<tbody class="divide-y">
 						{#each filteredListings as listing}
 							{@const phaseConfig = PHASES[listing.phase]}
+							{@const lp = listing.property}
 							<tr class="group transition-colors hover:bg-muted/30">
 								<!-- Photo -->
 								<td class="px-4 py-3">
 									<div class="size-10 rounded-md overflow-hidden bg-muted shrink-0">
 										<img
-											src={listing.photoUrl}
-											alt={listing.address}
+											src={(lp?.photos as any)?.[0]?.url ?? ''}
+											alt={lp?.address ?? ''}
 											class="object-cover w-full h-full"
 											loading="lazy"
 										/>
@@ -196,8 +197,8 @@
 								<!-- Address -->
 								<td class="px-4 py-3">
 									<a href="/listings/{listing.id}" class="block group-hover:text-primary transition-colors">
-										<p class="text-sm font-medium">{listing.address}</p>
-										<p class="text-xs text-muted-foreground">{listing.city}, {listing.state} {listing.zip}</p>
+										<p class="text-sm font-medium">{lp?.address ?? ''}</p>
+										<p class="text-xs text-muted-foreground">{lp?.city ?? ''}, {lp?.state ?? ''} {lp?.zip ?? ''}</p>
 									</a>
 								</td>
 								<!-- Price -->

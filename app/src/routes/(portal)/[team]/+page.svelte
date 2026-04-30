@@ -67,8 +67,8 @@
 		<div class="md:flex">
 			<div class="relative md:w-2/5">
 				<img
-					src={listing.photoUrl}
-					alt={listing.address}
+					src={(listing.property?.photos as any)?.[0]?.url ?? ''}
+					alt={listing.property?.address ?? ''}
 					class="h-48 w-full object-cover md:h-full md:min-h-[240px]"
 				/>
 				<Badge class="absolute left-3 top-3 bg-primary/90 text-primary-foreground">
@@ -76,15 +76,15 @@
 				</Badge>
 			</div>
 			<CardContent class="flex-1 p-6">
-				<h2 class="font-serif text-xl font-bold">{listing.address}</h2>
-				<p class="text-sm text-muted-foreground">{listing.city}, {listing.state} {listing.zip}</p>
+				<h2 class="font-serif text-xl font-bold">{listing.property?.address ?? ''}</h2>
+				<p class="text-sm text-muted-foreground">{listing.property?.city ?? ''}, {listing.property?.state ?? ''} {listing.property?.zip ?? ''}</p>
 				{#if listing.price}<p class="mt-2 text-2xl font-bold text-primary">{formatCurrency(listing.price)}</p>{:else}<span class="mt-2 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">No Price</span>{/if}
 				<div class="mt-3 flex flex-wrap gap-3 text-sm text-muted-foreground">
-					<span>{listing.beds} bed</span>
+					<span>{listing.property?.beds ?? 0} bed</span>
 					<span class="text-border">|</span>
-					<span>{listing.baths} bath</span>
+					<span>{listing.property?.baths ?? 0} bath</span>
 					<span class="text-border">|</span>
-					<span>{(listing.sqft ?? 0).toLocaleString()} sqft</span>
+					<span>{(listing.property?.sqft ?? 0).toLocaleString()} sqft</span>
 					<span class="text-border">|</span>
 					<span>MLS# {listing.mlsNumber}</span>
 				</div>

@@ -44,6 +44,7 @@ const {
   marketingAssets,
   integrations,
   workflowTemplates,
+  workflowTemplateTasks,
   analyticsEvents,
   analyticsShowings,
   pipelineMetrics,
@@ -70,21 +71,32 @@ async function main() {
   }
 
   const client = postgres(connectionString, { max: 1 });
-  const db = drizzle(client, { schema });
+  const outerDb = drizzle(client, { schema });
 
   console.log('Seeding database...');
 
   // Truncate all tables for a clean re-seed (cascade handles FK dependencies)
+  // Wrapped in try/catch because after db:wipe + db:migrate the tables may already be empty
+  // and Railway's proxy can route to a stale backend.
   console.log('  Clearing existing data...');
-  await db.execute(sql`TRUNCATE TABLE
-    external_listings, buyer_preferences,
-    analysis_schedules, comp_listings, market_analyses,
-    files, team_performance, pipeline_metrics, analytics_showings, analytics_events,
-    quote_line_items, quotes, financial_categories, financial_budgets,
-    marketing_assets, documents, comp_sales, offers, showings,
-    ai_insights, activity_items, tasks, listings, properties, contacts,
-    vendors, integrations, workflow_templates, team_members, teams
-    CASCADE`);
+  try {
+    await outerDb.execute(sql`TRUNCATE TABLE
+      field_note_actions, field_note_moments, field_note_frames,
+      field_note_transcripts, field_notes,
+      external_listings, buyer_preferences,
+      analysis_schedules, comp_listings, market_analyses,
+      files, team_performance, pipeline_metrics, analytics_showings, analytics_events,
+      quote_line_items, quotes, financial_categories, financial_budgets,
+      marketing_assets, documents, comp_sales, offers, showings,
+      ai_insights, activity_items, tasks, listings, properties, contacts,
+      vendors, integrations, workflow_template_tasks, workflow_templates, team_members, teams
+      CASCADE`);
+  } catch {
+    console.log('  (truncate skipped — tables may not exist yet after wipe)');
+  }
+
+  // Wrap everything in a transaction to ensure consistency over proxied connections
+  await outerDb.transaction(async (db) => {
 
   // ─── ID Maps ────────────────────────────────────────────────────────────
   const teamId = randomUUID();
@@ -879,7 +891,43 @@ async function main() {
       neighborhood: 'Willow Glen',
       photos: [
         {
-          url: 'https://maps.googleapis.com/maps/api/streetview?location=841+Willis+Ave%2C+San+Jose%2C+CA+95125&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=4wexIfMF_UrTzko1XpgnN-63zdk=',
+          url: 'https://photos.zillowstatic.com/fp/b3b6e4cfde1708cdebb2896cb1315125-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/f3ae978c74e781d0783e9eb98846c432-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/85ad7913d91e045cf9836aeeb92802e5-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/ecd6c80dc92779af25efb3e70dd23e7f-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/ef414239f7ef0669e7a423fc36269d24-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/c612df02616efc3fb1bc075923295190-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/b29290ab2152134f45b00ad2b14cd7c8-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/6a1cae401311fcc4d23378c15fdef649-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/1efa4b392bc3451e64fcac58ff65da52-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/a7ef9b1a56df12c750e838b1c863050a-uncropped_scaled_within_1536_1152.jpg',
           source: 'zillow',
         },
       ],
@@ -1065,7 +1113,43 @@ async function main() {
       neighborhood: 'Blossom Valley',
       photos: [
         {
-          url: 'https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=B4Qb3VtFrLQxvOHcNfHKXcAMTMs=',
+          url: 'https://photos.zillowstatic.com/fp/80c17188746bf0834ed23ad64a898f14-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/b57ac5640b4a32e820f4647247e17c1a-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/249290e8cd40551a6d577870f2f64454-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/312e6129aa0a337aa50a4dead26c9bc2-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/d2be24959ef80f122e8ad3139aacbe0e-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/f2c88dc5ee484f35bb2538ecba9e00b4-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/40183d146788371dcdb4340845c540ff-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/890b03cfef2dfc5fb2ff9d8007a8432c-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/15d0029b92d4f9ca960b51c58b4fa35f-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/4c024d6fd6fa17b368a1eb40583c6c58-uncropped_scaled_within_1536_1152.jpg',
           source: 'zillow',
         },
       ],
@@ -1743,7 +1827,43 @@ async function main() {
       neighborhood: 'Cambrian Park',
       photos: [
         {
-          url: 'https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=dETgA_SB670tzzKETH_YECZOarQ=',
+          url: 'https://photos.zillowstatic.com/fp/28f857b8f9fb657c377f20b8dad59089-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/369817b6fadeca3580225b7fe0156fb0-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/3ef5264abdfd76314655ff5e9bcb4c9a-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/5dacfe94ce5c9cc9a0d005fcb31c2af8-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/ec0952017d386bde712eece66998dcc5-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/14bc68865a5d00f31ff0fae56de3253e-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/0a1a82d9816330a7db137addf84b7161-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/2858350faa326a3dec5155fd238adce7-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/00a7b5021f543cf07867e4ba5c641327-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/fd51da82816e76b3af1cb327b82aa595-uncropped_scaled_within_1536_1152.jpg',
           source: 'zillow',
         },
       ],
@@ -1913,7 +2033,43 @@ async function main() {
       neighborhood: 'Willow Glen',
       photos: [
         {
-          url: 'https://maps.googleapis.com/maps/api/streetview?location=1664+Andalusia+Way%2C+San+Jose%2C+CA+95125&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=eAj8yTKZiU-KHi4dJz8tvB0LsJc=',
+          url: 'https://photos.zillowstatic.com/fp/ff48262c6dd48f73c1338f5e3f063f9a-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/d03c5889fbd3eca4f012cd77245b75ab-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/edc8fe22958c14671b66595493f38e7f-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/01ded49ea9da6ff91d60bba78faab667-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/a243de02428ab6981807f3645bba9a30-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/1b08d9146466ed5378cd10f401b00c4d-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/719d73135964c22c4bf4a246721d904d-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/ef414239f7ef0669e7a423fc36269d24-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/ecd6c80dc92779af25efb3e70dd23e7f-uncropped_scaled_within_1536_1152.jpg',
+          source: 'zillow',
+        },
+        {
+          url: 'https://photos.zillowstatic.com/fp/b29290ab2152134f45b00ad2b14cd7c8-uncropped_scaled_within_1536_1152.jpg',
           source: 'zillow',
         },
       ],
@@ -2146,9 +2302,9 @@ async function main() {
       waterSource: 'waterSource' in p ? (p as any).waterSource : undefined,
       electric: 'electric' in p ? (p as any).electric : undefined,
       gas: 'gas' in p ? (p as any).gas : undefined,
-      walkabilityScore: p.walkabilityScore,
-      transitScore: p.transitScore,
-      bikeScore: p.bikeScore,
+      walkabilityScore: 'walkabilityScore' in p ? (p as any).walkabilityScore : undefined,
+      transitScore: 'transitScore' in p ? (p as any).transitScore : undefined,
+      bikeScore: 'bikeScore' in p ? (p as any).bikeScore : undefined,
       neighborhood: p.neighborhood,
       elementarySchool: p.elementarySchool,
       elementarySchoolDistrict: p.elementarySchoolDistrict,
@@ -2158,8 +2314,8 @@ async function main() {
       highSchoolDistrict: p.highSchoolDistrict,
       nearbySchools: 'nearbySchools' in p ? p.nearbySchools : undefined,
       photos: p.photos,
-      lastSoldPrice: p.lastSoldPrice,
-      lastSoldDate: p.lastSoldDate ? parseDate(p.lastSoldDate) : undefined,
+      lastSoldPrice: 'lastSoldPrice' in p ? (p as any).lastSoldPrice : undefined,
+      lastSoldDate: 'lastSoldDate' in p && (p as any).lastSoldDate ? parseDate((p as any).lastSoldDate) : undefined,
       zillowId: 'zillowId' in p ? (p as any).zillowId : undefined,
       zillowUrl: 'zillowUrl' in p ? (p as any).zillowUrl : undefined,
       zestimate: 'zestimate' in p ? (p as any).zestimate : undefined,
@@ -2172,36 +2328,29 @@ async function main() {
   // ─── 4b. Listings ──────────────────────────────────────────────────────
   console.log('  Inserting listings...');
   const listingData = [
-    { mockId: 'l-1', address: '126 University Ave', city: 'Los Gatos', state: 'CA', zip: '95030', price: 2450000, beds: 3, baths: 3, sqft: 1582, lotSqft: 4068, yearBuilt: 1900, propertyType: 'Single Family', mlsNumber: 'ML81928374', phase: 'active' as const, underContract: false, daysInPhase: 5, daysOnMarket: 5, listDate: '2026-04-04', targetListDate: '2026-04-04', agentMock: 'tm-1', clientMock: 'c-1', photoUrl: 'https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-uncropped_scaled_within_1536_1152.jpg', photos: ['https://photos.zillowstatic.com/fp/d2e9fb3c0a3b082c22836f303a21c2ca-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/f20966f5088fefd6cd8d808412bc78a7-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/68f2530f8658dd247581563cf5dcdf31-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/0f2a1e2a06e33ebe7fd6684a90a324a7-uncropped_scaled_within_1536_1152.jpg'], lat: 37.22447, lng: -121.98101, tasksDone: 18, tasksTotal: 26, documentsCount: 14, showingsCount: 8, offersCount: 2, zillowViews: 1243, zillowSaves: 67, description: 'Charming Victorian home steps from downtown Los Gatos.', features: ['Victorian character', 'Walk to downtown', 'Hardwood floors', 'Updated systems'] },
-    { mockId: 'l-2', address: '1430 Callecita St', city: 'San Jose', state: 'CA', zip: '95125', price: 3950000, beds: 5, baths: 5, sqft: 3811, lotSqft: null, yearBuilt: 2026, propertyType: 'Single Family', mlsNumber: 'ML81935521', phase: 'active' as const, underContract: false, daysInPhase: 12, daysOnMarket: 18, listDate: '2026-03-22', targetListDate: '2026-03-20', agentMock: 'tm-1', clientMock: 'c-2', photoUrl: 'https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-uncropped_scaled_within_1536_1152.jpg', photos: ['https://photos.zillowstatic.com/fp/ee9e061329acd7426242ddb1f6cc9b2d-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/e0bb80a45f2b19159094dafd9293541e-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/c3a14eef6a131f47257cc55f2da87938-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/4a49015d9e39b96cd2cbb117324b0051-uncropped_scaled_within_1536_1152.jpg'], lat: 37.28924, lng: -121.902885, tasksDone: 10, tasksTotal: 15, documentsCount: 18, showingsCount: 15, offersCount: 0, zillowViews: 2890, zillowSaves: 142, description: 'Stunning new construction in Willow Glen with premium finishes.', features: ['New construction', 'Premium finishes', 'Large lot', 'Chef\'s kitchen', 'Smart home'] },
-    { mockId: 'l-3', address: '40 Pleasant St', city: 'Los Gatos', state: 'CA', zip: '95030', price: null, beds: 3, baths: 2, sqft: 1808, lotSqft: 7700, yearBuilt: 1939, propertyType: 'Single Family', mlsNumber: 'ML81940112', phase: 'pre_market' as const, underContract: false, daysInPhase: 4, daysOnMarket: 0, listDate: null, targetListDate: '2026-04-18', agentMock: 'tm-2', clientMock: 'c-3', photoUrl: 'https://photos.zillowstatic.com/fp/3206d5576a5756e92e99f625474b3ae8-uncropped_scaled_within_1536_1152.jpg', photos: ['https://photos.zillowstatic.com/fp/3206d5576a5756e92e99f625474b3ae8-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/3614a0e3779fb85ebac849f3dbfbd1a8-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/20343761d0a21de7d97b6ca2a450d3fb-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/c882b616361708fb5ef78c2ebe0cc823-uncropped_scaled_within_1536_1152.jpg'], lat: 37.222385, lng: -121.97369, tasksDone: 10, tasksTotal: 18, documentsCount: 8, showingsCount: 0, offersCount: 1, zillowViews: 0, zillowSaves: 0, description: 'Classic Los Gatos bungalow with period character.', features: ['Los Gatos schools', 'Period details', 'Walk to downtown', 'Updated kitchen'] },
-    { mockId: 'l-4', address: '841 Willis Ave', city: 'San Jose', state: 'CA', zip: '95125', price: null, beds: 3, baths: 2, sqft: 1344, lotSqft: 7400, yearBuilt: 1910, propertyType: 'Single Family', mlsNumber: 'ML81942889', phase: 'pre_market' as const, underContract: false, daysInPhase: 8, daysOnMarket: 0, listDate: null, targetListDate: '2026-04-25', agentMock: 'tm-2', clientMock: 'c-3', photoUrl: 'https://maps.googleapis.com/maps/api/streetview?location=841+Willis+Ave%2C+San+Jose%2C+CA+95125&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=4wexIfMF_UrTzko1XpgnN-63zdk=', photos: ['https://maps.googleapis.com/maps/api/streetview?location=841+Willis+Ave%2C+San+Jose%2C+CA+95125&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=4wexIfMF_UrTzko1XpgnN-63zdk='], lat: 37.31884, lng: -121.8957, tasksDone: 8, tasksTotal: 13, documentsCount: 5, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, description: 'Charming Willow Glen starter home with great bones.', features: ['Willow Glen', 'Period details', 'Walkable', 'Corner lot'] },
-    { mockId: 'l-5', address: '809 Midvale Ln', city: 'San Jose', state: 'CA', zip: '95136', price: null, beds: 5, baths: 3, sqft: 2112, lotSqft: 6969, yearBuilt: 1965, propertyType: 'Single Family', mlsNumber: 'ML81945003', phase: 'pre_market' as const, underContract: false, daysInPhase: 2, daysOnMarket: 0, listDate: null, targetListDate: '2026-05-10', agentMock: 'tm-1', clientMock: 'c-4', photoUrl: 'https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=B4Qb3VtFrLQxvOHcNfHKXcAMTMs=', photos: ['https://maps.googleapis.com/maps/api/streetview?location=809+Midvale+Ln%2C+San+Jose%2C+CA+95136&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=B4Qb3VtFrLQxvOHcNfHKXcAMTMs='], lat: 37.273056, lng: -121.86593, tasksDone: 2, tasksTotal: 7, documentsCount: 1, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, description: 'Spacious single-story home in a quiet San Jose neighborhood. Recently acquired listing.', features: ['Single story', 'Large lot', 'Pool', 'Solar panels'] },
-    { mockId: 'l-6', address: '256 Los Gatos Blvd', city: 'Los Gatos', state: 'CA', zip: '95030', price: 2298000, beds: 5, baths: 6, sqft: 2511, lotSqft: 7250, yearBuilt: 1899, propertyType: 'Multi Family', mlsNumber: 'ML81930445', phase: 'active' as const, underContract: false, daysInPhase: 3, daysOnMarket: 28, listDate: '2026-03-12', targetListDate: '2026-03-10', agentMock: 'tm-1', clientMock: 'c-3', photoUrl: 'https://photos.zillowstatic.com/fp/bbc6ad85d4c1d9b18332be139fd903f5-uncropped_scaled_within_1536_1152.jpg', photos: ['https://photos.zillowstatic.com/fp/bbc6ad85d4c1d9b18332be139fd903f5-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/46ed36845830a829670bb1071208d533-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/6915ccc3696a85e8e55210c855f81a41-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/9a7fd00c6fadace44099feede42696e1-uncropped_scaled_within_1536_1152.jpg'], lat: 37.22432, lng: -121.96991, tasksDone: 11, tasksTotal: 15, documentsCount: 22, showingsCount: 21, offersCount: 3, zillowViews: 4100, zillowSaves: 198, description: 'Charming duplex in the heart of Los Gatos with Victorian character.', features: ['Duplex', 'Downtown location', 'Los Gatos schools', 'Income potential', 'Large backyard'] },
-    { mockId: 'l-7', address: '377 Derby Ave', city: 'San Mateo', state: 'CA', zip: '94403', price: 1475000, beds: 2, baths: 3, sqft: 1390, lotSqft: 0, yearBuilt: 2015, propertyType: 'Townhouse', mlsNumber: 'ML81925100', phase: 'active' as const, underContract: true, daysInPhase: 10, daysOnMarket: 35, listDate: '2026-03-05', targetListDate: '2026-03-05', agentMock: 'tm-2', clientMock: 'c-2', photoUrl: 'https://photos.zillowstatic.com/fp/600798422a9883d3e0803ba7f220762b-uncropped_scaled_within_1536_1152.jpg', photos: ['https://photos.zillowstatic.com/fp/600798422a9883d3e0803ba7f220762b-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/ec9818863605c76c55ed54b89927843a-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/dafb50fa8fa2a50fa5cf178b55798554-uncropped_scaled_within_1536_1152.jpg'], lat: 37.543602, lng: -122.297165, tasksDone: 6, tasksTotal: 12, documentsCount: 26, showingsCount: 18, offersCount: 4, zillowViews: 3200, zillowSaves: 155, description: 'Modern townhome in desirable San Mateo neighborhood.', features: ['Modern build', 'Near downtown', 'Updated finishes', 'Private backyard'] },
-    { mockId: 'l-8', address: '672 Willow St', city: 'San Jose', state: 'CA', zip: '95125', price: null, beds: 2, baths: 3, sqft: 1367, lotSqft: 1682, yearBuilt: 2003, propertyType: 'Townhouse', mlsNumber: 'ML81946220', phase: 'pre_market' as const, underContract: false, daysInPhase: 6, daysOnMarket: 0, listDate: null, targetListDate: '2026-05-01', agentMock: 'tm-2', clientMock: 'c-4', photoUrl: 'https://photos.zillowstatic.com/fp/eb7362e8109b31e4221575303a2e3b66-uncropped_scaled_within_1536_1152.jpg', photos: ['https://photos.zillowstatic.com/fp/eb7362e8109b31e4221575303a2e3b66-uncropped_scaled_within_1536_1152.jpg', 'https://photos.zillowstatic.com/fp/5a41ee717920461682ee6695f78a76e2-uncropped_scaled_within_1536_1152.jpg'], lat: 37.312473, lng: -121.89292, tasksDone: 6, tasksTotal: 12, documentsCount: 3, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, description: 'Well-located townhome near Willow Glen downtown.', features: ['Willow Glen area', 'Modern construction', 'In-unit laundry', 'Attached garage'] },
-    { mockId: 'l-9', address: '1597 Calle De Stuarda', city: 'San Jose', state: 'CA', zip: '95118', price: null, beds: 3, baths: 2, sqft: 1614, lotSqft: 6500, yearBuilt: 1975, propertyType: 'Single Family', mlsNumber: null, phase: 'pre_market' as const, underContract: false, daysInPhase: 1, daysOnMarket: 0, listDate: null, targetListDate: '2026-05-15', agentMock: 'tm-1', clientMock: 'c-1', photoUrl: 'https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=dETgA_SB670tzzKETH_YECZOarQ=', photos: ['https://maps.googleapis.com/maps/api/streetview?location=1597+Calle+De+Stuarda%2C+San+Jose%2C+CA+95118&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=dETgA_SB670tzzKETH_YECZOarQ='], lat: 37.259167, lng: -121.90047, tasksDone: 0, tasksTotal: 0, documentsCount: 0, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, description: 'Well-maintained San Jose home — pricing TBD.', features: ['Single story', 'Updated', 'Good schools', 'Quiet street'] },
-    { mockId: 'l-10', address: '1664 Andalusia Way', city: 'San Jose', state: 'CA', zip: '95125', price: 2290000, beds: 3, baths: 2, sqft: 1584, lotSqft: 7182, yearBuilt: 1961, propertyType: 'Single Family', mlsNumber: 'ML82030478', phase: 'closed' as const, underContract: false, daysInPhase: 0, daysOnMarket: 21, listDate: '2026-02-15', targetListDate: '2026-02-15', agentMock: 'tm-1', clientMock: 'c-1', photoUrl: 'https://maps.googleapis.com/maps/api/streetview?location=1664+Andalusia+Way%2C+San+Jose%2C+CA+95125&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=eAj8yTKZiU-KHi4dJz8tvB0LsJc=', photos: ['https://maps.googleapis.com/maps/api/streetview?location=1664+Andalusia+Way%2C+San+Jose%2C+CA+95125&size=1536x1152&key=AIzaSyARFMLB1na-BBWf7_R3-5YOQQaHqEJf6RQ&source=outdoor&&signature=eAj8yTKZiU-KHi4dJz8tvB0LsJc='], lat: 37.277847, lng: -121.90564, tasksDone: 26, tasksTotal: 26, documentsCount: 32, showingsCount: 12, offersCount: 4, zillowViews: 5200, zillowSaves: 280, description: 'Charming Willow Glen home with great bones and walkability.', features: ['Willow Glen', 'Walkable', 'Period details', 'Updated kitchen'] },
-    { mockId: 'l-11', address: '2330 Maximilian Dr', city: 'Campbell', state: 'CA', zip: '95008', price: 2169375, beds: 3, baths: 2, sqft: 1540, lotSqft: 6596, yearBuilt: 1962, propertyType: 'Single Family', mlsNumber: 'ML81998765', phase: 'closed' as const, underContract: false, daysInPhase: 0, daysOnMarket: 14, listDate: '2026-01-20', targetListDate: '2026-01-20', agentMock: 'tm-2', clientMock: 'c-2', photoUrl: 'https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-uncropped_scaled_within_1536_1152.jpg', photos: ['https://photos.zillowstatic.com/fp/555e529f9b1adad64b989a00af511fb9-uncropped_scaled_within_1536_1152.jpg'], lat: 37.278885, lng: -121.966995, tasksDone: 26, tasksTotal: 26, documentsCount: 30, showingsCount: 10, offersCount: 3, zillowViews: 3800, zillowSaves: 195, description: 'Updated Campbell home on a corner lot with modern amenities.', features: ['Corner lot', 'Updated kitchen', 'Campbell schools', 'Near downtown'] },
+    { mockId: 'l-1', price: 2450000, mlsNumber: 'ML81928374', phase: 'active' as const, underContract: false, daysInPhase: 5, daysOnMarket: 5, listDate: '2026-04-04', targetListDate: '2026-04-04', agentMock: 'tm-1', clientMock: 'c-1', tasksDone: 18, tasksTotal: 26, documentsCount: 14, showingsCount: 8, offersCount: 2, zillowViews: 1243, zillowSaves: 67, description: 'Charming Victorian home steps from downtown Los Gatos.' },
+    { mockId: 'l-2', price: 3950000, mlsNumber: 'ML81935521', phase: 'active' as const, underContract: false, daysInPhase: 12, daysOnMarket: 18, listDate: '2026-03-22', targetListDate: '2026-03-20', agentMock: 'tm-1', clientMock: 'c-2', tasksDone: 10, tasksTotal: 15, documentsCount: 18, showingsCount: 15, offersCount: 0, zillowViews: 2890, zillowSaves: 142, description: 'Stunning new construction in Willow Glen with premium finishes.' },
+    { mockId: 'l-3', price: null, mlsNumber: 'ML81940112', phase: 'pre_market' as const, underContract: false, daysInPhase: 4, daysOnMarket: 0, listDate: null, targetListDate: '2026-04-18', agentMock: 'tm-2', clientMock: 'c-3', tasksDone: 10, tasksTotal: 18, documentsCount: 8, showingsCount: 0, offersCount: 1, zillowViews: 0, zillowSaves: 0, description: 'Classic Los Gatos bungalow with period character.' },
+    { mockId: 'l-4', price: null, mlsNumber: 'ML81942889', phase: 'pre_market' as const, underContract: false, daysInPhase: 8, daysOnMarket: 0, listDate: null, targetListDate: '2026-04-25', agentMock: 'tm-2', clientMock: 'c-3', tasksDone: 8, tasksTotal: 13, documentsCount: 5, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, description: 'Charming Willow Glen starter home with great bones.' },
+    { mockId: 'l-5', price: null, mlsNumber: 'ML81945003', phase: 'pre_market' as const, underContract: false, daysInPhase: 2, daysOnMarket: 0, listDate: null, targetListDate: '2026-05-10', agentMock: 'tm-1', clientMock: 'c-4', tasksDone: 2, tasksTotal: 7, documentsCount: 1, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, description: 'Spacious single-story home in a quiet San Jose neighborhood. Recently acquired listing.' },
+    { mockId: 'l-6', price: 2298000, mlsNumber: 'ML81930445', phase: 'active' as const, underContract: false, daysInPhase: 3, daysOnMarket: 28, listDate: '2026-03-12', targetListDate: '2026-03-10', agentMock: 'tm-1', clientMock: 'c-3', tasksDone: 11, tasksTotal: 15, documentsCount: 22, showingsCount: 21, offersCount: 3, zillowViews: 4100, zillowSaves: 198, description: 'Charming duplex in the heart of Los Gatos with Victorian character.' },
+    { mockId: 'l-7', price: 1475000, mlsNumber: 'ML81925100', phase: 'active' as const, underContract: true, daysInPhase: 10, daysOnMarket: 35, listDate: '2026-03-05', targetListDate: '2026-03-05', agentMock: 'tm-2', clientMock: 'c-2', tasksDone: 6, tasksTotal: 12, documentsCount: 26, showingsCount: 18, offersCount: 4, zillowViews: 3200, zillowSaves: 155, description: 'Modern townhome in desirable San Mateo neighborhood.' },
+    { mockId: 'l-8', price: null, mlsNumber: 'ML81946220', phase: 'pre_market' as const, underContract: false, daysInPhase: 6, daysOnMarket: 0, listDate: null, targetListDate: '2026-05-01', agentMock: 'tm-2', clientMock: 'c-4', tasksDone: 6, tasksTotal: 12, documentsCount: 3, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, description: 'Well-located townhome near Willow Glen downtown.' },
+    { mockId: 'l-9', price: null, mlsNumber: null, phase: 'pre_market' as const, underContract: false, daysInPhase: 1, daysOnMarket: 0, listDate: null, targetListDate: '2026-05-15', agentMock: 'tm-1', clientMock: 'c-1', tasksDone: 0, tasksTotal: 0, documentsCount: 0, showingsCount: 0, offersCount: 0, zillowViews: 0, zillowSaves: 0, description: 'Well-maintained San Jose home — pricing TBD.' },
+    { mockId: 'l-10', price: 2290000, mlsNumber: 'ML82030478', phase: 'closed' as const, underContract: false, daysInPhase: 0, daysOnMarket: 21, listDate: '2026-02-15', targetListDate: '2026-02-15', agentMock: 'tm-1', clientMock: 'c-1', tasksDone: 26, tasksTotal: 26, documentsCount: 32, showingsCount: 12, offersCount: 4, zillowViews: 5200, zillowSaves: 280, description: 'Charming Willow Glen home with great bones and walkability.' },
+    { mockId: 'l-11', price: 2169375, mlsNumber: 'ML81998765', phase: 'closed' as const, underContract: false, daysInPhase: 0, daysOnMarket: 14, listDate: '2026-01-20', targetListDate: '2026-01-20', agentMock: 'tm-2', clientMock: 'c-2', tasksDone: 26, tasksTotal: 26, documentsCount: 30, showingsCount: 10, offersCount: 3, zillowViews: 3800, zillowSaves: 195, description: 'Updated Campbell home on a corner lot with modern amenities.' },
   ];
 
   for (const l of listingData) {
     const id = randomUUID();
     listingMap[l.mockId] = id;
+    const propId = propertyMap[l.mockId];
+    if (!propId) throw new Error(`No property found for listing ${l.mockId}`);
     await db.insert(listings).values({
       id,
       teamId,
-      address: l.address,
-      city: l.city,
-      state: l.state,
-      zip: l.zip,
+      propertyId: propId,
       price: l.price,
-      beds: l.beds,
-      baths: l.baths,
-      sqft: l.sqft,
-      lotSqft: l.lotSqft,
-      yearBuilt: l.yearBuilt,
-      propertyType: l.propertyType,
       mlsNumber: l.mlsNumber,
       phase: l.phase,
       underContract: l.underContract,
@@ -2211,10 +2360,6 @@ async function main() {
       targetListDate: parseDate(l.targetListDate),
       agentId: tmMap[l.agentMock],
       clientId: contactMap[l.clientMock],
-      photoUrl: l.photoUrl,
-      photos: l.photos,
-      lat: l.lat,
-      lng: l.lng,
       tasksDone: l.tasksDone,
       tasksTotal: l.tasksTotal,
       documentsCount: l.documentsCount,
@@ -2223,17 +2368,7 @@ async function main() {
       zillowViews: l.zillowViews,
       zillowSaves: l.zillowSaves,
       description: l.description,
-      features: l.features,
     });
-  }
-
-  // ─── 4c. Link listings → properties ─────────────────────────────────
-  console.log('  Linking listings to properties...');
-  for (const [mockId, propertyId] of Object.entries(propertyMap)) {
-    const listingId = listingMap[mockId];
-    if (listingId) {
-      await db.update(listings).set({ propertyId }).where(eq(listings.id, listingId));
-    }
   }
 
   // ─── 4d. Buyer Preferences ────────────────────────────────────────────
@@ -2977,32 +3112,44 @@ async function main() {
   // ─── 13. Comp Sales ───────────────────────────────────────────────────
   console.log('  Inserting comp sales...');
   const compData = [
-    { address: '145 Main Street', city: 'Los Gatos', price: 2380000, sqft: 2650, pricePerSqft: 898, beds: 4, baths: 3, saleDate: '2026-02-15', daysOnMarket: 12, distance: '0.2 mi', adjustedValue: 2460000, adjustments: [{ label: 'Larger lot', amount: 30000 }, { label: 'Updated kitchen', amount: 50000 }], photoUrl: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&h=300&fit=crop', lat: 37.2365, lng: -121.9610 },
-    { address: '88 University Avenue', city: 'Los Gatos', price: 2550000, sqft: 2900, pricePerSqft: 879, beds: 4, baths: 3, saleDate: '2026-01-28', daysOnMarket: 8, distance: '0.4 mi', adjustedValue: 2510000, adjustments: [{ label: 'Slightly larger', amount: -40000 }], photoUrl: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=400&h=300&fit=crop', lat: 37.2340, lng: -121.9650 },
-    { address: '302 Tait Avenue', city: 'Los Gatos', price: 2650000, sqft: 3100, pricePerSqft: 855, beds: 4, baths: 3.5, saleDate: '2026-03-02', daysOnMarket: 15, distance: '0.5 mi', adjustedValue: 2520000, adjustments: [{ label: 'Extra half bath', amount: -20000 }, { label: 'Larger sqft', amount: -110000 }], photoUrl: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=300&fit=crop', lat: 37.2380, lng: -121.9580 },
-    { address: '75 Edelen Avenue', city: 'Los Gatos', price: 2290000, sqft: 2500, pricePerSqft: 916, beds: 3, baths: 2.5, saleDate: '2026-02-20', daysOnMarket: 21, distance: '0.3 mi', adjustedValue: 2430000, adjustments: [{ label: 'Fewer beds', amount: 80000 }, { label: 'Smaller sqft', amount: 60000 }], photoUrl: 'https://images.unsplash.com/photo-1600573472572-8aba140b2c78?w=400&h=300&fit=crop', lat: 37.2345, lng: -121.9635 },
-    { address: '1120 Arroyo Seco', city: 'Los Gatos', price: 2425000, sqft: 2750, pricePerSqft: 882, beds: 4, baths: 2.5, saleDate: '2026-03-10', daysOnMarket: 10, distance: '0.6 mi', adjustedValue: 2490000, adjustments: [{ label: 'Half bath less', amount: 15000 }, { label: 'Newer build', amount: 50000 }], photoUrl: 'https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=400&h=300&fit=crop', lat: 37.2320, lng: -121.9590 },
+    { address: '145 Main Street', city: 'Los Gatos', state: 'CA', zip: '95030', price: 2380000, sqft: 2650, pricePerSqft: 898, beds: 4, baths: 3, saleDate: '2026-02-15', daysOnMarket: 12, distance: '0.2 mi', adjustedValue: 2460000, adjustments: [{ label: 'Larger lot', amount: 30000 }, { label: 'Updated kitchen', amount: 50000 }], lat: 37.2365, lng: -121.9610 },
+    { address: '88 University Avenue', city: 'Los Gatos', state: 'CA', zip: '95030', price: 2550000, sqft: 2900, pricePerSqft: 879, beds: 4, baths: 3, saleDate: '2026-01-28', daysOnMarket: 8, distance: '0.4 mi', adjustedValue: 2510000, adjustments: [{ label: 'Slightly larger', amount: -40000 }], lat: 37.2340, lng: -121.9650 },
+    { address: '302 Tait Avenue', city: 'Los Gatos', state: 'CA', zip: '95030', price: 2650000, sqft: 3100, pricePerSqft: 855, beds: 4, baths: 3.5, saleDate: '2026-03-02', daysOnMarket: 15, distance: '0.5 mi', adjustedValue: 2520000, adjustments: [{ label: 'Extra half bath', amount: -20000 }, { label: 'Larger sqft', amount: -110000 }], lat: 37.2380, lng: -121.9580 },
+    { address: '75 Edelen Avenue', city: 'Los Gatos', state: 'CA', zip: '95030', price: 2290000, sqft: 2500, pricePerSqft: 916, beds: 3, baths: 2.5, saleDate: '2026-02-20', daysOnMarket: 21, distance: '0.3 mi', adjustedValue: 2430000, adjustments: [{ label: 'Fewer beds', amount: 80000 }, { label: 'Smaller sqft', amount: 60000 }], lat: 37.2345, lng: -121.9635 },
+    { address: '1120 Arroyo Seco', city: 'Los Gatos', state: 'CA', zip: '95030', price: 2425000, sqft: 2750, pricePerSqft: 882, beds: 4, baths: 2.5, saleDate: '2026-03-10', daysOnMarket: 10, distance: '0.6 mi', adjustedValue: 2490000, adjustments: [{ label: 'Half bath less', amount: 15000 }, { label: 'Newer build', amount: 50000 }], lat: 37.2320, lng: -121.9590 },
   ];
 
   for (const c of compData) {
+    // Create a property for each comp sale
+    const compPropId = randomUUID();
+    await db.insert(properties).values({
+      id: compPropId,
+      address: c.address,
+      city: c.city,
+      state: c.state,
+      zip: c.zip,
+      lat: c.lat,
+      lng: c.lng,
+      beds: c.beds,
+      baths: c.baths,
+      sqft: c.sqft,
+      propertyType: 'SINGLE_FAMILY',
+      photos: [],
+      lastSoldPrice: c.price,
+      lastSoldDate: parseDate(c.saleDate),
+    });
+
     await db.insert(compSales).values({
       id: randomUUID(),
       teamId,
-      address: c.address,
-      city: c.city,
+      propertyId: compPropId,
       price: c.price,
-      sqft: c.sqft,
       pricePerSqft: c.pricePerSqft,
-      beds: c.beds,
-      baths: c.baths,
       saleDate: parseDate(c.saleDate),
       daysOnMarket: c.daysOnMarket,
       distance: c.distance,
       adjustedValue: c.adjustedValue,
       adjustments: c.adjustments,
-      photoUrl: c.photoUrl,
-      lat: c.lat,
-      lng: c.lng,
     });
   }
 
@@ -3143,9 +3290,120 @@ async function main() {
     { name: 'Listing Cancellation', phase: 'canceled' as const, taskCategory: 'general' as const, taskCount: 3, description: 'Document cancellation, MLS removal, client relationship retention', isDefault: true },
   ];
 
+  // Template task definitions keyed by template name
+  const templateTasksByName: Record<string, { title: string; priority: 'low' | 'medium' | 'high' | 'urgent' }[]> = {
+    'Client Onboarding': [
+      { title: 'Complete client intake form', priority: 'high' },
+      { title: 'Execute listing agreement', priority: 'high' },
+      { title: 'Set up client communication channel', priority: 'medium' },
+      { title: 'Prepare & deliver onboarding packet', priority: 'low' },
+      { title: 'Gather property documentation from seller', priority: 'medium' },
+    ],
+    'Pre-Listing Logistics': [
+      { title: 'Order seller inspection (pre-listing)', priority: 'high' },
+      { title: 'Order disclosure package (TDS, SPQ, NHD)', priority: 'high' },
+      { title: 'Select title & escrow company', priority: 'medium' },
+      { title: 'Set up escrow communication channel', priority: 'low' },
+    ],
+    'Improvements & Repairs': [
+      { title: 'Analyze home inspection findings', priority: 'high' },
+      { title: 'Create prioritized repair/improvement list', priority: 'high' },
+      { title: 'Obtain contractor quotes for repairs', priority: 'medium' },
+      { title: 'Review improvement costs vs. market impact with client', priority: 'medium' },
+      { title: 'Schedule and oversee repair work', priority: 'high' },
+      { title: 'Document before/after improvements', priority: 'low' },
+      { title: 'Final walkthrough of completed repairs', priority: 'medium' },
+    ],
+    'Staging & Preparation': [
+      { title: 'Schedule staging consultation', priority: 'high' },
+      { title: 'Select furniture rental package', priority: 'medium' },
+      { title: 'Coordinate staging installation', priority: 'high' },
+      { title: 'Schedule deep cleaning service', priority: 'medium' },
+      { title: 'Landscaping and curb appeal prep', priority: 'medium' },
+      { title: 'Client walkthrough of staged home', priority: 'medium' },
+    ],
+    'Media Production': [
+      { title: 'Schedule professional photography shoot', priority: 'high' },
+      { title: 'Schedule drone/aerial photography', priority: 'medium' },
+      { title: 'Schedule twilight photography session', priority: 'medium' },
+      { title: 'Book Matterport 3D virtual tour', priority: 'medium' },
+      { title: 'Design property brochure & print materials', priority: 'medium' },
+      { title: 'Create video walkthrough tour', priority: 'medium' },
+      { title: 'Review and select final media assets', priority: 'high' },
+      { title: 'Upload media to MLS and marketing platforms', priority: 'high' },
+    ],
+    'Pricing & Market Strategy': [
+      { title: 'Pull comparable sales & market data', priority: 'high' },
+      { title: 'Prepare competitive market analysis (CMA)', priority: 'high' },
+      { title: 'Develop pricing strategy & positioning', priority: 'high' },
+      { title: 'Present pricing recommendation to client', priority: 'medium' },
+      { title: 'Obtain listing price approval & sign-off', priority: 'high' },
+    ],
+    'Launch & Marketing': [
+      { title: 'Create & syndicate MLS listing', priority: 'urgent' },
+      { title: 'Launch social media campaign', priority: 'high' },
+      { title: 'Set up paid advertising (Zillow, Facebook)', priority: 'medium' },
+      { title: 'Schedule broker open house', priority: 'high' },
+      { title: 'Schedule public open house', priority: 'high' },
+      { title: 'Distribute print marketing collateral', priority: 'medium' },
+      { title: 'Send listing announcement to agent network', priority: 'medium' },
+      { title: 'Establish weekly market report cadence to client', priority: 'medium' },
+      { title: 'Monitor and optimize ad performance', priority: 'low' },
+    ],
+    'Showings & Feedback': [
+      { title: 'Prepare showing instructions & lockbox setup', priority: 'high' },
+      { title: 'Coordinate showing schedule with seller', priority: 'high' },
+      { title: 'Collect showing feedback from agents', priority: 'medium' },
+      { title: 'Send weekly showing report to client', priority: 'medium' },
+      { title: 'Host open house events', priority: 'high' },
+      { title: 'Analyze showing trends & adjust strategy', priority: 'medium' },
+    ],
+    'Offer Review & Negotiation': [
+      { title: 'Receive & document incoming offer', priority: 'urgent' },
+      { title: 'Prepare offer comparison spreadsheet', priority: 'high' },
+      { title: 'Review offer terms & contingencies', priority: 'high' },
+      { title: 'Present offers to client with analysis', priority: 'urgent' },
+      { title: 'Draft counter-offer if applicable', priority: 'high' },
+      { title: 'Negotiate final terms', priority: 'high' },
+      { title: 'Execute offer acceptance & purchase agreement', priority: 'urgent' },
+      { title: 'Notify unsuccessful bidders', priority: 'medium' },
+    ],
+    'Contingency Management': [
+      { title: 'Coordinate buyer inspection contingency', priority: 'high' },
+      { title: 'Manage appraisal contingency timeline', priority: 'high' },
+      { title: 'Track loan contingency milestones', priority: 'high' },
+      { title: 'Monitor title contingency clearance', priority: 'medium' },
+      { title: 'Negotiate repair credits if needed', priority: 'medium' },
+      { title: 'Track contingency removal deadlines', priority: 'urgent' },
+      { title: 'Confirm all contingencies removed', priority: 'high' },
+    ],
+    'Closing Process': [
+      { title: 'Review purchase agreement & amendments', priority: 'high' },
+      { title: 'Coordinate final walkthrough', priority: 'high' },
+      { title: 'Review closing disclosure & settlement statement', priority: 'urgent' },
+      { title: 'Confirm wire transfer instructions', priority: 'urgent' },
+      { title: 'Schedule closing/signing appointment', priority: 'high' },
+      { title: 'Prepare closing gift for client', priority: 'low' },
+      { title: 'Coordinate key handoff', priority: 'medium' },
+      { title: 'Verify recording of deed', priority: 'high' },
+    ],
+    'Post-Close Coordination': [
+      { title: 'Process commission disbursement', priority: 'high' },
+      { title: 'Schedule client debrief & satisfaction check', priority: 'medium' },
+      { title: 'Request client review/testimonial', priority: 'low' },
+      { title: 'Add client to referral nurture program', priority: 'low' },
+    ],
+    'Listing Cancellation': [
+      { title: 'Process listing cancellation documents', priority: 'high' },
+      { title: 'Remove listing from MLS & marketing channels', priority: 'high' },
+      { title: 'Schedule client retention follow-up', priority: 'medium' },
+    ],
+  };
+
   for (const w of workflowData) {
+    const templateId = randomUUID();
     await db.insert(workflowTemplates).values({
-      id: randomUUID(),
+      id: templateId,
       teamId,
       name: w.name,
       phase: w.phase,
@@ -3154,6 +3412,18 @@ async function main() {
       description: w.description,
       isDefault: w.isDefault,
     });
+
+    // Insert template tasks
+    const taskDefs = templateTasksByName[w.name] ?? [];
+    for (let i = 0; i < taskDefs.length; i++) {
+      await db.insert(workflowTemplateTasks).values({
+        id: randomUUID(),
+        templateId,
+        title: taskDefs[i].title,
+        priority: taskDefs[i].priority,
+        sortOrder: i,
+      });
+    }
   }
 
   // ─── Analytics Events (views by platform over last 30 days) ──────────
@@ -3329,6 +3599,8 @@ async function main() {
   } else {
     console.log('  Skipping seed user (SEED_USER_EMAIL/SEED_USER_PASSWORD not set)');
   }
+
+  }); // end transaction
 
   console.log('Seed complete!');
   await client.end();

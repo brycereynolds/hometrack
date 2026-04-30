@@ -10,8 +10,8 @@
 	import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
 	import { onMount, onDestroy } from 'svelte';
 	import CommandPalette from '$lib/components/shared/CommandPalette.svelte';
-	import VoiceMemoModal from '$lib/components/shared/VoiceMemoModal.svelte';
-	import QuickNoteModal from '$lib/components/shared/QuickNoteModal.svelte';
+	import CaptureModal from '$lib/components/shared/CaptureModal.svelte';
+	import SidebarCloseOnNav from '$lib/components/shared/SidebarCloseOnNav.svelte';
 	import FloatingVoiceButton from '$lib/components/shared/FloatingVoiceButton.svelte';
 	import {
 		LayoutDashboard,
@@ -19,6 +19,7 @@
 		Users,
 		Wrench,
 		BarChart3,
+		FileText,
 		Settings,
 		LogOut,
 		ChevronUp,
@@ -26,8 +27,8 @@
 		Bell,
 		Plus,
 		Mic,
-		FileText,
-		Sparkles
+		Sparkles,
+		CheckCircle2
 	} from 'lucide-svelte';
 	let { children, data } = $props();
 
@@ -55,8 +56,7 @@
 
 	// Command palette state
 	let commandOpen = $state(false);
-	let voiceMemoOpen = $state(false);
-	let quickNoteOpen = $state(false);
+	let captureOpen = $state(false);
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -80,19 +80,42 @@
 	const navItems = $derived([
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 		{ href: '/listings', label: 'Listings', icon: Home, badge: String(listings.length) },
+		{ href: '/notes', label: 'Notes', icon: FileText },
 		{ href: '/contacts', label: 'Contacts', icon: Users },
 		{ href: '/vendors', label: 'Vendors', icon: Wrench },
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }
 	]);
 
+	// Callback ref set by SidebarCloseOnNav child component (has sidebar context access)
+	let closeMobileSidebar: (() => void) | null = null;
+
 	const quickActions: { label: string; icon: typeof Plus; href?: string; action?: () => void }[] = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
-		{ label: 'Voice Memo', icon: Mic, href: '/mobile/voice-memo' },
-		{ label: 'Quick Note', icon: FileText, action: () => { quickNoteOpen = true; } }
+		{ label: 'Capture Note', icon: Mic, action: () => { openCaptureFromSidebar(); } }
 	];
 
-	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed).slice(0, 2));
+	function openCaptureFromSidebar() {
+		// Close sidebar first, then open modal after a brief delay for the animation
+		closeMobileSidebar?.();
+		setTimeout(() => { captureOpen = true; }, 150);
+	}
+
+	let dismissedIds = $state<Set<string>>(new Set());
+	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed && !dismissedIds.has(a.id)).slice(0, 2));
 	const recentInsights = $derived(aiInsights.slice(0, 5));
+
+	async function acknowledgeAlert(id: string, event: Event) {
+		event.preventDefault();
+		event.stopPropagation();
+		try {
+			const res = await fetch(`/api/insights/${id}/acknowledge`, { method: 'POST' });
+			if (res.ok) {
+				dismissedIds = new Set([...dismissedIds, id]);
+			}
+		} catch (err) {
+			console.error('Failed to acknowledge alert:', err);
+		}
+	}
 
 	function timeAgo(d: any): string {
 		if (!d) return '';
@@ -111,27 +134,30 @@
 <svelte:window onkeydown={handleKeydown} />
 <CommandPalette
 	bind:open={commandOpen}
-	onVoiceMemo={() => { voiceMemoOpen = true; }}
-	onQuickNote={() => { quickNoteOpen = true; }}
+	onCapture={() => { captureOpen = true; }}
 />
-<VoiceMemoModal bind:open={voiceMemoOpen} listings={listings} teamId={data.team?.id ?? ''} />
-<QuickNoteModal bind:open={quickNoteOpen} listings={listings} teamId={data.team?.id ?? ''} />
-<FloatingVoiceButton onclick={() => { voiceMemoOpen = true; }} />
+<CaptureModal bind:open={captureOpen} listings={listings} teamId={data.team?.id ?? ''} />
+<!-- FloatingVoiceButton hidden — use Cmd+K or sidebar instead -->
 <Toaster richColors position="top-right" />
 
 <Sidebar.SidebarProvider>
+	<SidebarCloseOnNav onReady={(fn) => { closeMobileSidebar = fn; }} />
 	<Sidebar.Sidebar collapsible="icon">
 		<Sidebar.SidebarHeader>
 			<Sidebar.SidebarMenu>
 				<Sidebar.SidebarMenuItem>
 					<Sidebar.SidebarMenuButton size="lg" class="data-[state=open]:bg-sidebar-accent">
-						<div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg text-sm font-bold">
-							H
-						</div>
-						<div class="grid flex-1 text-left text-sm leading-tight">
-							<span class="truncate font-semibold">HomeTrack</span>
-							<span class="truncate text-xs text-muted-foreground">{teamName}</span>
-						</div>
+						{#snippet child({ props })}
+							<a href="/dashboard" {...props} class="{props.class} no-underline">
+								<div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg text-sm font-bold">
+									H
+								</div>
+								<div class="grid flex-1 text-left text-sm leading-tight">
+									<span class="truncate font-semibold">HomeTrack</span>
+									<span class="truncate text-xs text-muted-foreground">{teamName}</span>
+								</div>
+							</a>
+						{/snippet}
 					</Sidebar.SidebarMenuButton>
 				</Sidebar.SidebarMenuItem>
 			</Sidebar.SidebarMenu>
@@ -145,7 +171,7 @@
 					<Sidebar.SidebarMenu>
 						{#each navItems as item}
 							<Sidebar.SidebarMenuItem>
-								<Sidebar.SidebarMenuButton asChild>
+								<Sidebar.SidebarMenuButton>
 									{#snippet child({ props })}
 										<a href={item.href} {...props}>
 											<item.icon class="size-4" />
@@ -170,7 +196,7 @@
 						{#each quickActions as action}
 							<Sidebar.SidebarMenuItem>
 								{#if action.href}
-									<Sidebar.SidebarMenuButton asChild>
+									<Sidebar.SidebarMenuButton>
 										{#snippet child({ props })}
 											<a href={action.href} {...props}>
 												<action.icon class="size-4" />
@@ -200,10 +226,19 @@
 					<Sidebar.SidebarGroupContent>
 						<div class="space-y-2 px-2">
 							{#each activeAlerts as alert}
-								<a href={alert.actionUrl || '#'} class="block rounded-md border border-border/50 bg-muted/50 p-2.5 transition-colors hover:bg-muted">
-									<p class="text-xs font-medium">{alert.title}</p>
-									<p class="mt-0.5 text-xs text-muted-foreground line-clamp-2">{alert.description}</p>
-								</a>
+								<div class="relative rounded-md border border-border/50 bg-muted/50 transition-colors hover:bg-muted">
+									<a href={alert.actionUrl || '#'} class="block p-2.5 pr-9">
+										<p class="text-xs font-medium">{alert.title}</p>
+										<p class="mt-0.5 text-xs text-muted-foreground line-clamp-2">{alert.description}</p>
+									</a>
+									<button
+										onclick={(e) => acknowledgeAlert(alert.id, e)}
+										class="absolute right-1.5 top-1.5 rounded-md p-1 text-muted-foreground hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
+										title="Mark as handled"
+									>
+										<CheckCircle2 class="size-3.5" />
+									</button>
+								</div>
 							{/each}
 						</div>
 					</Sidebar.SidebarGroupContent>
@@ -215,7 +250,7 @@
 			<Sidebar.SidebarMenu>
 				<!-- Settings link -->
 				<Sidebar.SidebarMenuItem>
-					<Sidebar.SidebarMenuButton asChild>
+					<Sidebar.SidebarMenuButton>
 						{#snippet child({ props })}
 							<a href="/settings" {...props}>
 								<Settings class="size-4" />
@@ -270,15 +305,26 @@
 			<Sidebar.SidebarTrigger class="-ml-1" />
 			<Separator orientation="vertical" class="mr-2 h-4" />
 			<div class="flex flex-1 items-center gap-2">
+				<!-- Desktop: full search bar -->
 				<button
 					onclick={() => commandOpen = true}
-					class="flex items-center gap-2 h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 text-sm text-muted-foreground hover:bg-accent/50 transition-colors"
+					class="hidden md:flex items-center gap-2 h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 text-sm text-muted-foreground hover:bg-accent/50 transition-colors"
 				>
 					<Search class="size-4" />
 					<span>Search listings, contacts, vendors...</span>
 					<kbd class="ml-auto text-xs bg-muted px-1.5 py-0.5 rounded font-mono">⌘K</kbd>
 				</button>
 			</div>
+			<!-- Mobile: search icon button -->
+			<Button variant="ghost" size="icon" class="md:hidden" onclick={() => commandOpen = true}>
+				<Search class="size-4" />
+				<span class="sr-only">Search</span>
+			</Button>
+			<!-- Mobile: mic/record button -->
+			<Button variant="ghost" size="icon" class="md:hidden" onclick={() => { captureOpen = true; }}>
+				<Mic class="size-4" />
+				<span class="sr-only">Capture Note</span>
+			</Button>
 			<Popover.Root>
 				<Popover.Trigger>
 					{#snippet child({ props })}
@@ -354,7 +400,7 @@
 			</DropdownMenu.Root>
 		</header>
 
-		<main class="flex-1 p-4 md:p-6 lg:p-8">
+		<main class="flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8">
 			{@render children()}
 		</main>
 	</Sidebar.SidebarInset>

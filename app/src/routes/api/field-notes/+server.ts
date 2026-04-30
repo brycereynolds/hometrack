@@ -26,15 +26,20 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 	try {
 		const noteId = nanoid();
 		await withRLS(locals.user.id, 'authenticated', async (db) => {
+			const member = await db.query.teamMembers.findFirst({
+				where: eq(teamMembers.userId, locals.user!.id),
+			});
+			if (!member) throw new Error('Team member not found');
+
 			await db.insert(fieldNotes).values({
 				id: noteId,
-				teamId,
+				teamId: member.teamId,
 				listingId: listingId || null,
-				tag: tag as 'showing' | 'vendor' | 'client',
+				tag: tag as 'showing' | 'vendor' | 'client' | 'general',
 				textContent: content.trim(),
 				mediaType: 'text',
 				status: 'completed',
-				authorId: locals.user!.id,
+				authorId: member.id,
 			});
 		});
 

@@ -35,10 +35,17 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
           },
           moments: {
             orderBy: (moments, { asc }) => [asc(moments.momentIndex)],
+            with: {
+              bestFrame: true,
+            },
           },
           actions: {
             with: {
-              sourceMoment: true,
+              sourceMoment: {
+                with: {
+                  bestFrame: true,
+                },
+              },
             },
           },
         },

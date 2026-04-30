@@ -6,6 +6,7 @@
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import { page } from '$app/stores';
+	import type { MomentWithFrame, ActionWithSourceMoment } from '$lib/types.js';
 	import {
 		ArrowLeft,
 		Video,
@@ -28,6 +29,11 @@
 
 	let { data } = $props();
 	const note = $derived(data.note);
+
+	// Drizzle's inferred types don't include `with:` relations, so we cast
+	// the loaded data to our centralized composite types.
+	const moments = $derived((note?.moments ?? []) as MomentWithFrame[]);
+	const actions = $derived((note?.actions ?? []) as ActionWithSourceMoment[]);
 
 	let videoElement: HTMLVideoElement | undefined = $state();
 
@@ -92,10 +98,10 @@
 
 	// Split actions by status
 	const suggestedActions = $derived(
-		(note?.actions ?? []).filter((a: any) => a.status === 'suggested')
+		actions.filter((a) => a.status === 'suggested')
 	);
 	const acceptedActions = $derived(
-		(note?.actions ?? []).filter((a: any) => a.status === 'task_created')
+		actions.filter((a) => a.status === 'task_created')
 	);
 	const dismissedActions = $derived(
 		(note?.actions ?? []).filter((a: any) => a.status === 'dismissed')
@@ -180,7 +186,7 @@
 					</div>
 				</CardContent>
 			</Card>
-		{:else if note.mediaType === 'text' && note.textContent}
+		{:else if note.mediaType === 'text' && note.textContent && note.textContent !== '(attachment)'}
 			<Card>
 				<CardContent class="p-4">
 					<p class="whitespace-pre-wrap text-sm leading-relaxed">
@@ -270,14 +276,14 @@
 		{/if}
 
 		<!-- Key Moments -->
-		{#if note.moments && note.moments.length > 0}
+		{#if moments && moments.length > 0}
 			<Card>
 				<CardHeader class="pb-3">
 					<CardTitle class="font-serif text-base">Key Moments</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<div class="space-y-3">
-						{#each note.moments as moment}
+						{#each moments as moment}
 							{@const MomentIcon =
 								categoryIcons[moment.category ?? ''] ?? MessageSquareQuote}
 							<button
@@ -330,13 +336,13 @@
 		{/if}
 
 		<!-- Action Items -->
-		{#if note.actions && note.actions.length > 0}
+		{#if actions && actions.length > 0}
 			<Card>
 				<CardHeader class="pb-3">
 					<CardTitle class="font-serif text-base">
 						Action Items
 						<Badge variant="outline" class="ml-2 text-xs">
-							{note.actions.length}
+							{actions.length}
 						</Badge>
 					</CardTitle>
 				</CardHeader>

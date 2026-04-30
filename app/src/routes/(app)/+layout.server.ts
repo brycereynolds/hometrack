@@ -22,7 +22,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
       const [allListings, insights] = await Promise.all([
         db.query.listings.findMany({
           where: eq(listingsTable.teamId, membership.team.id),
-          with: { agent: true, client: true },
+          with: { property: true, agent: true, client: true },
         }),
         db.query.aiInsights.findMany({
           where: eq(aiInsightsTable.teamId, membership.team.id),

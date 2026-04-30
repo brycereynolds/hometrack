@@ -4,11 +4,11 @@
 -->
 <script lang="ts">
   import PhaseBadge from './PhaseBadge.svelte';
-  import type { Listing } from '$lib/types';
+  import type { Listing, Property } from '$lib/types';
   import { formatCurrency } from '$lib/utils';
 
   interface Props {
-    listing: Listing & { agent?: { name: string; initials: string } | null; priceFormatted?: string };
+    listing: Listing & { property: Property; agent?: { name: string; initials: string } | null; priceFormatted?: string };
     variant?: 'pipeline' | 'list';
     /** Show a warning border for stale listings */
     stale?: boolean;
@@ -16,6 +16,8 @@
 
   let { listing, variant = 'pipeline', stale = false }: Props = $props();
 
+  const prop = $derived(listing.property);
+  const photoUrl = $derived((prop?.photos as { url: string }[] | null)?.[0]?.url ?? null);
   const priceFormatted = $derived(listing.priceFormatted ?? (listing.price ? formatCurrency(listing.price) : null));
   const agentInitials = $derived(listing.agent?.initials ?? '??');
   const agentName = $derived(listing.agent?.name ?? 'Unassigned');
@@ -30,10 +32,10 @@
     <div class="p-3">
       <!-- Photo placeholder + phase badge -->
       <div class="relative mb-3 aspect-[16/10] overflow-hidden rounded-md bg-background-tertiary">
-        {#if listing.photoUrl}
+        {#if photoUrl}
           <img
-            src={listing.photoUrl}
-            alt={listing.address}
+            src={photoUrl}
+            alt={prop?.address ?? ''}
             class="object-cover w-full h-full transition-transform group-hover:scale-105"
             loading="lazy"
           />
@@ -58,9 +60,9 @@
 
       <!-- Address & price -->
       <p class="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
-        {listing.address}
+        {prop?.address ?? ''}
       </p>
-      <p class="text-xs text-foreground-secondary">{listing.city}, {listing.state}</p>
+      <p class="text-xs text-foreground-secondary">{prop?.city ?? ''}, {prop?.state ?? ''}</p>
       {#if priceFormatted}
         <p class="mt-1 font-serif text-lg font-bold text-foreground">{priceFormatted}</p>
       {:else}
@@ -69,9 +71,9 @@
 
       <!-- Stats row -->
       <div class="mt-2 flex items-center gap-3 text-xs text-foreground-muted">
-        <span>{listing.beds}bd / {listing.baths}ba</span>
+        <span>{prop?.beds ?? 0}bd / {prop?.baths ?? 0}ba</span>
         <span class="text-border-strong">&middot;</span>
-        <span>{(listing.sqft ?? 0).toLocaleString()} sqft</span>
+        <span>{(prop?.sqft ?? 0).toLocaleString()} sqft</span>
       </div>
 
       <!-- Bottom row: agent + days -->
@@ -116,10 +118,10 @@
     <div class="flex items-center gap-4 p-4">
       <!-- Photo -->
       <div class="relative size-16 shrink-0 overflow-hidden rounded-md bg-background-tertiary">
-        {#if listing.photoUrl}
+        {#if photoUrl}
           <img
-            src={listing.photoUrl}
-            alt={listing.address}
+            src={photoUrl}
+            alt={prop?.address ?? ''}
             class="object-cover w-full h-full"
             loading="lazy"
           />
@@ -136,7 +138,7 @@
       <div class="flex-1 min-w-0">
         <div class="flex items-center gap-2">
           <p class="text-sm font-semibold text-foreground truncate group-hover:text-primary transition-colors">
-            {listing.address}, {listing.city}
+            {prop?.address ?? ''}, {prop?.city ?? ''}
           </p>
           <PhaseBadge phase={listing.phase} size="sm" />
           {#if listing.phase === 'active' && listing.underContract}
@@ -151,7 +153,7 @@
         <span class="mt-0.5 inline-block text-xs font-medium text-muted-foreground bg-muted px-2 py-0.5 rounded">No Price</span>
       {/if}
         <div class="mt-1 flex items-center gap-3 text-xs text-foreground-muted">
-          <span>{listing.beds}bd / {listing.baths}ba / {(listing.sqft ?? 0).toLocaleString()} sqft</span>
+          <span>{prop?.beds ?? 0}bd / {prop?.baths ?? 0}ba / {(prop?.sqft ?? 0).toLocaleString()} sqft</span>
           <span class="text-border-strong">&middot;</span>
           <span>{agentName}</span>
           {#if (listing.daysOnMarket ?? 0) > 0}

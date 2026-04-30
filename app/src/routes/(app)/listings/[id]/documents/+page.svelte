@@ -5,6 +5,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import {
 		FileText,
 		Upload,
@@ -18,7 +19,12 @@
 		Megaphone,
 		CheckCircle2,
 		Circle,
-		Loader2
+		Loader2,
+		Download,
+		Trash2,
+		ChevronDown,
+		Eye,
+		X
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -31,6 +37,31 @@
 	let selectedCategory = $state('other');
 	let fileInput = $state<HTMLInputElement>(null!);
 	let formEl = $state<HTMLFormElement>(null!);
+
+	// Delete confirmation
+	let showDeleteModal = $state(false);
+	let deletingDoc = $state<any | null>(null);
+
+	// Status dropdown state
+	let openStatusDropdown = $state<string | null>(null);
+
+	// Preview modal state
+	let showPreviewModal = $state(false);
+	let previewDoc = $state<any | null>(null);
+	let previewUrl = $state<string | null>(null);
+	let previewLoading = $state(false);
+
+	function isImageFile(fileType: string): boolean {
+		return ['JPG', 'JPEG', 'PNG', 'GIF', 'WEBP', 'SVG'].includes(fileType?.toUpperCase() ?? '');
+	}
+
+	function isPdfFile(fileType: string): boolean {
+		return fileType?.toUpperCase() === 'PDF';
+	}
+
+	function canPreview(fileType: string): boolean {
+		return isImageFile(fileType) || isPdfFile(fileType);
+	}
 
 	function formatDate(d: any): string {
 		if (!d) return '';
@@ -54,6 +85,8 @@
 			: listingDocs.filter((d: any) => d.category === activeCategory)
 	);
 
+	const allDocStatuses = ['draft', 'pending_signature', 'signed', 'complete', 'expired'] as const;
+
 	function getStatusBadge(status: string) {
 		switch (status) {
 			case 'signed': return { color: 'bg-green-100 text-green-700 border-green-200', label: 'Signed' };
@@ -62,6 +95,17 @@
 			case 'draft': return { color: 'bg-gray-100 text-gray-600 border-gray-200', label: 'Draft' };
 			case 'expired': return { color: 'bg-red-100 text-red-700 border-red-200', label: 'Expired' };
 			default: return { color: 'bg-gray-100 text-gray-600', label: status };
+		}
+	}
+
+	function getStatusLabel(status: string) {
+		switch (status) {
+			case 'draft': return 'Draft';
+			case 'pending_signature': return 'Pending Signature';
+			case 'signed': return 'Signed';
+			case 'complete': return 'Complete';
+			case 'expired': return 'Expired';
+			default: return status;
 		}
 	}
 
@@ -89,6 +133,15 @@
 			fileInput.files = dt.files;
 			formEl?.requestSubmit();
 		}
+	}
+
+	function openDeleteModal(doc: any) {
+		deletingDoc = doc;
+		showDeleteModal = true;
+	}
+
+	function toggleStatusDropdown(docId: string) {
+		openStatusDropdown = openStatusDropdown === docId ? null : docId;
 	}
 
 	// Disclosure checklist
@@ -138,7 +191,7 @@
 						if (fileInput) fileInput.value = '';
 						await update();
 					} else if (result.type === 'failure') {
-						toast.error(result.data?.error ?? 'Upload failed');
+						toast.error(String(result.data?.error ?? 'Upload failed'));
 					} else {
 						await update();
 					}
@@ -251,7 +304,7 @@
 						{#each filteredDocs as doc}
 							{@const FileIcon = getFileIcon(doc.fileType ?? '')}
 							{@const status = getStatusBadge(doc.status)}
-							<Card class="transition-shadow hover:shadow-md cursor-pointer">
+							<Card class="transition-shadow hover:shadow-md">
 								<CardContent class="p-4">
 									<div class="flex items-start gap-3">
 										<div class="rounded-lg bg-muted p-2 shrink-0">
@@ -272,12 +325,111 @@
 										</div>
 									</div>
 									<div class="mt-3 flex items-center justify-between">
-										<Badge variant="outline" class="text-[10px] {status.color}">
-											{status.label}
-										</Badge>
-										{#if (doc.version ?? 1) > 1}
-											<span class="text-[10px] text-muted-foreground">v{doc.version}</span>
-										{/if}
+										<!-- Clickable status badge with dropdown -->
+										<div class="relative">
+											<button onclick={() => toggleStatusDropdown(doc.id)} class="cursor-pointer">
+												<Badge variant="outline" class="text-[10px] cursor-pointer hover:opacity-80 {status.color}">
+													{status.label}
+													<ChevronDown class="ml-0.5 size-2.5" />
+												</Badge>
+											</button>
+											{#if openStatusDropdown === doc.id}
+												<!-- svelte-ignore a11y_no_static_element_interactions -->
+												<div
+													class="absolute left-0 top-full z-20 mt-1 w-44 rounded-md border bg-background shadow-lg py-1"
+													onmouseleave={() => openStatusDropdown = null}
+												>
+													{#each allDocStatuses as s}
+														{@const sStatus = getStatusBadge(s)}
+														<form
+															method="POST"
+															action="?/updateStatus"
+															use:enhance={() => {
+																openStatusDropdown = null;
+																return async ({ result, update }) => {
+																	if (result.type === 'success') {
+																		toast.success(`Status changed to ${getStatusLabel(s)}`);
+																		await update();
+																	} else {
+																		toast.error('Failed to update status');
+																	}
+																};
+															}}
+														>
+															<input type="hidden" name="documentId" value={doc.id} />
+															<input type="hidden" name="newStatus" value={s} />
+															<button
+																type="submit"
+																class="flex w-full items-center gap-2 px-3 py-1.5 text-xs hover:bg-muted transition-colors {doc.status === s ? 'font-semibold bg-muted/50' : ''}"
+															>
+																<Badge variant="outline" class="text-[9px] px-1.5 py-0 h-4 {sStatus.color}">{sStatus.label}</Badge>
+															</button>
+														</form>
+													{/each}
+												</div>
+											{/if}
+										</div>
+										<div class="flex items-center gap-1.5">
+											{#if (doc.version ?? 1) > 1}
+												<span class="text-[10px] text-muted-foreground">v{doc.version}</span>
+											{/if}
+											<!-- Preview button -->
+											{#if canPreview(doc.fileType ?? '')}
+												<form
+													method="POST"
+													action="?/downloadDocument"
+													use:enhance={() => {
+														previewLoading = true;
+														previewDoc = doc;
+														return async ({ result }) => {
+															previewLoading = false;
+															if (result.type === 'success' && result.data?.signedUrl) {
+																previewUrl = result.data.signedUrl as string;
+																showPreviewModal = true;
+															} else {
+																toast.error('Failed to generate preview URL');
+																previewDoc = null;
+															}
+														};
+													}}
+												>
+													<input type="hidden" name="documentId" value={doc.id} />
+													<button type="submit" class="rounded p-1 hover:bg-muted transition-colors" title="Preview">
+														<Eye class="size-3.5 text-muted-foreground" />
+													</button>
+												</form>
+											{/if}
+											<!-- Download button -->
+											<form
+												method="POST"
+												action="?/downloadDocument"
+												use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success' && result.data?.signedUrl) {
+															window.open(result.data.signedUrl as string, '_blank');
+															toast.success('Download started');
+														} else if (result.type === 'failure') {
+															toast.error(String(result.data?.error ?? 'Download failed'));
+														} else {
+															toast.error('Failed to generate download URL');
+														}
+													};
+												}}
+											>
+												<input type="hidden" name="documentId" value={doc.id} />
+												<button type="submit" class="rounded p-1 hover:bg-muted transition-colors" title="Download">
+													<Download class="size-3.5 text-muted-foreground" />
+												</button>
+											</form>
+											<!-- Delete button -->
+											<button
+												onclick={() => openDeleteModal(doc)}
+												class="rounded p-1 hover:bg-red-50 transition-colors"
+												title="Delete document"
+											>
+												<Trash2 class="size-3.5 text-muted-foreground hover:text-red-600" />
+											</button>
+										</div>
 									</div>
 								</CardContent>
 							</Card>
@@ -293,3 +445,88 @@
 		</div>
 	</div>
 {/if}
+
+<!-- Delete Document Confirmation -->
+<Dialog.Root bind:open={showDeleteModal}>
+	<Dialog.Content class="sm:max-w-sm">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Delete Document</Dialog.Title>
+			<Dialog.Description>
+				{#if deletingDoc}
+					Are you sure you want to delete "{deletingDoc.name}"? This will remove the file from storage. This action cannot be undone.
+				{/if}
+			</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/deleteDocument"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Document deleted');
+						showDeleteModal = false;
+						await update();
+					} else {
+						toast.error('Failed to delete document');
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="documentId" value={deletingDoc?.id ?? ''} />
+			<Dialog.Footer class="mt-4">
+				<Button variant="outline" type="button" onclick={() => showDeleteModal = false}>Cancel</Button>
+				<Button variant="destructive" type="submit">Delete</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Document Preview Modal -->
+<Dialog.Root bind:open={showPreviewModal} onOpenChange={(open) => { if (!open) { previewUrl = null; previewDoc = null; } }}>
+	<Dialog.Content class="sm:max-w-4xl max-h-[90vh]">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">{previewDoc?.name ?? 'Document Preview'}</Dialog.Title>
+			<Dialog.Description>
+				{previewDoc?.fileType ?? 'File'} -- {previewDoc?.fileSize ?? 'Unknown size'}
+			</Dialog.Description>
+		</Dialog.Header>
+		<div class="mt-2 overflow-auto" style="max-height: calc(90vh - 10rem);">
+			{#if previewLoading}
+				<div class="flex items-center justify-center py-20">
+					<Loader2 class="size-8 text-primary animate-spin" />
+				</div>
+			{:else if previewUrl && previewDoc}
+				{#if isPdfFile(previewDoc.fileType ?? '')}
+					<iframe
+						src={previewUrl}
+						class="w-full rounded-lg border"
+						style="height: 70vh;"
+						title="PDF Preview: {previewDoc.name}"
+					></iframe>
+				{:else if isImageFile(previewDoc.fileType ?? '')}
+					<div class="flex items-center justify-center">
+						<img
+							src={previewUrl}
+							alt={previewDoc.name}
+							class="max-w-full max-h-[70vh] rounded-lg object-contain"
+						/>
+					</div>
+				{/if}
+			{:else}
+				<div class="flex flex-col items-center justify-center py-12">
+					<FileText class="size-10 text-muted-foreground/30 mb-3" />
+					<p class="text-sm text-muted-foreground">Unable to load preview.</p>
+				</div>
+			{/if}
+		</div>
+		<Dialog.Footer class="mt-4">
+			{#if previewUrl}
+				<Button variant="outline" size="sm" onclick={() => window.open(previewUrl ?? '', '_blank')}>
+					<Download class="mr-1.5 size-3.5" />
+					Download
+				</Button>
+			{/if}
+			<Button variant="outline" size="sm" onclick={() => showPreviewModal = false}>Close</Button>
+		</Dialog.Footer>
+	</Dialog.Content>
+</Dialog.Root>

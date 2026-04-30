@@ -89,9 +89,9 @@
 			<h2 class="font-serif text-xl font-bold">Field Notes</h2>
 			<p class="text-sm text-muted-foreground">Walkthrough recordings and field observations</p>
 		</div>
-		<Button href="/mobile/field-notes" size="sm">
+		<Button href="/notes" size="sm">
 			<Plus class="mr-1.5 size-4" />
-			Capture Note
+			View All Notes
 		</Button>
 	</div>
 
@@ -126,9 +126,9 @@
 					Capture your first walkthrough — record video, voice memos, or text
 					notes from the field.
 				</p>
-				<Button href="/mobile/field-notes" class="mt-4" size="sm">
+				<Button href="/notes" class="mt-4" size="sm">
 					<Plus class="mr-1.5 size-4" />
-					Capture Note
+					View All Notes
 				</Button>
 			</CardContent>
 		</Card>

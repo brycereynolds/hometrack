@@ -22,9 +22,9 @@ SUPABASE_SERVICE_ROLE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 
-# Realty API (RapidAPI)
+# Realty API (direct — zillow.realtyapi.io)
 REALTY_API_KEY = os.getenv("REALTY_API_KEY", "")
-REALTY_API_HOST = os.getenv("REALTY_API_HOST", "realty-in-us.p.rapidapi.com")
+REALTY_API_HOST = os.getenv("REALTY_API_HOST", "zillow.realtyapi.io")
 
 # Logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")

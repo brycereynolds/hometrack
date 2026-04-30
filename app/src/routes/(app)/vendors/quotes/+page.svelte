@@ -171,7 +171,7 @@
 								</div>
 								<div class="mt-0.5 flex items-center gap-2 text-sm text-muted-foreground">
 									<Home class="size-3" />
-									<a href="/listings/{quote.listingId}" class="hover:text-primary hover:underline">{quote.listing?.address ?? 'Unknown listing'}</a>
+									<a href="/listings/{quote.listingId}" class="hover:text-primary hover:underline">{quote.listing?.property?.address ?? 'Unknown listing'}</a>
 									<span class="text-border">|</span>
 									<span>{quote.scope}</span>
 								</div>
@@ -311,7 +311,7 @@
 						</CardTitle>
 						<CardDescription class="flex items-center gap-1.5">
 							<Home class="size-3.5" />
-							<a href="/listings/{listingId}" class="hover:text-primary hover:underline">{groupQuotes[0].listing?.address ?? 'Unknown listing'}</a> -- {groupQuotes.length} quotes
+							<a href="/listings/{listingId}" class="hover:text-primary hover:underline">{(groupQuotes[0].listing?.property as { address?: string } | undefined)?.address ?? 'Unknown listing'}</a> -- {groupQuotes.length} quotes
 						</CardDescription>
 					</CardHeader>
 					<CardContent>

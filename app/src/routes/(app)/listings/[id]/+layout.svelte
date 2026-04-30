@@ -1,16 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config.js';
 	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Edit,
+		Ellipsis,
 		ExternalLink,
 		RefreshCw,
 		ChevronLeft,
@@ -45,19 +48,21 @@
 	let editDescription = $state('');
 	let editMlsNumber = $state('');
 
+	const prop = $derived(listing?.property);
+
 	function openEditDialog() {
 		if (!listing) return;
-		editAddress = listing.address;
-		editCity = listing.city;
-		editState = listing.state;
-		editZip = listing.zip;
+		editAddress = prop?.address ?? '';
+		editCity = prop?.city ?? '';
+		editState = prop?.state ?? '';
+		editZip = prop?.zip ?? '';
 		editPrice = listing.price?.toString() ?? '';
-		editBeds = listing.beds ?? 0;
-		editBaths = listing.baths ?? 0;
-		editSqft = listing.sqft ?? 0;
-		editLotSqft = listing.lotSqft ?? 0;
-		editYearBuilt = listing.yearBuilt ?? 0;
-		editPropertyType = listing.propertyType ?? 'single_family';
+		editBeds = prop?.beds ?? 0;
+		editBaths = prop?.baths ?? 0;
+		editSqft = prop?.sqft ?? 0;
+		editLotSqft = prop?.lotSqft ?? 0;
+		editYearBuilt = prop?.yearBuilt ?? 0;
+		editPropertyType = prop?.propertyType ?? 'single_family';
 		editDescription = listing.description ?? '';
 		editMlsNumber = listing.mlsNumber ?? '';
 		editDialogOpen = true;
@@ -65,11 +70,10 @@
 
 	const fieldNotesCount = $derived(data.fieldNotesCount ?? 0);
 
-	const listingPriceBadge = $derived(listing?.price ? formatCurrency(listing.price) : 'No Price');
-
+	const listingBadge = $derived(listing?.price ? formatCurrency(listing.price) : 'No Price');
 	const tabs = $derived([
-		{ href: '', label: 'Overview', count: 0 },
-		{ href: '/listing', label: 'Listing', count: 0, badge: listingPriceBadge },
+		{ href: '', label: 'Overview', count: 0, badge: '' },
+		{ href: '/listing', label: 'Listing', count: 0, badge: !listing?.price ? 'No Price' : '' },
 		{ href: '/activity', label: 'Activity', count: 0 },
 		{ href: '/tasks', label: 'Tasks', count: 0 },
 		{ href: '/field-notes', label: 'Field Notes', count: fieldNotesCount },
@@ -81,6 +85,20 @@
 		{ href: '/analytics', label: 'Analytics', count: 0 },
 		{ href: '/portal-settings', label: 'Portal', count: 0 }
 	]);
+
+	const currentTab = $derived(() => {
+		const basePath = `/listings/${$page.params.id}`;
+		const currentPath = $page.url.pathname;
+		for (const tab of tabs) {
+			if (tab.href === '' && (currentPath === basePath || currentPath === basePath + '/')) {
+				return '';
+			}
+			if (tab.href !== '' && currentPath.startsWith(basePath + tab.href)) {
+				return tab.href.slice(1); // remove leading /
+			}
+		}
+		return '';
+	});
 
 	let tabsContainer = $state<HTMLDivElement>(null!);
 
@@ -106,22 +124,45 @@
 		<div class="relative -mx-4 -mt-4 md:-mx-6 md:-mt-6 lg:-mx-8 lg:-mt-8">
 			<div class="relative h-56 overflow-hidden sm:h-64 md:h-72">
 				<img
-					src={listing.photoUrl}
-					alt={listing.address}
+					src={(prop?.photos as { url: string }[] | null)?.[0]?.url ?? ''}
+					alt={prop?.address ?? ''}
 					class="h-full w-full object-cover"
 				/>
 				<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 
-				<!-- Back button -->
-				<div class="absolute left-4 top-4">
+				<!-- Mobile: back + more menu -->
+				<div class="absolute left-4 top-4 flex items-center gap-2 md:hidden">
+					<Button variant="secondary" size="sm" href="/listings" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
+						<ArrowLeft class="size-4" />
+					</Button>
+				</div>
+				<div class="absolute right-4 top-4 flex items-center gap-2 md:hidden">
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger>
+							{#snippet child({ props })}
+								<Button {...props} variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
+									<Ellipsis class="size-4" />
+								</Button>
+							{/snippet}
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content>
+							<DropdownMenu.Item onclick={openEditDialog}>Edit</DropdownMenu.Item>
+							<DropdownMenu.Item onclick={() => phaseDialogOpen = true}>Change Phase</DropdownMenu.Item>
+							<DropdownMenu.Item onclick={() => goto(`/listings/${listing.id}/portal-settings`)}>Client Portal</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				</div>
+
+				<!-- Desktop: back button -->
+				<div class="absolute left-4 top-4 hidden md:block">
 					<Button variant="secondary" size="sm" href="/listings" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
 						<ArrowLeft class="mr-1.5 size-4" />
 						Listings
 					</Button>
 				</div>
 
-				<!-- Action buttons -->
-				<div class="absolute right-4 top-4 flex gap-2">
+				<!-- Desktop: action buttons -->
+				<div class="absolute right-4 top-4 hidden md:flex gap-2">
 					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white" onclick={openEditDialog}>
 						<Edit class="mr-1.5 size-4" />
 						Edit
@@ -138,33 +179,23 @@
 
 				<!-- Hero content -->
 				<div class="absolute bottom-0 left-0 right-0 p-4 text-white sm:p-6">
-					<div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-						<div>
-							<h1 class="font-serif text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
-								{listing.address}
-							</h1>
-							<p class="mt-1 text-sm text-white/80 sm:text-base">
-								{listing.city}, {listing.state} {listing.zip}
-							</p>
-						</div>
-						<div class="flex items-center gap-3 sm:gap-4">
-							<Badge
-								variant="outline"
-								class="border-white/40 bg-white/10 text-white backdrop-blur-sm text-xs sm:text-sm"
-								style="border-color: {PHASES[listing.phase].color}; background-color: {PHASES[listing.phase].color}20"
-							>
-								{PHASES[listing.phase].label}
-							</Badge>
-							{#if listing.price}<span class="font-serif text-2xl font-bold sm:text-3xl">{formatCurrency(listing.price)}</span>{:else}<span class="text-sm font-medium text-muted-foreground bg-muted/20 px-2 py-0.5 rounded">No Price</span>{/if}
-						</div>
+					<div>
+						<h1 class="font-serif text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl">
+							{prop?.address ?? ''}
+						</h1>
+						<p class="mt-1 text-sm text-white/80 sm:text-base">
+							{prop?.city ?? ''}, {prop?.state ?? ''} {prop?.zip ?? ''}
+						</p>
 					</div>
-					<div class="mt-2 flex items-center gap-4 text-xs text-white/70 sm:text-sm">
+					<div class="mt-2 flex flex-wrap items-center gap-x-2 text-xs text-white/60 sm:text-sm">
 						<span>MLS {listing.mlsNumber ?? 'N/A'}</span>
 						<span>|</span>
-						{#if (listing.daysOnMarket ?? 0) > 0}
-							<span>{listing.daysOnMarket} DOM</span>
+						<span>{PHASES[listing.phase].label}</span>
+						<span>|</span>
+						{#if listing.price}
+							<span>{formatCurrency(listing.price)}</span>
 						{:else}
-							<span>Pre-market</span>
+							<a href="/listings/{listing.id}/listing" class="text-white/80 underline hover:text-white transition-colors">No price yet</a>
 						{/if}
 					</div>
 				</div>
@@ -172,8 +203,8 @@
 		</div>
 
 		<!-- Phase Progress Bar -->
-		<div class="border-b bg-muted/30 px-4 py-3 -mx-4 md:-mx-6 lg:-mx-8 md:px-6 lg:px-8">
-			<div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto">
+		<div class="border-b bg-muted/30 px-4 py-2 -mx-4 md:-mx-6 lg:-mx-8 md:px-6 lg:px-8">
+			<div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto py-1.5 px-1">
 				{#each PHASE_LIST as phase, i}
 					{@const isComplete = phase.order < currentPhaseOrder}
 					{@const isCurrent = phase.order === currentPhaseOrder}
@@ -202,14 +233,24 @@
 			</div>
 		</div>
 
-		<!-- Tab Navigation -->
-		<div class="border-b -mx-4 md:-mx-6 lg:-mx-8 relative">
-			<button
-				onclick={() => scrollTabs('left')}
-				class="absolute left-0 top-0 bottom-0 z-10 flex items-center px-1 bg-gradient-to-r from-background via-background to-transparent sm:hidden"
+		<!-- Tab Navigation: Mobile dropdown -->
+		<div class="lg:hidden px-4 py-2 border-b -mx-4">
+			<select
+				class="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+				value={currentTab()}
+				onchange={(e) => {
+					const val = e.currentTarget.value;
+					goto(`/listings/${listing.id}${val ? '/' + val : ''}`);
+				}}
 			>
-				<ChevronLeft class="size-4 text-muted-foreground" />
-			</button>
+				{#each tabs as tab}
+					<option value={tab.href ? tab.href.slice(1) : ''}>{tab.label}</option>
+				{/each}
+			</select>
+		</div>
+
+		<!-- Tab Navigation: Desktop horizontal tabs -->
+		<div class="border-b -mx-4 md:-mx-6 lg:-mx-8 relative hidden lg:block">
 			<div
 				bind:this={tabsContainer}
 				class="flex overflow-x-auto scrollbar-hide px-4 md:px-6 lg:px-8"
@@ -224,7 +265,7 @@
 					>
 						{tab.label}
 						{#if tab.badge}
-							<span class="inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-semibold leading-none {tab.badge === 'No Price' ? 'bg-amber-100 text-amber-700' : 'bg-green-100 text-green-700'}">
+							<span class="inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-semibold leading-none bg-amber-100 text-amber-700">
 								{tab.badge}
 							</span>
 						{:else if tab.count > 0}
@@ -235,12 +276,6 @@
 					</a>
 				{/each}
 			</div>
-			<button
-				onclick={() => scrollTabs('right')}
-				class="absolute right-0 top-0 bottom-0 z-10 flex items-center px-1 bg-gradient-to-l from-background via-background to-transparent sm:hidden"
-			>
-				<ChevronRight class="size-4 text-muted-foreground" />
-			</button>
 		</div>
 
 		<!-- Tab Content -->

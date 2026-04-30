@@ -1,5 +1,4 @@
 import { pgTable, text, timestamp, integer, boolean, index } from 'drizzle-orm/pg-core';
-import { relations } from 'drizzle-orm';
 import { listingPhaseEnum, taskCategoryEnum } from './enums.js';
 import { teams } from './team.js';
 
@@ -24,10 +23,3 @@ export const workflowTemplates = pgTable(
     index('workflow_templates_team_phase_idx').on(table.teamId, table.phase),
   ],
 );
-
-export const workflowTemplatesRelations = relations(workflowTemplates, ({ one }) => ({
-  team: one(teams, {
-    fields: [workflowTemplates.teamId],
-    references: [teams.id],
-  }),
-}));

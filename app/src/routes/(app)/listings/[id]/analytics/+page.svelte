@@ -123,16 +123,16 @@
 							<tbody class="divide-y">
 								{#each compSales as comp}
 									<tr class="hover:bg-muted/30 transition-colors">
-										<td class="py-3"><div class="flex items-center gap-2"><img src={comp.photoUrl} alt="" class="size-8 rounded object-cover shrink-0" /><div><p class="font-medium">{comp.address}</p><p class="text-xs text-muted-foreground">{comp.city} -- Sold {formatDate(comp.saleDate)}</p></div></div></td>
+										<td class="py-3"><div class="flex items-center gap-2"><img src={(comp.property?.photos as any)?.[0]?.url ?? ''} alt="" class="size-8 rounded object-cover shrink-0" /><div><p class="font-medium">{comp.property?.address ?? ''}</p><p class="text-xs text-muted-foreground">{comp.property?.city ?? ''} -- Sold {formatDate(comp.saleDate)}</p></div></div></td>
 										<td class="py-3 text-right font-medium">{formatCurrency(comp.price ?? 0)}</td>
-										<td class="py-3 text-center">{comp.beds}/{comp.baths}</td>
-										<td class="py-3 text-right">{formatNumber(comp.sqft ?? 0)}</td>
+										<td class="py-3 text-center">{comp.property?.beds ?? 0}/{comp.property?.baths ?? 0}</td>
+										<td class="py-3 text-right">{formatNumber(comp.property?.sqft ?? 0)}</td>
 										<td class="py-3 text-right">${comp.pricePerSqft ?? 0}</td>
 										<td class="py-3 text-center"><Badge variant="secondary" class="text-[10px]">{comp.daysOnMarket ?? 0}d</Badge></td>
 										<td class="py-3 text-center text-muted-foreground">{comp.distance}</td>
 										<td class="py-3 text-right">
 											<div class="space-y-0.5">
-												{#each (comp.adjustments ?? []) as adj}
+												{#each (Array.isArray(comp.adjustments) ? comp.adjustments : []) as adj}
 													<div class="text-[10px] {(adj as any).amount >= 0 ? 'text-green-600' : 'text-red-600'}">{(adj as any).label}: {(adj as any).amount >= 0 ? '+' : ''}{formatCurrency((adj as any).amount)}</div>
 												{/each}
 											</div>

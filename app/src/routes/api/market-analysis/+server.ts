@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
 import { marketAnalyses, compListings, listings, teamMembers } from '$lib/server/db/schema/index.js';
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, and, desc, inArray } from 'drizzle-orm';
 import { startMarketAnalysisWorkflow } from '$lib/server/temporal.js';
 
 export const POST: RequestHandler = async ({ locals, request }) => {
@@ -11,7 +11,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
   }
 
   const body = await request.json();
-  const { listingId, searchParams } = body;
+  const { listingId, searchParams, prompt } = body;
 
   if (!listingId) {
     return json({ error: 'Missing listingId' }, { status: 400 });
@@ -26,8 +26,20 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 
       const listing = await db.query.listings.findFirst({
         where: and(eq(listings.id, listingId), eq(listings.teamId, member.teamId)),
+        with: { property: true },
       });
       if (!listing) throw new Error('Listing not found');
+
+      // Check for an existing pending/processing analysis — prevent duplicates
+      const existing = await db.query.marketAnalyses.findFirst({
+        where: and(
+          eq(marketAnalyses.listingId, listingId),
+          inArray(marketAnalyses.status, ['pending', 'processing']),
+        ),
+      });
+      if (existing) {
+        return { id: existing.id, workflowId: existing.workflowId, alreadyRunning: true };
+      }
 
       const analysisId = crypto.randomUUID();
       await db.insert(marketAnalyses).values({
@@ -41,17 +53,18 @@ export const POST: RequestHandler = async ({ locals, request }) => {
         analysisId,
         listingId,
         teamId: member.teamId,
-        address: listing.address,
-        city: listing.city,
-        state: listing.state,
-        zip: listing.zip,
-        lat: listing.lat,
-        lng: listing.lng,
-        beds: listing.beds,
-        baths: listing.baths,
-        sqft: listing.sqft,
-        propertyType: listing.propertyType,
+        address: listing.property.address,
+        city: listing.property.city,
+        state: listing.property.state,
+        zip: listing.property.zip,
+        lat: listing.property.lat,
+        lng: listing.property.lng,
+        beds: listing.property.beds,
+        baths: listing.property.baths,
+        sqft: listing.property.sqft,
+        propertyType: listing.property.propertyType,
         searchParams: searchParams ?? {},
+        prompt: prompt || undefined,
       });
 
       if (workflow) {
@@ -89,12 +102,12 @@ export const GET: RequestHandler = async ({ locals, url }) => {
         .where(eq(marketAnalyses.listingId, listingId))
         .orderBy(desc(marketAnalyses.createdAt));
 
-      let comps: (typeof compListings.$inferSelect)[] = [];
+      let comps: any[] = [];
       if (analyses.length > 0) {
-        comps = await db
-          .select()
-          .from(compListings)
-          .where(eq(compListings.marketAnalysisId, analyses[0].id));
+        comps = await db.query.compListings.findMany({
+          where: eq(compListings.marketAnalysisId, analyses[0].id),
+          with: { property: true },
+        });
       }
 
       return { analyses, comps };

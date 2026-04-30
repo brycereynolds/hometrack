@@ -2,6 +2,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { getContacts } from '$lib/server/db/queries/contacts.js';
 import { withRLS } from '$lib/server/db/index.js';
 import { contacts } from '$lib/server/db/schema/index.js';
+import { eq } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
 
@@ -23,7 +24,7 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
 };
 
 export const actions: Actions = {
-  create: async ({ request, locals, url }) => {
+  create: async ({ request, locals }) => {
     if (!locals.user) return fail(401, { error: 'Not authenticated' });
 
     const formData = await request.formData();
@@ -61,6 +62,70 @@ export const actions: Actions = {
     } catch (e) {
       console.error('Create contact error:', e);
       return fail(500, { error: 'Failed to create contact' });
+    }
+  },
+
+  editContact: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+
+    const formData = await request.formData();
+    const contactId = formData.get('contactId') as string;
+    const name = (formData.get('name') as string)?.trim();
+    const email = (formData.get('email') as string)?.trim() || null;
+    const phone = (formData.get('phone') as string)?.trim() || null;
+    const type = (formData.get('type') as string) || 'client';
+    const company = (formData.get('company') as string)?.trim() || null;
+    const notes = (formData.get('notes') as string)?.trim() || null;
+
+    if (!contactId) return fail(400, { error: 'Contact ID is required' });
+    if (!name) return fail(400, { error: 'Name is required' });
+
+    const initials = name
+      .split(' ')
+      .map((n) => n[0])
+      .join('')
+      .slice(0, 2)
+      .toUpperCase();
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db.update(contacts)
+          .set({
+            name,
+            email,
+            phone,
+            type: type as 'client' | 'agent' | 'vendor' | 'lender' | 'inspector' | 'title',
+            company,
+            notes,
+            initials,
+            updatedAt: new Date(),
+          })
+          .where(eq(contacts.id, contactId));
+      });
+      return { success: true };
+    } catch (e) {
+      console.error('Edit contact error:', e);
+      return fail(500, { error: 'Failed to update contact' });
+    }
+  },
+
+  deleteContact: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+
+    const formData = await request.formData();
+    const contactId = formData.get('contactId') as string;
+
+    if (!contactId) return fail(400, { error: 'Contact ID is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db.delete(contacts)
+          .where(eq(contacts.id, contactId));
+      });
+      return { success: true };
+    } catch (e) {
+      console.error('Delete contact error:', e);
+      return fail(500, { error: 'Failed to delete contact' });
     }
   },
 };

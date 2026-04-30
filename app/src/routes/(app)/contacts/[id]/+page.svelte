@@ -106,6 +106,20 @@
 	};
 
 	let newNote = $state('');
+
+	// Buyer preferences state
+	let showPrefsForm = $state(false);
+	let savingPrefs = $state(false);
+	const buyerPrefs = $derived(data.buyerPreferences);
+
+	const propertyTypeOptions = [
+		{ value: 'single_family', label: 'Single Family' },
+		{ value: 'condo', label: 'Condo' },
+		{ value: 'townhome', label: 'Townhome' },
+		{ value: 'multi_family', label: 'Multi-Family' },
+		{ value: 'land', label: 'Land' },
+		{ value: 'other', label: 'Other' },
+	];
 </script>
 
 {#if contact}
@@ -257,6 +271,205 @@
 					</Card>
 				{/if}
 
+				<!-- Buyer Preferences (for agents and clients) -->
+				{#if contact.type === 'agent' || contact.type === 'client'}
+					<Card>
+						<CardHeader>
+							<div class="flex items-center justify-between">
+								<CardTitle class="text-sm">Buyer Preferences</CardTitle>
+								<Button variant="ghost" size="sm" class="h-7 text-xs" onclick={() => showPrefsForm = !showPrefsForm}>
+									<Edit class="mr-1 size-3" />
+									{buyerPrefs ? 'Edit' : 'Add'}
+								</Button>
+							</div>
+						</CardHeader>
+						<CardContent>
+							{#if buyerPrefs && !showPrefsForm}
+								<div class="space-y-3 text-sm">
+									{#if buyerPrefs.preferredBedsMin || buyerPrefs.preferredBedsMax}
+										<div class="flex items-center justify-between">
+											<span class="text-muted-foreground">Bedrooms</span>
+											<span class="font-medium">
+												{buyerPrefs.preferredBedsMin ?? 'Any'} - {buyerPrefs.preferredBedsMax ?? 'Any'}
+											</span>
+										</div>
+									{/if}
+									{#if buyerPrefs.preferredBathsMin}
+										<div class="flex items-center justify-between">
+											<span class="text-muted-foreground">Bathrooms (min)</span>
+											<span class="font-medium">{buyerPrefs.preferredBathsMin}+</span>
+										</div>
+									{/if}
+									{#if buyerPrefs.preferredPriceMin || buyerPrefs.preferredPriceMax}
+										<div class="flex items-center justify-between">
+											<span class="text-muted-foreground">Price Range</span>
+											<span class="font-medium">
+												{buyerPrefs.preferredPriceMin ? formatCurrency(buyerPrefs.preferredPriceMin) : 'Any'}
+												-
+												{buyerPrefs.preferredPriceMax ? formatCurrency(buyerPrefs.preferredPriceMax) : 'Any'}
+											</span>
+										</div>
+									{/if}
+									{#if buyerPrefs.preferredSqftMin || buyerPrefs.preferredSqftMax}
+										<div class="flex items-center justify-between">
+											<span class="text-muted-foreground">Sq Ft</span>
+											<span class="font-medium">
+												{buyerPrefs.preferredSqftMin?.toLocaleString() ?? 'Any'}
+												-
+												{buyerPrefs.preferredSqftMax?.toLocaleString() ?? 'Any'}
+											</span>
+										</div>
+									{/if}
+									{#if buyerPrefs.preferredAreas && (buyerPrefs.preferredAreas as string[]).length > 0}
+										<div>
+											<p class="text-muted-foreground">Preferred Areas</p>
+											<div class="mt-1 flex flex-wrap gap-1">
+												{#each (buyerPrefs.preferredAreas as string[]) as area}
+													<span class="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs">
+														<MapPin class="mr-1 size-2.5" />
+														{area}
+													</span>
+												{/each}
+											</div>
+										</div>
+									{/if}
+									{#if buyerPrefs.preferredPropertyTypes && (buyerPrefs.preferredPropertyTypes as string[]).length > 0}
+										<div>
+											<p class="text-muted-foreground">Property Types</p>
+											<div class="mt-1 flex flex-wrap gap-1">
+												{#each (buyerPrefs.preferredPropertyTypes as string[]) as pt}
+													<span class="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs capitalize">
+														{(pt as string).replace('_', ' ')}
+													</span>
+												{/each}
+											</div>
+										</div>
+									{/if}
+									{#if buyerPrefs.notes}
+										<div>
+											<p class="text-muted-foreground">Notes</p>
+											<p class="mt-1 rounded-md bg-muted/50 p-2 text-sm">{buyerPrefs.notes}</p>
+										</div>
+									{/if}
+								</div>
+							{:else if !showPrefsForm}
+								<p class="text-center text-sm text-muted-foreground">No buyer preferences set yet</p>
+							{/if}
+
+							{#if showPrefsForm}
+								<form
+									method="POST"
+									action="?/saveBuyerPreferences"
+									use:enhance={() => {
+										savingPrefs = true;
+										return async ({ result, update }) => {
+											savingPrefs = false;
+											if (result.type === 'success') {
+												showPrefsForm = false;
+												toast.success('Buyer preferences saved');
+												await update();
+											} else if (result.type === 'failure') {
+												toast.error(String(result.data?.error ?? 'Failed to save'));
+											}
+										};
+									}}
+									class="space-y-4"
+								>
+									{#if buyerPrefs}
+										<input type="hidden" name="existingId" value={buyerPrefs.id} />
+									{/if}
+
+									<div>
+										<label for="lookingForType" class="text-xs font-medium text-muted-foreground">Looking to</label>
+										<select
+											id="lookingForType"
+											name="lookingForType"
+											class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+										>
+											<option value="buy" selected={buyerPrefs?.lookingForType === 'buy'}>Buy</option>
+											<option value="sell" selected={buyerPrefs?.lookingForType === 'sell'}>Sell</option>
+											<option value="both" selected={buyerPrefs?.lookingForType === 'both'}>Both</option>
+										</select>
+									</div>
+
+									<div class="grid grid-cols-2 gap-3">
+										<div>
+											<label for="bedsMin" class="text-xs font-medium text-muted-foreground">Beds Min</label>
+											<input id="bedsMin" name="bedsMin" type="number" min="0" max="20" value={buyerPrefs?.preferredBedsMin ?? ''} class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+										</div>
+										<div>
+											<label for="bedsMax" class="text-xs font-medium text-muted-foreground">Beds Max</label>
+											<input id="bedsMax" name="bedsMax" type="number" min="0" max="20" value={buyerPrefs?.preferredBedsMax ?? ''} class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+										</div>
+									</div>
+
+									<div>
+										<label for="bathsMin" class="text-xs font-medium text-muted-foreground">Baths Min</label>
+										<input id="bathsMin" name="bathsMin" type="number" min="0" max="20" step="0.5" value={buyerPrefs?.preferredBathsMin ?? ''} class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+									</div>
+
+									<div class="grid grid-cols-2 gap-3">
+										<div>
+											<label for="priceMin" class="text-xs font-medium text-muted-foreground">Price Min</label>
+											<input id="priceMin" name="priceMin" type="number" min="0" step="10000" value={buyerPrefs?.preferredPriceMin ?? ''} class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+										</div>
+										<div>
+											<label for="priceMax" class="text-xs font-medium text-muted-foreground">Price Max</label>
+											<input id="priceMax" name="priceMax" type="number" min="0" step="10000" value={buyerPrefs?.preferredPriceMax ?? ''} class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+										</div>
+									</div>
+
+									<div class="grid grid-cols-2 gap-3">
+										<div>
+											<label for="sqftMin" class="text-xs font-medium text-muted-foreground">Sq Ft Min</label>
+											<input id="sqftMin" name="sqftMin" type="number" min="0" step="100" value={buyerPrefs?.preferredSqftMin ?? ''} class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+										</div>
+										<div>
+											<label for="sqftMax" class="text-xs font-medium text-muted-foreground">Sq Ft Max</label>
+											<input id="sqftMax" name="sqftMax" type="number" min="0" step="100" value={buyerPrefs?.preferredSqftMax ?? ''} class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+										</div>
+									</div>
+
+									<div>
+										<label for="preferredAreas" class="text-xs font-medium text-muted-foreground">Preferred Areas</label>
+										<input id="preferredAreas" name="preferredAreas" type="text" placeholder="San Jose, Cupertino, Mountain View" value={buyerPrefs?.preferredAreas ? (buyerPrefs.preferredAreas as string[]).join(', ') : ''} class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2" />
+										<p class="mt-0.5 text-[11px] text-muted-foreground">Comma-separated city names</p>
+									</div>
+
+									<div>
+										<p class="text-xs font-medium text-muted-foreground">Property Types</p>
+										<div class="mt-1.5 grid grid-cols-2 gap-2">
+											{#each propertyTypeOptions as opt}
+												<label class="flex items-center gap-2 text-sm">
+													<input
+														type="checkbox"
+														name="propertyType_{opt.value}"
+														checked={buyerPrefs?.preferredPropertyTypes ? (buyerPrefs.preferredPropertyTypes as string[]).includes(opt.value) : false}
+														class="size-4 rounded border-input"
+													/>
+													{opt.label}
+												</label>
+											{/each}
+										</div>
+									</div>
+
+									<div>
+										<label for="prefNotes" class="text-xs font-medium text-muted-foreground">Notes</label>
+										<textarea id="prefNotes" name="notes" rows="2" placeholder="Any additional preferences..." class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2">{buyerPrefs?.notes ?? ''}</textarea>
+									</div>
+
+									<div class="flex justify-end gap-2">
+										<Button variant="outline" size="sm" type="button" onclick={() => showPrefsForm = false}>Cancel</Button>
+										<Button size="sm" type="submit" disabled={savingPrefs}>
+											{savingPrefs ? 'Saving...' : 'Save Preferences'}
+										</Button>
+									</div>
+								</form>
+							{/if}
+						</CardContent>
+					</Card>
+				{/if}
+
 				<!-- Associated Listings -->
 				<Card>
 					<CardHeader>
@@ -271,11 +484,11 @@
 										class="flex items-center gap-3 py-2.5 transition-colors hover:text-primary first:pt-0 last:pb-0"
 									>
 										<div class="size-10 shrink-0 overflow-hidden rounded">
-											<img src={listing.photoUrl} alt={listing.address} class="size-full object-cover" />
+											<img src={(listing.property?.photos as any)?.[0]?.url ?? ''} alt={listing.property?.address ?? ''} class="size-full object-cover" />
 										</div>
 										<div class="min-w-0 flex-1">
-											<p class="truncate text-sm font-medium">{listing.address}</p>
-											<p class="text-xs text-muted-foreground">{listing.city} | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
+											<p class="truncate text-sm font-medium">{listing.property?.address ?? ''}</p>
+											<p class="text-xs text-muted-foreground">{listing.property?.city ?? ''} | {listing.price ? formatCurrency(listing.price) : 'No Price'}</p>
 										</div>
 										<span
 											class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium"

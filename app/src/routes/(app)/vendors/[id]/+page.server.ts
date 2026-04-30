@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ locals, parent, params }) => {
           where: and(eq(quotes.teamId, team.id), eq(quotes.vendorId, params.id)),
           with: {
             lineItems: true,
-            listing: true,
+            listing: { with: { property: true } },
           },
         }),
       ]);

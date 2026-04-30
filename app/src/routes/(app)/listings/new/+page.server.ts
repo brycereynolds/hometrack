@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { getContactsByType } from '$lib/server/db/queries/contacts.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { listings, teamMembers } from '$lib/server/db/schema/index.js';
+import { listings, properties, teamMembers } from '$lib/server/db/schema/index.js';
 import { eq } from 'drizzle-orm';
 import { fail, redirect } from '@sveltejs/kit';
 
@@ -67,23 +67,30 @@ export const actions: Actions = {
     const clientId = formData.get('clientId')?.toString() || null;
 
     const id = crypto.randomUUID();
+    const propertyId = crypto.randomUUID();
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
-        await db.insert(listings).values({
-          id,
-          teamId,
+        await db.insert(properties).values({
+          id: propertyId,
           address,
           city,
           state,
           zip,
-          price,
           beds,
           baths,
           sqft,
           lotSqft,
           yearBuilt,
           propertyType,
+          lat: 0,
+          lng: 0,
+        });
+        await db.insert(listings).values({
+          id,
+          teamId,
+          propertyId,
+          price,
           description,
           phase: phase as 'pre_market' | 'active' | 'closed' | 'canceled',
           agentId,

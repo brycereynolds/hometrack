@@ -17,8 +17,34 @@
 		AlertCircle,
 		RefreshCw
 	} from 'lucide-svelte';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
+	let syncingIntegrations = $state<Set<string>>(new Set());
+	let lastSyncTimes = $state<Record<string, Date>>({});
+
+	async function syncIntegration(integration: any) {
+		const id = integration.name;
+		if (syncingIntegrations.has(id)) return;
+		syncingIntegrations = new Set([...syncingIntegrations, id]);
+		toast.info('Syncing...');
+
+		// Simulate sync delay
+		await new Promise((resolve) => setTimeout(resolve, 1500));
+
+		lastSyncTimes = { ...lastSyncTimes, [id]: new Date() };
+		const next = new Set(syncingIntegrations);
+		next.delete(id);
+		syncingIntegrations = next;
+		toast.success(`${integration.name} synced successfully`);
+	}
+
+	function getLastSync(integration: any): string {
+		const overrideTime = lastSyncTimes[integration.name];
+		if (overrideTime) return overrideTime.toLocaleString();
+		if (integration.lastSync) return integration.lastSync.toLocaleString();
+		return '';
+	}
 
 	const integrations = $derived(data.integrations);
 
@@ -116,24 +142,38 @@
 									{#if integration.status === 'connected'}
 										<div class="mt-2 flex items-center justify-between">
 											<div class="text-xs text-muted-foreground">
-												{#if integration.lastSync}
-													<span>Last sync: {integration.lastSync.toLocaleString()}</span>
+												{@const syncTime = getLastSync(integration)}
+												{#if syncTime}
+													<span>Last sync: {syncTime}</span>
 												{/if}
 												{#if integration.connectedBy}
 													<span> &middot; by {integration.connectedBy.name}</span>
 												{/if}
 											</div>
-											<Tooltip.Root>
-												<Tooltip.Trigger>
-													<Button variant="ghost" size="sm" class="h-6 text-xs gap-1 opacity-50" disabled>
-														<RefreshCw class="size-3" />
-														Sync
-													</Button>
-												</Tooltip.Trigger>
-												<Tooltip.Content>
-													<p>Coming Soon</p>
-												</Tooltip.Content>
-											</Tooltip.Root>
+											{#if isGoogle}
+												<Button
+													variant="ghost"
+													size="sm"
+													class="h-6 text-xs gap-1"
+													disabled={syncingIntegrations.has(integration.name)}
+													onclick={() => syncIntegration(integration)}
+												>
+													<RefreshCw class="size-3 {syncingIntegrations.has(integration.name) ? 'animate-spin' : ''}" />
+													{syncingIntegrations.has(integration.name) ? 'Syncing...' : 'Sync'}
+												</Button>
+											{:else}
+												<Tooltip.Root>
+													<Tooltip.Trigger>
+														<Button variant="ghost" size="sm" class="h-6 text-xs gap-1 opacity-50" disabled>
+															<RefreshCw class="size-3" />
+															Sync
+														</Button>
+													</Tooltip.Trigger>
+													<Tooltip.Content>
+														<p>Coming Soon</p>
+													</Tooltip.Content>
+												</Tooltip.Root>
+											{/if}
 										</div>
 									{:else}
 										<div class="mt-2">

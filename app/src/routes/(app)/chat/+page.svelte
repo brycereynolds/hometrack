@@ -253,7 +253,7 @@
 			{#if showSidebar}
 				<!-- svelte-ignore a11y_no_static_element_interactions -->
 				<div class="fixed inset-0 z-30" onclick={() => showSidebar = false} onkeydown={() => {}}></div>
-				<div class="absolute left-0 top-full mt-1 z-40 w-72 rounded-lg border bg-popover shadow-lg overflow-hidden">
+				<div class="absolute left-0 top-full mt-1 z-[100] w-72 rounded-lg border bg-popover shadow-lg overflow-hidden">
 					<div class="flex items-center justify-between px-3 py-2 border-b">
 						<span class="text-xs font-semibold text-muted-foreground">History</span>
 						<button class="text-xs text-primary hover:underline" onclick={() => { newConversation(); showSidebar = false; }}>

@@ -1,6 +1,6 @@
 import { eq, and, or, desc } from 'drizzle-orm';
 import { adminDb, type AppDatabase } from '../index.js';
-import { contacts, listings, activityItems } from '../schema/index.js';
+import { contacts, listings, activityItems, buyerPreferences } from '../schema/index.js';
 
 export async function getContacts(teamId: string, db: AppDatabase = adminDb) {
   return db.query.contacts.findMany({
@@ -38,5 +38,11 @@ export async function getContactActivity(teamId: string, db: AppDatabase = admin
     where: eq(activityItems.teamId, teamId),
     orderBy: desc(activityItems.timestamp),
     limit: 50,
+  });
+}
+
+export async function getBuyerPreferences(contactId: string, db: AppDatabase = adminDb) {
+  return db.query.buyerPreferences.findFirst({
+    where: eq(buyerPreferences.contactId, contactId),
   });
 }

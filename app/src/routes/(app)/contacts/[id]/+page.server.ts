@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
-import { getContactById, getContactListings, getContactActivity } from '$lib/server/db/queries/contacts.js';
+import { getContactById, getContactListings, getContactActivity, getBuyerPreferences } from '$lib/server/db/queries/contacts.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { contacts, activityItems } from '$lib/server/db/schema/index.js';
+import { contacts, activityItems, buyerPreferences } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { error, fail } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
@@ -15,12 +15,13 @@ export const load: PageServerLoad = async ({ locals, parent, params }) => {
 
   try {
     const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
-      const [contact, contactListings, activity] = await Promise.all([
+      const [contact, contactListings, activity, prefs] = await Promise.all([
         getContactById(team.id, params.id, db),
         getContactListings(team.id, params.id, db),
         getContactActivity(team.id, db),
+        getBuyerPreferences(params.id, db),
       ]);
-      return { contact, listings: contactListings, activity };
+      return { contact, listings: contactListings, activity, buyerPreferences: prefs };
     });
 
     if (!result.contact) {
@@ -31,10 +32,11 @@ export const load: PageServerLoad = async ({ locals, parent, params }) => {
       contact: result.contact,
       listings: result.listings,
       activity: result.activity,
+      buyerPreferences: result.buyerPreferences ?? null,
     };
   } catch (e) {
     if (e && typeof e === 'object' && 'status' in e) throw e;
-    return { contact: null, listings: [], activity: [] };
+    return { contact: null, listings: [], activity: [], buyerPreferences: null };
   }
 };
 
@@ -118,6 +120,69 @@ export const actions: Actions = {
     } catch (e) {
       console.error('Log interaction error:', e);
       return fail(500, { error: 'Failed to log interaction' });
+    }
+  },
+
+  saveBuyerPreferences: async ({ request, locals, params }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+
+    const formData = await request.formData();
+    const existingId = (formData.get('existingId') as string) || '';
+
+    const preferredAreasRaw = (formData.get('preferredAreas') as string)?.trim() ?? '';
+    const preferredAreas = preferredAreasRaw
+      ? preferredAreasRaw.split(',').map((s) => s.trim()).filter(Boolean)
+      : [];
+
+    const propertyTypeKeys = ['single_family', 'condo', 'townhome', 'multi_family', 'land', 'other'];
+    const preferredPropertyTypes = propertyTypeKeys.filter((k) => formData.get(`propertyType_${k}`) === 'on');
+
+    const parseNum = (key: string) => {
+      const v = (formData.get(key) as string)?.trim();
+      if (!v) return null;
+      const n = Number(v);
+      return isNaN(n) ? null : n;
+    };
+
+    const values = {
+      contactId: params.id,
+      lookingForType: (formData.get('lookingForType') as string) || 'buy',
+      isActive: true,
+      preferredBedsMin: parseNum('bedsMin'),
+      preferredBedsMax: parseNum('bedsMax'),
+      preferredBathsMin: parseNum('bathsMin'),
+      preferredBathsMax: null,
+      preferredSqftMin: parseNum('sqftMin'),
+      preferredSqftMax: parseNum('sqftMax'),
+      preferredPriceMin: parseNum('priceMin'),
+      preferredPriceMax: parseNum('priceMax'),
+      preferredAreas: preferredAreas.length > 0 ? preferredAreas : null,
+      preferredPropertyTypes: preferredPropertyTypes.length > 0 ? preferredPropertyTypes : null,
+      preferredFeatures: null,
+      notes: (formData.get('notes') as string)?.trim() || null,
+      updatedAt: new Date(),
+    };
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        if (existingId) {
+          // Update existing
+          await db
+            .update(buyerPreferences)
+            .set(values)
+            .where(eq(buyerPreferences.id, existingId));
+        } else {
+          // Insert new
+          await db.insert(buyerPreferences).values({
+            id: nanoid(),
+            ...values,
+          });
+        }
+      });
+      return { success: true };
+    } catch (e) {
+      console.error('Save buyer preferences error:', e);
+      return fail(500, { error: 'Failed to save buyer preferences' });
     }
   },
 };

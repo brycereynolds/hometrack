@@ -25,8 +25,7 @@ export { default as ActivityFeedItem } from './ActivityFeedItem.svelte';
 export { default as AIInsightCard } from './AIInsightCard.svelte';
 export { default as ProcessingStatus } from './ProcessingStatus.svelte';
 export { default as Autocomplete } from './Autocomplete.svelte';
-export { default as VoiceMemoModal } from './VoiceMemoModal.svelte';
-export { default as QuickNoteModal } from './QuickNoteModal.svelte';
+export { default as CaptureModal } from './CaptureModal.svelte';
 
 // Config, types, and utilities (replaces mock-data re-export)
 export * from '$lib/config';

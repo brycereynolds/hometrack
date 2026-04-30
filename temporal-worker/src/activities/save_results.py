@@ -290,7 +290,69 @@ async def save_results(
             if insights.action_items:
                 activity.heartbeat(f"inserted {len(insights.action_items)} actions")
 
-            # 2f. Insert observations as activity_items (preserve existing behavior)
+            # 2f. Insert quotes_needed as field_note_actions with quote_needed=true
+            for quote in insights.quotes_needed:
+                action_id = str(uuid.uuid4())
+                await conn.execute(
+                    """INSERT INTO field_note_actions
+                       (id, field_note_id, title, description, category, priority,
+                        status, quote_needed, estimated_vendor_category,
+                        extraction_confidence, metadata, created_at, updated_at)
+                       VALUES ($1, $2, $3, $4, $5, $6, 'suggested', true, $7, 0.8, $8::jsonb, $9, $9)""",
+                    action_id,
+                    field_note_id,
+                    f"Get quote: {quote.description}",
+                    quote.description,
+                    "quoting",
+                    quote.priority,
+                    quote.trade or "",
+                    json.dumps({"source": "ai_extraction", "type": "quote_request"}),
+                    now,
+                )
+                result.action_ids.append(action_id)
+
+            if insights.quotes_needed:
+                activity.heartbeat(f"inserted {len(insights.quotes_needed)} quote requests")
+
+            # 2g. Insert decisions as activity_items
+            for decision in insights.decisions:
+                item_id = str(uuid.uuid4())
+                await conn.execute(
+                    """INSERT INTO activity_items
+                       (id, team_id, listing_id, type, author_name, content,
+                        metadata, timestamp, created_at, updated_at)
+                       VALUES ($1, $2, $3, 'note', $4, $5, $6::jsonb, $7, $7, $7)""",
+                    item_id, team_id, listing_id,
+                    author_name,
+                    f"Decision: {decision.content}",
+                    json.dumps({"type": "decision", "decided_by": decision.decided_by, "source": "ai_extraction"}),
+                    now,
+                )
+                result.activity_items_created.append(item_id)
+
+            if insights.decisions:
+                activity.heartbeat(f"inserted {len(insights.decisions)} decisions")
+
+            # 2h. Insert questions_raised as activity_items
+            for question in insights.questions_raised:
+                item_id = str(uuid.uuid4())
+                await conn.execute(
+                    """INSERT INTO activity_items
+                       (id, team_id, listing_id, type, author_name, content,
+                        metadata, timestamp, created_at, updated_at)
+                       VALUES ($1, $2, $3, 'note', $4, $5, $6::jsonb, $7, $7, $7)""",
+                    item_id, team_id, listing_id,
+                    author_name,
+                    f"Question: {question.content}",
+                    json.dumps({"type": "question", "directed_to": question.directed_to, "source": "ai_extraction"}),
+                    now,
+                )
+                result.activity_items_created.append(item_id)
+
+            if insights.questions_raised:
+                activity.heartbeat(f"inserted {len(insights.questions_raised)} questions")
+
+            # 2i. Insert observations as activity_items (preserve existing behavior)
             for obs in insights.observations:
                 item_id = str(uuid.uuid4())
                 obs_metadata = json.dumps({
@@ -310,11 +372,12 @@ async def save_results(
                 result.activity_items_created.append(item_id)
 
     logger.info(
-        "Saved field note %s: %d frames, %d moments, %d actions, %d activity items",
+        "Saved field note %s: %d frames, %d moments, %d actions (%d quotes), %d activity items",
         field_note_id,
         len(result.frame_ids),
         len(result.moment_ids),
         len(result.action_ids),
+        len(insights.quotes_needed),
         len(result.activity_items_created),
     )
     return result.model_dump()

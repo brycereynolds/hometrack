@@ -8,19 +8,16 @@
 		CheckSquare,
 		UserCircle,
 		Plus,
-		Mic,
-		FileText
+		Mic
 	} from 'lucide-svelte';
 	import type { Component } from 'svelte';
 
 	let {
 		open = $bindable(false),
-		onVoiceMemo,
-		onQuickNote
+		onCapture
 	}: {
 		open: boolean;
-		onVoiceMemo?: () => void;
-		onQuickNote?: () => void;
+		onCapture?: () => void;
 	} = $props();
 
 	let searchQuery = $state('');
@@ -50,19 +47,11 @@
 	const quickActions: { label: string; icon: Component; href?: string; action?: () => void }[] = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
 		{
-			label: 'Voice Memo',
+			label: 'Capture Note',
 			icon: Mic,
 			action: () => {
 				open = false;
-				onVoiceMemo?.();
-			}
-		},
-		{
-			label: 'Quick Note',
-			icon: FileText,
-			action: () => {
-				open = false;
-				onQuickNote?.();
+				onCapture?.();
 			}
 		}
 	];

@@ -10,8 +10,7 @@
 	import { createClient, type RealtimeChannel } from '@supabase/supabase-js';
 	import { onMount, onDestroy } from 'svelte';
 	import CommandPalette from '$lib/components/shared/CommandPalette.svelte';
-	import VoiceMemoModal from '$lib/components/shared/VoiceMemoModal.svelte';
-	import QuickNoteModal from '$lib/components/shared/QuickNoteModal.svelte';
+	import CaptureModal from '$lib/components/shared/CaptureModal.svelte';
 	import FloatingVoiceButton from '$lib/components/shared/FloatingVoiceButton.svelte';
 	import {
 		LayoutDashboard,
@@ -26,7 +25,6 @@
 		Bell,
 		Plus,
 		Mic,
-		FileText,
 		Sparkles
 	} from 'lucide-svelte';
 	let { children, data } = $props();
@@ -55,8 +53,7 @@
 
 	// Command palette state
 	let commandOpen = $state(false);
-	let voiceMemoOpen = $state(false);
-	let quickNoteOpen = $state(false);
+	let captureOpen = $state(false);
 
 	function handleKeydown(e: KeyboardEvent) {
 		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
@@ -87,8 +84,7 @@
 
 	const quickActions: { label: string; icon: typeof Plus; href?: string; action?: () => void }[] = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
-		{ label: 'Voice Memo', icon: Mic, href: '/mobile/voice-memo' },
-		{ label: 'Quick Note', icon: FileText, action: () => { quickNoteOpen = true; } }
+		{ label: 'Capture Note', icon: Mic, action: () => { captureOpen = true; } }
 	];
 
 	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed).slice(0, 2));
@@ -111,11 +107,9 @@
 <svelte:window onkeydown={handleKeydown} />
 <CommandPalette
 	bind:open={commandOpen}
-	onVoiceMemo={() => { voiceMemoOpen = true; }}
-	onQuickNote={() => { quickNoteOpen = true; }}
+	onCapture={() => { captureOpen = true; }}
 />
-<VoiceMemoModal bind:open={voiceMemoOpen} listings={listings} teamId={data.team?.id ?? ''} />
-<QuickNoteModal bind:open={quickNoteOpen} listings={listings} teamId={data.team?.id ?? ''} />
+<CaptureModal bind:open={captureOpen} listings={listings} teamId={data.team?.id ?? ''} />
 <!-- FloatingVoiceButton hidden — use Cmd+K or sidebar instead -->
 <Toaster richColors position="top-right" />
 

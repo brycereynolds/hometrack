@@ -82,7 +82,6 @@
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 		{ href: '/listings', label: 'Listings', icon: Home, badge: String(listings.length) },
 		{ href: '/notes', label: 'Notes', icon: FileText },
-		{ href: '/chat', label: 'AI Agent', icon: MessageSquare },
 		{ href: '/contacts', label: 'Contacts', icon: Users },
 		{ href: '/vendors', label: 'Vendors', icon: Wrench },
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }
@@ -93,7 +92,8 @@
 
 	const quickActions: { label: string; icon: typeof Plus; href?: string; action?: () => void }[] = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
-		{ label: 'Capture Note', icon: Mic, action: () => { openCaptureFromSidebar(); } }
+		{ label: 'Capture Note', icon: Mic, action: () => { openCaptureFromSidebar(); } },
+		{ label: 'Chat', icon: MessageSquare, href: '/chat' }
 	];
 
 	function openCaptureFromSidebar() {

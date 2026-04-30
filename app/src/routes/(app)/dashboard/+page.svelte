@@ -266,6 +266,41 @@
 		{/each}
 	</div>
 
+	<!-- Upcoming Showings -->
+	<Card>
+		<CardHeader>
+			<div class="flex items-center justify-between">
+				<div class="flex items-center gap-2">
+					<Calendar class="size-4 text-muted-foreground" />
+					<CardTitle>Upcoming Showings</CardTitle>
+				</div>
+				<a href="/listings" class="text-xs text-primary hover:underline">View calendar</a>
+			</div>
+		</CardHeader>
+		<CardContent>
+			{#if todayShowings.length === 0}
+				<p class="text-sm text-muted-foreground py-4 text-center">No upcoming showings scheduled</p>
+			{:else}
+				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					{#each todayShowings as showing}
+						<a href="/listings/{showing.listingId}" class="group flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
+							<div class="text-center shrink-0">
+								<div class="text-lg font-bold leading-tight">{new Date(showing.date).getDate()}</div>
+								<div class="text-xs text-muted-foreground">Apr</div>
+							</div>
+							<div class="min-w-0 flex-1">
+								<p class="text-sm font-medium group-hover:text-primary transition-colors">Showing</p>
+								<p class="text-xs text-muted-foreground">{showing.time} &middot; {showing.agentName}</p>
+								<p class="text-xs text-muted-foreground">{showing.agentCompany} &middot; {showing.buyerType}</p>
+							</div>
+							<ChevronRight class="size-4 text-muted-foreground shrink-0 mt-1" />
+						</a>
+					{/each}
+				</div>
+			{/if}
+		</CardContent>
+	</Card>
+
 	<!-- Middle Row: Pipeline Summary + Team Workload -->
 	<div class="grid gap-6 lg:grid-cols-2">
 		<!-- Pipeline Summary -->
@@ -490,39 +525,4 @@
 			</CardContent>
 		</Card>
 	</div>
-
-	<!-- Calendar / Upcoming Showings -->
-	<Card>
-		<CardHeader>
-			<div class="flex items-center justify-between">
-				<div class="flex items-center gap-2">
-					<Calendar class="size-4 text-muted-foreground" />
-					<CardTitle>Upcoming Showings</CardTitle>
-				</div>
-				<a href="/listings" class="text-xs text-primary hover:underline">View calendar</a>
-			</div>
-		</CardHeader>
-		<CardContent>
-			{#if todayShowings.length === 0}
-				<p class="text-sm text-muted-foreground py-4 text-center">No upcoming showings scheduled</p>
-			{:else}
-				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{#each todayShowings as showing}
-						<a href="/listings/{showing.listingId}" class="group flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
-							<div class="text-center shrink-0">
-								<div class="text-lg font-bold leading-tight">{new Date(showing.date).getDate()}</div>
-								<div class="text-xs text-muted-foreground">Apr</div>
-							</div>
-							<div class="min-w-0 flex-1">
-								<p class="text-sm font-medium group-hover:text-primary transition-colors">Showing</p>
-								<p class="text-xs text-muted-foreground">{showing.time} &middot; {showing.agentName}</p>
-								<p class="text-xs text-muted-foreground">{showing.agentCompany} &middot; {showing.buyerType}</p>
-							</div>
-							<ChevronRight class="size-4 text-muted-foreground shrink-0 mt-1" />
-						</a>
-					{/each}
-				</div>
-			{/if}
-		</CardContent>
-	</Card>
 </div>

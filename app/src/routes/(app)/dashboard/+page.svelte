@@ -7,6 +7,8 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config';
 	import { formatCurrency } from '$lib/utils';
+	import { invalidateAll } from '$app/navigation';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 
@@ -102,6 +104,41 @@
 
 	// Reminder dropdown state
 	let reminderOpenForTask = $state<string | null>(null);
+
+	// Task toggle
+	let togglingTasks = $state<Set<string>>(new Set());
+
+	async function toggleTask(task: any) {
+		const taskId = task.id;
+		const listingId = task.listingId ?? task.listing?.id;
+		if (!taskId || !listingId || togglingTasks.has(taskId)) return;
+
+		togglingTasks = new Set([...togglingTasks, taskId]);
+		const newStatus = task.status === 'done' ? 'todo' : 'done';
+
+		try {
+			const formData = new FormData();
+			formData.set('taskId', taskId);
+			formData.set('status', newStatus);
+
+			const res = await fetch(`/listings/${listingId}/tasks?/toggleStatus`, {
+				method: 'POST',
+				body: formData,
+			});
+			if (res.ok) {
+				toast.success(newStatus === 'done' ? 'Task completed' : 'Task reopened');
+				await invalidateAll();
+			} else {
+				toast.error('Failed to update task');
+			}
+		} catch {
+			toast.error('Failed to update task');
+		} finally {
+			const next = new Set(togglingTasks);
+			next.delete(taskId);
+			togglingTasks = next;
+		}
+	}
 
 	let filteredTasks = $derived(
 		(() => {
@@ -392,7 +429,13 @@
 					<div class="divide-y">
 						{#each filteredTasks.slice(0, 6) as task}
 							<div class="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
-								<input type="checkbox" class="mt-1 size-4 rounded border-border accent-primary cursor-pointer" />
+								<input
+								type="checkbox"
+								checked={task.status === 'done'}
+								disabled={togglingTasks.has(task.id)}
+								onchange={() => toggleTask(task)}
+								class="mt-1 size-4 rounded border-border accent-primary cursor-pointer disabled:opacity-50"
+							/>
 								<div class="min-w-0 flex-1">
 									<p class="text-sm font-medium leading-snug">{task.title}</p>
 									<div class="mt-1 flex items-center gap-2">

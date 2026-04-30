@@ -242,81 +242,57 @@
 	<title>Chat - HomeTrack</title>
 </svelte:head>
 
-<div class="flex h-[calc(100vh-3.5rem)] -m-4 md:-m-6 lg:-m-8">
-	<!-- Conversation sidebar -->
-	<!-- Mobile overlay -->
-	{#if showSidebar}
-		<!-- svelte-ignore a11y_no_static_element_interactions -->
-		<div
-			class="fixed inset-0 z-30 bg-black/40"
-			onclick={() => showSidebar = false}
-			onkeydown={() => {}}
-		></div>
-	{/if}
-
-	<aside
-		class="
-			{showSidebar ? 'translate-x-0' : '-translate-x-full'}
-			fixed z-40
-			w-72 h-full
-			border-r bg-muted/30
-			flex flex-col
-			transition-transform duration-200 ease-in-out
-		"
-	>
-		<div class="flex items-center justify-between p-3 border-b">
-			<h2 class="text-sm font-semibold text-muted-foreground">Conversations</h2>
-			<div class="flex items-center gap-1">
-				<Button variant="ghost" size="icon" class="h-7 w-7" onclick={newConversation} title="New conversation">
-					<Plus class="size-4" />
-				</Button>
-				<Button variant="ghost" size="icon" class="h-7 w-7" onclick={() => showSidebar = false}>
-					<X class="size-4" />
-				</Button>
-			</div>
-		</div>
-		<div class="flex-1 overflow-y-auto">
-			{#if conversations.length === 0}
-				<div class="p-4 text-center text-sm text-muted-foreground">
-					No conversations yet
-				</div>
-			{:else}
-				<div class="p-1.5 space-y-0.5">
-					{#each conversations as conv}
-						<button
-							class="w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors hover:bg-muted {conv.id === currentConversationId ? 'bg-muted font-medium' : ''}"
-							onclick={() => loadConversation(conv.id)}
-						>
-							<p class="truncate text-foreground">{conv.title || 'New conversation'}</p>
-							<p class="text-xs text-muted-foreground mt-0.5">{formatDate(conv.updatedAt)}</p>
+<div class="flex flex-col h-[calc(100vh-3.5rem)] -m-4 md:-m-6 lg:-m-8">
+	<!-- Chat header -->
+	<div class="flex items-center gap-2 px-4 py-2.5 border-b bg-background/80 backdrop-blur shrink-0">
+		<!-- History dropdown -->
+		<div class="relative">
+			<Button variant="ghost" size="icon" class="h-8 w-8" onclick={() => showSidebar = !showSidebar}>
+				<Menu class="size-4" />
+			</Button>
+			{#if showSidebar}
+				<!-- svelte-ignore a11y_no_static_element_interactions -->
+				<div class="fixed inset-0 z-30" onclick={() => showSidebar = false} onkeydown={() => {}}></div>
+				<div class="absolute left-0 top-full mt-1 z-40 w-72 rounded-lg border bg-popover shadow-lg overflow-hidden">
+					<div class="flex items-center justify-between px-3 py-2 border-b">
+						<span class="text-xs font-semibold text-muted-foreground">History</span>
+						<button class="text-xs text-primary hover:underline" onclick={() => { newConversation(); showSidebar = false; }}>
+							+ New Chat
 						</button>
-					{/each}
+					</div>
+					<div class="max-h-64 overflow-y-auto">
+						{#if conversations.length === 0}
+							<div class="p-4 text-center text-xs text-muted-foreground">No conversations yet</div>
+						{:else}
+							{#each conversations as conv}
+								<button
+									class="w-full text-left px-3 py-2 text-sm hover:bg-muted transition-colors {conv.id === currentConversationId ? 'bg-muted font-medium' : ''}"
+									onclick={() => { loadConversation(conv.id); showSidebar = false; }}
+								>
+									<p class="truncate">{conv.title || 'New conversation'}</p>
+									<p class="text-[10px] text-muted-foreground">{formatDate(conv.updatedAt)}</p>
+								</button>
+							{/each}
+						{/if}
+					</div>
 				</div>
 			{/if}
 		</div>
-	</aside>
 
-	<!-- Main chat area -->
-	<div class="flex-1 flex flex-col min-w-0">
-		<!-- Chat header -->
-		<div class="flex items-center gap-2 px-4 py-2.5 border-b bg-background/80 backdrop-blur">
-			<Button variant="ghost" size="icon" class="h-8 w-8" onclick={() => showSidebar = true}>
-				<Menu class="size-4" />
-			</Button>
-			<div class="flex items-center gap-2 flex-1 min-w-0">
-				<div class="flex items-center justify-center size-7 rounded-lg bg-amber-100 text-amber-600">
-					<Sparkles class="size-3.5" />
-				</div>
-				<div class="min-w-0">
-					<h1 class="text-sm font-semibold truncate">HomeTrack AI</h1>
-					<p class="text-xs text-muted-foreground">Ask anything about your portfolio</p>
-				</div>
+		<div class="flex items-center gap-2 flex-1 min-w-0">
+			<div class="flex items-center justify-center size-7 rounded-lg bg-amber-100 text-amber-600">
+				<Sparkles class="size-3.5" />
 			</div>
-			<Button variant="ghost" size="sm" onclick={newConversation} class="hidden md:flex gap-1.5">
-				<Plus class="size-3.5" />
-				New Chat
-			</Button>
+			<div class="min-w-0">
+				<h1 class="text-sm font-semibold truncate">Chat</h1>
+				<p class="text-xs text-muted-foreground">Ask anything about your portfolio</p>
+			</div>
 		</div>
+		<Button variant="ghost" size="sm" onclick={newConversation} class="gap-1.5">
+			<Plus class="size-3.5" />
+			New
+		</Button>
+	</div>
 
 		<!-- Messages area -->
 		<div class="flex-1 overflow-y-auto" bind:this={chatContainerEl}>
@@ -507,5 +483,4 @@
 				</p>
 			</div>
 		</div>
-	</div>
 </div>

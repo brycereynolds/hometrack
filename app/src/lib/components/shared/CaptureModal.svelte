@@ -14,7 +14,8 @@
 		Loader2,
 		Tag,
 		ArrowLeft,
-		MapPin
+		MapPin,
+		CheckCircle2
 	} from 'lucide-svelte';
 	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
@@ -355,15 +356,17 @@
 	// ── Save logic ──
 
 	const canSave = $derived(noteText.trim() || hasRecording || attachments.length > 0);
-	let lastSavedNoteId: string | null = null;
+	let lastSavedNoteId = $state<string | null>(null);
+	let saveComplete = $state(false);
 
 	async function save() {
 		if (!canSave) return;
 		saving = true;
+		saveComplete = false;
 
 		try {
 			if (hasRecording && audioBlob) {
-				// Voice memo path: upload audio, create field_note with mediaType='voice_memo'
+				// Voice memo path
 				const formData = new FormData();
 				formData.append('audio', audioBlob, 'voice-memo.webm');
 				if (selectedListing) formData.append('listingId', selectedListing);
@@ -382,26 +385,26 @@
 
 				const result = await response.json();
 				lastSavedNoteId = result.fieldNoteId;
+				toast.success('Voice memo saved! Processing will begin shortly.');
 
-				// Upload file attachments if any
-				if (attachments.length > 0) {
-					const uploaded = await uploadAllAttachments();
-					const failed = attachments.length - uploaded;
-					if (failed > 0) {
-						toast.success(`Voice memo saved, but ${failed} attachment(s) failed to upload`);
-					} else {
-						toast.success(`Voice memo saved with ${uploaded} attachment(s)! Processing will begin shortly.`);
-					}
+			} else if (attachments.length > 0 && !noteText.trim()) {
+				// Attachments only (no text) — upload directly, skip text note
+				const uploaded = await uploadAllAttachments();
+				const failed = attachments.length - uploaded;
+				if (failed > 0) {
+					toast.error(`${failed} file(s) failed to upload`);
 				} else {
-					toast.success('Voice memo saved! Processing will begin shortly.');
+					toast.success(`${uploaded} file(s) uploaded successfully`);
 				}
-			} else {
-				// Text-only path
+				// lastSavedNoteId is set by uploadAttachment's complete step
+
+			} else if (noteText.trim()) {
+				// Text note (possibly with attachments)
 				const response = await fetch('/api/field-notes', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
-						content: noteText.trim() || '(attachment)',
+						content: noteText.trim(),
 						listingId: selectedListing || null,
 						tag: selectedTag,
 						teamId
@@ -430,17 +433,8 @@
 				}
 			}
 
-			// Navigate to the note detail page
-			const navNoteId = lastSavedNoteId;
-
-			resetForm();
-			open = false;
-
-			if (navNoteId) {
-				await goto(`/notes/${navNoteId}`);
-			} else {
-				await invalidateAll();
-			}
+			// Show success state instead of navigating
+			saveComplete = true;
 		} catch (err: any) {
 			toast.error(err.message || 'Failed to save');
 			console.error('Save error:', err);
@@ -458,6 +452,7 @@
 		selectedTag = 'showing';
 		autocompleteValue = '';
 		lastSavedNoteId = null;
+		saveComplete = false;
 		step = 1;
 		discardRecording();
 		attachments.forEach((a) => {
@@ -553,6 +548,29 @@
 					<Dialog.Description class="sr-only">Capture your note</Dialog.Description>
 				</div>
 			</Dialog.Header>
+
+			{#if saveComplete}
+			<!-- Success state -->
+			<div class="flex flex-col items-center justify-center py-8 text-center">
+				<div class="mb-4 flex size-14 items-center justify-center rounded-full bg-emerald-100">
+					<CheckCircle2 class="size-7 text-emerald-600" />
+				</div>
+				<h3 class="font-serif text-lg font-semibold">Note Saved</h3>
+				<p class="mt-1 text-sm text-muted-foreground">
+					{attachments.some(a => a.uploaded) ? 'Your file has been uploaded and is being processed.' : 'Your note has been saved.'}
+				</p>
+				<div class="mt-6 flex gap-3">
+					{#if lastSavedNoteId}
+						<Button variant="outline" onclick={() => { const id = lastSavedNoteId; resetForm(); open = false; goto(`/notes/${id}`); }}>
+							View Details
+						</Button>
+					{/if}
+					<Button onclick={() => { resetForm(); }}>
+						Capture Another
+					</Button>
+				</div>
+			</div>
+		{:else}
 
 			<!-- Note text area -->
 			<div>
@@ -695,7 +713,8 @@
 					{saving ? 'Saving...' : 'Save Note'}
 				</Button>
 			</Dialog.Footer>
-		{/if}
+		{/if}<!-- end saveComplete else -->
+		{/if}<!-- end step 2 -->
 
 	</Dialog.Content>
 </Dialog.Root>

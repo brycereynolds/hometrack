@@ -18,15 +18,24 @@
 		GitBranch,
 		CheckCircle2,
 		Filter,
-		ArrowRight
+		ArrowRight,
+		Pencil,
+		Trash2,
+		X,
+		Check
 	} from 'lucide-svelte';
 	import ProcessingStatus from '$lib/components/shared/ProcessingStatus.svelte';
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
 	const allActivity = $derived(data.activityItems ?? []);
+	const currentMemberId = $derived(data.currentUser?.id ?? null);
 
 	let activeFilter = $state('all');
+
+	// Edit state
+	let editingActivityId = $state<string | null>(null);
+	let editContent = $state('');
 
 	const filters = [
 		{ id: 'all', label: 'All' },
@@ -184,7 +193,7 @@
 					</div>
 				{:else}
 					<!-- Regular activity item -->
-					<div class="flex gap-3 py-4 {i > 0 ? 'border-t' : ''} {isAI ? 'border-l-2 border-l-amber-400 pl-3 bg-amber-50/30 -mx-3 px-6 rounded-r-lg' : ''}">
+					<div class="group/activity flex gap-3 py-4 {i > 0 ? 'border-t' : ''} {isAI ? 'border-l-2 border-l-amber-400 pl-3 bg-amber-50/30 -mx-3 px-6 rounded-r-lg' : ''}">
 						<div class="relative shrink-0">
 							<Avatar class="size-9">
 								<AvatarFallback class="text-xs {getAvatarColor(activity.type)}">
@@ -236,7 +245,80 @@
 									<p class="mt-2 text-xs text-muted-foreground italic">{activity.content}</p>
 								</div>
 							{:else}
-								<p class="mt-1 text-sm text-muted-foreground">{activity.content}</p>
+								{#if editingActivityId === activity.id}
+									<form
+										method="POST"
+										action="?/editActivity"
+										use:enhance={() => {
+											return async ({ result, update }) => {
+												if (result.type === 'success') {
+													toast.success('Note updated');
+													editingActivityId = null;
+													await update();
+												} else {
+													toast.error('Failed to update note');
+												}
+											};
+										}}
+									>
+										<input type="hidden" name="activityId" value={activity.id} />
+										<div class="mt-1 flex gap-2">
+											<textarea
+												name="content"
+												bind:value={editContent}
+												class="flex-1 resize-none rounded-md border bg-transparent p-2 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+												rows="2"
+											></textarea>
+											<div class="flex flex-col gap-1">
+												<Button type="submit" size="icon" variant="ghost" class="size-7" disabled={!editContent.trim()}>
+													<Check class="size-3.5 text-green-600" />
+												</Button>
+												<Button type="button" size="icon" variant="ghost" class="size-7" onclick={() => editingActivityId = null}>
+													<X class="size-3.5 text-muted-foreground" />
+												</Button>
+											</div>
+										</div>
+									</form>
+								{:else}
+									<p class="mt-1 text-sm text-muted-foreground">{activity.content}</p>
+								{/if}
+							{/if}
+
+							<!-- Edit / Delete controls for own notes -->
+							{#if activity.authorId && activity.authorId === currentMemberId && (activity.type === 'note' || activity.type === 'message') && editingActivityId !== activity.id}
+								<div class="mt-1.5 flex items-center gap-1 opacity-0 group-hover/activity:opacity-100 transition-opacity">
+									<button
+										type="button"
+										onclick={() => { editingActivityId = activity.id; editContent = activity.content ?? ''; }}
+										class="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+									>
+										<Pencil class="size-3" />
+										Edit
+									</button>
+									<form
+										method="POST"
+										action="?/deleteActivity"
+										use:enhance={() => {
+											return async ({ result, update }) => {
+												if (result.type === 'success') {
+													toast.success('Note deleted');
+													await update();
+												} else {
+													toast.error('Failed to delete note');
+												}
+											};
+										}}
+									>
+										<input type="hidden" name="activityId" value={activity.id} />
+										<button
+											type="submit"
+											class="inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs text-muted-foreground hover:bg-red-50 hover:text-red-600 transition-colors"
+										>
+											<Trash2 class="size-3" />
+											Delete
+										</button>
+									</form>
+								</div>
 							{/if}
 
 							{#if (activity.type === 'voice_memo' || activity.type === 'note') && (activity.metadata as any)?.fieldNoteId}

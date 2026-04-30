@@ -22,7 +22,9 @@
 		Loader2,
 		Download,
 		Trash2,
-		ChevronDown
+		ChevronDown,
+		Eye,
+		X
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -42,6 +44,24 @@
 
 	// Status dropdown state
 	let openStatusDropdown = $state<string | null>(null);
+
+	// Preview modal state
+	let showPreviewModal = $state(false);
+	let previewDoc = $state<any | null>(null);
+	let previewUrl = $state<string | null>(null);
+	let previewLoading = $state(false);
+
+	function isImageFile(fileType: string): boolean {
+		return ['JPG', 'JPEG', 'PNG', 'GIF', 'WEBP', 'SVG'].includes(fileType?.toUpperCase() ?? '');
+	}
+
+	function isPdfFile(fileType: string): boolean {
+		return fileType?.toUpperCase() === 'PDF';
+	}
+
+	function canPreview(fileType: string): boolean {
+		return isImageFile(fileType) || isPdfFile(fileType);
+	}
 
 	function formatDate(d: any): string {
 		if (!d) return '';
@@ -353,6 +373,32 @@
 											{#if (doc.version ?? 1) > 1}
 												<span class="text-[10px] text-muted-foreground">v{doc.version}</span>
 											{/if}
+											<!-- Preview button -->
+											{#if canPreview(doc.fileType ?? '')}
+												<form
+													method="POST"
+													action="?/downloadDocument"
+													use:enhance={() => {
+														previewLoading = true;
+														previewDoc = doc;
+														return async ({ result }) => {
+															previewLoading = false;
+															if (result.type === 'success' && result.data?.signedUrl) {
+																previewUrl = result.data.signedUrl as string;
+																showPreviewModal = true;
+															} else {
+																toast.error('Failed to generate preview URL');
+																previewDoc = null;
+															}
+														};
+													}}
+												>
+													<input type="hidden" name="documentId" value={doc.id} />
+													<button type="submit" class="rounded p-1 hover:bg-muted transition-colors" title="Preview">
+														<Eye class="size-3.5 text-muted-foreground" />
+													</button>
+												</form>
+											{/if}
 											<!-- Download button -->
 											<form
 												method="POST"
@@ -432,5 +478,55 @@
 				<Button variant="destructive" type="submit">Delete</Button>
 			</Dialog.Footer>
 		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Document Preview Modal -->
+<Dialog.Root bind:open={showPreviewModal} onOpenChange={(open) => { if (!open) { previewUrl = null; previewDoc = null; } }}>
+	<Dialog.Content class="sm:max-w-4xl max-h-[90vh]">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">{previewDoc?.name ?? 'Document Preview'}</Dialog.Title>
+			<Dialog.Description>
+				{previewDoc?.fileType ?? 'File'} -- {previewDoc?.fileSize ?? 'Unknown size'}
+			</Dialog.Description>
+		</Dialog.Header>
+		<div class="mt-2 overflow-auto" style="max-height: calc(90vh - 10rem);">
+			{#if previewLoading}
+				<div class="flex items-center justify-center py-20">
+					<Loader2 class="size-8 text-primary animate-spin" />
+				</div>
+			{:else if previewUrl && previewDoc}
+				{#if isPdfFile(previewDoc.fileType ?? '')}
+					<iframe
+						src={previewUrl}
+						class="w-full rounded-lg border"
+						style="height: 70vh;"
+						title="PDF Preview: {previewDoc.name}"
+					></iframe>
+				{:else if isImageFile(previewDoc.fileType ?? '')}
+					<div class="flex items-center justify-center">
+						<img
+							src={previewUrl}
+							alt={previewDoc.name}
+							class="max-w-full max-h-[70vh] rounded-lg object-contain"
+						/>
+					</div>
+				{/if}
+			{:else}
+				<div class="flex flex-col items-center justify-center py-12">
+					<FileText class="size-10 text-muted-foreground/30 mb-3" />
+					<p class="text-sm text-muted-foreground">Unable to load preview.</p>
+				</div>
+			{/if}
+		</div>
+		<Dialog.Footer class="mt-4">
+			{#if previewUrl}
+				<Button variant="outline" size="sm" onclick={() => window.open(previewUrl ?? '', '_blank')}>
+					<Download class="mr-1.5 size-3.5" />
+					Download
+				</Button>
+			{/if}
+			<Button variant="outline" size="sm" onclick={() => showPreviewModal = false}>Close</Button>
+		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>

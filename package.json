@@ -1,7 +1,10 @@
 {
   "name": "hometrack",
   "private": true,
-  "workspaces": ["app", "temporal-worker"],
+  "workspaces": [
+    "app",
+    "temporal-worker"
+  ],
   "scripts": {
     "dev": "turbo dev",
     "dev:app": "turbo dev --filter=hometrack-app",
@@ -19,5 +22,8 @@
   "packageManager": "npm@10.9.4",
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "marked": "^18.0.0"
   }
 }

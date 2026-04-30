@@ -24,6 +24,8 @@
 - Team workload chart -- who's overloaded, who has capacity
 - Upcoming showings -- next 3, right there
 - Demo action: Click between upcoming/overdue task tabs
+- Calendar download: click the calendar icon on any task to download an .ics file
+- Reminder: click the bell icon to set a reminder (toast placeholder)
 
 ### AI Alerts
 
@@ -31,7 +33,7 @@
 - "Unanswered client message" -- David Nguyen asked about parking. The system detected an unanswered question and surfaced it. Click it, goes straight to the activity feed
 - "Buyer match found" -- Sarah Kim's buyer preferences match one of our listings. The system connected a buyer to inventory automatically
 - These are AI-generated, not manual. The system is working for you in the background
-- Demo action: Dismiss an alert with the X button
+- Demo action: Dismiss an alert with the X button on dashboard, or Acknowledge on listing overview
 - Wow moment: AI as a smart assistant tapping you on the shoulder
 
 ---
@@ -115,12 +117,13 @@
 - Click Add Task
 - Title, priority, due date, assignee (autocomplete from team)
 - Save it
+- Tasks auto-sort: overdue first, then by priority (urgent -> low), then by due date
 - Change its status: todo -> in progress -> done
 - Check it off from the dashboard -- persists to the database
 
 ### Activity Feed
 - Timeline of everything on a listing: notes, emails, messages, voice memos, system events, AI insights
-- Filter by type
+- Filter by type -- message items show "SMS" label badge
 - Edit or delete your own notes (hover to reveal buttons)
 
 ### Documents
@@ -145,6 +148,7 @@
 ### Live Demo: Open the client portal
 
 - Switch to the portal URL
+- Email verification gate -- client must verify their email to enter
 - Property dashboard with hero card, milestones, timeline
 - Documents shared by the agent -- organized by category, downloadable
 - Approvals: pending offers and vendor quotes with approve/decline buttons
@@ -193,6 +197,8 @@
 
 - Resize browser to show responsive layout
 - Navigation collapses, everything reflows to single-column
+- Mobile header: search icon opens command palette, mic button opens capture modal
+- Sidebar auto-closes when you navigate to a new page
 - Pipeline switches from kanban to phase-tabbed list
 - Open house tablet view: QR code for visitor check-in, live count
 - Capture notes from anywhere -- same modal works on mobile
@@ -203,8 +209,8 @@
 
 ## 12. What's Next + Q&A (5 min)
 
-- What's here: full pipeline, 11 tabs of depth per listing, client portal, AI intelligence, team collaboration, mobile
-- What's coming: MLS auto-import, DocuSign e-signatures, Stripe billing
+- What's here: full pipeline, 11 tabs of depth per listing, client portal, AI intelligence, team collaboration, mobile, branding/logo upload, Google integration sync
+- What's coming: MLS auto-import, DocuSign e-signatures, Stripe billing, realtime subscriptions
 - Go-to-market: design partners first, freemium model, $99/mo for teams
 - The big idea: "Every piece of data the agent captures gets processed by AI and turned into structured, actionable intelligence. The system gets smarter the more you use it"
 

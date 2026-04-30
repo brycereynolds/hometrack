@@ -142,9 +142,8 @@
 									{#if integration.status === 'connected'}
 										<div class="mt-2 flex items-center justify-between">
 											<div class="text-xs text-muted-foreground">
-												{@const syncTime = getLastSync(integration)}
-												{#if syncTime}
-													<span>Last sync: {syncTime}</span>
+												{#if getLastSync(integration)}
+													<span>Last sync: {getLastSync(integration)}</span>
 												{/if}
 												{#if integration.connectedBy}
 													<span> &middot; by {integration.connectedBy.name}</span>

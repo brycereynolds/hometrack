@@ -213,6 +213,7 @@
 									{activity.type === 'voice_memo' ? 'Voice Memo' :
 									 activity.type === 'ai_insight' ? 'Insight' :
 									 activity.type === 'task_complete' ? 'Task' :
+									 activity.type === 'message' ? 'SMS' :
 									 activity.type.charAt(0).toUpperCase() + activity.type.slice(1)}
 								</Badge>
 								<span class="text-xs text-muted-foreground">{timeAgo(activity.timestamp)}</span>

@@ -25,7 +25,8 @@
 		Bell,
 		Plus,
 		Mic,
-		Sparkles
+		Sparkles,
+		CheckCircle2
 	} from 'lucide-svelte';
 	let { children, data } = $props();
 
@@ -87,8 +88,22 @@
 		{ label: 'Capture Note', icon: Mic, action: () => { captureOpen = true; } }
 	];
 
-	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed).slice(0, 2));
+	let dismissedIds = $state<Set<string>>(new Set());
+	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed && !dismissedIds.has(a.id)).slice(0, 2));
 	const recentInsights = $derived(aiInsights.slice(0, 5));
+
+	async function acknowledgeAlert(id: string, event: Event) {
+		event.preventDefault();
+		event.stopPropagation();
+		try {
+			const res = await fetch(`/api/insights/${id}/acknowledge`, { method: 'POST' });
+			if (res.ok) {
+				dismissedIds = new Set([...dismissedIds, id]);
+			}
+		} catch (err) {
+			console.error('Failed to acknowledge alert:', err);
+		}
+	}
 
 	function timeAgo(d: any): string {
 		if (!d) return '';
@@ -198,10 +213,19 @@
 					<Sidebar.SidebarGroupContent>
 						<div class="space-y-2 px-2">
 							{#each activeAlerts as alert}
-								<a href={alert.actionUrl || '#'} class="block rounded-md border border-border/50 bg-muted/50 p-2.5 transition-colors hover:bg-muted">
-									<p class="text-xs font-medium">{alert.title}</p>
-									<p class="mt-0.5 text-xs text-muted-foreground line-clamp-2">{alert.description}</p>
-								</a>
+								<div class="relative rounded-md border border-border/50 bg-muted/50 transition-colors hover:bg-muted">
+									<a href={alert.actionUrl || '#'} class="block p-2.5 pr-9">
+										<p class="text-xs font-medium">{alert.title}</p>
+										<p class="mt-0.5 text-xs text-muted-foreground line-clamp-2">{alert.description}</p>
+									</a>
+									<button
+										onclick={(e) => acknowledgeAlert(alert.id, e)}
+										class="absolute right-1.5 top-1.5 rounded-md p-1 text-muted-foreground hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
+										title="Mark as handled"
+									>
+										<CheckCircle2 class="size-3.5" />
+									</button>
+								</div>
 							{/each}
 						</div>
 					</Sidebar.SidebarGroupContent>

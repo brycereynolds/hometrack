@@ -2,8 +2,8 @@ import type { PageServerLoad, Actions } from './$types';
 import { getTasksByListing } from '$lib/server/db/queries/tasks.js';
 import { getActivityByListing, getInsightsByListing, getConfirmedComps } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { listings, properties, teamMembers, teams } from '$lib/server/db/schema/index.js';
-import { eq, and } from 'drizzle-orm';
+import { listings, properties, teamMembers, teams, aiInsights as aiInsightsTable } from '$lib/server/db/schema/index.js';
+import { eq, and, desc } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 import { sendPhaseChangeNotification } from '$lib/server/comms.js';
@@ -12,21 +12,28 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
 
   if (!team || !locals.user) {
-    return { tasks: [], activityItems: [], aiInsights: [], confirmedComps: null };
+    return { tasks: [], activityItems: [], aiInsights: [], confirmedComps: null, pendingAlerts: [] };
   }
 
   try {
     return await withRLS(locals.user.id, 'authenticated', async (db) => {
-      const [tasks, activityItems, aiInsights, confirmedCompsData] = await Promise.all([
+      const [tasks, activityItems, aiInsights, confirmedCompsData, pendingAlerts] = await Promise.all([
         getTasksByListing(team.id, params.id, db),
         getActivityByListing(team.id, params.id, db),
         getInsightsByListing(team.id, params.id, db),
         getConfirmedComps(params.id, db),
+        db.query.aiInsights.findMany({
+          where: and(
+            eq(aiInsightsTable.listingId, params.id),
+            eq(aiInsightsTable.dismissed, false)
+          ),
+          orderBy: desc(aiInsightsTable.timestamp),
+        }),
       ]);
-      return { tasks, activityItems, aiInsights, confirmedComps: confirmedCompsData };
+      return { tasks, activityItems, aiInsights, confirmedComps: confirmedCompsData, pendingAlerts };
     });
   } catch {
-    return { tasks: [], activityItems: [], aiInsights: [], confirmedComps: null };
+    return { tasks: [], activityItems: [], aiInsights: [], confirmedComps: null, pendingAlerts: [] };
   }
 };
 

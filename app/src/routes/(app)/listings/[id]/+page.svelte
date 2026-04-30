@@ -32,7 +32,8 @@
 		Globe,
 		Monitor,
 		TrendingUp,
-		Search
+		Search,
+		AlertTriangle
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -44,6 +45,22 @@
 	const teamMembers = $derived(data.teamMembers ?? []);
 
 	const confirmedComps = $derived(data.confirmedComps);
+
+	let acknowledgedIds = $state<Set<string>>(new Set());
+	const pendingAlerts = $derived(
+		(data.pendingAlerts ?? []).filter((a: any) => !acknowledgedIds.has(a.id))
+	);
+
+	async function acknowledgeInsight(id: string) {
+		try {
+			const res = await fetch(`/api/insights/${id}/acknowledge`, { method: 'POST' });
+			if (res.ok) {
+				acknowledgedIds = new Set([...acknowledgedIds, id]);
+			}
+		} catch (err) {
+			console.error('Failed to acknowledge insight:', err);
+		}
+	}
 
 	const tasksDoneCount = $derived(tasks.filter((t: any) => t.status === 'done').length);
 
@@ -134,6 +151,51 @@
 
 {#if listing}
 	<div class="space-y-6">
+		<!-- Action Required: Pending Alerts -->
+		{#if pendingAlerts.length > 0}
+			<Card class="border-amber-300 bg-amber-50/50">
+				<CardHeader class="pb-3">
+					<CardTitle class="flex items-center gap-2 text-base font-serif">
+						<AlertTriangle class="size-4 text-amber-600" />
+						Action Required
+						<Badge variant="outline" class="ml-1 border-amber-300 text-amber-700 text-xs">{pendingAlerts.length}</Badge>
+					</CardTitle>
+				</CardHeader>
+				<CardContent class="pt-0">
+					<div class="space-y-2">
+						{#each pendingAlerts as alert}
+							<div class="flex items-start gap-3 rounded-lg border border-amber-200/70 bg-white p-3">
+								<div class="shrink-0 rounded-full bg-amber-100 p-1.5 mt-0.5">
+									<Sparkles class="size-3.5 text-amber-600" />
+								</div>
+								<div class="min-w-0 flex-1">
+									<p class="text-sm font-medium">{alert.title}</p>
+									<p class="mt-0.5 text-xs text-muted-foreground line-clamp-2">{alert.description}</p>
+									<div class="mt-2 flex items-center gap-2">
+										{#if alert.actionUrl}
+											<Button variant="outline" size="sm" class="h-7 text-xs border-amber-300 text-amber-700 hover:bg-amber-50" href={alert.actionUrl}>
+												{alert.actionLabel ?? 'View'}
+												<ExternalLink class="ml-1 size-3" />
+											</Button>
+										{/if}
+										<Button
+											variant="ghost"
+											size="sm"
+											class="h-7 text-xs text-muted-foreground hover:text-emerald-600"
+											onclick={() => acknowledgeInsight(alert.id)}
+										>
+											<CheckCircle2 class="mr-1 size-3" />
+											Acknowledge
+										</Button>
+									</div>
+								</div>
+							</div>
+						{/each}
+					</div>
+				</CardContent>
+			</Card>
+		{/if}
+
 		<!-- Quick Stats Row -->
 		<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 			<a href="/listings/{listing.id}/tasks" class="group">

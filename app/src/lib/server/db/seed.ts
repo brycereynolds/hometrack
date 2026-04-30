@@ -44,6 +44,7 @@ const {
   marketingAssets,
   integrations,
   workflowTemplates,
+  workflowTemplateTasks,
   analyticsEvents,
   analyticsShowings,
   pipelineMetrics,
@@ -88,7 +89,7 @@ async function main() {
       quote_line_items, quotes, financial_categories, financial_budgets,
       marketing_assets, documents, comp_sales, offers, showings,
       ai_insights, activity_items, tasks, listings, properties, contacts,
-      vendors, integrations, workflow_templates, team_members, teams
+      vendors, integrations, workflow_template_tasks, workflow_templates, team_members, teams
       CASCADE`);
   } catch {
     console.log('  (truncate skipped — tables may not exist yet after wipe)');
@@ -3289,9 +3290,120 @@ async function main() {
     { name: 'Listing Cancellation', phase: 'canceled' as const, taskCategory: 'general' as const, taskCount: 3, description: 'Document cancellation, MLS removal, client relationship retention', isDefault: true },
   ];
 
+  // Template task definitions keyed by template name
+  const templateTasksByName: Record<string, { title: string; priority: 'low' | 'medium' | 'high' | 'urgent' }[]> = {
+    'Client Onboarding': [
+      { title: 'Complete client intake form', priority: 'high' },
+      { title: 'Execute listing agreement', priority: 'high' },
+      { title: 'Set up client communication channel', priority: 'medium' },
+      { title: 'Prepare & deliver onboarding packet', priority: 'low' },
+      { title: 'Gather property documentation from seller', priority: 'medium' },
+    ],
+    'Pre-Listing Logistics': [
+      { title: 'Order seller inspection (pre-listing)', priority: 'high' },
+      { title: 'Order disclosure package (TDS, SPQ, NHD)', priority: 'high' },
+      { title: 'Select title & escrow company', priority: 'medium' },
+      { title: 'Set up escrow communication channel', priority: 'low' },
+    ],
+    'Improvements & Repairs': [
+      { title: 'Analyze home inspection findings', priority: 'high' },
+      { title: 'Create prioritized repair/improvement list', priority: 'high' },
+      { title: 'Obtain contractor quotes for repairs', priority: 'medium' },
+      { title: 'Review improvement costs vs. market impact with client', priority: 'medium' },
+      { title: 'Schedule and oversee repair work', priority: 'high' },
+      { title: 'Document before/after improvements', priority: 'low' },
+      { title: 'Final walkthrough of completed repairs', priority: 'medium' },
+    ],
+    'Staging & Preparation': [
+      { title: 'Schedule staging consultation', priority: 'high' },
+      { title: 'Select furniture rental package', priority: 'medium' },
+      { title: 'Coordinate staging installation', priority: 'high' },
+      { title: 'Schedule deep cleaning service', priority: 'medium' },
+      { title: 'Landscaping and curb appeal prep', priority: 'medium' },
+      { title: 'Client walkthrough of staged home', priority: 'medium' },
+    ],
+    'Media Production': [
+      { title: 'Schedule professional photography shoot', priority: 'high' },
+      { title: 'Schedule drone/aerial photography', priority: 'medium' },
+      { title: 'Schedule twilight photography session', priority: 'medium' },
+      { title: 'Book Matterport 3D virtual tour', priority: 'medium' },
+      { title: 'Design property brochure & print materials', priority: 'medium' },
+      { title: 'Create video walkthrough tour', priority: 'medium' },
+      { title: 'Review and select final media assets', priority: 'high' },
+      { title: 'Upload media to MLS and marketing platforms', priority: 'high' },
+    ],
+    'Pricing & Market Strategy': [
+      { title: 'Pull comparable sales & market data', priority: 'high' },
+      { title: 'Prepare competitive market analysis (CMA)', priority: 'high' },
+      { title: 'Develop pricing strategy & positioning', priority: 'high' },
+      { title: 'Present pricing recommendation to client', priority: 'medium' },
+      { title: 'Obtain listing price approval & sign-off', priority: 'high' },
+    ],
+    'Launch & Marketing': [
+      { title: 'Create & syndicate MLS listing', priority: 'urgent' },
+      { title: 'Launch social media campaign', priority: 'high' },
+      { title: 'Set up paid advertising (Zillow, Facebook)', priority: 'medium' },
+      { title: 'Schedule broker open house', priority: 'high' },
+      { title: 'Schedule public open house', priority: 'high' },
+      { title: 'Distribute print marketing collateral', priority: 'medium' },
+      { title: 'Send listing announcement to agent network', priority: 'medium' },
+      { title: 'Establish weekly market report cadence to client', priority: 'medium' },
+      { title: 'Monitor and optimize ad performance', priority: 'low' },
+    ],
+    'Showings & Feedback': [
+      { title: 'Prepare showing instructions & lockbox setup', priority: 'high' },
+      { title: 'Coordinate showing schedule with seller', priority: 'high' },
+      { title: 'Collect showing feedback from agents', priority: 'medium' },
+      { title: 'Send weekly showing report to client', priority: 'medium' },
+      { title: 'Host open house events', priority: 'high' },
+      { title: 'Analyze showing trends & adjust strategy', priority: 'medium' },
+    ],
+    'Offer Review & Negotiation': [
+      { title: 'Receive & document incoming offer', priority: 'urgent' },
+      { title: 'Prepare offer comparison spreadsheet', priority: 'high' },
+      { title: 'Review offer terms & contingencies', priority: 'high' },
+      { title: 'Present offers to client with analysis', priority: 'urgent' },
+      { title: 'Draft counter-offer if applicable', priority: 'high' },
+      { title: 'Negotiate final terms', priority: 'high' },
+      { title: 'Execute offer acceptance & purchase agreement', priority: 'urgent' },
+      { title: 'Notify unsuccessful bidders', priority: 'medium' },
+    ],
+    'Contingency Management': [
+      { title: 'Coordinate buyer inspection contingency', priority: 'high' },
+      { title: 'Manage appraisal contingency timeline', priority: 'high' },
+      { title: 'Track loan contingency milestones', priority: 'high' },
+      { title: 'Monitor title contingency clearance', priority: 'medium' },
+      { title: 'Negotiate repair credits if needed', priority: 'medium' },
+      { title: 'Track contingency removal deadlines', priority: 'urgent' },
+      { title: 'Confirm all contingencies removed', priority: 'high' },
+    ],
+    'Closing Process': [
+      { title: 'Review purchase agreement & amendments', priority: 'high' },
+      { title: 'Coordinate final walkthrough', priority: 'high' },
+      { title: 'Review closing disclosure & settlement statement', priority: 'urgent' },
+      { title: 'Confirm wire transfer instructions', priority: 'urgent' },
+      { title: 'Schedule closing/signing appointment', priority: 'high' },
+      { title: 'Prepare closing gift for client', priority: 'low' },
+      { title: 'Coordinate key handoff', priority: 'medium' },
+      { title: 'Verify recording of deed', priority: 'high' },
+    ],
+    'Post-Close Coordination': [
+      { title: 'Process commission disbursement', priority: 'high' },
+      { title: 'Schedule client debrief & satisfaction check', priority: 'medium' },
+      { title: 'Request client review/testimonial', priority: 'low' },
+      { title: 'Add client to referral nurture program', priority: 'low' },
+    ],
+    'Listing Cancellation': [
+      { title: 'Process listing cancellation documents', priority: 'high' },
+      { title: 'Remove listing from MLS & marketing channels', priority: 'high' },
+      { title: 'Schedule client retention follow-up', priority: 'medium' },
+    ],
+  };
+
   for (const w of workflowData) {
+    const templateId = randomUUID();
     await db.insert(workflowTemplates).values({
-      id: randomUUID(),
+      id: templateId,
       teamId,
       name: w.name,
       phase: w.phase,
@@ -3300,6 +3412,18 @@ async function main() {
       description: w.description,
       isDefault: w.isDefault,
     });
+
+    // Insert template tasks
+    const taskDefs = templateTasksByName[w.name] ?? [];
+    for (let i = 0; i < taskDefs.length; i++) {
+      await db.insert(workflowTemplateTasks).values({
+        id: randomUUID(),
+        templateId,
+        title: taskDefs[i].title,
+        priority: taskDefs[i].priority,
+        sortOrder: i,
+      });
+    }
   }
 
   // ─── Analytics Events (views by platform over last 30 days) ──────────

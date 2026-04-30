@@ -76,12 +76,35 @@
 		})
 	);
 
+	const priorityOrder: Record<string, number> = { urgent: 0, high: 1, medium: 2, low: 3 };
+
+	function sortTasks(tasks: any[]): any[] {
+		return [...tasks].sort((a, b) => {
+			// Overdue first
+			const aOverdue = a.isOverdue ? 0 : 1;
+			const bOverdue = b.isOverdue ? 0 : 1;
+			if (aOverdue !== bOverdue) return aOverdue - bOverdue;
+			// Then by priority (urgent → low)
+			const aPri = priorityOrder[a.priority] ?? 99;
+			const bPri = priorityOrder[b.priority] ?? 99;
+			if (aPri !== bPri) return aPri - bPri;
+			// Then by due date (earliest first)
+			const aDate = a.dueDate ? new Date(a.dueDate).getTime() : Infinity;
+			const bDate = b.dueDate ? new Date(b.dueDate).getTime() : Infinity;
+			return aDate - bDate;
+		});
+	}
+
 	const tasksByPhase = $derived(() => {
 		const grouped: Record<string, any[]> = {};
 		for (const task of filteredTasks) {
 			const phase = task.phase ?? 'general';
 			if (!grouped[phase]) grouped[phase] = [];
 			grouped[phase].push(task);
+		}
+		// Sort tasks within each phase
+		for (const phase of Object.keys(grouped)) {
+			grouped[phase] = sortTasks(grouped[phase]);
 		}
 		return grouped;
 	});

@@ -327,10 +327,8 @@
 
 			<div class="mt-12 flex items-center justify-center gap-3">
 				<div class="flex -space-x-2">
-					{#each [1, 2, 3, 4, 5] as i}
-						<div class="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white/20 bg-primary/80 text-xs font-semibold text-white">
-							{String.fromCharCode(64 + i)}
-						</div>
+					{#each ['https://i.pravatar.cc/64?img=12', 'https://i.pravatar.cc/64?img=32', 'https://i.pravatar.cc/64?img=25', 'https://i.pravatar.cc/64?img=47', 'https://i.pravatar.cc/64?img=56'] as src}
+						<img {src} alt="" class="h-8 w-8 rounded-full border-2 border-white/20 object-cover" />
 					{/each}
 				</div>
 				<div class="flex items-center gap-1">
@@ -338,7 +336,7 @@
 						<Star class="h-4 w-4 fill-amber-400 text-amber-400" />
 					{/each}
 				</div>
-				<p class="text-sm text-white/70">Trusted by 200+ real estate teams</p>
+				<p class="text-sm text-white/70">Trusted by thousands of real estate teams</p>
 			</div>
 		</div>
 	</div>

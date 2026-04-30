@@ -16,7 +16,10 @@ export function getAnthropicClient(userId?: string, sessionId?: string) {
 
   const headers: Record<string, string> = {};
   if (userId) headers['X-TokenTap-User'] = userId;
-  if (sessionId) headers['X-TokenTap-Session'] = sessionId;
+  if (sessionId) {
+    headers['X-TokenTap-Session'] = sessionId;
+    headers['X-TokenTap-Trace'] = sessionId; // One trace per conversation
+  }
 
   return new Anthropic({
     apiKey,

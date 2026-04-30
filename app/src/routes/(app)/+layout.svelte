@@ -11,6 +11,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import CommandPalette from '$lib/components/shared/CommandPalette.svelte';
 	import CaptureModal from '$lib/components/shared/CaptureModal.svelte';
+	import SidebarCloseOnNav from '$lib/components/shared/SidebarCloseOnNav.svelte';
 	import FloatingVoiceButton from '$lib/components/shared/FloatingVoiceButton.svelte';
 	import {
 		LayoutDashboard,
@@ -83,10 +84,19 @@
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }
 	]);
 
+	// Callback ref set by SidebarCloseOnNav child component (has sidebar context access)
+	let closeMobileSidebar: (() => void) | null = null;
+
 	const quickActions: { label: string; icon: typeof Plus; href?: string; action?: () => void }[] = [
 		{ label: 'New Listing', icon: Plus, href: '/listings/new' },
-		{ label: 'Capture Note', icon: Mic, action: () => { captureOpen = true; } }
+		{ label: 'Capture Note', icon: Mic, action: () => { openCaptureFromSidebar(); } }
 	];
+
+	function openCaptureFromSidebar() {
+		// Close sidebar first, then open modal after a brief delay for the animation
+		closeMobileSidebar?.();
+		setTimeout(() => { captureOpen = true; }, 150);
+	}
 
 	let dismissedIds = $state<Set<string>>(new Set());
 	const activeAlerts = $derived(aiInsights.filter((a: any) => !a.dismissed && !dismissedIds.has(a.id)).slice(0, 2));
@@ -129,6 +139,7 @@
 <Toaster richColors position="top-right" />
 
 <Sidebar.SidebarProvider>
+	<SidebarCloseOnNav onReady={(fn) => { closeMobileSidebar = fn; }} />
 	<Sidebar.Sidebar collapsible="icon">
 		<Sidebar.SidebarHeader>
 			<Sidebar.SidebarMenu>
@@ -292,15 +303,26 @@
 			<Sidebar.SidebarTrigger class="-ml-1" />
 			<Separator orientation="vertical" class="mr-2 h-4" />
 			<div class="flex flex-1 items-center gap-2">
+				<!-- Desktop: full search bar -->
 				<button
 					onclick={() => commandOpen = true}
-					class="flex items-center gap-2 h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 text-sm text-muted-foreground hover:bg-accent/50 transition-colors"
+					class="hidden md:flex items-center gap-2 h-9 w-full max-w-sm rounded-md border border-input bg-background px-3 text-sm text-muted-foreground hover:bg-accent/50 transition-colors"
 				>
 					<Search class="size-4" />
 					<span>Search listings, contacts, vendors...</span>
 					<kbd class="ml-auto text-xs bg-muted px-1.5 py-0.5 rounded font-mono">⌘K</kbd>
 				</button>
 			</div>
+			<!-- Mobile: search icon button -->
+			<Button variant="ghost" size="icon" class="md:hidden" onclick={() => commandOpen = true}>
+				<Search class="size-4" />
+				<span class="sr-only">Search</span>
+			</Button>
+			<!-- Mobile: mic/record button -->
+			<Button variant="ghost" size="icon" class="md:hidden" onclick={() => { captureOpen = true; }}>
+				<Mic class="size-4" />
+				<span class="sr-only">Capture Note</span>
+			</Button>
 			<Popover.Root>
 				<Popover.Trigger>
 					{#snippet child({ props })}
@@ -376,7 +398,7 @@
 			</DropdownMenu.Root>
 		</header>
 
-		<main class="flex-1 p-4 md:p-6 lg:p-8">
+		<main class="flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8">
 			{@render children()}
 		</main>
 	</Sidebar.SidebarInset>

@@ -340,7 +340,7 @@
 </script>
 
 <Dialog.Root bind:open onOpenChange={(v) => { if (!v) resetAndClose(); }}>
-	<Dialog.Content class="sm:max-w-md max-h-[90svh] overflow-y-auto" onOpenAutoFocus={(e) => e.preventDefault()}>
+	<Dialog.Content class="sm:max-w-md max-h-[90svh] w-[calc(100%-1rem)] md:w-auto overflow-y-auto" onOpenAutoFocus={(e) => e.preventDefault()}>
 		<Dialog.Header>
 			<Dialog.Title class="font-serif">Capture Field Note</Dialog.Title>
 			<Dialog.Description>Record, type, or attach media</Dialog.Description>
@@ -386,8 +386,8 @@
 		<!-- Action buttons: Record + Attach -->
 		<div class="flex items-center gap-2">
 			{#if !isRecording && !hasRecording}
-				<Button variant="outline" size="sm" class="gap-1.5" onclick={startRecording}>
-					<Mic class="size-4" />
+				<Button variant="outline" size="sm" class="gap-1.5 h-10 md:h-8 px-4 md:px-3" onclick={startRecording}>
+					<Mic class="size-5 md:size-4" />
 					Record
 				</Button>
 			{/if}

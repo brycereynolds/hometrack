@@ -139,9 +139,8 @@
 			features: [
 				'Solo agent — 1 seat',
 				'Up to 4 active listings',
-				'AI field notes (5/month)',
+				'4 video/voice walkthroughs per month',
 				'Basic analytics',
-				'Voice memo capture',
 				'Email support'
 			],
 			highlighted: false,
@@ -154,9 +153,8 @@
 			description: 'For teams ready to scale their listings',
 			features: [
 				'Team up to 5 users',
-				'25 active listings',
-				'Unlimited AI field notes',
-				'Video walkthrough processing',
+				'15 active listings',
+				'15 video/voice walkthroughs per month',
 				'Standard analytics',
 				'Gmail & Calendar sync',
 				'Priority email support'
@@ -166,12 +164,13 @@
 		},
 		{
 			name: 'Professional',
-			price: '$299',
+			price: '$300',
 			period: '/user/month',
 			description: 'Full power for high-production teams',
 			features: [
 				'Unlimited team size',
 				'Unlimited listings',
+				'Unlimited video/voice walkthroughs',
 				'Client portal (white-label)',
 				'Advanced analytics & AI insights',
 				'Vendor & financial management',

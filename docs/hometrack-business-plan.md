@@ -71,31 +71,31 @@ Longer term, HomeTrack will build its own lead generation and tracking capabilit
 
 ## 4. Pricing Strategy
 
-### 4.1 Per-Seat Pricing, Two Public Tiers
+### 4.1 Three Public Tiers
 
-All pricing is **per seat, per month**. Two public tiers; enterprise-scale deals are handled via custom quoting (primarily volume discounts on per-seat pricing).
+All pricing is **per seat, per month**. Three public tiers; enterprise-scale deals are handled via custom quoting (primarily volume discounts on per-seat pricing).
 
-| | Starter | Professional |
-|---|---|---|
-| **Per Seat / Month** | $30–$50 | $300 |
-| **Target** | Solo agents, trial users | Boutique listing teams (ICP) |
-| **Seats** | Single seat only | Team (multiple seats) |
-| **Concurrent Listings** | Up to 4 | Unlimited |
-| **Client Portal** | ❌ Not included | ✅ Full (approvals, messaging, progress, white-label) |
-| **DocuSign Integration** | ❌ | ✅ |
-| **AI Features** | Basic insights, task templates | Full AI suite (comp narratives, document extraction, action item parsing, connection surfacing) |
-| **Integrations** | Gmail, Calendar | All standard (FUB, DocuSign, MLS, QuickBooks, etc.) |
-| **Voice/Video Capture** | Voice memos only | Full voice + video walkthrough processing |
-| **Open House Check-in** | ❌ | ✅ QR code + tablet sign-in |
-| **Support** | Community / email | Priority email + chat |
+| | Free | Starter | Professional |
+|---|---|---|---|
+| **Per Seat / Month** | $0 forever | $99 | $300 |
+| **Target** | Solo agents trying the platform | Small teams scaling up | Boutique listing teams (ICP) |
+| **Seats** | Solo agent — 1 seat | Team up to 5 users | Unlimited team size |
+| **Concurrent Listings** | Up to 4 | 15 active listings | Unlimited |
+| **Video/Voice Walkthroughs** | 4/month | 15/month | Unlimited |
+| **Client Portal** | ❌ Not included | ❌ Not included | ✅ Full (approvals, messaging, progress, white-label) |
+| **DocuSign Integration** | ❌ | ❌ | ✅ |
+| **AI Features** | Basic analytics | Standard analytics | Advanced analytics & AI insights |
+| **Integrations** | None | Gmail, Calendar | All standard (FUB, DocuSign, MLS, QuickBooks, etc.) |
+| **Open House Check-in** | ❌ | ❌ | ✅ QR code + tablet sign-in |
+| **Support** | Email | Priority email | Priority chat + phone |
 
-**Freemium consideration:** Starter may include a free plan limited to 4 concurrent listings and a single seat. This lets agents experience the listing-as-project workflow without financial commitment. Natural conversion occurs when they hit the listing cap, want to add team members, or need the client portal.
+**Free tier:** Limited to 4 concurrent listings, 4 video/voice walkthroughs per month, and a single seat. This lets agents experience the listing-as-project workflow without financial commitment. Natural conversion occurs when they hit the listing cap, want to add team members, or need integrations.
 
-**Key distinction:** Starter is a single-seat product — no team features. If you want an office with multiple people, you need Professional. This is the primary upgrade trigger alongside the client portal.
+**Key upgrade triggers:** Free → Starter: Gmail/Calendar sync, more listings and walkthroughs, team seats. Starter → Professional: client portal, unlimited everything, DocuSign, vendor/financial management, all integrations.
 
 ### 4.2 Pricing Rationale
 
-**Starter at $30–$50/seat/month** is at the low end of real estate per-agent SaaS pricing (comparable to SkySlope or Dotloop). Low enough for impulse adoption.
+**Starter at $99/seat/month** is competitively positioned against real estate per-agent SaaS pricing (comparable to SkySlope or Dotloop premium tiers). Accessible enough for growing teams while reflecting the value of team collaboration, integrations, and higher usage limits.
 
 **Professional at $300/seat/month** targets the ICP. For a 6-person boutique team, this comes to $1,800/month. This is in the range of what these teams already spend across fragmented tooling ($690–$790/mo for tools alone, plus consulting and coordination overhead). The framing: HomeTrack consolidates the tool stack AND adds capabilities (client portal, vendor financial management, AI document extraction, voice/video capture) that no combination of existing tools provides.
 
@@ -139,7 +139,7 @@ The founder is not taking a salary in Year 1. The cost structure is intentionall
 
 ### 6.2 Revenue Projection (Default Scenario)
 
-Assumptions: $50/seat Starter, $300/seat Professional; 100 Y1 customers; 2.0x annual growth; 12% churn; minimal expansion revenue. Blended ACV weighted heavily toward Professional tier (80% Pro mix, avg 6 seats).
+Assumptions: $0 Free, $99/seat Starter, $300/seat Professional; 100 Y1 customers; 2.0x annual growth; 12% churn; minimal expansion revenue. Blended ACV weighted heavily toward Professional tier (80% Pro mix, avg 6 seats).
 
 | | Year 1 | Year 2 | Year 3 | Year 4 | Year 5 |
 |---|---|---|---|---|---|

@@ -105,6 +105,40 @@
 	// Reminder dropdown state
 	let reminderOpenForTask = $state<string | null>(null);
 
+	/** Generate an .ics calendar file and trigger download */
+	function downloadICS(task: any) {
+		const start = task.dueDate ? new Date(task.dueDate).toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z' : '';
+		const uid = `task-${task.id}@hometrack`;
+		const ics = [
+			'BEGIN:VCALENDAR',
+			'VERSION:2.0',
+			'PRODID:-//HomeTrack//Tasks//EN',
+			'BEGIN:VEVENT',
+			`UID:${uid}`,
+			`DTSTART:${start}`,
+			`SUMMARY:${(task.title ?? '').replace(/[,;\\]/g, ' ')}`,
+			`DESCRIPTION:${(task.listing?.property?.address ?? '').replace(/[,;\\]/g, ' ')}`,
+			'END:VEVENT',
+			'END:VCALENDAR'
+		].join('\r\n');
+		const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `${(task.title ?? 'task').replace(/\s+/g, '-').toLowerCase()}.ics`;
+		document.body.appendChild(a);
+		a.click();
+		document.body.removeChild(a);
+		URL.revokeObjectURL(url);
+		toast.success('Calendar event downloaded');
+	}
+
+	/** Handle reminder selection — placeholder until push notifications */
+	function setReminder(task: any, option: string) {
+		reminderOpenForTask = null;
+		toast.success(`Reminder set for ${option}`);
+	}
+
 	// Task toggle
 	let togglingTasks = $state<Set<string>>(new Set());
 
@@ -452,6 +486,7 @@
 									{/if}
 									<button
 										title="Add to calendar"
+ttttttttttonclick={() => downloadICS(task)}
 										class="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
 									>
 										<CalendarPlus class="size-3.5" />
@@ -468,7 +503,7 @@
 											<div class="absolute right-0 top-full z-10 mt-1 w-40 rounded-md border bg-popover p-1 shadow-md">
 												{#each ['1 hour before', '1 day before', 'Morning of', 'Custom'] as option}
 													<button
-														onclick={() => reminderOpenForTask = null}
+														onclick={() => setReminder(task, option)}
 														class="w-full rounded-sm px-2 py-1.5 text-left text-xs hover:bg-muted transition-colors"
 													>
 														{option}

@@ -23,6 +23,50 @@
 		}
 	});
 	let saving = $state(false);
+	let uploading = $state(false);
+	let logoUrl = $state('');
+	$effect(() => {
+		if (brandingSettings?.logoUrl) logoUrl = brandingSettings.logoUrl;
+	});
+
+	async function handleLogoUpload(e: Event) {
+		const input = e.target as HTMLInputElement;
+		const file = input.files?.[0];
+		if (!file) return;
+
+		const maxSize = 2 * 1024 * 1024; // 2MB
+		if (file.size > maxSize) {
+			toast.error('File too large. Max 2MB.');
+			return;
+		}
+
+		const allowed = ['image/png', 'image/jpeg', 'image/svg+xml'];
+		if (!allowed.includes(file.type)) {
+			toast.error('Only PNG, JPG, and SVG files are allowed.');
+			return;
+		}
+
+		uploading = true;
+		try {
+			const formData = new FormData();
+			formData.set('teamId', data.team?.id ?? '');
+			formData.set('logo', file);
+
+			const res = await fetch('?/uploadLogo', { method: 'POST', body: formData });
+			const result = await res.json();
+
+			if (result.type === 'success') {
+				logoUrl = result.data?.logoUrl ?? logoUrl;
+				toast.success('Logo uploaded');
+			} else {
+				toast.error(result.data?.error ?? 'Upload failed');
+			}
+		} catch {
+			toast.error('Upload failed');
+		} finally {
+			uploading = false;
+		}
+	}
 </script>
 
 <div class="space-y-6">
@@ -45,16 +89,21 @@
 				</CardHeader>
 				<CardContent>
 					<div class="flex items-center gap-4">
-						<div class="flex size-20 items-center justify-center rounded-lg border-2 border-dashed bg-muted/50">
-							<div class="text-center">
-								<div class="text-2xl font-bold text-primary">CR</div>
-								<p class="text-[9px] text-muted-foreground">Preview</p>
-							</div>
+						<div class="flex size-20 items-center justify-center rounded-lg border-2 border-dashed bg-muted/50 overflow-hidden">
+							{#if logoUrl}
+								<img src={logoUrl} alt="Team logo" class="size-full object-contain" />
+							{:else}
+								<div class="text-center">
+									<div class="text-2xl font-bold text-primary">CR</div>
+									<p class="text-[9px] text-muted-foreground">Preview</p>
+								</div>
+							{/if}
 						</div>
 						<div class="space-y-2">
-							<Button variant="outline" size="sm" class="gap-1 opacity-50" disabled>
+							<input type="file" id="logo-upload" accept="image/png,image/jpeg,image/svg+xml" onchange={handleLogoUpload} class="hidden" />
+							<Button variant="outline" size="sm" class="gap-1" disabled={uploading} onclick={() => document.getElementById('logo-upload')?.click()}>
 								<Upload class="size-3" />
-								Coming Soon
+								{uploading ? 'Uploading...' : logoUrl ? 'Change Logo' : 'Upload Logo'}
 							</Button>
 							<p class="text-xs text-muted-foreground">PNG, SVG, or JPG. Max 2MB. Recommended 200x60px.</p>
 						</div>
@@ -164,7 +213,11 @@
 					<div class="px-4 py-3" style="background-color: {primaryColor}">
 						<div class="flex items-center justify-between">
 							<div class="flex items-center gap-2">
-								<div class="size-8 rounded bg-white/20 flex items-center justify-center text-white text-xs font-bold">CR</div>
+								{#if logoUrl}
+									<img src={logoUrl} alt="Logo" class="size-8 rounded object-contain bg-white/20" />
+								{:else}
+									<div class="size-8 rounded bg-white/20 flex items-center justify-center text-white text-xs font-bold">CR</div>
+								{/if}
 								<span class="text-sm font-semibold text-white">{teamName}</span>
 							</div>
 							<div class="flex items-center gap-2">
@@ -260,6 +313,7 @@
 		<input type="hidden" name="primaryColor" value={primaryColor} />
 		<input type="hidden" name="customDomain" value={customDomain} />
 		<input type="hidden" name="welcomeMessage" value={welcomeMessage} />
+		<input type="hidden" name="logoUrl" value={logoUrl} />
 		<div class="flex justify-end">
 			<Button type="submit" disabled={saving}>
 				{saving ? 'Saving...' : 'Save Branding'}

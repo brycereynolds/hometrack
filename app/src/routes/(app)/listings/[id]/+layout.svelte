@@ -1,16 +1,19 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config.js';
 	import { formatCurrency } from '$lib/utils.js';
 	import {
 		ArrowLeft,
 		Edit,
+		Ellipsis,
 		ExternalLink,
 		RefreshCw,
 		ChevronLeft,
@@ -84,6 +87,20 @@
 		{ href: '/portal-settings', label: 'Portal', count: 0 }
 	]);
 
+	const currentTab = $derived(() => {
+		const basePath = `/listings/${$page.params.id}`;
+		const currentPath = $page.url.pathname;
+		for (const tab of tabs) {
+			if (tab.href === '' && (currentPath === basePath || currentPath === basePath + '/')) {
+				return '';
+			}
+			if (tab.href !== '' && currentPath.startsWith(basePath + tab.href)) {
+				return tab.href.slice(1); // remove leading /
+			}
+		}
+		return '';
+	});
+
 	let tabsContainer = $state<HTMLDivElement>(null!);
 
 	function scrollTabs(direction: 'left' | 'right') {
@@ -114,16 +131,39 @@
 				/>
 				<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 
-				<!-- Back button -->
-				<div class="absolute left-4 top-4">
+				<!-- Mobile: back + more menu -->
+				<div class="absolute left-4 top-4 flex items-center gap-2 md:hidden">
+					<Button variant="secondary" size="sm" href="/listings" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
+						<ArrowLeft class="size-4" />
+					</Button>
+				</div>
+				<div class="absolute right-4 top-4 flex items-center gap-2 md:hidden">
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger>
+							{#snippet child({ props })}
+								<Button {...props} variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
+									<Ellipsis class="size-4" />
+								</Button>
+							{/snippet}
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content>
+							<DropdownMenu.Item onclick={openEditDialog}>Edit</DropdownMenu.Item>
+							<DropdownMenu.Item onclick={() => phaseDialogOpen = true}>Change Phase</DropdownMenu.Item>
+							<DropdownMenu.Item onclick={() => goto(`/listings/${listing.id}/portal-settings`)}>Client Portal</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				</div>
+
+				<!-- Desktop: back button -->
+				<div class="absolute left-4 top-4 hidden md:block">
 					<Button variant="secondary" size="sm" href="/listings" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white">
 						<ArrowLeft class="mr-1.5 size-4" />
 						Listings
 					</Button>
 				</div>
 
-				<!-- Action buttons -->
-				<div class="absolute right-4 top-4 flex gap-2">
+				<!-- Desktop: action buttons -->
+				<div class="absolute right-4 top-4 hidden md:flex gap-2">
 					<Button variant="secondary" size="sm" class="bg-white/90 text-stone-800 backdrop-blur-sm hover:bg-white" onclick={openEditDialog}>
 						<Edit class="mr-1.5 size-4" />
 						Edit
@@ -204,14 +244,24 @@
 			</div>
 		</div>
 
-		<!-- Tab Navigation -->
-		<div class="border-b -mx-4 md:-mx-6 lg:-mx-8 relative">
-			<button
-				onclick={() => scrollTabs('left')}
-				class="absolute left-0 top-0 bottom-0 z-10 flex items-center px-1 bg-gradient-to-r from-background via-background to-transparent sm:hidden"
+		<!-- Tab Navigation: Mobile dropdown -->
+		<div class="md:hidden px-4 py-2 border-b -mx-4">
+			<select
+				class="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
+				value={currentTab()}
+				onchange={(e) => {
+					const val = e.currentTarget.value;
+					goto(`/listings/${listing.id}${val ? '/' + val : ''}`);
+				}}
 			>
-				<ChevronLeft class="size-4 text-muted-foreground" />
-			</button>
+				{#each tabs as tab}
+					<option value={tab.href ? tab.href.slice(1) : ''}>{tab.label}</option>
+				{/each}
+			</select>
+		</div>
+
+		<!-- Tab Navigation: Desktop horizontal tabs -->
+		<div class="border-b -mx-4 md:-mx-6 lg:-mx-8 relative hidden md:block">
 			<div
 				bind:this={tabsContainer}
 				class="flex overflow-x-auto scrollbar-hide px-4 md:px-6 lg:px-8"
@@ -237,12 +287,6 @@
 					</a>
 				{/each}
 			</div>
-			<button
-				onclick={() => scrollTabs('right')}
-				class="absolute right-0 top-0 bottom-0 z-10 flex items-center px-1 bg-gradient-to-l from-background via-background to-transparent sm:hidden"
-			>
-				<ChevronRight class="size-4 text-muted-foreground" />
-			</button>
 		</div>
 
 		<!-- Tab Content -->

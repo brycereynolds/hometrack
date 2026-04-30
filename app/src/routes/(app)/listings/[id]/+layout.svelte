@@ -194,7 +194,7 @@
 						{#if listing.price}
 							<span>{formatCurrency(listing.price)}</span>
 						{:else}
-							<a href="/listings/{listing.id}/listing" class="text-amber-300 hover:text-amber-200 transition-colors">No price yet</a>
+							<a href="/listings/{listing.id}/listing" class="text-white/80 underline hover:text-white transition-colors">No price yet</a>
 						{/if}
 					</div>
 				</div>

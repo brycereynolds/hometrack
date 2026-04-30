@@ -12,6 +12,7 @@
 		AlertTriangle,
 		Clock,
 		ListChecks,
+		Paperclip,
 		Plus
 	} from 'lucide-svelte';
 
@@ -219,13 +220,24 @@
 								</div>
 							{/if}
 
-							<!-- Media type badge -->
-							<div
-								class="absolute left-2 top-2 rounded bg-black/50 px-1.5 py-0.5 text-xs text-white backdrop-blur-sm"
-							>
-								<MediaIcon class="mr-1 inline size-3" />
-								{note.mediaType === 'voice_memo' ? 'Voice' : note.mediaType}
-							</div>
+							<!-- Media type badge (skip for text) -->
+							{#if note.mediaType !== 'text'}
+								<div
+									class="absolute left-2 top-2 rounded bg-black/50 px-1.5 py-0.5 text-xs text-white backdrop-blur-sm"
+								>
+									<MediaIcon class="mr-1 inline size-3" />
+									{note.mediaType === 'voice_memo' ? 'Voice' : note.mediaType}
+								</div>
+							{/if}
+
+							<!-- Processing overlay -->
+							{#if note.status === 'pending' || note.status === 'processing'}
+								<div class="absolute inset-0 bg-amber-500/10 flex items-center justify-center">
+									<div class="rounded-full bg-amber-100/90 p-2">
+										<Loader2 class="size-5 text-amber-600 animate-spin" />
+									</div>
+								</div>
+							{/if}
 						</div>
 
 						<CardContent class="p-3">
@@ -264,19 +276,27 @@
 
 							<div class="mt-3 flex items-center gap-2">
 								<!-- Status -->
-								<div
-									class="flex items-center gap-1 {status.color}"
-								>
-									{#if note.status === 'processing'}
-										<Loader2 class="size-3 animate-spin" />
-									{:else}
-										{@const Icon = status.icon}
-										<Icon class="size-3" />
-									{/if}
-									<span class="text-[10px] font-medium"
-										>{status.label}</span
+								{#if note.status === 'pending' || note.status === 'processing'}
+									<div class="flex items-center gap-1.5">
+										<span class="relative flex size-2.5">
+											<span class="absolute inline-flex size-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
+											<span class="relative inline-flex size-2.5 rounded-full bg-amber-500"></span>
+										</span>
+										<span class="text-[10px] font-medium text-amber-700">
+											{note.status === 'pending' ? 'Queued' : 'Processing'}
+										</span>
+									</div>
+								{:else}
+									{@const Icon = status.icon}
+									<div
+										class="flex items-center gap-1 {status.color}"
 									>
-								</div>
+										<Icon class="size-3" />
+										<span class="text-[10px] font-medium"
+											>{status.label}</span
+										>
+									</div>
+								{/if}
 
 								{#if note._counts?.actions > 0}
 									<div
@@ -285,6 +305,17 @@
 										<ListChecks class="size-3" />
 										<span class="text-[10px]"
 											>{note._counts.actions} actions</span
+										>
+									</div>
+								{/if}
+
+								{#if (note._counts as any)?.attachments > 0}
+									<div
+										class="flex items-center gap-1 text-muted-foreground"
+									>
+										<Paperclip class="size-3" />
+										<span class="text-[10px]"
+											>{(note._counts as any).attachments} {(note._counts as any).attachments === 1 ? 'file' : 'files'}</span
 										>
 									</div>
 								{/if}

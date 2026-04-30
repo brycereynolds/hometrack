@@ -384,7 +384,19 @@
 
 				const result = await response.json();
 				lastSavedNoteId = result.fieldNoteId;
-				toast.success('Voice memo saved! Processing will begin shortly.');
+
+				// Upload any file attachments alongside the voice memo
+				if (attachments.length > 0) {
+					const uploaded = await uploadAllAttachments();
+					const failed = attachments.length - uploaded;
+					if (failed > 0) {
+						toast.error(`Voice memo saved but ${failed} file(s) failed to upload`);
+					} else {
+						toast.success(`Voice memo saved with ${uploaded} file(s)! Processing will begin shortly.`);
+					}
+				} else {
+					toast.success('Voice memo saved! Processing will begin shortly.');
+				}
 			} else {
 				// Unified path: create note first, then upload attachments
 				const createRes = await fetch('/api/notes', {
@@ -584,7 +596,7 @@
 				<input
 					bind:this={fileInput}
 					type="file"
-					accept="image/jpeg,image/png,image/heic,image/webp,video/mp4,video/quicktime,video/webm"
+					accept="image/jpeg,image/png,image/heic,image/webp,video/mp4,video/quicktime,video/webm,application/pdf"
 					multiple
 					class="hidden"
 					onchange={handleFileSelect}

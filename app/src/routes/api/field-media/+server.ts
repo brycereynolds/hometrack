@@ -15,6 +15,7 @@ const ALLOWED_TYPES = new Set([
 	'image/jpeg',
 	'image/png',
 	'image/webp',
+	'application/pdf',
 ]);
 
 export const POST: RequestHandler = async ({ locals, request }) => {

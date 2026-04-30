@@ -3,6 +3,8 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import { invalidateAll } from '$app/navigation';
+	import { onMount, onDestroy } from 'svelte';
 	import type { MomentWithFrame, ActionWithSourceMoment } from '$lib/types.js';
 	import {
 		ArrowLeft,
@@ -21,11 +23,47 @@
 		AlertCircle,
 		HelpCircle,
 		Check,
-		X
+		X,
+		Sparkles
 	} from 'lucide-svelte';
 
 	let { data } = $props();
 	const note = $derived(data.note);
+
+	// Derive processing stage from status
+	const currentStage = $derived.by(() => {
+		if (!note) return 0;
+		if (note.status === 'completed') return 3;
+		if (note.status === 'failed') return 0;
+		if (note.status === 'pending') return 0;
+		// processing — check processingStages if available
+		const stages = note.processingStages as any;
+		if (stages?.analysis) return 2;
+		if (stages?.transcription) return 1;
+		return 1;
+	});
+
+	// Poll for updates when note is being processed
+	let pollInterval: ReturnType<typeof setInterval> | null = null;
+
+	onMount(() => {
+		if (note?.status === 'pending' || note?.status === 'processing') {
+			pollInterval = setInterval(() => invalidateAll(), 3000);
+		}
+	});
+
+	onDestroy(() => {
+		if (pollInterval) clearInterval(pollInterval);
+	});
+
+	$effect(() => {
+		if (note?.status === 'completed' || note?.status === 'failed') {
+			if (pollInterval) {
+				clearInterval(pollInterval);
+				pollInterval = null;
+			}
+		}
+	});
 
 	// Drizzle's inferred types don't include `with:` relations, so we cast
 	// the loaded data to our centralized composite types.
@@ -148,6 +186,71 @@
 				</Badge>
 			</div>
 		</div>
+
+		<!-- Processing Banner -->
+		{#if note.status === 'pending' || note.status === 'processing'}
+			<div class="rounded-lg border border-amber-200 bg-amber-50/50 p-4">
+				<div class="flex items-center gap-3 mb-3">
+					<div class="relative">
+						<div class="size-10 rounded-full border-3 border-amber-200 border-t-amber-600 animate-spin"></div>
+						<Sparkles class="size-4 text-amber-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+					</div>
+					<div>
+						<p class="text-sm font-semibold text-amber-900">Processing your note...</p>
+						<p class="text-xs text-amber-700/70">AI is analyzing your content. Results will appear as they're ready.</p>
+					</div>
+				</div>
+				<div class="flex gap-1">
+					{#each ['Uploading', 'Transcribing', 'Analyzing', 'Complete'] as stage, i}
+						{@const stageActive = i <= currentStage}
+						<div class="flex-1">
+							<div class="h-1.5 rounded-full {stageActive ? 'bg-amber-500' : 'bg-amber-200'} transition-all duration-500"></div>
+							<p class="text-[10px] mt-1 {stageActive ? 'text-amber-700 font-medium' : 'text-amber-400'}">{stage}</p>
+						</div>
+					{/each}
+				</div>
+			</div>
+		{:else if note.status === 'failed'}
+			<div class="rounded-lg border border-red-200 bg-red-50/50 p-4">
+				<div class="flex items-center gap-3">
+					<AlertCircle class="size-5 text-red-600" />
+					<div>
+						<p class="text-sm font-semibold text-red-900">Processing failed</p>
+						<p class="text-xs text-red-700/70">{note.processingError || 'An error occurred during processing.'}</p>
+					</div>
+				</div>
+			</div>
+		{/if}
+
+		<!-- Attachments -->
+		{#if (note as any).attachments?.length > 0}
+			<Card>
+				<CardHeader class="pb-3">
+					<CardTitle class="font-serif text-base">Attachments</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<div class="grid gap-3 sm:grid-cols-2">
+						{#each (note as any).attachments as att}
+							<div class="rounded-lg border bg-muted/30 p-3 flex items-center gap-3">
+								{#if att.contentType?.startsWith('video/')}
+									<Video class="size-5 text-muted-foreground shrink-0" />
+								{:else if att.contentType?.startsWith('image/')}
+									<Image class="size-5 text-muted-foreground shrink-0" />
+								{:else}
+									<FileText class="size-5 text-muted-foreground shrink-0" />
+								{/if}
+								<div class="min-w-0 flex-1">
+									<p class="text-sm font-medium truncate">{att.fileName}</p>
+									<p class="text-xs text-muted-foreground">
+										{att.fileSize ? (att.fileSize / (1024 * 1024)).toFixed(1) + ' MB' : ''}
+									</p>
+								</div>
+							</div>
+						{/each}
+					</div>
+				</CardContent>
+			</Card>
+		{/if}
 
 		<!-- Media Player -->
 		{#if note.mediaType === 'video'}

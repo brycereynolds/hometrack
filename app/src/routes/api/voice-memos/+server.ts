@@ -17,6 +17,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 	const file = formData.get('audio') as File | null;
 	const listingId = formData.get('listingId') as string | null;
 	const duration = parseInt(formData.get('duration') as string, 10) || 0;
+	const textContent = formData.get('textContent') as string | null;
 
 	if (!file) {
 		return json({ error: 'Missing audio file' }, { status: 400 });
@@ -55,6 +56,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 				tag: 'general',
 				mediaStoragePath: storagePath,
 				duration,
+				textContent: textContent?.trim() || null,
 			});
 
 			// Insert activity item

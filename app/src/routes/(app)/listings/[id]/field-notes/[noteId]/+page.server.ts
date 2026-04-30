@@ -30,6 +30,7 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
         with: {
           author: true,
           transcripts: true,
+          attachments: true,
           frames: {
             orderBy: (frames, { asc }) => [asc(frames.frameIndex)],
           },

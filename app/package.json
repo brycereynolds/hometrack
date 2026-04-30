@@ -49,6 +49,7 @@
 		"leaflet": "^1.9.4",
 		"leaflet-draw": "^1.0.4",
 		"lucide-svelte": "^1.0.1",
+		"marked": "^18.0.2",
 		"postgres": "^3.4.9",
 		"qrcode": "^1.5.4",
 		"svelte-dnd-action": "^0.9.69",

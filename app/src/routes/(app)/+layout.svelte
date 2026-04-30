@@ -13,6 +13,7 @@
 	import CaptureModal from '$lib/components/shared/CaptureModal.svelte';
 	import SidebarCloseOnNav from '$lib/components/shared/SidebarCloseOnNav.svelte';
 	import FloatingVoiceButton from '$lib/components/shared/FloatingVoiceButton.svelte';
+	import ChatWidget from '$lib/components/shared/ChatWidget.svelte';
 	import {
 		LayoutDashboard,
 		Home,
@@ -141,6 +142,7 @@
 <CaptureModal bind:open={captureOpen} listings={listings} teamId={data.team?.id ?? ''} />
 <!-- FloatingVoiceButton hidden — use Cmd+K or sidebar instead -->
 <Toaster richColors position="top-right" />
+<ChatWidget />
 
 <Sidebar.SidebarProvider>
 	<SidebarCloseOnNav onReady={(fn) => { closeMobileSidebar = fn; }} />

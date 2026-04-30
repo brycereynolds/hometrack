@@ -239,7 +239,7 @@
 </script>
 
 <svelte:head>
-	<title>AI Agent - HomeTrack</title>
+	<title>Chat - HomeTrack</title>
 </svelte:head>
 
 <div class="flex h-[calc(100vh-3.5rem)] -m-4 md:-m-6 lg:-m-8">
@@ -248,7 +248,7 @@
 	{#if showSidebar}
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
-			class="fixed inset-0 z-30 bg-black/40 md:hidden"
+			class="fixed inset-0 z-30 bg-black/40"
 			onclick={() => showSidebar = false}
 			onkeydown={() => {}}
 		></div>
@@ -257,8 +257,7 @@
 	<aside
 		class="
 			{showSidebar ? 'translate-x-0' : '-translate-x-full'}
-			md:translate-x-0
-			fixed md:relative z-40 md:z-auto
+			fixed z-40
 			w-72 h-full
 			border-r bg-muted/30
 			flex flex-col
@@ -271,7 +270,7 @@
 				<Button variant="ghost" size="icon" class="h-7 w-7" onclick={newConversation} title="New conversation">
 					<Plus class="size-4" />
 				</Button>
-				<Button variant="ghost" size="icon" class="h-7 w-7 md:hidden" onclick={() => showSidebar = false}>
+				<Button variant="ghost" size="icon" class="h-7 w-7" onclick={() => showSidebar = false}>
 					<X class="size-4" />
 				</Button>
 			</div>
@@ -301,7 +300,7 @@
 	<div class="flex-1 flex flex-col min-w-0">
 		<!-- Chat header -->
 		<div class="flex items-center gap-2 px-4 py-2.5 border-b bg-background/80 backdrop-blur">
-			<Button variant="ghost" size="icon" class="h-8 w-8 md:hidden" onclick={() => showSidebar = true}>
+			<Button variant="ghost" size="icon" class="h-8 w-8" onclick={() => showSidebar = true}>
 				<Menu class="size-4" />
 			</Button>
 			<div class="flex items-center gap-2 flex-1 min-w-0">

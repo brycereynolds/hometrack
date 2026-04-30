@@ -38,17 +38,6 @@
 	let noteText = $state('');
 	let saving = $state(false);
 
-	// Prevent accidental navigation during upload/save
-	const isUploading = $derived(saving || attachments.some(a => a.uploading));
-
-	beforeNavigate(({ cancel }) => {
-		if (isUploading) {
-			if (!confirm('Upload in progress. Leaving will cancel it. Are you sure?')) {
-				cancel();
-			}
-		}
-	});
-
 	// Recording state
 	let isRecording = $state(false);
 	let hasRecording = $state(false);
@@ -77,6 +66,17 @@
 
 	let attachments = $state<Attachment[]>([]);
 	let fileInput = $state<HTMLInputElement>(null!);
+
+	// Prevent accidental navigation during upload/save
+	const isUploading = $derived(saving || attachments.some(a => a.uploading));
+
+	beforeNavigate(({ cancel }) => {
+		if (isUploading) {
+			if (!confirm('Upload in progress. Leaving will cancel it. Are you sure?')) {
+				cancel();
+			}
+		}
+	});
 
 	const tags = [
 		{ id: 'showing', label: 'Showing', color: 'bg-blue-500/10 text-blue-700' },
@@ -250,51 +250,91 @@
 		att.progress = 0;
 		att.error = null;
 
-		return new Promise((resolve) => {
-			const formData = new FormData();
-			formData.append('file', att.file);
-			if (selectedListing) formData.append('listingId', selectedListing);
+		return new Promise(async (resolve) => {
+			try {
+				// Step 1: Get signed upload URL
+				const signedRes = await fetch('/api/field-media/signed-url', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({
+						fileName: att.file.name,
+						listingId: selectedListing || null,
+						contentType: att.file.type,
+					}),
+				});
 
-			const xhr = new XMLHttpRequest();
-			xhr.open('POST', '/api/field-media');
-
-			xhr.upload.onprogress = (e) => {
-				if (e.lengthComputable) {
-					att.progress = Math.round((e.loaded / e.total) * 100);
+				if (!signedRes.ok) {
+					const err = await signedRes.json();
+					throw new Error(err.error ?? 'Failed to get upload URL');
 				}
-			};
 
-			xhr.onload = () => {
-				att.uploading = false;
-				if (xhr.status >= 200 && xhr.status < 300) {
-					try {
-						const result = JSON.parse(xhr.responseText);
-						att.uploaded = true;
+				const { signedUrl, storagePath, teamId: uploadTeamId, memberId, memberName, memberInitials } = await signedRes.json();
+
+				// Step 2: Upload directly to Supabase Storage with progress
+				const xhr = new XMLHttpRequest();
+				xhr.open('PUT', signedUrl);
+				xhr.setRequestHeader('Content-Type', att.file.type);
+
+				xhr.upload.onprogress = (e) => {
+					if (e.lengthComputable) {
+						att.progress = Math.round((e.loaded / e.total) * 100);
+					}
+				};
+
+				xhr.onload = async () => {
+					if (xhr.status >= 200 && xhr.status < 300) {
 						att.progress = 100;
-						att.storagePath = result.storagePath;
-						resolve(true);
-					} catch {
-						att.error = 'Invalid response';
+
+						// Step 3: Create DB records + trigger workflow
+						try {
+							const completeRes = await fetch('/api/field-media/complete', {
+								method: 'POST',
+								headers: { 'Content-Type': 'application/json' },
+								body: JSON.stringify({
+									storagePath,
+									listingId: selectedListing || null,
+									fileName: att.file.name,
+									fileSize: att.file.size,
+									contentType: att.file.type,
+									teamId: uploadTeamId,
+									memberId,
+									memberName,
+									memberInitials,
+								}),
+							});
+
+							if (!completeRes.ok) throw new Error('Failed to finalize');
+							const result = await completeRes.json();
+							att.uploaded = true;
+							att.storagePath = storagePath;
+							// Store the fieldNoteId for navigation
+							if (!lastSavedNoteId) lastSavedNoteId = result.fieldNoteId;
+							att.uploading = false;
+							resolve(true);
+						} catch (err) {
+							att.error = 'Upload succeeded but failed to save record';
+							att.uploading = false;
+							resolve(false);
+						}
+					} else {
+						att.error = `Upload failed (${xhr.status})`;
+						att.uploading = false;
 						resolve(false);
 					}
-				} else {
-					try {
-						const body = JSON.parse(xhr.responseText);
-						att.error = body.error ?? 'Upload failed';
-					} catch {
-						att.error = `Upload failed (${xhr.status})`;
-					}
+				};
+
+				xhr.onerror = () => {
+					att.error = 'Network error during upload';
+					att.uploading = false;
 					resolve(false);
-				}
-			};
+				};
 
-			xhr.onerror = () => {
+				xhr.send(att.file);
+			} catch (err) {
+				att.error = err instanceof Error ? err.message : 'Upload failed';
 				att.uploading = false;
-				att.error = 'Network error';
 				resolve(false);
-			};
-
-			xhr.send(formData);
+			}
 		});
 	}
 
@@ -442,9 +482,7 @@
 	});
 </script>
 
-{#if isUploading}
-<svelte:window onbeforeunload={(e) => { e.preventDefault(); return ''; }} />
-{/if}
+<svelte:window onbeforeunload={(e) => { if (isUploading) { e.preventDefault(); return ''; } }} />
 <Dialog.Root bind:open onOpenChange={(v) => { if (!v && !isUploading) resetAndClose(); }}>
 	<Dialog.Content class="max-h-[90svh] w-[calc(100%-1rem)] sm:w-full sm:max-w-lg overflow-y-auto" onOpenAutoFocus={(e: Event) => e.preventDefault()}>
 

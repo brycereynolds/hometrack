@@ -2,6 +2,7 @@ import { pgTable, text, timestamp, integer, index } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { taskPriorityEnum } from './enums.js';
 import { workflowTemplates } from './workflow.js';
+import { teams } from './team.js';
 
 export const workflowTemplateTasks = pgTable(
   'workflow_template_tasks',
@@ -20,6 +21,15 @@ export const workflowTemplateTasks = pgTable(
     index('workflow_template_tasks_template_id_idx').on(table.templateId),
   ],
 );
+
+// Both relations defined here to avoid circular imports between workflow.ts and this file
+export const workflowTemplatesRelations = relations(workflowTemplates, ({ one, many }) => ({
+  team: one(teams, {
+    fields: [workflowTemplates.teamId],
+    references: [teams.id],
+  }),
+  tasks: many(workflowTemplateTasks),
+}));
 
 export const workflowTemplateTasksRelations = relations(workflowTemplateTasks, ({ one }) => ({
   template: one(workflowTemplates, {

@@ -3,7 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { PHASES } from '$lib/config.js';
-	import { Plus, Pencil, Zap, ArrowRight, CheckSquare, Settings, Lock } from 'lucide-svelte';
+	import { Plus, Pencil, Zap, CheckSquare, Settings, Trash2, GripVertical } from 'lucide-svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { enhance } from '$app/forms';
@@ -13,19 +13,86 @@
 
 	const workflowTemplates = $derived(data.workflowTemplates);
 
-	// Edit workflow modal state
-	let showEditWorkflow = $state(false);
-	let editWorkflowId = $state('');
-	let editWorkflowName = $state('');
-	let editWorkflowDescription = $state('');
-	let editSubmitting = $state(false);
+	// ── Template Editor state ──────────────────────────────────────────
+	let showEditor = $state(false);
+	let editorTemplateId = $state('');
+	let editorName = $state('');
+	let editorDescription = $state('');
+	let editorPhase = $state('');
+	let editorTasks = $state<{ id?: string; title: string; priority: string; sortOrder: number; isNew?: boolean }[]>([]);
+	let editorSubmitting = $state(false);
 
-	function openEditWorkflow(wf: typeof workflowTemplates[number]) {
-		editWorkflowId = wf.id;
-		editWorkflowName = wf.name;
-		editWorkflowDescription = wf.description ?? '';
-		showEditWorkflow = true;
+	function openEditor(wf: typeof workflowTemplates[number]) {
+		editorTemplateId = wf.id;
+		editorName = wf.name;
+		editorDescription = wf.description ?? '';
+		editorPhase = wf.phase;
+		editorTasks = (wf.tasks ?? []).map((t, i) => ({
+			id: t.id,
+			title: t.title,
+			priority: t.priority ?? 'medium',
+			sortOrder: t.sortOrder ?? i,
+		}));
+		showEditor = true;
 	}
+
+	function addTask() {
+		editorTasks = [
+			...editorTasks,
+			{
+				title: '',
+				priority: 'medium',
+				sortOrder: editorTasks.length,
+				isNew: true,
+			},
+		];
+	}
+
+	function removeTask(index: number) {
+		editorTasks = editorTasks.filter((_, i) => i !== index).map((t, i) => ({ ...t, sortOrder: i }));
+	}
+
+	function updateTaskTitle(index: number, value: string) {
+		editorTasks = editorTasks.map((t, i) => (i === index ? { ...t, title: value } : t));
+	}
+
+	function updateTaskPriority(index: number, value: string) {
+		editorTasks = editorTasks.map((t, i) => (i === index ? { ...t, priority: value } : t));
+	}
+
+	// Drag & drop reordering
+	let dragIndex = $state<number | null>(null);
+	let dragOverIndex = $state<number | null>(null);
+
+	function handleDragStart(index: number) {
+		dragIndex = index;
+	}
+
+	function handleDragOver(e: DragEvent, index: number) {
+		e.preventDefault();
+		dragOverIndex = index;
+	}
+
+	function handleDrop(index: number) {
+		if (dragIndex === null || dragIndex === index) {
+			dragIndex = null;
+			dragOverIndex = null;
+			return;
+		}
+		const tasks = [...editorTasks];
+		const [moved] = tasks.splice(dragIndex, 1);
+		tasks.splice(index, 0, moved);
+		editorTasks = tasks.map((t, i) => ({ ...t, sortOrder: i }));
+		dragIndex = null;
+		dragOverIndex = null;
+	}
+
+	function handleDragEnd() {
+		dragIndex = null;
+		dragOverIndex = null;
+	}
+
+	const hasEmptyTitles = $derived(editorTasks.some((t) => !t.title.trim()));
 
 	// Create workflow modal state
 	let showCreateWorkflow = $state(false);
@@ -33,18 +100,6 @@
 	let createWorkflowDescription = $state('');
 	let createWorkflowPhase = $state('pre_market');
 	let createSubmitting = $state(false);
-
-	// Group by phase
-	const byPhase = $derived(() => {
-		const groups: Record<string, typeof workflowTemplates> = {};
-		for (const wf of workflowTemplates) {
-			const phase = PHASES[wf.phase];
-			const key = phase.label;
-			if (!groups[key]) groups[key] = [];
-			groups[key].push(wf);
-		}
-		return Object.entries(groups);
-	});
 
 	// Automation rules (mock)
 	const automationRules = [
@@ -77,6 +132,13 @@
 			enabled: false
 		}
 	];
+
+	const priorityColors: Record<string, string> = {
+		low: '#9C958E',
+		medium: '#6B9FC4',
+		high: '#C4704B',
+		urgent: '#B04F4F',
+	};
 </script>
 
 <div class="space-y-6">
@@ -128,7 +190,7 @@
 							>
 								{phase.label}
 							</Badge>
-							<Button variant="ghost" size="sm" class="h-7 text-xs gap-1" onclick={() => openEditWorkflow(wf)}>
+							<Button variant="ghost" size="sm" class="h-7 text-xs gap-1" onclick={() => openEditor(wf)}>
 								<Pencil class="size-3" />
 								Edit
 							</Button>
@@ -209,59 +271,158 @@
 	</Card>
 </div>
 
-<!-- Edit Workflow Modal -->
-<Dialog.Root bind:open={showEditWorkflow}>
-	<Dialog.Content class="sm:max-w-md">
+<!-- Template Editor Modal -->
+<Dialog.Root bind:open={showEditor}>
+	<Dialog.Content class="sm:max-w-2xl max-h-[85vh] overflow-y-auto">
 		<Dialog.Header>
-			<Dialog.Title class="font-serif">Edit Workflow</Dialog.Title>
-			<Dialog.Description>Update the name and description for this workflow template.</Dialog.Description>
+			<Dialog.Title class="font-serif">Edit Template</Dialog.Title>
+			<Dialog.Description>Update the template details and manage its tasks.</Dialog.Description>
 		</Dialog.Header>
 		<form
 			method="POST"
-			action="?/editWorkflow"
+			action="?/saveTemplateTasks"
 			use:enhance={() => {
-				editSubmitting = true;
+				editorSubmitting = true;
 				return async ({ result, update }) => {
-					editSubmitting = false;
+					editorSubmitting = false;
 					if (result.type === 'success') {
-						showEditWorkflow = false;
-						toast.success('Workflow updated');
+						showEditor = false;
+						toast.success('Template saved');
 						await update();
 					} else if (result.type === 'failure') {
-						toast.error(String(result.data?.error ?? 'Failed to update workflow'));
+						toast.error(String(result.data?.error ?? 'Failed to save template'));
 					}
 				};
 			}}
 		>
-			<input type="hidden" name="workflowId" value={editWorkflowId} />
+			<input type="hidden" name="templateId" value={editorTemplateId} />
 			<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
-			<div class="space-y-4 py-4">
-				<div>
-					<label for="wf-name" class="text-sm font-medium">Name</label>
-					<input
-						id="wf-name"
-						name="name"
-						type="text"
-						bind:value={editWorkflowName}
-						required
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					/>
+			<input type="hidden" name="tasks" value={JSON.stringify(editorTasks.filter((t) => t.title.trim()).map((t, i) => ({ id: t.id, title: t.title.trim(), priority: t.priority, sortOrder: i })))} />
+
+			<div class="space-y-5 py-4">
+				<!-- Template metadata -->
+				<div class="grid grid-cols-2 gap-4">
+					<div>
+						<label for="editor-name" class="text-sm font-medium">Name</label>
+						<input
+							id="editor-name"
+							name="templateName"
+							type="text"
+							bind:value={editorName}
+							required
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="editor-phase" class="text-sm font-medium">Phase</label>
+						<div class="mt-1 flex h-10 items-center rounded-md border border-input bg-muted/30 px-3">
+							{#if editorPhase && PHASES[editorPhase as keyof typeof PHASES]}
+								<Badge
+									variant="outline"
+									class="text-xs"
+									style="border-color: {PHASES[editorPhase as keyof typeof PHASES].color}; color: {PHASES[editorPhase as keyof typeof PHASES].color}"
+								>
+									{PHASES[editorPhase as keyof typeof PHASES].label}
+								</Badge>
+							{/if}
+						</div>
+					</div>
 				</div>
 				<div>
-					<label for="wf-description" class="text-sm font-medium">Description</label>
+					<label for="editor-description" class="text-sm font-medium">Description</label>
 					<textarea
-						id="wf-description"
-						name="description"
-						bind:value={editWorkflowDescription}
-						rows="3"
+						id="editor-description"
+						name="templateDescription"
+						bind:value={editorDescription}
+						rows="2"
 						class="mt-1 w-full resize-none rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
 					></textarea>
 				</div>
+
+				<!-- Tasks list -->
+				<div>
+					<div class="flex items-center justify-between mb-2">
+						<label class="text-sm font-medium">Tasks ({editorTasks.length})</label>
+					</div>
+
+					{#if editorTasks.length === 0}
+						<div class="rounded-md border border-dashed border-muted-foreground/30 p-6 text-center">
+							<p class="text-sm text-muted-foreground">No tasks yet. Add your first task below.</p>
+						</div>
+					{:else}
+						<div class="space-y-1.5">
+							{#each editorTasks as task, index}
+								<div
+									class="group flex items-center gap-2 rounded-md border bg-background px-2 py-1.5 transition-colors {dragOverIndex === index ? 'border-primary bg-primary/5' : 'border-input'}"
+									draggable="true"
+									ondragstart={() => handleDragStart(index)}
+									ondragover={(e) => handleDragOver(e, index)}
+									ondrop={() => handleDrop(index)}
+									ondragend={handleDragEnd}
+									role="listitem"
+								>
+									<button
+										type="button"
+										class="cursor-grab text-muted-foreground/50 hover:text-muted-foreground active:cursor-grabbing"
+										tabindex="-1"
+									>
+										<GripVertical class="size-4" />
+									</button>
+
+									<span class="text-xs text-muted-foreground w-5 text-right flex-shrink-0">
+										{index + 1}.
+									</span>
+
+									<input
+										type="text"
+										value={task.title}
+										oninput={(e) => updateTaskTitle(index, e.currentTarget.value)}
+										placeholder="Task title..."
+										class="flex-1 h-8 bg-transparent text-sm outline-none placeholder:text-muted-foreground/50"
+									/>
+
+									<select
+										value={task.priority}
+										onchange={(e) => updateTaskPriority(index, e.currentTarget.value)}
+										class="h-7 rounded border border-input bg-background px-1.5 text-xs outline-none ring-ring focus:ring-1"
+										style="color: {priorityColors[task.priority] ?? '#9C958E'}"
+									>
+										<option value="low">Low</option>
+										<option value="medium">Medium</option>
+										<option value="high">High</option>
+										<option value="urgent">Urgent</option>
+									</select>
+
+									<button
+										type="button"
+										onclick={() => removeTask(index)}
+										class="text-muted-foreground/40 hover:text-destructive transition-colors p-1"
+										title="Remove task"
+									>
+										<Trash2 class="size-3.5" />
+									</button>
+								</div>
+							{/each}
+						</div>
+					{/if}
+
+					<Button
+						type="button"
+						variant="outline"
+						size="sm"
+						class="mt-3 gap-1.5 text-xs w-full border-dashed"
+						onclick={addTask}
+					>
+						<Plus class="size-3" />
+						Add Task
+					</Button>
+				</div>
 			</div>
+
 			<Dialog.Footer>
-				<Button variant="outline" type="button" onclick={() => showEditWorkflow = false}>Cancel</Button>
-				<Button type="submit" disabled={editSubmitting || !editWorkflowName.trim()}>
-					{editSubmitting ? 'Saving...' : 'Save Changes'}
+				<Button variant="outline" type="button" onclick={() => showEditor = false}>Cancel</Button>
+				<Button type="submit" disabled={editorSubmitting || !editorName.trim() || hasEmptyTitles}>
+					{editorSubmitting ? 'Saving...' : 'Save Changes'}
 				</Button>
 			</Dialog.Footer>
 		</form>

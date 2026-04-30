@@ -183,6 +183,16 @@
 	function toggleStatusDropdown(offerId: string) {
 		openStatusDropdown = openStatusDropdown === offerId ? null : offerId;
 	}
+
+	// Comparison toggle
+	let showComparison = $state(false);
+
+	const topOffers = $derived(
+		[...listingOffers]
+			.filter((o: any) => o.status !== 'declined')
+			.sort((a: any, b: any) => (b.price ?? 0) - (a.price ?? 0))
+			.slice(0, 3)
+	);
 </script>
 
 {#if listing}
@@ -192,8 +202,134 @@
 				<h2 class="font-serif text-lg font-semibold">Offers</h2>
 				<p class="text-sm text-muted-foreground">{listingOffers.length} offers received</p>
 			</div>
-			<Button size="sm" onclick={() => { resetOfferForm(); showOfferModal = true; }}><Plus class="mr-1.5 size-4" />Log Offer</Button>
+			<div class="flex items-center gap-2">
+				{#if listingOffers.length >= 2}
+					<Button variant={showComparison ? 'default' : 'outline'} size="sm" onclick={() => showComparison = !showComparison}>
+						<ArrowLeftRight class="mr-1.5 size-4" />{showComparison ? 'Hide Comparison' : 'Compare Top Offers'}
+					</Button>
+				{/if}
+				<Button size="sm" onclick={() => { resetOfferForm(); showOfferModal = true; }}><Plus class="mr-1.5 size-4" />Log Offer</Button>
+			</div>
 		</div>
+
+		{#if showComparison && topOffers.length >= 2}
+			<!-- Side-by-Side Comparison -->
+			<Card>
+				<CardHeader>
+					<div class="flex items-center gap-2">
+						<ArrowLeftRight class="size-4 text-primary" />
+						<CardTitle class="font-serif text-base">Side-by-Side Comparison</CardTitle>
+						<Badge variant="secondary" class="text-[10px]">Top {topOffers.length}</Badge>
+					</div>
+					<CardDescription>Comparing the {topOffers.length} highest-priced active offers</CardDescription>
+				</CardHeader>
+				<CardContent>
+					<div class="overflow-x-auto -mx-6 px-6">
+						<table class="w-full min-w-[500px]">
+							<thead>
+								<tr class="border-b-2">
+									<th class="pb-3 pr-4 text-left text-sm font-semibold text-muted-foreground w-36">Criteria</th>
+									{#each topOffers as offer}
+										{@const aiBadges = getAIBadges(offer.id)}
+										<th class="pb-3 px-4 text-left text-sm">
+											<div>
+												<span class="font-semibold">{offer.buyerName}</span>
+												<p class="text-xs text-muted-foreground font-normal mt-0.5">{offer.buyerAgent ?? ''}</p>
+												{#if aiBadges.length > 0}
+													<div class="mt-1 flex flex-wrap gap-1">
+														{#each aiBadges as badge}
+															<Badge variant="outline" class="text-[9px] px-1.5 py-0 h-4 {badge.color}">
+																<Sparkles class="mr-0.5 size-2" />{badge.label}
+															</Badge>
+														{/each}
+													</div>
+												{/if}
+											</div>
+										</th>
+									{/each}
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="border-b">
+									<td class="py-3 pr-4">
+										<div class="flex items-center gap-2"><DollarSign class="size-3.5 text-muted-foreground" /><span class="text-sm font-medium">Price</span></div>
+									</td>
+									{#each topOffers as offer}
+										<td class="py-3 px-4">
+											<span class="text-base font-bold {offer.id === highestPrice?.id ? 'text-green-700' : ''}">{formatCurrency(offer.price ?? 0)}</span>
+											{#if listing}
+												{@const diff = (offer.price ?? 0) - (listing.price ?? 0)}
+												<p class="text-[10px] mt-0.5 {diff >= 0 ? 'text-green-600' : 'text-red-600'}">
+													{diff >= 0 ? '+' : ''}{formatCurrency(diff)} vs list
+												</p>
+											{/if}
+										</td>
+									{/each}
+								</tr>
+								<tr class="border-b bg-muted/20">
+									<td class="py-3 pr-4">
+										<div class="flex items-center gap-2"><ShieldCheck class="size-3.5 text-muted-foreground" /><span class="text-sm font-medium">Earnest Deposit</span></div>
+									</td>
+									{#each topOffers as offer}
+										<td class="py-3 px-4">
+											<span class="text-sm font-medium">{formatCurrency(offer.earnestDeposit ?? 0)}</span>
+											<p class="text-[10px] text-muted-foreground mt-0.5">{(offer.price ?? 0) > 0 ? (((offer.earnestDeposit ?? 0) / (offer.price ?? 1)) * 100).toFixed(1) : 0}% of price</p>
+										</td>
+									{/each}
+								</tr>
+								<tr class="border-b">
+									<td class="py-3 pr-4">
+										<div class="flex items-center gap-2"><Banknote class="size-3.5 text-muted-foreground" /><span class="text-sm font-medium">Financing</span></div>
+									</td>
+									{#each topOffers as offer}
+										<td class="py-3 px-4"><span class="text-sm">{offer.financingType ?? 'N/A'}</span></td>
+									{/each}
+								</tr>
+								<tr class="border-b bg-muted/20">
+									<td class="py-3 pr-4">
+										<div class="flex items-center gap-2"><FileCheck class="size-3.5 text-muted-foreground" /><span class="text-sm font-medium">Contingencies</span></div>
+									</td>
+									{#each topOffers as offer}
+										{@const contingencies = (offer.contingencies ?? []) as string[]}
+										<td class="py-3 px-4">
+											{#if contingencies.length > 0}
+												<div class="flex flex-wrap gap-1">
+													{#each contingencies as c}
+														<Badge variant="secondary" class="text-[10px] font-normal">{c}</Badge>
+													{/each}
+												</div>
+											{:else}
+												<Badge variant="outline" class="text-[10px] text-green-700 border-green-300">None</Badge>
+											{/if}
+										</td>
+									{/each}
+								</tr>
+								<tr class="border-b">
+									<td class="py-3 pr-4">
+										<div class="flex items-center gap-2"><Calendar class="size-3.5 text-muted-foreground" /><span class="text-sm font-medium">Close Date</span></div>
+									</td>
+									{#each topOffers as offer}
+										<td class="py-3 px-4">
+											<span class="text-sm {offer.id === fastestClose?.id ? 'font-medium text-blue-700' : ''}">{formatDate(offer.closeDate)}</span>
+										</td>
+									{/each}
+								</tr>
+								<tr>
+									<td class="py-3 pr-4">
+										<div class="flex items-center gap-2"><Badge variant="outline" class="text-[10px]">Status</Badge></div>
+									</td>
+									{#each topOffers as offer}
+										<td class="py-3 px-4">
+											<Badge variant="outline" class="text-[10px] {getStatusBadge(offer.status)}">{getStageLabel(offer.status)}</Badge>
+										</td>
+									{/each}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</CardContent>
+			</Card>
+		{/if}
 
 		{#if listingOffers.length > 0}
 			<!-- Offer Status Pipeline -->

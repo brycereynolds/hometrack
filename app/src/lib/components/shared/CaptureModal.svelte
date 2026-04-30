@@ -12,7 +12,9 @@
 		X,
 		Video,
 		Loader2,
-		Tag
+		Tag,
+		ArrowLeft,
+		MapPin
 	} from 'lucide-svelte';
 	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
@@ -26,8 +28,12 @@
 
 	let { open = $bindable(false), listings, teamId }: Props = $props();
 
-	// Form state
+	// Step state
+	let step = $state<1 | 2>(1);
 	let selectedListing = $state('');
+	let selectedListingName = $state('');
+
+	// Form state
 	let selectedTag = $state<string>('showing');
 	let noteText = $state('');
 	let saving = $state(false);
@@ -71,6 +77,48 @@
 	const waveformBars = Array.from({ length: 30 }, (_, i) => ({
 		height: 20 + Math.sin(i * 0.5) * 15 + Math.random() * 20
 	}));
+
+	// Recent listings (first 4 active listings)
+	const recentListings = $derived(
+		listings.slice(0, 4).map((l: any) => ({
+			id: l.id,
+			name: l.property.address,
+			city: l.property.city
+		}))
+	);
+
+	// Autocomplete search value (for step 1)
+	let autocompleteValue = $state('');
+
+	// Watch autocomplete selection and advance to step 2
+	$effect(() => {
+		if (step === 1 && autocompleteValue) {
+			const match = listings.find((l: any) => l.id === autocompleteValue);
+			if (match) {
+				selectProperty(match.id, match.property.address);
+			}
+		}
+	});
+
+	// ── Step navigation ──
+
+	function selectProperty(id: string, name: string) {
+		selectedListing = id;
+		selectedListingName = name;
+		autocompleteValue = '';
+		step = 2;
+	}
+
+	function skipProperty() {
+		selectedListing = '';
+		selectedListingName = 'General Note';
+		autocompleteValue = '';
+		step = 2;
+	}
+
+	function goBack() {
+		step = 1;
+	}
 
 	// ── Recording functions ──
 
@@ -315,7 +363,10 @@
 	function resetForm() {
 		noteText = '';
 		selectedListing = '';
+		selectedListingName = '';
 		selectedTag = 'showing';
+		autocompleteValue = '';
+		step = 1;
 		discardRecording();
 		attachments.forEach((a) => {
 			if (a.previewUrl) URL.revokeObjectURL(a.previewUrl);
@@ -340,165 +391,218 @@
 </script>
 
 <Dialog.Root bind:open onOpenChange={(v) => { if (!v) resetAndClose(); }}>
-	<Dialog.Content class="sm:max-w-md max-h-[90svh] w-[calc(100%-1rem)] md:w-auto overflow-y-auto" onOpenAutoFocus={(e) => e.preventDefault()}>
-		<Dialog.Header>
-			<Dialog.Title class="font-serif">Capture Field Note</Dialog.Title>
-			<Dialog.Description>Record, type, or attach media</Dialog.Description>
-		</Dialog.Header>
+	<Dialog.Content class="sm:max-w-md max-h-[90svh] w-[calc(100%-1rem)] md:w-auto overflow-y-auto" onOpenAutoFocus={(e: Event) => e.preventDefault()}>
 
-		<!-- Listing selector -->
-		<div>
-			<label for="listing-select" class="mb-1.5 block text-sm font-medium">Associate with listing</label>
-			<Autocomplete
-				items={[
-					{ value: '', label: 'General (no listing)' },
-					...listings.map((l: any) => ({ value: l.id, label: l.property.address, subtitle: l.property.city }))
-				]}
-				bind:value={selectedListing}
-				placeholder="Search listings..."
-			/>
-		</div>
+		{#if step === 1}
+			<!-- ═══════════════════════════════════ -->
+			<!-- STEP 1: Select Property             -->
+			<!-- ═══════════════════════════════════ -->
+			<Dialog.Header>
+				<Dialog.Title class="font-serif">Capture Field Note</Dialog.Title>
+				<Dialog.Description>Which property is this for?</Dialog.Description>
+			</Dialog.Header>
 
-		<!-- Tag selector -->
-		<div class="flex gap-2 flex-wrap">
-			{#each tags as tag}
+			<!-- Listing search -->
+			<div>
+				<Autocomplete
+					items={listings.map((l: any) => ({ value: l.id, label: l.property.address, subtitle: l.property.city }))}
+					bind:value={autocompleteValue}
+					placeholder="Search listings..."
+					autofocus={false}
+				/>
+			</div>
+
+			<!-- Recent listings -->
+			{#if recentListings.length > 0}
+				<div class="space-y-1">
+					<p class="text-xs font-medium text-muted-foreground uppercase tracking-wide">Recent</p>
+					<div class="space-y-1">
+						{#each recentListings as listing}
+							<button
+								type="button"
+								class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm transition-colors hover:bg-muted"
+								onclick={() => selectProperty(listing.id, listing.name)}
+							>
+								<MapPin class="size-4 shrink-0 text-muted-foreground" />
+								<div class="min-w-0 flex-1">
+									<span class="block truncate font-medium">{listing.name}</span>
+									{#if listing.city}
+										<span class="block truncate text-xs text-muted-foreground">{listing.city}</span>
+									{/if}
+								</div>
+							</button>
+						{/each}
+					</div>
+				</div>
+			{/if}
+
+			<!-- Skip button -->
+			<div class="pt-2">
+				<Button variant="ghost" class="w-full text-muted-foreground" onclick={skipProperty}>
+					Skip — General Note
+				</Button>
+			</div>
+
+		{:else}
+			<!-- ═══════════════════════════════════ -->
+			<!-- STEP 2: Capture                     -->
+			<!-- ═══════════════════════════════════ -->
+			<Dialog.Header class="flex-row items-center gap-2 space-y-0">
 				<button
 					type="button"
-					class="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors
-						{selectedTag === tag.id ? tag.color + ' border-current' : 'bg-transparent text-muted-foreground hover:bg-muted'}"
-					onclick={() => { selectedTag = tag.id; }}
+					class="flex size-8 shrink-0 items-center justify-center rounded-md transition-colors hover:bg-muted"
+					onclick={goBack}
 				>
-					<Tag class="size-3" />
-					{tag.label}
+					<ArrowLeft class="size-4" />
 				</button>
-			{/each}
-		</div>
-
-		<!-- Note text area -->
-		<div>
-			<textarea
-				bind:value={noteText}
-				placeholder="Type or paste your note here..."
-				class="min-h-[120px] w-full resize-none rounded-lg border bg-transparent p-3 text-sm leading-relaxed placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-			></textarea>
-		</div>
-
-		<!-- Action buttons: Record + Attach -->
-		<div class="flex items-center gap-2">
-			{#if !isRecording && !hasRecording}
-				<Button variant="outline" size="sm" class="gap-1.5 h-10 md:h-8 px-4 md:px-3" onclick={startRecording}>
-					<Mic class="size-5 md:size-4" />
-					Record
-				</Button>
-			{/if}
-			<Button variant="outline" size="sm" class="gap-1.5" onclick={() => fileInput.click()}>
-				<Paperclip class="size-4" />
-				Attach
-			</Button>
-			<input
-				bind:this={fileInput}
-				type="file"
-				accept="image/jpeg,image/png,image/heic,image/webp,video/mp4,video/quicktime,video/webm"
-				multiple
-				class="hidden"
-				onchange={handleFileSelect}
-			/>
-		</div>
-
-		<!-- Recording state -->
-		{#if isRecording}
-			<div class="rounded-lg border bg-muted/30 p-4">
-				<div class="flex h-12 items-center justify-center gap-0.5 mb-3">
-					{#each waveformBars as bar, i}
-						<div
-							class="w-1 rounded-full bg-primary"
-							style="height: {bar.height}%; animation: voice-pulse 0.8s ease-in-out {i * 0.05}s infinite alternate"
-						></div>
-					{/each}
+				<div class="min-w-0 flex-1">
+					<Dialog.Title class="font-serif truncate">{selectedListingName || 'General Note'}</Dialog.Title>
+					<Dialog.Description class="sr-only">Capture your note</Dialog.Description>
 				</div>
-				<div class="flex items-center justify-center gap-3">
-					<div class="flex items-center gap-2">
-						<div class="size-2 animate-pulse rounded-full bg-primary"></div>
-						<span class="font-mono text-lg font-bold text-primary">{formatTime(recordingTime)}</span>
-						<span class="text-sm text-muted-foreground">Recording...</span>
-					</div>
-					<Button variant="destructive" size="sm" class="gap-1.5" onclick={stopRecording}>
-						<Square class="size-3.5" />
-						Stop
-					</Button>
-				</div>
-			</div>
-		{/if}
+			</Dialog.Header>
 
-		<!-- Audio attached indicator -->
-		{#if hasRecording && !isRecording}
-			<div class="flex items-center gap-2 rounded-lg border bg-muted/30 px-3 py-2">
-				<Mic class="size-4 text-primary" />
-				<span class="flex-1 text-sm font-medium">Audio attached ({formatTime(recordingTime)})</span>
-				<Button variant="ghost" size="icon" class="size-7" onclick={togglePlayback}>
-					{#if isPlaying}
-						<Pause class="size-3.5" />
-					{:else}
-						<Play class="size-3.5 ml-0.5" />
-					{/if}
-				</Button>
-				<Button variant="ghost" size="icon" class="size-7 text-destructive" onclick={discardRecording}>
-					<Trash2 class="size-3.5" />
-				</Button>
-			</div>
-		{/if}
-
-		<!-- Attachments preview -->
-		{#if attachments.length > 0}
+			<!-- Tag selector -->
 			<div class="flex gap-2 flex-wrap">
-				{#each attachments as att, i}
-					<div class="relative group">
-						{#if att.isVideo}
-							<div class="flex size-16 flex-col items-center justify-center gap-0.5 rounded-lg bg-muted text-muted-foreground">
-								{#if att.uploading}
-									<Loader2 class="size-4 animate-spin" />
-								{:else}
-									<Video class="size-4" />
-								{/if}
-								<span class="text-[8px] text-center px-0.5 leading-tight">{truncateName(att.file.name)}</span>
-							</div>
-						{:else if att.previewUrl}
-							<div class="relative">
-								<img src={att.previewUrl} alt="Attachment {i + 1}" class="size-16 rounded-lg object-cover" />
-								{#if att.uploading}
-									<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40">
-										<Loader2 class="size-4 animate-spin text-white" />
-									</div>
-								{/if}
-							</div>
-						{/if}
-						{#if att.error}
-							<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-destructive/20 p-1">
-								<span class="text-[8px] text-destructive font-medium text-center">Failed</span>
-							</div>
-						{/if}
-						<button
-							type="button"
-							class="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity"
-							onclick={() => removeAttachment(i)}
-						>
-							<X class="size-2.5" />
-						</button>
-					</div>
+				{#each tags as tag}
+					<button
+						type="button"
+						class="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors
+							{selectedTag === tag.id ? tag.color + ' border-current' : 'bg-transparent text-muted-foreground hover:bg-muted'}"
+						onclick={() => { selectedTag = tag.id; }}
+					>
+						<Tag class="size-3" />
+						{tag.label}
+					</button>
 				{/each}
 			</div>
+
+			<!-- Note text area -->
+			<div>
+				<textarea
+					bind:value={noteText}
+					placeholder="Type or paste your note here..."
+					class="min-h-[120px] w-full resize-none rounded-lg border bg-transparent p-3 text-sm leading-relaxed placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+				></textarea>
+			</div>
+
+			<!-- Action buttons: Record + Attach -->
+			<div class="flex items-center gap-2">
+				{#if !isRecording && !hasRecording}
+					<Button variant="outline" size="sm" class="gap-1.5 h-10 md:h-8 px-4 md:px-3" onclick={startRecording}>
+						<Mic class="size-5 md:size-4" />
+						Record
+					</Button>
+				{/if}
+				<Button variant="outline" size="sm" class="gap-1.5" onclick={() => fileInput.click()}>
+					<Paperclip class="size-4" />
+					Attach
+				</Button>
+				<input
+					bind:this={fileInput}
+					type="file"
+					accept="image/jpeg,image/png,image/heic,image/webp,video/mp4,video/quicktime,video/webm"
+					multiple
+					class="hidden"
+					onchange={handleFileSelect}
+				/>
+			</div>
+
+			<!-- Recording state -->
+			{#if isRecording}
+				<div class="rounded-lg border bg-muted/30 p-4">
+					<div class="flex h-12 items-center justify-center gap-0.5 mb-3">
+						{#each waveformBars as bar, i}
+							<div
+								class="w-1 rounded-full bg-primary"
+								style="height: {bar.height}%; animation: voice-pulse 0.8s ease-in-out {i * 0.05}s infinite alternate"
+							></div>
+						{/each}
+					</div>
+					<div class="flex items-center justify-center gap-3">
+						<div class="flex items-center gap-2">
+							<div class="size-2 animate-pulse rounded-full bg-primary"></div>
+							<span class="font-mono text-lg font-bold text-primary">{formatTime(recordingTime)}</span>
+							<span class="text-sm text-muted-foreground">Recording...</span>
+						</div>
+						<Button variant="destructive" size="sm" class="gap-1.5" onclick={stopRecording}>
+							<Square class="size-3.5" />
+							Stop
+						</Button>
+					</div>
+				</div>
+			{/if}
+
+			<!-- Audio attached indicator -->
+			{#if hasRecording && !isRecording}
+				<div class="flex items-center gap-2 rounded-lg border bg-muted/30 px-3 py-2">
+					<Mic class="size-4 text-primary" />
+					<span class="flex-1 text-sm font-medium">Audio attached ({formatTime(recordingTime)})</span>
+					<Button variant="ghost" size="icon" class="size-7" onclick={togglePlayback}>
+						{#if isPlaying}
+							<Pause class="size-3.5" />
+						{:else}
+							<Play class="size-3.5 ml-0.5" />
+						{/if}
+					</Button>
+					<Button variant="ghost" size="icon" class="size-7 text-destructive" onclick={discardRecording}>
+						<Trash2 class="size-3.5" />
+					</Button>
+				</div>
+			{/if}
+
+			<!-- Attachments preview -->
+			{#if attachments.length > 0}
+				<div class="flex gap-2 flex-wrap">
+					{#each attachments as att, i}
+						<div class="relative group">
+							{#if att.isVideo}
+								<div class="flex size-16 flex-col items-center justify-center gap-0.5 rounded-lg bg-muted text-muted-foreground">
+									{#if att.uploading}
+										<Loader2 class="size-4 animate-spin" />
+									{:else}
+										<Video class="size-4" />
+									{/if}
+									<span class="text-[8px] text-center px-0.5 leading-tight">{truncateName(att.file.name)}</span>
+								</div>
+							{:else if att.previewUrl}
+								<div class="relative">
+									<img src={att.previewUrl} alt="Attachment {i + 1}" class="size-16 rounded-lg object-cover" />
+									{#if att.uploading}
+										<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40">
+											<Loader2 class="size-4 animate-spin text-white" />
+										</div>
+									{/if}
+								</div>
+							{/if}
+							{#if att.error}
+								<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-destructive/20 p-1">
+									<span class="text-[8px] text-destructive font-medium text-center">Failed</span>
+								</div>
+							{/if}
+							<button
+								type="button"
+								class="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity"
+								onclick={() => removeAttachment(i)}
+							>
+								<X class="size-2.5" />
+							</button>
+						</div>
+					{/each}
+				</div>
+			{/if}
+
+			<!-- Footer -->
+			<Dialog.Footer class="flex gap-2 sm:justify-end">
+				<Button variant="outline" onclick={resetAndClose} disabled={saving}>
+					Cancel
+				</Button>
+				<Button class="gap-1.5" onclick={save} disabled={!canSave || saving}>
+					<Save class="size-4" />
+					{saving ? 'Saving...' : 'Save Note'}
+				</Button>
+			</Dialog.Footer>
 		{/if}
 
-		<!-- Footer -->
-		<Dialog.Footer class="flex gap-2 sm:justify-end">
-			<Button variant="outline" onclick={resetAndClose} disabled={saving}>
-				Cancel
-			</Button>
-			<Button class="gap-1.5" onclick={save} disabled={!canSave || saving}>
-				<Save class="size-4" />
-				{saving ? 'Saving...' : 'Save Note'}
-			</Button>
-		</Dialog.Footer>
 	</Dialog.Content>
 </Dialog.Root>
 

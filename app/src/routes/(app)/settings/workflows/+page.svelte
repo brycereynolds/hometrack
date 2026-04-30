@@ -342,7 +342,7 @@
 				<!-- Tasks list -->
 				<div>
 					<div class="flex items-center justify-between mb-2">
-						<label class="text-sm font-medium">Tasks ({editorTasks.length})</label>
+						<span class="text-sm font-medium">Tasks ({editorTasks.length})</span>
 					</div>
 
 					{#if editorTasks.length === 0}

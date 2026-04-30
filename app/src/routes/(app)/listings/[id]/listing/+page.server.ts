@@ -106,6 +106,26 @@ export const actions: Actions = {
     }
   },
 
+  saveSearchArea: async ({ params, locals, request }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const formData = await request.formData();
+    const searchAreaStr = formData.get('searchArea') as string;
+
+    try {
+      const searchArea = searchAreaStr ? JSON.parse(searchAreaStr) : null;
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db
+          .update(listings)
+          .set({ searchArea, updatedAt: new Date() })
+          .where(eq(listings.id, params.id));
+      });
+      return { success: true };
+    } catch {
+      return fail(500, { error: 'Failed to save search area' });
+    }
+  },
+
   toggleConfirmedComp: async ({ locals, request }) => {
     if (!locals.user) return fail(401, { error: 'Unauthorized' });
 

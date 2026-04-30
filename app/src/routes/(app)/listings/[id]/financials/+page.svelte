@@ -78,7 +78,7 @@
 							{ label: 'Actual', data: categories.map((c: any) => c.actual), backgroundColor: '#C4704B', borderColor: '#C4704B', borderWidth: 0, borderRadius: 4 }
 						]
 					},
-					options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { callback: (value) => formatCurrency(Number(value)), font: { size: 10 } }, grid: { color: '#f1f1f1' } }, x: { ticks: { font: { size: 10 } }, grid: { display: false } } }, plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyleWidth: 8, font: { size: 11 }, padding: 16 } }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y)}` } } } }
+					options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { callback: (value) => formatCurrency(Number(value)), font: { size: 10 } }, grid: { color: '#f1f1f1' } }, x: { ticks: { font: { size: 10 } }, grid: { display: false } } }, plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyleWidth: 8, font: { size: 11 }, padding: 16 } }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y ?? 0)}` } } } }
 				});
 			}
 		}

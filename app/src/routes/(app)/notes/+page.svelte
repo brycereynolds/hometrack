@@ -14,23 +14,46 @@
 		ListChecks,
 		Plus
 	} from 'lucide-svelte';
-	import { page } from '$app/stores';
 
 	let { data } = $props();
-	const notes = $derived(data.fieldNotes ?? []);
+	const notes = $derived(data.notes ?? []);
 
 	let activeFilter = $state('all');
+	let activeListingFilter = $state('all');
 
 	const filters = [
 		{ id: 'all', label: 'All' },
 		{ id: 'video', label: 'Videos' },
 		{ id: 'voice_memo', label: 'Voice' },
-		{ id: 'text', label: 'Text' }
+		{ id: 'text', label: 'Text' },
+		{ id: 'photo', label: 'Photos' }
 	];
 
-	const filteredNotes = $derived(
-		activeFilter === 'all' ? notes : notes.filter((n: any) => n.mediaType === activeFilter)
-	);
+	// Unique listings from notes for the property filter dropdown
+	const uniqueListings = $derived(() => {
+		const map = new Map<string, string>();
+		for (const note of notes) {
+			if (note.listingId && note.listing?.property?.address) {
+				map.set(note.listingId, note.listing.property.address);
+			}
+		}
+		return Array.from(map.entries()).map(([id, address]) => ({ id, address }));
+	});
+
+	const filteredNotes = $derived.by(() => {
+		let result = notes;
+		if (activeFilter !== 'all') {
+			result = result.filter((n: any) => n.mediaType === activeFilter);
+		}
+		if (activeListingFilter !== 'all') {
+			if (activeListingFilter === 'general') {
+				result = result.filter((n: any) => !n.listingId);
+			} else {
+				result = result.filter((n: any) => n.listingId === activeListingFilter);
+			}
+		}
+		return result;
+	});
 
 	function timeAgo(date: any): string {
 		const d = date instanceof Date ? date : new Date(date);
@@ -68,6 +91,14 @@
 		}
 	}
 
+	function getNoteHref(note: any): string {
+		return `/notes/${note.id}`;
+	}
+
+	function getListingLabel(note: any): string {
+		return note.listing?.property?.address ?? 'General';
+	}
+
 	const tagColors: Record<string, string> = {
 		showing: 'bg-blue-500/10 text-blue-700 border-blue-200',
 		vendor: 'bg-amber-500/10 text-amber-700 border-amber-200',
@@ -85,31 +116,50 @@
 
 <div class="space-y-6">
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-		<div>
-			<h2 class="font-serif text-xl font-bold">Field Notes</h2>
-			<p class="text-sm text-muted-foreground">Walkthrough recordings and field observations</p>
+		<div class="flex items-center gap-3">
+			<h2 class="font-serif text-xl font-bold">Notes</h2>
+			<Badge variant="outline" class="text-xs">
+				{notes.length}
+			</Badge>
 		</div>
-		<Button href="/notes" size="sm">
+		<Button href="/mobile/field-notes" size="sm">
 			<Plus class="mr-1.5 size-4" />
-			View All Notes
+			Capture Note
 		</Button>
 	</div>
 
-	<!-- Filter chips -->
-	<div class="flex gap-2">
-		{#each filters as filter}
-			<button
-				class="rounded-full border px-3 py-1.5 text-xs font-medium transition-colors
-					{activeFilter === filter.id
-					? 'border-primary bg-primary/10 text-primary'
-					: 'border-border text-muted-foreground hover:bg-muted'}"
-				onclick={() => {
-					activeFilter = filter.id;
-				}}
+	<!-- Filters -->
+	<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+		<!-- Media type filter chips -->
+		<div class="flex gap-2">
+			{#each filters as filter}
+				<button
+					class="rounded-full border px-3 py-1.5 text-xs font-medium transition-colors
+						{activeFilter === filter.id
+						? 'border-primary bg-primary/10 text-primary'
+						: 'border-border text-muted-foreground hover:bg-muted'}"
+					onclick={() => {
+						activeFilter = filter.id;
+					}}
+				>
+					{filter.label}
+				</button>
+			{/each}
+		</div>
+
+		<!-- Property filter dropdown -->
+		{#if uniqueListings().length > 0}
+			<select
+				class="h-8 rounded-md border border-border bg-background px-2.5 text-xs font-medium text-foreground transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring"
+				bind:value={activeListingFilter}
 			>
-				{filter.label}
-			</button>
-		{/each}
+				<option value="all">All Properties</option>
+				<option value="general">General (no property)</option>
+				{#each uniqueListings() as listing}
+					<option value={listing.id}>{listing.address}</option>
+				{/each}
+			</select>
+		{/if}
 	</div>
 
 	{#if filteredNotes.length === 0}
@@ -121,14 +171,14 @@
 				>
 					<Video class="size-8 text-muted-foreground" />
 				</div>
-				<h3 class="font-serif text-lg font-semibold">No field notes yet</h3>
+				<h3 class="font-serif text-lg font-semibold">No notes yet</h3>
 				<p class="mt-1 max-w-sm text-sm text-muted-foreground">
-					Capture your first walkthrough — record video, voice memos, or text
+					Capture your first note — record video, voice memos, or text
 					notes from the field.
 				</p>
-				<Button href="/notes" class="mt-4" size="sm">
+				<Button href="/mobile/field-notes" class="mt-4" size="sm">
 					<Plus class="mr-1.5 size-4" />
-					View All Notes
+					Capture Note
 				</Button>
 			</CardContent>
 		</Card>
@@ -140,7 +190,7 @@
 				{@const MediaIcon = getMediaIcon(note.mediaType)}
 				{@const firstFrame = note.frames?.[0]}
 				<a
-					href="/listings/{$page.params.id}/field-notes/{note.id}"
+					href={getNoteHref(note)}
 					class="group block"
 				>
 					<Card
@@ -204,7 +254,7 @@
 								>
 									{note.summary}
 								</p>
-							{:else if note.textContent}
+							{:else if note.textContent && note.textContent !== '(attachment)'}
 								<p
 									class="mt-2 line-clamp-2 text-xs text-muted-foreground"
 								>
@@ -239,6 +289,11 @@
 									</div>
 								{/if}
 							</div>
+
+							<!-- Listing label -->
+							<p class="mt-2 truncate text-[11px] text-muted-foreground">
+								{getListingLabel(note)}
+							</p>
 						</CardContent>
 					</Card>
 				</a>

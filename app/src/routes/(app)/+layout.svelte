@@ -19,6 +19,7 @@
 		Users,
 		Wrench,
 		BarChart3,
+		FileText,
 		Settings,
 		LogOut,
 		ChevronUp,
@@ -79,6 +80,7 @@
 	const navItems = $derived([
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 		{ href: '/listings', label: 'Listings', icon: Home, badge: String(listings.length) },
+		{ href: '/notes', label: 'Notes', icon: FileText },
 		{ href: '/contacts', label: 'Contacts', icon: Users },
 		{ href: '/vendors', label: 'Vendors', icon: Wrench },
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }
@@ -144,7 +146,7 @@
 		<Sidebar.SidebarHeader>
 			<Sidebar.SidebarMenu>
 				<Sidebar.SidebarMenuItem>
-					<Sidebar.SidebarMenuButton size="lg" class="data-[state=open]:bg-sidebar-accent" asChild>
+					<Sidebar.SidebarMenuButton size="lg" class="data-[state=open]:bg-sidebar-accent">
 						{#snippet child({ props })}
 							<a href="/dashboard" {...props} class="{props.class} no-underline">
 								<div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg text-sm font-bold">
@@ -169,7 +171,7 @@
 					<Sidebar.SidebarMenu>
 						{#each navItems as item}
 							<Sidebar.SidebarMenuItem>
-								<Sidebar.SidebarMenuButton asChild>
+								<Sidebar.SidebarMenuButton>
 									{#snippet child({ props })}
 										<a href={item.href} {...props}>
 											<item.icon class="size-4" />
@@ -194,7 +196,7 @@
 						{#each quickActions as action}
 							<Sidebar.SidebarMenuItem>
 								{#if action.href}
-									<Sidebar.SidebarMenuButton asChild>
+									<Sidebar.SidebarMenuButton>
 										{#snippet child({ props })}
 											<a href={action.href} {...props}>
 												<action.icon class="size-4" />
@@ -248,7 +250,7 @@
 			<Sidebar.SidebarMenu>
 				<!-- Settings link -->
 				<Sidebar.SidebarMenuItem>
-					<Sidebar.SidebarMenuButton asChild>
+					<Sidebar.SidebarMenuButton>
 						{#snippet child({ props })}
 							<a href="/settings" {...props}>
 								<Settings class="size-4" />

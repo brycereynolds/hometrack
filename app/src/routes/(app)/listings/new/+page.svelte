@@ -140,7 +140,7 @@
 					toast.success('Listing created successfully');
 					await update();
 				} else if (result.type === 'failure') {
-					toast.error(result.data?.error ?? 'Something went wrong');
+					toast.error(String(result.data?.error ?? 'Something went wrong'));
 				} else {
 					await update();
 				}

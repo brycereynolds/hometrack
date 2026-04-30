@@ -121,7 +121,7 @@
 						callbacks: {
 							label: (ctx) => {
 								if (ctx.datasetIndex === 0) {
-									return `Pipeline: $${(ctx.parsed.y / 1000000).toFixed(1)}M`;
+									return `Pipeline: $${((ctx.parsed.y ?? 0) / 1000000).toFixed(1)}M`;
 								}
 								return `Closed: ${pipelineValueTimeSeries.closedDeals[ctx.dataIndex]} deals`;
 							}

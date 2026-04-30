@@ -132,7 +132,7 @@
 										<td class="py-3 text-center text-muted-foreground">{comp.distance}</td>
 										<td class="py-3 text-right">
 											<div class="space-y-0.5">
-												{#each (comp.adjustments ?? []) as adj}
+												{#each (Array.isArray(comp.adjustments) ? comp.adjustments : []) as adj}
 													<div class="text-[10px] {(adj as any).amount >= 0 ? 'text-green-600' : 'text-red-600'}">{(adj as any).label}: {(adj as any).amount >= 0 ? '+' : ''}{formatCurrency((adj as any).amount)}</div>
 												{/each}
 											</div>

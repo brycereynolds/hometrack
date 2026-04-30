@@ -10,6 +10,29 @@ with workflow.unsafe.imports_passed_through():
     from src.activities.search_comps import search_comps
 
 
+def _point_in_polygon(lat: float, lng: float, polygon: list[list[float]]) -> bool:
+    """Ray-casting algorithm to check if a point is inside a polygon."""
+    n = len(polygon)
+    inside = False
+    j = n - 1
+    for i in range(n):
+        yi, xi = polygon[i]
+        yj, xj = polygon[j]
+        if ((yi > lat) != (yj > lat)) and (lng < (xj - xi) * (lat - yi) / (yj - yi) + xi):
+            inside = not inside
+        j = i
+    return inside
+
+
+def _filter_comps_by_polygon(comps: list[dict], polygon: list[list[float]]) -> list[dict]:
+    """Keep only comps whose lat/lng falls inside the polygon."""
+    return [
+        c for c in comps
+        if c.get("lat") is not None and c.get("lng") is not None
+        and _point_in_polygon(c["lat"], c["lng"], polygon)
+    ]
+
+
 @workflow.defn
 class MarketAnalysis:
     """Workflow for running a market analysis on a listing.
@@ -25,6 +48,11 @@ class MarketAnalysis:
         lat = input_data.get("lat")
         lng = input_data.get("lng")
         search_params = input_data.get("searchParams", {})
+
+        # Override coordinates if custom search area was provided
+        if search_params.get("lat") is not None and search_params.get("lng") is not None:
+            lat = search_params["lat"]
+            lng = search_params["lng"]
 
         # 1. Geocode if no lat/lng provided
         if not lat or not lng:
@@ -76,6 +104,12 @@ class MarketAnalysis:
             heartbeat_timeout=timedelta(seconds=30),
             retry_policy=RetryPolicy(maximum_attempts=3),
         )
+
+        # 3b. If polygon was provided, filter to only comps inside it
+        polygon = search_params.get("polygon")
+        if polygon and len(polygon) >= 3:
+            sold_comps = _filter_comps_by_polygon(sold_comps, polygon)
+            active_listings = _filter_comps_by_polygon(active_listings, polygon)
 
         # 4. AI analysis
         analyze_params: dict = {

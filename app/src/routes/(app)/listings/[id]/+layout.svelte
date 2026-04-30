@@ -234,7 +234,7 @@
 		</div>
 
 		<!-- Tab Navigation: Mobile dropdown -->
-		<div class="md:hidden px-4 py-2 border-b -mx-4">
+		<div class="lg:hidden px-4 py-2 border-b -mx-4">
 			<select
 				class="w-full h-10 rounded-md border border-input bg-background px-3 text-sm"
 				value={currentTab()}
@@ -250,7 +250,7 @@
 		</div>
 
 		<!-- Tab Navigation: Desktop horizontal tabs -->
-		<div class="border-b -mx-4 md:-mx-6 lg:-mx-8 relative hidden md:block">
+		<div class="border-b -mx-4 md:-mx-6 lg:-mx-8 relative hidden lg:block">
 			<div
 				bind:this={tabsContainer}
 				class="flex overflow-x-auto scrollbar-hide px-4 md:px-6 lg:px-8"

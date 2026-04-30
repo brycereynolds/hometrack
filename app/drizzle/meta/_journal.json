@@ -15,6 +15,13 @@
       "when": 1777574078328,
       "tag": "0001_nifty_pyro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1777579575648,
+      "tag": "0002_faulty_gwen_stacy",
+      "breakpoints": true
     }
   ]
 }

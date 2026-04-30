@@ -1,9 +1,10 @@
 <svelte:head>
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css" />
 </svelte:head>
 
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount, onDestroy, untrack } from 'svelte';
 	import { invalidateAll, goto } from '$app/navigation';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
@@ -38,6 +39,12 @@
 		Star,
 		Pencil,
 		Settings,
+		Circle,
+		Pentagon,
+		RotateCcw,
+		Trash2,
+		Search,
+		Move,
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -122,6 +129,32 @@
 	let radiusCircle: any = null;
 	let L: any = null;
 
+	// Parse persisted search area from listing (initial snapshot)
+	const savedSearchArea = untrack(() => listing?.searchArea as { type: string; lat?: number; lng?: number; radius?: number; coordinates?: [number, number][] } | null);
+
+	// Map search mode — initialize from saved search area
+	const initSavedRadius = savedSearchArea?.type === 'radius' && savedSearchArea.lat && savedSearchArea.lng;
+	const initSavedPolygon = savedSearchArea?.type === 'polygon' && savedSearchArea.coordinates;
+
+	let mapMode = $state<'radius' | 'polygon'>(initSavedPolygon ? 'polygon' : 'radius');
+	let movingRadius = $state(false);
+	let circleMoved = $state(initSavedRadius ? true : false);
+	let circleCenter = $state<{ lat: number; lng: number } | null>(
+		initSavedRadius ? { lat: savedSearchArea!.lat!, lng: savedSearchArea!.lng! } : null
+	);
+	let polygonLayer: any = null;
+	let polygonCoords = $state<[number, number][] | null>(
+		initSavedPolygon ? savedSearchArea!.coordinates! : null
+	);
+	let drawControl: any = null;
+	let drawnItems: any = null;
+	let searchAreaDirty = $state(false);
+
+	// Apply saved radius value
+	if (initSavedRadius && savedSearchArea?.radius) {
+		radiusValue = savedSearchArea.radius;
+	}
+
 	// Fields that live on the property join rather than comp_listings
 	const propertyFields = new Set(['beds', 'baths', 'sqft', 'lotSqft']);
 
@@ -158,16 +191,43 @@
 		analysisLoading = true;
 		analysisStage = 0;
 
+		// Build search params with custom search area
+		const searchParamsPayload: Record<string, unknown> = {
+			radius: radiusValue,
+			priceInput: priceInput || undefined,
+		};
+
+		// If circle was moved, pass custom center
+		if (mapMode === 'radius' && circleMoved && circleCenter) {
+			searchParamsPayload.lat = circleCenter.lat;
+			searchParamsPayload.lng = circleCenter.lng;
+		}
+
+		// If polygon mode, compute centroid + bounding radius
+		if (mapMode === 'polygon' && polygonCoords && polygonCoords.length >= 3) {
+			const centroid = polygonCoords.reduce(
+				(acc, [lat, lng]) => ({ lat: acc.lat + lat / polygonCoords!.length, lng: acc.lng + lng / polygonCoords!.length }),
+				{ lat: 0, lng: 0 }
+			);
+			// Compute max distance from centroid to any vertex (in miles approx)
+			const maxDist = polygonCoords.reduce((max, [lat, lng]) => {
+				const dLat = (lat - centroid.lat) * 69; // ~69 miles per degree lat
+				const dLng = (lng - centroid.lng) * 69 * Math.cos(centroid.lat * Math.PI / 180);
+				return Math.max(max, Math.sqrt(dLat * dLat + dLng * dLng));
+			}, 0);
+			searchParamsPayload.lat = centroid.lat;
+			searchParamsPayload.lng = centroid.lng;
+			searchParamsPayload.radius = Math.min(Math.max(maxDist * 1.1, 0.25), 5); // Add 10% buffer, clamp
+			searchParamsPayload.polygon = polygonCoords;
+		}
+
 		try {
 			const res = await fetch('/api/market-analysis', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					listingId: listing.id,
-					searchParams: {
-						radius: radiusValue,
-						priceInput: priceInput || undefined,
-					},
+					searchParams: searchParamsPayload,
 					prompt: analysisPrompt || undefined,
 				}),
 			});
@@ -309,6 +369,7 @@
 		if (!prop?.lat || !prop?.lng) return;
 
 		L = (await import('leaflet')).default;
+		(window as any).L = L; // leaflet-draw needs the global L
 		map = L.map(mapContainer).setView([prop.lat, prop.lng], 14);
 
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -327,7 +388,13 @@
 			.bindPopup(`<strong>${prop.address}</strong><br/>${prop.city}, ${prop.state}`);
 
 		updateMapComps();
-		updateRadiusCircle();
+
+		// Initialize the correct mode based on saved search area
+		if (mapMode === 'polygon') {
+			initPolygonDrawing();
+		} else {
+			updateRadiusCircle();
+		}
 	});
 
 	function updateMapComps() {
@@ -385,14 +452,241 @@
 		if (!map || !L || !prop?.lat || !prop?.lng) return;
 
 		if (radiusCircle) map.removeLayer(radiusCircle);
-		radiusCircle = L.circle([prop.lat, prop.lng], {
+
+		const center = circleCenter ?? { lat: prop.lat, lng: prop.lng };
+		radiusCircle = L.circle([center.lat, center.lng], {
 			radius: radiusValue * 1609.34,
 			color: '#b45309',
 			opacity: 0.6,
 			fillColor: '#b45309',
 			fillOpacity: 0.15,
 			weight: 3,
+			className: 'draggable-circle',
 		}).addTo(map);
+
+		// Make circle draggable (only when movingRadius is active)
+		let isDragging = false;
+		let dragOffset = { lat: 0, lng: 0 };
+
+		radiusCircle.on('mousedown', (e: any) => {
+			if (!movingRadius) return;
+			isDragging = true;
+			const circleLatLng = radiusCircle.getLatLng();
+			dragOffset = {
+				lat: circleLatLng.lat - e.latlng.lat,
+				lng: circleLatLng.lng - e.latlng.lng,
+			};
+			map.dragging.disable();
+			map.on('mousemove', onDrag);
+			map.on('mouseup', onDragEnd);
+			L.DomUtil.addClass(map.getContainer(), 'dragging-circle');
+		});
+
+		function onDrag(e: any) {
+			if (!isDragging) return;
+			const newLat = e.latlng.lat + dragOffset.lat;
+			const newLng = e.latlng.lng + dragOffset.lng;
+			radiusCircle.setLatLng([newLat, newLng]);
+		}
+
+		function onDragEnd(e: any) {
+			if (!isDragging) return;
+			isDragging = false;
+			map.dragging.enable();
+			map.off('mousemove', onDrag);
+			map.off('mouseup', onDragEnd);
+			L.DomUtil.removeClass(map.getContainer(), 'dragging-circle');
+
+			const newCenter = radiusCircle.getLatLng();
+			circleCenter = { lat: newCenter.lat, lng: newCenter.lng };
+			circleMoved = true;
+			searchAreaDirty = true;
+		}
+
+		// Touch support
+		radiusCircle.on('touchstart', (e: any) => {
+			if (!movingRadius) return;
+			isDragging = true;
+			const circleLatLng = radiusCircle.getLatLng();
+			const touch = e.originalEvent.touches[0];
+			const point = map.containerPointToLatLng(L.point(touch.clientX - map.getContainer().getBoundingClientRect().left, touch.clientY - map.getContainer().getBoundingClientRect().top));
+			dragOffset = {
+				lat: circleLatLng.lat - point.lat,
+				lng: circleLatLng.lng - point.lng,
+			};
+			map.dragging.disable();
+		});
+
+		map.getContainer().addEventListener('touchmove', (e: TouchEvent) => {
+			if (!isDragging) return;
+			e.preventDefault();
+			const touch = e.touches[0];
+			const rect = map.getContainer().getBoundingClientRect();
+			const point = map.containerPointToLatLng(L.point(touch.clientX - rect.left, touch.clientY - rect.top));
+			const newLat = point.lat + dragOffset.lat;
+			const newLng = point.lng + dragOffset.lng;
+			radiusCircle.setLatLng([newLat, newLng]);
+		}, { passive: false });
+
+		map.getContainer().addEventListener('touchend', () => {
+			if (!isDragging) return;
+			isDragging = false;
+			map.dragging.enable();
+			const newCenter = radiusCircle.getLatLng();
+			circleCenter = { lat: newCenter.lat, lng: newCenter.lng };
+			circleMoved = true;
+			searchAreaDirty = true;
+		});
+	}
+
+	function resetCircle() {
+		circleCenter = null;
+		circleMoved = false;
+		movingRadius = false;
+		searchAreaDirty = true;
+		updateRadiusCircle();
+	}
+
+	let drawInitialized = false;
+	let activeDrawHandler: any = null;
+	let isDrawing = $state(false);
+
+	const polygonShapeOptions = {
+		color: '#2563eb',
+		fillColor: '#2563eb',
+		fillOpacity: 0.15,
+		weight: 3,
+	};
+
+	function ensureDrawLayer() {
+		if (!drawnItems) {
+			drawnItems = new L.FeatureGroup();
+			map.addLayer(drawnItems);
+		}
+
+		if (!drawInitialized) {
+			drawInitialized = true;
+
+			map.on('draw:created', (e: any) => {
+				if (polygonLayer) drawnItems.removeLayer(polygonLayer);
+				polygonLayer = e.layer;
+				drawnItems.addLayer(polygonLayer);
+				const latlngs = polygonLayer.getLatLngs()[0];
+				polygonCoords = latlngs.map((ll: any) => [ll.lat, ll.lng] as [number, number]);
+				searchAreaDirty = true;
+				isDrawing = false;
+				activeDrawHandler = null;
+			});
+		}
+	}
+
+	function initPolygonDrawing() {
+		if (!map || !L) return;
+
+		// leaflet-draw augments the global window.L, so we must ensure
+		// our local L reference is also the global one.
+		(window as any).L = L;
+
+		import('leaflet-draw').then(() => {
+			ensureDrawLayer();
+
+			// Restore saved polygon
+			if (polygonCoords && !polygonLayer) {
+				const savedPolygon = L.polygon(polygonCoords, polygonShapeOptions);
+				drawnItems.addLayer(savedPolygon);
+				polygonLayer = savedPolygon;
+			}
+
+			// If no polygon exists yet, immediately start drawing
+			if (!polygonLayer) {
+				startDrawing();
+			}
+		});
+	}
+
+	function startDrawing() {
+		if (!map || !L) return;
+
+		// Cancel any active draw handler
+		if (activeDrawHandler) {
+			activeDrawHandler.disable();
+		}
+
+		ensureDrawLayer();
+
+		activeDrawHandler = new L.Draw.Polygon(map, {
+			allowIntersection: false,
+			shapeOptions: polygonShapeOptions,
+		});
+		activeDrawHandler.enable();
+		isDrawing = true;
+	}
+
+	function setMapMode(mode: 'radius' | 'polygon') {
+		if (mode === mapMode) return;
+		mapMode = mode;
+
+		if (mode === 'radius') {
+			// Cancel any active drawing
+			if (activeDrawHandler) {
+				activeDrawHandler.disable();
+				activeDrawHandler = null;
+				isDrawing = false;
+			}
+			// Remove polygon layers
+			if (drawnItems) {
+				map.removeLayer(drawnItems);
+				drawnItems = null;
+				drawInitialized = false;
+			}
+			polygonLayer = null;
+			// Show radius circle
+			updateRadiusCircle();
+		} else {
+			// Remove radius circle
+			if (radiusCircle) {
+				map.removeLayer(radiusCircle);
+				radiusCircle = null;
+			}
+			// Init polygon drawing (auto-starts if no saved polygon)
+			initPolygonDrawing();
+		}
+	}
+
+	function clearPolygon() {
+		if (activeDrawHandler) {
+			activeDrawHandler.disable();
+			activeDrawHandler = null;
+			isDrawing = false;
+		}
+		if (drawnItems) drawnItems.clearLayers();
+		polygonLayer = null;
+		polygonCoords = null;
+		searchAreaDirty = true;
+		// Immediately start drawing a new one
+		startDrawing();
+	}
+
+	async function saveSearchArea() {
+		if (!listing) return;
+
+		let searchArea: any = null;
+		if (mapMode === 'radius' && circleMoved && circleCenter) {
+			searchArea = { type: 'radius', lat: circleCenter.lat, lng: circleCenter.lng, radius: radiusValue };
+		} else if (mapMode === 'polygon' && polygonCoords) {
+			searchArea = { type: 'polygon', coordinates: polygonCoords };
+		} else if (mapMode === 'radius' && !circleMoved) {
+			searchArea = null; // Reset to default
+		}
+
+		const formData = new FormData();
+		formData.set('searchArea', searchArea ? JSON.stringify(searchArea) : '');
+
+		await fetch(`?/saveSearchArea`, {
+			method: 'POST',
+			body: formData,
+		});
+		searchAreaDirty = false;
 	}
 
 	$effect(() => {
@@ -400,7 +694,18 @@
 	});
 
 	$effect(() => {
-		if (radiusValue) updateRadiusCircle();
+		if (radiusValue && mapMode === 'radius') updateRadiusCircle();
+	});
+
+	// Toggle moving-radius class on map container
+	$effect(() => {
+		if (!map) return;
+		const container = map.getContainer();
+		if (movingRadius) {
+			L.DomUtil.addClass(container, 'moving-radius');
+		} else {
+			L.DomUtil.removeClass(container, 'moving-radius');
+		}
 	});
 
 	onDestroy(() => {
@@ -516,21 +821,106 @@
 			<div class="relative z-0 rounded-lg border bg-card shadow-sm overflow-hidden">
 				<div bind:this={mapContainer} class="h-[60vh] min-h-[500px]"></div>
 
-				<!-- Radius control overlay -->
-				<div class="absolute top-3 right-3 z-[1000] bg-white/95 backdrop-blur-sm rounded-lg border shadow-md px-3 py-2">
-					<label for="radius-slider" class="text-xs text-muted-foreground whitespace-nowrap flex items-center gap-2">
-						<MapPin class="size-3" />
-						Radius: <span class="w-10 inline-block text-right tabular-nums font-medium text-foreground">{radiusValue.toFixed(1)} mi</span>
-					</label>
-					<input
-						id="radius-slider"
-						type="range"
-						bind:value={radiusValue}
-						min="0.25"
-						max="5"
-						step="0.25"
-						class="w-32 accent-amber-600 mt-1"
-					/>
+				<!-- Map controls overlay -->
+				<div class="absolute top-3 right-3 z-[1000] bg-white/95 backdrop-blur-sm rounded-lg border shadow-md px-3 py-2.5 space-y-2 min-w-[180px]">
+					<!-- Mode toggle -->
+					<div class="flex rounded-md border overflow-hidden">
+						<button
+							class="flex-1 flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-medium transition-colors {mapMode === 'radius' ? 'bg-amber-100 text-amber-800 border-amber-200' : 'text-muted-foreground hover:bg-muted/50'}"
+							onclick={() => setMapMode('radius')}
+						>
+							<Circle class="size-3" />
+							Radius
+						</button>
+						<button
+							class="flex-1 flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-medium transition-colors border-l {mapMode === 'polygon' ? 'bg-blue-100 text-blue-800 border-blue-200' : 'text-muted-foreground hover:bg-muted/50'}"
+							onclick={() => setMapMode('polygon')}
+						>
+							<Pentagon class="size-3" />
+							Draw
+						</button>
+					</div>
+
+					{#if mapMode === 'radius'}
+						<!-- Radius controls -->
+						<div>
+							<label for="radius-slider" class="text-xs text-muted-foreground whitespace-nowrap flex items-center gap-2">
+								<MapPin class="size-3" />
+								Radius: <span class="w-10 inline-block text-right tabular-nums font-medium text-foreground">{radiusValue.toFixed(1)} mi</span>
+							</label>
+							<input
+								id="radius-slider"
+								type="range"
+								bind:value={radiusValue}
+								min="0.25"
+								max="5"
+								step="0.25"
+								class="w-full accent-amber-600 mt-1"
+							/>
+						</div>
+						<!-- Move radius toggle -->
+						<button
+							class="w-full flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-md border transition-colors {movingRadius ? 'bg-amber-100 text-amber-800 border-amber-300' : 'text-muted-foreground hover:bg-muted/50 border-input'}"
+							onclick={() => movingRadius = !movingRadius}
+						>
+							<Move class="size-3" />
+							{movingRadius ? 'Done Moving' : 'Move Radius'}
+						</button>
+						{#if circleMoved}
+							<button
+								class="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
+								onclick={resetCircle}
+							>
+								<RotateCcw class="size-3" />
+								Reset to property
+							</button>
+						{/if}
+					{:else}
+						<!-- Polygon controls -->
+						{#if isDrawing}
+							<p class="text-xs text-blue-600 font-medium">Drawing active — click map to place vertices.</p>
+							<p class="text-[10px] text-muted-foreground/70">Double-click to finish the shape.</p>
+						{:else if polygonCoords}
+							<p class="text-xs text-muted-foreground">Custom search area drawn.</p>
+							<div class="flex gap-2">
+								<button
+									class="text-xs text-blue-600 hover:text-blue-800 flex items-center gap-1 transition-colors"
+									onclick={startDrawing}
+								>
+									<Pentagon class="size-3" />
+									Redraw
+								</button>
+								<button
+									class="text-xs text-red-600 hover:text-red-800 flex items-center gap-1 transition-colors"
+									onclick={clearPolygon}
+								>
+									<Trash2 class="size-3" />
+									Clear
+								</button>
+							</div>
+						{:else}
+							<p class="text-xs text-muted-foreground">Preparing draw tools...</p>
+						{/if}
+					{/if}
+
+					<!-- Run analysis button (shows when search area is customized) -->
+					{#if (mapMode === 'radius' && circleMoved) || (mapMode === 'polygon' && polygonCoords)}
+						<Button
+							variant="default"
+							size="sm"
+							class="w-full text-xs"
+							onclick={async () => { await saveSearchArea(); showAnalysisModal = true; }}
+							disabled={isAnalyzing}
+						>
+							{#if isAnalyzing}
+								<Loader2 class="size-3 mr-1.5 animate-spin" />
+								Analyzing...
+							{:else}
+								<Play class="size-3 mr-1.5" />
+								Run Analysis
+							{/if}
+						</Button>
+					{/if}
 				</div>
 
 				<!-- Map legend -->
@@ -890,24 +1280,46 @@
 				</div>
 			{:else}
 				<div class="space-y-4">
-					<div>
-						<label for="modal-radius" class="text-sm font-medium mb-1.5 block">
-							Search Radius: {radiusValue.toFixed(1)} miles
-						</label>
-						<input
-							id="modal-radius"
-							type="range"
-							bind:value={radiusValue}
-							min="0.25"
-							max="5"
-							step="0.25"
-							class="w-full accent-amber-600"
-						/>
-						<div class="flex justify-between text-xs text-muted-foreground mt-1">
-							<span>0.25 mi</span>
-							<span>5 mi</span>
+					{#if mapMode === 'polygon' && polygonCoords}
+						<!-- Polygon mode summary -->
+						<div class="rounded-lg border border-blue-200 bg-blue-50/50 p-3">
+							<div class="flex items-center gap-2 text-sm font-medium text-blue-800">
+								<Pentagon class="size-4" />
+								Custom polygon area
+							</div>
+							<p class="text-xs text-blue-600/80 mt-1">
+								{polygonCoords.length} vertices — comps will be filtered to within the drawn boundary.
+							</p>
 						</div>
-					</div>
+					{:else}
+						<!-- Radius mode -->
+						<div>
+							<label for="modal-radius" class="text-sm font-medium mb-1.5 block">
+								Search Radius: {radiusValue.toFixed(1)} miles
+							</label>
+							<input
+								id="modal-radius"
+								type="range"
+								bind:value={radiusValue}
+								min="0.25"
+								max="5"
+								step="0.25"
+								class="w-full accent-amber-600"
+							/>
+							<div class="flex justify-between text-xs text-muted-foreground mt-1">
+								<span>0.25 mi</span>
+								<span>5 mi</span>
+							</div>
+						</div>
+						{#if circleMoved && circleCenter}
+							<div class="rounded-lg border border-amber-200 bg-amber-50/50 p-3">
+								<div class="flex items-center gap-2 text-xs text-amber-700">
+									<Move class="size-3.5" />
+									Search centered at custom location (moved from property)
+								</div>
+							</div>
+						{/if}
+					{/if}
 					<div>
 						<label for="modal-prompt" class="text-sm font-medium mb-1.5 block">
 							Additional context <span class="text-muted-foreground font-normal">(optional)</span>
@@ -1026,3 +1438,25 @@
 	</Dialog.Root>
 {/if}
 
+<style>
+	:global(.moving-radius .draggable-circle) {
+		cursor: grab;
+	}
+	:global(.dragging-circle) {
+		cursor: grabbing !important;
+	}
+	:global(.dragging-circle .draggable-circle) {
+		cursor: grabbing !important;
+	}
+	/* Hide leaflet-draw's default toolbar — we use our own controls */
+	:global(.leaflet-draw-toolbar) {
+		display: none !important;
+	}
+	:global(.leaflet-draw-actions) {
+		display: none !important;
+	}
+	/* Crosshair cursor when polygon drawing is active */
+	:global(.leaflet-container.leaflet-crosshair) {
+		cursor: crosshair !important;
+	}
+</style>

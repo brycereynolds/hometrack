@@ -41,9 +41,8 @@
 			: listings
 	);
 
-	onMount(async () => {
-		const L = (await import('leaflet')).default;
-
+	onMount(() => {
+		import('leaflet').then(({ default: L }) => {
 		map = L.map(mapContainer).setView([37.36, -122.05], 10);
 
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -99,8 +98,10 @@
 			map.fitBounds(group.getBounds().pad(0.15));
 		}
 
+		});
+
 		return () => {
-			map.remove();
+			if (map) map.remove();
 		};
 	});
 

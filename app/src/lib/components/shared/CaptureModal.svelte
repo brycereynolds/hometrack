@@ -18,7 +18,7 @@
 	} from 'lucide-svelte';
 	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
-	import { invalidateAll } from '$app/navigation';
+	import { invalidateAll, goto } from '$app/navigation';
 
 	interface Props {
 		open: boolean;
@@ -276,7 +276,8 @@
 
 	// ── Save logic ──
 
-	const canSave = $derived(noteText.trim() || hasRecording);
+	const canSave = $derived(noteText.trim() || hasRecording || attachments.length > 0);
+	let lastSavedNoteId: string | null = null;
 
 	async function save() {
 		if (!canSave) return;
@@ -301,7 +302,8 @@
 					throw new Error(err.error || 'Upload failed');
 				}
 
-				await response.json();
+				const result = await response.json();
+				lastSavedNoteId = result.fieldNoteId;
 
 				// Upload file attachments if any
 				if (attachments.length > 0) {
@@ -321,7 +323,7 @@
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
-						content: noteText,
+						content: noteText.trim() || '(attachment)',
 						listingId: selectedListing || null,
 						tag: selectedTag,
 						teamId
@@ -332,6 +334,9 @@
 					const err = await response.json();
 					throw new Error(err.error || 'Failed to save note');
 				}
+
+				const result = await response.json();
+				lastSavedNoteId = result.noteId;
 
 				// Upload file attachments if any
 				if (attachments.length > 0) {
@@ -347,9 +352,17 @@
 				}
 			}
 
+			// Navigate to the note detail page
+			const navNoteId = lastSavedNoteId;
+
 			resetForm();
 			open = false;
-			await invalidateAll();
+
+			if (navNoteId) {
+				await goto(`/notes/${navNoteId}`);
+			} else {
+				await invalidateAll();
+			}
 		} catch (err: any) {
 			toast.error(err.message || 'Failed to save');
 			console.error('Save error:', err);
@@ -366,6 +379,7 @@
 		selectedListingName = '';
 		selectedTag = 'showing';
 		autocompleteValue = '';
+		lastSavedNoteId = null;
 		step = 1;
 		discardRecording();
 		attachments.forEach((a) => {
@@ -391,7 +405,7 @@
 </script>
 
 <Dialog.Root bind:open onOpenChange={(v) => { if (!v) resetAndClose(); }}>
-	<Dialog.Content class="sm:max-w-md max-h-[90svh] w-[calc(100%-1rem)] md:w-auto overflow-y-auto" onOpenAutoFocus={(e: Event) => e.preventDefault()}>
+	<Dialog.Content class="max-h-[90svh] w-[calc(100%-1rem)] sm:w-full sm:max-w-lg overflow-y-auto" onOpenAutoFocus={(e: Event) => e.preventDefault()}>
 
 		{#if step === 1}
 			<!-- ═══════════════════════════════════ -->
@@ -460,21 +474,6 @@
 					<Dialog.Description class="sr-only">Capture your note</Dialog.Description>
 				</div>
 			</Dialog.Header>
-
-			<!-- Tag selector -->
-			<div class="flex gap-2 flex-wrap">
-				{#each tags as tag}
-					<button
-						type="button"
-						class="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors
-							{selectedTag === tag.id ? tag.color + ' border-current' : 'bg-transparent text-muted-foreground hover:bg-muted'}"
-						onclick={() => { selectedTag = tag.id; }}
-					>
-						<Tag class="size-3" />
-						{tag.label}
-					</button>
-				{/each}
-			</div>
 
 			<!-- Note text area -->
 			<div>
@@ -552,39 +551,45 @@
 
 			<!-- Attachments preview -->
 			{#if attachments.length > 0}
-				<div class="flex gap-2 flex-wrap">
+				<div class="space-y-2">
 					{#each attachments as att, i}
-						<div class="relative group">
+						<div class="relative group flex items-center gap-3 rounded-lg border bg-muted/30 p-2.5">
 							{#if att.isVideo}
-								<div class="flex size-16 flex-col items-center justify-center gap-0.5 rounded-lg bg-muted text-muted-foreground">
+								<div class="flex size-12 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
 									{#if att.uploading}
-										<Loader2 class="size-4 animate-spin" />
+										<Loader2 class="size-5 animate-spin" />
 									{:else}
-										<Video class="size-4" />
+										<Video class="size-5" />
 									{/if}
-									<span class="text-[8px] text-center px-0.5 leading-tight">{truncateName(att.file.name)}</span>
 								</div>
 							{:else if att.previewUrl}
-								<div class="relative">
-									<img src={att.previewUrl} alt="Attachment {i + 1}" class="size-16 rounded-lg object-cover" />
+								<div class="relative shrink-0">
+									<img src={att.previewUrl} alt="Attachment {i + 1}" class="size-12 rounded-md object-cover" />
 									{#if att.uploading}
-										<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-black/40">
+										<div class="absolute inset-0 flex items-center justify-center rounded-md bg-black/40">
 											<Loader2 class="size-4 animate-spin text-white" />
 										</div>
 									{/if}
 								</div>
 							{/if}
-							{#if att.error}
-								<div class="absolute inset-0 flex items-center justify-center rounded-lg bg-destructive/20 p-1">
-									<span class="text-[8px] text-destructive font-medium text-center">Failed</span>
-								</div>
-							{/if}
+							<div class="min-w-0 flex-1">
+								<p class="text-sm font-medium truncate">{att.file.name}</p>
+								<p class="text-xs text-muted-foreground">
+									{#if att.error}
+										<span class="text-destructive">Upload failed</span>
+									{:else if att.uploading}
+										Uploading...
+									{:else}
+										{(att.file.size / (1024 * 1024)).toFixed(1)} MB · {att.isVideo ? 'Video' : 'Image'}
+									{/if}
+								</p>
+							</div>
 							<button
 								type="button"
-								class="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-destructive text-destructive-foreground opacity-0 group-hover:opacity-100 transition-opacity"
+								class="shrink-0 flex size-6 items-center justify-center rounded-full text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
 								onclick={() => removeAttachment(i)}
 							>
-								<X class="size-2.5" />
+								<X class="size-3.5" />
 							</button>
 						</div>
 					{/each}

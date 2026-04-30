@@ -80,11 +80,13 @@
 	}
 
 	function getListingPhoto(listingId: string) {
-		return listings.find((l) => l.id === listingId)?.photoUrl || '';
+		const listing = listings.find((l) => l.id === listingId);
+		const photos = listing?.property?.photos as { url: string }[] | null;
+		return photos?.[0]?.url || '';
 	}
 
 	function getListingAddress(listingId: string) {
-		return listings.find((l) => l.id === listingId)?.address || '';
+		return listings.find((l) => l.id === listingId)?.property?.address || '';
 	}
 </script>
 

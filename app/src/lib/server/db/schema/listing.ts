@@ -38,6 +38,7 @@ export const listings = pgTable(
     zillowViews: integer('zillow_views').default(0),
     zillowSaves: integer('zillow_saves').default(0),
     portalSettings: jsonb('portal_settings'),
+    searchArea: jsonb('search_area'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

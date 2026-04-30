@@ -3,9 +3,6 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { enhance } from '$app/forms';
-	import { toast } from 'svelte-sonner';
-	import { page } from '$app/stores';
 	import type { MomentWithFrame, ActionWithSourceMoment } from '$lib/types.js';
 	import {
 		ArrowLeft,
@@ -109,9 +106,6 @@
 
 	// Get transcript
 	const transcript = $derived(note?.transcripts?.[0] ?? null);
-
-	// Parse observations/decisions/questions from pipeline output (stored in processing_stages or metadata)
-	// For now, these would come from enriched pipeline data - showing structure
 </script>
 
 {#if note}
@@ -122,7 +116,7 @@
 				<Button
 					variant="outline"
 					size="sm"
-					href="/listings/{$page.params.id}/field-notes"
+					href="/notes"
 				>
 					<ArrowLeft class="mr-1 size-4" />
 					Back
@@ -335,7 +329,7 @@
 			</Card>
 		{/if}
 
-		<!-- Action Items -->
+		<!-- Action Items (read-only for standalone notes — no form actions) -->
 		{#if actions && actions.length > 0}
 			<Card>
 				<CardHeader class="pb-3">
@@ -348,11 +342,8 @@
 				</CardHeader>
 				<CardContent>
 					<div class="space-y-3">
-						<!-- Suggested actions -->
 						{#each suggestedActions as action}
-							<div
-								class="rounded-lg border p-3"
-							>
+							<div class="rounded-lg border p-3">
 								<div class="flex items-start justify-between gap-2">
 									<div class="min-w-0 flex-1">
 										<p class="text-sm font-medium">{action.title}</p>
@@ -391,74 +382,9 @@
 										/>
 									{/if}
 								</div>
-								<div class="mt-3 flex gap-2">
-									<form
-										method="POST"
-										action="?/acceptAction"
-										use:enhance={() => {
-											return async ({ result, update }) => {
-												if (result.type === 'success') {
-													toast.success('Task created');
-													await update();
-												} else if (result.type === 'failure') {
-													toast.error(
-														String(
-															result.data?.error ??
-																'Failed to create task'
-														)
-													);
-												}
-											};
-										}}
-									>
-										<input
-											type="hidden"
-											name="actionId"
-											value={action.id}
-										/>
-										<Button type="submit" size="sm" variant="default">
-											<Check class="mr-1 size-3" />
-											Accept as Task
-										</Button>
-									</form>
-									<form
-										method="POST"
-										action="?/dismissAction"
-										use:enhance={() => {
-											return async ({ result, update }) => {
-												if (result.type === 'success') {
-													toast.success('Action dismissed');
-													await update();
-												} else if (result.type === 'failure') {
-													toast.error(
-														String(
-															result.data?.error ??
-																'Failed to dismiss'
-														)
-													);
-												}
-											};
-										}}
-									>
-										<input
-											type="hidden"
-											name="actionId"
-											value={action.id}
-										/>
-										<Button
-											type="submit"
-											size="sm"
-											variant="outline"
-										>
-											<X class="mr-1 size-3" />
-											Dismiss
-										</Button>
-									</form>
-								</div>
 							</div>
 						{/each}
 
-						<!-- Accepted actions -->
 						{#each acceptedActions as action}
 							<div
 								class="rounded-lg border border-emerald-200 bg-emerald-50/50 p-3"
@@ -483,18 +409,9 @@
 										{/if}
 									</div>
 								</div>
-								{#if action.linkedTaskId}
-									<a
-										href="/listings/{$page.params.id}/tasks"
-										class="mt-1 inline-block text-xs text-emerald-700 hover:underline"
-									>
-										View linked task →
-									</a>
-								{/if}
 							</div>
 						{/each}
 
-						<!-- Dismissed actions -->
 						{#each dismissedActions as action}
 							<div
 								class="rounded-lg border border-stone-200 bg-stone-50/50 p-3 opacity-60"
@@ -531,10 +448,10 @@
 		<p class="text-lg font-medium">Field note not found</p>
 		<Button
 			variant="outline"
-			href="/listings/{$page.params.id}/field-notes"
+			href="/notes"
 			class="mt-4"
 		>
-			Back to Field Notes
+			Back to Notes
 		</Button>
 	</div>
 {/if}

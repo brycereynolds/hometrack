@@ -311,7 +311,7 @@
 						</CardTitle>
 						<CardDescription class="flex items-center gap-1.5">
 							<Home class="size-3.5" />
-							<a href="/listings/{listingId}" class="hover:text-primary hover:underline">{groupQuotes[0].listing?.address ?? 'Unknown listing'}</a> -- {groupQuotes.length} quotes
+							<a href="/listings/{listingId}" class="hover:text-primary hover:underline">{(groupQuotes[0].listing?.property as { address?: string } | undefined)?.address ?? 'Unknown listing'}</a> -- {groupQuotes.length} quotes
 						</CardDescription>
 					</CardHeader>
 					<CardContent>

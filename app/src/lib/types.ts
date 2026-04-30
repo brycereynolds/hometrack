@@ -22,6 +22,9 @@ import type {
   workflowTemplates,
   teamMembers,
   properties,
+  fieldNoteMoments,
+  fieldNoteFrames,
+  fieldNoteActions,
 } from '$lib/server/db/schema/index.js';
 
 // ─── Base DB types ──────────────────────────────────────────────────────────
@@ -66,3 +69,41 @@ export type QuoteWithLineItems = Quote & {
 export type FinancialSummary = FinancialBudget & {
   categories: FinancialCategory[];
 };
+
+// ─── Field note types ────────────────────────────────────────────────────────
+
+export type FieldNoteMoment = InferSelectModel<typeof fieldNoteMoments>;
+export type FieldNoteFrame = InferSelectModel<typeof fieldNoteFrames>;
+export type FieldNoteAction = InferSelectModel<typeof fieldNoteActions>;
+
+/** Moment with its best frame relation loaded. */
+export type MomentWithFrame = FieldNoteMoment & {
+  bestFrame: FieldNoteFrame | null;
+};
+
+/** Action with its source moment (and that moment's best frame). */
+export type ActionWithSourceMoment = FieldNoteAction & {
+  sourceMoment?: MomentWithFrame | null;
+};
+
+// ─── Listing shorthand (property only, no agent/client) ──────────────────────
+
+export type ListingWithProperty = Listing & {
+  property: Property;
+};
+
+// ─── Search area (stored in listings.searchArea JSONB) ───────────────────────
+
+export type RadiusSearchArea = {
+  type: 'radius';
+  lat: number;
+  lng: number;
+  radius: number;
+};
+
+export type PolygonSearchArea = {
+  type: 'polygon';
+  coordinates: [number, number][];
+};
+
+export type SearchArea = RadiusSearchArea | PolygonSearchArea;

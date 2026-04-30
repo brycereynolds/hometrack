@@ -344,7 +344,7 @@
 					</thead>
 					<tbody class="divide-y">
 						{#each listings as listing}
-							{@const viewRate = listing.zillowViews > 500 ? 'up' : listing.zillowViews > 0 ? 'flat' : 'na'}
+							{@const viewRate = (listing.zillowViews ?? 0) > 500 ? 'up' : (listing.zillowViews ?? 0) > 0 ? 'flat' : 'na'}
 							<tr class="hover:bg-muted/30 transition-colors">
 								<td class="px-4 py-2.5 font-medium">
 									<a href="/listings/{listing.id}" class="hover:underline">{listing.property?.address ?? ''}</a>

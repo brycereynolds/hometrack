@@ -8,7 +8,7 @@
   import Breadcrumbs from './Breadcrumbs.svelte';
   import { type Snippet } from 'svelte';
   import { goto } from '$app/navigation';
-  import type { Listing, Contact, AIInsight } from '$lib/types';
+  import type { ListingWithProperty, Contact, AIInsight } from '$lib/types';
   import {
     CommandDialog,
     CommandEmpty,
@@ -24,7 +24,7 @@
     breadcrumbs?: { label: string; href?: string }[];
     title?: string;
     children: Snippet;
-    listings?: Listing[];
+    listings?: ListingWithProperty[];
     contacts?: Contact[];
     aiInsights?: AIInsight[];
   }

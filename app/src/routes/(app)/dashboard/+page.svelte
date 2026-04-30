@@ -486,7 +486,7 @@
 									{/if}
 									<button
 										title="Add to calendar"
-ttttttttttonclick={() => downloadICS(task)}
+onclick={() => downloadICS(task)}
 										class="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
 									>
 										<CalendarPlus class="size-3.5" />

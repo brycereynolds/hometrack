@@ -198,7 +198,7 @@
 									<p class="text-sm font-medium leading-tight">{doc.name}</p>
 									<p class="text-xs text-muted-foreground">
 										{doc.fileType} &middot; {doc.fileSize} &middot; Shared {doc.uploadedDate}
-										{#if doc.version > 1}
+										{#if (doc.version ?? 1) > 1}
 											&middot; v{doc.version}
 										{/if}
 									</p>

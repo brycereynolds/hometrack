@@ -157,7 +157,7 @@
 							>
 								{PHASES[listing.phase].label}
 							</Badge>
-							{#if listing.price}<span class="font-serif text-2xl font-bold sm:text-3xl">{formatCurrency(listing.price)}</span>{:else}<span class="text-sm font-medium text-muted-foreground bg-muted/20 px-2 py-0.5 rounded">No Price</span>{/if}
+							{#if listing.price}<span class="font-serif text-2xl font-bold sm:text-3xl">{formatCurrency(listing.price)}</span>{:else}<span class="text-sm font-semibold text-amber-100 bg-amber-900/60 backdrop-blur-sm px-3 py-1 rounded-md border border-amber-400/30">No Price</span>{/if}
 						</div>
 					</div>
 					<div class="mt-2 flex items-center gap-4 text-xs text-white/70 sm:text-sm">

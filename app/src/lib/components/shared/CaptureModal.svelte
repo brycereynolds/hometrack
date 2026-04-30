@@ -261,6 +261,7 @@
 						fileName: att.file.name,
 						listingId: selectedListing || null,
 						contentType: att.file.type,
+						noteId: lastSavedNoteId,
 					}),
 				});
 
@@ -286,12 +287,13 @@
 					if (xhr.status >= 200 && xhr.status < 300) {
 						att.progress = 100;
 
-						// Step 3: Create DB records + trigger workflow
+						// Step 3: Insert attachment record + trigger workflow
 						try {
 							const completeRes = await fetch('/api/field-media/complete', {
 								method: 'POST',
 								headers: { 'Content-Type': 'application/json' },
 								body: JSON.stringify({
+									noteId: lastSavedNoteId,
 									storagePath,
 									listingId: selectedListing || null,
 									fileName: att.file.name,
@@ -305,11 +307,8 @@
 							});
 
 							if (!completeRes.ok) throw new Error('Failed to finalize');
-							const result = await completeRes.json();
 							att.uploaded = true;
 							att.storagePath = storagePath;
-							// Store the fieldNoteId for navigation
-							if (!lastSavedNoteId) lastSavedNoteId = result.fieldNoteId;
 							att.uploading = false;
 							resolve(true);
 						} catch (err) {
@@ -366,7 +365,7 @@
 
 		try {
 			if (hasRecording && audioBlob) {
-				// Voice memo path
+				// Voice memo path (keep as-is — has its own pipeline)
 				const formData = new FormData();
 				formData.append('audio', audioBlob, 'voice-memo.webm');
 				if (selectedListing) formData.append('listingId', selectedListing);
@@ -386,47 +385,36 @@
 				const result = await response.json();
 				lastSavedNoteId = result.fieldNoteId;
 				toast.success('Voice memo saved! Processing will begin shortly.');
-
-			} else if (attachments.length > 0 && !noteText.trim()) {
-				// Attachments only (no text) — upload directly, skip text note
-				const uploaded = await uploadAllAttachments();
-				const failed = attachments.length - uploaded;
-				if (failed > 0) {
-					toast.error(`${failed} file(s) failed to upload`);
-				} else {
-					toast.success(`${uploaded} file(s) uploaded successfully`);
-				}
-				// lastSavedNoteId is set by uploadAttachment's complete step
-
-			} else if (noteText.trim()) {
-				// Text note (possibly with attachments)
-				const response = await fetch('/api/field-notes', {
+			} else {
+				// Unified path: create note first, then upload attachments
+				const createRes = await fetch('/api/notes', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
-						content: noteText.trim(),
+						textContent: noteText.trim() || null,
 						listingId: selectedListing || null,
-						tag: selectedTag,
-						teamId
-					})
+						teamId,
+					}),
 				});
 
-				if (!response.ok) {
-					const err = await response.json();
-					throw new Error(err.error || 'Failed to save note');
+				if (!createRes.ok) {
+					const err = await createRes.json();
+					throw new Error(err.error || 'Failed to create note');
 				}
 
-				const result = await response.json();
-				lastSavedNoteId = result.noteId;
+				const noteResult = await createRes.json();
+				lastSavedNoteId = noteResult.noteId;
 
-				// Upload file attachments if any
+				// Upload attachments to the same note
 				if (attachments.length > 0) {
 					const uploaded = await uploadAllAttachments();
 					const failed = attachments.length - uploaded;
 					if (failed > 0) {
 						toast.error(`Note saved but ${failed} file(s) failed to upload`);
 					} else {
-						toast.success(`Note saved with ${uploaded} attachment(s)`);
+						toast.success(noteText.trim()
+							? `Note saved with ${uploaded} file(s)`
+							: `${uploaded} file(s) uploaded`);
 					}
 				} else {
 					toast.success('Note saved');

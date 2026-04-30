@@ -1,7 +1,7 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
-import { activityItems, fieldNotes, teamMembers } from '$lib/server/db/schema/index.js';
+import { activityItems, fieldNotes, fieldNoteAttachments, teamMembers } from '$lib/server/db/schema/index.js';
 import { eq } from 'drizzle-orm';
 import { startFieldMediaWorkflow } from '$lib/server/temporal.js';
 
@@ -10,29 +10,43 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		return json({ error: 'Unauthorized' }, { status: 401 });
 	}
 
-	const { storagePath, listingId, fileName, fileSize, contentType, teamId, memberId, memberName, memberInitials } = await request.json();
+	const { noteId, storagePath, listingId, fileName, fileSize, contentType, teamId, memberId, memberName, memberInitials } = await request.json();
 
 	if (!storagePath || !contentType) {
 		return json({ error: 'Missing required fields' }, { status: 400 });
 	}
 
+	if (!noteId) {
+		return json({ error: 'Missing noteId' }, { status: 400 });
+	}
+
 	const isVideo = contentType.startsWith('video/');
+	const isPhoto = contentType.startsWith('image/');
+	const mediaType = isVideo ? 'video' : isPhoto ? 'photo' : 'photo';
 
 	try {
 		const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
-			// Create field_notes record
-			const fieldNoteId = crypto.randomUUID();
-			await db.insert(fieldNotes).values({
-				id: fieldNoteId,
-				teamId,
-				listingId: listingId ?? null,
-				authorId: memberId,
-				mediaType: isVideo ? 'video' : 'photo',
-				status: 'pending',
-				contentHash: `${fileName}-${fileSize}-${Date.now()}`,
-				tag: 'general',
-				mediaStoragePath: storagePath,
+			// Insert attachment record
+			const attachmentId = crypto.randomUUID();
+			await db.insert(fieldNoteAttachments).values({
+				id: attachmentId,
+				fieldNoteId: noteId,
+				fileName: fileName ?? 'unknown',
+				storagePath,
+				contentType,
+				fileSize: fileSize ?? null,
 			});
+
+			// Update the field_notes record with media info
+			await db.update(fieldNotes)
+				.set({
+					mediaType,
+					mediaStoragePath: storagePath,
+					status: isVideo ? 'pending' : 'completed',
+					contentHash: `${fileName}-${fileSize}-${Date.now()}`,
+					updatedAt: new Date(),
+				})
+				.where(eq(fieldNotes.id, noteId));
 
 			// Insert activity item
 			const activityId = crypto.randomUUID();
@@ -51,7 +65,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 					mimeType: contentType,
 					fileSize,
 					originalName: fileName,
-					fieldNoteId,
+					fieldNoteId: noteId,
 				},
 				timestamp: new Date(),
 			});
@@ -68,11 +82,11 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 					mimeType: contentType,
 					fileSize,
 					originalName: fileName,
-					fieldNoteId,
+					fieldNoteId: noteId,
 				},
 			}) : null;
 
-			return { fieldNoteId, storagePath, workflowId: workflow?.workflowId ?? null };
+			return { fieldNoteId: noteId, attachmentId, storagePath, workflowId: workflow?.workflowId ?? null };
 		});
 
 		return json({ success: true, ...result });

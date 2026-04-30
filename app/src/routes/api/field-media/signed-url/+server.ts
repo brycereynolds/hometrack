@@ -12,7 +12,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		return json({ error: 'Unauthorized' }, { status: 401 });
 	}
 
-	const { fileName, listingId, contentType } = await request.json();
+	const { fileName, listingId, contentType, noteId } = await request.json();
 	if (!fileName || !contentType) {
 		return json({ error: 'Missing fileName or contentType' }, { status: 400 });
 	}
@@ -44,6 +44,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 				memberId: member.id,
 				memberName: member.name,
 				memberInitials: member.initials,
+				noteId: noteId ?? null,
 			};
 		});
 

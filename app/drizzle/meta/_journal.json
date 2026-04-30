@@ -22,6 +22,13 @@
       "when": 1777579575648,
       "tag": "0002_faulty_gwen_stacy",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1777588632844,
+      "tag": "0003_bent_nightmare",
+      "breakpoints": true
     }
   ]
 }

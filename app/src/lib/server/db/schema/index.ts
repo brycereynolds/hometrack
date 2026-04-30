@@ -18,6 +18,7 @@ export * from './workflow-template-task.js';
 export * from './analytics.js';
 export * from './file.js';
 export * from './field-note.js';
+export * from './field-note-attachment.js';
 export * from './field-note-transcript.js';
 export * from './field-note-frame.js';
 export * from './field-note-moment.js';

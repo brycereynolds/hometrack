@@ -15,6 +15,7 @@ import { fieldNoteTranscripts } from './field-note-transcript.js';
 import { fieldNoteFrames } from './field-note-frame.js';
 import { fieldNoteMoments } from './field-note-moment.js';
 import { fieldNoteActions } from './field-note-action.js';
+import { fieldNoteAttachments } from './field-note-attachment.js';
 
 export const fieldNotes = pgTable(
   'field_notes',
@@ -73,4 +74,5 @@ export const fieldNotesRelations = relations(fieldNotes, ({ one, many }) => ({
   frames: many(fieldNoteFrames),
   moments: many(fieldNoteMoments),
   actions: many(fieldNoteActions),
+  attachments: many(fieldNoteAttachments),
 }));

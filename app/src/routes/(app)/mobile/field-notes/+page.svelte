@@ -92,7 +92,7 @@
 		attachments = attachments.filter((_, i) => i !== index);
 	}
 
-	// ── Upload functions (signed URL flow) ──
+	// ── Upload functions (TUS resumable) ──
 
 	function uploadAttachment(att: Attachment): Promise<boolean> {
 		if (att.uploaded) return Promise.resolve(true);
@@ -100,48 +100,51 @@
 		att.progress = 0;
 		att.error = null;
 
+		if (att.file.size > 500 * 1024 * 1024) {
+			console.warn(`[Upload] Large file: ${att.file.name} (${(att.file.size / 1024 / 1024).toFixed(0)} MB)`);
+		}
+
 		return new Promise(async (resolve) => {
 			try {
-				if (att.file.size > 500 * 1024 * 1024) {
-					console.warn(`[Upload] Large file: ${att.file.name} (${(att.file.size / 1024 / 1024).toFixed(0)} MB) — may take a while`);
-				}
-
-				// Step 1: Get signed upload URL
-				const signedRes = await fetch('/api/field-media/signed-url', {
+				// Step 1: Get TUS upload credentials from server
+				const tokenRes = await fetch('/api/field-media/tus-token', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify({
 						fileName: att.file.name,
 						listingId: selectedListing || null,
-						contentType: att.file.type,
-						noteId: lastSavedNoteId
+						contentType: att.file.type
 					})
 				});
 
-				if (!signedRes.ok) {
-					const err = await signedRes.json();
-					throw new Error(err.error ?? 'Failed to get upload URL');
+				if (!tokenRes.ok) {
+					const err = await tokenRes.json();
+					throw new Error(err.error ?? 'Failed to get upload credentials');
 				}
 
-				const { signedUrl, storagePath, teamId: uploadTeamId, memberId, memberName, memberInitials } = await signedRes.json();
+				const { supabaseUrl, authToken, storagePath, bucketName, teamId: uploadTeamId, memberId, memberName, memberInitials } = await tokenRes.json();
 
-				// Step 2: Upload directly to Supabase Storage with progress
-				const xhr = new XMLHttpRequest();
-				xhr.open('PUT', signedUrl);
-				xhr.setRequestHeader('Content-Type', att.file.type);
+				// Step 2: Upload via TUS (resumable, chunked)
+				const { startTUSUpload } = await import('$lib/upload.js');
 
-				xhr.upload.onprogress = (e) => {
-					if (e.lengthComputable) {
-						att.progress = Math.round((e.loaded / e.total) * 100);
-					}
-				};
-
-				xhr.onload = async () => {
-					console.log(`[Upload] ${att.file.name}: status=${xhr.status}, response=${xhr.responseText.slice(0, 200)}`);
-					if (xhr.status >= 200 && xhr.status < 300) {
+				startTUSUpload({
+					file: att.file,
+					bucketName,
+					storagePath,
+					supabaseUrl,
+					authToken,
+					onProgress: (percentage) => {
+						att.progress = percentage;
+					},
+					onError: (error) => {
+						att.error = error.message || 'Upload failed';
+						att.uploading = false;
+						resolve(false);
+					},
+					onSuccess: async () => {
 						att.progress = 100;
 
-						// Step 3: Insert attachment record + trigger workflow
+						// Step 3: Create DB records + trigger workflow
 						try {
 							const completeRes = await fetch('/api/field-media/complete', {
 								method: 'POST',
@@ -170,21 +173,8 @@
 							att.uploading = false;
 							resolve(false);
 						}
-					} else {
-						att.error = `Upload failed (${xhr.status})`;
-						att.uploading = false;
-						resolve(false);
 					}
-				};
-
-				xhr.onerror = () => {
-					console.error(`[Upload] ${att.file.name}: network error`);
-					att.error = 'Network error during upload';
-					att.uploading = false;
-					resolve(false);
-				};
-
-				xhr.send(att.file);
+				});
 			} catch (err) {
 				att.error = err instanceof Error ? err.message : 'Upload failed';
 				att.uploading = false;

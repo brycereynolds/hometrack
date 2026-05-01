@@ -1,5 +1,64 @@
 # HomeTrack Changelog
 
+## 2026-04-30 — Map Search, Notes Consolidation, AI Chat, Upload Infrastructure
+
+### Map Search Features
+- Draggable radius circle with "Move Radius" toggle button (pan-first by default)
+- Polygon drawing mode with leaflet-draw and point-in-polygon filtering
+- `searchArea` JSONB column on listings — persisted and restored on page load
+- Analysis modal adapts to search mode (radius slider vs polygon info)
+
+### Notes System Consolidation
+- Top-level `/notes` page showing all notes across all listings with filters
+- Standalone `/notes/[noteId]` detail page for unattached notes
+- "Notes" added to sidebar navigation
+- CaptureModal: removed tags (AI handles categorization), allows attachment-only saves
+- Post-save success state with "View Details" / "Capture Another" buttons
+- `field_note_attachments` table — one note can have many files
+- `field_note_comments` table — threaded comments with @mentions
+- Processing status banner with 4-stage progress bar and auto-polling
+- Attachment display on detail pages with file type icons and sizes
+- Mobile field notes page modernized (drag-and-drop, signed URL uploads, card-style attachments)
+- PDF support added to file picker and server validation
+
+### AI Chat Agent
+- `/chat` page with streaming responses via Token Tap LLM proxy
+- Floating chat FAB (bottom-right) on every page
+- Chat history with conversation list dropdown
+- System prompt built with full team context
+- Read-only agent (no tool use yet — won't hallucinate actions)
+- `chat_conversations` + `chat_messages` tables
+- Token Tap tracing: one trace per conversation
+
+### Upload Infrastructure
+- Direct client uploads via signed URLs (bypasses SvelteKit server)
+- TUS resumable uploads implemented (6MB chunks, auto-retry, resume)
+- Upload progress bar with real-time percentage
+- Navigation guard during uploads (beforeNavigate + beforeunload)
+- `BODY_SIZE_LIMIT=10GB` for adapter-node
+- Storage buckets created: field-media (10GB), voice-memos (500MB), documents (50MB)
+
+### Type Safety
+- Fixed all 89 svelte-check errors → 0 errors, 0 warnings
+- Central `$lib/types.ts` with composite types (no `as any` scattered)
+- `WithoutChildrenOrChild` types for shadcn-svelte v5
+
+### Responsive & UX
+- Tab breakpoint md→lg on listing detail pages
+- CaptureModal widened to sm:max-w-lg
+- Attachment preview redesigned as card rows
+- Landing page: real avatars + "thousands of real estate teams"
+- Drag-and-drop on CaptureModal (whole dialog is drop target)
+
+### Known Issues (Carried Forward)
+- TUS uploads not yet confirmed working end-to-end (auth/CORS issue suspected)
+- CaptureModal positioning may be broken (appears at bottom of window)
+- Auto-navigation fires before uploads complete
+- Supabase Studio doesn't show nested folders in bucket browser (files ARE there)
+- `UPLOAD_FILE_SIZE_LIMIT_STANDARD` env var may not be taking effect on Storage service
+
+---
+
 ## 2026-04-10 — Initial Build
 
 ### Frontend Mockup (Complete)

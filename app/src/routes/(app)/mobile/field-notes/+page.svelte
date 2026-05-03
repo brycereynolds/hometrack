@@ -30,12 +30,14 @@
 	let fileInput = $state<HTMLInputElement>(null!);
 	let isDragOver = $state(false);
 	let lastSavedNoteId = $state<string | null>(null);
+	let navigationIntended = $state(false);
 
 	// Prevent accidental navigation during upload/save
 	const isUploading = $derived(saving || attachments.some((a) => a.uploading));
 	const canSave = $derived(noteText.trim() || attachments.length > 0);
 
 	beforeNavigate(({ cancel }) => {
+		if (navigationIntended) return;
 		if (isUploading) {
 			if (!confirm('Upload in progress. Leaving will cancel it. Are you sure?')) {
 				cancel();
@@ -92,7 +94,7 @@
 		attachments = attachments.filter((_, i) => i !== index);
 	}
 
-	// ── Upload functions (TUS resumable) ──
+	// ── Upload functions (TUS resumable via server proxy) ──
 
 	function uploadAttachment(att: Attachment): Promise<boolean> {
 		if (att.uploaded) return Promise.resolve(true);
@@ -100,39 +102,14 @@
 		att.progress = 0;
 		att.error = null;
 
-		if (att.file.size > 500 * 1024 * 1024) {
-			console.warn(`[Upload] Large file: ${att.file.name} (${(att.file.size / 1024 / 1024).toFixed(0)} MB)`);
-		}
-
 		return new Promise(async (resolve) => {
 			try {
-				// Step 1: Get TUS upload credentials from server
-				const tokenRes = await fetch('/api/field-media/tus-token', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						fileName: att.file.name,
-						listingId: selectedListing || null,
-						contentType: att.file.type
-					})
-				});
+				const { startUpload } = await import('$lib/upload.js');
 
-				if (!tokenRes.ok) {
-					const err = await tokenRes.json();
-					throw new Error(err.error ?? 'Failed to get upload credentials');
-				}
-
-				const { supabaseUrl, authToken, storagePath, bucketName, teamId: uploadTeamId, memberId, memberName, memberInitials } = await tokenRes.json();
-
-				// Step 2: Upload via TUS (resumable, chunked)
-				const { startTUSUpload } = await import('$lib/upload.js');
-
-				startTUSUpload({
+				await startUpload({
 					file: att.file,
-					bucketName,
-					storagePath,
-					supabaseUrl,
-					authToken,
+					listingId: selectedListing || null,
+					noteId: lastSavedNoteId,
 					onProgress: (percentage) => {
 						att.progress = percentage;
 					},
@@ -141,38 +118,12 @@
 						att.uploading = false;
 						resolve(false);
 					},
-					onSuccess: async () => {
+					onSuccess: (result) => {
 						att.progress = 100;
-
-						// Step 3: Create DB records + trigger workflow
-						try {
-							const completeRes = await fetch('/api/field-media/complete', {
-								method: 'POST',
-								headers: { 'Content-Type': 'application/json' },
-								body: JSON.stringify({
-									noteId: lastSavedNoteId,
-									storagePath,
-									listingId: selectedListing || null,
-									fileName: att.file.name,
-									fileSize: att.file.size,
-									contentType: att.file.type,
-									teamId: uploadTeamId,
-									memberId,
-									memberName,
-									memberInitials
-								})
-							});
-
-							if (!completeRes.ok) throw new Error('Failed to finalize');
-							att.uploaded = true;
-							att.storagePath = storagePath;
-							att.uploading = false;
-							resolve(true);
-						} catch (err) {
-							att.error = 'Upload succeeded but failed to save record';
-							att.uploading = false;
-							resolve(false);
-						}
+						att.uploaded = true;
+						att.storagePath = result.storagePath;
+						att.uploading = false;
+						resolve(true);
 					}
 				});
 			} catch (err) {
@@ -240,14 +191,15 @@
 			});
 			attachments = [];
 			noteText = '';
+			saving = false;
 
 			if (lastSavedNoteId) {
+				navigationIntended = true;
 				goto(`/notes/${lastSavedNoteId}`);
 			}
 		} catch (err: any) {
 			toast.error(err.message || 'Failed to save');
 			console.error('Save error:', err);
-		} finally {
 			saving = false;
 		}
 	}

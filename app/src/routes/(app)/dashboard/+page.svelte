@@ -16,11 +16,9 @@
 	const tasks = $derived(data.tasks ?? []);
 	const aiInsights = $derived(data.aiInsights ?? []);
 	const showings = $derived(data.showings ?? []);
-	const teamPerformanceData = $derived(data.teamPerformanceData ?? { members: [] as string[], activeTasks: [] as number[], completedThisMonth: [] as number[], avgCompletionDays: [] as number[] });
 
 	// Computed dashboard values from server data
 	const activeCount = $derived(listings.filter((l: any) => l.phase === 'active').length);
-	const pipelineValue = $derived(formatCurrency(data.pipelineValue ?? 0));
 	const overdueTasks = $derived(data.overdueTasks ?? []);
 	const recentActivity = $derived(data.recentActivity ?? []);
 	const listingsByPhase = $derived((() => {
@@ -37,7 +35,6 @@
 		TrendingUp,
 		TrendingDown,
 		Home,
-		DollarSign,
 		Clock,
 		CheckSquare,
 		Plus,
@@ -60,8 +57,6 @@
 		ChevronRight,
 		MapPin,
 	} from 'lucide-svelte';
-	import { Chart, registerables } from 'chart.js';
-	Chart.register(...registerables);
 
 	const avgDom = $derived(Math.round(
 		listings.filter((l: any) => l.daysOnMarket > 0).reduce((s: number, l: any) => s + l.daysOnMarket, 0) /
@@ -77,30 +72,14 @@
 		return `${sign}${value} ${suffix}`;
 	}
 
-	function formatCurrencyDelta(value: number, suffix: string): string {
-		const sign = value >= 0 ? '+' : '-';
-		const abs = Math.abs(value);
-		let formatted: string;
-		if (abs >= 1_000_000) {
-			formatted = `$${(abs / 1_000_000).toFixed(1)}M`;
-		} else if (abs >= 1_000) {
-			formatted = `$${(abs / 1_000).toFixed(0)}K`;
-		} else {
-			formatted = `$${abs.toFixed(0)}`;
-		}
-		return `${sign}${formatted} ${suffix}`;
-	}
-
 	const stats = $derived([
 		{ label: 'Active Listings', value: String(activeCount), icon: Home, trend: (deltas.listingsDelta >= 0 ? 'up' : 'down') as 'up' | 'down', change: formatDelta(deltas.listingsDelta, 'this month') },
-		{ label: 'Pipeline Value', value: pipelineValue, icon: DollarSign, trend: (deltas.pipelineValueDelta >= 0 ? 'up' : 'down') as 'up' | 'down', change: formatCurrencyDelta(deltas.pipelineValueDelta, 'from last month') },
 		{ label: 'Avg. Days on Market', value: String(avgDom), icon: Clock, trend: (deltas.domDelta <= 0 ? 'down' : 'up') as 'up' | 'down', change: formatDelta(deltas.domDelta, 'days vs. last quarter') },
 		{ label: 'Open Tasks', value: String(openTaskCount), icon: CheckSquare, trend: (overdueTasks.length > 0 ? 'up' : 'down') as 'up' | 'down', change: `${overdueTasks.length} overdue` },
 	]);
 
 	// Task filter state
 	let taskFilter = $state<'upcoming' | 'overdue'>('upcoming');
-	const todayStr = '2026-04-09';
 
 	// Reminder dropdown state
 	let reminderOpenForTask = $state<string | null>(null);
@@ -133,7 +112,7 @@
 		toast.success('Calendar event downloaded');
 	}
 
-	/** Handle reminder selection — placeholder until push notifications */
+	/** Handle reminder selection */
 	function setReminder(task: any, option: string) {
 		reminderOpenForTask = null;
 		toast.success(`Reminder set for ${option}`);
@@ -245,48 +224,20 @@
 		}
 	}
 
-	// Workload chart
-	let workloadCanvas = $state<HTMLCanvasElement>(null!);
+	// Pipeline bar tooltip
+	let hoveredPhase = $state<string | null>(null);
+	let tooltipX = $state(0);
+	let tooltipY = $state(0);
 
-	onMount(() => {
-		new Chart(workloadCanvas, {
-			type: 'bar',
-			data: {
-				labels: teamPerformanceData.members,
-				datasets: [
-					{
-						label: 'Active Tasks',
-						data: teamPerformanceData.activeTasks,
-						backgroundColor: '#C4704B',
-						borderRadius: 4,
-						barThickness: 20,
-					},
-					{
-						label: 'Completed This Month',
-						data: teamPerformanceData.completedThisMonth,
-						backgroundColor: '#7B8B6F',
-						borderRadius: 4,
-						barThickness: 20,
-					},
-				],
-			},
-			options: {
-				indexAxis: 'y',
-				responsive: true,
-				maintainAspectRatio: false,
-				plugins: {
-					legend: {
-						position: 'bottom',
-						labels: { font: { size: 11 }, usePointStyle: true, pointStyle: 'circle', padding: 16 },
-					},
-				},
-				scales: {
-					x: { grid: { display: false }, ticks: { font: { size: 11 } } },
-					y: { grid: { display: false }, ticks: { font: { size: 11 } } },
-				},
-			},
-		});
-	});
+	function handleBarHover(e: MouseEvent, phaseKey: string) {
+		hoveredPhase = phaseKey;
+		tooltipX = e.clientX;
+		tooltipY = e.clientY;
+	}
+
+	function handleBarLeave() {
+		hoveredPhase = null;
+	}
 </script>
 
 <div class="space-y-6">
@@ -314,8 +265,8 @@
 		</div>
 	</div>
 
-	<!-- Stat Cards Row -->
-	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+	<!-- Row 1: 3 Metric Cards -->
+	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 		{#each stats as stat}
 			<Card>
 				<CardHeader class="flex flex-row items-center justify-between pb-2">
@@ -337,104 +288,110 @@
 		{/each}
 	</div>
 
-	<!-- Upcoming Showings -->
+	<!-- Row 2: Pipeline Summary Bar -->
 	<Card>
-		<CardHeader>
+		<CardHeader class="pb-3">
 			<div class="flex items-center justify-between">
-				<div class="flex items-center gap-2">
-					<Calendar class="size-4 text-muted-foreground" />
-					<CardTitle>Upcoming Showings</CardTitle>
+				<div>
+					<CardTitle>Pipeline Summary</CardTitle>
+					<CardDescription>{listings.length} listings across {PHASE_LIST.length} phases</CardDescription>
 				</div>
-				<a href="/listings" class="text-xs text-primary hover:underline">View calendar</a>
+				<a href="/listings" class="inline-flex items-center gap-1 text-sm text-primary hover:underline">
+					View board <ArrowRight class="size-3.5" />
+				</a>
 			</div>
 		</CardHeader>
 		<CardContent>
-			{#if todayShowings.length === 0}
-				<p class="text-sm text-muted-foreground py-4 text-center">No upcoming showings scheduled</p>
+			{#if listings.length === 0}
+				<div class="flex h-12 items-center justify-center rounded-lg bg-muted">
+					<p class="text-sm text-muted-foreground">No listings yet</p>
+				</div>
 			{:else}
-				<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{#each todayShowings as showing}
-						<a href="/listings/{showing.listingId}" class="group flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
-							<div class="text-center shrink-0">
-								<div class="text-lg font-bold leading-tight">{new Date(showing.date).getDate()}</div>
-								<div class="text-xs text-muted-foreground">Apr</div>
-							</div>
-							<div class="min-w-0 flex-1">
-								<p class="text-sm font-medium group-hover:text-primary transition-colors">Showing</p>
-								<p class="text-xs text-muted-foreground">{showing.time} &middot; {showing.agentName}</p>
-								<p class="text-xs text-muted-foreground">{showing.agentCompany} &middot; {showing.buyerType}</p>
-							</div>
-							<ChevronRight class="size-4 text-muted-foreground shrink-0 mt-1" />
-						</a>
+				<!-- Stacked horizontal bar -->
+				<div class="relative flex h-10 w-full overflow-hidden rounded-lg">
+					{#each PHASE_LIST as phase}
+						{@const count = listingsByPhase[phase.key]?.length || 0}
+						{@const pct = (count / listings.length) * 100}
+						{#if count > 0}
+							<a
+								href="/listings?phase={phase.key}"
+								class="relative flex h-full items-center justify-center transition-opacity hover:opacity-80"
+								style="width: {pct}%; background-color: {phase.color}"
+								onmouseenter={(e) => handleBarHover(e, phase.key)}
+								onmousemove={(e) => handleBarHover(e, phase.key)}
+								onmouseleave={handleBarLeave}
+							>
+								{#if pct > 12}
+									<span class="text-xs font-medium text-white drop-shadow-sm">{count}</span>
+								{/if}
+							</a>
+						{/if}
+					{/each}
+				</div>
+				<!-- Legend -->
+				<div class="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+					{#each PHASE_LIST as phase}
+						{@const count = listingsByPhase[phase.key]?.length || 0}
+						<div class="flex items-center gap-1.5">
+							<span class="size-2 rounded-full shrink-0" style="background-color: {phase.color}"></span>
+							<span class="text-xs text-muted-foreground">{phase.label} ({count})</span>
+						</div>
 					{/each}
 				</div>
 			{/if}
 		</CardContent>
 	</Card>
 
-	<!-- Middle Row: Pipeline Summary + Team Workload -->
+	<!-- Tooltip (positioned via fixed) -->
+	{#if hoveredPhase}
+		{@const phase = PHASES[hoveredPhase as ListingPhase]}
+		{@const count = listingsByPhase[hoveredPhase]?.length || 0}
+		<div
+			class="pointer-events-none fixed z-50 rounded-md border bg-popover px-3 py-1.5 text-sm shadow-md"
+			style="left: {tooltipX + 12}px; top: {tooltipY - 32}px"
+		>
+			<span class="font-medium">{phase.label}</span>
+			<span class="text-muted-foreground ml-1.5">{count} {count === 1 ? 'listing' : 'listings'}</span>
+		</div>
+	{/if}
+
+	<!-- Row 3: Upcoming Showings + My Tasks -->
 	<div class="grid gap-6 lg:grid-cols-2">
-		<!-- Pipeline Summary -->
+		<!-- Upcoming Showings -->
 		<Card>
 			<CardHeader>
 				<div class="flex items-center justify-between">
-					<div>
-						<CardTitle>Pipeline Summary</CardTitle>
-						<CardDescription>{listings.length} listings across 4 stages</CardDescription>
+					<div class="flex items-center gap-2">
+						<Calendar class="size-4 text-muted-foreground" />
+						<CardTitle>Upcoming Showings</CardTitle>
 					</div>
-					<a href="/listings" class="inline-flex items-center gap-1 text-sm text-primary hover:underline">
-						View board <ArrowRight class="size-3.5" />
-					</a>
+					<a href="/listings" class="text-xs text-primary hover:underline">View calendar</a>
 				</div>
 			</CardHeader>
 			<CardContent>
-				<div class="space-y-3">
-					{#each PHASE_LIST as phase}
-						{@const count = listingsByPhase[phase.key]?.length || 0}
-						{@const phaseListings = listingsByPhase[phase.key] || []}
-						<a href="/listings?phase={phase.key}" class="group block">
-							<div class="flex items-center justify-between mb-1.5">
-								<div class="flex items-center gap-2">
-									<span class="size-2.5 rounded-full shrink-0" style="background-color: {phase.color}"></span>
-									<span class="text-sm font-medium group-hover:text-primary transition-colors">{phase.label}</span>
+				{#if todayShowings.length === 0}
+					<p class="text-sm text-muted-foreground py-4 text-center">No upcoming showings scheduled</p>
+				{:else}
+					<div class="space-y-3">
+						{#each todayShowings as showing}
+							<a href="/listings/{showing.listingId}" class="group flex items-start gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50">
+								<div class="text-center shrink-0">
+									<div class="text-lg font-bold leading-tight">{new Date(showing.date).getDate()}</div>
+									<div class="text-xs text-muted-foreground">Apr</div>
 								</div>
-								<span class="text-sm text-muted-foreground tabular-nums">{count}</span>
-							</div>
-							<div class="h-2 w-full rounded-full bg-muted overflow-hidden">
-								<div
-									class="h-full rounded-full transition-all"
-									style="width: {(count / listings.length) * 100}%; background-color: {phase.color}"
-								></div>
-							</div>
-							{#if count > 0}
-								<div class="mt-1 flex flex-wrap gap-1">
-									{#each phaseListings as listing}
-										<span class="text-xs text-muted-foreground">{(listing.property?.address ?? '').split(' ').slice(0, 2).join(' ')}{phaseListings.indexOf(listing) < phaseListings.length - 1 ? ',' : ''}</span>
-									{/each}
+								<div class="min-w-0 flex-1">
+									<p class="text-sm font-medium group-hover:text-primary transition-colors">Showing</p>
+									<p class="text-xs text-muted-foreground">{showing.time} &middot; {showing.agentName}</p>
+									<p class="text-xs text-muted-foreground">{showing.agentCompany} &middot; {showing.buyerType}</p>
 								</div>
-							{/if}
-						</a>
-					{/each}
-				</div>
+								<ChevronRight class="size-4 text-muted-foreground shrink-0 mt-1" />
+							</a>
+						{/each}
+					</div>
+				{/if}
 			</CardContent>
 		</Card>
 
-		<!-- Team Workload Chart -->
-		<Card>
-			<CardHeader>
-				<CardTitle>Team Workload</CardTitle>
-				<CardDescription>Active tasks and completions by team member</CardDescription>
-			</CardHeader>
-			<CardContent>
-				<div class="h-[280px]">
-					<canvas bind:this={workloadCanvas}></canvas>
-				</div>
-			</CardContent>
-		</Card>
-	</div>
-
-	<!-- Bottom Row: Tasks, Activity, Alerts -->
-	<div class="grid gap-6 lg:grid-cols-3">
 		<!-- My Tasks -->
 		<Card>
 			<CardHeader class="pb-3">
@@ -519,7 +476,10 @@ onclick={() => downloadICS(task)}
 				{/if}
 			</CardContent>
 		</Card>
+	</div>
 
+	<!-- Row 4: Recent Activity + Alerts -->
+	<div class="grid gap-6 lg:grid-cols-2">
 		<!-- Recent Activity -->
 		<Card>
 			<CardHeader class="pb-3">

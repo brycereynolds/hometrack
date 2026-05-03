@@ -43,6 +43,13 @@
       "when": 1777590793571,
       "tag": "0005_spooky_shadowcat",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1777680000000,
+      "tag": "0006_fix_rls_grants",
+      "breakpoints": true
     }
   ]
 }

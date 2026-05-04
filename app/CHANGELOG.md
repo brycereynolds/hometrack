@@ -1,5 +1,47 @@
 # HomeTrack Changelog
 
+## 2026-05-03 — Video Processing Pipeline End-to-End
+
+### Upload & Storage
+- Fixed TUS proxy logging (removed per-chunk spam, kept start/complete/error)
+- Fixed double `field-media/` prefix in storage path sent to Temporal workflow
+- Fixed Supabase Storage env vars on dev environment (was uploading to wrong Kong)
+- Confirmed storage stack works: TUS → Kong → Storage Service → MinIO (S3)
+
+### Temporal Video Processing Pipeline
+- Full 9-step pipeline working end-to-end: download → extract audio → extract frames → transcribe → key moments → vision correlation → enriched transcript → insights → save results
+- Frames uploaded to Supabase Storage (not base64 in Temporal payload — was hitting 2MB limit)
+- `correlate_frames` downloads frames from storage for Claude vision API
+- All Anthropic calls routed through TokenTap with workflow ID as trace/session
+- All models updated to `claude-sonnet-4-6`
+- Pydantic models accept camelCase via aliases (`populate_by_name=True`)
+- Retry policy: max 3 attempts per activity
+- `fieldNoteId` metadata lookup handles both camelCase and snake_case
+
+### Processing Stages
+- New `update_processing_stage` activity writes granular stage updates to `field_notes.processing_stages` jsonb
+- 7 stages: Preparing media → Extracting audio & frames → Transcribing speech → Identifying key moments → Matching visuals → Generating insights → Finalizing
+- UI shows single progress bar with active step name, step count, and percentage
+- Page server checks Temporal workflow status on poll — auto-detects cancelled/failed workflows
+
+### Retry Processing
+- "Retry" button on failed notes — resets status, deletes old child records (transcripts, frames, moments, actions), re-triggers workflow
+- `/api/field-notes/[noteId]/retry` endpoint with proper cleanup
+
+### Note Detail Page
+- Video player: skeleton loader while signed URL loads, capped at 500px height
+- Signed URL fetched once (no re-fetch on poll), video doesn't flash during polling
+- Frame images use signed URLs via `/api/field-notes/{id}/frames` endpoint
+- Enriched transcript rendered as HTML via `marked()` (was showing raw markdown)
+- Failed state: soft muted banner instead of alarming red
+
+### Bug Fixes
+- `transcribe.py`: `seg.start` not `seg["start"]` (OpenAI returns objects, not dicts)
+- `download_media.py`: hardcoded bucket to `field-media` (was parsing first path segment as bucket)
+- `save_results.py`: uses frame storage paths directly (no base64 decoding)
+- TokenTap base_url: removed `/v1` suffix (Python SDK adds it automatically)
+- Workflow status check covers both `pending` and `processing` status
+
 ## 2026-04-30 — Map Search, Notes Consolidation, AI Chat, Upload Infrastructure
 
 ### Map Search Features

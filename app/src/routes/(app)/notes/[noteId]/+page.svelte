@@ -5,6 +5,7 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import CommentThread from '$lib/components/shared/CommentThread.svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { marked } from 'marked';
 	import { onMount, onDestroy } from 'svelte';
 	import type { MomentWithFrame, ActionWithSourceMoment } from '$lib/types.js';
 	import {
@@ -31,18 +32,34 @@
 	let { data } = $props();
 	const note = $derived(data.note);
 
-	// Derive processing stage from status
-	const currentStage = $derived.by(() => {
-		if (!note) return 0;
-		if (note.status === 'completed') return 3;
-		if (note.status === 'failed') return 0;
-		if (note.status === 'pending') return 0;
-		// processing — check processingStages if available
-		const stages = note.processingStages as any;
-		if (stages?.analysis) return 2;
-		if (stages?.transcription) return 1;
-		return 1;
-	});
+	// Processing stages from the workflow
+	const STAGES = [
+		{ key: 'download', label: 'Preparing media' },
+		{ key: 'extract', label: 'Extracting audio & frames' },
+		{ key: 'transcribe', label: 'Transcribing speech' },
+		{ key: 'moments', label: 'Identifying key moments' },
+		{ key: 'vision', label: 'Matching visuals' },
+		{ key: 'insights', label: 'Generating insights' },
+		{ key: 'saving', label: 'Finalizing' },
+	] as const;
+
+	const stages = $derived((note?.processingStages ?? {}) as Record<string, string>);
+
+	let retrying = $state(false);
+	async function retryProcessing() {
+		if (!note) return;
+		retrying = true;
+		try {
+			const res = await fetch(`/api/field-notes/${note.id}/retry`, { method: 'POST' });
+			if (res.ok) {
+				mediaUrlFetched = false;
+				mediaUrl = null;
+				await invalidateAll();
+			}
+		} finally {
+			retrying = false;
+		}
+	}
 
 	// Poll for updates when note is being processed
 	let pollInterval: ReturnType<typeof setInterval> | null = null;
@@ -72,6 +89,36 @@
 	const actions = $derived((note?.actions ?? []) as ActionWithSourceMoment[]);
 
 	let videoElement: HTMLVideoElement | undefined = $state();
+	let mediaUrl: string | null = $state(null);
+	let mediaUrlFetched = false;
+	let frameUrls: Record<number, string> = $state({});
+	let frameUrlsFetched = false;
+
+	// Fetch signed URLs for frames
+	$effect(() => {
+		if (note?.status === 'completed' && !frameUrlsFetched) {
+			frameUrlsFetched = true;
+			fetch(`/api/field-notes/${note.id}/frames`)
+				.then((r) => r.ok ? r.json() : [])
+				.then((frames: { frameIndex: number; url: string }[]) => {
+					const map: Record<number, string> = {};
+					for (const f of frames) if (f.url) map[f.frameIndex] = f.url;
+					frameUrls = map;
+				})
+				.catch(() => { frameUrlsFetched = false; });
+		}
+	});
+
+	// Fetch signed URL once for media playback
+	$effect(() => {
+		if (note?.mediaStoragePath && !mediaUrlFetched && (note.mediaType === 'video' || note.mediaType === 'voice_memo')) {
+			mediaUrlFetched = true;
+			fetch(`/api/field-notes/${note.id}/media`)
+				.then((r) => r.ok ? r.json() : null)
+				.then((data) => { if (data?.url) mediaUrl = data.url; })
+				.catch(() => { mediaUrlFetched = false; });
+		}
+	});
 
 	function jumpToTime(seconds: number) {
 		if (videoElement) {
@@ -190,35 +237,57 @@
 
 		<!-- Processing Banner -->
 		{#if note.status === 'pending' || note.status === 'processing'}
-			<div class="rounded-lg border border-amber-200 bg-amber-50/50 p-4">
-				<div class="flex items-center gap-3 mb-3">
-					<div class="relative">
-						<div class="size-10 rounded-full border-3 border-amber-200 border-t-amber-600 animate-spin"></div>
-						<Sparkles class="size-4 text-amber-600 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-					</div>
-					<div>
-						<p class="text-sm font-semibold text-amber-900">Processing your note...</p>
-						<p class="text-xs text-amber-700/70">AI is analyzing your content. Results will appear as they're ready.</p>
-					</div>
-				</div>
-				<div class="flex gap-1">
-					{#each ['Uploading', 'Transcribing', 'Analyzing', 'Complete'] as stage, i}
-						{@const stageActive = i <= currentStage}
-						<div class="flex-1">
-							<div class="h-1.5 rounded-full {stageActive ? 'bg-amber-500' : 'bg-amber-200'} transition-all duration-500"></div>
-							<p class="text-[10px] mt-1 {stageActive ? 'text-amber-700 font-medium' : 'text-amber-400'}">{stage}</p>
+			{@const completedCount = STAGES.filter(s => stages[s.key] === 'completed').length}
+			{@const activeStage = STAGES.find(s => stages[s.key] === 'active')}
+			{@const progress = Math.round((completedCount / STAGES.length) * 100)}
+			<div class="rounded-lg border bg-muted/30 p-4">
+				<div class="flex items-center justify-between mb-3">
+					<div class="flex items-center gap-3">
+						<div class="size-8 rounded-full bg-primary/10 flex items-center justify-center">
+							<Loader2 class="size-4 text-primary animate-spin" />
 						</div>
-					{/each}
+						<div>
+							<p class="text-sm font-semibold">
+								{activeStage ? activeStage.label : 'Starting...'}
+							</p>
+							<p class="text-xs text-muted-foreground">
+								Step {completedCount + 1} of {STAGES.length}
+							</p>
+						</div>
+					</div>
+					<span class="text-xs font-medium text-muted-foreground">{progress}%</span>
+				</div>
+				<div class="h-1.5 rounded-full bg-muted overflow-hidden">
+					<div
+						class="h-full rounded-full bg-primary transition-all duration-700 ease-out"
+						style="width: {progress}%"
+					></div>
 				</div>
 			</div>
 		{:else if note.status === 'failed'}
-			<div class="rounded-lg border border-red-200 bg-red-50/50 p-4">
-				<div class="flex items-center gap-3">
-					<AlertCircle class="size-5 text-red-600" />
-					<div>
-						<p class="text-sm font-semibold text-red-900">Processing failed</p>
-						<p class="text-xs text-red-700/70">{note.processingError || 'An error occurred during processing.'}</p>
+			<div class="rounded-lg border bg-muted/30 p-4">
+				<div class="flex items-center justify-between">
+					<div class="flex items-center gap-3">
+						<div class="size-8 rounded-full bg-muted flex items-center justify-center">
+							<AlertTriangle class="size-4 text-muted-foreground" />
+						</div>
+						<div>
+							<p class="text-sm font-semibold">Processing didn't complete</p>
+							<p class="text-xs text-muted-foreground">Something went wrong, but your media is safe. Try again.</p>
+						</div>
 					</div>
+					{#if note.mediaStoragePath}
+						<Button
+							size="sm"
+							onclick={retryProcessing}
+							disabled={retrying}
+						>
+							{#if retrying}
+								<Loader2 class="mr-1 size-3 animate-spin" />
+							{/if}
+							Retry
+						</Button>
+					{/if}
 				</div>
 			</div>
 		{/if}
@@ -257,15 +326,26 @@
 		{#if note.mediaType === 'video'}
 			<Card>
 				<CardContent class="p-0">
-					<video
-						bind:this={videoElement}
-						controls
-						class="w-full rounded-t-lg"
-						src={note.processedMediaPath ?? note.mediaStoragePath ?? ''}
-						preload="metadata"
-					>
-						<track kind="captions" />
-					</video>
+					{#if mediaUrl}
+						{#key mediaUrl}
+						<video
+							bind:this={videoElement}
+							controls
+							class="w-full max-h-[500px] rounded-t-lg object-contain bg-black"
+							src={mediaUrl}
+							preload="metadata"
+						>
+							<track kind="captions" />
+						</video>
+						{/key}
+					{:else}
+						<div class="flex items-center justify-center bg-black/5 rounded-t-lg" style="height: 300px;">
+							<div class="flex flex-col items-center gap-2 text-muted-foreground">
+								<Loader2 class="size-6 animate-spin" />
+								<p class="text-sm">Loading video...</p>
+							</div>
+						</div>
+					{/if}
 				</CardContent>
 			</Card>
 		{:else if note.mediaType === 'voice_memo'}
@@ -276,7 +356,7 @@
 						<audio
 							controls
 							class="flex-1"
-							src={note.mediaStoragePath ?? ''}
+							src={mediaUrl ?? ''}
 							preload="metadata"
 						>
 							Your browser does not support audio playback.
@@ -307,9 +387,9 @@
 								class="group relative overflow-hidden rounded-lg border transition-all hover:ring-2 hover:ring-primary"
 								onclick={() => jumpToTime(frame.timestamp)}
 							>
-								{#if frame.storagePath}
+								{#if frameUrls[frame.frameIndex]}
 									<img
-										src={frame.storagePath}
+										src={frameUrls[frame.frameIndex]}
 										alt={frame.caption ?? `Frame at ${formatTimestamp(frame.timestamp)}`}
 										class="aspect-video w-full object-cover"
 									/>
@@ -341,7 +421,7 @@
 				<CardContent>
 					{#if transcript.enrichedTranscript}
 						<div class="prose prose-sm max-w-none text-sm leading-relaxed">
-							{@html transcript.enrichedTranscript}
+							{@html marked(transcript.enrichedTranscript)}
 						</div>
 					{:else if transcript.rawTranscript}
 						<p class="whitespace-pre-wrap text-sm leading-relaxed">
@@ -419,9 +499,9 @@
 										</p>
 									{/if}
 								</div>
-								{#if moment.bestFrame?.storagePath}
+								{#if moment.bestFrame?.frameIndex != null && frameUrls[moment.bestFrame.frameIndex]}
 									<img
-										src={moment.bestFrame.storagePath}
+										src={frameUrls[moment.bestFrame.frameIndex]}
 										alt="Moment frame"
 										class="size-16 shrink-0 rounded object-cover"
 									/>
@@ -478,9 +558,9 @@
 											</p>
 										{/if}
 									</div>
-									{#if action.sourceMoment?.bestFrame?.storagePath}
+									{#if action.sourceMoment?.bestFrame?.frameIndex != null && frameUrls[action.sourceMoment.bestFrame.frameIndex]}
 										<img
-											src={action.sourceMoment.bestFrame.storagePath}
+											src={frameUrls[action.sourceMoment.bestFrame.frameIndex]}
 											alt="Source frame"
 											class="size-14 shrink-0 rounded object-cover"
 										/>

@@ -83,21 +83,17 @@ async def save_results(
         )
         result.storage_paths["enriched_transcript"] = enriched_transcript_path
 
-    # Individual frames
+    # Individual frames — already uploaded to storage by extract_frames activity.
+    # frame["path"] contains the storage path (e.g. _frames/abc123/frame_0001.jpg)
     frame_storage_map: dict[int, dict] = {}  # index -> {storage_path, timestamp}
     if frames_data:
-        import base64
-
         for frame in frames_data:
-            frame_path = f"{storage_prefix}/processed/frames/frame_{frame['index']:04d}.jpg"
-            frame_bytes = base64.b64decode(frame["base64_jpeg"])
-            await upload_to_storage("field-media", frame_path, frame_bytes, "image/jpeg")
             frame_storage_map[frame["index"]] = {
-                "storage_path": frame_path,
+                "storage_path": frame.get("path", ""),
                 "timestamp": frame["timestamp_seconds"],
             }
         result.storage_paths["frames"] = f"{storage_prefix}/processed/frames/"
-        activity.heartbeat(f"saved {len(frames_data)} frames")
+        activity.heartbeat(f"mapped {len(frames_data)} frames")
 
     # Parse correlations
     correlations: list[FrameCorrelation] = []

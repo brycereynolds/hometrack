@@ -8,9 +8,14 @@ from temporalio import activity
 
 from src.config import logger
 from src.models import ExtractedFrame
+from src.storage import upload_to_storage
 
 DEFAULT_INTERVAL_SECONDS = 5
 SCENE_CHANGE_THRESHOLD = 0.3
+
+# Frames are uploaded to storage under this prefix inside the field-media bucket.
+# The full path includes the video's storage path to keep frames grouped with their source.
+FRAMES_BUCKET = "field-media"
 
 
 @activity.defn
@@ -19,7 +24,7 @@ async def extract_frames(
     interval_seconds: float = DEFAULT_INTERVAL_SECONDS,
     use_scene_detection: bool = True,
 ) -> list[dict]:
-    """Extract frames at fixed intervals, optionally merging scene-change frames."""
+    """Extract frames at fixed intervals, upload to storage, return metadata only."""
     activity.heartbeat("extracting frames")
 
     tmp_dir = tempfile.mkdtemp(prefix="frames_")
@@ -74,23 +79,34 @@ async def extract_frames(
         else:
             logger.warning("Scene detection failed, using interval frames only")
 
-    # 3. Sort all frames by timestamp and build output
+    # 3. Sort all frames by timestamp, upload to storage, build output
     sorted_items = sorted(timestamps.items(), key=lambda x: x[1])
+
+    # Derive a storage prefix from the video path (e.g. teamId/listingId/timestamp)
+    # video_path is a local temp file, but we use a hash-based prefix
+    import hashlib
+    video_hash = hashlib.md5(video_path.encode()).hexdigest()[:12]
+    storage_prefix = f"_frames/{video_hash}"
 
     frames: list[ExtractedFrame] = []
     for idx, (fpath, ts) in enumerate(sorted_items):
         with open(fpath, "rb") as f:
-            b64 = base64.b64encode(f.read()).decode("ascii")
+            frame_bytes = f.read()
+
+        # Upload frame to Supabase Storage
+        frame_storage_path = f"{storage_prefix}/frame_{idx:04d}.jpg"
+        await upload_to_storage(FRAMES_BUCKET, frame_storage_path, frame_bytes, "image/jpeg")
+
         frames.append(ExtractedFrame(
             index=idx,
             timestamp_seconds=ts,
-            path=fpath,
-            base64_jpeg=b64,
+            path=frame_storage_path,
+            base64_jpeg="",  # Not included in Temporal payload
         ))
-        if (idx + 1) % 20 == 0:
-            activity.heartbeat(f"encoded {idx + 1}/{len(sorted_items)} frames")
+        if (idx + 1) % 10 == 0:
+            activity.heartbeat(f"uploaded {idx + 1}/{len(sorted_items)} frames")
 
-    # Clean up
+    # Clean up local files
     for fpath in timestamps:
         try:
             os.unlink(fpath)

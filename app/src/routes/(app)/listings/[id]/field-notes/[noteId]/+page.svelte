@@ -75,6 +75,18 @@
 	const actions = $derived((note?.actions ?? []) as ActionWithSourceMoment[]);
 
 	let videoElement: HTMLVideoElement | undefined = $state();
+	let mediaUrl: string | null = $state(null);
+	let mediaUrlFetched = false;
+
+	$effect(() => {
+		if (note?.mediaStoragePath && !mediaUrlFetched && (note.mediaType === 'video' || note.mediaType === 'voice_memo')) {
+			mediaUrlFetched = true;
+			fetch(`/api/field-notes/${note.id}/media`)
+				.then((r) => r.ok ? r.json() : null)
+				.then((data) => { if (data?.url) mediaUrl = data.url; })
+				.catch(() => { mediaUrlFetched = false; });
+		}
+	});
 
 	function jumpToTime(seconds: number) {
 		if (videoElement) {
@@ -260,18 +272,20 @@
 		{/if}
 
 		<!-- Media Player -->
-		{#if note.mediaType === 'video'}
+		{#if note.mediaType === 'video' && mediaUrl}
 			<Card>
 				<CardContent class="p-0">
+					{#key mediaUrl}
 					<video
 						bind:this={videoElement}
 						controls
-						class="w-full rounded-t-lg"
-						src={note.processedMediaPath ?? note.mediaStoragePath ?? ''}
+						class="w-full max-h-[500px] rounded-t-lg object-contain bg-black"
+						src={mediaUrl}
 						preload="metadata"
 					>
 						<track kind="captions" />
 					</video>
+					{/key}
 				</CardContent>
 			</Card>
 		{:else if note.mediaType === 'voice_memo'}
@@ -282,7 +296,7 @@
 						<audio
 							controls
 							class="flex-1"
-							src={note.mediaStoragePath ?? ''}
+							src={mediaUrl ?? ''}
 							preload="metadata"
 						>
 							Your browser does not support audio playback.

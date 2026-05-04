@@ -2,6 +2,7 @@ import type { PageServerLoad } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
 import { fieldNotes } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
+import { getWorkflowStatus } from '$lib/server/temporal.js';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
@@ -12,7 +13,7 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
 
   try {
     const note = await withRLS(locals.user.id, 'authenticated', async (db) => {
-      return db.query.fieldNotes.findFirst({
+      const result = await db.query.fieldNotes.findFirst({
         where: and(
           eq(fieldNotes.id, params.noteId),
           eq(fieldNotes.teamId, team.id),
@@ -41,6 +42,19 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
           },
         },
       });
+
+      // If note is pending and has a workflow, check if it failed/was cancelled
+      if (result && (result.status === 'pending' || result.status === 'processing') && result.workflowId) {
+        const wfStatus = await getWorkflowStatus(result.workflowId);
+        if (wfStatus === 'failed' || wfStatus === 'cancelled') {
+          await db.update(fieldNotes)
+            .set({ status: 'failed', updatedAt: new Date() })
+            .where(eq(fieldNotes.id, result.id));
+          return { ...result, status: 'failed' as const };
+        }
+      }
+
+      return result;
     });
 
     if (!note) {

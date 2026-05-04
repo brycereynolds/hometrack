@@ -3,7 +3,7 @@ import json
 import anthropic
 from temporalio import activity
 
-from src.config import ANTHROPIC_API_KEY, logger
+from src.config import get_anthropic_client, logger
 from src.models import FieldNoteInsights
 
 EXTRACTION_PROMPT = """\
@@ -64,9 +64,9 @@ async def extract_insights(
     if correlations_summary:
         content += f"\n\nVISUAL CORRELATION SUMMARY:\n{correlations_summary}"
 
-    client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
+    client = get_anthropic_client()
     message = await client.messages.create(
-        model="claude-sonnet-4-5-20250514",
+        model="claude-sonnet-4-6",
         max_tokens=4000,
         messages=[
             {"role": "user", "content": f"{EXTRACTION_PROMPT}\n\n{content}"},

@@ -22,9 +22,53 @@ SUPABASE_SERVICE_ROLE_KEY = os.environ["SUPABASE_SERVICE_ROLE_KEY"]
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 
+# TokenTap proxy (routes Anthropic calls for usage tracking)
+TOKENTAP_URL = os.getenv("TOKENTAP_URL", "")
+TOKENTAP_KEY = os.getenv("TOKENTAP_KEY", "")
+
 # Realty API (direct — zillow.realtyapi.io)
 REALTY_API_KEY = os.getenv("REALTY_API_KEY", "")
 REALTY_API_HOST = os.getenv("REALTY_API_HOST", "zillow.realtyapi.io")
+
+def get_anthropic_client(
+    user_id: str = "",
+    session_id: str = "",
+    trace_id: str = "",
+) -> "anthropic.AsyncAnthropic":
+    """Get an Anthropic client, routing through TokenTap when configured.
+
+    When called from a Temporal activity, automatically uses the workflow ID
+    as trace/session if not explicitly provided.
+    """
+    import anthropic
+
+    # Auto-detect Temporal activity context for tracing
+    if not trace_id or not session_id:
+        try:
+            from temporalio import activity as _act
+            info = _act.info()
+            if not trace_id:
+                trace_id = info.workflow_id
+            if not session_id:
+                session_id = info.workflow_id
+        except Exception:
+            pass
+
+    if TOKENTAP_URL and TOKENTAP_KEY:
+        headers: dict[str, str] = {}
+        if user_id:
+            headers["X-TokenTap-User"] = user_id
+        if session_id:
+            headers["X-TokenTap-Session"] = session_id
+        if trace_id:
+            headers["X-TokenTap-Trace"] = trace_id
+        return anthropic.AsyncAnthropic(
+            api_key=TOKENTAP_KEY,
+            base_url=f"{TOKENTAP_URL}/anthropic",
+            default_headers=headers or None,
+        )
+    return anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
+
 
 # Logging
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")

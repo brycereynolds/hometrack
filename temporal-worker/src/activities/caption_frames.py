@@ -1,10 +1,12 @@
+import base64
 import json
 import re
 
 import anthropic
+import httpx
 from temporalio import activity
 
-from src.config import ANTHROPIC_API_KEY, logger
+from src.config import get_anthropic_client, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, logger
 from src.models import CorrelatedFrame, ExtractedFrame, FrameCorrelation, KeyMoment
 
 TEMPORAL_WINDOW_SECONDS = 15
@@ -88,7 +90,7 @@ async def correlate_frames(
     if not frames or not moments:
         return []
 
-    client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
+    client = get_anthropic_client()
     correlations: list[FrameCorrelation] = []
     rolling_context: list[dict] = []
 
@@ -120,17 +122,30 @@ async def correlate_frames(
         window_start_display = _format_timestamp_display(max(0, window_start))
         window_end_display = _format_timestamp_display(window_end)
 
-        # Build vision API request with all candidate frames
+        # Build vision API request — download frames from storage
         content_blocks = []
-        for frame in candidates:
-            content_blocks.append({
-                "type": "image",
-                "source": {
-                    "type": "base64",
-                    "media_type": "image/jpeg",
-                    "data": frame.base64_jpeg,
-                },
-            })
+        async with httpx.AsyncClient(timeout=30) as http_client:
+            for frame in candidates:
+                # frame.path is now a storage path like _frames/abc123/frame_0001.jpg
+                # frame.base64_jpeg may be empty if frames were uploaded to storage
+                if frame.base64_jpeg:
+                    b64_data = frame.base64_jpeg
+                else:
+                    url = f"{SUPABASE_URL}/storage/v1/object/field-media/{frame.path}"
+                    resp = await http_client.get(url, headers={
+                        "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+                        "apikey": SUPABASE_SERVICE_ROLE_KEY,
+                    })
+                    resp.raise_for_status()
+                    b64_data = base64.b64encode(resp.content).decode("ascii")
+                content_blocks.append({
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/jpeg",
+                        "data": b64_data,
+                    },
+                })
 
         # Build rolling context block
         prior_context_block = ""
@@ -183,7 +198,7 @@ Return ONLY valid JSON:
 
         try:
             message = await client.messages.create(
-                model="claude-haiku-4-5-20251001",
+                model="claude-sonnet-4-6",
                 max_tokens=2000,
                 messages=[{"role": "user", "content": content_blocks}],
             )

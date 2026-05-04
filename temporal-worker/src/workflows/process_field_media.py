@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from temporalio import workflow
+from temporalio.common import RetryPolicy
 
 with workflow.unsafe.imports_passed_through():
     from src.activities.analyze_key_moments import analyze_key_moments
@@ -12,7 +13,12 @@ with workflow.unsafe.imports_passed_through():
     from src.activities.generate_enriched_transcript import generate_enriched_transcript
     from src.activities.save_results import save_results
     from src.activities.transcribe import transcribe
+    from src.activities.update_stage import update_processing_stage
     from src.models import FieldMediaInput
+
+RETRY_POLICY = RetryPolicy(maximum_attempts=3)
+STAGE_TIMEOUT = timedelta(seconds=10)
+STAGE_RETRY = RetryPolicy(maximum_attempts=2)
 
 
 @workflow.defn
@@ -30,74 +36,94 @@ class ProcessFieldMedia:
         else:
             raise ValueError(f"Unknown media_type: {input.media_type}")
 
-    async def _process_video(self, input: FieldMediaInput) -> dict:
-        field_note_id = input.metadata.get("field_note_id", "")
+    async def _set_stage(self, field_note_id: str, stage: str, status: str = "active") -> None:
+        """Update processing stage in the DB (fire-and-forget, non-blocking)."""
+        if not field_note_id:
+            return
+        await workflow.execute_activity(
+            update_processing_stage,
+            args=[field_note_id, stage, status],
+            start_to_close_timeout=STAGE_TIMEOUT,
+            retry_policy=STAGE_RETRY,
+        )
 
-        # 1. Download + downscale
+    async def _process_video(self, input: FieldMediaInput) -> dict:
+        field_note_id = input.metadata.get("fieldNoteId", "") or input.metadata.get("field_note_id", "")
+
+        await self._set_stage(field_note_id, "download", "active")
         download_result: dict = await workflow.execute_activity(
             download_media, input.storage_path,
             start_to_close_timeout=timedelta(minutes=10),
             heartbeat_timeout=timedelta(minutes=3),
+            retry_policy=RETRY_POLICY,
         )
         local_path = download_result["local_path"]
         content_hash = download_result["content_hash"]
+        await self._set_stage(field_note_id, "download", "completed")
 
-        # 2. Extract audio
+        await self._set_stage(field_note_id, "extract", "active")
         audio_path: str = await workflow.execute_activity(
             extract_audio, local_path,
             start_to_close_timeout=timedelta(minutes=10),
             heartbeat_timeout=timedelta(minutes=5),
+            retry_policy=RETRY_POLICY,
         )
-
-        # 3. Extract frames (interval-based with scene detection merge)
         frames_data: list[dict] = await workflow.execute_activity(
             extract_frames, local_path,
             start_to_close_timeout=timedelta(minutes=10),
             heartbeat_timeout=timedelta(minutes=5),
+            retry_policy=RETRY_POLICY,
         )
+        await self._set_stage(field_note_id, "extract", "completed")
 
-        # 4. Transcribe with speaker diarization
+        await self._set_stage(field_note_id, "transcribe", "active")
         transcript_data: dict = await workflow.execute_activity(
             transcribe, audio_path,
             start_to_close_timeout=timedelta(minutes=15),
             heartbeat_timeout=timedelta(minutes=5),
+            retry_policy=RETRY_POLICY,
         )
+        await self._set_stage(field_note_id, "transcribe", "completed")
 
-        # 5. Analyze key moments
+        await self._set_stage(field_note_id, "moments", "active")
         moments_data: list[dict] = await workflow.execute_activity(
             analyze_key_moments, transcript_data,
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=3),
+            retry_policy=RETRY_POLICY,
         )
+        await self._set_stage(field_note_id, "moments", "completed")
 
-        # 6. Correlate frames with key moments (vision)
+        await self._set_stage(field_note_id, "vision", "active")
         correlations_data: list[dict] = await workflow.execute_activity(
             correlate_frames, args=[frames_data, moments_data],
             start_to_close_timeout=timedelta(minutes=30),
             heartbeat_timeout=timedelta(minutes=5),
+            retry_policy=RETRY_POLICY,
         )
+        await self._set_stage(field_note_id, "vision", "completed")
 
-        # 7. Generate enriched transcript
+        await self._set_stage(field_note_id, "insights", "active")
         enriched_transcript: str = await workflow.execute_activity(
             generate_enriched_transcript,
             args=[transcript_data, moments_data, correlations_data],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=3),
+            retry_policy=RETRY_POLICY,
         )
-
-        # 8. Extract insights (HomeTrack-specific with Pydantic)
         corr_summary = _build_correlations_summary(correlations_data)
         insights_data: dict = await workflow.execute_activity(
             extract_insights,
             args=[enriched_transcript, corr_summary],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=3),
+            retry_policy=RETRY_POLICY,
         )
+        await self._set_stage(field_note_id, "insights", "completed")
 
-        # Derive duration from transcript if available
         duration = _get_duration(transcript_data)
 
-        # 9. Save results (full storage + all DB tables)
+        await self._set_stage(field_note_id, "saving", "active")
         result: dict = await workflow.execute_activity(
             save_results,
             args=[
@@ -109,55 +135,56 @@ class ProcessFieldMedia:
             ],
             start_to_close_timeout=timedelta(minutes=10),
             heartbeat_timeout=timedelta(minutes=5),
+            retry_policy=RETRY_POLICY,
         )
+        await self._set_stage(field_note_id, "saving", "completed")
         return result
 
     async def _process_voice_memo(self, input: FieldMediaInput) -> dict:
-        field_note_id = input.metadata.get("field_note_id", "")
+        field_note_id = input.metadata.get("fieldNoteId", "") or input.metadata.get("field_note_id", "")
 
-        # 1. Download
         download_result: dict = await workflow.execute_activity(
             download_media, input.storage_path,
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
+            retry_policy=RETRY_POLICY,
         )
         local_path = download_result["local_path"]
         content_hash = download_result["content_hash"]
 
-        # 2. Transcribe with diarization (already audio, skip extraction)
         transcript_data: dict = await workflow.execute_activity(
             transcribe, local_path,
             start_to_close_timeout=timedelta(minutes=15),
             heartbeat_timeout=timedelta(minutes=5),
+            retry_policy=RETRY_POLICY,
         )
 
-        # 3. Analyze key moments (voice-only prompt, no visual references)
         transcript_with_type = {**transcript_data, "media_type": "voice_memo"}
         moments_data: list[dict] = await workflow.execute_activity(
             analyze_key_moments, transcript_with_type,
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=3),
+            retry_policy=RETRY_POLICY,
         )
 
-        # 4. Generate enriched transcript (no frames/correlations)
         enriched_transcript: str = await workflow.execute_activity(
             generate_enriched_transcript,
             args=[transcript_data, moments_data, []],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=3),
+            retry_policy=RETRY_POLICY,
         )
 
-        # 5. Extract insights
         insights_data: dict = await workflow.execute_activity(
             extract_insights,
             args=[enriched_transcript, None],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
+            retry_policy=RETRY_POLICY,
         )
 
         duration = _get_duration(transcript_data)
 
-        # 6. Save results
         result: dict = await workflow.execute_activity(
             save_results,
             args=[
@@ -169,23 +196,23 @@ class ProcessFieldMedia:
             ],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
+            retry_policy=RETRY_POLICY,
         )
         return result
 
     async def _process_text(self, input: FieldMediaInput) -> dict:
-        field_note_id = input.metadata.get("field_note_id", "")
+        field_note_id = input.metadata.get("fieldNoteId", "") or input.metadata.get("field_note_id", "")
         text = input.metadata.get("text", "")
         content_hash = input.content_hash or f"text_{field_note_id}"
 
-        # 1. Extract insights directly from text
         insights_data: dict = await workflow.execute_activity(
             extract_insights,
             args=[text, None],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
+            retry_policy=RETRY_POLICY,
         )
 
-        # 2. Save results
         result: dict = await workflow.execute_activity(
             save_results,
             args=[
@@ -196,6 +223,7 @@ class ProcessFieldMedia:
             ],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
+            retry_policy=RETRY_POLICY,
         )
         return result
 

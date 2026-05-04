@@ -59,7 +59,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			// Trigger Temporal workflow for video processing
 			const workflow = isVideo ? await startFieldMediaWorkflow({
 				mediaType: 'video',
-				storagePath: `field-media/${storagePath}`,
+				storagePath,
 				listingId: listingId ?? null,
 				teamId,
 				authorId: memberId,
@@ -71,6 +71,13 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 					fieldNoteId: noteId,
 				},
 			}) : null;
+
+			// Save workflow ID so we can check status later
+			if (workflow?.workflowId) {
+				await db.update(fieldNotes)
+					.set({ workflowId: workflow.workflowId })
+					.where(eq(fieldNotes.id, noteId));
+			}
 
 			return { fieldNoteId: noteId, attachmentId, storagePath, workflowId: workflow?.workflowId ?? null };
 		});

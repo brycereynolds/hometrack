@@ -12,6 +12,7 @@ from src.activities.analyze_market import analyze_market
 from src.activities.caption_frames import correlate_frames
 from src.activities.download_media import download_media
 from src.activities.extract_audio import extract_audio
+from src.activities.extract_document_data import extract_document_data
 from src.activities.extract_frames import extract_frames
 from src.activities.extract_insights import extract_insights
 from src.activities.link_actions_to_moments import link_actions_to_moments
@@ -44,6 +45,7 @@ ACTIVITIES = [
     transcribe,
     analyze_key_moments,
     correlate_frames,
+    extract_document_data,
     extract_insights,
     link_actions_to_moments,
     generate_enriched_transcript,

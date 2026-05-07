@@ -6,6 +6,7 @@
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs/index.js';
 	import CommentThread from '$lib/components/shared/CommentThread.svelte';
 	import MarkAsTaskModal from '$lib/components/MarkAsTaskModal.svelte';
+	import TrackCostModal from '$lib/components/TrackCostModal.svelte';
 	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { toast } from 'svelte-sonner';
@@ -34,6 +35,7 @@
 		MapPin,
 		Paperclip,
 		Pencil,
+		DollarSign,
 	} from 'lucide-svelte';
 
 	let { data } = $props();
@@ -176,6 +178,8 @@
 	let dismissedOpen = $state(false);
 	let reviewModalOpen = $state(false);
 	let reviewModalStartIndex = $state(0);
+	let costModalOpen = $state(false);
+	let costModalAction = $state<(ActionWithSourceMoment & { actionMoments?: any[] }) | null>(null);
 
 	function openModalForAction(action: ActionWithSourceMoment) {
 		const idx = suggestedActions.findIndex((a) => a.id === action.id);
@@ -624,7 +628,7 @@
 												</div>
 											{/if}
 										</div>
-										<div class="mt-3 flex gap-2">
+										<div class="mt-3 flex flex-wrap gap-2">
 											<Button
 												size="sm"
 												variant="default"
@@ -633,6 +637,15 @@
 											>
 												<Check class="mr-1 size-3" />
 												Mark as Task
+											</Button>
+											<Button
+												size="sm"
+												variant="outline"
+												disabled={!note.listingId}
+												onclick={() => { costModalAction = action; costModalOpen = true; }}
+											>
+												<DollarSign class="mr-1 size-3" />
+												Track as Cost
 											</Button>
 											<form
 												method="POST"
@@ -875,6 +888,13 @@
 		noteAuthorId={note.authorId ?? ''}
 		noteId={note.id}
 		videoUrl={note.mediaType === 'video' ? mediaUrl : null}
+		onTrackCost={(action) => { costModalAction = action; costModalOpen = true; }}
+	/>
+	<TrackCostModal
+		bind:open={costModalOpen}
+		actionItem={costModalAction}
+		listingId={note.listingId ?? null}
+		noteId={note.id}
 	/>
 {:else}
 	<div class="flex flex-col items-center justify-center py-12">

@@ -14,6 +14,7 @@
 		Loader2,
 		Pencil,
 		Sparkles,
+		DollarSign,
 	} from 'lucide-svelte';
 	import type { ActionWithSourceMoment, TeamMember } from '$lib/types.js';
 
@@ -26,6 +27,7 @@
 		noteId?: string | null;
 		startIndex?: number;
 		videoUrl?: string | null;
+		onTrackCost?: (action: ActionWithSourceMoment & { actionMoments?: any[] }) => void;
 	}
 
 	let {
@@ -36,7 +38,8 @@
 		noteAuthorId,
 		noteId = null,
 		startIndex = $bindable(0),
-		videoUrl = null
+		videoUrl = null,
+		onTrackCost,
 	}: Props = $props();
 
 	let modalVideoElement: HTMLVideoElement | undefined = $state();
@@ -551,6 +554,20 @@
 						</Button>
 					</form>
 
+					<div class="flex items-center gap-2">
+					<!-- Track as Cost -->
+					{#if onTrackCost && listingId}
+						<Button
+							variant="outline"
+							size="default"
+							disabled={submitting}
+							onclick={() => { open = false; onTrackCost?.(currentItem); }}
+						>
+							<DollarSign class="mr-1 size-3" />
+							Cost
+						</Button>
+					{/if}
+
 					<!-- Mark as Task (right) -->
 					<form
 						method="POST"
@@ -578,6 +595,7 @@
 							Mark as Task
 						</Button>
 					</form>
+					</div>
 				</div>
 
 				<!-- Bulk apply (below, separated) -->

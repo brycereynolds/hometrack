@@ -176,6 +176,29 @@ class MarketAnalysisResult(BaseModel):
     computed_stats: dict = Field(default_factory=dict)
 
 
+class DocumentLineItem(BaseModel):
+    description: str
+    quantity: float | None = None
+    unit_price: float | None = None
+    amount: float | None = None
+
+
+class DocumentExtractionResult(BaseModel):
+    document_type: str  # receipt, invoice, quote, inspection, permit, other
+    vendor_name: str | None = None
+    date: str | None = None
+    line_items: list[DocumentLineItem] = Field(default_factory=list)
+    total_amount: float | None = None
+    raw_text: str | None = None
+    confidence: float = 0.0
+
+
+class ExtractDocumentDataInput(BaseModel):
+    storage_path: str
+    content_type: str
+    workflow_id: str
+
+
 class FieldMediaInput(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 

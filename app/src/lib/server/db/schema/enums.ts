@@ -159,6 +159,13 @@ export const fieldNoteActionStatusEnum = pgEnum('field_note_action_status', [
   'task_created',
 ]);
 
+export const listingCostStatusEnum = pgEnum('listing_cost_status', [
+  'estimated',
+  'quoted',
+  'committed',
+  'paid',
+]);
+
 export const integrationCategoryEnum = pgEnum('integration_category', [
   'email',
   'calendar',

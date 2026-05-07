@@ -1,7 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 import { adminDb } from '$lib/server/db/index.js';
-import { teams, listings, contacts } from '$lib/server/db/schema/index.js';
-import { eq, and } from 'drizzle-orm';
+import { teams, listings, contacts, quotes } from '$lib/server/db/schema/index.js';
+import { eq, and, sql } from 'drizzle-orm';
 import { error } from '@sveltejs/kit';
 
 export const load: LayoutServerLoad = async ({ params, cookies }) => {
@@ -25,5 +25,19 @@ export const load: LayoutServerLoad = async ({ params, cookies }) => {
 
   const portalSettings = (listing?.portalSettings as Record<string, any>) ?? null;
 
-  return { team, portalSettings, portalAuthenticated };
+  // Count pending quotes for badge
+  let pendingQuoteCount = 0;
+  if (listing) {
+    const sharedQuotes = await adminDb.query.quotes.findMany({
+      where: and(
+        eq(quotes.listingId, listing.id),
+        eq(quotes.sharedWithClient, true),
+      ),
+    });
+    pendingQuoteCount = sharedQuotes.filter(
+      (q) => !q.clientReviewStatus || q.clientReviewStatus === 'pending_review',
+    ).length;
+  }
+
+  return { team, portalSettings, portalAuthenticated, pendingQuoteCount };
 };

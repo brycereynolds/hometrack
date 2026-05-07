@@ -5,6 +5,7 @@ import {
   fieldNoteActions,
   tasks,
   teamMembers,
+  listingCosts,
 } from '$lib/server/db/schema/index.js';
 import { eq, and, inArray } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
@@ -249,6 +250,62 @@ export const actions: Actions = {
     } catch (err) {
       console.error('bulkMarkAsTasks error:', err);
       return fail(500, { error: 'Failed to create tasks' });
+    }
+  },
+
+  trackCost: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const form = await request.formData();
+    const actionId = form.get('actionId') as string;
+    const listingId = form.get('listingId') as string;
+    const category = form.get('category') as string;
+    const amountStr = form.get('amount') as string;
+    const notes = form.get('notes') as string;
+
+    if (!actionId || !listingId) return fail(400, { error: 'Action ID and listing ID are required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const member = await db.query.teamMembers.findFirst({
+          where: eq(teamMembers.userId, locals.user!.id),
+        });
+        if (!member) throw new Error('No team membership found');
+
+        const action = await db.query.fieldNoteActions.findFirst({
+          where: eq(fieldNoteActions.id, actionId),
+        });
+        if (!action) throw new Error('Action not found');
+
+        const amount = amountStr ? parseFloat(amountStr) : null;
+
+        await db.insert(listingCosts).values({
+          teamId: member.teamId,
+          listingId,
+          actionId,
+          title: action.title,
+          description: action.description,
+          category: category || 'general',
+          amount,
+          status: 'estimated',
+          notes: notes || null,
+        });
+
+        await db
+          .update(fieldNoteActions)
+          .set({
+            status: 'task_created',
+            reviewedBy: member.id,
+            reviewedAt: new Date(),
+            updatedAt: new Date(),
+          })
+          .where(eq(fieldNoteActions.id, actionId));
+      });
+
+      return { success: true, action: 'trackCost' };
+    } catch (err) {
+      console.error('trackCost error:', err);
+      return fail(500, { error: 'Failed to track cost' });
     }
   },
 };

@@ -34,6 +34,7 @@
 	let drawerHeight = $state(browser ? Math.round(window.innerHeight * DEFAULT_HEIGHT_VH / 100) : 400);
 	let isDragging = $state(false);
 	let isMaximized = $state(false);
+	let isMobile = $state(browser ? window.innerWidth < 768 : false);
 	let dragStartY = 0;
 	let dragStartHeight = 0;
 
@@ -43,6 +44,7 @@
 	}
 
 	function onPointerDown(e: PointerEvent) {
+		if (isMobile) return;
 		isDragging = true;
 		dragStartY = e.clientY;
 		dragStartHeight = drawerHeight;
@@ -50,7 +52,7 @@
 	}
 
 	function onPointerMove(e: PointerEvent) {
-		if (!isDragging) return;
+		if (!isDragging || isMobile) return;
 		const delta = dragStartY - e.clientY;
 		drawerHeight = clampHeight(dragStartHeight + delta);
 		isMaximized = false;
@@ -61,15 +63,22 @@
 	}
 
 	function toggleMaximize() {
-		const maxPx = Math.round(window.innerHeight * MAX_HEIGHT_VH / 100);
 		if (isMaximized) {
 			drawerHeight = Math.round(window.innerHeight * DEFAULT_HEIGHT_VH / 100);
 			isMaximized = false;
 		} else {
-			drawerHeight = maxPx;
 			isMaximized = true;
 		}
 	}
+
+	$effect(() => {
+		if (!browser) return;
+		function onResize() {
+			isMobile = window.innerWidth < 768;
+		}
+		window.addEventListener('resize', onResize);
+		return () => window.removeEventListener('resize', onResize);
+	});
 
 	function scrollToBottom() {
 		requestAnimationFrame(() => {
@@ -295,11 +304,12 @@
 <!-- Bottom drawer -->
 {#if isOpen}
 	<div
-		class="fixed inset-x-0 bottom-0 z-50 flex flex-col bg-background border-t shadow-[0_-4px_24px_rgba(0,0,0,0.12)] rounded-t-xl"
-		style="height: {drawerHeight}px;"
+		class="fixed z-50 flex flex-col bg-background border-t shadow-[0_-4px_24px_rgba(0,0,0,0.12)] {(isMaximized || isMobile) ? '' : 'inset-x-0 bottom-0 rounded-t-xl'}"
+		style={isMaximized || isMobile ? 'inset: 0; width: 100vw; height: 100vh;' : `height: ${drawerHeight}px;`}
 	>
-		<!-- Drag handle -->
+		<!-- Drag handle (hidden on mobile) -->
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		{#if !isMobile}
 		<div
 			class="flex items-center justify-center py-1.5 cursor-ns-resize select-none shrink-0"
 			onpointerdown={onPointerDown}
@@ -308,6 +318,7 @@
 		>
 			<div class="w-10 h-1 rounded-full bg-muted-foreground/30"></div>
 		</div>
+		{/if}
 
 		<!-- Header -->
 		<div class="flex items-center justify-between px-4 pb-2 shrink-0">

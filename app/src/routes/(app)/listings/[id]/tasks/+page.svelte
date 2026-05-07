@@ -23,11 +23,13 @@
 		Trash2
 	} from 'lucide-svelte';
 	import { Autocomplete } from '$lib/components/shared';
+	import TaskCompleteModal from '$lib/components/TaskCompleteModal.svelte';
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
 	const listingTasks = $derived(data.tasks ?? []);
 	const allTeamMembers = $derived(data.teamMembers ?? []);
+	const allVendors = $derived((data as any).vendors ?? []);
 
 	let filterAssignee = $state('all');
 	let filterStatus = $state('all');
@@ -50,6 +52,10 @@
 	let newPhase = $state('');
 	let newDueDate = $state('');
 	let newAssigneeId = $state('');
+
+	// Complete task modal state
+	let showCompleteModal = $state(false);
+	let completingTask = $state<any | null>(null);
 
 	// Delete confirmation
 	let showDeleteModal = $state(false);
@@ -108,6 +114,14 @@
 		}
 		return grouped;
 	});
+
+	const phaseKeys = $derived(new Set(PHASE_LIST.map((p) => p.key)));
+	const allGroups = $derived([
+		...PHASE_LIST.map((p) => ({ key: p.key, label: p.label, color: p.color })),
+		...Object.keys(tasksByPhase())
+			.filter((k) => !phaseKeys.has(k as any))
+			.map((k) => ({ key: k, label: k === 'general' ? 'General' : k, color: '#8B8B8B' }))
+	]);
 
 	const uniqueAssignees = $derived(
 		Array.from(new Set(listingTasks.map((t: any) => JSON.stringify({ id: t.assignee?.id, name: t.assignee?.name })).filter((s: string) => {
@@ -246,13 +260,6 @@
 		</Card>
 
 		<!-- Tasks by Phase -->
-		{@const phaseKeys = new Set(PHASE_LIST.map((p) => p.key))}
-		{@const allGroups = [
-			...PHASE_LIST.map((p) => ({ key: p.key, label: p.label, color: p.color })),
-			...Object.keys(tasksByPhase())
-				.filter((k) => !phaseKeys.has(k as any))
-				.map((k) => ({ key: k, label: k === 'general' ? 'General' : k, color: '#8B8B8B' }))
-		]}
 		{#each allGroups as phase}
 			{@const phaseTasks = tasksByPhase()[phase.key] || []}
 			{#if phaseTasks.length > 0}
@@ -313,7 +320,7 @@
 											<div class="flex items-center gap-2">
 												<button
 													class="text-left text-sm {task.status === 'done' ? 'line-through text-muted-foreground' : 'font-medium'} hover:text-primary transition-colors"
-													onclick={() => openTaskEdit(task)}
+													onclick={() => { completingTask = task; showCompleteModal = true; }}
 												>
 													{task.title}
 												</button>
@@ -595,6 +602,17 @@
 		</form>
 	</Dialog.Content>
 </Dialog.Root>
+
+<!-- Task Complete Modal -->
+{#if completingTask}
+	<TaskCompleteModal
+		bind:open={showCompleteModal}
+		task={completingTask}
+		teamMembers={allTeamMembers}
+		vendors={allVendors}
+		listingId={listing?.id ?? ''}
+	/>
+{/if}
 
 <!-- Delete Task Confirmation -->
 <Dialog.Root bind:open={showDeleteModal}>

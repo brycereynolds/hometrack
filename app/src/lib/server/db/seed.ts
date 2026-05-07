@@ -41,6 +41,7 @@ const {
   compSales,
   quotes,
   quoteLineItems,
+  listingCosts,
   marketingAssets,
   integrations,
   workflowTemplates,
@@ -81,6 +82,7 @@ async function main() {
   console.log('  Clearing existing data...');
   try {
     await outerDb.execute(sql`TRUNCATE TABLE
+      listing_costs,
       field_note_actions, field_note_moments, field_note_frames,
       field_note_transcripts, field_notes,
       external_listings, buyer_preferences,
@@ -107,6 +109,7 @@ async function main() {
   const vendorMap: Record<string, string> = {};
   const budgetMap: Record<string, string> = {};
   const quoteMap: Record<string, string> = {};
+  const taskMap: Record<string, string> = {};
 
   // Helper to parse date strings to Date objects
   function parseDate(dateStr: string): Date {
@@ -2712,8 +2715,10 @@ async function main() {
   ];
 
   for (const t of taskData) {
+    const taskId = randomUUID();
+    taskMap[t.mockId] = taskId;
     await db.insert(tasks).values({
-      id: randomUUID(),
+      id: taskId,
       teamId,
       listingId: listingMap[t.listingMock],
       title: t.title,
@@ -3156,11 +3161,14 @@ async function main() {
   // ─── 14. Quotes & Line Items ──────────────────────────────────────────
   console.log('  Inserting quotes...');
   const quoteData = [
-    { mockId: 'q-1', vendorMock: 'v-1', listingMock: 'l-8', scope: 'Bathroom renovation', amount: 12400, status: 'received' as const, requestedDate: '2026-04-03', receivedDate: '2026-04-07', validUntil: '2026-04-21', notes: 'Can start as early as next Monday if approved', lineItems: [{ description: 'Demo & haul', amount: 1800 }, { description: 'Plumbing rough-in', amount: 2200 }, { description: 'Tile & grout', amount: 3400 }, { description: 'Vanity & fixtures', amount: 3200 }, { description: 'Paint & trim', amount: 1800 }] },
-    { mockId: 'q-2', vendorMock: 'v-2', listingMock: 'l-4', scope: 'Full vacant staging (2 months)', amount: 5800, status: 'approved' as const, requestedDate: '2026-03-28', receivedDate: '2026-03-29', validUntil: '2026-04-15', lineItems: [{ description: 'Staging design', amount: 800 }, { description: 'Furniture rental (2 mo)', amount: 3600 }, { description: 'Delivery & install', amount: 700 }, { description: 'De-stage & pickup', amount: 700 }] },
-    { mockId: 'q-3', vendorMock: 'v-3', listingMock: 'l-3', scope: 'Full photo + video package', amount: 2200, status: 'approved' as const, requestedDate: '2026-04-05', receivedDate: '2026-04-05', validUntil: '2026-04-20', lineItems: [{ description: 'Professional photos (40+)', amount: 800 }, { description: 'Drone aerial (8 shots)', amount: 400 }, { description: 'Video walkthrough (2 min)', amount: 600 }, { description: 'Twilight shoot', amount: 400 }] },
+    { mockId: 'q-1', vendorMock: 'v-1', listingMock: 'l-8', scope: 'Bathroom renovation', amount: 12400, status: 'received' as const, requestedDate: '2026-04-03', receivedDate: '2026-04-07', validUntil: '2026-04-21', notes: 'Can start as early as next Monday if approved', documentName: 'Bradley_Renovations_Bathroom_Quote.pdf', sharedWithClient: true, clientReviewStatus: 'pending_review', lineItems: [{ description: 'Demo & haul', amount: 1800 }, { description: 'Plumbing rough-in', amount: 2200 }, { description: 'Tile & grout', amount: 3400 }, { description: 'Vanity & fixtures', amount: 3200 }, { description: 'Paint & trim', amount: 1800 }] },
+    { mockId: 'q-2', vendorMock: 'v-2', listingMock: 'l-4', scope: 'Full vacant staging (2 months)', amount: 5800, status: 'approved' as const, requestedDate: '2026-03-28', receivedDate: '2026-03-29', validUntil: '2026-04-15', documentName: 'Meridian_Staging_Proposal.pdf', sharedWithClient: true, clientReviewStatus: 'approved', lineItems: [{ description: 'Staging design', amount: 800 }, { description: 'Furniture rental (2 mo)', amount: 3600 }, { description: 'Delivery & install', amount: 700 }, { description: 'De-stage & pickup', amount: 700 }] },
+    { mockId: 'q-3', vendorMock: 'v-3', listingMock: 'l-3', scope: 'Full photo + video package', amount: 2200, status: 'approved' as const, requestedDate: '2026-04-05', receivedDate: '2026-04-05', validUntil: '2026-04-20', documentName: 'TranGroup_PhotoVideo_Quote.pdf', sharedWithClient: false, lineItems: [{ description: 'Professional photos (40+)', amount: 800 }, { description: 'Drone aerial (8 shots)', amount: 400 }, { description: 'Video walkthrough (2 min)', amount: 600 }, { description: 'Twilight shoot', amount: 400 }] },
     { mockId: 'q-4', vendorMock: 'v-5', listingMock: 'l-1', scope: 'Curb appeal package', amount: 3800, status: 'requested' as const, requestedDate: '2026-04-08', lineItems: [] },
-    { mockId: 'q-5', vendorMock: 'v-6', listingMock: 'l-8', scope: 'Interior repaint - full unit', amount: 4200, status: 'received' as const, requestedDate: '2026-04-04', receivedDate: '2026-04-06', validUntil: '2026-04-20', lineItems: [{ description: 'Prep & prime (all rooms)', amount: 1200 }, { description: 'Paint (2 coats)', amount: 2400 }, { description: 'Trim & baseboards', amount: 600 }] },
+    { mockId: 'q-5', vendorMock: 'v-6', listingMock: 'l-8', scope: 'Interior repaint - full unit', amount: 4200, status: 'received' as const, requestedDate: '2026-04-04', receivedDate: '2026-04-06', validUntil: '2026-04-20', documentName: 'ParkPainting_Repaint_Estimate.pdf', sharedWithClient: true, clientReviewStatus: 'pending_review', lineItems: [{ description: 'Prep & prime (all rooms)', amount: 1200 }, { description: 'Paint (2 coats)', amount: 2400 }, { description: 'Trim & baseboards', amount: 600 }] },
+    { mockId: 'q-6', vendorMock: 'v-1', listingMock: 'l-5', scope: 'Wall damage repair & patching', amount: 4800, status: 'received' as const, requestedDate: '2026-04-06', receivedDate: '2026-04-08', validUntil: '2026-04-22', documentName: 'Bradley_WallRepair_Quote.pdf', sharedWithClient: true, clientReviewStatus: 'pending_review', lineItems: [{ description: 'Drywall repair (3 rooms)', amount: 2400 }, { description: 'Texture matching', amount: 1200 }, { description: 'Prime & paint touch-up', amount: 1200 }] },
+    { mockId: 'q-7', vendorMock: 'v-4', listingMock: 'l-3', scope: 'Roof inspection & certification', amount: 350, status: 'approved' as const, requestedDate: '2026-04-02', receivedDate: '2026-04-03', validUntil: '2026-04-17', documentName: 'BayArea_RoofInspection_Invoice.pdf', sharedWithClient: false, lineItems: [{ description: 'Full roof inspection', amount: 250 }, { description: 'Certification report', amount: 100 }] },
+    { mockId: 'q-8', vendorMock: 'v-6', listingMock: 'l-3', scope: 'Kitchen cabinet refinishing', amount: 6500, status: 'received' as const, requestedDate: '2026-04-07', receivedDate: '2026-04-09', validUntil: '2026-04-23', documentName: 'ParkPainting_CabinetRefinish_Quote.pdf', sharedWithClient: true, clientReviewStatus: 'pending_review', lineItems: [{ description: 'Cabinet prep & sanding', amount: 1500 }, { description: 'Prime & paint (2 coats)', amount: 3000 }, { description: 'New hardware install', amount: 800 }, { description: 'Cleanup & touch-up', amount: 1200 }] },
   ];
 
   for (const q of quoteData) {
@@ -3178,6 +3186,9 @@ async function main() {
       receivedDate: 'receivedDate' in q && q.receivedDate ? parseDate(q.receivedDate) : undefined,
       validUntil: 'validUntil' in q && q.validUntil ? parseDate(q.validUntil) : undefined,
       notes: 'notes' in q ? q.notes : undefined,
+      documentName: 'documentName' in q ? q.documentName : undefined,
+      sharedWithClient: 'sharedWithClient' in q ? q.sharedWithClient as boolean : false,
+      clientReviewStatus: 'clientReviewStatus' in q ? q.clientReviewStatus as string : undefined,
     });
 
     for (const li of q.lineItems) {
@@ -3188,6 +3199,53 @@ async function main() {
         amount: li.amount,
       });
     }
+  }
+
+  // ─── 14b. Listing Costs ──────────────────────────────────────────────
+  console.log('  Inserting listing costs...');
+  const listingCostData = [
+    // ── 809 Midvale Ln (l-5) — pre-market, early stage ──
+    { listingMock: 'l-5', title: 'General landscaping cleanup', category: 'improvements', amount: 3200, status: 'paid' as const, vendorMock: 'v-5', paidDate: '2026-04-05', notes: 'Front yard cleanup, hedge trimming, mulch' },
+    { listingMock: 'l-5', title: 'Wall damage repair quote', category: 'improvements', amount: 4800, status: 'committed' as const, vendorMock: 'v-1', quoteMock: 'q-6', notes: 'Drywall repair in master, hallway, and guest room' },
+    { listingMock: 'l-5', title: 'Exterior outlet tightening', category: 'improvements', amount: 150, status: 'estimated' as const, notes: 'Handyman fix — loose outdoor GFCI outlets' },
+    { listingMock: 'l-5', title: 'Pre-listing inspection', category: 'disclosures', amount: 500, status: 'paid' as const, vendorMock: 'v-4', taskMock: 't-78', paidDate: '2026-04-10', notes: 'Bay Area Property Inspections — full report' },
+    { listingMock: 'l-5', title: 'Staging furniture rental', category: 'staging', amount: 2000, status: 'committed' as const, vendorMock: 'v-2', notes: '6-week rental, delivery included' },
+    { listingMock: 'l-5', title: 'Professional photos', category: 'media', amount: 450, status: 'paid' as const, vendorMock: 'v-3', paidDate: '2026-04-12', notes: '30 photos + drone aerials' },
+
+    // ── 40 Pleasant St (l-3) — pre-market, more activity ──
+    { listingMock: 'l-3', title: 'Kitchen cabinet refinishing', category: 'improvements', amount: 6500, status: 'quoted' as const, vendorMock: 'v-6', quoteMock: 'q-8', taskMock: 't-53', notes: 'Awaiting client approval on Park Painting quote' },
+    { listingMock: 'l-3', title: 'Roof inspection', category: 'disclosures', amount: 350, status: 'paid' as const, vendorMock: 'v-4', quoteMock: 'q-7', taskMock: 't-47', paidDate: '2026-04-08', notes: 'Passed — no issues found' },
+    { listingMock: 'l-3', title: 'Deep cleaning', category: 'staging', amount: 800, status: 'committed' as const, notes: 'Scheduled for week before photos' },
+    { listingMock: 'l-3', title: 'Full photo + video package', category: 'media', amount: 2200, status: 'committed' as const, vendorMock: 'v-3', quoteMock: 'q-3', taskMock: 't-55', notes: 'Tran Group — approved quote, shooting after staging' },
+
+    // ── 126 University Ave (l-1) — active listing ──
+    { listingMock: 'l-1', title: 'Kitchen remodel', category: 'improvements', amount: 11200, status: 'paid' as const, vendorMock: 'v-1', paidDate: '2026-03-25', notes: 'Bradley Renovations — counters, backsplash, hardware' },
+    { listingMock: 'l-1', title: 'Staging (full home)', category: 'staging', amount: 6200, status: 'paid' as const, vendorMock: 'v-2', paidDate: '2026-03-30', notes: 'Meridian — 3-month luxury staging' },
+    { listingMock: 'l-1', title: 'Professional photography & video', category: 'media', amount: 1800, status: 'paid' as const, vendorMock: 'v-3', taskMock: 't-10', paidDate: '2026-04-02', notes: 'Tran Group — 42 photos + video walkthrough' },
+    { listingMock: 'l-1', title: 'Marketing & advertising', category: 'marketing', amount: 2200, status: 'paid' as const, paidDate: '2026-04-05', notes: 'Social media ads, print materials, MLS premium placement' },
+    { listingMock: 'l-1', title: 'Curb appeal landscaping', category: 'improvements', amount: 3800, status: 'estimated' as const, vendorMock: 'v-5', quoteMock: 'q-4', notes: 'Green Thumb — quote requested, awaiting response' },
+    { listingMock: 'l-1', title: 'Landscaping (front yard)', category: 'improvements', amount: 1000, status: 'paid' as const, vendorMock: 'v-5', paidDate: '2026-03-20', notes: 'Basic cleanup and mulching before listing' },
+
+    // ── 841 Willis Ave (l-4) — pre-market ──
+    { listingMock: 'l-4', title: 'Vacant staging (2 months)', category: 'staging', amount: 5800, status: 'committed' as const, vendorMock: 'v-2', quoteMock: 'q-2', taskMock: 't-66', notes: 'Meridian — approved, delivery scheduled' },
+    { listingMock: 'l-4', title: 'Minor repairs', category: 'improvements', amount: 2000, status: 'paid' as const, vendorMock: 'v-1', paidDate: '2026-04-05', notes: 'Drywall patches, door adjustment, outlet covers' },
+  ];
+
+  for (const c of listingCostData) {
+    await db.insert(listingCosts).values({
+      id: randomUUID(),
+      teamId,
+      listingId: listingMap[c.listingMock],
+      title: c.title,
+      category: c.category,
+      amount: c.amount,
+      status: c.status,
+      vendorId: 'vendorMock' in c && c.vendorMock ? vendorMap[c.vendorMock] : undefined,
+      quoteId: 'quoteMock' in c && c.quoteMock ? quoteMap[c.quoteMock] : undefined,
+      taskId: 'taskMock' in c && c.taskMock ? taskMap[c.taskMock] : undefined,
+      paidDate: 'paidDate' in c && c.paidDate ? parseDate(c.paidDate) : undefined,
+      notes: c.notes,
+    });
   }
 
   // ─── 15. Marketing Assets ─────────────────────────────────────────────

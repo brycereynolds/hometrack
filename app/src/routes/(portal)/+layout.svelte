@@ -2,7 +2,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { Home, FileText, MessageSquare, CheckCircle, Menu, X, Mail, Lock } from 'lucide-svelte';
+	import { Home, FileText, MessageSquare, CheckCircle, Menu, X, Mail, Lock, DollarSign, ClipboardCheck } from 'lucide-svelte';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 
@@ -18,12 +18,16 @@
 	let authError = $state('');
 	let authSubmitting = $state(false);
 
-	const allPortalNav = [
+	const pendingQuoteCount = $derived($page.data?.pendingQuoteCount ?? 0);
+
+	const allPortalNav = $derived([
 		{ href: '', label: 'Dashboard', icon: Home },
+		{ href: '/financials', label: 'Financials', icon: DollarSign, section: 'financials' },
+		{ href: '/quotes', label: 'Quotes for Review', icon: ClipboardCheck, section: 'quotes', badge: pendingQuoteCount > 0 ? String(pendingQuoteCount) : undefined },
 		{ href: '/approvals', label: 'Approvals', icon: CheckCircle, badge: '3' },
 		{ href: '/messages', label: 'Messages', icon: MessageSquare, badge: '1', section: 'messages' },
 		{ href: '/documents', label: 'Documents', icon: FileText, section: 'documents' }
-	];
+	]);
 
 	const portalNav = $derived(allPortalNav.filter(item => !item.section || sectionEnabled(item.section)));
 </script>

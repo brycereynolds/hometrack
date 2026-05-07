@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { getTasksByListing } from '$lib/server/db/queries/tasks.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { tasks, teamMembers } from '$lib/server/db/schema/index.js';
+import { tasks, teamMembers, listingCosts, quotes, vendors } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import crypto from 'node:crypto';
@@ -15,11 +15,18 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
 
   try {
     const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
-      return getTasksByListing(team.id, params.id, db);
+      const [taskList, vendorList] = await Promise.all([
+        getTasksByListing(team.id, params.id, db),
+        db.query.vendors.findMany({
+          where: eq(vendors.teamId, team.id),
+          orderBy: (v, { asc }) => [asc(v.name)],
+        }),
+      ]);
+      return { tasks: taskList, vendors: vendorList };
     });
-    return { tasks: result };
+    return { tasks: result.tasks, vendors: result.vendors };
   } catch {
-    return { tasks: [] };
+    return { tasks: [], vendors: [] };
   }
 };
 
@@ -159,6 +166,95 @@ export const actions: Actions = {
     } catch (err) {
       console.error('deleteTask error:', err);
       return fail(500, { error: 'Failed to delete task' });
+    }
+  },
+
+  completeTask: async ({ request, params, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const teamId = await getTeamId(locals.user.id);
+    if (!teamId) return fail(401, { error: 'No team found' });
+
+    const form = await request.formData();
+    const taskId = form.get('taskId') as string;
+    const listingId = (form.get('listingId') as string) || params.id;
+    const shouldMarkDone = form.has('markDone');
+    const shouldTrackCost = form.has('trackCost');
+    const shouldAttachReceipt = form.has('attachReceipt');
+    const shouldRequestQuote = form.has('requestQuote');
+
+    if (!taskId) return fail(400, { error: 'Task ID is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        // 1. Mark as done
+        if (shouldMarkDone) {
+          await db
+            .update(tasks)
+            .set({ status: 'done', updatedAt: new Date() })
+            .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
+        }
+
+        // 2. Track cost
+        let costId: string | null = null;
+        if (shouldTrackCost) {
+          const amount = parseFloat(form.get('costAmount') as string) || 0;
+          const category = (form.get('costCategory') as string) || null;
+          const notes = (form.get('costNotes') as string) || null;
+
+          // Get task title for the cost entry
+          const task = await db.query.tasks.findFirst({
+            where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+          });
+
+          costId = crypto.randomUUID();
+          await db.insert(listingCosts).values({
+            id: costId,
+            teamId,
+            listingId,
+            taskId,
+            title: task?.title ?? 'Task cost',
+            amount: amount > 0 ? amount : null,
+            category,
+            status: 'committed',
+            notes,
+          });
+        }
+
+        // 3. Attach receipt (store path reference — actual upload handled client-side or separately)
+        if (shouldAttachReceipt && costId) {
+          // Receipt file is submitted as multipart but we store a placeholder path.
+          // A full file upload pipeline (e.g., Supabase Storage) would be wired here.
+          const receiptFile = form.get('receiptFile') as File | null;
+          if (receiptFile && receiptFile.size > 0) {
+            const receiptPath = `receipts/${listingId}/${costId}/${receiptFile.name}`;
+            await db
+              .update(listingCosts)
+              .set({ receiptPath })
+              .where(eq(listingCosts.id, costId));
+          }
+        }
+
+        // 4. Request quote
+        if (shouldRequestQuote) {
+          const vendorId = form.get('vendorId') as string;
+          if (vendorId) {
+            await db.insert(quotes).values({
+              id: crypto.randomUUID(),
+              teamId,
+              vendorId,
+              listingId,
+              scope: `Quote for: ${(await db.query.tasks.findFirst({ where: eq(tasks.id, taskId) }))?.title ?? 'task'}`,
+              status: 'requested',
+              requestedDate: new Date(),
+            });
+          }
+        }
+      });
+      return { success: true, action: 'completeTask' };
+    } catch (err) {
+      console.error('completeTask error:', err);
+      return fail(500, { error: 'Failed to complete task' });
     }
   },
 

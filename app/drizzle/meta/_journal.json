@@ -64,6 +64,13 @@
       "when": 1777865291720,
       "tag": "0008_great_kate_bishop",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1778197076963,
+      "tag": "0009_add_listing_costs_and_quote_uploads",
+      "breakpoints": true
     }
   ]
 }

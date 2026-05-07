@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, integer, real, jsonb, index } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, integer, real, jsonb, boolean, index } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { quoteStatusEnum } from './enums.js';
 import { teams } from './team.js';
@@ -62,6 +62,10 @@ export const quotes = pgTable(
     receivedDate: timestamp('received_date'),
     validUntil: timestamp('valid_until'),
     notes: text('notes'),
+    documentPath: text('document_path'),
+    documentName: text('document_name'),
+    sharedWithClient: boolean('shared_with_client').default(false),
+    clientReviewStatus: text('client_review_status'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

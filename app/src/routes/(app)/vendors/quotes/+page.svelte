@@ -16,6 +16,10 @@
 		Clock,
 		User,
 		Scale,
+		Upload,
+		Download,
+		Share2,
+		Eye,
 	} from 'lucide-svelte';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
@@ -82,6 +86,23 @@
 	const totalValue = $derived(quotes.reduce((s, q) => s + (q.amount ?? 0), 0));
 	const pendingCount = $derived(quotes.filter((q) => q.status === 'received').length);
 	const approvedTotal = $derived(quotes.filter((q) => q.status === 'approved').reduce((s, q) => s + (q.amount ?? 0), 0));
+
+	let uploadingQuoteId = $state<string | null>(null);
+
+	async function downloadDocument(quoteId: string, teamId: string) {
+		try {
+			const res = await fetch(`/api/quotes/${quoteId}/document?teamId=${encodeURIComponent(teamId)}`);
+			if (!res.ok) throw new Error('Failed to get download link');
+			const { url, name } = await res.json();
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = name ?? 'document';
+			a.target = '_blank';
+			a.click();
+		} catch {
+			toast.error('Failed to download document');
+		}
+	}
 </script>
 
 <div class="space-y-6">
@@ -245,13 +266,89 @@
 											</div>
 										{/if}
 
+										<!-- Document -->
+										<div>
+											<p class="text-xs font-semibold text-muted-foreground">Document</p>
+											<div class="mt-1">
+												{#if quote.documentPath}
+													<button
+														onclick={() => downloadDocument(quote.id, data.team?.id ?? '')}
+														class="inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted/80 transition-colors"
+													>
+														<Download class="size-3" />
+														{quote.documentName ?? 'Download'}
+													</button>
+												{:else}
+													<form method="POST" action="?/uploadDocument" enctype="multipart/form-data" use:enhance={() => {
+														uploadingQuoteId = quote.id;
+														return async ({ result, update }) => {
+															uploadingQuoteId = null;
+															if (result.type === 'success') {
+																toast.success('Document uploaded');
+																await update();
+															} else if (result.type === 'failure') {
+																toast.error(String(result.data?.error ?? 'Failed to upload'));
+															}
+														};
+													}}>
+														<input type="hidden" name="quoteId" value={quote.id} />
+														<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+														<label class="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed border-border px-2.5 py-1.5 text-xs text-muted-foreground hover:border-primary hover:text-foreground transition-colors">
+															<Upload class="size-3" />
+															{uploadingQuoteId === quote.id ? 'Uploading...' : 'Attach PDF or image'}
+															<input
+																type="file"
+																name="document"
+																accept=".pdf,image/jpeg,image/png,image/webp"
+																class="hidden"
+																onchange={(e) => (e.currentTarget.closest('form') as HTMLFormElement)?.requestSubmit()}
+															/>
+														</label>
+													</form>
+												{/if}
+											</div>
+										</div>
+
+										<!-- Share with Client -->
+										<div>
+											<p class="text-xs font-semibold text-muted-foreground">Client Sharing</p>
+											<div class="mt-1">
+												<form method="POST" action="?/shareWithClient" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success(quote.sharedWithClient ? 'Unshared from client' : 'Shared with client');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String(result.data?.error ?? 'Failed to update sharing'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+													<input type="hidden" name="shared" value={quote.sharedWithClient ? 'false' : 'true'} />
+													<Button variant={quote.sharedWithClient ? 'default' : 'outline'} size="sm" class="h-7 text-xs" type="submit">
+														{#if quote.sharedWithClient}
+															<Eye class="mr-1 size-3" />
+															Shared
+															{#if quote.clientReviewStatus}
+																<span class="ml-1 rounded-full bg-white/20 px-1.5 py-0.5 text-[9px]">{quote.clientReviewStatus}</span>
+															{/if}
+														{:else}
+															<Share2 class="mr-1 size-3" />
+															Share with Client
+														{/if}
+													</Button>
+												</form>
+											</div>
+										</div>
+
 										<!-- Actions -->
 										{#if quote.status === 'received'}
 											<div class="flex items-center gap-2 pt-2">
 												<form method="POST" action="?/approve" use:enhance={() => {
 													return async ({ result, update }) => {
 														if (result.type === 'success') {
-															toast.success('Quote approved');
+															toast.success('Quote approved — cost entry created');
 															await update();
 														} else if (result.type === 'failure') {
 															toast.error(String(result.data?.error ?? 'Failed to approve'));
@@ -376,7 +473,7 @@
 														<form method="POST" action="?/approve" use:enhance={() => {
 															return async ({ result, update }) => {
 																if (result.type === 'success') {
-																	toast.success('Quote approved');
+																	toast.success('Quote approved — cost entry created');
 																	await update();
 																} else if (result.type === 'failure') {
 																	toast.error(String(result.data?.error ?? 'Failed to approve'));

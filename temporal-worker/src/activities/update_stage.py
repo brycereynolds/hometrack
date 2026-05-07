@@ -30,7 +30,7 @@ async def update_processing_stage(field_note_id: str, stage: str, status: str = 
 
         # Only set status to 'processing' if not already 'completed'
         await conn.execute(
-            "UPDATE field_notes SET processing_stages = $1::jsonb, status = CASE WHEN status = 'completed' THEN 'completed' ELSE 'processing' END, updated_at = now() WHERE id = $2",
+            "UPDATE field_notes SET processing_stages = $1::jsonb, status = CASE WHEN status::text = 'completed' THEN status ELSE 'processing'::field_note_status END, updated_at = now() WHERE id = $2",
             json.dumps(stages),
             field_note_id,
         )

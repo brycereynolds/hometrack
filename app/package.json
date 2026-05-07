@@ -17,7 +17,10 @@
 		"db:seed": "node --env-file=.env node_modules/.bin/tsx src/lib/server/db/seed.ts",
 		"db:wipe": "node --env-file=.env node_modules/.bin/tsx src/lib/server/db/wipe.ts",
 		"db:reset": "npm run db:wipe && npm run db:migrate && npm run db:seed",
-		"start": "node build"
+		"start": "node build",
+		"inf:dev": "infisical run --env=${INFISICAL_ENV:-dev} --path=/hometrack/app -- vite dev",
+		"inf:build": "infisical run --env=${INFISICAL_ENV:-dev} --path=/hometrack/app -- vite build",
+		"inf:start": "infisical run --env=${INFISICAL_ENV:-dev} --path=/hometrack/app -- node build"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-node": "^5.5.4",

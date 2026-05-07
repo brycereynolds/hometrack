@@ -19,6 +19,7 @@ Extract the following:
    - category: improvements / staging / media / marketing / disclosures / general
    - quote_needed: true/false (does this need a vendor quote?)
    - source_quote: The exact words from the transcript that led to this item
+   - source_timestamp: Approximate time in seconds where this item was mentioned (derive from transcript timestamps like 0:15 → 15, 1:35 → 95)
 
 2. OBSERVATIONS: Notable property observations
    - content: What was observed

@@ -23,6 +23,7 @@ export * from './field-note-transcript.js';
 export * from './field-note-frame.js';
 export * from './field-note-moment.js';
 export * from './field-note-action.js';
+export * from './field-note-action-moment.js';
 export * from './field-note-comment.js';
 export * from './market-analysis.js';
 export * from './property.js';

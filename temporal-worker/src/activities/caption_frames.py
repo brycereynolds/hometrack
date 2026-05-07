@@ -1,3 +1,4 @@
+import asyncio
 import base64
 import json
 import re
@@ -124,7 +125,8 @@ async def correlate_frames(
 
         # Build vision API request — download frames from storage
         content_blocks = []
-        async with httpx.AsyncClient(timeout=30) as http_client:
+        storage_timeout = httpx.Timeout(30.0, connect=15.0)
+        async with httpx.AsyncClient(timeout=storage_timeout) as http_client:
             for frame in candidates:
                 # frame.path is now a storage path like _frames/abc123/frame_0001.jpg
                 # frame.base64_jpeg may be empty if frames were uploaded to storage
@@ -132,11 +134,21 @@ async def correlate_frames(
                     b64_data = frame.base64_jpeg
                 else:
                     url = f"{SUPABASE_URL}/storage/v1/object/field-media/{frame.path}"
-                    resp = await http_client.get(url, headers={
+                    headers = {
                         "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
                         "apikey": SUPABASE_SERVICE_ROLE_KEY,
-                    })
-                    resp.raise_for_status()
+                    }
+                    for attempt in range(3):
+                        try:
+                            resp = await http_client.get(url, headers=headers)
+                            resp.raise_for_status()
+                            break
+                        except (httpx.ConnectTimeout, httpx.ReadTimeout, httpx.ConnectError) as exc:
+                            if attempt < 2:
+                                logger.warning("Frame download attempt %d failed: %s, retrying...", attempt + 1, exc)
+                                await asyncio.sleep(2)
+                            else:
+                                raise
                     b64_data = base64.b64encode(resp.content).decode("ascii")
                 content_blocks.append({
                     "type": "image",

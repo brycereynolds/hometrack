@@ -11,6 +11,7 @@ with workflow.unsafe.imports_passed_through():
     from src.activities.extract_frames import extract_frames
     from src.activities.extract_insights import extract_insights
     from src.activities.generate_enriched_transcript import generate_enriched_transcript
+    from src.activities.link_actions_to_moments import link_actions_to_moments
     from src.activities.save_results import save_results
     from src.activities.transcribe import transcribe
     from src.activities.update_stage import update_processing_stage
@@ -121,6 +122,16 @@ class ProcessFieldMedia:
         )
         await self._set_stage(field_note_id, "insights", "completed")
 
+        await self._set_stage(field_note_id, "linking", "active")
+        action_moment_links: dict = await workflow.execute_activity(
+            link_actions_to_moments,
+            args=[moments_data, insights_data.get("action_items", [])],
+            start_to_close_timeout=timedelta(minutes=5),
+            heartbeat_timeout=timedelta(minutes=3),
+            retry_policy=RETRY_POLICY,
+        )
+        await self._set_stage(field_note_id, "linking", "completed")
+
         duration = _get_duration(transcript_data)
 
         await self._set_stage(field_note_id, "saving", "active")
@@ -131,7 +142,7 @@ class ProcessFieldMedia:
                 input.author_id, input.author_name, input.media_type,
                 content_hash, transcript_data, enriched_transcript,
                 insights_data, frames_data, correlations_data,
-                duration, None,
+                duration, None, action_moment_links,
             ],
             start_to_close_timeout=timedelta(minutes=10),
             heartbeat_timeout=timedelta(minutes=5),
@@ -183,6 +194,14 @@ class ProcessFieldMedia:
             retry_policy=RETRY_POLICY,
         )
 
+        action_moment_links: dict = await workflow.execute_activity(
+            link_actions_to_moments,
+            args=[moments_data, insights_data.get("action_items", [])],
+            start_to_close_timeout=timedelta(minutes=5),
+            heartbeat_timeout=timedelta(minutes=3),
+            retry_policy=RETRY_POLICY,
+        )
+
         duration = _get_duration(transcript_data)
 
         result: dict = await workflow.execute_activity(
@@ -192,7 +211,7 @@ class ProcessFieldMedia:
                 input.author_id, input.author_name, input.media_type,
                 content_hash, transcript_data, enriched_transcript,
                 insights_data, None, None,
-                duration, None,
+                duration, None, action_moment_links,
             ],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),
@@ -219,7 +238,7 @@ class ProcessFieldMedia:
                 field_note_id, input.listing_id, input.team_id,
                 input.author_id, input.author_name, input.media_type,
                 content_hash, None, text, insights_data,
-                None, None, None, None,
+                None, None, None, None, None,
             ],
             start_to_close_timeout=timedelta(minutes=5),
             heartbeat_timeout=timedelta(minutes=2),

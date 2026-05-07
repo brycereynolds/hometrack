@@ -330,7 +330,7 @@
 										<ProcessingStatus {fieldNoteId} initialStatus={fieldNoteStatus} />
 									{/if}
 									<a
-										href="/listings/{listing?.id}/field-notes/{fieldNoteId}"
+										href="/notes/{fieldNoteId}"
 										class="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
 									>
 										View full note

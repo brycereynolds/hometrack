@@ -9,6 +9,7 @@ export const chatConversations = pgTable(
     teamId: text('team_id').notNull().references(() => teams.id, { onDelete: 'cascade' }),
     userId: text('user_id').notNull().references(() => teamMembers.id, { onDelete: 'cascade' }),
     title: text('title'), // Auto-generated from first message
+    sourceContext: jsonb('source_context'), // {pathname, params, label} — page where conversation started
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

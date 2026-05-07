@@ -46,6 +46,7 @@ export const fieldNotes = pgTable(
     processingCompletedAt: timestamp('processing_completed_at'),
     processingError: text('processing_error'),
     processingStages: jsonb('processing_stages'),
+    thumbnailUrl: text('thumbnail_url'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

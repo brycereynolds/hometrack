@@ -109,6 +109,21 @@ class FieldNoteInsights(BaseModel):
     summary: str = ""
 
 
+class ActionMomentLink(BaseModel):
+    action_index: int
+    moment_indices: list[int]
+    relevance: str = ""
+
+
+class LinkActionsToMomentsInput(BaseModel):
+    moments: list[dict]
+    action_items: list[dict]
+
+
+class LinkActionsToMomentsOutput(BaseModel):
+    links: list[ActionMomentLink] = Field(default_factory=list)
+
+
 class MarketAnalysisInput(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
 

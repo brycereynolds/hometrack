@@ -138,9 +138,8 @@
 			{#each filteredNotes as note (note.id)}
 				{@const status = statusConfig[note.status] ?? statusConfig.pending}
 				{@const MediaIcon = getMediaIcon(note.mediaType)}
-				{@const firstFrame = note.frames?.[0]}
 				<a
-					href="/listings/{$page.params.id}/field-notes/{note.id}"
+					href="/notes/{note.id}"
 					class="group block"
 				>
 					<Card
@@ -150,10 +149,10 @@
 						<div
 							class="relative flex h-36 items-center justify-center bg-muted"
 						>
-							{#if firstFrame?.storagePath}
+							{#if note.thumbnailUrl}
 								<img
-									src={firstFrame.storagePath}
-									alt="Frame thumbnail"
+									src={note.thumbnailUrl}
+									alt="Field note thumbnail"
 									class="h-full w-full object-cover"
 								/>
 							{:else}

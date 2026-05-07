@@ -21,10 +21,6 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
             },
           },
           author: true,
-          frames: {
-            orderBy: (frames, { asc }) => [asc(frames.frameIndex)],
-            limit: 1,
-          },
         },
         orderBy: desc(fieldNotes.createdAt),
       });

@@ -14,6 +14,7 @@ from src.activities.download_media import download_media
 from src.activities.extract_audio import extract_audio
 from src.activities.extract_frames import extract_frames
 from src.activities.extract_insights import extract_insights
+from src.activities.link_actions_to_moments import link_actions_to_moments
 from src.activities.geocode_address import geocode_address
 from src.activities.generate_enriched_transcript import generate_enriched_transcript
 from src.activities.save_analysis_results import save_analysis_results
@@ -44,6 +45,7 @@ ACTIVITIES = [
     analyze_key_moments,
     correlate_frames,
     extract_insights,
+    link_actions_to_moments,
     generate_enriched_transcript,
     save_results,
     update_processing_stage,

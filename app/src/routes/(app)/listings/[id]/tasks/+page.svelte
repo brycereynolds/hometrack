@@ -246,7 +246,14 @@
 		</Card>
 
 		<!-- Tasks by Phase -->
-		{#each PHASE_LIST as phase}
+		{@const phaseKeys = new Set(PHASE_LIST.map((p) => p.key))}
+		{@const allGroups = [
+			...PHASE_LIST.map((p) => ({ key: p.key, label: p.label, color: p.color })),
+			...Object.keys(tasksByPhase())
+				.filter((k) => !phaseKeys.has(k as any))
+				.map((k) => ({ key: k, label: k === 'general' ? 'General' : k, color: '#8B8B8B' }))
+		]}
+		{#each allGroups as phase}
 			{@const phaseTasks = tasksByPhase()[phase.key] || []}
 			{#if phaseTasks.length > 0}
 				{@const doneCount = phaseTasks.filter((t: any) => t.status === 'done').length}

@@ -32,14 +32,14 @@
 	// Static card definitions — always shown regardless of DB state.
 	// Only Slack is a real integration; all others are demo placeholders.
 	const STATIC_CARDS = [
-		{ name: 'Gmail', description: 'Email sync and send', category: 'email', icon: 'Mail', logoUrl: 'https://cdn.simpleicons.org/gmail', demo: true },
-		{ name: 'Google Calendar', description: 'Showings and appointments', category: 'calendar', icon: 'Calendar', logoUrl: 'https://cdn.simpleicons.org/googlecalendar', demo: true },
-		{ name: 'DocuSign', description: 'E-signatures and document routing', category: 'documents', icon: 'FileSignature', logoUrl: 'https://cdn.simpleicons.org/docusign', demo: true },
+		{ name: 'Gmail', description: 'Email sync and send', category: 'email', icon: 'Mail', logoUrl: 'https://img.logo.dev/gmail.com?size=64&format=png', demo: true },
+		{ name: 'Google Calendar', description: 'Showings and appointments', category: 'calendar', icon: 'Calendar', logoUrl: 'https://img.logo.dev/calendar.google.com?size=64&format=png', demo: true },
+		{ name: 'DocuSign', description: 'E-signatures and document routing', category: 'documents', icon: 'FileSignature', logoUrl: 'https://img.logo.dev/docusign.com?size=64&format=png', demo: true },
 		{ name: 'MLSListings (Bay Area)', description: 'MLS data and comp feeds', category: 'mls', icon: 'Database', logoUrl: null, demo: true },
-		{ name: 'Zillow', description: 'View and save analytics', category: 'marketing', icon: 'BarChart', logoUrl: 'https://cdn.simpleicons.org/zillow', demo: true },
-		{ name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication', icon: 'MessageSquare', logoUrl: 'https://cdn.simpleicons.org/twilio', demo: true },
-		{ name: 'Postmark', description: 'Transactional email delivery', category: 'email', icon: 'Send', logoUrl: 'https://cdn.simpleicons.org/postmark', demo: true },
-		{ name: 'Slack', description: 'Team notifications and activity updates', category: 'communication', icon: 'MessageSquare', logoUrl: 'https://cdn.simpleicons.org/slack', demo: false },
+		{ name: 'Zillow', description: 'View and save analytics', category: 'marketing', icon: 'BarChart', logoUrl: 'https://img.logo.dev/zillow.com?size=64&format=png', demo: true },
+		{ name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication', icon: 'MessageSquare', logoUrl: 'https://img.logo.dev/twilio.com?size=64&format=png', demo: true },
+		{ name: 'Postmark', description: 'Transactional email delivery', category: 'email', icon: 'Send', logoUrl: 'https://img.logo.dev/postmarkapp.com?size=64&format=png', demo: true },
+		{ name: 'Slack', description: 'Team notifications and activity updates', category: 'communication', icon: 'MessageSquare', logoUrl: 'https://img.logo.dev/slack.com?size=64&format=png', demo: false },
 	];
 
 	const iconMap: Record<string, any> = { Mail, Calendar, FileSignature, Database, BarChart, MessageSquare, Send };

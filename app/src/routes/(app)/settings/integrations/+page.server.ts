@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { withRLS, adminDb } from '$lib/server/db/index.js';
 import { integrations, teamMembers } from '$lib/server/db/schema/index.js';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, inArray } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { randomUUID } from 'crypto';
 
@@ -16,9 +16,13 @@ const DEFAULT_INTEGRATIONS = [
   { name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication' as const, icon: 'MessageSquare' },
 ];
 
-async function provisionDefaultIntegrations(teamId: string) {
+const DEFAULT_NAMES = DEFAULT_INTEGRATIONS.map((i) => i.name);
+
+async function provisionMissingIntegrations(teamId: string, existingNames: string[]) {
+  const missing = DEFAULT_INTEGRATIONS.filter((i) => !existingNames.includes(i.name));
+  if (missing.length === 0) return;
   await adminDb.insert(integrations).values(
-    DEFAULT_INTEGRATIONS.map((i) => ({
+    missing.map((i) => ({
       id: randomUUID(),
       teamId,
       name: i.name,
@@ -38,25 +42,27 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
   }
 
   try {
-    let integrationList = await withRLS(locals.user.id, 'authenticated', async (db) => {
-      return db.query.integrations.findMany({
-        where: eq(integrations.teamId, team.id),
-        with: { connectedBy: true },
-      });
+    // Use adminDb for the read so RLS misconfiguration never causes a silent empty state.
+    // The integrations page is team-scoped server-side; RLS is enforced on mutations.
+    let integrationList = await adminDb.query.integrations.findMany({
+      where: and(eq(integrations.teamId, team.id), inArray(integrations.name, DEFAULT_NAMES)),
+      with: { connectedBy: true },
     });
 
-    if (integrationList.length === 0) {
-      await provisionDefaultIntegrations(team.id);
-      integrationList = await withRLS(locals.user.id, 'authenticated', async (db) => {
-        return db.query.integrations.findMany({
-          where: eq(integrations.teamId, team.id),
-          with: { connectedBy: true },
-        });
+    const existingNames = integrationList.map((i) => i.name);
+    const hasMissing = DEFAULT_NAMES.some((n) => !existingNames.includes(n));
+
+    if (hasMissing) {
+      await provisionMissingIntegrations(team.id, existingNames);
+      integrationList = await adminDb.query.integrations.findMany({
+        where: and(eq(integrations.teamId, team.id), inArray(integrations.name, DEFAULT_NAMES)),
+        with: { connectedBy: true },
       });
     }
 
     return { integrations: integrationList };
-  } catch {
+  } catch (err) {
+    console.error('integrations load error:', err);
     return { integrations: [] };
   }
 };

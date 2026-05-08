@@ -15,7 +15,11 @@ interface SlackMessage {
 
 interface SlackConfig {
 	enabled: boolean;
-	webhookUrl: string;
+	method?: 'webhook' | 'oauth';
+	webhookUrl?: string;
+	botToken?: string;
+	workspaceId?: string;
+	workspaceName?: string;
 	channel?: string;
 	connectedAt?: string;
 	connectedBy?: string;
@@ -38,13 +42,34 @@ export async function sendSlackNotification(teamId: string, message: SlackMessag
 		if (!integration) return;
 
 		const config = integration.config as SlackConfig | null;
-		if (!config?.enabled || !config.webhookUrl) return;
+		if (!config?.enabled) return;
 
-		const res = await fetch(config.webhookUrl, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(message),
-		});
+		let res: Response;
+
+		if (config.webhookUrl) {
+			// Webhook-based notifications
+			res = await fetch(config.webhookUrl, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(message),
+			});
+		} else if (config.botToken && config.channel) {
+			// Bot token-based notifications (OAuth)
+			res = await fetch('https://slack.com/api/chat.postMessage', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${config.botToken}`,
+				},
+				body: JSON.stringify({
+					channel: config.channel,
+					text: message.text,
+					blocks: message.blocks,
+				}),
+			});
+		} else {
+			return;
+		}
 
 		if (!res.ok) {
 			console.error(`Slack notification failed (${res.status}) for team ${teamId}`);

@@ -22,6 +22,8 @@
 	import { toast } from 'svelte-sonner';
 	import { enhance } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import SlackSetupModal from '$lib/components/SlackSetupModal.svelte';
 
 	let { data } = $props();
@@ -31,6 +33,15 @@
 	let slackIntegrationId = $state('');
 	let disconnectingSlack = $state(false);
 	let testingSlack = $state(false);
+
+	onMount(() => {
+		const slackParam = $page.url.searchParams.get('slack');
+		if (slackParam === 'connected') {
+			toast.success('Slack connected via OAuth');
+		} else if (slackParam === 'error') {
+			toast.error('Failed to connect Slack. Please try again.');
+		}
+	});
 
 	async function syncIntegration(integration: any) {
 		const id = integration.name;
@@ -215,7 +226,12 @@
 									{#if integration.status === 'connected'}
 										<div class="mt-2 flex items-center justify-between">
 											<div class="text-xs text-muted-foreground">
-												{#if getLastSync(integration)}
+												{#if isSlack && (integration.config as any)?.workspaceName}
+													<span>{(integration.config as any).workspaceName}</span>
+													{#if (integration.config as any)?.method === 'oauth'}
+														<span> &middot; OAuth</span>
+													{/if}
+												{:else if getLastSync(integration)}
 													<span>Last sync: {getLastSync(integration)}</span>
 												{/if}
 												{#if integration.connectedBy}

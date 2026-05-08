@@ -14,6 +14,7 @@
 	let { open = $bindable(false), integrationId }: Props = $props();
 
 	let step = $state(1);
+	let method = $state<'webhook' | 'oauth'>('webhook');
 	let webhookUrl = $state('');
 	let testing = $state(false);
 	let testSuccess = $state(false);
@@ -23,6 +24,7 @@
 	$effect(() => {
 		if (open) {
 			step = 1;
+			method = 'webhook';
 			webhookUrl = '';
 			testing = false;
 			testSuccess = false;
@@ -111,38 +113,60 @@
 		{#if step === 1}
 			<!-- Step 1: Choose Method -->
 			<div class="space-y-4">
-				<div class="rounded-lg border p-4 ring-2 ring-primary">
-					<div class="flex items-center justify-between">
-						<div>
-							<p class="font-medium text-sm">Incoming Webhook</p>
-							<p class="text-xs text-muted-foreground mt-0.5">
-								Paste a Slack webhook URL to receive notifications
-							</p>
-						</div>
-						<div class="size-4 rounded-full border-2 border-primary flex items-center justify-center">
-							<div class="size-2 rounded-full bg-primary"></div>
-						</div>
-					</div>
-				</div>
-
-				<div class="rounded-lg border p-4 opacity-50">
+				<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+				<div
+					class="rounded-lg border p-4 cursor-pointer transition-all {method === 'oauth' ? 'ring-2 ring-primary' : 'hover:border-foreground/30'}"
+					onclick={() => (method = 'oauth')}
+				>
 					<div class="flex items-center justify-between">
 						<div>
 							<p class="font-medium text-sm">Add to Slack (OAuth)</p>
 							<p class="text-xs text-muted-foreground mt-0.5">
-								One-click install with richer features
+								One-click install -- enables @hometrack mentions with AI responses
 							</p>
 						</div>
-						<Badge variant="secondary" class="text-xs">Coming Soon</Badge>
+						<div class="size-4 rounded-full border-2 {method === 'oauth' ? 'border-primary' : 'border-muted-foreground/30'} flex items-center justify-center">
+							{#if method === 'oauth'}
+								<div class="size-2 rounded-full bg-primary"></div>
+							{/if}
+						</div>
+					</div>
+				</div>
+
+				<!-- svelte-ignore a11y_click_events_have_key_events a11y_no_static_element_interactions -->
+				<div
+					class="rounded-lg border p-4 cursor-pointer transition-all {method === 'webhook' ? 'ring-2 ring-primary' : 'hover:border-foreground/30'}"
+					onclick={() => (method = 'webhook')}
+				>
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="font-medium text-sm">Incoming Webhook</p>
+							<p class="text-xs text-muted-foreground mt-0.5">
+								Paste a Slack webhook URL to receive notifications only
+							</p>
+						</div>
+						<div class="size-4 rounded-full border-2 {method === 'webhook' ? 'border-primary' : 'border-muted-foreground/30'} flex items-center justify-center">
+							{#if method === 'webhook'}
+								<div class="size-2 rounded-full bg-primary"></div>
+							{/if}
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<Dialog.Footer class="mt-6">
 				<Button variant="outline" onclick={() => (open = false)}>Cancel</Button>
-				<Button onclick={() => (step = 2)} class="gap-1">
-					Next <ArrowRight class="size-4" />
-				</Button>
+				{#if method === 'oauth'}
+					<a href="/api/integrations/slack/install">
+						<Button class="gap-1">
+							Add to Slack <ExternalLink class="size-4" />
+						</Button>
+					</a>
+				{:else}
+					<Button onclick={() => (step = 2)} class="gap-1">
+						Next <ArrowRight class="size-4" />
+					</Button>
+				{/if}
 			</Dialog.Footer>
 
 		{:else if step === 2}

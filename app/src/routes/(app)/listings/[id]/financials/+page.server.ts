@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { getFinancialsByListing, getQuotesByListing } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { financialBudgets, financialCategories, listingCosts, teamMembers } from '$lib/server/db/schema/index.js';
+import { financialBudgets, financialCategories, listingCosts, teamMembers, quotes } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
@@ -338,6 +338,86 @@ export const actions: Actions = {
     } catch (err) {
       console.error('deleteCost error:', err);
       return fail(500, { error: 'Failed to delete cost' });
+    }
+  },
+
+  approveQuote: async ({ request, params, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const form = await request.formData();
+    const quoteId = form.get('quoteId') as string;
+
+    if (!quoteId) return fail(400, { error: 'Quote ID is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const member = await db.query.teamMembers.findFirst({
+          where: eq(teamMembers.userId, locals.user!.id),
+        });
+        if (!member) throw new Error('Team member not found');
+
+        const quote = await db.query.quotes.findFirst({
+          where: and(eq(quotes.id, quoteId), eq(quotes.teamId, member.teamId)),
+          with: { vendor: true, lineItems: true },
+        });
+        if (!quote) throw new Error('Quote not found');
+
+        await db
+          .update(quotes)
+          .set({ status: 'approved', updatedAt: new Date() })
+          .where(and(eq(quotes.id, quoteId), eq(quotes.teamId, member.teamId)));
+
+        const amount = quote.amount ?? quote.lineItems.reduce((s, li) => s + (li.amount ?? 0), 0);
+        await db.insert(listingCosts).values({
+          teamId: member.teamId,
+          listingId: params.id,
+          quoteId: quote.id,
+          vendorId: quote.vendorId,
+          title: quote.scope ?? 'Approved quote',
+          category: quote.vendor?.category ?? 'improvements',
+          amount,
+          status: 'committed',
+          notes: quote.notes,
+        });
+      });
+      return { success: true };
+    } catch (err) {
+      console.error('approveQuote error:', err);
+      return fail(500, { error: 'Failed to approve quote' });
+    }
+  },
+
+  declineQuote: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const form = await request.formData();
+    const quoteId = form.get('quoteId') as string;
+
+    if (!quoteId) return fail(400, { error: 'Quote ID is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const member = await db.query.teamMembers.findFirst({
+          where: eq(teamMembers.userId, locals.user!.id),
+        });
+        if (!member) throw new Error('Team member not found');
+
+        await db
+          .update(quotes)
+          .set({ status: 'declined', updatedAt: new Date() })
+          .where(and(eq(quotes.id, quoteId), eq(quotes.teamId, member.teamId)));
+
+        const existingCost = await db.query.listingCosts.findFirst({
+          where: and(eq(listingCosts.quoteId, quoteId), eq(listingCosts.teamId, member.teamId)),
+        });
+        if (existingCost) {
+          await db.delete(listingCosts).where(eq(listingCosts.id, existingCost.id));
+        }
+      });
+      return { success: true };
+    } catch (err) {
+      console.error('declineQuote error:', err);
+      return fail(500, { error: 'Failed to decline quote' });
     }
   },
 };

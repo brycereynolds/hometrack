@@ -368,12 +368,43 @@
 							Quotes
 						</p>
 						{#each taskQuotes as quote}
-							<div class="flex items-center justify-between rounded-md border px-3 py-2 text-sm">
-								<div class="flex items-center gap-2">
-									<span>{quote.vendor?.name ?? 'Vendor'}</span>
-									<Badge variant="outline" class="text-[10px] {getQuoteStatusClass(quote.status)}">{quote.status}</Badge>
+							<div class="rounded-md border px-3 py-2 text-sm space-y-1.5">
+								<div class="flex items-center justify-between">
+									<div class="flex items-center gap-2">
+										<span class="font-medium">{quote.vendor?.name ?? 'Vendor'}</span>
+										<Badge variant="outline" class="text-[10px] {getQuoteStatusClass(quote.status)}">{quote.status}</Badge>
+									</div>
+									<span class="font-medium">{formatCurrency(quote.amount)}</span>
 								</div>
-								<span class="font-medium">{formatCurrency(quote.amount)}</span>
+								<div class="text-xs text-muted-foreground">
+									{#if quote.status === 'requested'}
+										Waiting for vendor response
+									{:else if quote.status === 'received'}
+										<div class="flex items-center justify-between">
+											<span>Quote received -- {formatCurrency(quote.amount)}</span>
+											<form method="POST" action="?/approveQuoteFromTask" use:enhance={() => {
+												return async ({ result, update }) => {
+													if (result.type === 'success') {
+														toast.success('Quote approved -- cost entry created');
+														await update();
+													} else if (result.type === 'failure') {
+														toast.error(String((result.data as any)?.error ?? 'Failed to approve'));
+													}
+												};
+											}}>
+												<input type="hidden" name="taskId" value={task.id} />
+												<input type="hidden" name="quoteId" value={quote.id} />
+												<Button size="sm" class="h-6 text-[10px] px-2" type="submit">
+													<CheckCircle2 class="mr-1 size-3" />Approve
+												</Button>
+											</form>
+										</div>
+									{:else if quote.status === 'approved'}
+										Quote approved -- {formatCurrency(quote.amount)} (committed)
+									{:else if quote.status === 'declined'}
+										Quote declined
+									{/if}
+								</div>
 							</div>
 						{/each}
 					</div>

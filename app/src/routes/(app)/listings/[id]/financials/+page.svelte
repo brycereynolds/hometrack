@@ -24,7 +24,11 @@
 		ChevronDown,
 		ChevronRight,
 		LinkIcon,
-		CircleDot
+		CircleDot,
+		Check,
+		X,
+		FileQuestion,
+		ClipboardList,
 	} from 'lucide-svelte';
 
 	Chart.register(...registerables);
@@ -36,16 +40,34 @@
 		amount: number | null;
 		status: string;
 		notes: string | null;
+		taskId: string | null;
+		quoteId: string | null;
+		actionId: string | null;
 		task: { title: string } | null;
 		quote: { scope: string | null } | null;
 		vendor: { name: string; company: string | null } | null;
 		action: { title: string } | null;
 	};
 
+	type Quote = {
+		id: string;
+		scope: string | null;
+		amount: number | null;
+		status: string;
+		vendorId: string | null;
+		requestedDate: Date | null;
+		receivedDate: Date | null;
+		notes: string | null;
+		taskId: string | null;
+		vendor: { name: string; company: string | null } | null;
+		task: { title: string } | null;
+	};
+
 	let { data } = $props();
 	const listing = $derived(data.listing);
 	const financial = $derived(data.financial);
 	const costs: Cost[] = $derived((data as any).costs ?? []);
+	const listingQuotes: Quote[] = $derived((data as any).quotes ?? []);
 
 	// P&L config
 	let commissionRate = $state(5);
@@ -81,8 +103,17 @@
 	const closingCostAmount = $derived(salePrice * (closingCostRate / 100));
 	const netToSeller = $derived(salePrice - totalCosts - commissionAmount - closingCostAmount);
 
-	// Expanded categories in P&L
+	// Expanded categories in P&L — expanded by default
 	let expandedCategories = $state<Set<string>>(new Set());
+	let categoriesInitialized = $state(false);
+
+	$effect(() => {
+		const groups = costsByCategory();
+		if (!categoriesInitialized && Object.keys(groups).length > 0) {
+			expandedCategories = new Set(Object.keys(groups));
+			categoriesInitialized = true;
+		}
+	});
 
 	function toggleCategory(cat: string) {
 		const next = new Set(expandedCategories);
@@ -383,24 +414,24 @@
 										{#if selectedCost?.id === cost.id}
 											<div class="my-1 rounded-md bg-muted/50 p-3 text-xs space-y-2">
 												{#if cost.task}
-													<div class="flex items-center gap-1.5 text-muted-foreground">
+													<a href="/listings/{listing?.id}/tasks" class="flex items-center gap-1.5 text-primary hover:underline">
 														<LinkIcon class="size-3" />
 														<span>Task: {cost.task.title}</span>
-													</div>
+													</a>
 												{/if}
 												{#if cost.quote}
-													<div class="flex items-center gap-1.5 text-muted-foreground">
+													<a href="/vendors/quotes" class="flex items-center gap-1.5 text-primary hover:underline">
 														<Receipt class="size-3" />
-														<span>Quote: {cost.quote.scope ?? 'Vendor quote'}</span>
-													</div>
+														<span>Quote: {cost.vendor ? `${cost.vendor.name} - ` : ''}{cost.quote.scope ?? 'Vendor quote'}</span>
+													</a>
 												{/if}
 												{#if cost.action}
-													<div class="flex items-center gap-1.5 text-muted-foreground">
+													<a href="/listings/{listing?.id}/field-notes" class="flex items-center gap-1.5 text-primary hover:underline">
 														<CircleDot class="size-3" />
-														<span>Action: {cost.action.title}</span>
-													</div>
+														<span>From field note</span>
+													</a>
 												{/if}
-												{#if cost.vendor}
+												{#if cost.vendor && !cost.quote}
 													<div class="flex items-center gap-1.5 text-muted-foreground">
 														<span>Vendor: {cost.vendor.name}{cost.vendor.company ? ` - ${cost.vendor.company}` : ''}</span>
 													</div>
@@ -495,6 +526,87 @@
 					</CardContent>
 				</Card>
 			</div>
+		{/if}
+
+		<!-- Quotes Section -->
+		{#if listingQuotes.length > 0}
+			<Card>
+				<CardHeader>
+					<CardTitle class="font-serif text-base flex items-center gap-2">
+						<FileQuestion class="size-4" />
+						Quotes ({listingQuotes.length})
+					</CardTitle>
+				</CardHeader>
+				<CardContent>
+					<div class="space-y-2">
+						{#each listingQuotes as quote}
+							{@const quoteStatusColors: Record<string, string> = {
+								requested: 'bg-blue-100 text-blue-700',
+								received: 'bg-amber-100 text-amber-700',
+								approved: 'bg-emerald-100 text-emerald-700',
+								declined: 'bg-red-100 text-red-700',
+							}}
+							<div class="flex items-center justify-between rounded-md border px-4 py-3 text-sm">
+								<div class="flex items-center gap-3 min-w-0 flex-1">
+									<span class="font-medium">{quote.vendor?.name ?? 'Unknown'}{quote.vendor?.company ? ` - ${quote.vendor.company}` : ''}</span>
+									<span class="text-muted-foreground">{quote.scope ?? 'General'}</span>
+									{#if quote.task}
+										<a href="/listings/{listing?.id}/tasks" class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline">
+											<ClipboardList class="size-3" />
+											{quote.task.title}
+										</a>
+									{/if}
+								</div>
+								<div class="flex items-center gap-3 shrink-0">
+									{#if quote.requestedDate}
+										<span class="text-xs text-muted-foreground">
+											{quote.requestedDate.toLocaleDateString()}
+										</span>
+									{/if}
+									<span class="font-semibold">{formatCurrency(quote.amount ?? 0)}</span>
+									<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {quoteStatusColors[quote.status] ?? 'bg-gray-100 text-gray-600'}">
+										{quote.status}
+									</span>
+									{#if quote.status === 'received'}
+										<div class="flex items-center gap-1">
+											<form method="POST" action="?/approveQuote" use:enhance={() => {
+												return async ({ result, update }) => {
+													if (result.type === 'success') {
+														toast.success('Quote approved — cost entry created');
+														await update();
+													} else if (result.type === 'failure') {
+														toast.error(String((result.data as any)?.error ?? 'Failed to approve'));
+													}
+												};
+											}}>
+												<input type="hidden" name="quoteId" value={quote.id} />
+												<Button size="sm" class="h-7 text-xs" type="submit">
+													<Check class="mr-1 size-3" />Approve
+												</Button>
+											</form>
+											<form method="POST" action="?/declineQuote" use:enhance={() => {
+												return async ({ result, update }) => {
+													if (result.type === 'success') {
+														toast.success('Quote declined');
+														await update();
+													} else if (result.type === 'failure') {
+														toast.error(String((result.data as any)?.error ?? 'Failed to decline'));
+													}
+												};
+											}}>
+												<input type="hidden" name="quoteId" value={quote.id} />
+												<Button variant="outline" size="sm" class="h-7 text-xs" type="submit">
+													<X class="mr-1 size-3" />Decline
+												</Button>
+											</form>
+										</div>
+									{/if}
+								</div>
+							</div>
+						{/each}
+					</div>
+				</CardContent>
+			</Card>
 		{/if}
 
 		<!-- No costs empty state -->

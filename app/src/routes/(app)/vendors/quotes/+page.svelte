@@ -21,6 +21,8 @@
 		Share2,
 		Eye,
 		ClipboardList,
+		ArrowUpDown,
+		Filter,
 	} from 'lucide-svelte';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
@@ -28,10 +30,14 @@
 	let { data } = $props();
 
 	const quotes = $derived(data.quotes);
+	const listings = $derived((data as any).listings ?? []);
 
 	type StatusFilter = 'all' | 'requested' | 'received' | 'approved' | 'declined';
+	type SortOption = 'date-desc' | 'date-asc' | 'amount-desc' | 'amount-asc' | 'status';
 
 	let activeStatus = $state<StatusFilter>('all');
+	let selectedListingId = $state<string>('all');
+	let sortBy = $state<SortOption>('date-desc');
 	let expandedQuotes = $state<Set<string>>(new Set());
 	let compareMode = $state(false);
 
@@ -57,9 +63,45 @@
 		declined: 'bg-red-500',
 	};
 
+	const statusOrder: Record<string, number> = {
+		received: 0,
+		requested: 1,
+		approved: 2,
+		declined: 3,
+	};
+
+	// Listings that have quotes for the dropdown
+	const listingsWithQuotes = $derived(() => {
+		const ids = new Set(quotes.map((q: any) => q.listingId));
+		return listings.filter((l: any) => ids.has(l.id));
+	});
+
 	const filtered = $derived(() => {
-		if (activeStatus === 'all') return quotes;
-		return quotes.filter((q) => q.status === activeStatus);
+		let result = quotes;
+		if (activeStatus !== 'all') {
+			result = result.filter((q: any) => q.status === activeStatus);
+		}
+		if (selectedListingId !== 'all') {
+			result = result.filter((q: any) => q.listingId === selectedListingId);
+		}
+		// Sort
+		result = [...result].sort((a: any, b: any) => {
+			switch (sortBy) {
+				case 'date-desc':
+					return (b.requestedDate?.getTime() ?? 0) - (a.requestedDate?.getTime() ?? 0);
+				case 'date-asc':
+					return (a.requestedDate?.getTime() ?? 0) - (b.requestedDate?.getTime() ?? 0);
+				case 'amount-desc':
+					return (b.amount ?? 0) - (a.amount ?? 0);
+				case 'amount-asc':
+					return (a.amount ?? 0) - (b.amount ?? 0);
+				case 'status':
+					return (statusOrder[a.status] ?? 9) - (statusOrder[b.status] ?? 9);
+				default:
+					return 0;
+			}
+		});
+		return result;
 	});
 
 	function toggleExpand(id: string) {
@@ -172,6 +214,35 @@
 				</button>
 			{/each}
 		</div>
+
+		<!-- Filters & Sort -->
+		<div class="flex flex-wrap items-center gap-3">
+			<div class="flex items-center gap-1.5">
+				<Filter class="size-3.5 text-muted-foreground" />
+				<select
+					bind:value={selectedListingId}
+					class="h-8 rounded-md border border-input bg-background px-2 text-xs outline-none ring-ring focus:ring-2"
+				>
+					<option value="all">All listings</option>
+					{#each listingsWithQuotes() as listing}
+						<option value={listing.id}>{listing.property?.address ?? 'Unknown'}</option>
+					{/each}
+				</select>
+			</div>
+			<div class="flex items-center gap-1.5">
+				<ArrowUpDown class="size-3.5 text-muted-foreground" />
+				<select
+					bind:value={sortBy}
+					class="h-8 rounded-md border border-input bg-background px-2 text-xs outline-none ring-ring focus:ring-2"
+				>
+					<option value="date-desc">Newest first</option>
+					<option value="date-asc">Oldest first</option>
+					<option value="amount-desc">Highest amount</option>
+					<option value="amount-asc">Lowest amount</option>
+					<option value="status">By status</option>
+				</select>
+			</div>
+		</div>
 	{/if}
 
 	<!-- Quote List View -->
@@ -188,9 +259,15 @@
 							<div class="flex size-2 shrink-0 rounded-full {statusDotColors[quote.status]}"></div>
 							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
-									<a href="/listings/{quote.listingId}" class="font-medium hover:text-primary hover:underline">
+									<a href="/listings/{quote.listingId}" class="font-medium hover:text-primary hover:underline" onclick={(e) => e.stopPropagation()}>
 										<Home class="mr-1 inline size-3" />{quote.listing?.property?.address ?? 'Unknown listing'}
 									</a>
+									{#if quote.requestedDate}
+										<span class="flex items-center gap-1 text-xs text-muted-foreground">
+											<Clock class="size-3" />
+											{quote.requestedDate.toLocaleDateString()}
+										</span>
+									{/if}
 								</div>
 								<div class="mt-0.5 flex items-center gap-2 text-sm text-muted-foreground">
 									<span>{quote.vendor?.name ?? 'Unknown'}{quote.vendor?.company ? ` (${quote.vendor.company})` : ''}</span>
@@ -199,7 +276,7 @@
 									{#if quote.task}
 										<a href="/listings/{quote.listingId}/tasks" class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline" onclick={(e) => e.stopPropagation()}>
 											<ClipboardList class="size-3" />
-											View task
+											For: {quote.task.title}
 										</a>
 									{/if}
 								</div>

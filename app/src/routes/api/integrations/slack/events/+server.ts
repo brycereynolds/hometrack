@@ -95,6 +95,46 @@ function getBotToken(integration: typeof integrations.$inferSelect): string | un
 	return config?.botToken || env.SLACK_BOT_TOKEN || undefined;
 }
 
+async function fetchThreadMessages(
+	channel: string,
+	threadTs: string,
+	botToken: string,
+): Promise<Array<{ user?: string; bot_id?: string; text: string; ts: string }>> {
+	try {
+		const resp = await fetch(
+			`https://slack.com/api/conversations.replies?channel=${channel}&ts=${threadTs}`,
+			{ headers: { Authorization: `Bearer ${botToken}` } },
+		);
+		const data = await resp.json();
+		if (!data.ok || !data.messages) return [];
+		return data.messages;
+	} catch (err) {
+		console.error('[Slack Events] Failed to fetch thread replies:', err);
+		return [];
+	}
+}
+
+async function isBotInThread(
+	channel: string,
+	threadTs: string,
+	botToken: string,
+): Promise<boolean> {
+	const messages = await fetchThreadMessages(channel, threadTs, botToken);
+	return messages.some((msg) => !!msg.bot_id);
+}
+
+function buildConversationHistory(
+	threadMessages: Array<{ user?: string; bot_id?: string; text: string; ts: string }>,
+): Array<{ role: 'user' | 'assistant'; content: string }> {
+	const MAX_THREAD_MESSAGES = 20;
+	const recent = threadMessages.slice(-MAX_THREAD_MESSAGES);
+
+	return recent.map((msg) => ({
+		role: msg.bot_id ? ('assistant' as const) : ('user' as const),
+		content: msg.text.replace(/<@[A-Z0-9]+>/g, '').trim(),
+	}));
+}
+
 async function processAppMention(
 	event: {
 		text: string;
@@ -103,6 +143,7 @@ async function processAppMention(
 		thread_ts?: string;
 		ts: string;
 		team: string;
+		channel_type?: string;
 		files?: Array<{ url_private: string; name: string; mimetype: string }>;
 	},
 	integration: typeof integrations.$inferSelect,
@@ -149,9 +190,20 @@ You have tools to look up listings, field notes, tasks, contacts, vendors, and s
 
 You can ONLY read and discuss data. You CANNOT create, update, or delete anything. If asked to take an action, explain that you can look up information but actions need to be done in the HomeTrack app.`;
 
-		const messages: Array<{ role: 'user' | 'assistant'; content: any }> = [
-			{ role: 'user', content: userMessage },
-		];
+		// Build conversation history from thread if available
+		const threadTs = event.thread_ts;
+		let messages: Array<{ role: 'user' | 'assistant'; content: any }>;
+
+		if (threadTs) {
+			const threadMessages = await fetchThreadMessages(event.channel, threadTs, botToken);
+			if (threadMessages.length > 1) {
+				messages = buildConversationHistory(threadMessages);
+			} else {
+				messages = [{ role: 'user', content: userMessage }];
+			}
+		} else {
+			messages = [{ role: 'user', content: userMessage }];
+		}
 
 		// Tool-use loop (same pattern as chat API)
 		const MAX_ROUNDS = 5;
@@ -271,18 +323,44 @@ export const POST: RequestHandler = async ({ request }) => {
 	if (body.type === 'event_callback') {
 		const event = body.event;
 
-		const isMention = event?.type === 'app_mention';
-		const isDM = event?.type === 'message' && event?.channel_type === 'im';
-
-		// Ignore bot's own messages in DMs
-		if (isDM && (event?.bot_id || event?.subtype === 'bot_message')) {
+		// Ignore bot's own messages
+		if (event?.bot_id || event?.subtype === 'bot_message') {
 			return json({ ok: true });
 		}
 
-		if (isMention || isDM) {
+		const isMention = event?.type === 'app_mention';
+		const isDM = event?.type === 'message' && event?.channel_type === 'im';
+		const isChannelThreadReply =
+			event?.type === 'message' &&
+			event?.channel_type !== 'im' &&
+			event?.thread_ts &&
+			event?.thread_ts !== event?.ts;
+
+		let shouldProcess = isMention || isDM;
+
+		// For channel thread replies, check if the bot is already in the thread
+		if (!shouldProcess && isChannelThreadReply) {
+			const workspaceId = body.team_id;
+			const result = await findTeamByWorkspace(workspaceId);
+			if (result) {
+				const botToken =
+					result.botTokenOverride || getBotToken(result.integration);
+				if (botToken) {
+					const botInThread = await isBotInThread(
+						event.channel,
+						event.thread_ts,
+						botToken,
+					);
+					if (botInThread) {
+						shouldProcess = true;
+					}
+				}
+			}
+		}
+
+		if (shouldProcess) {
 			const workspaceId = body.team_id;
 
-			// Respond immediately, process in background
 			const result = await findTeamByWorkspace(workspaceId);
 			if (result) {
 				// Fire and forget — don't await

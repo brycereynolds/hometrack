@@ -101,12 +101,13 @@
 		return grouped;
 	});
 
-	const phaseKeys = $derived(new Set(PHASE_LIST.map((p) => p.key)));
+	const phaseKeys = $derived(new Set([...PHASE_LIST.map((p) => p.key), 'general']));
 	const allGroups = $derived([
 		...PHASE_LIST.map((p) => ({ key: p.key, label: p.label, color: p.color })),
+		{ key: 'general', label: 'General', color: '#8B8B8B' },
 		...Object.keys(tasksByPhase())
 			.filter((k) => !phaseKeys.has(k as any))
-			.map((k) => ({ key: k, label: k === 'general' ? 'General' : k, color: '#8B8B8B' }))
+			.map((k) => ({ key: k, label: k, color: '#8B8B8B' }))
 	]);
 
 	const uniqueAssignees = $derived(
@@ -179,6 +180,30 @@
 		if (!name) return '?';
 		return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 	}
+
+	function getTaskQuotes(task: any): any[] {
+		return task.quotes ?? [];
+	}
+
+	function getTaskCosts(task: any): any[] {
+		return allCosts.filter((c: any) => c.taskId === task.id);
+	}
+
+	function formatCurrency(amount: number): string {
+		return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
+	}
+
+	// Initialize collapsed phases: all except the listing's current phase and 'general'
+	const currentPhase = $derived(listing?.phase ?? 'pre_market');
+	$effect(() => {
+		const initial = new Set<string>();
+		for (const p of PHASE_LIST) {
+			if (p.key !== currentPhase) {
+				initial.add(p.key);
+			}
+		}
+		collapsedPhases = initial;
+	});
 </script>
 
 {#if listing}
@@ -243,38 +268,44 @@
 		<!-- Tasks by Phase -->
 		{#each allGroups as phase}
 			{@const phaseTasks = tasksByPhase()[phase.key] || []}
-			{#if phaseTasks.length > 0}
-				{@const doneCount = phaseTasks.filter((t: any) => t.status === 'done').length}
-				{@const isCollapsed = collapsedPhases.has(phase.key)}
-				<Card>
-					<button
-						onclick={() => togglePhase(phase.key)}
-						class="flex w-full items-center gap-3 p-4 text-left hover:bg-muted/50 transition-colors"
-					>
-						{#if isCollapsed}
-							<ChevronRight class="size-4 text-muted-foreground" />
-						{:else}
-							<ChevronDown class="size-4 text-muted-foreground" />
-						{/if}
-						<div
-							class="size-2.5 rounded-full"
-							style="background-color: {phase.color}"
-						></div>
-						<span class="text-sm font-semibold flex-1">{phase.label}</span>
-						<span class="text-xs text-muted-foreground">{doneCount}/{phaseTasks.length}</span>
+			{@const doneCount = phaseTasks.filter((t: any) => t.status === 'done').length}
+			{@const isCollapsed = collapsedPhases.has(phase.key)}
+			<Card>
+				<button
+					onclick={() => togglePhase(phase.key)}
+					class="flex w-full items-center gap-3 p-4 text-left hover:bg-muted/50 transition-colors"
+				>
+					{#if isCollapsed}
+						<ChevronRight class="size-4 text-muted-foreground" />
+					{:else}
+						<ChevronDown class="size-4 text-muted-foreground" />
+					{/if}
+					<div
+						class="size-2.5 rounded-full"
+						style="background-color: {phase.color}"
+					></div>
+					<span class="text-sm font-semibold flex-1">{phase.label}</span>
+					<span class="text-xs text-muted-foreground">{doneCount}/{phaseTasks.length}</span>
+					{#if phaseTasks.length > 0}
 						<div class="h-1.5 w-20 rounded-full bg-muted">
 							<div
 								class="h-1.5 rounded-full transition-all"
-								style="width: {phaseTasks.length > 0 ? (doneCount / phaseTasks.length) * 100 : 0}%; background-color: {phase.color}"
+								style="width: {(doneCount / phaseTasks.length) * 100}%; background-color: {phase.color}"
 							></div>
 						</div>
-					</button>
+					{/if}
+				</button>
 
-					{#if !isCollapsed}
-						<CardContent class="px-4 pb-4 pt-0">
+				{#if !isCollapsed}
+					<CardContent class="px-4 pb-4 pt-0">
+						{#if phaseTasks.length === 0}
+							<p class="text-xs text-muted-foreground py-2">No tasks</p>
+						{:else}
 							<div class="divide-y">
 								{#each phaseTasks as task, taskIndex}
 									{@const StatusIcon = getStatusIcon(task.status)}
+									{@const taskQuotes = getTaskQuotes(task)}
+									{@const taskCosts = getTaskCosts(task)}
 									<div class="group flex items-start gap-3 py-3 first:pt-0 last:pb-0 rounded-md hover:bg-muted/30 -mx-2 px-2 transition-colors">
 										<form
 											method="POST"
@@ -306,6 +337,19 @@
 													{task.title}
 												</button>
 											</div>
+											{#if taskQuotes.length > 0 || taskCosts.length > 0 || task.sourceFieldNoteActionId}
+												<div class="mt-1 flex flex-wrap gap-1.5">
+													{#each taskQuotes as q}
+														<span class="text-xs text-muted-foreground">📋 Quote: {q.status}{#if q.vendor?.name} ({q.vendor.name}){/if}</span>
+													{/each}
+													{#each taskCosts as c}
+														<span class="text-xs text-muted-foreground">💰 {c.amount ? formatCurrency(c.amount) : 'Cost'} {c.status}</span>
+													{/each}
+													{#if task.sourceFieldNoteActionId}
+														<span class="text-xs text-muted-foreground">📝 Field note</span>
+													{/if}
+												</div>
+											{/if}
 											{#if task.subtasks && (task.subtasks as any[]).length > 0}
 												<div class="mt-2 ml-1 space-y-1.5">
 													{#each task.subtasks as subtask, si}
@@ -371,10 +415,10 @@
 									</div>
 								{/each}
 							</div>
-						</CardContent>
-					{/if}
-				</Card>
-			{/if}
+						{/if}
+					</CardContent>
+				{/if}
+			</Card>
 		{/each}
 
 		{#if listingTasks.length === 0}

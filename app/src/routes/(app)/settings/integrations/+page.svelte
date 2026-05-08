@@ -61,7 +61,7 @@
 		communication: 'Communication',
 	};
 
-	const categoryOrder = ['email', 'calendar', 'documents', 'mls', 'marketing', 'financial', 'communication'];
+	const categoryOrder = ['communication', 'email', 'calendar', 'documents', 'mls', 'marketing', 'financial'];
 
 	// Merge static cards with live DB rows (connected integrations only), keyed by name.
 	const cards = $derived(() => {
@@ -170,11 +170,7 @@
 					{@const StatusIcon = status.icon}
 					<Card class="relative transition-all hover:shadow-sm">
 						{#if card.demo}
-							<div class="absolute top-2 right-2 z-10">
-								<Badge variant="secondary" class="text-[10px] px-1.5 py-0 h-4 font-normal opacity-60">
-									Demo
-								</Badge>
-							</div>
+							<span class="absolute bottom-3 right-4 text-xs font-bold opacity-50">Demo</span>
 						{/if}
 						<CardContent class="p-4">
 							<div class="flex items-start gap-3">
@@ -188,7 +184,7 @@
 								<div class="flex-1 min-w-0">
 									<div class="flex items-center justify-between">
 										<h4 class="font-medium text-sm">{card.name}</h4>
-										<Badge variant="outline" class="gap-1 text-xs {status.color} {card.demo ? 'mr-8' : ''}">
+										<Badge variant="outline" class="gap-1 text-xs {status.color}">
 											<StatusIcon class="size-3" />
 											{status.label}
 										</Badge>

@@ -231,7 +231,15 @@ export const POST: RequestHandler = async ({ request }) => {
 	if (body.type === 'event_callback') {
 		const event = body.event;
 
-		if (event?.type === 'app_mention') {
+		const isMention = event?.type === 'app_mention';
+		const isDM = event?.type === 'message' && event?.channel_type === 'im';
+
+		// Ignore bot's own messages in DMs
+		if (isDM && (event?.bot_id || event?.subtype === 'bot_message')) {
+			return json({ ok: true });
+		}
+
+		if (isMention || isDM) {
 			const workspaceId = body.team_id;
 
 			// Respond immediately, process in background

@@ -1,0 +1,51 @@
+{
+    "display_information": {
+        "name": "HomeTrack",
+        "description": "AI-powered real estate listing management. Get updates, ask questions, and manage your properties from Slack.",
+        "background_color": "#C4704B",
+        "long_description": "HomeTrack connects your real estate workflow to Slack. Get notified about quote updates, task completions, and client activity. Mention @HomeTrack to ask questions about listings, field notes, tasks, and more — powered by AI."
+    },
+    "features": {
+        "app_home": {
+            "home_tab_enabled": false,
+            "messages_tab_enabled": true,
+            "messages_tab_read_only_enabled": false
+        },
+        "bot_user": {
+            "display_name": "HomeTrack",
+            "always_online": true
+        }
+    },
+    "oauth_config": {
+        "redirect_urls": [
+            "https://17cb-2600-1700-6470-5af0-d91f-a05d-5fcb-d957.ngrok-free.app/api/integrations/slack/oauth",
+            "https://local.hometrack.co:5175/api/integrations/slack/oauth"
+        ],
+        "scopes": {
+            "bot": [
+                "app_mentions:read",
+                "chat:write",
+                "files:read",
+                "channels:history",
+                "channels:join",
+                "im:history",
+                "im:read",
+                "im:write"
+            ]
+        },
+        "pkce_enabled": false
+    },
+    "settings": {
+        "event_subscriptions": {
+            "request_url": "https://17cb-2600-1700-6470-5af0-d91f-a05d-5fcb-d957.ngrok-free.app/api/integrations/slack/events",
+            "bot_events": [
+                "app_mention",
+                "message.im"
+            ]
+        },
+        "org_deploy_enabled": false,
+        "socket_mode_enabled": false,
+        "token_rotation_enabled": false,
+        "is_mcp_enabled": false
+    }
+}

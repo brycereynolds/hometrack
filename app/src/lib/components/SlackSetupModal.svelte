@@ -8,10 +8,9 @@
 
 	interface Props {
 		open: boolean;
-		integrationId: string;
 	}
 
-	let { open = $bindable(false), integrationId }: Props = $props();
+	let { open = $bindable(false) }: Props = $props();
 
 	let step = $state(1);
 	let method = $state<'webhook' | 'oauth'>('webhook');
@@ -67,7 +66,6 @@
 
 		try {
 			const form = new FormData();
-			form.set('integrationId', integrationId);
 			form.set('webhookUrl', webhookUrl.trim());
 
 			const res = await fetch('?/connectSlack', {

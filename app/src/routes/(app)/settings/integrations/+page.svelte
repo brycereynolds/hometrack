@@ -29,17 +29,24 @@
 	let disconnectingSlack = $state(false);
 	let testingSlack = $state(false);
 
+	function logoUrl(domain: string | null): string | null {
+		if (!domain) return null;
+		const token = data.logoDevToken;
+		const base = `https://img.logo.dev/${domain}?size=64&format=png`;
+		return token ? `${base}&token=${token}` : base;
+	}
+
 	// Static card definitions — always shown regardless of DB state.
 	// Only Slack is a real integration; all others are demo placeholders.
 	const STATIC_CARDS = [
-		{ name: 'Gmail', description: 'Email sync and send', category: 'email', icon: 'Mail', logoUrl: 'https://img.logo.dev/gmail.com?size=64&format=png', demo: true },
-		{ name: 'Google Calendar', description: 'Showings and appointments', category: 'calendar', icon: 'Calendar', logoUrl: 'https://img.logo.dev/calendar.google.com?size=64&format=png', demo: true },
-		{ name: 'DocuSign', description: 'E-signatures and document routing', category: 'documents', icon: 'FileSignature', logoUrl: 'https://img.logo.dev/docusign.com?size=64&format=png', demo: true },
+		{ name: 'Gmail', description: 'Email sync and send', category: 'email', icon: 'Mail', logoUrl: logoUrl('gmail.com'), demo: true },
+		{ name: 'Google Calendar', description: 'Showings and appointments', category: 'calendar', icon: 'Calendar', logoUrl: logoUrl('calendar.google.com'), demo: true },
+		{ name: 'DocuSign', description: 'E-signatures and document routing', category: 'documents', icon: 'FileSignature', logoUrl: logoUrl('docusign.com'), demo: true },
 		{ name: 'MLSListings (Bay Area)', description: 'MLS data and comp feeds', category: 'mls', icon: 'Database', logoUrl: null, demo: true },
-		{ name: 'Zillow', description: 'View and save analytics', category: 'marketing', icon: 'BarChart', logoUrl: 'https://img.logo.dev/zillow.com?size=64&format=png', demo: true },
-		{ name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication', icon: 'MessageSquare', logoUrl: 'https://img.logo.dev/twilio.com?size=64&format=png', demo: true },
-		{ name: 'Postmark', description: 'Transactional email delivery', category: 'email', icon: 'Send', logoUrl: 'https://img.logo.dev/postmarkapp.com?size=64&format=png', demo: true },
-		{ name: 'Slack', description: 'Team notifications and activity updates', category: 'communication', icon: 'MessageSquare', logoUrl: 'https://img.logo.dev/slack.com?size=64&format=png', demo: false },
+		{ name: 'Zillow', description: 'View and save analytics', category: 'marketing', icon: 'BarChart', logoUrl: logoUrl('zillow.com'), demo: true },
+		{ name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication', icon: 'MessageSquare', logoUrl: logoUrl('twilio.com'), demo: true },
+		{ name: 'Postmark', description: 'Transactional email delivery', category: 'email', icon: 'Send', logoUrl: logoUrl('postmarkapp.com'), demo: true },
+		{ name: 'Slack', description: 'Team notifications and activity updates', category: 'communication', icon: 'MessageSquare', logoUrl: logoUrl('slack.com'), demo: false },
 	];
 
 	const iconMap: Record<string, any> = { Mail, Calendar, FileSignature, Database, BarChart, MessageSquare, Send };

@@ -4,6 +4,7 @@ import { integrations, teamMembers } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { randomUUID } from 'crypto';
+import { env } from '$env/dynamic/private';
 
 // Only real (non-demo) integrations are stored in the DB.
 // The static card list lives in the Svelte component.
@@ -25,10 +26,10 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
       with: { connectedBy: true },
     });
 
-    return { connectedIntegrations };
+    return { connectedIntegrations, logoDevToken: env.LOGO_DEV_API_KEY_PUBLIC ?? '' };
   } catch (err) {
     console.error('integrations load error:', err);
-    return { connectedIntegrations: [] };
+    return { connectedIntegrations: [], logoDevToken: env.LOGO_DEV_API_KEY_PUBLIC ?? '' };
   }
 };
 

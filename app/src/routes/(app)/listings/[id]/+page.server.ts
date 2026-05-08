@@ -2,8 +2,9 @@ import type { PageServerLoad, Actions } from './$types';
 import { getTasksByListing } from '$lib/server/db/queries/tasks.js';
 import { getActivityByListing, getInsightsByListing, getConfirmedComps } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { listings, properties, teamMembers, teams, aiInsights as aiInsightsTable } from '$lib/server/db/schema/index.js';
+import { listings, properties, teamMembers, teams, aiInsights as aiInsightsTable, activityItems as activityItemsTable } from '$lib/server/db/schema/index.js';
 import { eq, and, desc } from 'drizzle-orm';
+import crypto from 'node:crypto';
 import { fail } from '@sveltejs/kit';
 import { env } from '$env/dynamic/private';
 import { sendPhaseChangeNotification } from '$lib/server/comms.js';
@@ -71,6 +72,17 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(and(eq(listings.id, params.id), eq(listings.teamId, teamId)));
+
+        await db.insert(activityItemsTable).values({
+          id: crypto.randomUUID(),
+          teamId,
+          listingId: params.id,
+          type: 'phase_change',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Phase changed to ${phase.replace('_', ' ')}`,
+          timestamp: new Date(),
+        });
 
         // Send phase change notification if configured
         try {
@@ -184,6 +196,17 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(and(eq(listings.id, params.id), eq(listings.teamId, teamId)));
+
+        await db.insert(activityItemsTable).values({
+          id: crypto.randomUUID(),
+          teamId,
+          listingId: params.id,
+          type: 'system',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Listing updated: ${address}`,
+          timestamp: new Date(),
+        });
       });
     } catch (err) {
       console.error('Failed to edit listing:', err);

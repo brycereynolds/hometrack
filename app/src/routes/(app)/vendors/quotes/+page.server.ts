@@ -1,9 +1,10 @@
 import type { PageServerLoad, Actions } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
-import { quotes, listingCosts } from '$lib/server/db/schema/index.js';
+import { quotes, listingCosts, activityItems } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { uploadFile, buildStoragePath } from '$lib/server/storage.js';
+import crypto from 'node:crypto';
 
 export const load: PageServerLoad = async ({ locals, parent }) => {
   const { team } = await parent();
@@ -69,6 +70,17 @@ export const actions: Actions = {
           status: 'committed',
           notes: quote.notes,
         });
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId: quote.teamId,
+          listingId: quote.listingId,
+          type: 'system',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Quote approved: ${quote.scope ?? 'Quote'} from ${quote.vendor?.name ?? 'vendor'} — $${(amount ?? 0).toLocaleString()}`,
+          timestamp: new Date(),
+        });
       });
       return { success: true, action: 'approve' };
     } catch (e) {
@@ -88,6 +100,12 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        // Fetch quote for activity log
+        const quote = await db.query.quotes.findFirst({
+          where: and(eq(quotes.id, quoteId), eq(quotes.teamId, teamId)),
+          with: { vendor: true },
+        });
+
         // Update quote status
         await db
           .update(quotes)
@@ -100,6 +118,19 @@ export const actions: Actions = {
         });
         if (existingCost) {
           await db.delete(listingCosts).where(eq(listingCosts.id, existingCost.id));
+        }
+
+        if (quote) {
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId,
+            listingId: quote.listingId,
+            type: 'system',
+            authorName: 'System',
+            authorInitials: 'HT',
+            content: `Quote declined: ${quote.scope ?? 'Quote'} from ${quote.vendor?.name ?? 'vendor'}`,
+            timestamp: new Date(),
+          });
         }
       });
       return { success: true, action: 'decline' };

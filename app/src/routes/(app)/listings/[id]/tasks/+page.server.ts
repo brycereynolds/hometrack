@@ -79,6 +79,17 @@ export const actions: Actions = {
           dueDate: dueDate ? new Date(dueDate) : null,
           assigneeId: assigneeId || null,
         });
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId,
+          listingId: params.id,
+          type: 'system',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Task created: ${title.trim()}`,
+          timestamp: new Date(),
+        });
       });
       return { success: true, action: 'createTask' };
     } catch (err) {
@@ -151,6 +162,10 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const task = await db.query.tasks.findFirst({
+          where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+        });
+
         await db
           .update(tasks)
           .set({
@@ -162,6 +177,17 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId,
+          listingId: task?.listingId ?? null,
+          type: 'system',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Task updated: ${title.trim()}`,
+          timestamp: new Date(),
+        });
       });
       return { success: true, action: 'editTask' };
     } catch (err) {
@@ -191,6 +217,10 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const task = await db.query.tasks.findFirst({
+          where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+        });
+
         await db
           .update(tasks)
           .set({
@@ -204,6 +234,17 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId,
+          listingId: task?.listingId ?? null,
+          type: 'system',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Task updated: ${title.trim()}`,
+          timestamp: new Date(),
+        });
       });
       return { success: true, action: 'updateTask' };
     } catch (err) {
@@ -330,9 +371,26 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const task = await db.query.tasks.findFirst({
+          where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+        });
+
         await db
           .delete(tasks)
           .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
+
+        if (task) {
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId,
+            listingId: task.listingId,
+            type: 'system',
+            authorName: 'System',
+            authorInitials: 'HT',
+            content: `Task deleted: ${task.title}`,
+            timestamp: new Date(),
+          });
+        }
       });
       return { success: true, action: 'deleteTask' };
     } catch (err) {

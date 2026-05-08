@@ -56,6 +56,8 @@
 		Sparkles,
 		ChevronRight,
 		MapPin,
+		Receipt,
+		DollarSign,
 	} from 'lucide-svelte';
 
 	const avgDom = $derived(Math.round(
@@ -64,6 +66,9 @@
 	));
 
 	const openTaskCount = $derived(tasks.filter((t: any) => t.status !== 'done').length);
+
+	const pendingQuoteCount = $derived(data.pendingQuoteCount ?? 0);
+	const budgetSummary = $derived(data.budgetSummary ?? { totalCommitted: 0, totalEstimated: 0, totalPaid: 0 });
 
 	const deltas = $derived(data.deltas ?? { listingsDelta: 0, pipelineValueDelta: 0, domDelta: 0 });
 
@@ -265,8 +270,8 @@
 		</div>
 	</div>
 
-	<!-- Row 1: 3 Metric Cards -->
-	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+	<!-- Row 1: Metric Cards -->
+	<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
 		{#each stats as stat}
 			<Card>
 				<CardHeader class="flex flex-row items-center justify-between pb-2">
@@ -286,6 +291,38 @@
 				</CardContent>
 			</Card>
 		{/each}
+
+		<!-- Pending Quotes -->
+		<a href="/vendors/quotes?status=requested">
+			<Card class="transition-shadow hover:shadow-md">
+				<CardHeader class="flex flex-row items-center justify-between pb-2">
+					<CardTitle class="text-sm font-medium text-muted-foreground">Pending Quotes</CardTitle>
+					<Receipt class="size-4 text-muted-foreground" />
+				</CardHeader>
+				<CardContent>
+					<div class="text-2xl font-bold">{pendingQuoteCount}</div>
+					<p class="text-xs text-muted-foreground">
+						{pendingQuoteCount === 1 ? '1 quote awaiting response' : `${pendingQuoteCount} quotes awaiting response`}
+					</p>
+				</CardContent>
+			</Card>
+		</a>
+
+		<!-- Budget Summary -->
+		<Card>
+			<CardHeader class="flex flex-row items-center justify-between pb-2">
+				<CardTitle class="text-sm font-medium text-muted-foreground">Budget Summary</CardTitle>
+				<DollarSign class="size-4 text-muted-foreground" />
+			</CardHeader>
+			<CardContent>
+				<div class="text-2xl font-bold">{formatCurrency(budgetSummary.totalCommitted + budgetSummary.totalEstimated)}</div>
+				<div class="mt-1 space-y-0.5 text-xs text-muted-foreground">
+					<p>{formatCurrency(budgetSummary.totalPaid)} paid</p>
+					<p>{formatCurrency(budgetSummary.totalCommitted - budgetSummary.totalPaid)} committed</p>
+					<p>{formatCurrency(budgetSummary.totalEstimated)} estimated</p>
+				</div>
+			</CardContent>
+		</Card>
 	</div>
 
 	<!-- Row 2: Pipeline Summary Bar -->

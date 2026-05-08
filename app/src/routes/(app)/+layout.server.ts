@@ -1,7 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
-import { teamMembers, listings as listingsTable, aiInsights as aiInsightsTable } from '$lib/server/db/schema/index.js';
-import { eq, desc } from 'drizzle-orm';
+import { teamMembers, listings as listingsTable, aiInsights as aiInsightsTable, quotes } from '$lib/server/db/schema/index.js';
+import { eq, desc, and, sql } from 'drizzle-orm';
 import { redirect } from '@sveltejs/kit';
 import { getSupabaseConfig } from '$lib/server/supabase.js';
 import { env } from '$env/dynamic/private';
@@ -19,7 +19,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
       });
       if (!membership?.team) return null;
 
-      const [allListings, insights] = await Promise.all([
+      const [allListings, insights, pendingQuotesResult] = await Promise.all([
         db.query.listings.findMany({
           where: eq(listingsTable.teamId, membership.team.id),
           with: { property: true, agent: true, client: true },
@@ -28,13 +28,19 @@ export const load: LayoutServerLoad = async ({ locals }) => {
           where: eq(aiInsightsTable.teamId, membership.team.id),
           orderBy: desc(aiInsightsTable.timestamp),
         }),
+        db
+          .select({ count: sql<number>`count(*)` })
+          .from(quotes)
+          .where(and(eq(quotes.teamId, membership.team.id), eq(quotes.status, 'requested'))),
       ]);
 
-      return { team: membership.team, membership, listings: allListings, aiInsights: insights };
+      const pendingQuoteCount = Number(pendingQuotesResult[0]?.count ?? 0);
+
+      return { team: membership.team, membership, listings: allListings, aiInsights: insights, pendingQuoteCount };
     });
 
     if (!result) {
-      return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [], supabaseUrl: '', supabaseAnonKey: '', portalBaseUrl: '' };
+      return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [], pendingQuoteCount: 0, supabaseUrl: '', supabaseAnonKey: '', portalBaseUrl: '' };
     }
 
     const { supabaseUrl, anonKey } = getSupabaseConfig();
@@ -45,12 +51,13 @@ export const load: LayoutServerLoad = async ({ locals }) => {
       currentUser: result.membership,
       listings: result.listings,
       aiInsights: result.aiInsights,
+      pendingQuoteCount: result.pendingQuoteCount,
       supabaseUrl,
       supabaseAnonKey: anonKey,
       portalBaseUrl: env.PORTAL_BASE_URL ?? '',
     };
   } catch (err) {
     console.error('Layout load error:', err);
-    return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [], supabaseUrl: '', supabaseAnonKey: '', portalBaseUrl: '' };
+    return { team: null, teamMembers: [], currentUser: null, listings: [], aiInsights: [], pendingQuoteCount: 0, supabaseUrl: '', supabaseAnonKey: '', portalBaseUrl: '' };
   }
 };

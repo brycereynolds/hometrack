@@ -1,10 +1,11 @@
 import type { PageServerLoad, Actions } from './$types';
 import { getFinancialsByListing, getQuotesByListing } from '$lib/server/db/queries/listings.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { financialBudgets, financialCategories, listingCosts, teamMembers, quotes } from '$lib/server/db/schema/index.js';
+import { financialBudgets, financialCategories, listingCosts, teamMembers, quotes, activityItems } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
+import crypto from 'node:crypto';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
@@ -279,6 +280,17 @@ export const actions: Actions = {
           status: status as 'estimated' | 'quoted' | 'committed' | 'paid',
           notes,
         });
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId: member.teamId,
+          listingId: params.id,
+          type: 'system',
+          authorName: member.name,
+          authorInitials: member.initials ?? member.name.split(' ').map((n: string) => n[0]).join('').toUpperCase(),
+          content: `Cost added: ${title} — $${amount.toLocaleString()}`,
+          timestamp: new Date(),
+        });
       });
       return { success: true };
     } catch (err) {
@@ -287,7 +299,7 @@ export const actions: Actions = {
     }
   },
 
-  updateCost: async ({ request, locals }) => {
+  updateCost: async ({ request, params, locals }) => {
     if (!locals.user) return fail(401, { error: 'Unauthorized' });
 
     const form = await request.formData();
@@ -304,6 +316,10 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const member = await db.query.teamMembers.findFirst({
+          where: eq(teamMembers.userId, locals.user!.id),
+        });
+
         await db.update(listingCosts)
           .set({
             title,
@@ -314,6 +330,19 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(eq(listingCosts.id, costId));
+
+        if (member) {
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId: member.teamId,
+            listingId: params.id,
+            type: 'system',
+            authorName: member.name,
+            authorInitials: member.initials ?? member.name.split(' ').map((n: string) => n[0]).join('').toUpperCase(),
+            content: `Cost updated: ${title} — $${amount.toLocaleString()}`,
+            timestamp: new Date(),
+          });
+        }
       });
       return { success: true };
     } catch (err) {
@@ -322,7 +351,7 @@ export const actions: Actions = {
     }
   },
 
-  deleteCost: async ({ request, locals }) => {
+  deleteCost: async ({ request, params, locals }) => {
     if (!locals.user) return fail(401, { error: 'Unauthorized' });
 
     const form = await request.formData();
@@ -332,7 +361,27 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const cost = await db.query.listingCosts.findFirst({
+          where: eq(listingCosts.id, costId),
+        });
+
         await db.delete(listingCosts).where(eq(listingCosts.id, costId));
+
+        if (cost) {
+          const member = await db.query.teamMembers.findFirst({
+            where: eq(teamMembers.userId, locals.user!.id),
+          });
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId: cost.teamId,
+            listingId: params.id,
+            type: 'system',
+            authorName: member?.name ?? 'System',
+            authorInitials: member?.initials ?? 'HT',
+            content: `Cost deleted: ${cost.title}`,
+            timestamp: new Date(),
+          });
+        }
       });
       return { success: true };
     } catch (err) {

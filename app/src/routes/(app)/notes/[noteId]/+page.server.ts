@@ -177,6 +177,10 @@ export const actions: Actions = {
         });
         if (!member) throw new Error('No team membership found');
 
+        const action = await db.query.fieldNoteActions.findFirst({
+          where: eq(fieldNoteActions.id, actionId),
+        });
+
         await db
           .update(fieldNoteActions)
           .set({
@@ -186,6 +190,18 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(eq(fieldNoteActions.id, actionId));
+
+        if (action) {
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId: member.teamId,
+            type: 'system',
+            authorName: member.name,
+            authorInitials: member.initials ?? member.name.split(' ').map((n: string) => n[0]).join('').toUpperCase(),
+            content: `Action dismissed: ${action.title}`,
+            timestamp: new Date(),
+          });
+        }
       });
 
       return { success: true, action: 'dismissAction' };
@@ -255,6 +271,19 @@ export const actions: Actions = {
             .where(eq(fieldNoteActions.id, action.id));
 
           tasksCreated++;
+        }
+
+        if (tasksCreated > 0) {
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId: member.teamId,
+            listingId,
+            type: 'system',
+            authorName: member.name,
+            authorInitials: member.initials ?? member.name.split(' ').map((n: string) => n[0]).join('').toUpperCase(),
+            content: `${tasksCreated} task${tasksCreated > 1 ? 's' : ''} created from field note`,
+            timestamp: new Date(),
+          });
         }
       });
 

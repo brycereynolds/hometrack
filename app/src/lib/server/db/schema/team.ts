@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, jsonb, uniqueIndex, index, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, jsonb, uniqueIndex, index, uuid, boolean } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { teamMemberRoleEnum } from './enums.js';
 
@@ -30,6 +30,8 @@ export const teamMembers = pgTable(
     roleLabel: text('role_label'),
     avatar: text('avatar'),
     initials: text('initials'),
+    isAgent: boolean('is_agent').default(false),
+    agentType: text('agent_type'),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),
   },

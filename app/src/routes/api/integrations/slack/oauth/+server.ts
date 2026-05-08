@@ -2,8 +2,11 @@ import { redirect } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/private';
 import { adminDb } from '$lib/server/db/index.js';
-import { integrations, teamMembers } from '$lib/server/db/schema/index.js';
+import { integrations, teamMembers, teams } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
+import { getSupabaseAdmin } from '$lib/server/supabase.js';
+import { nanoid } from 'nanoid';
+import { randomUUID } from 'crypto';
 
 export const GET: RequestHandler = async ({ url, locals }) => {
 	if (!locals.user) {
@@ -75,6 +78,56 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 			redirect(302, '/settings/integrations?slack=error');
 		}
 
+		// Check if a Slack agent member already exists for this team
+		const existingAgent = await adminDb.query.teamMembers.findFirst({
+			where: and(
+				eq(teamMembers.teamId, member.teamId),
+				eq(teamMembers.isAgent, true),
+				eq(teamMembers.agentType, 'slack'),
+			),
+		});
+
+		let agentMemberId = existingAgent?.id;
+		let agentUserId = existingAgent?.userId;
+
+		if (!existingAgent) {
+			// Get team slug for the agent email
+			const team = await adminDb.query.teams.findFirst({
+				where: eq(teams.id, member.teamId),
+			});
+			const teamSlug = team?.slug ?? 'default';
+
+			// Create a GoTrue user for the agent
+			const supabaseAdmin = getSupabaseAdmin();
+			const agentEmail = `slack-agent@${teamSlug}.hometrack.agent`;
+			const { data: authUser, error: authError } = await supabaseAdmin.auth.admin.createUser({
+				email: agentEmail,
+				password: randomUUID(),
+				email_confirm: true,
+			});
+
+			if (authError) {
+				console.error('[Slack OAuth] Failed to create agent auth user:', authError);
+				redirect(302, '/settings/integrations?slack=error');
+			}
+
+			agentUserId = authUser.user.id;
+			agentMemberId = nanoid();
+
+			await adminDb.insert(teamMembers).values({
+				id: agentMemberId,
+				teamId: member.teamId,
+				name: 'HomeTrack Slack Agent',
+				email: agentEmail,
+				userId: agentUserId,
+				role: 'agent',
+				roleLabel: 'AI Agent',
+				isAgent: true,
+				agentType: 'slack',
+				initials: 'SA',
+			});
+		}
+
 		// Store OAuth data in the integration config
 		await adminDb
 			.update(integrations)
@@ -87,6 +140,8 @@ export const GET: RequestHandler = async ({ url, locals }) => {
 					workspaceId,
 					workspaceName,
 					connectedAt: new Date().toISOString(),
+					agentMemberId,
+					agentUserId,
 				},
 				connectedById: member.id,
 				lastSync: new Date(),

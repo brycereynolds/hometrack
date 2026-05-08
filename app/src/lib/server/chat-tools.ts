@@ -362,6 +362,19 @@ async function getVendors(
   return JSON.stringify(result);
 }
 
+function normalizeAddress(s: string): string {
+  return s.toLowerCase()
+    .replace(/\bln\b/g, 'lane')
+    .replace(/\bst\b/g, 'street')
+    .replace(/\bave\b/g, 'avenue')
+    .replace(/\bdr\b/g, 'drive')
+    .replace(/\bblvd\b/g, 'boulevard')
+    .replace(/\bct\b/g, 'court')
+    .replace(/\bpl\b/g, 'place')
+    .replace(/\brd\b/g, 'road')
+    .replace(/\bcir\b/g, 'circle');
+}
+
 async function searchListings(
   input: { query?: string; phase?: string; min_price?: number; max_price?: number },
   userId: string,
@@ -381,11 +394,11 @@ async function searchListings(
 
     let filtered = rows;
     if (input.query) {
-      const q = input.query.toLowerCase();
+      const q = normalizeAddress(input.query);
       filtered = rows.filter(
         (l) =>
-          l.property?.address?.toLowerCase().includes(q) ||
-          l.property?.city?.toLowerCase().includes(q),
+          normalizeAddress(l.property?.address ?? '').includes(q) ||
+          normalizeAddress(l.property?.city ?? '').includes(q),
       );
     }
 

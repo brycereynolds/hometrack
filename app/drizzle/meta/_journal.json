@@ -78,6 +78,13 @@
       "when": 1778204605956,
       "tag": "0010_add_task_id_to_quotes",
       "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1778278219404,
+      "tag": "0011_add_agent_team_members",
+      "breakpoints": true
     }
   ]
 }

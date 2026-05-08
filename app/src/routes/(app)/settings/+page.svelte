@@ -6,11 +6,13 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
-	import { UserPlus, Shield, Crown, Briefcase, ClipboardList, Megaphone, PaintBucket, Trash2 } from 'lucide-svelte';
+	import { UserPlus, Shield, Crown, Briefcase, ClipboardList, Megaphone, PaintBucket, Trash2, Bot } from 'lucide-svelte';
 
 	let { data } = $props();
 
-	const teamMembers = $derived(data.teamMembers ?? []);
+	const allTeamMembers = $derived(data.teamMembers ?? []);
+	const teamMembers = $derived(allTeamMembers.filter((m) => !m.isAgent));
+	const agentMembers = $derived(allTeamMembers.filter((m) => m.isAgent));
 	const team = $derived(data.team);
 
 	const roleIcons: Record<string, typeof Shield> = {
@@ -37,9 +39,15 @@
 		staging_lead: 'Coordinate staging vendors, design consultations, and improvement planning.'
 	};
 
-	const allMembers = $derived([
-		...teamMembers.map((m) => ({ ...m, status: 'active' as const })),
-	]);
+	const allMembers = $derived(
+		teamMembers.map((m) => ({ ...m, status: 'active' as const }))
+	);
+
+	const agentTypeLabels: Record<string, string> = {
+		slack: 'Slack',
+		email: 'Email',
+		api: 'API',
+	};
 
 	// Invite member modal state
 	let showInviteModal = $state(false);
@@ -81,7 +89,7 @@
 					<p class="text-sm font-medium">{team?.name ?? 'Your Team'}</p>
 					<p class="text-xs text-muted-foreground">{team?.slug ? `hometrack.co/${team.slug}` : ''}</p>
 				</div>
-				<Badge variant="outline">{allMembers.length} members</Badge>
+				<Badge variant="outline">{allMembers.length} member{allMembers.length === 1 ? '' : 's'}{agentMembers.length > 0 ? ` + ${agentMembers.length} agent${agentMembers.length === 1 ? '' : 's'}` : ''}</Badge>
 			</div>
 		</CardContent>
 	</Card>
@@ -128,6 +136,53 @@
 			</div>
 		</CardContent>
 	</Card>
+
+	<!-- AI Agents -->
+	{#if agentMembers.length > 0}
+		<Card>
+			<CardHeader>
+				<CardTitle class="flex items-center gap-2">
+					<Bot class="size-5 text-muted-foreground" />
+					AI Agents
+				</CardTitle>
+				<CardDescription>Agent identities are created automatically when integrations are connected</CardDescription>
+			</CardHeader>
+			<CardContent class="p-0">
+				<div class="divide-y">
+					{#each agentMembers as agent}
+						<div class="flex items-center justify-between px-6 py-4 bg-muted/30">
+							<div class="flex items-center gap-3">
+								<Avatar class="size-10">
+									<AvatarFallback class="bg-violet-100 text-violet-600 text-sm font-medium">
+										<Bot class="size-4" />
+									</AvatarFallback>
+								</Avatar>
+								<div>
+									<div class="flex items-center gap-2">
+										<p class="font-medium text-sm">{agent.name}</p>
+										<Badge variant="secondary" class="text-[10px] px-1.5 py-0">Agent</Badge>
+									</div>
+									<p class="text-xs text-muted-foreground">
+										{agentTypeLabels[agent.agentType ?? ''] ?? agent.agentType ?? 'Unknown'} integration
+									</p>
+								</div>
+							</div>
+							<div class="flex items-center gap-3">
+								<Badge variant="outline" class="gap-1 text-xs">
+									<Bot class="size-3" />
+									{agent.roleLabel ?? 'AI Agent'}
+								</Badge>
+								<div class="flex items-center gap-1">
+									<span class="inline-block size-2 rounded-full bg-green-500"></span>
+									<span class="text-xs text-muted-foreground">Active</span>
+								</div>
+							</div>
+						</div>
+					{/each}
+				</div>
+			</CardContent>
+		</Card>
+	{/if}
 
 	<!-- Role descriptions -->
 	<Card>

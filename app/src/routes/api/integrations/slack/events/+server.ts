@@ -37,6 +37,8 @@ interface SlackConfig {
 	workspaceName?: string;
 	webhookUrl?: string;
 	connectedAt?: string;
+	agentMemberId?: string;
+	agentUserId?: string;
 }
 
 async function findTeamByWorkspace(
@@ -116,21 +118,27 @@ async function processAppMention(
 	const userMessage = event.text.replace(/<@[A-Z0-9]+>/g, '').trim();
 	if (!userMessage) return;
 
-	// Find a team member to use for RLS context (use the integration's connectedBy or first admin)
-	const member = integration.connectedById
-		? await adminDb.query.teamMembers.findFirst({
-				where: eq(teamMembers.id, integration.connectedById),
-			})
-		: await adminDb.query.teamMembers.findFirst({
-				where: eq(teamMembers.teamId, integration.teamId),
-			});
+	// Prefer agent userId from integration config (RLS-compliant bot identity)
+	const config = integration.config as SlackConfig | null;
+	let userId: string | null = config?.agentUserId ?? null;
+	let teamId = integration.teamId;
 
-	if (!member || !member.userId) {
-		console.error('[Slack Events] No team member found for team', integration.teamId);
-		return;
+	// Fall back to connectedBy member or first team member
+	if (!userId) {
+		const member = integration.connectedById
+			? await adminDb.query.teamMembers.findFirst({
+					where: eq(teamMembers.id, integration.connectedById),
+				})
+			: await adminDb.query.teamMembers.findFirst({
+					where: eq(teamMembers.teamId, integration.teamId),
+				});
+
+		if (!member || !member.userId) {
+			console.error('[Slack Events] No team member found for team', integration.teamId);
+			return;
+		}
+		userId = member.userId;
 	}
-
-	const userId = member.userId;
 
 	try {
 		const client = getAnthropicClient(userId, `slack-${event.channel}-${event.ts}`);
@@ -182,7 +190,7 @@ You can ONLY read and discuss data. You CANNOT create, update, or delete anythin
 						block.name,
 						block.input as Record<string, string>,
 						userId,
-						member.teamId,
+						teamId,
 					);
 					toolResults.push({
 						type: 'tool_result',

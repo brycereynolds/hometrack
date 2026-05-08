@@ -12,6 +12,7 @@ import { eq, and, inArray } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { getWorkflowStatus } from '$lib/server/temporal.js';
 import crypto from 'node:crypto';
+import { sendSlackNotification, slackTaskCreated, slackCostTracked } from '$lib/server/slack.js';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
@@ -107,6 +108,7 @@ export const actions: Actions = {
 
     try {
       const taskId = crypto.randomUUID();
+      let slackInfo: { teamId: string; title: string } | undefined;
 
       await withRLS(locals.user.id, 'authenticated', async (db) => {
         const member = await db.query.teamMembers.findFirst({
@@ -118,6 +120,8 @@ export const actions: Actions = {
           where: eq(fieldNoteActions.id, actionId),
         });
         if (!action) throw new Error('Action not found');
+
+        slackInfo = { teamId: member.teamId, title: action.title };
 
         await db.insert(tasks).values({
           id: taskId,
@@ -155,6 +159,7 @@ export const actions: Actions = {
         });
       });
 
+      if (slackInfo) sendSlackNotification(slackInfo.teamId, slackTaskCreated(slackInfo.title));
       return { success: true, action: 'markAsTask', taskId };
     } catch (err) {
       console.error('markAsTask error:', err);
@@ -307,6 +312,7 @@ export const actions: Actions = {
     if (!actionId || !listingId) return fail(400, { error: 'Action ID and listing ID are required' });
 
     try {
+      let slackInfo: { teamId: string; title: string; amount: string } | undefined;
       await withRLS(locals.user.id, 'authenticated', async (db) => {
         const member = await db.query.teamMembers.findFirst({
           where: eq(teamMembers.userId, locals.user!.id),
@@ -319,6 +325,7 @@ export const actions: Actions = {
         if (!action) throw new Error('Action not found');
 
         const amount = amountStr ? parseFloat(amountStr) : null;
+        slackInfo = { teamId: member.teamId, title: action.title, amount: amount ? amount.toLocaleString() : '0' };
 
         await db.insert(listingCosts).values({
           teamId: member.teamId,
@@ -354,6 +361,7 @@ export const actions: Actions = {
         });
       });
 
+      if (slackInfo) sendSlackNotification(slackInfo.teamId, slackCostTracked(slackInfo.title, slackInfo.amount));
       return { success: true, action: 'trackCost' };
     } catch (err) {
       console.error('trackCost error:', err);

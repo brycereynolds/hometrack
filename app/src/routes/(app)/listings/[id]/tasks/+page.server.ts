@@ -5,6 +5,7 @@ import { tasks, teamMembers, listingCosts, quotes, vendors, activityItems } from
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import crypto from 'node:crypto';
+import { sendSlackNotification, slackTaskCreated, slackTaskCompleted } from '$lib/server/slack.js';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
@@ -91,6 +92,7 @@ export const actions: Actions = {
           timestamp: new Date(),
         });
       });
+      sendSlackNotification(teamId, slackTaskCreated(title.trim()));
       return { success: true, action: 'createTask' };
     } catch (err) {
       console.error('createTask error:', err);
@@ -136,6 +138,9 @@ export const actions: Actions = {
           });
         }
       });
+      if (newStatus === 'done') {
+        sendSlackNotification(teamId, slackTaskCompleted(form.get('title') as string || 'Task'));
+      }
       return { success: true, action: 'toggleStatus' };
     } catch (err) {
       console.error('toggleStatus error:', err);

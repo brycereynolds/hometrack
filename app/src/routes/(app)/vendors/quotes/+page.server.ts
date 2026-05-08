@@ -5,6 +5,7 @@ import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { uploadFile, buildStoragePath } from '$lib/server/storage.js';
 import crypto from 'node:crypto';
+import { sendSlackNotification, slackQuoteApproved, slackGenericActivity } from '$lib/server/slack.js';
 
 export const load: PageServerLoad = async ({ locals, parent }) => {
   const { team } = await parent();
@@ -82,6 +83,10 @@ export const actions: Actions = {
           timestamp: new Date(),
         });
       });
+      sendSlackNotification(teamId, slackQuoteApproved(
+        formData.get('vendorName') as string || 'vendor',
+        formData.get('amount') as string || '0',
+      ));
       return { success: true, action: 'approve' };
     } catch (e) {
       console.error('Approve quote error:', e);
@@ -133,6 +138,9 @@ export const actions: Actions = {
           });
         }
       });
+      sendSlackNotification(teamId, slackGenericActivity(
+        `*Quote declined:* ${formData.get('scope') || 'Quote'} from ${formData.get('vendorName') || 'vendor'}`
+      ));
       return { success: true, action: 'decline' };
     } catch (e) {
       console.error('Decline quote error:', e);

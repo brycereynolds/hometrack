@@ -3347,6 +3347,7 @@ async function main() {
     { name: 'Zillow', description: 'View and save analytics', category: 'marketing' as const, icon: 'BarChart', status: 'connected' as const, lastSync: new Date('2026-04-09T10:00:00'), connectedByMock: 'tm-1' },
     { name: 'QuickBooks', description: 'Financial tracking and invoicing', category: 'financial' as const, icon: 'Receipt', status: 'disconnected' as const },
     { name: 'Instagram Business', description: 'Social media posting and analytics', category: 'marketing' as const, icon: 'Instagram', status: 'connected' as const, lastSync: new Date('2026-04-09T08:00:00'), connectedByMock: 'tm-4' },
+    { name: 'Slack', description: 'Team notifications and activity updates', category: 'communication' as const, icon: 'MessageSquare', status: 'disconnected' as const },
     { name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication' as const, icon: 'MessageSquare', status: 'disconnected' as const },
   ];
 

@@ -6,6 +6,7 @@ import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { nanoid } from 'nanoid';
 import crypto from 'node:crypto';
+import { sendSlackNotification, slackCostTracked } from '$lib/server/slack.js';
 
 export const load: PageServerLoad = async ({ params, locals, parent }) => {
   const { team } = await parent();
@@ -265,11 +266,13 @@ export const actions: Actions = {
     if (isNaN(amount) || amount < 0) return fail(400, { error: 'Amount must be a positive number' });
 
     try {
+      let teamId: string | undefined;
       await withRLS(locals.user.id, 'authenticated', async (db) => {
         const member = await db.query.teamMembers.findFirst({
           where: eq(teamMembers.userId, locals.user!.id),
         });
         if (!member) throw new Error('Team member not found');
+        teamId = member.teamId;
 
         await db.insert(listingCosts).values({
           teamId: member.teamId,
@@ -292,6 +295,7 @@ export const actions: Actions = {
           timestamp: new Date(),
         });
       });
+      if (teamId) sendSlackNotification(teamId, slackCostTracked(title!, amount.toLocaleString()));
       return { success: true };
     } catch (err) {
       console.error('addCost error:', err);

@@ -15,13 +15,22 @@
 		CheckCircle,
 		XCircle,
 		AlertCircle,
-		RefreshCw
+		RefreshCw,
+		Loader2,
+		Unplug
 	} from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
+	import { enhance } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
+	import SlackSetupModal from '$lib/components/SlackSetupModal.svelte';
 
 	let { data } = $props();
 	let syncingIntegrations = $state<Set<string>>(new Set());
 	let lastSyncTimes = $state<Record<string, Date>>({});
+	let slackModalOpen = $state(false);
+	let slackIntegrationId = $state('');
+	let disconnectingSlack = $state(false);
+	let testingSlack = $state(false);
 
 	async function syncIntegration(integration: any) {
 		const id = integration.name;
@@ -91,7 +100,63 @@
 	function isGoogleIntegration(name: string) {
 		return name === 'Gmail' || name === 'Google Calendar';
 	}
+
+	function isSlackIntegration(name: string) {
+		return name === 'Slack';
+	}
+
+	function openSlackSetup(integration: any) {
+		slackIntegrationId = integration.id;
+		slackModalOpen = true;
+	}
+
+	async function testSlackConnection(integration: any) {
+		const config = integration.config as { webhookUrl?: string } | null;
+		if (!config?.webhookUrl) return;
+
+		testingSlack = true;
+		try {
+			const res = await fetch('/api/integrations/slack/test', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ webhookUrl: config.webhookUrl }),
+			});
+			if (res.ok) {
+				toast.success('Test message sent to Slack');
+			} else {
+				toast.error('Failed to send test message');
+			}
+		} catch {
+			toast.error('Failed to reach Slack');
+		} finally {
+			testingSlack = false;
+		}
+	}
+
+	async function disconnectSlack(integration: any) {
+		disconnectingSlack = true;
+		try {
+			const form = new FormData();
+			form.set('integrationId', integration.id);
+			const res = await fetch('?/disconnectSlack', {
+				method: 'POST',
+				body: form,
+			});
+			if (res.ok) {
+				toast.success('Slack disconnected');
+				await invalidateAll();
+			} else {
+				toast.error('Failed to disconnect Slack');
+			}
+		} catch {
+			toast.error('Failed to disconnect Slack');
+		} finally {
+			disconnectingSlack = false;
+		}
+	}
 </script>
+
+<SlackSetupModal bind:open={slackModalOpen} integrationId={slackIntegrationId} />
 
 <div class="space-y-6">
 	<div>
@@ -120,6 +185,7 @@
 					{@const status = statusConfig[integration.status]}
 					{@const StatusIcon = status.icon}
 					{@const isGoogle = isGoogleIntegration(integration.name)}
+					{@const isSlack = isSlackIntegration(integration.name)}
 					<Card class="transition-all hover:shadow-sm">
 						<CardContent class="p-4">
 							<div class="flex items-start gap-3">
@@ -160,6 +226,33 @@
 													<RefreshCw class="size-3 {syncingIntegrations.has(integration.name) ? 'animate-spin' : ''}" />
 													{syncingIntegrations.has(integration.name) ? 'Syncing...' : 'Sync'}
 												</Button>
+											{:else if isSlack}
+												<div class="flex gap-1">
+													<Button
+														variant="ghost"
+														size="sm"
+														class="h-6 text-xs gap-1"
+														disabled={testingSlack}
+														onclick={() => testSlackConnection(integration)}
+													>
+														{#if testingSlack}
+															<Loader2 class="size-3 animate-spin" />
+														{:else}
+															<RefreshCw class="size-3" />
+														{/if}
+														Test
+													</Button>
+													<Button
+														variant="ghost"
+														size="sm"
+														class="h-6 text-xs gap-1 text-red-500 hover:text-red-600"
+														disabled={disconnectingSlack}
+														onclick={() => disconnectSlack(integration)}
+													>
+														<Unplug class="size-3" />
+														Disconnect
+													</Button>
+												</div>
 											{:else}
 												<Tooltip.Root>
 													<Tooltip.Trigger>
@@ -182,6 +275,15 @@
 														Connect
 													</Button>
 												</a>
+											{:else if isSlack}
+												<Button
+													variant="outline"
+													size="sm"
+													class="h-7 text-xs"
+													onclick={() => openSlackSetup(integration)}
+												>
+													Connect
+												</Button>
 											{:else}
 												<Tooltip.Root>
 													<Tooltip.Trigger>

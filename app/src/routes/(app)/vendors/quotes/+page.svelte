@@ -5,7 +5,6 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { formatCurrency } from '$lib/utils.js';
 	import {
-		ArrowLeft,
 		DollarSign,
 		FileText,
 		Check,
@@ -23,6 +22,10 @@
 		ClipboardList,
 		ArrowUpDown,
 		Filter,
+		Sparkles,
+		Plus,
+		Trash2,
+		Loader2,
 	} from 'lucide-svelte';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
@@ -132,6 +135,71 @@
 
 	let uploadingQuoteId = $state<string | null>(null);
 
+	// Enter Quote Details state
+	let enteringQuoteId = $state<string | null>(null);
+	let enterAmount = $state('');
+	let enterLineItems = $state<{ description: string; amount: string }[]>([]);
+	let enterReceivedDate = $state(new Date().toISOString().split('T')[0]);
+	let enterNotes = $state('');
+	let enterRawText = $state('');
+	let parsingAI = $state(false);
+	let enterDocFile = $state<File | null>(null);
+	let submittingDetails = $state(false);
+
+	function openEnterDetails(quoteId: string) {
+		enteringQuoteId = quoteId;
+		enterAmount = '';
+		enterLineItems = [{ description: '', amount: '' }];
+		enterReceivedDate = new Date().toISOString().split('T')[0];
+		enterNotes = '';
+		enterRawText = '';
+		enterDocFile = null;
+	}
+
+	function addLineItem() {
+		enterLineItems = [...enterLineItems, { description: '', amount: '' }];
+	}
+
+	function removeLineItem(index: number) {
+		enterLineItems = enterLineItems.filter((_, i) => i !== index);
+	}
+
+	async function parseWithAI(quoteId: string) {
+		if (!enterRawText.trim()) return;
+		parsingAI = true;
+		try {
+			const res = await fetch(`/api/quotes/${quoteId}/parse`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ text: enterRawText }),
+			});
+			if (!res.ok) throw new Error('Parse failed');
+			const parsed = await res.json();
+			if (parsed.amount) enterAmount = String(parsed.amount);
+			if (parsed.lineItems?.length) {
+				enterLineItems = parsed.lineItems.map((li: any) => ({
+					description: li.description ?? '',
+					amount: String(li.amount ?? ''),
+				}));
+			}
+			if (parsed.vendorNotes) enterNotes = parsed.vendorNotes;
+			toast.success('Quote details parsed');
+		} catch {
+			toast.error('Failed to parse quote text');
+		} finally {
+			parsingAI = false;
+		}
+	}
+
+	function getFilteredLineItemsJson() {
+		return JSON.stringify(
+			enterLineItems.filter(li => li.description.trim() || li.amount.trim()).map(li => ({
+				description: li.description,
+				amount: parseFloat(li.amount) || 0,
+			}))
+		);
+	}
+
 	async function downloadDocument(quoteId: string, teamId: string) {
 		try {
 			const res = await fetch(`/api/quotes/${quoteId}/document?teamId=${encodeURIComponent(teamId)}`);
@@ -151,16 +219,11 @@
 <div class="space-y-6">
 	<!-- Header -->
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-		<div class="flex items-center gap-3">
-			<Button variant="ghost" size="icon" href="/vendors">
-				<ArrowLeft class="size-4" />
-			</Button>
-			<div>
-				<h1 class="font-serif text-3xl font-bold">Quote Management</h1>
-				<p class="mt-1 text-sm text-muted-foreground">
-					{quotes.length} quotes | {pendingCount} awaiting review
-				</p>
-			</div>
+		<div>
+			<h1 class="font-serif text-3xl font-bold">Quote Management</h1>
+			<p class="mt-1 text-sm text-muted-foreground">
+				{quotes.length} quotes | {pendingCount} awaiting review
+			</p>
 		</div>
 		<div class="flex items-center gap-2">
 			<Button
@@ -317,6 +380,12 @@
 											</div>
 										{:else}
 											<p class="text-sm text-muted-foreground">Quote details pending from vendor</p>
+											{#if quote.status === 'requested' && enteringQuoteId !== quote.id}
+												<Button size="sm" class="mt-2" onclick={() => openEnterDetails(quote.id)}>
+													<DollarSign class="mr-1.5 size-3.5" />
+													Enter Quote Details
+												</Button>
+											{/if}
 										{/if}
 									</div>
 
@@ -467,6 +536,183 @@
 										{/if}
 									</div>
 								</div>
+
+								<!-- Enter Quote Details inline form -->
+								{#if quote.status === 'requested' && enteringQuoteId === quote.id}
+									<Separator class="my-4" />
+									<div class="space-y-4">
+										<p class="text-sm font-semibold">Enter Quote Details</p>
+
+										<!-- Natural language input -->
+										<div>
+											<label for="raw-text-{quote.id}" class="text-xs font-medium text-muted-foreground">Paste quote info (any format)</label>
+											<textarea
+												id="raw-text-{quote.id}"
+												bind:value={enterRawText}
+												rows="3"
+												placeholder="e.g. Kitchen cabinet refinishing $2,400, countertop replacement $3,100, total $5,500..."
+												class="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+											></textarea>
+											<Button
+												size="sm"
+												variant="outline"
+												class="mt-1.5"
+												disabled={parsingAI || !enterRawText.trim()}
+												onclick={() => parseWithAI(quote.id)}
+											>
+												{#if parsingAI}
+													<Loader2 class="mr-1.5 size-3.5 animate-spin" />
+													Parsing...
+												{:else}
+													<Sparkles class="mr-1.5 size-3.5" />
+													Parse with AI
+												{/if}
+											</Button>
+										</div>
+
+										<!-- Amount -->
+										<div>
+											<label for="enter-amount-{quote.id}" class="text-xs font-medium text-muted-foreground">Total Amount ($)</label>
+											<input
+												id="enter-amount-{quote.id}"
+												type="number"
+												step="0.01"
+												min="0"
+												bind:value={enterAmount}
+												placeholder="0.00"
+												class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2 sm:w-48"
+											/>
+										</div>
+
+										<!-- Line Items -->
+										<div>
+											<div class="flex items-center justify-between">
+												<label class="text-xs font-medium text-muted-foreground">Line Items</label>
+												<Button size="sm" variant="ghost" class="h-6 text-xs" onclick={addLineItem}>
+													<Plus class="mr-1 size-3" />Add
+												</Button>
+											</div>
+											<div class="mt-1 space-y-2">
+												{#each enterLineItems as li, i}
+													<div class="flex items-center gap-2">
+														<input
+															type="text"
+															bind:value={li.description}
+															placeholder="Description"
+															class="h-8 flex-1 rounded-md border border-input bg-background px-2 text-xs outline-none ring-ring focus:ring-2"
+														/>
+														<input
+															type="number"
+															step="0.01"
+															min="0"
+															bind:value={li.amount}
+															placeholder="Amount"
+															class="h-8 w-24 rounded-md border border-input bg-background px-2 text-xs outline-none ring-ring focus:ring-2"
+														/>
+														{#if enterLineItems.length > 1}
+															<button onclick={() => removeLineItem(i)} class="text-muted-foreground hover:text-red-500">
+																<Trash2 class="size-3.5" />
+															</button>
+														{/if}
+													</div>
+												{/each}
+											</div>
+										</div>
+
+										<!-- Received Date -->
+										<div>
+											<label for="enter-date-{quote.id}" class="text-xs font-medium text-muted-foreground">Received Date</label>
+											<input
+												id="enter-date-{quote.id}"
+												type="date"
+												bind:value={enterReceivedDate}
+												class="mt-1 h-9 rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+											/>
+										</div>
+
+										<!-- Attach Document -->
+										<div>
+											<label class="text-xs font-medium text-muted-foreground">Attach Document</label>
+											<div class="mt-1">
+												{#if enterDocFile}
+													<div class="flex items-center gap-2 text-xs">
+														<span class="text-muted-foreground">{enterDocFile.name}</span>
+														<button onclick={() => enterDocFile = null} class="text-red-500 hover:text-red-700">
+															<X class="size-3" />
+														</button>
+													</div>
+												{:else}
+													<label class="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed border-border px-2.5 py-1.5 text-xs text-muted-foreground hover:border-primary hover:text-foreground transition-colors">
+														<Upload class="size-3" />
+														Attach PDF or image
+														<input
+															type="file"
+															accept=".pdf,image/jpeg,image/png,image/webp"
+															class="hidden"
+															onchange={(e) => {
+																const target = e.currentTarget as HTMLInputElement;
+																enterDocFile = target.files?.[0] ?? null;
+															}}
+														/>
+													</label>
+												{/if}
+											</div>
+										</div>
+
+										<!-- Notes -->
+										<div>
+											<label for="enter-notes-{quote.id}" class="text-xs font-medium text-muted-foreground">Notes</label>
+											<textarea
+												id="enter-notes-{quote.id}"
+												bind:value={enterNotes}
+												rows="2"
+												placeholder="Optional vendor notes..."
+												class="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+											></textarea>
+										</div>
+
+										<!-- Actions -->
+										<form
+											method="POST"
+											action="?/enterQuoteDetails"
+											enctype="multipart/form-data"
+											use:enhance={() => {
+												submittingDetails = true;
+												return async ({ result, update }) => {
+													submittingDetails = false;
+													if (result.type === 'success') {
+														toast.success('Quote details saved');
+														enteringQuoteId = null;
+														await update();
+													} else if (result.type === 'failure') {
+														toast.error(String(result.data?.error ?? 'Failed to save'));
+													}
+												};
+											}}
+										>
+											<input type="hidden" name="quoteId" value={quote.id} />
+											<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+											<input type="hidden" name="amount" value={enterAmount} />
+											<input type="hidden" name="receivedDate" value={enterReceivedDate} />
+											<input type="hidden" name="notes" value={enterNotes} />
+											<input type="hidden" name="lineItems" value={getFilteredLineItemsJson()} />
+											<div class="flex items-center gap-2">
+												<Button size="sm" disabled={submittingDetails || !enterAmount} type="submit">
+													{#if submittingDetails}
+														<Loader2 class="mr-1.5 size-3.5 animate-spin" />
+														Saving...
+													{:else}
+														<Check class="mr-1.5 size-3.5" />
+														Save Quote Details
+													{/if}
+												</Button>
+												<Button size="sm" variant="outline" type="button" onclick={() => enteringQuoteId = null}>
+													Cancel
+												</Button>
+											</div>
+										</form>
+									</div>
+								{/if}
 							</div>
 						{/if}
 					</CardContent>

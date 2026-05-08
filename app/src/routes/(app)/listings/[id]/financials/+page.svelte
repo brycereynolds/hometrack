@@ -103,6 +103,9 @@
 	const closingCostAmount = $derived(salePrice * (closingCostRate / 100));
 	const netToSeller = $derived(salePrice - totalCosts - commissionAmount - closingCostAmount);
 
+	// Quotes section collapsible state
+	let quotesExpanded = $state(true);
+
 	// Expanded categories in P&L — expanded by default
 	let expandedCategories = $state<Set<string>>(new Set());
 	let categoriesInitialized = $state(false);
@@ -321,6 +324,100 @@
 			</Card>
 		</div>
 
+		<!-- Quotes Section -->
+		{#if listingQuotes.length > 0}
+			<Card>
+				<CardHeader>
+					<button
+						type="button"
+						class="flex w-full items-center justify-between"
+						onclick={() => quotesExpanded = !quotesExpanded}
+					>
+						<CardTitle class="font-serif text-base flex items-center gap-2">
+							<FileQuestion class="size-4" />
+							Quotes ({listingQuotes.length})
+						</CardTitle>
+						{#if quotesExpanded}
+							<ChevronDown class="size-4 text-muted-foreground" />
+						{:else}
+							<ChevronRight class="size-4 text-muted-foreground" />
+						{/if}
+					</button>
+				</CardHeader>
+				{#if quotesExpanded}
+					<CardContent>
+						<div class="space-y-2">
+							{#each listingQuotes as quote}
+								{@const quoteStatusColors: Record<string, string> = {
+									requested: 'bg-blue-100 text-blue-700',
+									received: 'bg-amber-100 text-amber-700',
+									approved: 'bg-emerald-100 text-emerald-700',
+									declined: 'bg-red-100 text-red-700',
+								}}
+								<div class="flex items-center justify-between rounded-md border px-4 py-3 text-sm">
+									<div class="flex items-center gap-3 min-w-0 flex-1">
+										<span class="font-medium">{quote.vendor?.name ?? 'Unknown'}{quote.vendor?.company ? ` - ${quote.vendor.company}` : ''}</span>
+										<span class="text-muted-foreground">{quote.scope ?? 'General'}</span>
+										{#if quote.task}
+											<a href="/listings/{listing?.id}/tasks" class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline">
+												<ClipboardList class="size-3" />
+												{quote.task.title}
+											</a>
+										{/if}
+									</div>
+									<div class="flex items-center gap-3 shrink-0">
+										{#if quote.requestedDate}
+											<span class="text-xs text-muted-foreground">
+												{quote.requestedDate.toLocaleDateString()}
+											</span>
+										{/if}
+										<span class="font-semibold">{formatCurrency(quote.amount ?? 0)}</span>
+										<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {quoteStatusColors[quote.status] ?? 'bg-gray-100 text-gray-600'}">
+											{quote.status}
+										</span>
+										{#if quote.status === 'received'}
+											<div class="flex items-center gap-1">
+												<form method="POST" action="?/approveQuote" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Quote approved — cost entry created');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String((result.data as any)?.error ?? 'Failed to approve'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<Button size="sm" class="h-7 text-xs" type="submit">
+														<Check class="mr-1 size-3" />Approve
+													</Button>
+												</form>
+												<form method="POST" action="?/declineQuote" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Quote declined');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String((result.data as any)?.error ?? 'Failed to decline'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<Button variant="outline" size="sm" class="h-7 text-xs" type="submit">
+														<X class="mr-1 size-3" />Decline
+													</Button>
+												</form>
+											</div>
+										{/if}
+									</div>
+								</div>
+							{/each}
+						</div>
+					</CardContent>
+				{/if}
+			</Card>
+		{/if}
+
 		<!-- P&L Statement -->
 		<Card>
 			<CardHeader>
@@ -528,88 +625,7 @@
 			</div>
 		{/if}
 
-		<!-- Quotes Section -->
-		{#if listingQuotes.length > 0}
-			<Card>
-				<CardHeader>
-					<CardTitle class="font-serif text-base flex items-center gap-2">
-						<FileQuestion class="size-4" />
-						Quotes ({listingQuotes.length})
-					</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<div class="space-y-2">
-						{#each listingQuotes as quote}
-							{@const quoteStatusColors: Record<string, string> = {
-								requested: 'bg-blue-100 text-blue-700',
-								received: 'bg-amber-100 text-amber-700',
-								approved: 'bg-emerald-100 text-emerald-700',
-								declined: 'bg-red-100 text-red-700',
-							}}
-							<div class="flex items-center justify-between rounded-md border px-4 py-3 text-sm">
-								<div class="flex items-center gap-3 min-w-0 flex-1">
-									<span class="font-medium">{quote.vendor?.name ?? 'Unknown'}{quote.vendor?.company ? ` - ${quote.vendor.company}` : ''}</span>
-									<span class="text-muted-foreground">{quote.scope ?? 'General'}</span>
-									{#if quote.task}
-										<a href="/listings/{listing?.id}/tasks" class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline">
-											<ClipboardList class="size-3" />
-											{quote.task.title}
-										</a>
-									{/if}
-								</div>
-								<div class="flex items-center gap-3 shrink-0">
-									{#if quote.requestedDate}
-										<span class="text-xs text-muted-foreground">
-											{quote.requestedDate.toLocaleDateString()}
-										</span>
-									{/if}
-									<span class="font-semibold">{formatCurrency(quote.amount ?? 0)}</span>
-									<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {quoteStatusColors[quote.status] ?? 'bg-gray-100 text-gray-600'}">
-										{quote.status}
-									</span>
-									{#if quote.status === 'received'}
-										<div class="flex items-center gap-1">
-											<form method="POST" action="?/approveQuote" use:enhance={() => {
-												return async ({ result, update }) => {
-													if (result.type === 'success') {
-														toast.success('Quote approved — cost entry created');
-														await update();
-													} else if (result.type === 'failure') {
-														toast.error(String((result.data as any)?.error ?? 'Failed to approve'));
-													}
-												};
-											}}>
-												<input type="hidden" name="quoteId" value={quote.id} />
-												<Button size="sm" class="h-7 text-xs" type="submit">
-													<Check class="mr-1 size-3" />Approve
-												</Button>
-											</form>
-											<form method="POST" action="?/declineQuote" use:enhance={() => {
-												return async ({ result, update }) => {
-													if (result.type === 'success') {
-														toast.success('Quote declined');
-														await update();
-													} else if (result.type === 'failure') {
-														toast.error(String((result.data as any)?.error ?? 'Failed to decline'));
-													}
-												};
-											}}>
-												<input type="hidden" name="quoteId" value={quote.id} />
-												<Button variant="outline" size="sm" class="h-7 text-xs" type="submit">
-													<X class="mr-1 size-3" />Decline
-												</Button>
-											</form>
-										</div>
-									{/if}
-								</div>
-							</div>
-						{/each}
-					</div>
-				</CardContent>
-			</Card>
-		{/if}
-
-		<!-- No costs empty state -->
+			<!-- No costs empty state -->
 		{#if costs.length === 0 && !financial}
 			<Card>
 				<CardContent class="flex flex-col items-center justify-center py-12">

@@ -1,6 +1,6 @@
 import type { PageServerLoad, Actions } from './$types';
 import { withRLS } from '$lib/server/db/index.js';
-import { quotes, listingCosts, activityItems } from '$lib/server/db/schema/index.js';
+import { quotes, quoteLineItems, listingCosts, activityItems } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import { uploadFile, buildStoragePath } from '$lib/server/storage.js';
@@ -165,6 +165,101 @@ export const actions: Actions = {
     } catch (e) {
       console.error('Share with client error:', e);
       return fail(500, { error: 'Failed to update sharing' });
+    }
+  },
+
+  enterQuoteDetails: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Not authenticated' });
+
+    const formData = await request.formData();
+    const quoteId = formData.get('quoteId') as string;
+    const teamId = formData.get('teamId') as string;
+    const amount = parseFloat(formData.get('amount') as string);
+    const receivedDate = formData.get('receivedDate') as string;
+    const notes = (formData.get('notes') as string) || null;
+    const lineItemsJson = formData.get('lineItems') as string;
+    const file = formData.get('document') as File | null;
+
+    if (!quoteId || !teamId || isNaN(amount)) {
+      return fail(400, { error: 'Missing required fields' });
+    }
+
+    let lineItems: { description: string; amount: number }[] = [];
+    try {
+      lineItems = JSON.parse(lineItemsJson || '[]');
+    } catch {
+      // ignore parse errors
+    }
+
+    try {
+      // Upload document if provided
+      let documentPath: string | null = null;
+      let documentName: string | null = null;
+      if (file && file.size > 0) {
+        const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp'];
+        if (allowedTypes.includes(file.type)) {
+          const buffer = new Uint8Array(await file.arrayBuffer());
+          documentPath = buildStoragePath(teamId, `quotes/${quoteId}/${file.name}`);
+          documentName = file.name;
+          await uploadFile(documentPath, buffer, file.type);
+        }
+      }
+
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const quote = await db.query.quotes.findFirst({
+          where: and(eq(quotes.id, quoteId), eq(quotes.teamId, teamId)),
+          with: { vendor: true },
+        });
+        if (!quote) throw new Error('Quote not found');
+
+        // Update quote
+        const updateData: Record<string, any> = {
+          amount,
+          status: 'received',
+          receivedDate: receivedDate ? new Date(receivedDate) : new Date(),
+          notes: notes ?? quote.notes,
+          updatedAt: new Date(),
+        };
+        if (documentPath) {
+          updateData.documentPath = documentPath;
+          updateData.documentName = documentName;
+        }
+
+        await db
+          .update(quotes)
+          .set(updateData)
+          .where(and(eq(quotes.id, quoteId), eq(quotes.teamId, teamId)));
+
+        // Upsert line items — delete existing and insert new
+        await db.delete(quoteLineItems).where(eq(quoteLineItems.quoteId, quoteId));
+        if (lineItems.length > 0) {
+          await db.insert(quoteLineItems).values(
+            lineItems.map((li) => ({
+              id: crypto.randomUUID(),
+              quoteId,
+              description: li.description,
+              amount: li.amount,
+            }))
+          );
+        }
+
+        // Activity log
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId: quote.teamId,
+          listingId: quote.listingId,
+          type: 'system',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Quote received from ${quote.vendor?.name ?? 'vendor'}: $${amount.toLocaleString()}`,
+          timestamp: new Date(),
+        });
+      });
+
+      return { success: true, action: 'enterQuoteDetails' };
+    } catch (e) {
+      console.error('Enter quote details error:', e);
+      return fail(500, { error: 'Failed to save quote details' });
     }
   },
 

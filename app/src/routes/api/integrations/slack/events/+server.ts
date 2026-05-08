@@ -2,7 +2,7 @@ import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { env } from '$env/dynamic/private';
 import { adminDb } from '$lib/server/db/index.js';
-import { integrations, teamMembers } from '$lib/server/db/schema/index.js';
+import { integrations, teamMembers, teams } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { getAnthropicClient } from '$lib/server/llm.js';
 import { chatTools, executeToolCall } from '$lib/server/chat-tools.js';
@@ -39,20 +39,51 @@ interface SlackConfig {
 	connectedAt?: string;
 }
 
-async function findTeamByWorkspace(workspaceId: string) {
+async function findTeamByWorkspace(
+	workspaceId: string,
+): Promise<{ integration: typeof integrations.$inferSelect; botTokenOverride?: string } | null> {
 	const rows = await adminDb.query.integrations.findMany({
-		where: and(
-			eq(integrations.name, 'Slack'),
-			eq(integrations.status, 'connected'),
-		),
+		where: and(eq(integrations.name, 'Slack'), eq(integrations.status, 'connected')),
 	});
 
+	// 1. Exact workspace ID match
 	for (const row of rows) {
 		const config = row.config as SlackConfig | null;
 		if (config?.workspaceId === workspaceId) {
-			return row;
+			return { integration: row };
 		}
 	}
+
+	// 2. Any connected Slack integration (single-team setups)
+	if (rows.length > 0) {
+		console.warn(
+			`[Slack Events] No integration matched workspace ${workspaceId}, falling back to first connected integration`,
+		);
+		return { integration: rows[0] };
+	}
+
+	// 3. Fall back to SLACK_BOT_TOKEN env var + first team in DB
+	if (env.SLACK_BOT_TOKEN) {
+		const firstTeam = await adminDb.query.teams.findFirst();
+		if (firstTeam) {
+			console.warn(
+				`[Slack Events] No Slack integration found, using SLACK_BOT_TOKEN env var for team ${firstTeam.id}`,
+			);
+			// Build a synthetic integration row for the first team
+			const syntheticIntegration = {
+				id: 'env-fallback',
+				teamId: firstTeam.id,
+				name: 'Slack',
+				status: 'connected',
+				config: {} as SlackConfig,
+				connectedById: null,
+				createdAt: new Date(),
+				updatedAt: new Date(),
+			} as typeof integrations.$inferSelect;
+			return { integration: syntheticIntegration, botTokenOverride: env.SLACK_BOT_TOKEN };
+		}
+	}
+
 	return null;
 }
 
@@ -73,8 +104,9 @@ async function processAppMention(
 		files?: Array<{ url_private: string; name: string; mimetype: string }>;
 	},
 	integration: typeof integrations.$inferSelect,
+	botTokenOverride?: string,
 ) {
-	const botToken = getBotToken(integration);
+	const botToken = botTokenOverride || getBotToken(integration);
 	if (!botToken) {
 		console.error('[Slack Events] No bot token available for team', integration.teamId);
 		return;
@@ -187,7 +219,7 @@ You can ONLY read and discuss data. You CANNOT create, update, or delete anythin
 		console.error('[Slack Events] Error processing mention:', err);
 
 		// Try to post an error message back
-		const botToken2 = getBotToken(integration);
+		const botToken2 = botTokenOverride || getBotToken(integration);
 		if (botToken2) {
 			await fetch('https://slack.com/api/chat.postMessage', {
 				method: 'POST',
@@ -243,14 +275,14 @@ export const POST: RequestHandler = async ({ request }) => {
 			const workspaceId = body.team_id;
 
 			// Respond immediately, process in background
-			const integration = await findTeamByWorkspace(workspaceId);
-			if (integration) {
+			const result = await findTeamByWorkspace(workspaceId);
+			if (result) {
 				// Fire and forget — don't await
-				processAppMention(event, integration).catch((err) => {
+				processAppMention(event, result.integration, result.botTokenOverride).catch((err) => {
 					console.error('[Slack Events] Background processing error:', err);
 				});
 			} else {
-				console.warn('[Slack Events] No integration found for workspace', workspaceId);
+				console.warn('[Slack Events] No integration or fallback found for workspace', workspaceId);
 			}
 		}
 	}

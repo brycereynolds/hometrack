@@ -6,25 +6,27 @@ import { eq, and, inArray } from 'drizzle-orm';
 export const load: PageServerLoad = async ({ parent }) => {
   const { team } = await parent();
 
-  const firstListing = await adminDb.query.listings.findFirst({
+  const allListings = await adminDb.query.listings.findMany({
     where: eq(listings.teamId, team.id),
     with: { property: true },
   });
 
-  if (!firstListing) {
-    return { listing: null, costs: [] };
+  if (allListings.length === 0) {
+    return { listing: null, listings: [], costs: [] };
   }
+
+  // Use first listing as default context
+  const listing = allListings[0];
 
   // Only show committed/paid costs to clients (not estimated or quoted)
   const costs = await adminDb.query.listingCosts.findMany({
     where: and(
       eq(listingCosts.teamId, team.id),
-      eq(listingCosts.listingId, firstListing.id),
       inArray(listingCosts.status, ['committed', 'paid']),
     ),
     with: { vendor: true },
     orderBy: [listingCosts.category, listingCosts.createdAt],
   });
 
-  return { listing: firstListing, costs };
+  return { listing, listings: allListings, costs };
 };

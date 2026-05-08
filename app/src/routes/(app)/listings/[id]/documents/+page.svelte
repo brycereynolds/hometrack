@@ -438,7 +438,12 @@
 				{:else}
 					<div class="flex flex-col items-center justify-center py-12">
 						<FileText class="size-10 text-muted-foreground/30 mb-3" />
-						<p class="text-sm text-muted-foreground">No documents in this category.</p>
+						{#if listingDocs.length === 0}
+							<p class="text-lg text-muted-foreground">No documents uploaded yet</p>
+							<p class="text-sm text-muted-foreground mt-1">Upload documents using the button above or drag and drop.</p>
+						{:else}
+							<p class="text-sm text-muted-foreground">No documents in this category.</p>
+						{/if}
 					</div>
 				{/if}
 			</div>

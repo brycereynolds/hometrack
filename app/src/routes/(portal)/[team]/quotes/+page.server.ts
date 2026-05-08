@@ -7,17 +7,10 @@ import { fail } from '@sveltejs/kit';
 export const load: PageServerLoad = async ({ parent }) => {
   const { team } = await parent();
 
-  const firstListing = await adminDb.query.listings.findFirst({
-    where: eq(listings.teamId, team.id),
-  });
-
-  if (!firstListing) {
-    return { pendingQuotes: [], reviewedQuotes: [] };
-  }
-
+  // Load quotes across all team listings
   const allQuotes = await adminDb.query.quotes.findMany({
     where: and(
-      eq(quotes.listingId, firstListing.id),
+      eq(quotes.teamId, team.id),
       eq(quotes.sharedWithClient, true),
     ),
     with: { vendor: true, lineItems: true },

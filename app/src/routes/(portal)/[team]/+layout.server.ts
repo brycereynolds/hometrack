@@ -17,20 +17,22 @@ export const load: LayoutServerLoad = async ({ params, cookies }) => {
   const portalToken = cookies.get('portal_token');
   const portalAuthenticated = !!portalToken;
 
-  // Load first listing to get portal settings (placeholder until client auth scopes it)
-  const listing = await adminDb.query.listings.findFirst({
+  // Load all listings for this team
+  const allListings = await adminDb.query.listings.findMany({
     where: eq(listings.teamId, team.id),
     with: { property: true },
   });
 
+  const listing = allListings[0] ?? null;
   const portalSettings = (listing?.portalSettings as Record<string, any>) ?? null;
 
-  // Count pending quotes for badge
+  // Count pending quotes across all listings for badge
   let pendingQuoteCount = 0;
-  if (listing) {
+  if (allListings.length > 0) {
+    const listingIds = allListings.map((l) => l.id);
     const sharedQuotes = await adminDb.query.quotes.findMany({
       where: and(
-        eq(quotes.listingId, listing.id),
+        sql`${quotes.listingId} IN (${sql.join(listingIds.map(id => sql`${id}`), sql`, `)})`,
         eq(quotes.sharedWithClient, true),
       ),
     });

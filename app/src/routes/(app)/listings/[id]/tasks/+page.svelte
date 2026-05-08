@@ -377,7 +377,13 @@
 			{/if}
 		{/each}
 
-		{#if filteredTasks.length === 0}
+		{#if listingTasks.length === 0}
+			<div class="flex flex-col items-center justify-center py-12">
+				<CheckCircle2 class="size-10 text-muted-foreground/30 mb-3" />
+				<p class="text-lg text-muted-foreground">No tasks yet</p>
+				<p class="text-sm text-muted-foreground mt-1">Add a task to get started.</p>
+			</div>
+		{:else if filteredTasks.length === 0}
 			<div class="flex flex-col items-center justify-center py-12">
 				<CheckCircle2 class="size-10 text-muted-foreground/30 mb-3" />
 				<p class="text-sm text-muted-foreground">No tasks match your filters.</p>

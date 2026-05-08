@@ -1116,44 +1116,20 @@ async function main() {
       neighborhood: 'Blossom Valley',
       photos: [
         {
-          url: 'https://photos.zillowstatic.com/fp/80c17188746bf0834ed23ad64a898f14-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
+          url: '/images/listings/809-midvale/exterior.jpg',
+          source: 'local',
         },
         {
-          url: 'https://photos.zillowstatic.com/fp/b57ac5640b4a32e820f4647247e17c1a-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
+          url: '/images/listings/809-midvale/living-room.jpg',
+          source: 'local',
         },
         {
-          url: 'https://photos.zillowstatic.com/fp/249290e8cd40551a6d577870f2f64454-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
+          url: '/images/listings/809-midvale/bedroom-1.jpg',
+          source: 'local',
         },
         {
-          url: 'https://photos.zillowstatic.com/fp/312e6129aa0a337aa50a4dead26c9bc2-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/d2be24959ef80f122e8ad3139aacbe0e-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/f2c88dc5ee484f35bb2538ecba9e00b4-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/40183d146788371dcdb4340845c540ff-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/890b03cfef2dfc5fb2ff9d8007a8432c-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/15d0029b92d4f9ca960b51c58b4fa35f-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/4c024d6fd6fa17b368a1eb40583c6c58-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
+          url: '/images/listings/809-midvale/bedroom-2.jpg',
+          source: 'local',
         },
       ],
       lastSoldPrice: 840000,

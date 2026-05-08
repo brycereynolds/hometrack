@@ -186,7 +186,14 @@
 					{@const StatusIcon = status.icon}
 					{@const isGoogle = isGoogleIntegration(integration.name)}
 					{@const isSlack = isSlackIntegration(integration.name)}
-					<Card class="transition-all hover:shadow-sm">
+					<Card class="relative transition-all hover:shadow-sm">
+						{#if !isSlack}
+							<div class="absolute top-2 right-2 z-10">
+								<Badge variant="secondary" class="text-[10px] px-1.5 py-0 h-4 font-normal opacity-60">
+									Demo
+								</Badge>
+							</div>
+						{/if}
 						<CardContent class="p-4">
 							<div class="flex items-start gap-3">
 								<div class="rounded-lg border p-2.5">
@@ -197,7 +204,7 @@
 										<h4 class="font-medium text-sm">{integration.name}</h4>
 										<Badge
 											variant="outline"
-											class="gap-1 text-xs {status.color}"
+											class="gap-1 text-xs {status.color} {!isSlack ? 'mr-8' : ''}"
 										>
 											<StatusIcon class="size-3" />
 											{status.label}

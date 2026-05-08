@@ -32,14 +32,14 @@
 	// Static card definitions — always shown regardless of DB state.
 	// Only Slack is a real integration; all others are demo placeholders.
 	const STATIC_CARDS = [
-		{ name: 'Gmail', description: 'Email sync and send', category: 'email', icon: 'Mail', demo: true },
-		{ name: 'Google Calendar', description: 'Showings and appointments', category: 'calendar', icon: 'Calendar', demo: true },
-		{ name: 'DocuSign', description: 'E-signatures and document routing', category: 'documents', icon: 'FileSignature', demo: true },
-		{ name: 'MLSListings (Bay Area)', description: 'MLS data and comp feeds', category: 'mls', icon: 'Database', demo: true },
-		{ name: 'Zillow', description: 'View and save analytics', category: 'marketing', icon: 'BarChart', demo: true },
-		{ name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication', icon: 'MessageSquare', demo: true },
-		{ name: 'Postmark', description: 'Transactional email delivery', category: 'email', icon: 'Send', demo: true },
-		{ name: 'Slack', description: 'Team notifications and activity updates', category: 'communication', icon: 'MessageSquare', demo: false },
+		{ name: 'Gmail', description: 'Email sync and send', category: 'email', icon: 'Mail', logoUrl: 'https://cdn.simpleicons.org/gmail', demo: true },
+		{ name: 'Google Calendar', description: 'Showings and appointments', category: 'calendar', icon: 'Calendar', logoUrl: 'https://cdn.simpleicons.org/googlecalendar', demo: true },
+		{ name: 'DocuSign', description: 'E-signatures and document routing', category: 'documents', icon: 'FileSignature', logoUrl: 'https://cdn.simpleicons.org/docusign', demo: true },
+		{ name: 'MLSListings (Bay Area)', description: 'MLS data and comp feeds', category: 'mls', icon: 'Database', logoUrl: null, demo: true },
+		{ name: 'Zillow', description: 'View and save analytics', category: 'marketing', icon: 'BarChart', logoUrl: 'https://cdn.simpleicons.org/zillow', demo: true },
+		{ name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication', icon: 'MessageSquare', logoUrl: 'https://cdn.simpleicons.org/twilio', demo: true },
+		{ name: 'Postmark', description: 'Transactional email delivery', category: 'email', icon: 'Send', logoUrl: 'https://cdn.simpleicons.org/postmark', demo: true },
+		{ name: 'Slack', description: 'Team notifications and activity updates', category: 'communication', icon: 'MessageSquare', logoUrl: 'https://cdn.simpleicons.org/slack', demo: false },
 	];
 
 	const iconMap: Record<string, any> = { Mail, Calendar, FileSignature, Database, BarChart, MessageSquare, Send };
@@ -171,8 +171,12 @@
 						{/if}
 						<CardContent class="p-4">
 							<div class="flex items-start gap-3">
-								<div class="rounded-lg border p-2.5">
-									<Icon class="size-5 text-muted-foreground" />
+								<div class="rounded-lg border p-2.5 flex items-center justify-center size-10">
+									{#if card.logoUrl}
+										<img src={card.logoUrl} alt={card.name} width="20" height="20" class="size-5" />
+									{:else}
+										<Icon class="size-5 text-muted-foreground" />
+									{/if}
 								</div>
 								<div class="flex-1 min-w-0">
 									<div class="flex items-center justify-between">

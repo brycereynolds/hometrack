@@ -1,9 +1,9 @@
-import { eq, desc, and, gte, lt, between } from 'drizzle-orm';
+import { eq, desc, and, gte, lt, between, sql } from 'drizzle-orm';
 import { adminDb, type AppDatabase } from '../index.js';
-import { listings, tasks, activityItems, aiInsights, showings, pipelineMetrics } from '../schema/index.js';
+import { listings, tasks, activityItems, aiInsights, showings, pipelineMetrics, quotes, listingCosts } from '../schema/index.js';
 
 export async function getDashboardData(teamId: string, db: AppDatabase = adminDb) {
-  const [allListings, allTasks, recentActivity, insights, recentShowings] = await Promise.all([
+  const [allListings, allTasks, recentActivity, insights, recentShowings, pendingQuotesResult, costsByStatus] = await Promise.all([
     db.query.listings.findMany({
       where: eq(listings.teamId, teamId),
       with: { property: true, agent: true, client: true },
@@ -26,6 +26,18 @@ export async function getDashboardData(teamId: string, db: AppDatabase = adminDb
       orderBy: desc(showings.date),
       limit: 10,
     }),
+    db
+      .select({ count: sql<number>`count(*)` })
+      .from(quotes)
+      .where(and(eq(quotes.teamId, teamId), eq(quotes.status, 'requested'))),
+    db
+      .select({
+        status: listingCosts.status,
+        total: sql<number>`coalesce(sum(${listingCosts.amount}), 0)`,
+      })
+      .from(listingCosts)
+      .where(eq(listingCosts.teamId, teamId))
+      .groupBy(listingCosts.status),
   ]);
 
   const pipelineValue = allListings.reduce((sum, l) => sum + (l.price || 0), 0);
@@ -33,6 +45,19 @@ export async function getDashboardData(teamId: string, db: AppDatabase = adminDb
 
   // Compute comparison deltas
   const deltas = await computeDeltas(teamId, allListings, db);
+
+  // Pending quotes count
+  const pendingQuoteCount = Number(pendingQuotesResult[0]?.count ?? 0);
+
+  // Budget summary from listing_costs
+  const budgetSummary: Record<string, number> = {};
+  for (const row of costsByStatus) {
+    budgetSummary[row.status] = Number(row.total);
+  }
+  const totalBudget = allListings.reduce((sum, l) => sum + (l.price || 0), 0);
+  const totalCommitted = (budgetSummary['committed'] ?? 0) + (budgetSummary['paid'] ?? 0);
+  const totalEstimated = budgetSummary['estimated'] ?? 0;
+  const totalPaid = budgetSummary['paid'] ?? 0;
 
   return {
     listings: allListings,
@@ -45,6 +70,12 @@ export async function getDashboardData(teamId: string, db: AppDatabase = adminDb
     aiInsights: insights,
     showings: recentShowings,
     deltas,
+    pendingQuoteCount,
+    budgetSummary: {
+      totalCommitted,
+      totalEstimated,
+      totalPaid,
+    },
   };
 }
 

@@ -14,6 +14,7 @@ export const fieldNoteFrames = pgTable(
     storagePath: text('storage_path'),
     caption: text('caption'),
     visualDescription: text('visual_description'),
+    publicUrl: text('public_url'),
   },
   (table) => [
     index('field_note_frames_field_note_id_idx').on(table.fieldNoteId),

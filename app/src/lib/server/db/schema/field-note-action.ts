@@ -11,6 +11,7 @@ import { relations } from 'drizzle-orm';
 import { fieldNoteActionStatusEnum } from './enums.js';
 import { fieldNotes } from './field-note.js';
 import { fieldNoteMoments } from './field-note-moment.js';
+import { fieldNoteActionMoments } from './field-note-action-moment.js';
 import { quotes } from './vendor.js';
 import { teamMembers } from './team.js';
 
@@ -53,7 +54,8 @@ export const fieldNoteActions = pgTable(
   ],
 );
 
-export const fieldNoteActionsRelations = relations(fieldNoteActions, ({ one }) => ({
+export const fieldNoteActionsRelations = relations(fieldNoteActions, ({ one, many }) => ({
+  actionMoments: many(fieldNoteActionMoments),
   fieldNote: one(fieldNotes, {
     fields: [fieldNoteActions.fieldNoteId],
     references: [fieldNotes.id],

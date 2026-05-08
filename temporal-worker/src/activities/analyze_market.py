@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 import anthropic
 from temporalio import activity
 
-from src.config import ANTHROPIC_API_KEY, logger
+from src.config import get_anthropic_client, logger
 
 
 def _build_comp_table(comps: list[dict]) -> str:
@@ -375,9 +375,9 @@ Provide your best estimate with low confidence. Return ONLY valid JSON:
     activity.heartbeat("calling Claude for analysis")
 
     try:
-        client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
+        client = get_anthropic_client()
         message = await client.messages.create(
-            model="claude-sonnet-4-20250514",
+            model="claude-sonnet-4-6",
             max_tokens=4000,
             messages=[{"role": "user", "content": prompt}],
         )

@@ -18,6 +18,9 @@ export async function getTasksByListing(teamId: string, listingId: string, db: A
     where: and(eq(tasks.teamId, teamId), eq(tasks.listingId, listingId)),
     with: {
       assignee: true,
+      quotes: {
+        with: { vendor: true },
+      },
     },
     orderBy: desc(tasks.dueDate),
   });

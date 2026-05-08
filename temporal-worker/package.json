@@ -3,6 +3,8 @@
   "private": true,
   "scripts": {
     "dev": ".venv/bin/python -m src.worker",
-    "start": ".venv/bin/python -m src.worker"
+    "start": ".venv/bin/python -m src.worker",
+    "inf:dev": "infisical run --env=${INFISICAL_ENV:-dev} --path=/temporal-worker -- sh -c '. .venv/bin/activate && python -m src.worker'",
+    "inf:start": "infisical run --env=${INFISICAL_ENV:-dev} --path=/temporal-worker -- sh -c '. .venv/bin/activate && python -m src.worker'"
   }
 }

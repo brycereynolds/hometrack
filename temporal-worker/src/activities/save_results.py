@@ -4,7 +4,9 @@ from datetime import datetime, timezone
 
 from temporalio import activity
 
-from src.config import logger
+import httpx
+
+from src.config import SUPABASE_SERVICE_ROLE_KEY, SUPABASE_URL, logger
 from src.db import get_pool
 from src.models import FieldNoteInsights, FrameCorrelation, ProcessingResult
 from src.storage import upload_to_storage
@@ -26,6 +28,7 @@ async def save_results(
     correlations_data: list[dict] | None,
     duration: float | None,
     processed_media_path: str | None,
+    action_moment_links: dict | None = None,
 ) -> dict:
     """Save full pipeline output to Supabase Storage and Postgres."""
     activity.heartbeat("saving results")
@@ -83,21 +86,17 @@ async def save_results(
         )
         result.storage_paths["enriched_transcript"] = enriched_transcript_path
 
-    # Individual frames
+    # Individual frames — already uploaded to storage by extract_frames activity.
+    # frame["path"] contains the storage path (e.g. _frames/abc123/frame_0001.jpg)
     frame_storage_map: dict[int, dict] = {}  # index -> {storage_path, timestamp}
     if frames_data:
-        import base64
-
         for frame in frames_data:
-            frame_path = f"{storage_prefix}/processed/frames/frame_{frame['index']:04d}.jpg"
-            frame_bytes = base64.b64decode(frame["base64_jpeg"])
-            await upload_to_storage("field-media", frame_path, frame_bytes, "image/jpeg")
             frame_storage_map[frame["index"]] = {
-                "storage_path": frame_path,
+                "storage_path": frame.get("path", ""),
                 "timestamp": frame["timestamp_seconds"],
             }
         result.storage_paths["frames"] = f"{storage_prefix}/processed/frames/"
-        activity.heartbeat(f"saved {len(frames_data)} frames")
+        activity.heartbeat(f"mapped {len(frames_data)} frames")
 
     # Parse correlations
     correlations: list[FrameCorrelation] = []
@@ -192,6 +191,90 @@ async def save_results(
                     result.frame_ids.append(frame_id)
 
                 activity.heartbeat(f"inserted {len(frames_data)} frames")
+
+            # 2c-ii. Copy frames to public bucket and set thumbnail
+            thumbnail_url = None
+            if frames_data and frame_id_map:
+                try:
+                    public_bucket = "field-media-public"
+                    auth_headers = {
+                        "Authorization": f"Bearer {SUPABASE_SERVICE_ROLE_KEY}",
+                        "apikey": SUPABASE_SERVICE_ROLE_KEY,
+                    }
+                    public_urls: dict[int, str] = {}  # frame_index -> public_url
+
+                    async with httpx.AsyncClient(timeout=120) as http:
+                        for frame in frames_data:
+                            idx = frame["index"]
+                            storage_path = frame.get("path", "")
+                            if not storage_path:
+                                continue
+
+                            # Download frame bytes from private bucket
+                            dl_url = f"{SUPABASE_URL}/storage/v1/object/field-media/{storage_path}"
+                            dl_resp = await http.get(dl_url, headers=auth_headers)
+                            if dl_resp.status_code != 200:
+                                logger.warning("Failed to download frame %d: %s", idx, dl_resp.status_code)
+                                continue
+
+                            # Upload to public bucket
+                            public_path = f"thumbnails/{field_note_id}/frame_{idx:04d}.jpg"
+                            up_url = f"{SUPABASE_URL}/storage/v1/object/{public_bucket}/{public_path}"
+                            up_resp = await http.put(
+                                up_url,
+                                headers={**auth_headers, "Content-Type": "image/jpeg", "x-upsert": "true"},
+                                content=dl_resp.content,
+                            )
+                            if up_resp.status_code == 404:
+                                up_resp = await http.post(
+                                    up_url,
+                                    headers={**auth_headers, "Content-Type": "image/jpeg"},
+                                    content=dl_resp.content,
+                                )
+
+                            if up_resp.status_code in (200, 201):
+                                frame_public_url = f"{SUPABASE_URL}/storage/v1/object/public/{public_bucket}/{public_path}"
+                                public_urls[idx] = frame_public_url
+
+                                # Update frame record with public_url
+                                frame_id = frame_id_map.get(idx)
+                                if frame_id:
+                                    await conn.execute(
+                                        "UPDATE field_note_frames SET public_url = $1 WHERE id = $2",
+                                        frame_public_url,
+                                        frame_id,
+                                    )
+                            else:
+                                logger.warning("Failed to upload frame %d to public bucket: %s", idx, up_resp.status_code)
+
+                    # Select thumbnail: best frame from highest-importance moment, or frame 0
+                    if public_urls:
+                        if correlations:
+                            # Use best frame from first correlation (highest importance)
+                            for corr in correlations:
+                                if corr.ranked_frames:
+                                    best_idx = corr.ranked_frames[0].frame_index
+                                    if best_idx in public_urls:
+                                        thumbnail_url = public_urls[best_idx]
+                                        break
+                        if not thumbnail_url and 0 in public_urls:
+                            thumbnail_url = public_urls[0]
+                        if not thumbnail_url:
+                            # Fallback to first available
+                            thumbnail_url = next(iter(public_urls.values()))
+
+                    if thumbnail_url:
+                        await conn.execute(
+                            "UPDATE field_notes SET thumbnail_url = $1 WHERE id = $2",
+                            thumbnail_url,
+                            field_note_id,
+                        )
+
+                    activity.heartbeat(f"copied {len(public_urls)} frames to public bucket")
+                    logger.info("Public thumbnails: %d/%d frames, thumbnail=%s", len(public_urls), len(frames_data), thumbnail_url)
+
+                except Exception:
+                    logger.exception("Failed to copy frames to public bucket (non-fatal)")
 
             # 2d. Insert field_note_moments (from correlations merged with key moments)
             moment_id_map: dict[int, str] = {}  # moment_index -> id
@@ -370,6 +453,39 @@ async def save_results(
                     obs.content, obs_metadata, now,
                 )
                 result.activity_items_created.append(item_id)
+
+            # 2j. Insert action-moment links into junction table
+            if action_moment_links and moment_id_map and result.action_ids:
+                links = action_moment_links.get("links", [])
+                link_count = 0
+                for link in links:
+                    action_idx = link.get("action_index")
+                    moment_indices = link.get("moment_indices", [])
+                    relevance = link.get("relevance", "")
+
+                    if action_idx is None or action_idx >= len(result.action_ids):
+                        continue
+                    action_db_id = result.action_ids[action_idx]
+
+                    for mi in moment_indices:
+                        moment_db_id = moment_id_map.get(mi)
+                        if not moment_db_id:
+                            continue
+                        link_id = str(uuid.uuid4())
+                        await conn.execute(
+                            """INSERT INTO field_note_action_moments
+                               (id, action_id, moment_id, relevance, created_at)
+                               VALUES ($1, $2, $3, $4, $5)""",
+                            link_id,
+                            action_db_id,
+                            moment_db_id,
+                            relevance or None,
+                            now,
+                        )
+                        link_count += 1
+
+                if link_count:
+                    activity.heartbeat(f"inserted {link_count} action-moment links")
 
     logger.info(
         "Saved field note %s: %d frames, %d moments, %d actions (%d quotes), %d activity items",

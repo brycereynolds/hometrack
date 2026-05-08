@@ -31,6 +31,7 @@
 	interface Conversation {
 		id: string;
 		title: string | null;
+		sourceContext?: { pathname: string; params: Record<string, string>; label: string } | null;
 		createdAt: string;
 		updatedAt: string;
 	}
@@ -270,7 +271,12 @@
 									onclick={() => { loadConversation(conv.id); showSidebar = false; }}
 								>
 									<p class="truncate">{conv.title || 'New conversation'}</p>
-									<p class="text-[10px] text-muted-foreground">{formatDate(conv.updatedAt)}</p>
+									<div class="flex items-center gap-1.5">
+										<span class="text-[10px] text-muted-foreground">{formatDate(conv.updatedAt)}</span>
+										{#if conv.sourceContext?.label}
+											<span class="text-[10px] text-muted-foreground/60">· from {conv.sourceContext.label}</span>
+										{/if}
+									</div>
 								</button>
 							{/each}
 						{/if}

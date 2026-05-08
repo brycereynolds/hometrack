@@ -4,7 +4,7 @@ import re
 import anthropic
 from temporalio import activity
 
-from src.config import ANTHROPIC_API_KEY, logger
+from src.config import get_anthropic_client, logger
 from src.models import KeyMoment, TranscriptSegment
 
 CONTEXT_WINDOW_SECONDS = 60
@@ -110,9 +110,9 @@ If there are no clear key moments, return: {{"key_moments": []}}
 
 {chr(10).join(transcript_lines)}"""
 
-    client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
+    client = get_anthropic_client()
     message = await client.messages.create(
-        model="claude-haiku-4-5-20251001",
+        model="claude-sonnet-4-6",
         max_tokens=8000,
         messages=[{"role": "user", "content": prompt}],
     )
@@ -126,7 +126,7 @@ If there are no clear key moments, return: {{"key_moments": []}}
         logger.warning("JSON parse failed, attempting repair retry")
         try:
             fix_message = await client.messages.create(
-                model="claude-haiku-4-5-20251001",
+                model="claude-sonnet-4-6",
                 max_tokens=8000,
                 messages=[
                     {"role": "user", "content": prompt},

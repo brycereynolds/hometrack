@@ -100,6 +100,7 @@ export const teamMemberRoleEnum = pgEnum('team_member_role', [
   'tc',
   'marketing',
   'staging_lead',
+  'agent',
 ]);
 
 export const marketingAssetTypeEnum = pgEnum('marketing_asset_type', [
@@ -157,6 +158,13 @@ export const fieldNoteActionStatusEnum = pgEnum('field_note_action_status', [
   'accepted',
   'dismissed',
   'task_created',
+]);
+
+export const listingCostStatusEnum = pgEnum('listing_cost_status', [
+  'estimated',
+  'quoted',
+  'committed',
+  'paid',
 ]);
 
 export const integrationCategoryEnum = pgEnum('integration_category', [

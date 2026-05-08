@@ -67,6 +67,7 @@
 
 	let attachments = $state<Attachment[]>([]);
 	let fileInput = $state<HTMLInputElement>(null!);
+	let videoInput = $state<HTMLInputElement>(null!);
 
 	// Prevent accidental navigation during upload/save
 	const isUploading = $derived(saving || attachments.some(a => a.uploading));
@@ -242,6 +243,12 @@
 		input.value = '';
 	}
 
+	function handleVideoCapture(event: Event) {
+		const input = event.target as HTMLInputElement;
+		if (input.files) addFiles(input.files);
+		input.value = '';
+	}
+
 	let isDragOver = $state(false);
 
 	function handleDrop(event: DragEvent) {
@@ -321,7 +328,27 @@
 
 	const canSave = $derived(noteText.trim() || hasRecording || attachments.length > 0);
 	let lastSavedNoteId = $state<string | null>(null);
+	let savedNoteIds = $state<string[]>([]);
 	let saveComplete = $state(false);
+
+	async function createNote(textContent: string | null): Promise<{ noteId: string }> {
+		const createRes = await fetch('/api/notes', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				textContent,
+				listingId: selectedListing || null,
+				teamId,
+			}),
+		});
+
+		if (!createRes.ok) {
+			const err = await createRes.json();
+			throw new Error(err.error || 'Failed to create note');
+		}
+
+		return createRes.json();
+	}
 
 	async function save() {
 		if (!canSave) return;
@@ -349,6 +376,7 @@
 
 				const result = await response.json();
 				lastSavedNoteId = result.fieldNoteId;
+				savedNoteIds = [result.fieldNoteId];
 
 				// Upload any file attachments alongside the voice memo
 				if (attachments.length > 0) {
@@ -363,38 +391,56 @@
 					toast.success('Voice memo saved! Processing will begin shortly.');
 				}
 			} else {
-				// Unified path: create note first, then upload attachments
-				const createRes = await fetch('/api/notes', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						textContent: noteText.trim() || null,
-						listingId: selectedListing || null,
-						teamId,
-					}),
-				});
+				// Separate video and non-video attachments
+				const videoAttachments = attachments.filter(a => a.isVideo);
+				const nonVideoAttachments = attachments.filter(a => !a.isVideo);
 
-				if (!createRes.ok) {
-					const err = await createRes.json();
-					throw new Error(err.error || 'Failed to create note');
-				}
+				if (videoAttachments.length > 1) {
+					// Multi-video: create separate notes for each video
+					const totalClips = videoAttachments.length;
+					savedNoteIds = [];
 
-				const noteResult = await createRes.json();
-				lastSavedNoteId = noteResult.noteId;
+					for (let clipIdx = 0; clipIdx < totalClips; clipIdx++) {
+						const isFirst = clipIdx === 0;
+						const textForNote = isFirst
+							? (noteText.trim() || null)
+							: `Field Note (clip ${clipIdx + 1} of ${totalClips})`;
 
-				// Upload attachments to the same note
-				if (attachments.length > 0) {
-					const uploaded = await uploadAllAttachments();
-					const failed = attachments.length - uploaded;
-					if (failed > 0) {
-						toast.error(`Note saved but ${failed} file(s) failed to upload`);
-					} else {
-						toast.success(noteText.trim()
-							? `Note saved with ${uploaded} file(s)`
-							: `${uploaded} file(s) uploaded`);
+						const noteResult = await createNote(textForNote);
+						lastSavedNoteId = noteResult.noteId;
+						savedNoteIds.push(noteResult.noteId);
+
+						// Upload this clip's video
+						await uploadAttachment(videoAttachments[clipIdx]);
+
+						// First note also gets non-video attachments
+						if (isFirst && nonVideoAttachments.length > 0) {
+							for (const att of nonVideoAttachments) {
+								await uploadAttachment(att);
+							}
+						}
 					}
+
+					toast.success(`Created ${totalClips} notes from ${totalClips} video clips`);
 				} else {
-					toast.success('Note saved');
+					// Single or zero videos: original behavior
+					const noteResult = await createNote(noteText.trim() || null);
+					lastSavedNoteId = noteResult.noteId;
+					savedNoteIds = [noteResult.noteId];
+
+					if (attachments.length > 0) {
+						const uploaded = await uploadAllAttachments();
+						const failed = attachments.length - uploaded;
+						if (failed > 0) {
+							toast.error(`Note saved but ${failed} file(s) failed to upload`);
+						} else {
+							toast.success(noteText.trim()
+								? `Note saved with ${uploaded} file(s)`
+								: `${uploaded} file(s) uploaded`);
+						}
+					} else {
+						toast.success('Note saved');
+					}
 				}
 			}
 
@@ -417,6 +463,7 @@
 		selectedTag = 'showing';
 		autocompleteValue = '';
 		lastSavedNoteId = null;
+		savedNoteIds = [];
 		saveComplete = false;
 		navigationIntended = false;
 		step = 1;
@@ -533,12 +580,26 @@
 				<div class="mb-4 flex size-14 items-center justify-center rounded-full bg-emerald-100">
 					<CheckCircle2 class="size-7 text-emerald-600" />
 				</div>
-				<h3 class="font-serif text-lg font-semibold">Note Saved</h3>
+				<h3 class="font-serif text-lg font-semibold">
+					{savedNoteIds.length > 1 ? `${savedNoteIds.length} Notes Saved` : 'Note Saved'}
+				</h3>
 				<p class="mt-1 text-sm text-muted-foreground">
-					{attachments.some(a => a.uploaded) ? 'Your file has been uploaded and is being processed.' : 'Your note has been saved.'}
+					{#if savedNoteIds.length > 1}
+						Created {savedNoteIds.length} notes from {savedNoteIds.length} video clips. Processing will begin shortly.
+					{:else if attachments.some(a => a.uploaded)}
+						Your file has been uploaded and is being processed.
+					{:else}
+						Your note has been saved.
+					{/if}
 				</p>
-				<div class="mt-6 flex gap-3">
-					{#if lastSavedNoteId}
+				<div class="mt-6 flex flex-col gap-2 w-full max-w-xs">
+					{#if savedNoteIds.length > 1}
+						{#each savedNoteIds as noteId, idx}
+							<Button variant="outline" class="w-full" onclick={() => { resetForm(); open = false; navigationIntended = true; goto(`/notes/${noteId}`); }}>
+								View Clip {idx + 1} of {savedNoteIds.length}
+							</Button>
+						{/each}
+					{:else if lastSavedNoteId}
 						<Button variant="outline" onclick={() => { const id = lastSavedNoteId; resetForm(); open = false; navigationIntended = true; goto(`/notes/${id}`); }}>
 							View Details
 						</Button>
@@ -559,7 +620,7 @@
 				></textarea>
 			</div>
 
-			<!-- Action buttons: Record + Attach -->
+			<!-- Action buttons: Record + Video + Attach -->
 			<div class="flex items-center gap-2">
 				{#if !isRecording && !hasRecording}
 					<Button variant="outline" size="sm" class="gap-1.5 h-10 md:h-8 px-4 md:px-3" onclick={startRecording}>
@@ -567,10 +628,22 @@
 						Record
 					</Button>
 				{/if}
+				<Button variant="outline" size="sm" class="gap-1.5 h-10 md:h-8 px-4 md:px-3" onclick={() => videoInput.click()}>
+					<Video class="size-5 md:size-4" />
+					Record Video
+				</Button>
 				<Button variant="outline" size="sm" class="gap-1.5" onclick={() => fileInput.click()}>
 					<Paperclip class="size-4" />
 					Attach
 				</Button>
+				<input
+					bind:this={videoInput}
+					type="file"
+					accept="video/*"
+					capture="environment"
+					class="hidden"
+					onchange={handleVideoCapture}
+				/>
 				<input
 					bind:this={fileInput}
 					type="file"

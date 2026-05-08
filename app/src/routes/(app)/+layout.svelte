@@ -21,6 +21,7 @@
 		Wrench,
 		BarChart3,
 		FileText,
+		Receipt,
 		Settings,
 		LogOut,
 		ChevronUp,
@@ -79,12 +80,15 @@
 	);
 	const userRole = $derived(currentUser?.roleLabel ?? '');
 
+	const pendingQuoteCount = $derived(data.pendingQuoteCount ?? 0);
+
 	const navItems = $derived([
 		{ href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
 		{ href: '/listings', label: 'Listings', icon: Home, badge: String(listings.length) },
 		{ href: '/notes', label: 'Notes', icon: FileText },
-		{ href: '/contacts', label: 'Contacts', icon: Users },
+		{ href: '/vendors/quotes', label: 'Quotes', icon: Receipt, badge: pendingQuoteCount > 0 ? String(pendingQuoteCount) : undefined },
 		{ href: '/vendors', label: 'Vendors', icon: Wrench },
+		{ href: '/contacts', label: 'Contacts', icon: Users },
 		{ href: '/analytics', label: 'Analytics', icon: BarChart3 }
 	]);
 

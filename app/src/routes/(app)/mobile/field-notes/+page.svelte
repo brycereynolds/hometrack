@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { beforeNavigate } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Autocomplete } from '$lib/components/shared';
 	import { toast } from 'svelte-sonner';
@@ -10,7 +11,9 @@
 	const listings = $derived(data.listings);
 	const teamId = $derived(data.team?.id ?? '');
 
-	let selectedListing = $state('');
+	// Pre-select listing from URL param (e.g. /mobile/field-notes?listingId=xxx)
+	const initialListingId = $page.url.searchParams.get('listingId') ?? '';
+	let selectedListing = $state(initialListingId);
 	let noteText = $state('');
 	let saving = $state(false);
 

@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, index } from 'drizzle-orm/pg-core';
+import { pgTable, text, timestamp, jsonb, index } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { integrationStatusEnum, integrationCategoryEnum } from './enums.js';
 import { teams, teamMembers } from './team.js';
@@ -16,6 +16,7 @@ export const integrations = pgTable(
     icon: text('icon'),
     status: integrationStatusEnum('status').notNull().default('disconnected'),
     lastSync: timestamp('last_sync'),
+    config: jsonb('config'),
     connectedById: text('connected_by_id').references(() => teamMembers.id, { onDelete: 'set null' }),
     createdAt: timestamp('created_at').defaultNow().notNull(),
     updatedAt: timestamp('updated_at').defaultNow().notNull(),

@@ -5,7 +5,6 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { formatCurrency } from '$lib/utils.js';
 	import {
-		ArrowLeft,
 		DollarSign,
 		FileText,
 		Check,
@@ -16,6 +15,17 @@
 		Clock,
 		User,
 		Scale,
+		Upload,
+		Download,
+		Share2,
+		Eye,
+		ClipboardList,
+		ArrowUpDown,
+		Filter,
+		Sparkles,
+		Plus,
+		Trash2,
+		Loader2,
 	} from 'lucide-svelte';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
@@ -23,10 +33,14 @@
 	let { data } = $props();
 
 	const quotes = $derived(data.quotes);
+	const listings = $derived((data as any).listings ?? []);
 
 	type StatusFilter = 'all' | 'requested' | 'received' | 'approved' | 'declined';
+	type SortOption = 'date-desc' | 'date-asc' | 'amount-desc' | 'amount-asc' | 'status';
 
 	let activeStatus = $state<StatusFilter>('all');
+	let selectedListingId = $state<string>('all');
+	let sortBy = $state<SortOption>('date-desc');
 	let expandedQuotes = $state<Set<string>>(new Set());
 	let compareMode = $state(false);
 
@@ -52,9 +66,45 @@
 		declined: 'bg-red-500',
 	};
 
+	const statusOrder: Record<string, number> = {
+		received: 0,
+		requested: 1,
+		approved: 2,
+		declined: 3,
+	};
+
+	// Listings that have quotes for the dropdown
+	const listingsWithQuotes = $derived(() => {
+		const ids = new Set(quotes.map((q: any) => q.listingId));
+		return listings.filter((l: any) => ids.has(l.id));
+	});
+
 	const filtered = $derived(() => {
-		if (activeStatus === 'all') return quotes;
-		return quotes.filter((q) => q.status === activeStatus);
+		let result = quotes;
+		if (activeStatus !== 'all') {
+			result = result.filter((q: any) => q.status === activeStatus);
+		}
+		if (selectedListingId !== 'all') {
+			result = result.filter((q: any) => q.listingId === selectedListingId);
+		}
+		// Sort
+		result = [...result].sort((a: any, b: any) => {
+			switch (sortBy) {
+				case 'date-desc':
+					return (b.requestedDate?.getTime() ?? 0) - (a.requestedDate?.getTime() ?? 0);
+				case 'date-asc':
+					return (a.requestedDate?.getTime() ?? 0) - (b.requestedDate?.getTime() ?? 0);
+				case 'amount-desc':
+					return (b.amount ?? 0) - (a.amount ?? 0);
+				case 'amount-asc':
+					return (a.amount ?? 0) - (b.amount ?? 0);
+				case 'status':
+					return (statusOrder[a.status] ?? 9) - (statusOrder[b.status] ?? 9);
+				default:
+					return 0;
+			}
+		});
+		return result;
 	});
 
 	function toggleExpand(id: string) {
@@ -82,21 +132,98 @@
 	const totalValue = $derived(quotes.reduce((s, q) => s + (q.amount ?? 0), 0));
 	const pendingCount = $derived(quotes.filter((q) => q.status === 'received').length);
 	const approvedTotal = $derived(quotes.filter((q) => q.status === 'approved').reduce((s, q) => s + (q.amount ?? 0), 0));
+
+	let uploadingQuoteId = $state<string | null>(null);
+
+	// Enter Quote Details state
+	let enteringQuoteId = $state<string | null>(null);
+	let enterAmount = $state('');
+	let enterLineItems = $state<{ description: string; amount: string }[]>([]);
+	let enterReceivedDate = $state(new Date().toISOString().split('T')[0]);
+	let enterNotes = $state('');
+	let enterRawText = $state('');
+	let parsingAI = $state(false);
+	let enterDocFile = $state<File | null>(null);
+	let submittingDetails = $state(false);
+
+	function openEnterDetails(quoteId: string) {
+		enteringQuoteId = quoteId;
+		enterAmount = '';
+		enterLineItems = [{ description: '', amount: '' }];
+		enterReceivedDate = new Date().toISOString().split('T')[0];
+		enterNotes = '';
+		enterRawText = '';
+		enterDocFile = null;
+	}
+
+	function addLineItem() {
+		enterLineItems = [...enterLineItems, { description: '', amount: '' }];
+	}
+
+	function removeLineItem(index: number) {
+		enterLineItems = enterLineItems.filter((_, i) => i !== index);
+	}
+
+	async function parseWithAI(quoteId: string) {
+		if (!enterRawText.trim()) return;
+		parsingAI = true;
+		try {
+			const res = await fetch(`/api/quotes/${quoteId}/parse`, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ text: enterRawText }),
+			});
+			if (!res.ok) throw new Error('Parse failed');
+			const parsed = await res.json();
+			if (parsed.amount) enterAmount = String(parsed.amount);
+			if (parsed.lineItems?.length) {
+				enterLineItems = parsed.lineItems.map((li: any) => ({
+					description: li.description ?? '',
+					amount: String(li.amount ?? ''),
+				}));
+			}
+			if (parsed.vendorNotes) enterNotes = parsed.vendorNotes;
+			toast.success('Quote details parsed');
+		} catch {
+			toast.error('Failed to parse quote text');
+		} finally {
+			parsingAI = false;
+		}
+	}
+
+	function getFilteredLineItemsJson() {
+		return JSON.stringify(
+			enterLineItems.filter(li => li.description.trim() || li.amount.trim()).map(li => ({
+				description: li.description,
+				amount: parseFloat(li.amount) || 0,
+			}))
+		);
+	}
+
+	async function downloadDocument(quoteId: string, teamId: string) {
+		try {
+			const res = await fetch(`/api/quotes/${quoteId}/document?teamId=${encodeURIComponent(teamId)}`);
+			if (!res.ok) throw new Error('Failed to get download link');
+			const { url, name } = await res.json();
+			const a = document.createElement('a');
+			a.href = url;
+			a.download = name ?? 'document';
+			a.target = '_blank';
+			a.click();
+		} catch {
+			toast.error('Failed to download document');
+		}
+	}
 </script>
 
 <div class="space-y-6">
 	<!-- Header -->
 	<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-		<div class="flex items-center gap-3">
-			<Button variant="ghost" size="icon" href="/vendors">
-				<ArrowLeft class="size-4" />
-			</Button>
-			<div>
-				<h1 class="font-serif text-3xl font-bold">Quote Management</h1>
-				<p class="mt-1 text-sm text-muted-foreground">
-					{quotes.length} quotes | {pendingCount} awaiting review
-				</p>
-			</div>
+		<div>
+			<h1 class="font-serif text-3xl font-bold">Quote Management</h1>
+			<p class="mt-1 text-sm text-muted-foreground">
+				{quotes.length} quotes | {pendingCount} awaiting review
+			</p>
 		</div>
 		<div class="flex items-center gap-2">
 			<Button
@@ -150,6 +277,35 @@
 				</button>
 			{/each}
 		</div>
+
+		<!-- Filters & Sort -->
+		<div class="flex flex-wrap items-center gap-3">
+			<div class="flex items-center gap-1.5">
+				<Filter class="size-3.5 text-muted-foreground" />
+				<select
+					bind:value={selectedListingId}
+					class="h-8 rounded-md border border-input bg-background px-2 text-xs outline-none ring-ring focus:ring-2"
+				>
+					<option value="all">All listings</option>
+					{#each listingsWithQuotes() as listing}
+						<option value={listing.id}>{listing.property?.address ?? 'Unknown'}</option>
+					{/each}
+				</select>
+			</div>
+			<div class="flex items-center gap-1.5">
+				<ArrowUpDown class="size-3.5 text-muted-foreground" />
+				<select
+					bind:value={sortBy}
+					class="h-8 rounded-md border border-input bg-background px-2 text-xs outline-none ring-ring focus:ring-2"
+				>
+					<option value="date-desc">Newest first</option>
+					<option value="date-asc">Oldest first</option>
+					<option value="amount-desc">Highest amount</option>
+					<option value="amount-asc">Lowest amount</option>
+					<option value="status">By status</option>
+				</select>
+			</div>
+		</div>
 	{/if}
 
 	<!-- Quote List View -->
@@ -166,14 +322,26 @@
 							<div class="flex size-2 shrink-0 rounded-full {statusDotColors[quote.status]}"></div>
 							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
-									<span class="font-medium">{quote.vendor?.name ?? 'Unknown'}</span>
-									<span class="text-xs text-muted-foreground">({quote.vendor?.company ?? ''})</span>
+									<a href="/listings/{quote.listingId}" class="font-medium hover:text-primary hover:underline" onclick={(e) => e.stopPropagation()}>
+										<Home class="mr-1 inline size-3" />{quote.listing?.property?.address ?? 'Unknown listing'}
+									</a>
+									{#if quote.requestedDate}
+										<span class="flex items-center gap-1 text-xs text-muted-foreground">
+											<Clock class="size-3" />
+											{quote.requestedDate.toLocaleDateString()}
+										</span>
+									{/if}
 								</div>
 								<div class="mt-0.5 flex items-center gap-2 text-sm text-muted-foreground">
-									<Home class="size-3" />
-									<a href="/listings/{quote.listingId}" class="hover:text-primary hover:underline">{quote.listing?.property?.address ?? 'Unknown listing'}</a>
+									<span>{quote.vendor?.name ?? 'Unknown'}{quote.vendor?.company ? ` (${quote.vendor.company})` : ''}</span>
 									<span class="text-border">|</span>
-									<span>{quote.scope}</span>
+									<span>{quote.task ? quote.task.title : (quote.scope ?? 'General')}</span>
+									{#if quote.task}
+										<a href="/listings/{quote.listingId}/tasks" class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline" onclick={(e) => e.stopPropagation()}>
+											<ClipboardList class="size-3" />
+											For: {quote.task.title}
+										</a>
+									{/if}
 								</div>
 							</div>
 							<div class="flex items-center gap-3">
@@ -212,6 +380,12 @@
 											</div>
 										{:else}
 											<p class="text-sm text-muted-foreground">Quote details pending from vendor</p>
+											{#if quote.status === 'requested' && enteringQuoteId !== quote.id}
+												<Button size="sm" class="mt-2" onclick={() => openEnterDetails(quote.id)}>
+													<DollarSign class="mr-1.5 size-3.5" />
+													Enter Quote Details
+												</Button>
+											{/if}
 										{/if}
 									</div>
 
@@ -245,13 +419,89 @@
 											</div>
 										{/if}
 
+										<!-- Document -->
+										<div>
+											<p class="text-xs font-semibold text-muted-foreground">Document</p>
+											<div class="mt-1">
+												{#if quote.documentPath}
+													<button
+														onclick={() => downloadDocument(quote.id, data.team?.id ?? '')}
+														class="inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1.5 text-xs font-medium text-foreground hover:bg-muted/80 transition-colors"
+													>
+														<Download class="size-3" />
+														{quote.documentName ?? 'Download'}
+													</button>
+												{:else}
+													<form method="POST" action="?/uploadDocument" enctype="multipart/form-data" use:enhance={() => {
+														uploadingQuoteId = quote.id;
+														return async ({ result, update }) => {
+															uploadingQuoteId = null;
+															if (result.type === 'success') {
+																toast.success('Document uploaded');
+																await update();
+															} else if (result.type === 'failure') {
+																toast.error(String(result.data?.error ?? 'Failed to upload'));
+															}
+														};
+													}}>
+														<input type="hidden" name="quoteId" value={quote.id} />
+														<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+														<label class="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed border-border px-2.5 py-1.5 text-xs text-muted-foreground hover:border-primary hover:text-foreground transition-colors">
+															<Upload class="size-3" />
+															{uploadingQuoteId === quote.id ? 'Uploading...' : 'Attach PDF or image'}
+															<input
+																type="file"
+																name="document"
+																accept=".pdf,image/jpeg,image/png,image/webp"
+																class="hidden"
+																onchange={(e) => (e.currentTarget.closest('form') as HTMLFormElement)?.requestSubmit()}
+															/>
+														</label>
+													</form>
+												{/if}
+											</div>
+										</div>
+
+										<!-- Share with Client -->
+										<div>
+											<p class="text-xs font-semibold text-muted-foreground">Client Sharing</p>
+											<div class="mt-1">
+												<form method="POST" action="?/shareWithClient" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success(quote.sharedWithClient ? 'Unshared from client' : 'Shared with client');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String(result.data?.error ?? 'Failed to update sharing'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+													<input type="hidden" name="shared" value={quote.sharedWithClient ? 'false' : 'true'} />
+													<Button variant={quote.sharedWithClient ? 'default' : 'outline'} size="sm" class="h-7 text-xs" type="submit">
+														{#if quote.sharedWithClient}
+															<Eye class="mr-1 size-3" />
+															Shared
+															{#if quote.clientReviewStatus}
+																<span class="ml-1 rounded-full bg-white/20 px-1.5 py-0.5 text-[9px]">{quote.clientReviewStatus}</span>
+															{/if}
+														{:else}
+															<Share2 class="mr-1 size-3" />
+															Share with Client
+														{/if}
+													</Button>
+												</form>
+											</div>
+										</div>
+
 										<!-- Actions -->
 										{#if quote.status === 'received'}
 											<div class="flex items-center gap-2 pt-2">
 												<form method="POST" action="?/approve" use:enhance={() => {
 													return async ({ result, update }) => {
 														if (result.type === 'success') {
-															toast.success('Quote approved');
+															toast.success('Quote approved — cost entry created');
 															await update();
 														} else if (result.type === 'failure') {
 															toast.error(String(result.data?.error ?? 'Failed to approve'));
@@ -286,6 +536,183 @@
 										{/if}
 									</div>
 								</div>
+
+								<!-- Enter Quote Details inline form -->
+								{#if quote.status === 'requested' && enteringQuoteId === quote.id}
+									<Separator class="my-4" />
+									<div class="space-y-4">
+										<p class="text-sm font-semibold">Enter Quote Details</p>
+
+										<!-- Natural language input -->
+										<div>
+											<label for="raw-text-{quote.id}" class="text-xs font-medium text-muted-foreground">Paste quote info (any format)</label>
+											<textarea
+												id="raw-text-{quote.id}"
+												bind:value={enterRawText}
+												rows="3"
+												placeholder="e.g. Kitchen cabinet refinishing $2,400, countertop replacement $3,100, total $5,500..."
+												class="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+											></textarea>
+											<Button
+												size="sm"
+												variant="outline"
+												class="mt-1.5"
+												disabled={parsingAI || !enterRawText.trim()}
+												onclick={() => parseWithAI(quote.id)}
+											>
+												{#if parsingAI}
+													<Loader2 class="mr-1.5 size-3.5 animate-spin" />
+													Parsing...
+												{:else}
+													<Sparkles class="mr-1.5 size-3.5" />
+													Parse with AI
+												{/if}
+											</Button>
+										</div>
+
+										<!-- Amount -->
+										<div>
+											<label for="enter-amount-{quote.id}" class="text-xs font-medium text-muted-foreground">Total Amount ($)</label>
+											<input
+												id="enter-amount-{quote.id}"
+												type="number"
+												step="0.01"
+												min="0"
+												bind:value={enterAmount}
+												placeholder="0.00"
+												class="mt-1 h-9 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2 sm:w-48"
+											/>
+										</div>
+
+										<!-- Line Items -->
+										<div>
+											<div class="flex items-center justify-between">
+												<label class="text-xs font-medium text-muted-foreground">Line Items</label>
+												<Button size="sm" variant="ghost" class="h-6 text-xs" onclick={addLineItem}>
+													<Plus class="mr-1 size-3" />Add
+												</Button>
+											</div>
+											<div class="mt-1 space-y-2">
+												{#each enterLineItems as li, i}
+													<div class="flex items-center gap-2">
+														<input
+															type="text"
+															bind:value={li.description}
+															placeholder="Description"
+															class="h-8 flex-1 rounded-md border border-input bg-background px-2 text-xs outline-none ring-ring focus:ring-2"
+														/>
+														<input
+															type="number"
+															step="0.01"
+															min="0"
+															bind:value={li.amount}
+															placeholder="Amount"
+															class="h-8 w-24 rounded-md border border-input bg-background px-2 text-xs outline-none ring-ring focus:ring-2"
+														/>
+														{#if enterLineItems.length > 1}
+															<button onclick={() => removeLineItem(i)} class="text-muted-foreground hover:text-red-500">
+																<Trash2 class="size-3.5" />
+															</button>
+														{/if}
+													</div>
+												{/each}
+											</div>
+										</div>
+
+										<!-- Received Date -->
+										<div>
+											<label for="enter-date-{quote.id}" class="text-xs font-medium text-muted-foreground">Received Date</label>
+											<input
+												id="enter-date-{quote.id}"
+												type="date"
+												bind:value={enterReceivedDate}
+												class="mt-1 h-9 rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+											/>
+										</div>
+
+										<!-- Attach Document -->
+										<div>
+											<label class="text-xs font-medium text-muted-foreground">Attach Document</label>
+											<div class="mt-1">
+												{#if enterDocFile}
+													<div class="flex items-center gap-2 text-xs">
+														<span class="text-muted-foreground">{enterDocFile.name}</span>
+														<button onclick={() => enterDocFile = null} class="text-red-500 hover:text-red-700">
+															<X class="size-3" />
+														</button>
+													</div>
+												{:else}
+													<label class="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-dashed border-border px-2.5 py-1.5 text-xs text-muted-foreground hover:border-primary hover:text-foreground transition-colors">
+														<Upload class="size-3" />
+														Attach PDF or image
+														<input
+															type="file"
+															accept=".pdf,image/jpeg,image/png,image/webp"
+															class="hidden"
+															onchange={(e) => {
+																const target = e.currentTarget as HTMLInputElement;
+																enterDocFile = target.files?.[0] ?? null;
+															}}
+														/>
+													</label>
+												{/if}
+											</div>
+										</div>
+
+										<!-- Notes -->
+										<div>
+											<label for="enter-notes-{quote.id}" class="text-xs font-medium text-muted-foreground">Notes</label>
+											<textarea
+												id="enter-notes-{quote.id}"
+												bind:value={enterNotes}
+												rows="2"
+												placeholder="Optional vendor notes..."
+												class="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+											></textarea>
+										</div>
+
+										<!-- Actions -->
+										<form
+											method="POST"
+											action="?/enterQuoteDetails"
+											enctype="multipart/form-data"
+											use:enhance={() => {
+												submittingDetails = true;
+												return async ({ result, update }) => {
+													submittingDetails = false;
+													if (result.type === 'success') {
+														toast.success('Quote details saved');
+														enteringQuoteId = null;
+														await update();
+													} else if (result.type === 'failure') {
+														toast.error(String(result.data?.error ?? 'Failed to save'));
+													}
+												};
+											}}
+										>
+											<input type="hidden" name="quoteId" value={quote.id} />
+											<input type="hidden" name="teamId" value={data.team?.id ?? ''} />
+											<input type="hidden" name="amount" value={enterAmount} />
+											<input type="hidden" name="receivedDate" value={enterReceivedDate} />
+											<input type="hidden" name="notes" value={enterNotes} />
+											<input type="hidden" name="lineItems" value={getFilteredLineItemsJson()} />
+											<div class="flex items-center gap-2">
+												<Button size="sm" disabled={submittingDetails || !enterAmount} type="submit">
+													{#if submittingDetails}
+														<Loader2 class="mr-1.5 size-3.5 animate-spin" />
+														Saving...
+													{:else}
+														<Check class="mr-1.5 size-3.5" />
+														Save Quote Details
+													{/if}
+												</Button>
+												<Button size="sm" variant="outline" type="button" onclick={() => enteringQuoteId = null}>
+													Cancel
+												</Button>
+											</div>
+										</form>
+									</div>
+								{/if}
 							</div>
 						{/if}
 					</CardContent>
@@ -376,7 +803,7 @@
 														<form method="POST" action="?/approve" use:enhance={() => {
 															return async ({ result, update }) => {
 																if (result.type === 'success') {
-																	toast.success('Quote approved');
+																	toast.success('Quote approved — cost entry created');
 																	await update();
 																} else if (result.type === 'failure') {
 																	toast.error(String(result.data?.error ?? 'Failed to approve'));

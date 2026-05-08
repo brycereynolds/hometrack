@@ -22,7 +22,17 @@
 
 	let { data } = $props();
 
-	const listing = $derived(data.listing);
+	const allListings = $derived(data.listings ?? []);
+	let selectedListingId = $state('');
+
+	// Auto-select first listing
+	$effect(() => {
+		if (!selectedListingId && allListings.length > 0) {
+			selectedListingId = allListings[0].id;
+		}
+	});
+
+	const listing = $derived(allListings.find((l: any) => l.id === selectedListingId) ?? allListings[0] ?? null);
 	const sections = $derived(data.portalSettings?.sections ?? {});
 	const sectionEnabled = (key: string) => sections[key] !== false;
 	const allPhases = PHASE_LIST;
@@ -58,8 +68,34 @@
 	<!-- Welcome -->
 	<div>
 		<h1 class="font-serif text-2xl font-bold tracking-tight">Welcome back.</h1>
-		<p class="text-muted-foreground">Here's the latest on your property.</p>
+		<p class="text-muted-foreground">Here's the latest on your {allListings.length > 1 ? 'properties' : 'property'}.</p>
 	</div>
+
+	<!-- Listing Selector (multi-listing clients) -->
+	{#if allListings.length > 1}
+	<div class="flex gap-3 overflow-x-auto pb-1">
+		{#each allListings as l}
+			<button
+				onclick={() => selectedListingId = l.id}
+				class="flex items-center gap-3 rounded-xl border-2 px-4 py-3 text-left transition-all shrink-0
+					{selectedListingId === l.id ? 'border-primary bg-primary/5 shadow-sm' : 'border-transparent bg-muted/50 hover:bg-muted'}"
+			>
+				{#if (l.property?.photos as any)?.[0]?.url}
+					<img
+						src={(l.property.photos as any)[0].url}
+						alt={l.property?.address ?? ''}
+						class="size-10 rounded-lg object-cover"
+					/>
+				{/if}
+				<div class="min-w-0">
+					<p class="text-sm font-medium truncate">{l.property?.address ?? ''}</p>
+					<p class="text-xs text-muted-foreground">{l.property?.city ?? ''}, {l.property?.state ?? ''}</p>
+				</div>
+				<Badge variant="outline" class="text-[10px] shrink-0">{PHASES[l.phase].label}</Badge>
+			</button>
+		{/each}
+	</div>
+	{/if}
 
 	<!-- Property Hero Card -->
 	{#if sectionEnabled('overview')}

@@ -50,6 +50,41 @@
       "when": 1777680000000,
       "tag": "0006_fix_rls_grants",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1777864376944,
+      "tag": "0007_small_marvel_apes",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1777865291720,
+      "tag": "0008_great_kate_bishop",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1778197076963,
+      "tag": "0009_add_listing_costs_and_quote_uploads",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1778204605956,
+      "tag": "0010_add_task_id_to_quotes",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1778278219404,
+      "tag": "0011_add_agent_team_members",
+      "breakpoints": true
     }
   ]
 }

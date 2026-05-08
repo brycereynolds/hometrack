@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
+	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Chart, registerables } from 'chart.js';
 	import { formatCurrency } from '$lib/utils.js';
@@ -19,66 +18,234 @@
 		CheckCircle2,
 		XCircle,
 		AlertCircle,
-		ArrowUpRight,
-		ArrowDownRight,
-		Minus,
 		Plus,
 		Pencil,
-		Trash2
+		Trash2,
+		ChevronDown,
+		ChevronRight,
+		LinkIcon,
+		CircleDot,
+		Check,
+		X,
+		FileQuestion,
+		ClipboardList,
 	} from 'lucide-svelte';
 
 	Chart.register(...registerables);
 
+	type Cost = {
+		id: string;
+		title: string;
+		category: string | null;
+		amount: number | null;
+		status: string;
+		notes: string | null;
+		taskId: string | null;
+		quoteId: string | null;
+		actionId: string | null;
+		task: { title: string } | null;
+		quote: { scope: string | null } | null;
+		vendor: { name: string; company: string | null } | null;
+		action: { title: string } | null;
+	};
+
+	type Quote = {
+		id: string;
+		scope: string | null;
+		amount: number | null;
+		status: string;
+		vendorId: string | null;
+		requestedDate: Date | null;
+		receivedDate: Date | null;
+		notes: string | null;
+		taskId: string | null;
+		vendor: { name: string; company: string | null } | null;
+		task: { title: string } | null;
+	};
+
 	let { data } = $props();
 	const listing = $derived(data.listing);
 	const financial = $derived(data.financial);
-	const listingQuotes = $derived(data.quotes ?? []);
+	const costs: Cost[] = $derived((data as any).costs ?? []);
+	const listingQuotes: Quote[] = $derived((data as any).quotes ?? []);
 
+	// P&L config
+	let commissionRate = $state(5);
+	let closingCostRate = $state(1.5);
+
+	// Computed P&L values from listing_costs
+	const salePrice = $derived(listing?.price ?? 0);
+
+	const costsByCategory = $derived(() => {
+		const grouped: Record<string, Cost[]> = {};
+		for (const cost of costs) {
+			const cat = cost.category || 'Uncategorized';
+			if (!grouped[cat]) grouped[cat] = [];
+			grouped[cat].push(cost);
+		}
+		return grouped;
+	});
+
+	const totalCommitted = $derived(
+		costs.filter((c: Cost) => c.status === 'committed' || c.status === 'paid').reduce((s: number, c: Cost) => s + (c.amount ?? 0), 0)
+	);
+	const totalEstimated = $derived(
+		costs.filter((c: Cost) => c.status === 'estimated').reduce((s: number, c: Cost) => s + (c.amount ?? 0), 0)
+	);
+	const totalPaid = $derived(
+		costs.filter((c: Cost) => c.status === 'paid').reduce((s: number, c: Cost) => s + (c.amount ?? 0), 0)
+	);
+	const totalBudget = $derived(
+		financial?.totalBudget ?? (financial?.categories ?? []).reduce((s: number, c: any) => s + (c.budgeted ?? 0), 0)
+	);
+	const totalCosts = $derived(costs.reduce((s: number, c: Cost) => s + (c.amount ?? 0), 0));
+	const commissionAmount = $derived(salePrice * (commissionRate / 100));
+	const closingCostAmount = $derived(salePrice * (closingCostRate / 100));
+	const netToSeller = $derived(salePrice - totalCosts - commissionAmount - closingCostAmount);
+
+	// Quotes section collapsible state
+	let quotesExpanded = $state(true);
+
+	// Expanded categories in P&L — expanded by default
+	let expandedCategories = $state<Set<string>>(new Set());
+	let categoriesInitialized = $state(false);
+
+	$effect(() => {
+		const groups = costsByCategory();
+		if (!categoriesInitialized && Object.keys(groups).length > 0) {
+			expandedCategories = new Set(Object.keys(groups));
+			categoriesInitialized = true;
+		}
+	});
+
+	function toggleCategory(cat: string) {
+		const next = new Set(expandedCategories);
+		if (next.has(cat)) next.delete(cat);
+		else next.add(cat);
+		expandedCategories = next;
+	}
+
+	// Cost detail panel
+	let selectedCost = $state<(typeof costs)[0] | null>(null);
+
+	// Track Cost modal
+	let showAddCost = $state(false);
+	let newCostTitle = $state('');
+	let newCostCategory = $state('');
+	let newCostAmount = $state('');
+	let newCostStatus = $state('estimated');
+	let newCostNotes = $state('');
+
+	// Edit Cost modal
+	let showEditCost = $state(false);
+	let editCost = $state<(typeof costs)[0] | null>(null);
+	let editCostTitle = $state('');
+	let editCostCategory = $state('');
+	let editCostAmount = $state('');
+	let editCostStatus = $state('estimated');
+	let editCostNotes = $state('');
+
+	// Delete confirmation
+	let deletingCostId = $state<string | null>(null);
+
+	// Create Budget modal
+	let showCreateBudget = $state(false);
+	let newBudgetTotal = $state('');
+
+	function openEditCost(cost: (typeof costs)[0]) {
+		editCost = cost;
+		editCostTitle = cost.title;
+		editCostCategory = cost.category || '';
+		editCostAmount = String(cost.amount ?? 0);
+		editCostStatus = cost.status;
+		editCostNotes = cost.notes || '';
+		showEditCost = true;
+		selectedCost = null;
+	}
+
+	function statusDot(status: string) {
+		switch (status) {
+			case 'paid': return 'bg-green-500';
+			case 'committed': return 'bg-blue-500';
+			case 'quoted': return 'bg-amber-500';
+			default: return 'bg-gray-400';
+		}
+	}
+
+	function statusLabel(status: string) {
+		return status.charAt(0).toUpperCase() + status.slice(1);
+	}
+
+	function statusTextColor(status: string) {
+		switch (status) {
+			case 'paid': return 'text-green-700';
+			case 'committed': return 'text-blue-700';
+			case 'quoted': return 'text-amber-700';
+			default: return 'text-gray-500';
+		}
+	}
+
+	// Charts
 	let budgetCanvas = $state<HTMLCanvasElement>(null!);
 	let breakdownCanvas = $state<HTMLCanvasElement>(null!);
 	let budgetChart: Chart | null = null;
 	let breakdownChart: Chart | null = null;
 
-	// Create Budget modal state
-	let showCreateBudget = $state(false);
-	let newBudgetTotal = $state('');
-
-	// Add Category modal state
-	let showAddCategory = $state(false);
-	let newCategoryName = $state('');
-	let newCategoryBudgeted = $state('');
-
-	// Edit category inline state
-	let editingCategoryId = $state<string | null>(null);
-	let editingActual = $state('');
-
-	// Delete confirmation
-	let deletingCategoryId = $state<string | null>(null);
-
 	onMount(() => {
-		if (financial) {
-			const categories = financial.categories ?? [];
+		const grouped = costsByCategory();
+		const categoryNames = Object.keys(grouped);
 
-			if (categories.length > 0) {
-				breakdownChart = new Chart(breakdownCanvas, {
-					type: 'doughnut',
-					data: {
-						labels: categories.map((c: any) => c.name),
-						datasets: [{ data: categories.map((c: any) => c.actual), backgroundColor: ['#C4704B', '#7B8BA6F', '#D4956B', '#5B8BA5', '#C49A3C'], borderWidth: 0, hoverOffset: 8 }]
+		if (categoryNames.length > 0) {
+			const catTotals = categoryNames.map((cat) =>
+				grouped[cat].reduce((s: number, c: Cost) => s + (c.amount ?? 0), 0)
+			);
+
+			breakdownChart = new Chart(breakdownCanvas, {
+				type: 'doughnut',
+				data: {
+					labels: categoryNames,
+					datasets: [{
+						data: catTotals,
+						backgroundColor: ['#C4704B', '#7B8BAF', '#D4956B', '#5B8BA5', '#C49A3C', '#8B6E99', '#4E937A'],
+						borderWidth: 0,
+						hoverOffset: 8,
+					}],
+				},
+				options: {
+					responsive: true,
+					maintainAspectRatio: false,
+					cutout: '65%',
+					plugins: {
+						legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true, pointStyleWidth: 8, font: { size: 11 } } },
+						tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: ${formatCurrency(ctx.parsed)}` } },
 					},
-					options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true, pointStyleWidth: 8, font: { size: 11 } } }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.label}: ${formatCurrency(ctx.parsed)}` } } } }
-				});
+				},
+			});
 
+			// Budget vs Actual bar chart — use financial categories if available
+			const categories = financial?.categories ?? [];
+			if (categories.length > 0) {
 				budgetChart = new Chart(budgetCanvas, {
 					type: 'bar',
 					data: {
 						labels: categories.map((c: any) => c.name),
 						datasets: [
 							{ label: 'Budgeted', data: categories.map((c: any) => c.budgeted), backgroundColor: '#C4704B40', borderColor: '#C4704B', borderWidth: 1, borderRadius: 4 },
-							{ label: 'Actual', data: categories.map((c: any) => c.actual), backgroundColor: '#C4704B', borderColor: '#C4704B', borderWidth: 0, borderRadius: 4 }
-						]
+							{ label: 'Actual', data: categoryNames.map((cat) => grouped[cat]?.reduce((s: number, c: Cost) => s + (c.amount ?? 0), 0) ?? 0), backgroundColor: '#C4704B', borderWidth: 0, borderRadius: 4 },
+						],
 					},
-					options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, ticks: { callback: (value) => formatCurrency(Number(value)), font: { size: 10 } }, grid: { color: '#f1f1f1' } }, x: { ticks: { font: { size: 10 } }, grid: { display: false } } }, plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyleWidth: 8, font: { size: 11 }, padding: 16 } }, tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y ?? 0)}` } } } }
+					options: {
+						responsive: true,
+						maintainAspectRatio: false,
+						scales: {
+							y: { beginAtZero: true, ticks: { callback: (value) => formatCurrency(Number(value)), font: { size: 10 } }, grid: { color: '#f1f1f1' } },
+							x: { ticks: { font: { size: 10 } }, grid: { display: false } },
+						},
+						plugins: {
+							legend: { position: 'top', align: 'end', labels: { usePointStyle: true, pointStyleWidth: 8, font: { size: 11 }, padding: 16 } },
+							tooltip: { callbacks: { label: (ctx) => ` ${ctx.dataset.label}: ${formatCurrency(ctx.parsed.y ?? 0)}` } },
+						},
+					},
 				});
 			}
 		}
@@ -89,230 +256,597 @@
 		};
 	});
 
-	function getQuoteStatusBadge(status: string) {
-		switch (status) {
-			case 'approved': return { color: 'bg-green-100 text-green-700 border-green-200', icon: CheckCircle2 };
-			case 'received': return { color: 'bg-blue-100 text-blue-700 border-blue-200', icon: Clock };
-			case 'requested': return { color: 'bg-amber-100 text-amber-700 border-amber-200', icon: AlertCircle };
-			case 'declined': return { color: 'bg-red-100 text-red-700 border-red-200', icon: XCircle };
-			default: return { color: 'bg-gray-100 text-gray-600', icon: Clock };
+	// Get unique category names for the add/edit form dropdowns
+	const existingCategories = $derived(() => {
+		const cats = new Set<string>();
+		for (const cost of costs) {
+			if (cost.category) cats.add(cost.category);
 		}
-	}
+		return Array.from(cats).sort();
+	});
 </script>
 
 {#if listing}
 	<div class="space-y-6">
+		<!-- Header -->
 		<div class="flex items-center justify-between">
 			<h2 class="font-serif text-lg font-semibold">Financials</h2>
-			{#if financial}
-				<Button size="sm" onclick={() => { newCategoryName = ''; newCategoryBudgeted = ''; showAddCategory = true; }}>
-					<Plus class="mr-1.5 size-4" />Add Category
-				</Button>
-			{/if}
+			<Button size="sm" onclick={() => { newCostTitle = ''; newCostCategory = ''; newCostAmount = ''; newCostStatus = 'estimated'; newCostNotes = ''; showAddCost = true; }}>
+				<Plus class="mr-1.5 size-4" />Track Cost
+			</Button>
 		</div>
 
-		{#if financial}
-			<!-- Summary Cards -->
-			<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-				<Card><CardContent class="p-4"><div class="flex items-center gap-2"><div class="rounded-lg bg-blue-50 p-2"><Wallet class="size-4 text-blue-600" /></div><div><p class="text-xs text-muted-foreground">Total Budget</p><p class="text-lg font-bold">{formatCurrency(financial.totalBudget ?? 0)}</p></div></div></CardContent></Card>
-				<Card><CardContent class="p-4"><div class="flex items-center gap-2"><div class="rounded-lg bg-emerald-50 p-2"><DollarSign class="size-4 text-emerald-600" /></div><div><p class="text-xs text-muted-foreground">Spent</p><p class="text-lg font-bold">{formatCurrency(financial.spent ?? 0)}</p></div></div></CardContent></Card>
-				<Card><CardContent class="p-4"><div class="flex items-center gap-2"><div class="rounded-lg bg-amber-50 p-2"><TrendingDown class="size-4 text-amber-600" /></div><div><p class="text-xs text-muted-foreground">Remaining</p><p class="text-lg font-bold">{formatCurrency(financial.remaining ?? 0)}</p></div></div></CardContent></Card>
-				<Card><CardContent class="p-4"><div class="flex items-center gap-2"><div class="rounded-lg bg-violet-50 p-2"><Receipt class="size-4 text-violet-600" /></div><div><p class="text-xs text-muted-foreground">Pending Quotes</p><p class="text-lg font-bold">{financial.pendingQuotes ?? 0}</p></div></div></CardContent></Card>
-			</div>
-
-			<!-- Charts Row -->
-			{#if (financial.categories ?? []).length > 0}
-				<div class="grid gap-6 lg:grid-cols-2">
-					<Card><CardHeader><CardTitle class="font-serif text-base">Spending Breakdown</CardTitle></CardHeader><CardContent><div class="h-64"><canvas bind:this={breakdownCanvas}></canvas></div></CardContent></Card>
-					<Card><CardHeader><CardTitle class="font-serif text-base">Budget vs. Actual</CardTitle></CardHeader><CardContent><div class="h-64"><canvas bind:this={budgetCanvas}></canvas></div></CardContent></Card>
-				</div>
-			{/if}
-
-			<!-- Budget Table -->
+		<!-- Summary Cards -->
+		<div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
 			<Card>
-				<CardHeader><CardTitle class="font-serif text-base">Budget Detail</CardTitle></CardHeader>
-				<CardContent>
-					<div class="overflow-x-auto">
-						<table class="w-full text-sm">
-							<thead><tr class="border-b text-left"><th class="pb-3 font-medium text-muted-foreground">Category</th><th class="pb-3 text-right font-medium text-muted-foreground">Budgeted</th><th class="pb-3 text-right font-medium text-muted-foreground">Actual</th><th class="pb-3 text-right font-medium text-muted-foreground">Variance</th><th class="pb-3 text-right font-medium text-muted-foreground">Utilization</th><th class="pb-3 text-right font-medium text-muted-foreground">Actions</th></tr></thead>
-							<tbody class="divide-y">
-								{#each financial.categories ?? [] as cat}
-									{@const utilization = (cat.budgeted ?? 0) > 0 ? ((cat.actual ?? 0) / (cat.budgeted ?? 1)) * 100 : 0}
-									{@const isOver = (cat.variance ?? 0) < 0}
-									<tr>
-										<td class="py-3 font-medium">{cat.name}</td>
-										<td class="py-3 text-right text-muted-foreground">{formatCurrency(cat.budgeted ?? 0)}</td>
-										<td class="py-3 text-right font-medium">
-											{#if editingCategoryId === cat.id}
-												<form
-													method="POST"
-													action="?/updateCategory"
-													use:enhance={() => {
-														return async ({ result, update }) => {
-															if (result.type === 'success') {
-																toast.success('Category updated');
-																editingCategoryId = null;
-																await update();
-															} else {
-																toast.error('Failed to update category');
-															}
-														};
-													}}
-													class="inline-flex items-center gap-1"
-												>
-													<input type="hidden" name="categoryId" value={cat.id} />
-													<input
-														name="actual"
-														type="number"
-														step="0.01"
-														min="0"
-														bind:value={editingActual}
-														class="h-8 w-24 rounded-md border border-input bg-background px-2 text-sm text-right outline-none ring-ring focus:ring-2"
-													/>
-													<Button type="submit" size="sm" variant="ghost" class="size-8 p-0"><CheckCircle2 class="size-4 text-green-600" /></Button>
-													<Button type="button" size="sm" variant="ghost" class="size-8 p-0" onclick={() => editingCategoryId = null}><XCircle class="size-4 text-muted-foreground" /></Button>
-												</form>
-											{:else}
-												{formatCurrency(cat.actual ?? 0)}
-											{/if}
-										</td>
-										<td class="py-3 text-right">
-											<span class="inline-flex items-center gap-1 {isOver ? 'text-red-600' : 'text-green-600'}">
-												{#if isOver}<ArrowUpRight class="size-3" />{:else if (cat.variance ?? 0) > 0}<ArrowDownRight class="size-3" />{:else}<Minus class="size-3" />{/if}
-												{formatCurrency(Math.abs(cat.variance ?? 0))}
-											</span>
-										</td>
-										<td class="py-3 text-right">
-											<div class="flex items-center justify-end gap-2">
-												<div class="h-1.5 w-16 rounded-full bg-muted"><div class="h-1.5 rounded-full transition-all {utilization > 100 ? 'bg-red-500' : utilization > 80 ? 'bg-amber-500' : 'bg-green-500'}" style="width: {Math.min(utilization, 100)}%"></div></div>
-												<span class="text-xs text-muted-foreground w-10 text-right">{Math.round(utilization)}%</span>
-											</div>
-										</td>
-										<td class="py-3 text-right">
-											<div class="flex items-center justify-end gap-1">
-												{#if editingCategoryId !== cat.id}
-													<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => { editingCategoryId = cat.id; editingActual = String(cat.actual ?? 0); }}>
-														<Pencil class="size-3.5 text-muted-foreground" />
-													</Button>
-												{/if}
-												{#if deletingCategoryId === cat.id}
-													<form
-														method="POST"
-														action="?/deleteCategory"
-														use:enhance={() => {
-															return async ({ result, update }) => {
-																if (result.type === 'success') {
-																	toast.success('Category deleted');
-																	deletingCategoryId = null;
-																	await update();
-																} else {
-																	toast.error('Failed to delete category');
-																}
-															};
-														}}
-														class="inline-flex items-center gap-1"
-													>
-														<input type="hidden" name="categoryId" value={cat.id} />
-														<Button type="submit" size="sm" variant="destructive" class="h-7 text-xs px-2">Confirm</Button>
-														<Button type="button" size="sm" variant="ghost" class="h-7 text-xs px-2" onclick={() => deletingCategoryId = null}>No</Button>
-													</form>
-												{:else}
-													<Button size="sm" variant="ghost" class="size-8 p-0" onclick={() => deletingCategoryId = cat.id}>
-														<Trash2 class="size-3.5 text-muted-foreground" />
-													</Button>
-												{/if}
-											</div>
-										</td>
-									</tr>
-								{/each}
-							</tbody>
-							<tfoot>
-								<tr class="border-t-2">
-									<td class="pt-3 font-semibold">Total</td>
-									<td class="pt-3 text-right font-semibold">{formatCurrency(financial.totalBudget ?? 0)}</td>
-									<td class="pt-3 text-right font-semibold">{formatCurrency(financial.spent ?? 0)}</td>
-									<td class="pt-3 text-right font-semibold text-green-600">{formatCurrency(financial.remaining ?? 0)}</td>
-									<td class="pt-3 text-right text-sm text-muted-foreground">{(financial.totalBudget ?? 0) > 0 ? Math.round(((financial.spent ?? 0) / (financial.totalBudget ?? 1)) * 100) : 0}%</td>
-									<td></td>
-								</tr>
-							</tfoot>
-						</table>
+				<CardContent class="p-4">
+					<div class="flex items-center gap-2">
+						<div class="rounded-lg bg-blue-50 p-2"><Wallet class="size-4 text-blue-600" /></div>
+						<div>
+							<p class="text-xs text-muted-foreground">Total Budget</p>
+							<p class="text-lg font-bold">{formatCurrency(totalBudget)}</p>
+						</div>
 					</div>
 				</CardContent>
 			</Card>
-
-			<!-- P&L Summary -->
 			<Card>
-				<CardHeader><CardTitle class="font-serif text-base">Estimated P&L</CardTitle><CardDescription>Projected returns based on current spending</CardDescription></CardHeader>
-				<CardContent>
-					<div class="divide-y">
-						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">List Price</span><span class="text-sm font-medium">{listing.price ? formatCurrency(listing.price) : 'No Price'}</span></div>
-						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">Est. Commission (5%)</span><span class="text-sm font-medium text-red-600">-{formatCurrency((listing.price ?? 0) * 0.05)}</span></div>
-						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">Prep & Marketing Costs</span><span class="text-sm font-medium text-red-600">-{formatCurrency(financial.spent ?? 0)}</span></div>
-						<div class="flex justify-between py-2.5"><span class="text-sm text-muted-foreground">Est. Closing Costs (1.5%)</span><span class="text-sm font-medium text-red-600">-{formatCurrency((listing.price ?? 0) * 0.015)}</span></div>
-						<div class="flex justify-between py-3 border-t-2"><span class="text-sm font-semibold">Est. Net to Seller</span><span class="text-base font-bold text-green-700">{formatCurrency((listing.price ?? 0) - (listing.price ?? 0) * 0.05 - (financial.spent ?? 0) - (listing.price ?? 0) * 0.015)}</span></div>
+				<CardContent class="p-4">
+					<div class="flex items-center gap-2">
+						<div class="rounded-lg bg-blue-50 p-2"><DollarSign class="size-4 text-blue-600" /></div>
+						<div>
+							<p class="text-xs text-muted-foreground">Committed</p>
+							<p class="text-lg font-bold">{formatCurrency(totalCommitted)}</p>
+						</div>
 					</div>
 				</CardContent>
 			</Card>
-		{:else}
-			<!-- No budget CTA -->
 			<Card>
-				<CardContent class="flex flex-col items-center justify-center py-12">
-					<DollarSign class="size-10 text-muted-foreground/30 mb-3" />
-					<p class="text-sm text-muted-foreground mb-4">No financial data available for this listing yet.</p>
-					<Button size="sm" onclick={() => { newBudgetTotal = ''; showCreateBudget = true; }}>
-						<Plus class="mr-1.5 size-4" />Create Budget
-					</Button>
+				<CardContent class="p-4">
+					<div class="flex items-center gap-2">
+						<div class="rounded-lg bg-gray-50 p-2"><Clock class="size-4 text-gray-600" /></div>
+						<div>
+							<p class="text-xs text-muted-foreground">Estimated</p>
+							<p class="text-lg font-bold">{formatCurrency(totalEstimated)}</p>
+						</div>
+					</div>
 				</CardContent>
 			</Card>
-		{/if}
+			<Card>
+				<CardContent class="p-4">
+					<div class="flex items-center gap-2">
+						<div class="rounded-lg bg-emerald-50 p-2"><CheckCircle2 class="size-4 text-emerald-600" /></div>
+						<div>
+							<p class="text-xs text-muted-foreground">Paid</p>
+							<p class="text-lg font-bold">{formatCurrency(totalPaid)}</p>
+						</div>
+					</div>
+				</CardContent>
+			</Card>
+		</div>
 
 		<!-- Quotes Section -->
 		{#if listingQuotes.length > 0}
 			<Card>
-				<CardHeader><CardTitle class="font-serif text-base">Vendor Quotes</CardTitle></CardHeader>
-				<CardContent>
-					<div class="divide-y">
-						{#each listingQuotes as quote}
-							{@const statusInfo = getQuoteStatusBadge(quote.status)}
-							{@const StatusIcon = statusInfo.icon}
-							<div class="py-4 first:pt-0 last:pb-0">
-								<div class="flex items-start justify-between gap-4">
-									<div>
-										<p class="text-sm font-medium">{quote.scope}</p>
-										<p class="text-xs text-muted-foreground mt-0.5">{quote.vendor?.name ?? 'Unknown'} -- {quote.vendor?.company ?? ''}</p>
+				<CardHeader>
+					<button
+						type="button"
+						class="flex w-full items-center justify-between"
+						onclick={() => quotesExpanded = !quotesExpanded}
+					>
+						<CardTitle class="font-serif text-base flex items-center gap-2">
+							<FileQuestion class="size-4" />
+							Quotes ({listingQuotes.length})
+						</CardTitle>
+						{#if quotesExpanded}
+							<ChevronDown class="size-4 text-muted-foreground" />
+						{:else}
+							<ChevronRight class="size-4 text-muted-foreground" />
+						{/if}
+					</button>
+				</CardHeader>
+				{#if quotesExpanded}
+					<CardContent>
+						<div class="space-y-2">
+							{#each listingQuotes as quote}
+								{@const quoteStatusColors: Record<string, string> = {
+									requested: 'bg-blue-100 text-blue-700',
+									received: 'bg-amber-100 text-amber-700',
+									approved: 'bg-emerald-100 text-emerald-700',
+									declined: 'bg-red-100 text-red-700',
+								}}
+								<div class="flex items-center justify-between rounded-md border px-4 py-3 text-sm">
+									<div class="flex items-center gap-3 min-w-0 flex-1">
+										<span class="font-medium">{quote.vendor?.name ?? 'Unknown'}{quote.vendor?.company ? ` - ${quote.vendor.company}` : ''}</span>
+										<span class="text-muted-foreground">{quote.scope ?? 'General'}</span>
+										{#if quote.task}
+											<a href="/listings/{listing?.id}/tasks" class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline">
+												<ClipboardList class="size-3" />
+												{quote.task.title}
+											</a>
+										{/if}
 									</div>
-									<div class="text-right shrink-0">
-										<p class="text-sm font-bold">{formatCurrency(quote.amount ?? 0)}</p>
-										<Badge variant="outline" class="mt-1 text-[10px] {statusInfo.color}">
-											<StatusIcon class="mr-1 size-3" />
-											{quote.status.charAt(0).toUpperCase() + quote.status.slice(1)}
-										</Badge>
+									<div class="flex items-center gap-3 shrink-0">
+										{#if quote.requestedDate}
+											<span class="text-xs text-muted-foreground">
+												{quote.requestedDate.toLocaleDateString()}
+											</span>
+										{/if}
+										<span class="font-semibold">{formatCurrency(quote.amount ?? 0)}</span>
+										<span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold {quoteStatusColors[quote.status] ?? 'bg-gray-100 text-gray-600'}">
+											{quote.status}
+										</span>
+										{#if quote.status === 'received'}
+											<div class="flex items-center gap-1">
+												<form method="POST" action="?/approveQuote" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Quote approved — cost entry created');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String((result.data as any)?.error ?? 'Failed to approve'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<Button size="sm" class="h-7 text-xs" type="submit">
+														<Check class="mr-1 size-3" />Approve
+													</Button>
+												</form>
+												<form method="POST" action="?/declineQuote" use:enhance={() => {
+													return async ({ result, update }) => {
+														if (result.type === 'success') {
+															toast.success('Quote declined');
+															await update();
+														} else if (result.type === 'failure') {
+															toast.error(String((result.data as any)?.error ?? 'Failed to decline'));
+														}
+													};
+												}}>
+													<input type="hidden" name="quoteId" value={quote.id} />
+													<Button variant="outline" size="sm" class="h-7 text-xs" type="submit">
+														<X class="mr-1 size-3" />Decline
+													</Button>
+												</form>
+											</div>
+										{/if}
 									</div>
 								</div>
-								{#if (quote.lineItems ?? []).length > 0}
-									<div class="mt-3 rounded-md bg-muted/50 p-3">
-										<div class="space-y-1">
-											{#each quote.lineItems ?? [] as item}
-												<div class="flex justify-between text-xs">
-													<span class="text-muted-foreground">{item.description}</span>
-													<span class="font-medium">{formatCurrency(item.amount ?? 0)}</span>
+							{/each}
+						</div>
+					</CardContent>
+				{/if}
+			</Card>
+		{/if}
+
+		<!-- P&L Statement -->
+		<Card>
+			<CardHeader>
+				<div class="flex items-center justify-between">
+					<CardTitle class="font-serif text-base">Profit & Loss</CardTitle>
+					<div class="flex items-center gap-4 text-xs">
+						<label class="flex items-center gap-1.5 text-muted-foreground">
+							Commission %
+							<input
+								type="number"
+								step="0.1"
+								min="0"
+								max="100"
+								bind:value={commissionRate}
+								class="h-7 w-16 rounded-md border border-input bg-background px-2 text-right text-xs outline-none ring-ring focus:ring-2"
+							/>
+						</label>
+						<label class="flex items-center gap-1.5 text-muted-foreground">
+							Closing %
+							<input
+								type="number"
+								step="0.1"
+								min="0"
+								max="100"
+								bind:value={closingCostRate}
+								class="h-7 w-16 rounded-md border border-input bg-background px-2 text-right text-xs outline-none ring-ring focus:ring-2"
+							/>
+						</label>
+					</div>
+				</div>
+			</CardHeader>
+			<CardContent>
+				<div class="text-sm">
+					<!-- Revenue -->
+					<div class="flex justify-between py-2.5 font-semibold border-b">
+						<span>Revenue</span>
+						<span></span>
+					</div>
+					<div class="flex justify-between py-2 pl-4">
+						<span class="text-muted-foreground">Sale Price</span>
+						<span class="font-medium">{salePrice > 0 ? formatCurrency(salePrice) : 'Not set'}</span>
+					</div>
+
+					<!-- Costs by category -->
+					<div class="flex justify-between py-2.5 font-semibold border-b border-t mt-2">
+						<span>Costs</span>
+						<span class="text-red-600">{totalCosts > 0 ? `(${formatCurrency(totalCosts)})` : '$0'}</span>
+					</div>
+
+					{#each Object.entries(costsByCategory()) as [category, categoryCosts]}
+						{@const catTotal = categoryCosts.reduce((s: number, c: any) => s + (c.amount ?? 0), 0)}
+						{@const isExpanded = expandedCategories.has(category)}
+						<div>
+							<button
+								type="button"
+								class="flex w-full items-center justify-between py-2 pl-4 pr-0 hover:bg-muted/50 rounded transition-colors"
+								onclick={() => toggleCategory(category)}
+							>
+								<span class="flex items-center gap-1.5">
+									{#if isExpanded}
+										<ChevronDown class="size-3.5 text-muted-foreground" />
+									{:else}
+										<ChevronRight class="size-3.5 text-muted-foreground" />
+									{/if}
+									<span class="font-medium">{category}</span>
+									<span class="text-xs text-muted-foreground">({categoryCosts.length})</span>
+								</span>
+								<span class="font-medium text-red-600">({formatCurrency(catTotal)})</span>
+							</button>
+
+							{#if isExpanded}
+								<div class="ml-8 border-l border-muted pl-3">
+									{#each categoryCosts as cost, i}
+										<button
+											type="button"
+											class="flex w-full items-center justify-between py-1.5 pr-0 text-xs hover:bg-muted/50 rounded transition-colors"
+											onclick={() => selectedCost = selectedCost?.id === cost.id ? null : cost}
+										>
+											<span class="flex items-center gap-2">
+												<span class="relative flex size-2">
+													<span class="inline-flex size-2 rounded-full {statusDot(cost.status)}"></span>
+												</span>
+												<span class="text-muted-foreground">{cost.title}</span>
+											</span>
+											<span class="flex items-center gap-2">
+												<span class="font-medium">{formatCurrency(cost.amount ?? 0)}</span>
+												<span class="{statusTextColor(cost.status)} text-[10px]">{statusLabel(cost.status)}</span>
+											</span>
+										</button>
+
+										{#if selectedCost?.id === cost.id}
+											<div class="my-1 rounded-md bg-muted/50 p-3 text-xs space-y-2">
+												{#if cost.task}
+													<a href="/listings/{listing?.id}/tasks" class="flex items-center gap-1.5 text-primary hover:underline">
+														<LinkIcon class="size-3" />
+														<span>Task: {cost.task.title}</span>
+													</a>
+												{/if}
+												{#if cost.quote}
+													<a href="/vendors/quotes" class="flex items-center gap-1.5 text-primary hover:underline">
+														<Receipt class="size-3" />
+														<span>Quote: {cost.vendor ? `${cost.vendor.name} - ` : ''}{cost.quote.scope ?? 'Vendor quote'}</span>
+													</a>
+												{/if}
+												{#if cost.action}
+													<a href="/listings/{listing?.id}/field-notes" class="flex items-center gap-1.5 text-primary hover:underline">
+														<CircleDot class="size-3" />
+														<span>From field note</span>
+													</a>
+												{/if}
+												{#if cost.vendor && !cost.quote}
+													<div class="flex items-center gap-1.5 text-muted-foreground">
+														<span>Vendor: {cost.vendor.name}{cost.vendor.company ? ` - ${cost.vendor.company}` : ''}</span>
+													</div>
+												{/if}
+												{#if cost.notes}
+													<p class="text-muted-foreground italic">"{cost.notes}"</p>
+												{/if}
+												<div class="flex gap-2 pt-1">
+													<Button size="sm" variant="outline" class="h-6 text-[10px] px-2" onclick={() => openEditCost(cost)}>
+														<Pencil class="mr-1 size-3" />Edit
+													</Button>
+													{#if deletingCostId === cost.id}
+														<form
+															method="POST"
+															action="?/deleteCost"
+															use:enhance={() => {
+																return async ({ result, update }) => {
+																	if (result.type === 'success') {
+																		toast.success('Cost deleted');
+																		deletingCostId = null;
+																		selectedCost = null;
+																		await update();
+																	} else {
+																		toast.error('Failed to delete cost');
+																	}
+																};
+															}}
+															class="inline-flex gap-1"
+														>
+															<input type="hidden" name="costId" value={cost.id} />
+															<Button type="submit" size="sm" variant="destructive" class="h-6 text-[10px] px-2">Confirm</Button>
+															<Button type="button" size="sm" variant="ghost" class="h-6 text-[10px] px-2" onclick={() => deletingCostId = null}>Cancel</Button>
+														</form>
+													{:else}
+														<Button size="sm" variant="ghost" class="h-6 text-[10px] px-2 text-red-600" onclick={() => deletingCostId = cost.id}>
+															<Trash2 class="mr-1 size-3" />Delete
+														</Button>
+													{/if}
 												</div>
-											{/each}
-										</div>
-									</div>
-								{/if}
-								{#if quote.notes}
-									<p class="mt-2 text-xs text-muted-foreground italic">"{quote.notes}"</p>
-								{/if}
+											</div>
+										{/if}
+									{/each}
+								</div>
+							{/if}
+						</div>
+					{/each}
+
+					{#if costs.length === 0}
+						<div class="py-4 pl-4 text-xs text-muted-foreground italic">No costs tracked yet</div>
+					{/if}
+
+					<!-- Commissions -->
+					<div class="flex justify-between py-2 pl-4 border-t mt-2">
+						<span class="text-muted-foreground">Commissions ({commissionRate}%)</span>
+						<span class="font-medium text-red-600">({formatCurrency(commissionAmount)})</span>
+					</div>
+
+					<!-- Closing Costs -->
+					<div class="flex justify-between py-2 pl-4">
+						<span class="text-muted-foreground">Closing Costs ({closingCostRate}%)</span>
+						<span class="font-medium text-red-600">({formatCurrency(closingCostAmount)})</span>
+					</div>
+
+					<!-- Net to Seller -->
+					<div class="flex justify-between py-3 border-t-2 mt-2">
+						<span class="font-semibold">Net to Seller</span>
+						<span class="text-base font-bold {netToSeller >= 0 ? 'text-green-700' : 'text-red-700'}">
+							{formatCurrency(netToSeller)}
+						</span>
+					</div>
+				</div>
+			</CardContent>
+		</Card>
+
+		<!-- Charts Row -->
+		{#if costs.length > 0}
+			<div class="grid gap-6 lg:grid-cols-2">
+				<Card>
+					<CardHeader><CardTitle class="font-serif text-base">Spending Breakdown</CardTitle></CardHeader>
+					<CardContent><div class="h-64"><canvas bind:this={breakdownCanvas}></canvas></div></CardContent>
+				</Card>
+				<Card>
+					<CardHeader><CardTitle class="font-serif text-base">Budget vs. Actual</CardTitle></CardHeader>
+					<CardContent>
+						{#if (financial?.categories ?? []).length > 0}
+							<div class="h-64"><canvas bind:this={budgetCanvas}></canvas></div>
+						{:else}
+							<div class="flex h-64 items-center justify-center text-sm text-muted-foreground">
+								Create budget categories to compare budget vs. actual
 							</div>
-						{/each}
+						{/if}
+					</CardContent>
+				</Card>
+			</div>
+		{/if}
+
+			<!-- No costs empty state -->
+		{#if costs.length === 0 && !financial}
+			<Card>
+				<CardContent class="flex flex-col items-center justify-center py-12">
+					<DollarSign class="size-10 text-muted-foreground/30 mb-3" />
+					<p class="text-sm text-muted-foreground mb-4">No financial data available for this listing yet.</p>
+					<div class="flex gap-2">
+						<Button size="sm" onclick={() => { newBudgetTotal = ''; showCreateBudget = true; }}>
+							<Plus class="mr-1.5 size-4" />Create Budget
+						</Button>
+						<Button size="sm" variant="outline" onclick={() => { newCostTitle = ''; newCostCategory = ''; newCostAmount = ''; newCostStatus = 'estimated'; newCostNotes = ''; showAddCost = true; }}>
+							<Plus class="mr-1.5 size-4" />Track Cost
+						</Button>
 					</div>
 				</CardContent>
 			</Card>
 		{/if}
 	</div>
 {/if}
+
+<!-- Track Cost Modal -->
+<Dialog.Root bind:open={showAddCost}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Track Cost</Dialog.Title>
+			<Dialog.Description>Add a cost entry for this listing.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/addCost"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Cost tracked');
+						showAddCost = false;
+						await update();
+					} else {
+						toast.error('Failed to add cost');
+					}
+				};
+			}}
+		>
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="cost-title" class="text-sm font-medium">Title</label>
+					<input
+						id="cost-title"
+						name="title"
+						type="text"
+						bind:value={newCostTitle}
+						required
+						placeholder="e.g. Landscaping cleanup"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="cost-category" class="text-sm font-medium">Category</label>
+					<input
+						id="cost-category"
+						name="category"
+						type="text"
+						bind:value={newCostCategory}
+						placeholder="e.g. Improvements"
+						list="category-options"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+					<datalist id="category-options">
+						{#each existingCategories() as cat}
+							<option value={cat}></option>
+						{/each}
+					</datalist>
+				</div>
+				<div class="grid grid-cols-2 gap-3">
+					<div>
+						<label for="cost-amount" class="text-sm font-medium">Amount</label>
+						<input
+							id="cost-amount"
+							name="amount"
+							type="number"
+							step="0.01"
+							min="0"
+							bind:value={newCostAmount}
+							required
+							placeholder="0.00"
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="cost-status" class="text-sm font-medium">Status</label>
+						<select
+							id="cost-status"
+							name="status"
+							bind:value={newCostStatus}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="estimated">Estimated</option>
+							<option value="quoted">Quoted</option>
+							<option value="committed">Committed</option>
+							<option value="paid">Paid</option>
+						</select>
+					</div>
+				</div>
+				<div>
+					<label for="cost-notes" class="text-sm font-medium">Notes</label>
+					<textarea
+						id="cost-notes"
+						name="notes"
+						bind:value={newCostNotes}
+						rows="2"
+						placeholder="Optional notes..."
+						class="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+					></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showAddCost = false}>Cancel</Button>
+				<Button type="submit">Track Cost</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
+
+<!-- Edit Cost Modal -->
+<Dialog.Root bind:open={showEditCost}>
+	<Dialog.Content class="sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="font-serif">Edit Cost</Dialog.Title>
+			<Dialog.Description>Update this cost entry.</Dialog.Description>
+		</Dialog.Header>
+		<form
+			method="POST"
+			action="?/updateCost"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					if (result.type === 'success') {
+						toast.success('Cost updated');
+						showEditCost = false;
+						editCost = null;
+						await update();
+					} else {
+						toast.error('Failed to update cost');
+					}
+				};
+			}}
+		>
+			<input type="hidden" name="costId" value={editCost?.id ?? ''} />
+			<div class="space-y-4 py-4">
+				<div>
+					<label for="edit-cost-title" class="text-sm font-medium">Title</label>
+					<input
+						id="edit-cost-title"
+						name="title"
+						type="text"
+						bind:value={editCostTitle}
+						required
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+				</div>
+				<div>
+					<label for="edit-cost-category" class="text-sm font-medium">Category</label>
+					<input
+						id="edit-cost-category"
+						name="category"
+						type="text"
+						bind:value={editCostCategory}
+						placeholder="e.g. Improvements"
+						list="edit-category-options"
+						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+					/>
+					<datalist id="edit-category-options">
+						{#each existingCategories() as cat}
+							<option value={cat}></option>
+						{/each}
+					</datalist>
+				</div>
+				<div class="grid grid-cols-2 gap-3">
+					<div>
+						<label for="edit-cost-amount" class="text-sm font-medium">Amount</label>
+						<input
+							id="edit-cost-amount"
+							name="amount"
+							type="number"
+							step="0.01"
+							min="0"
+							bind:value={editCostAmount}
+							required
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						/>
+					</div>
+					<div>
+						<label for="edit-cost-status" class="text-sm font-medium">Status</label>
+						<select
+							id="edit-cost-status"
+							name="status"
+							bind:value={editCostStatus}
+							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
+						>
+							<option value="estimated">Estimated</option>
+							<option value="quoted">Quoted</option>
+							<option value="committed">Committed</option>
+							<option value="paid">Paid</option>
+						</select>
+					</div>
+				</div>
+				<div>
+					<label for="edit-cost-notes" class="text-sm font-medium">Notes</label>
+					<textarea
+						id="edit-cost-notes"
+						name="notes"
+						bind:value={editCostNotes}
+						rows="2"
+						class="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none ring-ring focus:ring-2"
+					></textarea>
+				</div>
+			</div>
+			<Dialog.Footer>
+				<Button variant="outline" type="button" onclick={() => showEditCost = false}>Cancel</Button>
+				<Button type="submit">Save Changes</Button>
+			</Dialog.Footer>
+		</form>
+	</Dialog.Content>
+</Dialog.Root>
 
 <!-- Create Budget Modal -->
 <Dialog.Root bind:open={showCreateBudget}>
@@ -359,64 +893,3 @@
 		</form>
 	</Dialog.Content>
 </Dialog.Root>
-
-<!-- Add Category Modal -->
-{#if financial}
-	<Dialog.Root bind:open={showAddCategory}>
-		<Dialog.Content class="sm:max-w-md">
-			<Dialog.Header>
-				<Dialog.Title class="font-serif">Add Category</Dialog.Title>
-				<Dialog.Description>Add a new budget category.</Dialog.Description>
-			</Dialog.Header>
-			<form
-				method="POST"
-				action="?/addCategory"
-				use:enhance={() => {
-					return async ({ result, update }) => {
-						if (result.type === 'success') {
-							toast.success('Category added');
-							showAddCategory = false;
-							await update();
-						} else {
-							toast.error('Failed to add category');
-						}
-					};
-				}}
-			>
-				<input type="hidden" name="budgetId" value={financial.id} />
-				<div class="space-y-4 py-4">
-					<div>
-						<label for="category-name" class="text-sm font-medium">Category Name</label>
-						<input
-							id="category-name"
-							name="name"
-							type="text"
-							bind:value={newCategoryName}
-							required
-							placeholder="e.g. Staging"
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						/>
-					</div>
-					<div>
-						<label for="category-budgeted" class="text-sm font-medium">Budgeted Amount</label>
-						<input
-							id="category-budgeted"
-							name="budgeted"
-							type="number"
-							step="0.01"
-							min="0"
-							bind:value={newCategoryBudgeted}
-							required
-							placeholder="e.g. 3000"
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						/>
-					</div>
-				</div>
-				<Dialog.Footer>
-					<Button variant="outline" type="button" onclick={() => showAddCategory = false}>Cancel</Button>
-					<Button type="submit">Add Category</Button>
-				</Dialog.Footer>
-			</form>
-		</Dialog.Content>
-	</Dialog.Root>
-{/if}

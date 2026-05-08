@@ -6,7 +6,9 @@
     "temporal-worker"
   ],
   "scripts": {
-    "dev": "turbo dev",
+    "dev": "turbo inf:dev",
+    "inf:build": "turbo inf:build",
+    "inf:start": "turbo inf:start",
     "dev:app": "turbo dev --filter=hometrack-app",
     "dev:worker": "turbo dev --filter=hometrack-temporal-worker",
     "build": "turbo build",

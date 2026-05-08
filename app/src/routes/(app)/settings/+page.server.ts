@@ -77,12 +77,22 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        // Prevent deletion of agent members
+        const member = await db.query.teamMembers.findFirst({
+          where: and(eq(teamMembers.id, memberId), eq(teamMembers.teamId, teamId)),
+        });
+        if (member?.isAgent) {
+          throw new Error('AGENT_PROTECTED');
+        }
         await db
           .delete(teamMembers)
           .where(and(eq(teamMembers.id, memberId), eq(teamMembers.teamId, teamId)));
       });
       return { success: true };
-    } catch (e) {
+    } catch (e: any) {
+      if (e?.message === 'AGENT_PROTECTED') {
+        return fail(400, { error: 'Agent members cannot be removed directly. Disconnect the integration instead.' });
+      }
       console.error('Remove member error:', e);
       return fail(500, { error: 'Failed to remove member' });
     }

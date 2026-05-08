@@ -170,6 +170,13 @@
 	{/if}
 
 	<!-- Documents by category -->
+	{#if filteredDocs.length === 0}
+		<div class="text-center py-12 text-muted-foreground">
+			<FileText class="mx-auto mb-3 size-10 text-muted-foreground/30" />
+			<p class="text-lg">No documents yet</p>
+			<p class="text-sm mt-1">Documents shared by your agent will appear here.</p>
+		</div>
+	{/if}
 	{#each categories as category}
 		{@const categoryDocs = filteredDocs.filter((d) => d.category === category.key)}
 		{#if categoryDocs.length > 0}

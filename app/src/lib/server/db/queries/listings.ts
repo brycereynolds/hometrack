@@ -99,6 +99,7 @@ export async function getQuotesByListing(teamId: string, listingId: string, db: 
     with: {
       vendor: true,
       lineItems: true,
+      task: true,
     },
   });
 }

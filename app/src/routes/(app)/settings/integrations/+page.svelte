@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '$lib/components/ui/card/index.js';
+	import { Card, CardContent } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
@@ -9,89 +9,140 @@
 		FileSignature,
 		Database,
 		BarChart,
-		Receipt,
-		Image,
 		MessageSquare,
+		Send,
 		CheckCircle,
 		XCircle,
 		AlertCircle,
-		RefreshCw
+		RefreshCw,
+		Loader2,
+		Unplug
 	} from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
+	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
+	import SlackSetupModal from '$lib/components/SlackSetupModal.svelte';
 
 	let { data } = $props();
-	let syncingIntegrations = $state<Set<string>>(new Set());
-	let lastSyncTimes = $state<Record<string, Date>>({});
+	let slackModalOpen = $state(false);
+	let disconnectingSlack = $state(false);
+	let testingSlack = $state(false);
 
-	async function syncIntegration(integration: any) {
-		const id = integration.name;
-		if (syncingIntegrations.has(id)) return;
-		syncingIntegrations = new Set([...syncingIntegrations, id]);
-		toast.info('Syncing...');
-
-		// Simulate sync delay
-		await new Promise((resolve) => setTimeout(resolve, 1500));
-
-		lastSyncTimes = { ...lastSyncTimes, [id]: new Date() };
-		const next = new Set(syncingIntegrations);
-		next.delete(id);
-		syncingIntegrations = next;
-		toast.success(`${integration.name} synced successfully`);
+	function logoUrl(domain: string | null): string | null {
+		if (!domain) return null;
+		const token = data.logoDevToken;
+		const base = `https://img.logo.dev/${domain}?size=64&format=png`;
+		return token ? `${base}&token=${token}` : base;
 	}
 
-	function getLastSync(integration: any): string {
-		const overrideTime = lastSyncTimes[integration.name];
-		if (overrideTime) return overrideTime.toLocaleString();
-		if (integration.lastSync) return integration.lastSync.toLocaleString();
-		return '';
-	}
+	// Static card definitions — always shown regardless of DB state.
+	// Only Slack is a real integration; all others are demo placeholders.
+	const STATIC_CARDS = [
+		{ name: 'Gmail', description: 'Email sync and send', category: 'email', icon: 'Mail', logoUrl: logoUrl('gmail.com'), demo: true },
+		{ name: 'Google Calendar', description: 'Showings and appointments', category: 'calendar', icon: 'Calendar', logoUrl: logoUrl('calendar.google.com'), demo: true },
+		{ name: 'DocuSign', description: 'E-signatures and document routing', category: 'documents', icon: 'FileSignature', logoUrl: logoUrl('docusign.com'), demo: true },
+		{ name: 'MLSListings (Bay Area)', description: 'MLS data and comp feeds', category: 'mls', icon: 'Database', logoUrl: null, demo: true },
+		{ name: 'Zillow', description: 'View and save analytics', category: 'marketing', icon: 'BarChart', logoUrl: logoUrl('zillow.com'), demo: true },
+		{ name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication', icon: 'MessageSquare', logoUrl: logoUrl('twilio.com'), demo: true },
+		{ name: 'Postmark', description: 'Transactional email delivery', category: 'email', icon: 'Send', logoUrl: logoUrl('postmarkapp.com'), demo: true },
+		{ name: 'Slack', description: 'Team notifications and activity updates', category: 'communication', icon: 'MessageSquare', logoUrl: logoUrl('slack.com'), demo: false },
+	];
 
-	const integrations = $derived(data.integrations);
-
-	const iconMap: Record<string, typeof Mail> = {
-		Mail,
-		Calendar,
-		FileSignature,
-		Database,
-		BarChart,
-		Receipt,
-		Image,
-		MessageSquare
-	};
+	const iconMap: Record<string, any> = { Mail, Calendar, FileSignature, Database, BarChart, MessageSquare, Send };
 
 	const categoryLabels: Record<string, string> = {
-		email: 'Email & Calendar',
-		calendar: 'Email & Calendar',
+		email: 'Email',
+		calendar: 'Calendar',
 		documents: 'Documents',
 		mls: 'MLS & Data',
 		marketing: 'Marketing',
 		financial: 'Financial',
-		communication: 'Communication'
+		communication: 'Communication',
 	};
 
-	const categoryOrder = ['email', 'calendar', 'documents', 'mls', 'marketing', 'financial', 'communication'];
+	const categoryOrder = ['communication', 'email', 'calendar', 'documents', 'mls', 'marketing', 'financial'];
 
-	// Group integrations by display category
-	const grouped = $derived(() => {
-		const groups: Record<string, typeof integrations> = {};
-		for (const int of integrations) {
-			const label = categoryLabels[int.category] || int.category;
-			if (!groups[label]) groups[label] = [];
-			groups[label]!.push(int);
-		}
-		return Object.entries(groups);
+	// Merge static cards with live DB rows (connected integrations only), keyed by name.
+	const cards = $derived(() => {
+		const byName = new Map((data.connectedIntegrations ?? []).map((r: any) => [r.name, r]));
+		return STATIC_CARDS.map((card) => {
+			const live = byName.get(card.name);
+			return {
+				...card,
+				id: live?.id ?? null,
+				status: (live?.status ?? 'disconnected') as 'connected' | 'disconnected' | 'error',
+				config: live?.config ?? null,
+				connectedBy: live?.connectedBy ?? null,
+				lastSync: live?.lastSync ?? null,
+			};
+		});
 	});
 
+	const grouped = $derived(() => {
+		const groups: Record<string, ReturnType<typeof cards>> = {};
+		for (const card of cards()) {
+			const label = categoryLabels[card.category] || card.category;
+			if (!groups[label]) groups[label] = [];
+			groups[label]!.push(card);
+		}
+		return categoryOrder
+			.map((cat) => [categoryLabels[cat] || cat, groups[categoryLabels[cat] || cat]] as [string, ReturnType<typeof cards>])
+			.filter(([, items]) => items?.length);
+	});
+
+	const connectedCount = $derived(cards().filter((c) => c.status === 'connected').length);
+	const availableCount = $derived(cards().filter((c) => c.status !== 'connected').length);
+
 	const statusConfig = {
-		connected: { icon: CheckCircle, color: 'text-green-600', bg: 'bg-green-50', label: 'Connected' },
-		disconnected: { icon: XCircle, color: 'text-muted-foreground', bg: 'bg-muted/50', label: 'Disconnected' },
-		error: { icon: AlertCircle, color: 'text-red-500', bg: 'bg-red-50', label: 'Error' }
+		connected: { icon: CheckCircle, color: 'text-green-600', label: 'Connected' },
+		disconnected: { icon: XCircle, color: 'text-muted-foreground', label: 'Disconnected' },
+		error: { icon: AlertCircle, color: 'text-red-500', label: 'Error' },
 	};
 
-	function isGoogleIntegration(name: string) {
-		return name === 'Gmail' || name === 'Google Calendar';
+	onMount(() => {
+		const slackParam = $page.url.searchParams.get('slack');
+		if (slackParam === 'connected') toast.success('Slack connected via OAuth');
+		else if (slackParam === 'error') toast.error('Failed to connect Slack. Please try again.');
+	});
+
+	async function testSlackConnection(card: any) {
+		const config = card.config as { webhookUrl?: string } | null;
+		if (!config?.webhookUrl) return;
+		testingSlack = true;
+		try {
+			const res = await fetch('/api/integrations/slack/test', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ webhookUrl: config.webhookUrl }),
+			});
+			toast[res.ok ? 'success' : 'error'](res.ok ? 'Test message sent to Slack' : 'Failed to send test message');
+		} catch {
+			toast.error('Failed to reach Slack');
+		} finally {
+			testingSlack = false;
+		}
+	}
+
+	async function disconnectSlack() {
+		disconnectingSlack = true;
+		try {
+			const res = await fetch('?/disconnectSlack', { method: 'POST', body: new FormData() });
+			if (res.ok) {
+				toast.success('Slack disconnected');
+				await invalidateAll();
+			} else {
+				toast.error('Failed to disconnect Slack');
+			}
+		} catch {
+			toast.error('Failed to disconnect Slack');
+		} finally {
+			disconnectingSlack = false;
+		}
 	}
 </script>
+
+<SlackSetupModal bind:open={slackModalOpen} />
 
 <div class="space-y-6">
 	<div>
@@ -99,90 +150,89 @@
 		<p class="text-sm text-muted-foreground">Connect your tools and services to HomeTrack</p>
 	</div>
 
-	<!-- Connected count -->
 	<div class="flex items-center gap-4">
 		<Badge variant="outline" class="gap-1">
 			<CheckCircle class="size-3 text-green-600" />
-			{integrations.filter((i) => i.status === 'connected').length} connected
+			{connectedCount} connected
 		</Badge>
 		<Badge variant="secondary" class="gap-1">
-			{integrations.filter((i) => i.status === 'disconnected').length} available
+			{availableCount} available
 		</Badge>
 	</div>
 
-	<!-- Grouped integration cards -->
 	{#each grouped() as [category, items]}
 		<div class="space-y-3">
 			<h3 class="text-sm font-medium text-muted-foreground uppercase tracking-wider">{category}</h3>
 			<div class="grid gap-3 sm:grid-cols-2">
-				{#each items as integration}
-					{@const Icon = iconMap[integration.icon ?? ''] || Database}
-					{@const status = statusConfig[integration.status]}
+				{#each items as card}
+					{@const Icon = iconMap[card.icon] || Database}
+					{@const status = statusConfig[card.status]}
 					{@const StatusIcon = status.icon}
-					{@const isGoogle = isGoogleIntegration(integration.name)}
-					<Card class="transition-all hover:shadow-sm">
+					<Card class="relative transition-all hover:shadow-sm">
+						{#if card.demo}
+							<span class="absolute bottom-3 right-4 text-xs font-bold opacity-50">Demo</span>
+						{/if}
 						<CardContent class="p-4">
 							<div class="flex items-start gap-3">
-								<div class="rounded-lg border p-2.5">
-									<Icon class="size-5 text-muted-foreground" />
+								<div class="rounded-lg border p-2.5 flex items-center justify-center size-10">
+									{#if card.logoUrl}
+										<img src={card.logoUrl} alt={card.name} width="20" height="20" class="size-5" />
+									{:else}
+										<Icon class="size-5 text-muted-foreground" />
+									{/if}
 								</div>
 								<div class="flex-1 min-w-0">
 									<div class="flex items-center justify-between">
-										<h4 class="font-medium text-sm">{integration.name}</h4>
-										<Badge
-											variant="outline"
-											class="gap-1 text-xs {status.color}"
-										>
+										<h4 class="font-medium text-sm">{card.name}</h4>
+										<Badge variant="outline" class="gap-1 text-xs {status.color}">
 											<StatusIcon class="size-3" />
 											{status.label}
 										</Badge>
 									</div>
-									<p class="mt-0.5 text-xs text-muted-foreground">{integration.description}</p>
+									<p class="mt-0.5 text-xs text-muted-foreground">{card.description}</p>
 
-									{#if integration.status === 'connected'}
+									{#if card.status === 'connected'}
 										<div class="mt-2 flex items-center justify-between">
 											<div class="text-xs text-muted-foreground">
-												{#if getLastSync(integration)}
-													<span>Last sync: {getLastSync(integration)}</span>
+												{#if (card.config as any)?.workspaceName}
+													<span>{(card.config as any).workspaceName}</span>
 												{/if}
-												{#if integration.connectedBy}
-													<span> &middot; by {integration.connectedBy.name}</span>
+												{#if card.connectedBy}
+													<span> &middot; by {card.connectedBy.name}</span>
 												{/if}
 											</div>
-											{#if isGoogle}
-												<Button
-													variant="ghost"
-													size="sm"
-													class="h-6 text-xs gap-1"
-													disabled={syncingIntegrations.has(integration.name)}
-													onclick={() => syncIntegration(integration)}
-												>
-													<RefreshCw class="size-3 {syncingIntegrations.has(integration.name) ? 'animate-spin' : ''}" />
-													{syncingIntegrations.has(integration.name) ? 'Syncing...' : 'Sync'}
-												</Button>
-											{:else}
-												<Tooltip.Root>
-													<Tooltip.Trigger>
-														<Button variant="ghost" size="sm" class="h-6 text-xs gap-1 opacity-50" disabled>
+											{#if !card.demo}
+												<div class="flex gap-1">
+													<Button
+														variant="ghost"
+														size="sm"
+														class="h-6 text-xs gap-1"
+														disabled={testingSlack}
+														onclick={() => testSlackConnection(card)}
+													>
+														{#if testingSlack}
+															<Loader2 class="size-3 animate-spin" />
+														{:else}
 															<RefreshCw class="size-3" />
-															Sync
-														</Button>
-													</Tooltip.Trigger>
-													<Tooltip.Content>
-														<p>Coming Soon</p>
-													</Tooltip.Content>
-												</Tooltip.Root>
+														{/if}
+														Test
+													</Button>
+													<Button
+														variant="ghost"
+														size="sm"
+														class="h-6 text-xs gap-1 text-red-500 hover:text-red-600"
+														disabled={disconnectingSlack}
+														onclick={disconnectSlack}
+													>
+														<Unplug class="size-3" />
+														Disconnect
+													</Button>
+												</div>
 											{/if}
 										</div>
 									{:else}
 										<div class="mt-2">
-											{#if isGoogle}
-												<a href="/api/integrations/google/connect">
-													<Button variant="outline" size="sm" class="h-7 text-xs">
-														Connect
-													</Button>
-												</a>
-											{:else}
+											{#if card.demo}
 												<Tooltip.Root>
 													<Tooltip.Trigger>
 														<Button variant="outline" size="sm" class="h-7 text-xs opacity-50" disabled>
@@ -193,6 +243,15 @@
 														<p>Coming Soon</p>
 													</Tooltip.Content>
 												</Tooltip.Root>
+											{:else}
+												<Button
+													variant="outline"
+													size="sm"
+													class="h-7 text-xs"
+													onclick={() => { slackModalOpen = true; }}
+												>
+													Connect
+												</Button>
 											{/if}
 										</div>
 									{/if}

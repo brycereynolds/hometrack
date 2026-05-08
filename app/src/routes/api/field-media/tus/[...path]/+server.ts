@@ -100,8 +100,16 @@ export const POST: RequestHandler = async ({ locals, request, params }) => {
 		: SUPABASE_TUS();
 
 	const outHeaders = proxyHeaders(request);
-	console.log('[TUS] POST →', targetUrl);
-	console.log('[TUS] POST outgoing headers:', JSON.stringify(outHeaders, null, 2));
+	const uploadLength = outHeaders['upload-length'];
+	const objectName = outHeaders['upload-metadata']
+		?.split(',')
+		.find((s: string) => s.trimStart().startsWith('objectName '))
+		?.split(' ')[1];
+	const fileName = objectName ? Buffer.from(objectName, 'base64').toString() : 'unknown';
+
+	if (!uploadId) {
+		console.log(`[TUS] Upload started: ${fileName} (${Math.round(Number(uploadLength) / 1024 / 1024)}MB)`);
+	}
 
 	try {
 		const supaRes = await fetch(targetUrl, {
@@ -112,19 +120,17 @@ export const POST: RequestHandler = async ({ locals, request, params }) => {
 			duplex: 'half',
 		});
 
-		const responseHeaders: Record<string, string> = {};
-		supaRes.headers.forEach((v, k) => { responseHeaders[k] = v; });
-		console.log('[TUS] POST response status:', supaRes.status);
-		console.log('[TUS] POST response headers:', JSON.stringify(responseHeaders, null, 2));
-
 		if (!supaRes.ok) {
 			const errText = await supaRes.text();
-			console.error('[TUS] POST failed body:', errText);
+			console.error(`[TUS] Upload failed: ${fileName} — ${supaRes.status} ${errText}`);
 			if (supaRes.status === 413) {
-				const uploadLength = outHeaders['upload-length'];
-				console.error(`[TUS] 413 rejected — Upload-Length: ${uploadLength} bytes (${Math.round(Number(uploadLength) / 1024 / 1024)}MB). Supabase Storage tus-max-size may be too low. Restart Storage service or check UPLOAD_FILE_SIZE_LIMIT env var.`);
+				console.error(`[TUS] 413 size limit — ${Math.round(Number(uploadLength) / 1024 / 1024)}MB exceeds Supabase Storage max. Check UPLOAD_FILE_SIZE_LIMIT env var.`);
 			}
 			return json({ error: errText }, { status: supaRes.status });
+		}
+
+		if (supaRes.headers.get('tus-complete') === '1') {
+			console.log(`[TUS] Upload complete: ${fileName}`);
 		}
 
 		const responseBody = await supaRes.text();
@@ -149,12 +155,6 @@ export const PATCH: RequestHandler = async ({ locals, request, params }) => {
 
 	const patchUrl = `${SUPABASE_TUS()}/${uploadId}`;
 	const patchHeaders = proxyHeaders(request);
-	console.log('[TUS] PATCH →', patchUrl);
-	console.log('[TUS] PATCH headers:', JSON.stringify({
-		'upload-offset': patchHeaders['upload-offset'],
-		'content-length': patchHeaders['content-length'],
-		'content-type': patchHeaders['content-type'],
-	}));
 
 	try {
 		const supaRes = await fetch(patchUrl, {
@@ -165,12 +165,16 @@ export const PATCH: RequestHandler = async ({ locals, request, params }) => {
 			duplex: 'half',
 		});
 
-		console.log('[TUS] PATCH response:', supaRes.status, 'offset:', supaRes.headers.get('upload-offset'));
-
 		if (!supaRes.ok) {
 			const errText = await supaRes.text();
-			console.error('[TUS] PATCH failed:', supaRes.status, errText);
+			console.error('[TUS] Chunk failed:', supaRes.status, errText);
 			return json({ error: errText }, { status: supaRes.status });
+		}
+
+		const offset = supaRes.headers.get('upload-offset');
+		const length = supaRes.headers.get('upload-length');
+		if (offset && length && offset === length) {
+			console.log(`[TUS] Upload complete (chunked): ${Math.round(Number(length) / 1024 / 1024)}MB`);
 		}
 
 		return proxyResponse(supaRes, supaRes.status, null);
@@ -192,7 +196,6 @@ export const HEAD: RequestHandler = async ({ locals, params }) => {
 	}
 
 	const headUrl = `${SUPABASE_TUS()}/${uploadId}`;
-	console.log('[TUS] HEAD →', headUrl);
 
 	try {
 		const supaRes = await fetch(headUrl, {
@@ -202,8 +205,6 @@ export const HEAD: RequestHandler = async ({ locals, params }) => {
 				'tus-resumable': '1.0.0',
 			},
 		});
-
-		console.log('[TUS] HEAD response:', supaRes.status, 'offset:', supaRes.headers.get('upload-offset'), 'length:', supaRes.headers.get('upload-length'));
 
 		if (!supaRes.ok) {
 			console.error('[TUS] HEAD failed:', supaRes.status);

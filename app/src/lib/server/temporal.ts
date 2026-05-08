@@ -77,6 +77,23 @@ export async function startMarketAnalysisWorkflow(input: MarketAnalysisInput) {
 	}
 }
 
+export async function getWorkflowStatus(workflowId: string): Promise<'running' | 'completed' | 'failed' | 'cancelled' | 'unknown'> {
+	const client = await getTemporalClient();
+	if (!client) return 'unknown';
+
+	try {
+		const handle = client.workflow.getHandle(workflowId);
+		const desc = await handle.describe();
+		const status = desc.status.name;
+		if (status === 'COMPLETED') return 'completed';
+		if (status === 'FAILED' || status === 'TIMED_OUT' || status === 'TERMINATED') return 'failed';
+		if (status === 'CANCELLED') return 'cancelled';
+		return 'running';
+	} catch {
+		return 'unknown';
+	}
+}
+
 export async function startFieldMediaWorkflow(input: FieldMediaInput) {
 	const client = await getTemporalClient();
 	if (!client) return null;

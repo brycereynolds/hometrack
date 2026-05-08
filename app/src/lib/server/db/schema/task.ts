@@ -3,6 +3,7 @@ import { relations } from 'drizzle-orm';
 import { taskStatusEnum, taskPriorityEnum, listingPhaseEnum, taskCategoryEnum } from './enums.js';
 import { teams, teamMembers } from './team.js';
 import { listings } from './listing.js';
+import { quotes } from './vendor.js';
 
 export const tasks = pgTable(
   'tasks',
@@ -15,6 +16,7 @@ export const tasks = pgTable(
       .notNull()
       .references(() => listings.id, { onDelete: 'cascade' }),
     title: text('title').notNull(),
+    description: text('description'),
     status: taskStatusEnum('status').notNull().default('todo'),
     priority: taskPriorityEnum('priority').notNull().default('medium'),
     assigneeId: text('assignee_id').references(() => teamMembers.id, { onDelete: 'set null' }),
@@ -37,7 +39,7 @@ export const tasks = pgTable(
   ],
 );
 
-export const tasksRelations = relations(tasks, ({ one }) => ({
+export const tasksRelations = relations(tasks, ({ one, many }) => ({
   team: one(teams, {
     fields: [tasks.teamId],
     references: [teams.id],
@@ -50,4 +52,5 @@ export const tasksRelations = relations(tasks, ({ one }) => ({
     fields: [tasks.assigneeId],
     references: [teamMembers.id],
   }),
+  quotes: many(quotes),
 }));

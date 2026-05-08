@@ -9,21 +9,24 @@ import { eq } from 'drizzle-orm';
 export const load: PageServerLoad = async ({ parent }) => {
   const { team } = await parent();
 
-  // Get the first listing for this team (portal context)
-  const firstListing = await adminDb.query.listings.findFirst({
+  // Get all listings for this team
+  const allListings = await adminDb.query.listings.findMany({
     where: eq(listings.teamId, team.id),
   });
 
-  if (!firstListing) {
+  if (allListings.length === 0) {
     return { documents: [] };
   }
 
+  // Load documents across all listings
+  const { inArray } = await import('drizzle-orm');
+  const listingIds = allListings.map((l) => l.id);
   const docs = await adminDb.query.documents.findMany({
-    where: eq(documents.listingId, firstListing.id),
+    where: inArray(documents.listingId, listingIds),
   });
 
-  // Filter documents by portal sharing settings
-  const sharing = (firstListing.portalSettings as Record<string, any>)?.documentSharing;
+  // Filter documents by portal sharing settings from first listing
+  const sharing = (allListings[0].portalSettings as Record<string, any>)?.documentSharing;
   const filteredDocs = sharing
     ? docs.filter((doc) => {
         const category = (doc as any).category;

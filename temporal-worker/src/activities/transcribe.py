@@ -5,7 +5,7 @@ import anthropic
 import openai
 from temporalio import activity
 
-from src.config import ANTHROPIC_API_KEY, OPENAI_API_KEY, logger
+from src.config import get_anthropic_client, OPENAI_API_KEY, logger
 from src.models import TranscriptSegment
 
 MAX_CHUNK_SIZE = 24 * 1024 * 1024  # 24 MB
@@ -50,7 +50,7 @@ async def _transcribe_file(client: openai.AsyncOpenAI, path: str) -> dict:
 
     segments = []
     for seg in (response.segments or []):
-        segments.append(TranscriptSegment(start=seg["start"], end=seg["end"], text=seg["text"]))
+        segments.append(TranscriptSegment(start=seg.start, end=seg.end, text=seg.text))
 
     return {"full_text": response.text, "segments": segments}
 
@@ -119,9 +119,9 @@ Return ONLY a JSON array of speaker labels in segment order, e.g.:
 ["Agent", "Client", "Agent", "Client"]"""
 
     try:
-        client = anthropic.AsyncAnthropic(api_key=ANTHROPIC_API_KEY)
+        client = get_anthropic_client()
         message = await client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model="claude-sonnet-4-6",
             max_tokens=1000,
             messages=[{"role": "user", "content": prompt}],
         )

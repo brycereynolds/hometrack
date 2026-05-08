@@ -13,6 +13,17 @@
       "dependsOn": ["build"],
       "cache": false,
       "persistent": true
+    },
+    "inf:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "inf:build": {
+      "cache": false
+    },
+    "inf:start": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

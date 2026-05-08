@@ -41,6 +41,7 @@ const {
   compSales,
   quotes,
   quoteLineItems,
+  listingCosts,
   marketingAssets,
   integrations,
   workflowTemplates,
@@ -81,6 +82,7 @@ async function main() {
   console.log('  Clearing existing data...');
   try {
     await outerDb.execute(sql`TRUNCATE TABLE
+      listing_costs,
       field_note_actions, field_note_moments, field_note_frames,
       field_note_transcripts, field_notes,
       external_listings, buyer_preferences,
@@ -107,6 +109,7 @@ async function main() {
   const vendorMap: Record<string, string> = {};
   const budgetMap: Record<string, string> = {};
   const quoteMap: Record<string, string> = {};
+  const taskMap: Record<string, string> = {};
 
   // Helper to parse date strings to Date objects
   function parseDate(dateStr: string): Date {
@@ -1113,44 +1116,20 @@ async function main() {
       neighborhood: 'Blossom Valley',
       photos: [
         {
-          url: 'https://photos.zillowstatic.com/fp/80c17188746bf0834ed23ad64a898f14-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
+          url: '/images/listings/809-midvale/exterior.jpg',
+          source: 'local',
         },
         {
-          url: 'https://photos.zillowstatic.com/fp/b57ac5640b4a32e820f4647247e17c1a-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
+          url: '/images/listings/809-midvale/living-room.jpg',
+          source: 'local',
         },
         {
-          url: 'https://photos.zillowstatic.com/fp/249290e8cd40551a6d577870f2f64454-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
+          url: '/images/listings/809-midvale/bedroom-1.jpg',
+          source: 'local',
         },
         {
-          url: 'https://photos.zillowstatic.com/fp/312e6129aa0a337aa50a4dead26c9bc2-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/d2be24959ef80f122e8ad3139aacbe0e-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/f2c88dc5ee484f35bb2538ecba9e00b4-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/40183d146788371dcdb4340845c540ff-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/890b03cfef2dfc5fb2ff9d8007a8432c-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/15d0029b92d4f9ca960b51c58b4fa35f-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
-        },
-        {
-          url: 'https://photos.zillowstatic.com/fp/4c024d6fd6fa17b368a1eb40583c6c58-uncropped_scaled_within_1536_1152.jpg',
-          source: 'zillow',
+          url: '/images/listings/809-midvale/bedroom-2.jpg',
+          source: 'local',
         },
       ],
       lastSoldPrice: 840000,
@@ -2712,8 +2691,10 @@ async function main() {
   ];
 
   for (const t of taskData) {
+    const taskId = randomUUID();
+    taskMap[t.mockId] = taskId;
     await db.insert(tasks).values({
-      id: randomUUID(),
+      id: taskId,
       teamId,
       listingId: listingMap[t.listingMock],
       title: t.title,
@@ -2740,16 +2721,67 @@ async function main() {
   };
 
   const activityData = [
-    { mockId: 'a-1', type: 'message' as const, authorName: 'David Nguyen', authorInitials: 'DN', timestamp: '2026-04-09T09:15:00', content: 'Hi Lauren, can we discuss the open house schedule for this weekend? We had some feedback from the neighbors about parking.', listingMock: 'l-1' },
+    // ── l-5: 809 Midvale Ln — full story arc (8 items, newest first) ──
+    { mockId: 'a-50', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-09T14:00:00', content: 'Document uploaded: Property Disclosure Statement', listingMock: 'l-5' },
+    { mockId: 'a-49', type: 'task_complete' as const, authorName: 'Bryce Reynolds', authorInitials: 'BR', timestamp: '2026-04-09T11:30:00', content: 'Completed task: Review & sign listing agreement', listingMock: 'l-5' },
+    { mockId: 'a-48', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-09T09:00:00', content: 'Quote received: Wall damage repair — $4,800 from Bradley Renovations', listingMock: 'l-5' },
+    { mockId: 'a-47', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-08T16:00:00', content: 'Quote requested from Green Thumb Landscaping for general landscaping cleanup', listingMock: 'l-5' },
+    { mockId: 'a-46', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-08T14:30:00', content: 'Cost tracked: Pre-listing inspection — $500', listingMock: 'l-5' },
+    { mockId: 'a-45', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-08T11:00:00', content: 'Task created from field note: General landscaping cleanup', listingMock: 'l-5' },
+    { mockId: 'a-44', type: 'note' as const, authorName: 'Bryce Reynolds', authorInitials: 'BR', timestamp: '2026-04-08T10:15:00', content: 'Field note uploaded: Exterior walkthrough — noted overgrown hedges, cracked walkway, and peeling exterior paint on south side.', listingMock: 'l-5' },
+    { mockId: 'a-43', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-07T09:00:00', content: 'Listing created for 809 Midvale Ln, San Jose', listingMock: 'l-5' },
+
+    // ── l-1: 126 University Ave — active listing (7 items) ──
+    { mockId: 'a-1', type: 'message' as const, authorName: 'David Nguyen', authorInitials: 'DN', timestamp: '2026-04-09T09:15:00', content: 'Hi Bryce, can we discuss the open house schedule for this weekend? We had some feedback from the neighbors about parking.', listingMock: 'l-1' },
+    { mockId: 'a-4', type: 'voice_memo' as const, authorName: 'Bryce Reynolds', authorInitials: 'BR', timestamp: '2026-04-08T17:30:00', content: 'Quick note after showing at 126 University — buyer seemed very interested in the remodeled kitchen.', listingMock: 'l-1', metadata: { duration: '0:42' } },
+    { mockId: 'a-5', type: 'task_complete' as const, authorName: 'Jordan Nakamura', authorInitials: 'JN', timestamp: '2026-04-08T16:00:00', content: 'Completed task: Update social media ads for Open House', listingMock: 'l-1' },
+    { mockId: 'a-11', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-07T10:00:00', content: 'Offer received: Chen-Williams — $2,450,000, conventional 25% down', listingMock: 'l-1' },
+    { mockId: 'a-12', type: 'email' as const, authorName: 'Brian Foster', authorInitials: 'BF', timestamp: '2026-04-06T14:30:00', content: 'Showing confirmed for April 8 at 2:00 PM — downsizer couple, very motivated. Will need about 45 minutes.', listingMock: 'l-1', metadata: { subject: 'Showing Request — 126 University Ave' } },
+    { mockId: 'a-13', type: 'phase_change' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-04T09:00:00', content: 'Listing moved from Pre-Market to Active. MLS# ML81928374 published.', listingMock: 'l-1' },
+    { mockId: 'a-14', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-03-20T10:00:00', content: 'Listing created for 126 University Ave, Los Gatos', listingMock: 'l-1' },
+
+    // ── l-2: 1430 Callecita St — active, longer on market (6 items) ──
     { mockId: 'a-2', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-09T08:30:00', content: 'New showing request from Brian Foster (Sereno Group) for April 11 at 2:00 PM.', listingMock: 'l-2' },
     { mockId: 'a-3', type: 'email' as const, authorName: 'Rebecca Thornton', authorInitials: 'RT', timestamp: '2026-04-09T07:45:00', content: 'RE: Photography Schedule — Looks great! I approved the twilight shoot for Thursday.', listingMock: 'l-2', metadata: { subject: 'RE: Photography Schedule' } },
-    { mockId: 'a-4', type: 'voice_memo' as const, authorName: 'Bryce Reynolds', authorInitials: 'BR', timestamp: '2026-04-08T17:30:00', content: 'Quick note after showing at 123 Main — buyer seemed very interested in the remodeled kitchen.', listingMock: 'l-1', metadata: { duration: '0:42' } },
-    { mockId: 'a-5', type: 'task_complete' as const, authorName: 'Jordan Nakamura', authorInitials: 'JN', timestamp: '2026-04-08T16:00:00', content: 'Completed task: Update social media ads for Open House', listingMock: 'l-1' },
-    { mockId: 'a-6', type: 'note' as const, authorName: 'Marcus Rivera', authorInitials: 'MR', timestamp: '2026-04-08T14:20:00', content: 'Spoke with Diana Reyes — she has a tech relocation client looking in Cupertino.', listingMock: 'l-3' },
-    { mockId: 'a-7', type: 'phase_change' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-08T10:00:00', content: 'Listing moved from Pre-Market to Active.', listingMock: 'l-2' },
-    { mockId: 'a-8', type: 'message' as const, authorName: 'Michael Park', authorInitials: 'MP', timestamp: '2026-04-08T09:00:00', content: 'We reviewed the three offers on 256 Los Gatos Blvd. The Westfield Group offer is strongest but the contingency timeline concerns us.', listingMock: 'l-6' },
-    { mockId: 'a-9', type: 'email' as const, authorName: 'Tom Bradley', authorInitials: 'TB', timestamp: '2026-04-07T15:00:00', content: 'Hi Sofia, the bathroom renovation quote for 672 Willow St is attached. Total comes to $12,400 including fixtures.', listingMock: 'l-8', metadata: { subject: 'Bathroom Renovation Quote - 672 Willow St' } },
     { mockId: 'a-10', type: 'ai_insight' as const, authorName: 'HomeTrack', authorInitials: 'HT', timestamp: '2026-04-09T06:00:00', content: 'Showing volume for 1430 Callecita St has dropped 30% this week compared to last.', listingMock: 'l-2' },
+    { mockId: 'a-7', type: 'phase_change' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-03-22T10:00:00', content: 'Listing moved from Pre-Market to Active. MLS# ML81935521 published.', listingMock: 'l-2' },
+    { mockId: 'a-15', type: 'task_complete' as const, authorName: 'Priya Patel', authorInitials: 'PP', timestamp: '2026-03-18T15:00:00', content: 'Completed task: Order preliminary title report', listingMock: 'l-2' },
+    { mockId: 'a-16', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-03-10T09:00:00', content: 'Listing created for 1430 Callecita St, San Jose', listingMock: 'l-2' },
+
+    // ── l-3: 40 Pleasant St — pre-market, approaching list date (5 items) ──
+    { mockId: 'a-6', type: 'note' as const, authorName: 'Marcus Rivera', authorInitials: 'MR', timestamp: '2026-04-08T14:20:00', content: 'Spoke with Diana Reyes — she has a tech relocation client looking in Cupertino. Could be a strong pre-market offer.', listingMock: 'l-3' },
+    { mockId: 'a-17', type: 'task_complete' as const, authorName: 'Sofia Andrade', authorInitials: 'SA', timestamp: '2026-04-07T16:00:00', content: 'Completed task: Staging consultation and furniture selection', listingMock: 'l-3' },
+    { mockId: 'a-18', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-06T10:00:00', content: 'Pre-emptive offer received: Tanaka Family — $2,100,000', listingMock: 'l-3' },
+    { mockId: 'a-19', type: 'email' as const, authorName: 'Michael Park', authorInitials: 'MP', timestamp: '2026-04-05T11:00:00', content: 'Hi Marcus, we have some questions about the inspection report findings. Can we set up a call this week?', listingMock: 'l-3', metadata: { subject: 'Inspection Report Questions' } },
+    { mockId: 'a-20', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-03T09:00:00', content: 'Listing created for 40 Pleasant St, Los Gatos', listingMock: 'l-3' },
+
+    // ── l-4: 841 Willis Ave — pre-market (4 items) ──
+    { mockId: 'a-21', type: 'task_complete' as const, authorName: 'Marcus Rivera', authorInitials: 'MR', timestamp: '2026-04-08T12:00:00', content: 'Completed task: Schedule pre-listing home inspection', listingMock: 'l-4' },
+    { mockId: 'a-22', type: 'note' as const, authorName: 'Sofia Andrade', authorInitials: 'SA', timestamp: '2026-04-05T14:00:00', content: 'Staging proposal finalized — furniture delivery scheduled for April 20. Budget approved at $3,200.', listingMock: 'l-4' },
+    { mockId: 'a-23', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-02T10:00:00', content: 'Home inspection completed. Report uploaded by Priya Patel.', listingMock: 'l-4' },
+    { mockId: 'a-24', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-03-30T09:00:00', content: 'Listing created for 841 Willis Ave, San Jose', listingMock: 'l-4' },
+
+    // ── l-6: 256 Los Gatos Blvd — active, 28 DOM, multiple offers (6 items) ──
+    { mockId: 'a-8', type: 'message' as const, authorName: 'Michael Park', authorInitials: 'MP', timestamp: '2026-04-08T09:00:00', content: 'We reviewed the three offers on 256 Los Gatos Blvd. The Westfield Group offer is strongest but the contingency timeline concerns us.', listingMock: 'l-6' },
+    { mockId: 'a-25', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-07T16:00:00', content: 'Offer received: Yun & Associates Trust — $3,275,000, all cash, 7-day close', listingMock: 'l-6' },
+    { mockId: 'a-26', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-07T10:00:00', content: 'Offer received: The Westfield Group — $3,150,000, conventional 20% down', listingMock: 'l-6' },
+    { mockId: 'a-27', type: 'task_complete' as const, authorName: 'Bryce Reynolds', authorInitials: 'BR', timestamp: '2026-03-25T14:00:00', content: 'Completed task: Collect showing feedback from agents — 21 showings logged', listingMock: 'l-6' },
+    { mockId: 'a-28', type: 'phase_change' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-03-12T09:00:00', content: 'Listing moved from Pre-Market to Active. MLS# ML81930445 published.', listingMock: 'l-6' },
+    { mockId: 'a-29', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-02-22T09:00:00', content: 'Listing created for 256 Los Gatos Blvd, Los Gatos', listingMock: 'l-6' },
+
+    // ── l-7: 377 Derby Ave — under contract (5 items) ──
+    { mockId: 'a-30', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-05T10:00:00', content: 'Home inspection completed. Report uploaded.', listingMock: 'l-7' },
+    { mockId: 'a-31', type: 'phase_change' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-03-30T14:00:00', content: 'Status changed to Under Contract. Accepted offer from buyer represented by Sarah Kim.', listingMock: 'l-7' },
+    { mockId: 'a-32', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-03-28T11:00:00', content: 'Offer accepted: $1,475,000, all contingencies in place. Closing target May 15.', listingMock: 'l-7' },
+    { mockId: 'a-33', type: 'phase_change' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-03-05T09:00:00', content: 'Listing moved from Pre-Market to Active. MLS# ML81925100 published.', listingMock: 'l-7' },
+    { mockId: 'a-34', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-02-20T09:00:00', content: 'Listing created for 377 Derby Ave, San Mateo', listingMock: 'l-7' },
+
+    // ── l-8: 672 Willow St — pre-market, renovation (5 items) ──
+    { mockId: 'a-9', type: 'email' as const, authorName: 'Tom Bradley', authorInitials: 'TB', timestamp: '2026-04-07T15:00:00', content: 'Hi Sofia, the bathroom renovation quote for 672 Willow St is attached. Total comes to $12,400 including fixtures.', listingMock: 'l-8', metadata: { subject: 'Bathroom Renovation Quote - 672 Willow St' } },
+    { mockId: 'a-35', type: 'note' as const, authorName: 'Sofia Andrade', authorInitials: 'SA', timestamp: '2026-04-06T16:00:00', content: 'Updated renovation scope of work — added kitchen backsplash and hardware replacement. Revised budget: $18,500.', listingMock: 'l-8' },
+    { mockId: 'a-36', type: 'task_complete' as const, authorName: 'Marcus Rivera', authorInitials: 'MR', timestamp: '2026-04-05T11:00:00', content: 'Completed task: Upload HOA documents package', listingMock: 'l-8' },
+    { mockId: 'a-37', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-04T14:00:00', content: 'Cost tracked: Renovation deposit — $5,000 to Bradley Renovations', listingMock: 'l-8' },
+    { mockId: 'a-38', type: 'system' as const, authorName: 'System', authorInitials: 'HT', timestamp: '2026-04-01T09:00:00', content: 'Listing created for 672 Willow St, San Jose', listingMock: 'l-8' },
   ];
 
   for (const a of activityData) {
@@ -2802,6 +2834,9 @@ async function main() {
     { listingMock: 'l-2', date: '2026-04-08', time: '4:00 PM', agentName: 'Sarah Kim', agentCompany: 'Compass', buyerType: 'Move-up buyer', feedback: 'Beautiful property. Buyers love the lot size. Concern about dated bathrooms.', rating: 4, interestedLevel: 'very' as const },
     { listingMock: 'l-2', date: '2026-04-06', time: '1:00 PM', agentName: 'Unknown Agent', agentCompany: 'Open House Walk-in', buyerType: 'First-time buyer', feedback: 'Just browsing the neighborhood. Price is out of their range.', rating: 2, interestedLevel: 'not' as const },
     { listingMock: 'l-6', date: '2026-04-05', time: '11:00 AM', agentName: 'Brian Foster', agentCompany: 'Sereno Group', buyerType: 'Luxury upgrade', feedback: 'Strong interest. Love the lot and the Saratoga schools.', rating: 5, interestedLevel: 'very' as const },
+    { listingMock: 'l-6', date: '2026-04-03', time: '2:00 PM', agentName: 'Diana Reyes', agentCompany: 'Keller Williams', buyerType: 'Tech family relocating', feedback: 'Good space but they prefer single story. Dual living potential is interesting.', rating: 3, interestedLevel: 'somewhat' as const },
+    { listingMock: 'l-2', date: '2026-04-03', time: '11:00 AM', agentName: 'Brian Foster', agentCompany: 'Sereno Group', buyerType: 'Downsizer couple', feedback: 'Beautiful home. Price feels a bit high for the square footage. Will discuss with clients.', rating: 3, interestedLevel: 'somewhat' as const },
+    { listingMock: 'l-2', date: '2026-03-28', time: '10:00 AM', agentName: 'Diana Reyes', agentCompany: 'Keller Williams', buyerType: 'Move-up buyer', feedback: 'Clients loved the new construction feel and the pool. School district is a draw.', rating: 5, interestedLevel: 'very' as const },
     { listingMock: 'l-8', date: '2026-04-10', time: '10:00 AM', agentName: 'Sarah Kim', agentCompany: 'Compass', buyerType: 'Investor', feedback: 'Good bones. Needs cosmetic work but priced well for the area.', rating: 3, interestedLevel: 'somewhat' as const },
     { listingMock: 'l-8', date: '2026-04-09', time: '3:00 PM', agentName: 'Brian Foster', agentCompany: 'Sereno Group', buyerType: 'First-time buyer', feedback: 'Love the location near Murphy Ave. Concerned about lack of updates.', rating: 3, interestedLevel: 'somewhat' as const },
     // Showings for l-3 (pre-market broker preview)
@@ -3032,6 +3067,12 @@ async function main() {
     { name: 'Property Brochure', category: 'marketing' as const, listingMock: 'l-1', uploadedBy: 'Jordan Nakamura', uploadedDate: '2026-04-03', fileSize: '5.2 MB', fileType: 'PDF', status: 'complete' as const, version: 3 },
     { name: 'Purchase Agreement - Chen-Williams', category: 'contracts' as const, listingMock: 'l-1', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-09', fileSize: '420 KB', fileType: 'PDF', status: 'pending_signature' as const, version: 1 },
     { name: 'Preliminary Title Report', category: 'title' as const, listingMock: 'l-2', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-18', fileSize: '2.1 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-2', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-03-10', fileSize: '330 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Transfer Disclosure Statement (TDS)', category: 'disclosures' as const, listingMock: 'l-2', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-15', fileSize: '255 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
+    { name: 'Home Inspection Report', category: 'inspection' as const, listingMock: 'l-2', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-14', fileSize: '4.3 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    { name: 'Property Brochure', category: 'marketing' as const, listingMock: 'l-2', uploadedBy: 'Jordan Nakamura', uploadedDate: '2026-03-20', fileSize: '5.8 MB', fileType: 'PDF', status: 'complete' as const, version: 2 },
+    // Documents for l-9
+    { name: 'Client Intake Form', category: 'contracts' as const, listingMock: 'l-9', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-04-10', fileSize: '120 KB', fileType: 'PDF', status: 'complete' as const, version: 1 },
     // Documents for l-3
     { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-3', uploadedBy: 'Marcus Rivera', uploadedDate: '2026-04-03', fileSize: '310 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
     { name: 'Home Inspection Report', category: 'inspection' as const, listingMock: 'l-3', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-08', fileSize: '4.1 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
@@ -3044,6 +3085,8 @@ async function main() {
     // Documents for l-5
     { name: 'Listing Agreement', category: 'contracts' as const, listingMock: 'l-5', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-04-09', fileSize: '280 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
     { name: 'Client Intake Form', category: 'contracts' as const, listingMock: 'l-5', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-04-08', fileSize: '145 KB', fileType: 'PDF', status: 'complete' as const, version: 1 },
+    { name: 'Property Disclosure Statement', category: 'disclosures' as const, listingMock: 'l-5', uploadedBy: 'Priya Patel', uploadedDate: '2026-04-09', fileSize: '210 KB', fileType: 'PDF', status: 'draft' as const, version: 1 },
+    { name: 'Pre-listing Inspection Report', category: 'inspection' as const, listingMock: 'l-5', uploadedBy: 'Bryce Reynolds', uploadedDate: '2026-04-08', fileSize: '3.5 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
     // Documents for l-6
     { name: 'Transfer Disclosure Statement (TDS)', category: 'disclosures' as const, listingMock: 'l-6', uploadedBy: 'Priya Patel', uploadedDate: '2026-02-28', fileSize: '260 KB', fileType: 'PDF', status: 'signed' as const, version: 1 },
     { name: 'Natural Hazard Disclosure (NHD)', category: 'disclosures' as const, listingMock: 'l-6', uploadedBy: 'Priya Patel', uploadedDate: '2026-03-01', fileSize: '1.4 MB', fileType: 'PDF', status: 'complete' as const, version: 1 },
@@ -3156,11 +3199,14 @@ async function main() {
   // ─── 14. Quotes & Line Items ──────────────────────────────────────────
   console.log('  Inserting quotes...');
   const quoteData = [
-    { mockId: 'q-1', vendorMock: 'v-1', listingMock: 'l-8', scope: 'Bathroom renovation', amount: 12400, status: 'received' as const, requestedDate: '2026-04-03', receivedDate: '2026-04-07', validUntil: '2026-04-21', notes: 'Can start as early as next Monday if approved', lineItems: [{ description: 'Demo & haul', amount: 1800 }, { description: 'Plumbing rough-in', amount: 2200 }, { description: 'Tile & grout', amount: 3400 }, { description: 'Vanity & fixtures', amount: 3200 }, { description: 'Paint & trim', amount: 1800 }] },
-    { mockId: 'q-2', vendorMock: 'v-2', listingMock: 'l-4', scope: 'Full vacant staging (2 months)', amount: 5800, status: 'approved' as const, requestedDate: '2026-03-28', receivedDate: '2026-03-29', validUntil: '2026-04-15', lineItems: [{ description: 'Staging design', amount: 800 }, { description: 'Furniture rental (2 mo)', amount: 3600 }, { description: 'Delivery & install', amount: 700 }, { description: 'De-stage & pickup', amount: 700 }] },
-    { mockId: 'q-3', vendorMock: 'v-3', listingMock: 'l-3', scope: 'Full photo + video package', amount: 2200, status: 'approved' as const, requestedDate: '2026-04-05', receivedDate: '2026-04-05', validUntil: '2026-04-20', lineItems: [{ description: 'Professional photos (40+)', amount: 800 }, { description: 'Drone aerial (8 shots)', amount: 400 }, { description: 'Video walkthrough (2 min)', amount: 600 }, { description: 'Twilight shoot', amount: 400 }] },
+    { mockId: 'q-1', vendorMock: 'v-1', listingMock: 'l-8', scope: 'Bathroom renovation', amount: 12400, status: 'received' as const, requestedDate: '2026-04-03', receivedDate: '2026-04-07', validUntil: '2026-04-21', notes: 'Can start as early as next Monday if approved', documentName: 'Bradley_Renovations_Bathroom_Quote.pdf', sharedWithClient: true, clientReviewStatus: 'pending_review', lineItems: [{ description: 'Demo & haul', amount: 1800 }, { description: 'Plumbing rough-in', amount: 2200 }, { description: 'Tile & grout', amount: 3400 }, { description: 'Vanity & fixtures', amount: 3200 }, { description: 'Paint & trim', amount: 1800 }] },
+    { mockId: 'q-2', vendorMock: 'v-2', listingMock: 'l-4', scope: 'Full vacant staging (2 months)', amount: 5800, status: 'approved' as const, requestedDate: '2026-03-28', receivedDate: '2026-03-29', validUntil: '2026-04-15', documentName: 'Meridian_Staging_Proposal.pdf', sharedWithClient: true, clientReviewStatus: 'approved', lineItems: [{ description: 'Staging design', amount: 800 }, { description: 'Furniture rental (2 mo)', amount: 3600 }, { description: 'Delivery & install', amount: 700 }, { description: 'De-stage & pickup', amount: 700 }] },
+    { mockId: 'q-3', vendorMock: 'v-3', listingMock: 'l-3', scope: 'Full photo + video package', amount: 2200, status: 'approved' as const, requestedDate: '2026-04-05', receivedDate: '2026-04-05', validUntil: '2026-04-20', documentName: 'TranGroup_PhotoVideo_Quote.pdf', sharedWithClient: false, lineItems: [{ description: 'Professional photos (40+)', amount: 800 }, { description: 'Drone aerial (8 shots)', amount: 400 }, { description: 'Video walkthrough (2 min)', amount: 600 }, { description: 'Twilight shoot', amount: 400 }] },
     { mockId: 'q-4', vendorMock: 'v-5', listingMock: 'l-1', scope: 'Curb appeal package', amount: 3800, status: 'requested' as const, requestedDate: '2026-04-08', lineItems: [] },
-    { mockId: 'q-5', vendorMock: 'v-6', listingMock: 'l-8', scope: 'Interior repaint - full unit', amount: 4200, status: 'received' as const, requestedDate: '2026-04-04', receivedDate: '2026-04-06', validUntil: '2026-04-20', lineItems: [{ description: 'Prep & prime (all rooms)', amount: 1200 }, { description: 'Paint (2 coats)', amount: 2400 }, { description: 'Trim & baseboards', amount: 600 }] },
+    { mockId: 'q-5', vendorMock: 'v-6', listingMock: 'l-8', scope: 'Interior repaint - full unit', amount: 4200, status: 'received' as const, requestedDate: '2026-04-04', receivedDate: '2026-04-06', validUntil: '2026-04-20', documentName: 'ParkPainting_Repaint_Estimate.pdf', sharedWithClient: true, clientReviewStatus: 'pending_review', lineItems: [{ description: 'Prep & prime (all rooms)', amount: 1200 }, { description: 'Paint (2 coats)', amount: 2400 }, { description: 'Trim & baseboards', amount: 600 }] },
+    { mockId: 'q-6', vendorMock: 'v-1', listingMock: 'l-5', scope: 'Wall damage repair & patching', amount: 4800, status: 'received' as const, requestedDate: '2026-04-06', receivedDate: '2026-04-08', validUntil: '2026-04-22', documentName: 'Bradley_WallRepair_Quote.pdf', sharedWithClient: true, clientReviewStatus: 'pending_review', lineItems: [{ description: 'Drywall repair (3 rooms)', amount: 2400 }, { description: 'Texture matching', amount: 1200 }, { description: 'Prime & paint touch-up', amount: 1200 }] },
+    { mockId: 'q-7', vendorMock: 'v-4', listingMock: 'l-3', scope: 'Roof inspection & certification', amount: 350, status: 'approved' as const, requestedDate: '2026-04-02', receivedDate: '2026-04-03', validUntil: '2026-04-17', documentName: 'BayArea_RoofInspection_Invoice.pdf', sharedWithClient: false, lineItems: [{ description: 'Full roof inspection', amount: 250 }, { description: 'Certification report', amount: 100 }] },
+    { mockId: 'q-8', vendorMock: 'v-6', listingMock: 'l-3', scope: 'Kitchen cabinet refinishing', amount: 6500, status: 'received' as const, requestedDate: '2026-04-07', receivedDate: '2026-04-09', validUntil: '2026-04-23', documentName: 'ParkPainting_CabinetRefinish_Quote.pdf', sharedWithClient: true, clientReviewStatus: 'pending_review', lineItems: [{ description: 'Cabinet prep & sanding', amount: 1500 }, { description: 'Prime & paint (2 coats)', amount: 3000 }, { description: 'New hardware install', amount: 800 }, { description: 'Cleanup & touch-up', amount: 1200 }] },
   ];
 
   for (const q of quoteData) {
@@ -3178,6 +3224,9 @@ async function main() {
       receivedDate: 'receivedDate' in q && q.receivedDate ? parseDate(q.receivedDate) : undefined,
       validUntil: 'validUntil' in q && q.validUntil ? parseDate(q.validUntil) : undefined,
       notes: 'notes' in q ? q.notes : undefined,
+      documentName: 'documentName' in q ? q.documentName : undefined,
+      sharedWithClient: 'sharedWithClient' in q ? q.sharedWithClient as boolean : false,
+      clientReviewStatus: 'clientReviewStatus' in q ? q.clientReviewStatus as string : undefined,
     });
 
     for (const li of q.lineItems) {
@@ -3188,6 +3237,53 @@ async function main() {
         amount: li.amount,
       });
     }
+  }
+
+  // ─── 14b. Listing Costs ──────────────────────────────────────────────
+  console.log('  Inserting listing costs...');
+  const listingCostData = [
+    // ── 809 Midvale Ln (l-5) — pre-market, early stage ──
+    { listingMock: 'l-5', title: 'General landscaping cleanup', category: 'improvements', amount: 3200, status: 'paid' as const, vendorMock: 'v-5', paidDate: '2026-04-05', notes: 'Front yard cleanup, hedge trimming, mulch' },
+    { listingMock: 'l-5', title: 'Wall damage repair quote', category: 'improvements', amount: 4800, status: 'committed' as const, vendorMock: 'v-1', quoteMock: 'q-6', notes: 'Drywall repair in master, hallway, and guest room' },
+    { listingMock: 'l-5', title: 'Exterior outlet tightening', category: 'improvements', amount: 150, status: 'estimated' as const, notes: 'Handyman fix — loose outdoor GFCI outlets' },
+    { listingMock: 'l-5', title: 'Pre-listing inspection', category: 'disclosures', amount: 500, status: 'paid' as const, vendorMock: 'v-4', taskMock: 't-78', paidDate: '2026-04-10', notes: 'Bay Area Property Inspections — full report' },
+    { listingMock: 'l-5', title: 'Staging furniture rental', category: 'staging', amount: 2000, status: 'committed' as const, vendorMock: 'v-2', notes: '6-week rental, delivery included' },
+    { listingMock: 'l-5', title: 'Professional photos', category: 'media', amount: 450, status: 'paid' as const, vendorMock: 'v-3', paidDate: '2026-04-12', notes: '30 photos + drone aerials' },
+
+    // ── 40 Pleasant St (l-3) — pre-market, more activity ──
+    { listingMock: 'l-3', title: 'Kitchen cabinet refinishing', category: 'improvements', amount: 6500, status: 'quoted' as const, vendorMock: 'v-6', quoteMock: 'q-8', taskMock: 't-53', notes: 'Awaiting client approval on Park Painting quote' },
+    { listingMock: 'l-3', title: 'Roof inspection', category: 'disclosures', amount: 350, status: 'paid' as const, vendorMock: 'v-4', quoteMock: 'q-7', taskMock: 't-47', paidDate: '2026-04-08', notes: 'Passed — no issues found' },
+    { listingMock: 'l-3', title: 'Deep cleaning', category: 'staging', amount: 800, status: 'committed' as const, notes: 'Scheduled for week before photos' },
+    { listingMock: 'l-3', title: 'Full photo + video package', category: 'media', amount: 2200, status: 'committed' as const, vendorMock: 'v-3', quoteMock: 'q-3', taskMock: 't-55', notes: 'Tran Group — approved quote, shooting after staging' },
+
+    // ── 126 University Ave (l-1) — active listing ──
+    { listingMock: 'l-1', title: 'Kitchen remodel', category: 'improvements', amount: 11200, status: 'paid' as const, vendorMock: 'v-1', paidDate: '2026-03-25', notes: 'Bradley Renovations — counters, backsplash, hardware' },
+    { listingMock: 'l-1', title: 'Staging (full home)', category: 'staging', amount: 6200, status: 'paid' as const, vendorMock: 'v-2', paidDate: '2026-03-30', notes: 'Meridian — 3-month luxury staging' },
+    { listingMock: 'l-1', title: 'Professional photography & video', category: 'media', amount: 1800, status: 'paid' as const, vendorMock: 'v-3', taskMock: 't-10', paidDate: '2026-04-02', notes: 'Tran Group — 42 photos + video walkthrough' },
+    { listingMock: 'l-1', title: 'Marketing & advertising', category: 'marketing', amount: 2200, status: 'paid' as const, paidDate: '2026-04-05', notes: 'Social media ads, print materials, MLS premium placement' },
+    { listingMock: 'l-1', title: 'Curb appeal landscaping', category: 'improvements', amount: 3800, status: 'estimated' as const, vendorMock: 'v-5', quoteMock: 'q-4', notes: 'Green Thumb — quote requested, awaiting response' },
+    { listingMock: 'l-1', title: 'Landscaping (front yard)', category: 'improvements', amount: 1000, status: 'paid' as const, vendorMock: 'v-5', paidDate: '2026-03-20', notes: 'Basic cleanup and mulching before listing' },
+
+    // ── 841 Willis Ave (l-4) — pre-market ──
+    { listingMock: 'l-4', title: 'Vacant staging (2 months)', category: 'staging', amount: 5800, status: 'committed' as const, vendorMock: 'v-2', quoteMock: 'q-2', taskMock: 't-66', notes: 'Meridian — approved, delivery scheduled' },
+    { listingMock: 'l-4', title: 'Minor repairs', category: 'improvements', amount: 2000, status: 'paid' as const, vendorMock: 'v-1', paidDate: '2026-04-05', notes: 'Drywall patches, door adjustment, outlet covers' },
+  ];
+
+  for (const c of listingCostData) {
+    await db.insert(listingCosts).values({
+      id: randomUUID(),
+      teamId,
+      listingId: listingMap[c.listingMock],
+      title: c.title,
+      category: c.category,
+      amount: c.amount,
+      status: c.status,
+      vendorId: 'vendorMock' in c && c.vendorMock ? vendorMap[c.vendorMock] : undefined,
+      quoteId: 'quoteMock' in c && c.quoteMock ? quoteMap[c.quoteMock] : undefined,
+      taskId: 'taskMock' in c && c.taskMock ? taskMap[c.taskMock] : undefined,
+      paidDate: 'paidDate' in c && c.paidDate ? parseDate(c.paidDate) : undefined,
+      notes: c.notes,
+    });
   }
 
   // ─── 15. Marketing Assets ─────────────────────────────────────────────
@@ -3251,6 +3347,7 @@ async function main() {
     { name: 'Zillow', description: 'View and save analytics', category: 'marketing' as const, icon: 'BarChart', status: 'connected' as const, lastSync: new Date('2026-04-09T10:00:00'), connectedByMock: 'tm-1' },
     { name: 'QuickBooks', description: 'Financial tracking and invoicing', category: 'financial' as const, icon: 'Receipt', status: 'disconnected' as const },
     { name: 'Instagram Business', description: 'Social media posting and analytics', category: 'marketing' as const, icon: 'Instagram', status: 'connected' as const, lastSync: new Date('2026-04-09T08:00:00'), connectedByMock: 'tm-4' },
+    { name: 'Slack', description: 'Team notifications and activity updates', category: 'communication' as const, icon: 'MessageSquare', status: 'disconnected' as const },
     { name: 'Twilio', description: 'SMS messaging (Phase 2)', category: 'communication' as const, icon: 'MessageSquare', status: 'disconnected' as const },
   ];
 

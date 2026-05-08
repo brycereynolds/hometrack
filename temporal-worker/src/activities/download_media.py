@@ -16,10 +16,9 @@ async def download_media(storage_path: str) -> dict:
     """Download media file from Supabase Storage, downscale if needed, and cache."""
     activity.heartbeat("starting download")
 
-    # Parse bucket/path — storage_path format: "bucket-name/path/to/file.ext"
-    parts = storage_path.split("/", 1)
-    bucket = parts[0]
-    path = parts[1] if len(parts) > 1 else ""
+    # storage_path is relative to the field-media bucket (e.g. teamId/listingId/file.mp4)
+    bucket = "field-media"
+    path = storage_path
 
     ext = os.path.splitext(storage_path)[1]
     tmp = tempfile.NamedTemporaryFile(suffix=ext, delete=False)

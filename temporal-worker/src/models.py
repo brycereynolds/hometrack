@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class ExtractedFrame(BaseModel):
@@ -109,18 +109,35 @@ class FieldNoteInsights(BaseModel):
     summary: str = ""
 
 
+class ActionMomentLink(BaseModel):
+    action_index: int
+    moment_indices: list[int]
+    relevance: str = ""
+
+
+class LinkActionsToMomentsInput(BaseModel):
+    moments: list[dict]
+    action_items: list[dict]
+
+
+class LinkActionsToMomentsOutput(BaseModel):
+    links: list[ActionMomentLink] = Field(default_factory=list)
+
+
 class MarketAnalysisInput(BaseModel):
-    listing_id: str
-    analysis_id: str
+    model_config = ConfigDict(populate_by_name=True)
+
+    listing_id: str = Field(alias="listingId")
+    analysis_id: str = Field(alias="analysisId")
     address: str
     lat: float | None = None
     lng: float | None = None
     beds: int | None = None
     baths: float | None = None
     sqft: int | None = None
-    property_type: str = "single_family"
-    year_built: int | None = None
-    search_params: dict = Field(default_factory=dict)
+    property_type: str = Field(default="single_family", alias="propertyType")
+    year_built: int | None = Field(default=None, alias="yearBuilt")
+    search_params: dict = Field(default_factory=dict, alias="searchParams")
 
 
 class CompListing(BaseModel):
@@ -159,14 +176,39 @@ class MarketAnalysisResult(BaseModel):
     computed_stats: dict = Field(default_factory=dict)
 
 
+class DocumentLineItem(BaseModel):
+    description: str
+    quantity: float | None = None
+    unit_price: float | None = None
+    amount: float | None = None
+
+
+class DocumentExtractionResult(BaseModel):
+    document_type: str  # receipt, invoice, quote, inspection, permit, other
+    vendor_name: str | None = None
+    date: str | None = None
+    line_items: list[DocumentLineItem] = Field(default_factory=list)
+    total_amount: float | None = None
+    raw_text: str | None = None
+    confidence: float = 0.0
+
+
+class ExtractDocumentDataInput(BaseModel):
+    storage_path: str
+    content_type: str
+    workflow_id: str
+
+
 class FieldMediaInput(BaseModel):
-    media_type: str          # "video", "voice_memo", "text", "photo"
-    storage_path: str        # Path in Supabase Storage
-    listing_id: str          # Which listing this is for
-    team_id: str             # Team context
-    author_id: str           # Who captured it (team_member.id)
-    author_name: str         # Display name
-    content_hash: str = ""   # SHA256 of original file
+    model_config = ConfigDict(populate_by_name=True)
+
+    media_type: str = Field(alias="mediaType")
+    storage_path: str = Field(alias="storagePath")
+    listing_id: str = Field(alias="listingId")
+    team_id: str = Field(alias="teamId")
+    author_id: str = Field(alias="authorId")
+    author_name: str = Field(alias="authorName")
+    content_hash: str = Field(default="", alias="contentHash")
     metadata: dict = Field(default_factory=dict)
 
 

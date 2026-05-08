@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
+	import { Card, CardContent } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config.js';
+	import { PHASE_LIST } from '$lib/config.js';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import {
@@ -23,25 +22,20 @@
 		Trash2
 	} from 'lucide-svelte';
 	import { Autocomplete } from '$lib/components/shared';
+	import TaskCompleteModal from '$lib/components/TaskCompleteModal.svelte';
 
 	let { data } = $props();
 	const listing = $derived(data.listing);
 	const listingTasks = $derived(data.tasks ?? []);
 	const allTeamMembers = $derived(data.teamMembers ?? []);
+	const allVendors = $derived((data as any).vendors ?? []);
+	const allCosts = $derived((data as any).costs ?? []);
+	const allQuotes = $derived((data as any).quotes ?? []);
 
 	let filterAssignee = $state('all');
 	let filterStatus = $state('all');
 	let filterPriority = $state('all');
 	let collapsedPhases = $state<Set<string>>(new Set());
-
-	// Task edit modal state
-	let showTaskModal = $state(false);
-	let editingTask = $state<any | null>(null);
-	let editTitle = $state('');
-	let editStatus = $state('todo');
-	let editPriority = $state('medium');
-	let editDueDate = $state('');
-	let editAssigneeId = $state('');
 
 	// Add task modal state
 	let showAddModal = $state(false);
@@ -51,6 +45,10 @@
 	let newDueDate = $state('');
 	let newAssigneeId = $state('');
 
+	// Task detail modal state
+	let showDetailModal = $state(false);
+	let detailTask = $state<any | null>(null);
+
 	// Delete confirmation
 	let showDeleteModal = $state(false);
 	let deletingTask = $state<any | null>(null);
@@ -59,12 +57,6 @@
 		if (!d) return '';
 		const date = d instanceof Date ? d : new Date(d);
 		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-	}
-
-	function formatDateForInput(d: any): string {
-		if (!d) return '';
-		const date = d instanceof Date ? d : new Date(d);
-		return date.toISOString().split('T')[0];
 	}
 
 	const filteredTasks = $derived(
@@ -109,6 +101,15 @@
 		return grouped;
 	});
 
+	const phaseKeys = $derived(new Set([...PHASE_LIST.map((p) => p.key), 'general']));
+	const allGroups = $derived([
+		...PHASE_LIST.map((p) => ({ key: p.key, label: p.label, color: p.color })),
+		{ key: 'general', label: 'General', color: '#8B8B8B' },
+		...Object.keys(tasksByPhase())
+			.filter((k) => !phaseKeys.has(k as any))
+			.map((k) => ({ key: k, label: k, color: '#8B8B8B' }))
+	]);
+
 	const uniqueAssignees = $derived(
 		Array.from(new Set(listingTasks.map((t: any) => JSON.stringify({ id: t.assignee?.id, name: t.assignee?.name })).filter((s: string) => {
 			const parsed = JSON.parse(s);
@@ -127,14 +128,9 @@
 		collapsedPhases = next;
 	}
 
-	function openTaskEdit(task: any) {
-		editingTask = task;
-		editTitle = task.title;
-		editStatus = task.status;
-		editPriority = task.priority;
-		editDueDate = formatDateForInput(task.dueDate);
-		editAssigneeId = task.assignee?.id ?? task.assigneeId ?? '';
-		showTaskModal = true;
+	function openTaskDetail(task: any) {
+		detailTask = task;
+		showDetailModal = true;
 	}
 
 	function openDeleteModal(task: any) {
@@ -184,6 +180,30 @@
 		if (!name) return '?';
 		return name.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2);
 	}
+
+	function getTaskQuotes(task: any): any[] {
+		return task.quotes ?? [];
+	}
+
+	function getTaskCosts(task: any): any[] {
+		return allCosts.filter((c: any) => c.taskId === task.id);
+	}
+
+	function formatCurrency(amount: number): string {
+		return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount);
+	}
+
+	// Initialize collapsed phases: all except the listing's current phase and 'general'
+	const currentPhase = $derived(listing?.phase ?? 'pre_market');
+	$effect(() => {
+		const initial = new Set<string>();
+		for (const p of PHASE_LIST) {
+			if (p.key !== currentPhase) {
+				initial.add(p.key);
+			}
+		}
+		collapsedPhases = initial;
+	});
 </script>
 
 {#if listing}
@@ -246,40 +266,46 @@
 		</Card>
 
 		<!-- Tasks by Phase -->
-		{#each PHASE_LIST as phase}
+		{#each allGroups as phase}
 			{@const phaseTasks = tasksByPhase()[phase.key] || []}
-			{#if phaseTasks.length > 0}
-				{@const doneCount = phaseTasks.filter((t: any) => t.status === 'done').length}
-				{@const isCollapsed = collapsedPhases.has(phase.key)}
-				<Card>
-					<button
-						onclick={() => togglePhase(phase.key)}
-						class="flex w-full items-center gap-3 p-4 text-left hover:bg-muted/50 transition-colors"
-					>
-						{#if isCollapsed}
-							<ChevronRight class="size-4 text-muted-foreground" />
-						{:else}
-							<ChevronDown class="size-4 text-muted-foreground" />
-						{/if}
-						<div
-							class="size-2.5 rounded-full"
-							style="background-color: {phase.color}"
-						></div>
-						<span class="text-sm font-semibold flex-1">{phase.label}</span>
-						<span class="text-xs text-muted-foreground">{doneCount}/{phaseTasks.length}</span>
+			{@const doneCount = phaseTasks.filter((t: any) => t.status === 'done').length}
+			{@const isCollapsed = collapsedPhases.has(phase.key)}
+			<Card>
+				<button
+					onclick={() => togglePhase(phase.key)}
+					class="flex w-full items-center gap-3 p-4 text-left hover:bg-muted/50 transition-colors"
+				>
+					{#if isCollapsed}
+						<ChevronRight class="size-4 text-muted-foreground" />
+					{:else}
+						<ChevronDown class="size-4 text-muted-foreground" />
+					{/if}
+					<div
+						class="size-2.5 rounded-full"
+						style="background-color: {phase.color}"
+					></div>
+					<span class="text-sm font-semibold flex-1">{phase.label}</span>
+					<span class="text-xs text-muted-foreground">{doneCount}/{phaseTasks.length}</span>
+					{#if phaseTasks.length > 0}
 						<div class="h-1.5 w-20 rounded-full bg-muted">
 							<div
 								class="h-1.5 rounded-full transition-all"
-								style="width: {phaseTasks.length > 0 ? (doneCount / phaseTasks.length) * 100 : 0}%; background-color: {phase.color}"
+								style="width: {(doneCount / phaseTasks.length) * 100}%; background-color: {phase.color}"
 							></div>
 						</div>
-					</button>
+					{/if}
+				</button>
 
-					{#if !isCollapsed}
-						<CardContent class="px-4 pb-4 pt-0">
+				{#if !isCollapsed}
+					<CardContent class="px-4 pb-4 pt-0">
+						{#if phaseTasks.length === 0}
+							<p class="text-xs text-muted-foreground py-2">No tasks</p>
+						{:else}
 							<div class="divide-y">
 								{#each phaseTasks as task, taskIndex}
 									{@const StatusIcon = getStatusIcon(task.status)}
+									{@const taskQuotes = getTaskQuotes(task)}
+									{@const taskCosts = getTaskCosts(task)}
 									<div class="group flex items-start gap-3 py-3 first:pt-0 last:pb-0 rounded-md hover:bg-muted/30 -mx-2 px-2 transition-colors">
 										<form
 											method="POST"
@@ -306,11 +332,24 @@
 											<div class="flex items-center gap-2">
 												<button
 													class="text-left text-sm {task.status === 'done' ? 'line-through text-muted-foreground' : 'font-medium'} hover:text-primary transition-colors"
-													onclick={() => openTaskEdit(task)}
+													onclick={() => openTaskDetail(task)}
 												>
 													{task.title}
 												</button>
 											</div>
+											{#if taskQuotes.length > 0 || taskCosts.length > 0 || task.sourceFieldNoteActionId}
+												<div class="mt-1 flex flex-wrap gap-1.5">
+													{#each taskQuotes as q}
+														<span class="text-xs text-muted-foreground">📋 Quote: {q.status}{#if q.vendor?.name} ({q.vendor.name}){/if}</span>
+													{/each}
+													{#each taskCosts as c}
+														<span class="text-xs text-muted-foreground">💰 {c.amount ? formatCurrency(c.amount) : 'Cost'} {c.status}</span>
+													{/each}
+													{#if task.sourceFieldNoteActionId}
+														<span class="text-xs text-muted-foreground">📝 Field note</span>
+													{/if}
+												</div>
+											{/if}
 											{#if task.subtasks && (task.subtasks as any[]).length > 0}
 												<div class="mt-2 ml-1 space-y-1.5">
 													{#each task.subtasks as subtask, si}
@@ -360,7 +399,7 @@
 											</Avatar>
 											<button
 												class="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-muted"
-												onclick={() => openTaskEdit(task)}
+												onclick={() => openTaskDetail(task)}
 												title="Edit task"
 											>
 												<Pencil class="size-3.5 text-muted-foreground" />
@@ -376,13 +415,19 @@
 									</div>
 								{/each}
 							</div>
-						</CardContent>
-					{/if}
-				</Card>
-			{/if}
+						{/if}
+					</CardContent>
+				{/if}
+			</Card>
 		{/each}
 
-		{#if filteredTasks.length === 0}
+		{#if listingTasks.length === 0}
+			<div class="flex flex-col items-center justify-center py-12">
+				<CheckCircle2 class="size-10 text-muted-foreground/30 mb-3" />
+				<p class="text-lg text-muted-foreground">No tasks yet</p>
+				<p class="text-sm text-muted-foreground mt-1">Add a task to get started.</p>
+			</div>
+		{:else if filteredTasks.length === 0}
 			<div class="flex flex-col items-center justify-center py-12">
 				<CheckCircle2 class="size-10 text-muted-foreground/30 mb-3" />
 				<p class="text-sm text-muted-foreground">No tasks match your filters.</p>
@@ -490,104 +535,18 @@
 	</Dialog.Content>
 </Dialog.Root>
 
-<!-- Task Edit Modal -->
-<Dialog.Root bind:open={showTaskModal}>
-	<Dialog.Content class="sm:max-w-lg">
-		<Dialog.Header>
-			<Dialog.Title class="font-serif">Edit Task</Dialog.Title>
-			<Dialog.Description>Update the details for this task.</Dialog.Description>
-		</Dialog.Header>
-		<form
-			method="POST"
-			action="?/editTask"
-			use:enhance={() => {
-				return async ({ result, update }) => {
-					if (result.type === 'success') {
-						toast.success('Task updated');
-						showTaskModal = false;
-						await update();
-					} else {
-						toast.error('Failed to update task');
-					}
-				};
-			}}
-		>
-			<input type="hidden" name="taskId" value={editingTask?.id ?? ''} />
-			<div class="space-y-4 py-4">
-				<div>
-					<label for="task-title" class="text-sm font-medium">Title</label>
-					<input
-						id="task-title"
-						name="title"
-						type="text"
-						bind:value={editTitle}
-						required
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					/>
-				</div>
-				<div class="grid grid-cols-2 gap-4">
-					<div>
-						<label for="task-status" class="text-sm font-medium">Status</label>
-						<select
-							id="task-status"
-							name="status"
-							bind:value={editStatus}
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						>
-							<option value="todo">To Do</option>
-							<option value="in_progress">In Progress</option>
-							<option value="done">Done</option>
-						</select>
-					</div>
-					<div>
-						<label for="task-priority" class="text-sm font-medium">Priority</label>
-						<select
-							id="task-priority"
-							name="priority"
-							bind:value={editPriority}
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						>
-							<option value="low">Low</option>
-							<option value="medium">Medium</option>
-							<option value="high">High</option>
-							<option value="urgent">Urgent</option>
-						</select>
-					</div>
-				</div>
-				<div class="grid grid-cols-2 gap-4">
-					<div>
-						<label for="task-due" class="text-sm font-medium">Due Date</label>
-						<input
-							id="task-due"
-							name="dueDate"
-							type="date"
-							bind:value={editDueDate}
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						/>
-					</div>
-					<div>
-						<label for="task-assignee" class="text-sm font-medium">Assignee</label>
-						<select
-							id="task-assignee"
-							name="assigneeId"
-							bind:value={editAssigneeId}
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						>
-							<option value="">Unassigned</option>
-							{#each allTeamMembers as member}
-								<option value={member.id}>{member.name ?? member.email ?? 'Team member'}</option>
-							{/each}
-						</select>
-					</div>
-				</div>
-			</div>
-			<Dialog.Footer>
-				<Button variant="outline" type="button" onclick={() => showTaskModal = false}>Cancel</Button>
-				<Button type="submit">Save Changes</Button>
-			</Dialog.Footer>
-		</form>
-	</Dialog.Content>
-</Dialog.Root>
+<!-- Task Detail Modal -->
+{#if detailTask}
+	<TaskCompleteModal
+		bind:open={showDetailModal}
+		task={detailTask}
+		teamMembers={allTeamMembers}
+		vendors={allVendors}
+		listingId={listing?.id ?? ''}
+		costs={allCosts}
+		quotes={allQuotes}
+	/>
+{/if}
 
 <!-- Delete Task Confirmation -->
 <Dialog.Root bind:open={showDeleteModal}>

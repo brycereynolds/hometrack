@@ -3,6 +3,7 @@ import { relations } from 'drizzle-orm';
 import { quoteStatusEnum } from './enums.js';
 import { teams } from './team.js';
 import { listings } from './listing.js';
+import { tasks } from './task.js';
 
 export const vendors = pgTable(
   'vendors',
@@ -55,6 +56,7 @@ export const quotes = pgTable(
     listingId: text('listing_id')
       .notNull()
       .references(() => listings.id, { onDelete: 'cascade' }),
+    taskId: text('task_id').references(() => tasks.id, { onDelete: 'set null' }),
     scope: text('scope'),
     amount: real('amount'),
     status: quoteStatusEnum('status').notNull().default('requested'),
@@ -74,6 +76,7 @@ export const quotes = pgTable(
     index('quotes_vendor_id_idx').on(table.vendorId),
     index('quotes_listing_id_idx').on(table.listingId),
     index('quotes_team_status_idx').on(table.teamId, table.status),
+    index('quotes_task_id_idx').on(table.taskId),
   ],
 );
 
@@ -89,6 +92,10 @@ export const quotesRelations = relations(quotes, ({ one, many }) => ({
   listing: one(listings, {
     fields: [quotes.listingId],
     references: [listings.id],
+  }),
+  task: one(tasks, {
+    fields: [quotes.taskId],
+    references: [tasks.id],
   }),
   lineItems: many(quoteLineItems),
 }));

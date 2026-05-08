@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { Card, CardContent, CardHeader, CardTitle } from '$lib/components/ui/card/index.js';
+	import { Card, CardContent } from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Avatar, AvatarFallback } from '$lib/components/ui/avatar/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
-	import { PHASES, PHASE_LIST, type ListingPhase } from '$lib/config.js';
+	import { PHASE_LIST } from '$lib/config.js';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
 	import {
@@ -30,20 +29,13 @@
 	const listingTasks = $derived(data.tasks ?? []);
 	const allTeamMembers = $derived(data.teamMembers ?? []);
 	const allVendors = $derived((data as any).vendors ?? []);
+	const allCosts = $derived((data as any).costs ?? []);
+	const allQuotes = $derived((data as any).quotes ?? []);
 
 	let filterAssignee = $state('all');
 	let filterStatus = $state('all');
 	let filterPriority = $state('all');
 	let collapsedPhases = $state<Set<string>>(new Set());
-
-	// Task edit modal state
-	let showTaskModal = $state(false);
-	let editingTask = $state<any | null>(null);
-	let editTitle = $state('');
-	let editStatus = $state('todo');
-	let editPriority = $state('medium');
-	let editDueDate = $state('');
-	let editAssigneeId = $state('');
 
 	// Add task modal state
 	let showAddModal = $state(false);
@@ -53,9 +45,9 @@
 	let newDueDate = $state('');
 	let newAssigneeId = $state('');
 
-	// Complete task modal state
-	let showCompleteModal = $state(false);
-	let completingTask = $state<any | null>(null);
+	// Task detail modal state
+	let showDetailModal = $state(false);
+	let detailTask = $state<any | null>(null);
 
 	// Delete confirmation
 	let showDeleteModal = $state(false);
@@ -65,12 +57,6 @@
 		if (!d) return '';
 		const date = d instanceof Date ? d : new Date(d);
 		return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-	}
-
-	function formatDateForInput(d: any): string {
-		if (!d) return '';
-		const date = d instanceof Date ? d : new Date(d);
-		return date.toISOString().split('T')[0];
 	}
 
 	const filteredTasks = $derived(
@@ -141,14 +127,9 @@
 		collapsedPhases = next;
 	}
 
-	function openTaskEdit(task: any) {
-		editingTask = task;
-		editTitle = task.title;
-		editStatus = task.status;
-		editPriority = task.priority;
-		editDueDate = formatDateForInput(task.dueDate);
-		editAssigneeId = task.assignee?.id ?? task.assigneeId ?? '';
-		showTaskModal = true;
+	function openTaskDetail(task: any) {
+		detailTask = task;
+		showDetailModal = true;
 	}
 
 	function openDeleteModal(task: any) {
@@ -320,7 +301,7 @@
 											<div class="flex items-center gap-2">
 												<button
 													class="text-left text-sm {task.status === 'done' ? 'line-through text-muted-foreground' : 'font-medium'} hover:text-primary transition-colors"
-													onclick={() => { completingTask = task; showCompleteModal = true; }}
+													onclick={() => openTaskDetail(task)}
 												>
 													{task.title}
 												</button>
@@ -374,7 +355,7 @@
 											</Avatar>
 											<button
 												class="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-muted"
-												onclick={() => openTaskEdit(task)}
+												onclick={() => openTaskDetail(task)}
 												title="Edit task"
 											>
 												<Pencil class="size-3.5 text-muted-foreground" />
@@ -504,113 +485,16 @@
 	</Dialog.Content>
 </Dialog.Root>
 
-<!-- Task Edit Modal -->
-<Dialog.Root bind:open={showTaskModal}>
-	<Dialog.Content class="sm:max-w-lg">
-		<Dialog.Header>
-			<Dialog.Title class="font-serif">Edit Task</Dialog.Title>
-			<Dialog.Description>Update the details for this task.</Dialog.Description>
-		</Dialog.Header>
-		<form
-			method="POST"
-			action="?/editTask"
-			use:enhance={() => {
-				return async ({ result, update }) => {
-					if (result.type === 'success') {
-						toast.success('Task updated');
-						showTaskModal = false;
-						await update();
-					} else {
-						toast.error('Failed to update task');
-					}
-				};
-			}}
-		>
-			<input type="hidden" name="taskId" value={editingTask?.id ?? ''} />
-			<div class="space-y-4 py-4">
-				<div>
-					<label for="task-title" class="text-sm font-medium">Title</label>
-					<input
-						id="task-title"
-						name="title"
-						type="text"
-						bind:value={editTitle}
-						required
-						class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-					/>
-				</div>
-				<div class="grid grid-cols-2 gap-4">
-					<div>
-						<label for="task-status" class="text-sm font-medium">Status</label>
-						<select
-							id="task-status"
-							name="status"
-							bind:value={editStatus}
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						>
-							<option value="todo">To Do</option>
-							<option value="in_progress">In Progress</option>
-							<option value="done">Done</option>
-						</select>
-					</div>
-					<div>
-						<label for="task-priority" class="text-sm font-medium">Priority</label>
-						<select
-							id="task-priority"
-							name="priority"
-							bind:value={editPriority}
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						>
-							<option value="low">Low</option>
-							<option value="medium">Medium</option>
-							<option value="high">High</option>
-							<option value="urgent">Urgent</option>
-						</select>
-					</div>
-				</div>
-				<div class="grid grid-cols-2 gap-4">
-					<div>
-						<label for="task-due" class="text-sm font-medium">Due Date</label>
-						<input
-							id="task-due"
-							name="dueDate"
-							type="date"
-							bind:value={editDueDate}
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						/>
-					</div>
-					<div>
-						<label for="task-assignee" class="text-sm font-medium">Assignee</label>
-						<select
-							id="task-assignee"
-							name="assigneeId"
-							bind:value={editAssigneeId}
-							class="mt-1 h-10 w-full rounded-md border border-input bg-background px-3 text-sm outline-none ring-ring focus:ring-2"
-						>
-							<option value="">Unassigned</option>
-							{#each allTeamMembers as member}
-								<option value={member.id}>{member.name ?? member.email ?? 'Team member'}</option>
-							{/each}
-						</select>
-					</div>
-				</div>
-			</div>
-			<Dialog.Footer>
-				<Button variant="outline" type="button" onclick={() => showTaskModal = false}>Cancel</Button>
-				<Button type="submit">Save Changes</Button>
-			</Dialog.Footer>
-		</form>
-	</Dialog.Content>
-</Dialog.Root>
-
-<!-- Task Complete Modal -->
-{#if completingTask}
+<!-- Task Detail Modal -->
+{#if detailTask}
 	<TaskCompleteModal
-		bind:open={showCompleteModal}
-		task={completingTask}
+		bind:open={showDetailModal}
+		task={detailTask}
 		teamMembers={allTeamMembers}
 		vendors={allVendors}
 		listingId={listing?.id ?? ''}
+		costs={allCosts}
+		quotes={allQuotes}
 	/>
 {/if}
 

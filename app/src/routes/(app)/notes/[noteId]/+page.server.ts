@@ -6,6 +6,7 @@ import {
   tasks,
   teamMembers,
   listingCosts,
+  activityItems,
 } from '$lib/server/db/schema/index.js';
 import { eq, and, inArray } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
@@ -141,6 +142,17 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(eq(fieldNoteActions.id, actionId));
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId: member.teamId,
+          listingId,
+          type: 'system',
+          authorName: member.name,
+          authorInitials: member.initials ?? member.name.split(' ').map((n: string) => n[0]).join('').toUpperCase(),
+          content: `Task created from field note: ${action.title}`,
+          timestamp: new Date(),
+        });
       });
 
       return { success: true, action: 'markAsTask', taskId };
@@ -300,6 +312,17 @@ export const actions: Actions = {
             updatedAt: new Date(),
           })
           .where(eq(fieldNoteActions.id, actionId));
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId: member.teamId,
+          listingId,
+          type: 'system',
+          authorName: member.name,
+          authorInitials: member.initials ?? member.name.split(' ').map((n: string) => n[0]).join('').toUpperCase(),
+          content: `Cost tracked: ${action.title}${amount ? ` — $${amount.toLocaleString()}` : ''}`,
+          timestamp: new Date(),
+        });
       });
 
       return { success: true, action: 'trackCost' };

@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { getTasksByListing } from '$lib/server/db/queries/tasks.js';
 import { withRLS } from '$lib/server/db/index.js';
-import { tasks, teamMembers, listingCosts, quotes, vendors } from '$lib/server/db/schema/index.js';
+import { tasks, teamMembers, listingCosts, quotes, vendors, activityItems } from '$lib/server/db/schema/index.js';
 import { eq, and } from 'drizzle-orm';
 import { fail } from '@sveltejs/kit';
 import crypto from 'node:crypto';
@@ -15,18 +15,26 @@ export const load: PageServerLoad = async ({ params, locals, parent }) => {
 
   try {
     const result = await withRLS(locals.user.id, 'authenticated', async (db) => {
-      const [taskList, vendorList] = await Promise.all([
+      const [taskList, vendorList, costList, quoteList] = await Promise.all([
         getTasksByListing(team.id, params.id, db),
         db.query.vendors.findMany({
           where: eq(vendors.teamId, team.id),
           orderBy: (v, { asc }) => [asc(v.name)],
         }),
+        db.query.listingCosts.findMany({
+          where: and(eq(listingCosts.teamId, team.id), eq(listingCosts.listingId, params.id)),
+          with: { vendor: true },
+        }),
+        db.query.quotes.findMany({
+          where: and(eq(quotes.teamId, team.id), eq(quotes.listingId, params.id)),
+          with: { vendor: true },
+        }),
       ]);
-      return { tasks: taskList, vendors: vendorList };
+      return { tasks: taskList, vendors: vendorList, costs: costList, quotes: quoteList };
     });
-    return { tasks: result.tasks, vendors: result.vendors };
+    return result;
   } catch {
-    return { tasks: [], vendors: [] };
+    return { tasks: [], vendors: [], costs: [], quotes: [] };
   }
 };
 
@@ -95,10 +103,27 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const task = await db.query.tasks.findFirst({
+          where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+        });
+
         await db
           .update(tasks)
           .set({ status: newStatus as any, updatedAt: new Date() })
           .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
+
+        if (newStatus === 'done' && task) {
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId,
+            listingId: task.listingId,
+            type: 'system',
+            authorName: 'System',
+            authorInitials: 'HT',
+            content: `Task completed: ${task.title}`,
+            timestamp: new Date(),
+          });
+        }
       });
       return { success: true, action: 'toggleStatus' };
     } catch (err) {
@@ -145,6 +170,153 @@ export const actions: Actions = {
     }
   },
 
+  updateTask: async ({ request, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const teamId = await getTeamId(locals.user.id);
+    if (!teamId) return fail(401, { error: 'No team found' });
+
+    const form = await request.formData();
+    const taskId = form.get('taskId') as string;
+    const title = form.get('title') as string;
+    const description = (form.get('description') as string) || null;
+    const status = form.get('status') as string;
+    const priority = form.get('priority') as string;
+    const dueDate = form.get('dueDate') as string;
+    const assigneeId = (form.get('assigneeId') as string) || null;
+    const taskCategory = (form.get('taskCategory') as string) || null;
+
+    if (!taskId) return fail(400, { error: 'Task ID is required' });
+    if (!title?.trim()) return fail(400, { error: 'Title is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        await db
+          .update(tasks)
+          .set({
+            title: title.trim(),
+            description,
+            status: status as any,
+            priority: priority as any,
+            dueDate: dueDate ? new Date(dueDate) : null,
+            assigneeId: assigneeId || null,
+            taskCategory: taskCategory as any || null,
+            updatedAt: new Date(),
+          })
+          .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
+      });
+      return { success: true, action: 'updateTask' };
+    } catch (err) {
+      console.error('updateTask error:', err);
+      return fail(500, { error: 'Failed to update task' });
+    }
+  },
+
+  trackCost: async ({ request, params, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const teamId = await getTeamId(locals.user.id);
+    if (!teamId) return fail(401, { error: 'No team found' });
+
+    const form = await request.formData();
+    const taskId = form.get('taskId') as string;
+    const amount = parseFloat(form.get('costAmount') as string) || 0;
+    const category = (form.get('costCategory') as string) || null;
+    const notes = (form.get('costNotes') as string) || null;
+
+    if (!taskId) return fail(400, { error: 'Task ID is required' });
+    if (amount <= 0) return fail(400, { error: 'Amount must be greater than 0' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const task = await db.query.tasks.findFirst({
+          where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+        });
+        const taskTitle = task?.title ?? 'Task cost';
+
+        await db.insert(listingCosts).values({
+          id: crypto.randomUUID(),
+          teamId,
+          listingId: params.id,
+          taskId,
+          title: taskTitle,
+          amount,
+          category,
+          status: 'committed',
+          notes,
+        });
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId,
+          listingId: params.id,
+          type: 'system',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Cost tracked: ${taskTitle} — $${amount.toLocaleString()}`,
+          timestamp: new Date(),
+        });
+      });
+      return { success: true, action: 'trackCost' };
+    } catch (err) {
+      console.error('trackCost error:', err);
+      return fail(500, { error: 'Failed to track cost' });
+    }
+  },
+
+  requestQuote: async ({ request, params, locals }) => {
+    if (!locals.user) return fail(401, { error: 'Unauthorized' });
+
+    const teamId = await getTeamId(locals.user.id);
+    if (!teamId) return fail(401, { error: 'No team found' });
+
+    const form = await request.formData();
+    const taskId = form.get('taskId') as string;
+    const vendorId = form.get('vendorId') as string;
+
+    if (!taskId) return fail(400, { error: 'Task ID is required' });
+    if (!vendorId) return fail(400, { error: 'Vendor is required' });
+
+    try {
+      await withRLS(locals.user.id, 'authenticated', async (db) => {
+        const task = await db.query.tasks.findFirst({
+          where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+        });
+        const taskTitle = task?.title ?? 'Quote request';
+
+        const vendor = await db.query.vendors.findFirst({
+          where: eq(vendors.id, vendorId),
+        });
+
+        await db.insert(quotes).values({
+          id: crypto.randomUUID(),
+          teamId,
+          vendorId,
+          listingId: params.id,
+          taskId,
+          scope: taskTitle,
+          status: 'requested',
+          requestedDate: new Date(),
+        });
+
+        await db.insert(activityItems).values({
+          id: crypto.randomUUID(),
+          teamId,
+          listingId: params.id,
+          type: 'system',
+          authorName: 'System',
+          authorInitials: 'HT',
+          content: `Quote requested from ${vendor?.name ?? 'vendor'} for ${taskTitle}`,
+          timestamp: new Date(),
+        });
+      });
+      return { success: true, action: 'requestQuote' };
+    } catch (err) {
+      console.error('requestQuote error:', err);
+      return fail(500, { error: 'Failed to request quote' });
+    }
+  },
+
   deleteTask: async ({ request, locals }) => {
     if (!locals.user) return fail(401, { error: 'Unauthorized' });
 
@@ -187,12 +359,29 @@ export const actions: Actions = {
 
     try {
       await withRLS(locals.user.id, 'authenticated', async (db) => {
+        // Fetch the task for title in activity logs
+        const task = await db.query.tasks.findFirst({
+          where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+        });
+        const taskTitle = task?.title ?? 'Task';
+
         // 1. Mark as done
         if (shouldMarkDone) {
           await db
             .update(tasks)
             .set({ status: 'done', updatedAt: new Date() })
             .where(and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)));
+
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId,
+            listingId,
+            type: 'system',
+            authorName: 'System',
+            authorInitials: 'HT',
+            content: `Task completed: ${taskTitle}`,
+            timestamp: new Date(),
+          });
         }
 
         // 2. Track cost
@@ -202,29 +391,33 @@ export const actions: Actions = {
           const category = (form.get('costCategory') as string) || null;
           const notes = (form.get('costNotes') as string) || null;
 
-          // Get task title for the cost entry
-          const task = await db.query.tasks.findFirst({
-            where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
-          });
-
           costId = crypto.randomUUID();
           await db.insert(listingCosts).values({
             id: costId,
             teamId,
             listingId,
             taskId,
-            title: task?.title ?? 'Task cost',
+            title: taskTitle,
             amount: amount > 0 ? amount : null,
             category,
             status: 'committed',
             notes,
           });
+
+          await db.insert(activityItems).values({
+            id: crypto.randomUUID(),
+            teamId,
+            listingId,
+            type: 'system',
+            authorName: 'System',
+            authorInitials: 'HT',
+            content: `Cost tracked: ${taskTitle}${amount > 0 ? ` — $${amount.toLocaleString()}` : ''}`,
+            timestamp: new Date(),
+          });
         }
 
         // 3. Attach receipt (store path reference — actual upload handled client-side or separately)
         if (shouldAttachReceipt && costId) {
-          // Receipt file is submitted as multipart but we store a placeholder path.
-          // A full file upload pipeline (e.g., Supabase Storage) would be wired here.
           const receiptFile = form.get('receiptFile') as File | null;
           if (receiptFile && receiptFile.size > 0) {
             const receiptPath = `receipts/${listingId}/${costId}/${receiptFile.name}`;
@@ -239,14 +432,31 @@ export const actions: Actions = {
         if (shouldRequestQuote) {
           const vendorId = form.get('vendorId') as string;
           if (vendorId) {
+            // Look up vendor name for activity log
+            const vendor = await db.query.vendors.findFirst({
+              where: eq(vendors.id, vendorId),
+            });
+
             await db.insert(quotes).values({
               id: crypto.randomUUID(),
               teamId,
               vendorId,
               listingId,
-              scope: `Quote for: ${(await db.query.tasks.findFirst({ where: eq(tasks.id, taskId) }))?.title ?? 'task'}`,
+              taskId,
+              scope: `Quote for: ${taskTitle}`,
               status: 'requested',
               requestedDate: new Date(),
+            });
+
+            await db.insert(activityItems).values({
+              id: crypto.randomUUID(),
+              teamId,
+              listingId,
+              type: 'system',
+              authorName: 'System',
+              authorInitials: 'HT',
+              content: `Quote requested from ${vendor?.name ?? 'vendor'} for ${taskTitle}`,
+              timestamp: new Date(),
             });
           }
         }

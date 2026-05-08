@@ -71,6 +71,13 @@
       "when": 1778197076963,
       "tag": "0009_add_listing_costs_and_quote_uploads",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1778204605956,
+      "tag": "0010_add_task_id_to_quotes",
+      "breakpoints": true
     }
   ]
 }

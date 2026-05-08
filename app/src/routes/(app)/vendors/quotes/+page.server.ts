@@ -20,6 +20,7 @@ export const load: PageServerLoad = async ({ locals, parent }) => {
           lineItems: true,
           vendor: true,
           listing: { with: { property: true } },
+          task: true,
         },
       });
     });

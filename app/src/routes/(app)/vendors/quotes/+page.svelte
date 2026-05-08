@@ -20,6 +20,7 @@
 		Download,
 		Share2,
 		Eye,
+		ClipboardList,
 	} from 'lucide-svelte';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
@@ -187,14 +188,20 @@
 							<div class="flex size-2 shrink-0 rounded-full {statusDotColors[quote.status]}"></div>
 							<div class="min-w-0 flex-1">
 								<div class="flex items-center gap-2">
-									<span class="font-medium">{quote.vendor?.name ?? 'Unknown'}</span>
-									<span class="text-xs text-muted-foreground">({quote.vendor?.company ?? ''})</span>
+									<a href="/listings/{quote.listingId}" class="font-medium hover:text-primary hover:underline">
+										<Home class="mr-1 inline size-3" />{quote.listing?.property?.address ?? 'Unknown listing'}
+									</a>
 								</div>
 								<div class="mt-0.5 flex items-center gap-2 text-sm text-muted-foreground">
-									<Home class="size-3" />
-									<a href="/listings/{quote.listingId}" class="hover:text-primary hover:underline">{quote.listing?.property?.address ?? 'Unknown listing'}</a>
+									<span>{quote.vendor?.name ?? 'Unknown'}{quote.vendor?.company ? ` (${quote.vendor.company})` : ''}</span>
 									<span class="text-border">|</span>
-									<span>{quote.scope}</span>
+									<span>{quote.task ? quote.task.title : (quote.scope ?? 'General')}</span>
+									{#if quote.task}
+										<a href="/listings/{quote.listingId}/tasks" class="inline-flex items-center gap-0.5 text-xs text-primary hover:underline" onclick={(e) => e.stopPropagation()}>
+											<ClipboardList class="size-3" />
+											View task
+										</a>
+									{/if}
 								</div>
 							</div>
 							<div class="flex items-center gap-3">

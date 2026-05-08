@@ -10,6 +10,8 @@ import {
   contacts,
   vendors,
   properties,
+  activityItems,
+  listingCosts,
 } from '$lib/server/db/schema/index.js';
 import { eq, and, ilike, or, gte, lte } from 'drizzle-orm';
 import type Anthropic from '@anthropic-ai/sdk';
@@ -105,6 +107,57 @@ export const chatTools: Anthropic.Messages.Tool[] = [
       required: [],
     },
   },
+  {
+    name: 'update_task',
+    description:
+      'Update a task\'s status, due date, priority, or assignee. Use when the user asks to change or update a task.',
+    input_schema: {
+      type: 'object' as const,
+      properties: {
+        task_id: { type: 'string', description: 'The task UUID' },
+        status: {
+          type: 'string',
+          enum: ['todo', 'in_progress', 'done', 'overdue'],
+          description: 'New task status',
+        },
+        due_date: { type: 'string', description: 'New due date as ISO 8601 string' },
+        priority: {
+          type: 'string',
+          enum: ['low', 'medium', 'high', 'urgent'],
+          description: 'New task priority',
+        },
+        assignee_id: { type: 'string', description: 'Team member UUID to assign the task to' },
+      },
+      required: ['task_id'],
+    },
+  },
+  {
+    name: 'mark_task_done',
+    description: 'Mark a task as completed. Use when the user says a task is done or finished.',
+    input_schema: {
+      type: 'object' as const,
+      properties: {
+        task_id: { type: 'string', description: 'The task UUID' },
+      },
+      required: ['task_id'],
+    },
+  },
+  {
+    name: 'track_cost',
+    description:
+      'Track a cost or expense on a listing. Use when the user wants to log a cost, expense, or payment for a property.',
+    input_schema: {
+      type: 'object' as const,
+      properties: {
+        listing_id: { type: 'string', description: 'The listing UUID' },
+        title: { type: 'string', description: 'Title or description of the cost' },
+        amount: { type: 'number', description: 'Cost amount in dollars' },
+        category: { type: 'string', description: 'Optional cost category (e.g. repairs, staging, photography)' },
+        task_id: { type: 'string', description: 'Optional task UUID to link this cost to' },
+      },
+      required: ['listing_id', 'title', 'amount'],
+    },
+  },
 ];
 
 export async function executeToolCall(
@@ -126,6 +179,12 @@ export async function executeToolCall(
       return getVendors(toolInput, userId, teamId);
     case 'search_listings':
       return searchListings(toolInput, userId, teamId);
+    case 'update_task':
+      return updateTask(toolInput, userId, teamId);
+    case 'mark_task_done':
+      return markTaskDone(toolInput.task_id, userId, teamId);
+    case 'track_cost':
+      return trackCost(toolInput, userId, teamId);
     default:
       return JSON.stringify({ error: `Unknown tool: ${toolName}` });
   }
@@ -413,6 +472,118 @@ async function searchListings(
       sqft: l.property?.sqft,
       agent: l.agent?.name ?? null,
     }));
+  });
+
+  return JSON.stringify(result);
+}
+
+async function updateTask(
+  input: { task_id: string; status?: string; due_date?: string; priority?: string; assignee_id?: string },
+  userId: string,
+  teamId: string,
+): Promise<string> {
+  const result = await withRLS(userId, 'authenticated', async (db) => {
+    const task = await db.query.tasks.findFirst({
+      where: and(eq(tasks.id, input.task_id), eq(tasks.teamId, teamId)),
+      with: { listing: { with: { property: true } } },
+    });
+    if (!task) return { error: 'Task not found' };
+
+    const updates: Record<string, any> = { updatedAt: new Date() };
+    if (input.status) updates.status = input.status;
+    if (input.due_date) updates.dueDate = new Date(input.due_date);
+    if (input.priority) updates.priority = input.priority;
+    if (input.assignee_id !== undefined) updates.assigneeId = input.assignee_id;
+
+    await db.update(tasks).set(updates).where(eq(tasks.id, input.task_id));
+
+    const changes = Object.keys(updates)
+      .filter((k) => k !== 'updatedAt')
+      .map((k) => `${k}=${updates[k]}`)
+      .join(', ');
+
+    await db.insert(activityItems).values({
+      id: crypto.randomUUID(),
+      teamId,
+      listingId: task.listingId,
+      type: 'system',
+      authorName: 'HomeTrack Bot',
+      authorInitials: 'HT',
+      content: `Task "${task.title}" updated via Slack: ${changes}`,
+      metadata: { taskId: input.task_id, changes: updates },
+    });
+
+    return { success: true, taskId: input.task_id, updated: updates };
+  });
+
+  return JSON.stringify(result);
+}
+
+async function markTaskDone(taskId: string, userId: string, teamId: string): Promise<string> {
+  const result = await withRLS(userId, 'authenticated', async (db) => {
+    const task = await db.query.tasks.findFirst({
+      where: and(eq(tasks.id, taskId), eq(tasks.teamId, teamId)),
+    });
+    if (!task) return { error: 'Task not found' };
+
+    await db
+      .update(tasks)
+      .set({ status: 'done', updatedAt: new Date() })
+      .where(eq(tasks.id, taskId));
+
+    await db.insert(activityItems).values({
+      id: crypto.randomUUID(),
+      teamId,
+      listingId: task.listingId,
+      type: 'task_complete',
+      authorName: 'HomeTrack Bot',
+      authorInitials: 'HT',
+      content: `Task "${task.title}" marked as done via Slack`,
+      metadata: { taskId },
+    });
+
+    return { success: true, taskId, title: task.title };
+  });
+
+  return JSON.stringify(result);
+}
+
+async function trackCost(
+  input: { listing_id: string; title: string; amount: number; category?: string; task_id?: string },
+  userId: string,
+  teamId: string,
+): Promise<string> {
+  const result = await withRLS(userId, 'authenticated', async (db) => {
+    const listing = await db.query.listings.findFirst({
+      where: and(eq(listings.id, input.listing_id), eq(listings.teamId, teamId)),
+      with: { property: true },
+    });
+    if (!listing) return { error: 'Listing not found' };
+
+    const costId = crypto.randomUUID();
+    await db.insert(listingCosts).values({
+      id: costId,
+      teamId,
+      listingId: input.listing_id,
+      title: input.title,
+      amount: input.amount,
+      category: input.category ?? null,
+      taskId: input.task_id ?? null,
+      status: 'estimated',
+    });
+
+    await db.insert(activityItems).values({
+      id: crypto.randomUUID(),
+      teamId,
+      listingId: input.listing_id,
+      type: 'system',
+      authorName: 'HomeTrack Bot',
+      authorInitials: 'HT',
+      content: `Cost tracked via Slack: "${input.title}" — $${input.amount}${input.category ? ` (${input.category})` : ''}`,
+      metadata: { costId, amount: input.amount, category: input.category },
+    });
+
+    return { success: true, costId, title: input.title, amount: input.amount };
   });
 
   return JSON.stringify(result);

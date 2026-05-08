@@ -188,7 +188,7 @@ async function processAppMention(
 
 You have tools to look up listings, field notes, tasks, contacts, vendors, and search listings. Use them when the user asks about specific data.
 
-You can ONLY read and discuss data. You CANNOT create, update, or delete anything. If asked to take an action, explain that you can look up information but actions need to be done in the HomeTrack app.`;
+You can look up data AND take actions on behalf of the team. Available actions: update task status, update task due dates, track costs, mark tasks as done. Always confirm what you did after taking an action.`;
 
 		// Build conversation history from thread if available
 		const threadTs = event.thread_ts;
